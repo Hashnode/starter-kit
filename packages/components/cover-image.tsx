@@ -21,6 +21,7 @@ const CoverImage = ({ title, src, slug }: Props) => {
         })}
         fill
         objectFit="cover"
+        unoptimized
       />
     </div>
   );
