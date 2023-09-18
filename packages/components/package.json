@@ -1,0 +1,16 @@
+{
+  "name": "@starter-kit/components",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@starter-kit/utils": "workspace:^",
+    "date-fns": "^2.28.0"
+  }
+}
