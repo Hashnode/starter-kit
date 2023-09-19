@@ -1,10 +1,12 @@
 import Link from "next/link";
 
 const Intro = () => {
+  const baseUrl = `${process.env.NEXT_PUBLIC_MODE === 'development' ? 'http://' : 'https://'}${process.env.NEXT_PUBLIC_BASE_URL}`;
+
   return (
     <section className="grid grid-cols-1 gap-10 md:grid-cols-2">
       <div className="flex flex-col items-start col-span-1 gap-3">
-        <Link href="/">
+        <Link href={baseUrl}>
           <h1 className="flex flex-row items-center gap-2 text-5xl font-bold text-slate-950 dark:text-neutral-100">
             {/* <div className="relative w-56 h-12 ">
               <Image
