@@ -6,6 +6,7 @@ import Intro from "@starter-kit/components/intro";
 import Layout from "@starter-kit/components/layout";
 import MoreStories from "@starter-kit/components/more-stories";
 import {
+  Publication,
   PostFragment,
   PostsByPublicationDocument,
   PostsByPublicationQuery,
@@ -17,17 +18,18 @@ import Navbar from "@starter-kit/components/navbar";
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 
 type Props = {
+  publication: Publication;
   allPosts: PostFragment[];
 };
 
-export default function Index({ allPosts }: Props) {
+export default function Index({ publication, allPosts }: Props) {
   const heroPost = allPosts[0];
   const morePosts = allPosts.slice(1);
   return (
     <>
       <Layout>
         <Head>
-          <title>{`Hashnode Blog Starter Kit`}</title>
+          <title>{publication.title || `Hashnode Blog Starter Kit`}</title>
         </Head>
         <Container className="flex flex-col items-stretch gap-10 px-5 pt-10 md:pt-20 ">
           <Intro />
@@ -61,10 +63,11 @@ export const getStaticProps = async () => {
     host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
   });
 
-  const allPosts = data.publication.posts.edges.map((edge) => edge.node);
+  const publication = data.publication;
+  const allPosts = publication.posts.edges.map((edge) => edge.node);
 
   return {
-    props: { allPosts },
+    props: { publication, allPosts },
     revalidate: 1,
   };
 };

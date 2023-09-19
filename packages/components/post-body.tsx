@@ -1,4 +1,5 @@
 import { markdownToHtml } from "@starter-kit/utils/renderer/markdownToHtml";
+import useEmbeds from '@starter-kit/utils/renderer/hooks/useEmbeds';
 
 type Props = {
   contentMarkdown: string;
@@ -6,6 +7,7 @@ type Props = {
 
 const PostBody = ({ contentMarkdown }: Props) => {
   const content = markdownToHtml(contentMarkdown);
+  useEmbeds({ enabled: true });
 
   return (
     <div
