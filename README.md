@@ -7,8 +7,9 @@ Starter Kit built with Hashnode Public APIs. Use Hashnode's [world class editor]
 
 - Fork this repo
 - Import the repo on Vercel
-- It's a monorepo. So, choose the following folder while importing on Vercel: `packages/blog-starter-kit/themes/enterprise`
-- Choose `Next.js` as framework preset
+- It's a monorepo. So, choose the following folder as Root Directory while importing on Vercel: `packages/blog-starter-kit/themes/enterprise`
+  ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1695083263935/T5bByLxZT.png?auto=format)
+- Make sure to choose `Next.js` as framework preset (just above Root Directory setting)
 - Set the following env vars 
 
 ```
