@@ -36,3 +36,12 @@ async rewrites() {
 ```
 
 You should be able to access your blog at https://embedchain.ai/blog.
+
+## Running Locally
+
+- cd `packages/blog-starter-kit/themes/enterprise`
+- Copy `.env.example` to `.env.local`
+- `pnpm install`
+- `pnpm dev`
+
+Visit http://localhost:3000!
