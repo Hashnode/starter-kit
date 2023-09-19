@@ -15,6 +15,8 @@ type Props = {
   slug: string;
 };
 
+const DEFAULT_COVER = 'https://cdn.hashnode.com/res/hashnode/image/upload/v1683525272978/MB5H_kgOC.png?auto=format';
+
 const HeroPost = ({
   title,
   coverImage,
@@ -28,7 +30,7 @@ const HeroPost = ({
   return (
     <section className="grid grid-cols-1 gap-5 p-5 md:grid-cols-2 md:p-10 rounded-xl bg-slate-50 hover:bg-primary-50 dark:bg-neutral-800 dark:hover:bg-neutral-900">
       <div className="col-span-1">
-        <CoverImage title={title} src={coverImage} slug={slug} />
+        <CoverImage title={title} src={coverImage || DEFAULT_COVER} slug={slug} />
       </div>
       <div className="flex flex-col col-span-1 gap-3">
         <h3 className="text-xl font-bold lg:text-3xl text-slate-800 dark:text-neutral-50">
