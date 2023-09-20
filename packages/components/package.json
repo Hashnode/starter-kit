@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@radix-ui/react-popover": "^1.0.6",
     "@starter-kit/utils": "workspace:^",
     "date-fns": "^2.28.0"
   }

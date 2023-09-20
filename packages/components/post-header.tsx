@@ -19,9 +19,11 @@ const PostHeader = ({ title, coverImage, date, author }: Props) => {
         <Avatar name={author.name} size={10} picture={author.profilePicture} />
         <DateFormatter dateString={date} />
       </div>
-      {coverImage && <div className="w-full px-5 sm:mx-0">
-        <CoverImage title={title} src={coverImage} />
-      </div>}
+      {coverImage && (
+        <div className="w-full px-5 sm:mx-0">
+          <CoverImage title={title} src={coverImage} />
+        </div>
+      )}
     </>
   );
 };
