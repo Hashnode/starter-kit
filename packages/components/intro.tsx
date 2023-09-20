@@ -32,7 +32,7 @@ const Intro = () => {
           <h3 className="font-semibold text-slate-700 dark:text-neutral-300">
             Subscribe to our blog updates
           </h3>
-          {/* <div className="relative w-full p-2 bg-white rounded-full dark:bg-neutral-950">
+          <div className="relative w-full p-2 bg-white rounded-full dark:bg-neutral-950">
             <input
               type="email"
               placeholder="john@doe.com"
@@ -41,8 +41,8 @@ const Intro = () => {
             <button className="absolute px-3 py-2 text-white rounded-full bg-primary-600 dark:bg-primary-500 top-3 right-3">
               Subscribe
             </button>
-          </div> */}
-          <div className="relative w-full p-2">
+          </div>
+          {/* <div className="relative w-full p-2">
             <p className="text-sm font-bold text-green-600 dark:text-green-500">
               Almost there!
             </p>
@@ -51,7 +51,7 @@ const Intro = () => {
               <strong>"Confirm and Subscribe"</strong> to complete your
               subscription. Thanks for joining us!
             </p>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>
