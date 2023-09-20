@@ -1,0 +1,28 @@
+query SinglePostByPublication($slug: String!, $host: String!) {
+  publication(host: $host) {
+    id
+    post(slug: $slug) {
+      slug
+      url
+      brief
+      title
+      publishedAt
+      coverImage {
+        url
+      }
+      author {
+        name
+        profilePicture
+      }
+      id
+      title
+      content {
+        markdown
+        html
+      }
+      ogMetaData {
+        image
+      }
+    }
+  }
+}
