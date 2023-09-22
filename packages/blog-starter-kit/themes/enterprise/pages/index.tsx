@@ -35,9 +35,9 @@ export default function Index({ publication, allPosts }: Props) {
         <Head>
           <title>{publication.title || `Hashnode Blog Starter Kit`}</title>
         </Head>
-        <Container className="flex flex-col items-stretch gap-10 px-5 pt-10 md:pt-20 ">
-          <Intro />
-          <Navbar />
+        <Intro />
+        <Container className="flex flex-col items-stretch gap-10 px-5">
+          {/* <Navbar /> */}
 
           <div className="grid items-start gap-6 xl:grid-cols-2">
             <div className="col-span-1">

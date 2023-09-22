@@ -5,7 +5,7 @@ import { GithubSVG, HashnodeSVG, LinkedinSVG, RssSVG, XSVG } from "./icons";
 const Navbar = () => {
   return (
     <div className="grid items-center grid-cols-1 gap-5 text-sm md:grid-cols-2">
-      <nav className="flex flex-row items-center justify-start col-span-1 gap-1 py-5 overflow-x-auto font-medium text-slate-500 dark:text-neutral-300">
+      <nav className="flex flex-row items-center justify-start col-span-1 gap-1 overflow-x-auto font-medium text-slate-500 dark:text-neutral-300">
         <a
           className="block px-4 py-2 rounded-xl hover:bg-slate-100 bg-slate-200 dark:bg-neutral-700 dark:hover:bg-neutral-600 text-slate-900 dark:text-neutral-50"
           href="#home"
