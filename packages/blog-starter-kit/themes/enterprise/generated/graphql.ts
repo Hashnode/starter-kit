@@ -1482,6 +1482,15 @@ export type ReadTimeFeature = Feature & {
   isEnabled: Scalars['Boolean']['output'];
 };
 
+/** Contains a publication and a cursor for pagination. */
+export type RecommendedPublicationEdge = Edge & {
+  __typename?: 'RecommendedPublicationEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String']['output'];
+  /** The node holding the Publication information */
+  node: Publication;
+};
+
 export type RedirectionRule = {
   __typename?: 'RedirectionRule';
   /** The destination URL of the redirection rule. */
