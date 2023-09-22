@@ -4,7 +4,7 @@ import { GithubSVG, HashnodeSVG, LinkedinSVG, RssSVG, XSVG } from "./icons";
 
 const Navbar = () => {
   return (
-    <div className="grid items-center grid-cols-1 gap-5 py-5 text-sm md:grid-cols-2">
+    <div className="grid items-center grid-cols-1 gap-5 pt-5 text-sm md:grid-cols-2">
       <div className="relative col-span-1">
         <input
           type="text"
