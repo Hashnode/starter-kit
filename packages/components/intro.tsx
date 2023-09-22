@@ -1,5 +1,3 @@
-import Link from "next/link";
-import SubscribeBox from "./subscribe-box";
 import Container from "./container";
 import Button from "./button";
 
@@ -9,9 +7,9 @@ const Intro = () => {
   }${process.env.NEXT_PUBLIC_BASE_URL}`;
 
   return (
-    <header className="py-10 mb-10 border-b bg-slate-950">
-      <Container className="grid grid-cols-2 gap-5 px-5">
-        <div className="col-span-1">
+    <header className="py-10 border-b dark:border-neutral-600 bg-slate-950 dark:bg-neutral-900">
+      <Container className="flex flex-row items-center gap-5 px-5">
+        <div className="flex-1">
           <h1>
             <a href="#" className="flex flex-row items-center gap-5">
               <img
@@ -26,28 +24,40 @@ const Intro = () => {
           <nav>
             <ul className="flex flex-row items-center gap-2">
               <li>
-                <a href="#" className="block p-2 rounded-lg hover:bg-slate-900">
+                <a
+                  href="#"
+                  className="block p-2 transition-colors rounded-full hover:bg-white hover:text-black dark:hover:bg-neutral-800 transition-200"
+                >
                   Announcements
                 </a>
               </li>
               <li>
-                <a href="#" className="block p-2 rounded-lg hover:bg-slate-900">
+                <a
+                  href="#"
+                  className="block p-2 transition-colors rounded-full hover:bg-white hover:text-black dark:hover:bg-neutral-800 transition-200"
+                >
                   Engineering
                 </a>
               </li>
               <li>
-                <a href="#" className="block p-2 rounded-lg hover:bg-slate-900">
+                <a
+                  href="#"
+                  className="block p-2 transition-colors rounded-full hover:bg-white hover:text-black dark:hover:bg-neutral-800 transition-200"
+                >
                   Design
                 </a>
               </li>
               <li>
-                <a href="#" className="block p-2 rounded-lg hover:bg-slate-900">
+                <a
+                  href="#"
+                  className="block p-2 transition-colors rounded-full hover:bg-white hover:text-black dark:hover:bg-neutral-800 transition-200"
+                >
                   Changelog
                 </a>
               </li>
             </ul>
           </nav>
-          <Button label="Get Started" />
+          <Button type="primary" label="Book a demo" />
         </div>
       </Container>
     </header>

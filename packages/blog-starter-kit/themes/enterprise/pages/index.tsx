@@ -15,6 +15,7 @@ import {
 } from "../generated/graphql";
 // import { CMS_NAME } from "../lib/constants";
 import Navbar from "@starter-kit/components/navbar";
+import SubscribeBox from "@starter-kit/components/subscribe-box";
 
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 
@@ -37,7 +38,7 @@ export default function Index({ publication, allPosts }: Props) {
         </Head>
         <Intro />
         <Container className="flex flex-col items-stretch gap-10 px-5">
-          {/* <Navbar /> */}
+          <Navbar />
 
           <div className="grid items-start gap-6 xl:grid-cols-2">
             <div className="col-span-1">
@@ -95,6 +96,15 @@ export default function Index({ publication, allPosts }: Props) {
                   excerpt={fourthPost.brief}
                 />
               )}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-4 px-5 py-10 rounded-lg bg-primary-50">
+            <div className="col-span-2 col-start-2">
+              <h3 className="mb-5 text-lg font-semibold text-center text-primary-600">
+                Subscribe to our newsletter for updates and changelog.
+              </h3>
+              <SubscribeBox />
             </div>
           </div>
 
