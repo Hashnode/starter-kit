@@ -1,5 +1,6 @@
 import Container from "./container";
 import Button from "./button";
+import Link from "next/link";
 
 const Intro = () => {
   const baseUrl = `${
@@ -11,13 +12,13 @@ const Intro = () => {
       <Container className="flex flex-row items-center gap-5 px-5">
         <div className="flex-1">
           <h1>
-            <a href="#" className="flex flex-row items-center gap-5">
+            <Link href="/" className="flex flex-row items-center gap-5">
               <img
                 className="block w-56"
                 src="https://uploads-ssl.webflow.com/62a8755be8bcc86e6307def8/6329b27b3fc044f886326c4e_mindsDB-full%20logo.svg"
               />
               <span className="text-3xl font-semibold text-white">Blog</span>
-            </a>
+            </Link>
           </h1>
         </div>
         <div className="flex flex-row items-center justify-end col-span-1 gap-5 text-slate-300">

@@ -1,5 +1,5 @@
 import { markdownToHtml } from "@starter-kit/utils/renderer/markdownToHtml";
-import useEmbeds from '@starter-kit/utils/renderer/hooks/useEmbeds';
+import useEmbeds from "@starter-kit/utils/renderer/hooks/useEmbeds";
 
 type Props = {
   contentMarkdown: string;
@@ -11,7 +11,7 @@ const PostBody = ({ contentMarkdown }: Props) => {
 
   return (
     <div
-      className="w-full px-5 mx-auto md:max-w-screen-md hashnode-content-style"
+      className="w-full px-5 mx-auto  md:max-w-screen-md hashnode-content-style"
       dangerouslySetInnerHTML={{ __html: content }}
     />
   );
