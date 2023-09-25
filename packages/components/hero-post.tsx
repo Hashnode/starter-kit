@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Avatar from "./avatar";
 import CoverImage from "./cover-image";
 import DateFormatter from "./date-formatter";
 
@@ -59,18 +58,6 @@ const HeroPost = ({
             <DateFormatter dateString={date} />
           </Link>
         </div>
-        {/* <div className="flex flex-row items-center gap-2">
-          <Link as={postURL} href={postURL}>
-            <Avatar
-              size={8}
-              name={author.name}
-              picture={author.profilePicture}
-            />
-          </Link>
-          <span className="text-sm text-slate-500 dark:text-neutral-300">
-            &middot;
-          </span>
-        </div> */}
       </div>
     </section>
   );

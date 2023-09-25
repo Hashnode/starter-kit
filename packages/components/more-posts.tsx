@@ -5,11 +5,11 @@ type Props = {
   posts: PostFragment[];
 };
 
-const MoreStories = ({ posts }: Props) => {
+const MorePosts = ({ posts }: Props) => {
   return (
     <section className="flex flex-col items-start gap-10 mb-10">
       <h2 className="text-xl font-bold leading-tight tracking-tight dark:text-neutral-50 text-slate-900 lg:text-3xl">
-        More Stories
+        More Posts
       </h2>
       <div className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3">
         {posts.map((post) => (
@@ -81,4 +81,4 @@ const MoreStories = ({ posts }: Props) => {
   );
 };
 
-export default MoreStories;
+export default MorePosts;

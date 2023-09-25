@@ -1,6 +1,4 @@
-import Link from "next/link";
-
-const SubscribeBox = () => {
+const SubscribeForm = () => {
   return (
     <>
       <div className="relative w-full p-2 bg-white rounded-full dark:bg-neutral-950">
@@ -27,4 +25,4 @@ const SubscribeBox = () => {
   );
 };
 
-export default SubscribeBox;
+export default SubscribeForm;

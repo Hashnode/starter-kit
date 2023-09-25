@@ -1,11 +1,12 @@
 import request from "graphql-request";
+import dynamic from "next/dynamic";
 import Head from "next/head";
 import { Container } from "@starter-kit/components/container";
 import HeroPost from "@starter-kit/components/hero-post";
 import SecondaryPost from "@starter-kit/components/secondary-post";
-import Intro from "@starter-kit/components/intro";
+import Header from "@starter-kit/components/header";
 import Layout from "@starter-kit/components/layout";
-import MoreStories from "@starter-kit/components/more-stories";
+import MorePosts from "@starter-kit/components/more-posts";
 import {
   Publication,
   PostFragment,
@@ -13,9 +14,12 @@ import {
   PostsByPublicationQuery,
   PostsByPublicationQueryVariables,
 } from "../generated/graphql";
-// import { CMS_NAME } from "../lib/constants";
 import Navbar from "@starter-kit/components/navbar";
-import SubscribeBox from "@starter-kit/components/subscribe-box";
+
+// Dynamic Imports
+const SubscribeForm = dynamic(
+  () => import("@starter-kit/components/subscribe-form")
+);
 
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 
@@ -25,77 +29,53 @@ type Props = {
 };
 
 export default function Index({ publication, allPosts }: Props) {
-  const heroPost = allPosts[0];
-  const secondaryPost = allPosts[1];
-  const thirdPost = allPosts[2];
-  const fourthPost = allPosts[3];
+  const firstPost = allPosts[0];
+  const secondaryPosts = allPosts.slice(1, 4).map((post) => {
+    return (
+      <SecondaryPost
+        key={post.id}
+        title={post.title}
+        coverImage={post.coverImage?.url}
+        date={post.publishedAt}
+        author={{
+          name: post.author.name,
+          profilePicture: post.author.profilePicture,
+        }}
+        slug={post.slug}
+        excerpt={post.brief}
+      />
+    );
+  });
   const morePosts = allPosts.slice(4);
+
   return (
     <>
       <Layout>
         <Head>
           <title>{publication.title || `Hashnode Blog Starter Kit`}</title>
         </Head>
-        <Intro />
+        <Header />
         <Container className="flex flex-col items-stretch gap-10 px-5">
           <Navbar />
 
           <div className="grid items-start gap-6 xl:grid-cols-2">
             <div className="col-span-1">
-              {heroPost && (
+              {firstPost && (
                 <HeroPost
-                  title={heroPost.title}
-                  coverImage={heroPost.coverImage?.url}
-                  date={heroPost.publishedAt}
+                  title={firstPost.title}
+                  coverImage={firstPost.coverImage?.url}
+                  date={firstPost.publishedAt}
                   author={{
-                    name: heroPost.author.name,
-                    profilePicture: heroPost.author.profilePicture,
+                    name: firstPost.author.name,
+                    profilePicture: firstPost.author.profilePicture,
                   }}
-                  slug={heroPost.slug}
-                  excerpt={heroPost.brief}
+                  slug={firstPost.slug}
+                  excerpt={firstPost.brief}
                 />
               )}
             </div>
             <div className="flex flex-col col-span-1 gap-6">
-              {secondaryPost && (
-                <SecondaryPost
-                  title={secondaryPost.title}
-                  coverImage={secondaryPost.coverImage?.url}
-                  date={secondaryPost.publishedAt}
-                  author={{
-                    name: secondaryPost.author.name,
-                    profilePicture: secondaryPost.author.profilePicture,
-                  }}
-                  slug={secondaryPost.slug}
-                  excerpt={secondaryPost.brief}
-                />
-              )}
-              {thirdPost && (
-                <SecondaryPost
-                  title={thirdPost.title}
-                  coverImage={thirdPost.coverImage?.url}
-                  date={thirdPost.publishedAt}
-                  author={{
-                    name: thirdPost.author.name,
-                    profilePicture: thirdPost.author.profilePicture,
-                  }}
-                  slug={thirdPost.slug}
-                  excerpt={thirdPost.brief}
-                />
-              )}
-              {fourthPost && (
-                <SecondaryPost
-                  title={fourthPost.title}
-                  coverImage={fourthPost.coverImage?.url}
-                  date={fourthPost.publishedAt}
-                  author={{
-                    name: fourthPost.author.name,
-                    profilePicture: fourthPost.author.profilePicture,
-                  }}
-                  slug={fourthPost.slug}
-                  excerpt={fourthPost.brief}
-                />
-              )}
+              {secondaryPosts}
             </div>
           </div>
 
@@ -104,11 +84,11 @@ export default function Index({ publication, allPosts }: Props) {
               <h3 className="mb-5 text-lg font-semibold text-center text-primary-600">
                 Subscribe to our newsletter for updates and changelog.
               </h3>
-              <SubscribeBox />
+              <SubscribeForm />
             </div>
           </div>
 
-          {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+          {morePosts.length > 0 && <MorePosts posts={morePosts} />}
         </Container>
       </Layout>
     </>
@@ -120,7 +100,7 @@ export const getStaticProps = async () => {
     PostsByPublicationQuery,
     PostsByPublicationQueryVariables
   >(GQL_ENDPOINT, PostsByPublicationDocument, {
-    first: 9,
+    first: 10,
     host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
   });
 
