@@ -7,8 +7,8 @@ import SecondaryPost from "@starter-kit/components/secondary-post";
 import Header from "@starter-kit/components/header";
 import Layout from "@starter-kit/components/layout";
 import MorePosts from "@starter-kit/components/more-posts";
+import type PublicationType from "@starter-kit/components/interfaces/publication";
 import {
-  Publication,
   PostFragment,
   PostsByPublicationDocument,
   PostsByPublicationQuery,
@@ -18,6 +18,7 @@ import Navbar from "@starter-kit/components/navbar";
 import Footer from "@starter-kit/components/footer";
 import Image from "next/image";
 import { ArticleSVG } from "@starter-kit/components/icons";
+import { AppProvider } from '@starter-kit/components/contexts/appContext';
 
 // Dynamic Imports
 const SubscribeForm = dynamic(
@@ -27,7 +28,7 @@ const SubscribeForm = dynamic(
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 
 type Props = {
-  publication: Publication;
+  publication: PublicationType;
   allPosts: PostFragment[];
 };
 
@@ -55,7 +56,7 @@ export default function Index({ publication, allPosts }: Props) {
   const morePosts = allPosts.slice(4);
 
   return (
-    <>
+    <AppProvider publication={publication}>
       <Layout>
         <Head>
           <title>{publication.title || `Hashnode Blog Starter Kit`}</title>
@@ -113,7 +114,7 @@ export default function Index({ publication, allPosts }: Props) {
         </Container>
         <Footer />
       </Layout>
-    </>
+    </AppProvider>
   );
 }
 

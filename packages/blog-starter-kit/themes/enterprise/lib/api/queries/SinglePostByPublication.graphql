@@ -1,6 +1,22 @@
 query SinglePostByPublication($slug: String!, $host: String!) {
   publication(host: $host) {
     id
+    preferences {
+      logo
+      darkMode {
+        logo
+      }
+      navbarItems {
+        label,
+        url
+      }
+    }
+    links {
+      twitter
+      github
+      linkedin
+      hashnode
+    }
     post(slug: $slug) {
       slug
       url

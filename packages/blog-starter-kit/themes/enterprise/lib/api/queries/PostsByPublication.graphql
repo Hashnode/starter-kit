@@ -2,6 +2,16 @@ query PostsByPublication($host: String!, $first: Int!, $after: String) {
   publication(host: $host) {
     id
     title
+    preferences {
+      logo
+      darkMode {
+        logo
+      }
+      navbarItems {
+        label,
+        url
+      }
+    }
     links {
       twitter
       github

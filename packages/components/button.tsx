@@ -4,9 +4,10 @@ type Props = {
   icon?: React.ReactNode;
   className?: string;
   secondaryIcon?: React.ReactNode;
+  href?: string;
 };
 
-const Button = ({ label, type, icon, className, secondaryIcon }: Props) => {
+const Button = ({ label, type, icon, className, secondaryIcon, href }: Props) => {
   let buttonClassName;
 
   switch (type) {
@@ -30,7 +31,8 @@ const Button = ({ label, type, icon, className, secondaryIcon }: Props) => {
         "text-white bg-primary-600 hover:bg-primary-500 border-primary-600 dark:bg-primary-500 dark:text-white";
   }
   return (
-    <button
+    <a
+      href={href}
       className={`flex flex-row items-center justify-start gap-2 px-2 py-2 text-sm font-semibold transition-colors duration-200 rounded-full border md:text-base md:px-5 md:py-3 ${buttonClassName} ${
         secondaryIcon ? `md:justify-between` : `md:justify-center`
       }  ${className}`}
@@ -40,7 +42,7 @@ const Button = ({ label, type, icon, className, secondaryIcon }: Props) => {
         {label || null}
       </div>
       {secondaryIcon && <div className="shrink-0">{secondaryIcon}</div>}
-    </button>
+    </a>
   );
 };
 
