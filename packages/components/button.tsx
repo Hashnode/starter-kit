@@ -12,7 +12,7 @@ const Button = ({ label, type, icon, className, secondaryIcon }: Props) => {
   switch (type) {
     case "outline":
       buttonClassName =
-        "text-slate-950 bg-white hover:bg-slate-50 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:text-white";
+        "text-slate-950 bg-white dark:border-neutral-800 hover:bg-slate-50 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:text-white";
       break;
 
     case "primary":
@@ -31,15 +31,15 @@ const Button = ({ label, type, icon, className, secondaryIcon }: Props) => {
   }
   return (
     <button
-      className={`flex flex-row items-center justify-start gap-2 px-4 py-2 text-sm font-semibold transition-colors duration-200 rounded-full border md:text-base md:px-5 md:py-3 ${buttonClassName} ${
+      className={`flex flex-row items-center justify-start gap-2 px-2 py-2 text-sm font-semibold transition-colors duration-200 rounded-full border md:text-base md:px-5 md:py-3 ${buttonClassName} ${
         secondaryIcon ? `md:justify-between` : `md:justify-center`
       }  ${className}`}
     >
       <div className="flex flex-row items-center gap-2">
-        <div className="shrink-0">{icon}</div>
-        {label}
+        {icon && <div className="shrink-0">{icon}</div>}
+        {label || null}
       </div>
-      <div className="shrink-0">{secondaryIcon}</div>
+      {secondaryIcon && <div className="shrink-0">{secondaryIcon}</div>}
     </button>
   );
 };

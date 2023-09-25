@@ -8,6 +8,7 @@ import NewsletterPlusSVG from './NewsletterPlusSVG';
 import ExternalArrowSVG from './ExternalArrowSVG';
 import ChevronDownSVG from './ChevronDownSVG';
 import ArticleSVG from './ArticleSVG';
+import HamburgerSVG from './HamburgerSVG';
 
 export {
     RssSVG,
