@@ -75,7 +75,7 @@ const Header = () => {
           <Button type="primary" label="Book a demo" />
         </div>
       </Container>
-      <div className="fixed h-full left-0 w-2/3 flex flex-col gap-5 p-5 bg-white dark:bg-neutral-900 border-r dark:border-neutral-800 shadow-xl top-0 z-[1000]">
+      {/* <div className="fixed h-full left-0 w-2/3 flex flex-col gap-5 p-5 bg-white dark:bg-neutral-900 border-r dark:border-neutral-800 shadow-xl top-0 z-[1000]">
         <div className="flex flex-row justify-end">
           <Button type="outline" label="Collapse" />
         </div>
@@ -115,7 +115,7 @@ const Header = () => {
             </li>
           </ul>
         </nav>
-      </div>
+      </div> */}
     </header>
   );
 };
