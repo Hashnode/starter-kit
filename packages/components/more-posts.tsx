@@ -31,21 +31,21 @@ const MorePosts = ({ posts }: Props) => {
         ))}
         <>
           <div className="flex flex-col items-stretch gap-3 animate-pulse">
-            <div className="w-full pt-[56.25%] border dark:border-neutral-600 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
+            <div className="w-full pt-[56.25%] border dark:border-neutral-800 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
             <h3 className="w-full h-10 rounded-xl bg-slate-200 dark:bg-neutral-800"></h3>
             <div className="w-full h-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
             <div className="w-3/4 h-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
             <div className="w-2/3 h-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
           </div>
           <div className="flex flex-col items-stretch gap-3 animate-pulse">
-            <div className="w-full pt-[56.25%] border dark:border-neutral-600 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
+            <div className="w-full pt-[56.25%] border dark:border-neutral-800 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
             <h3 className="w-full h-10 rounded-xl bg-slate-200 dark:bg-neutral-800"></h3>
             <div className="w-full h-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
             <div className="w-3/4 h-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
             <div className="w-2/3 h-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
           </div>
           <div className="flex flex-col items-stretch gap-3 animate-pulse">
-            <div className="w-full pt-[56.25%] border dark:border-neutral-600 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
+            <div className="w-full pt-[56.25%] border dark:border-neutral-800 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
             <h3 className="w-full h-10 rounded-xl bg-slate-200 dark:bg-neutral-800"></h3>
             <div className="w-full h-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
             <div className="w-3/4 h-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>

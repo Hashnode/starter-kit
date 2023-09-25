@@ -8,7 +8,7 @@ const Header = () => {
   }${process.env.NEXT_PUBLIC_BASE_URL}`;
 
   return (
-    <header className="py-10 border-b dark:border-neutral-600 bg-slate-950 dark:bg-neutral-900">
+    <header className="py-10 border-b dark:border-neutral-800 bg-slate-950 dark:bg-neutral-900">
       <Container className="flex flex-row items-center gap-5 px-5">
         <div className="flex-1">
           <h1>
@@ -27,7 +27,7 @@ const Header = () => {
               <li>
                 <a
                   href="#"
-                  className="block p-2 transition-colors rounded-full hover:bg-white hover:text-black dark:hover:bg-neutral-800 transition-200"
+                  className="block p-2 transition-colors rounded-full hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white transition-200"
                 >
                   Announcements
                 </a>
@@ -35,7 +35,7 @@ const Header = () => {
               <li>
                 <a
                   href="#"
-                  className="block p-2 transition-colors rounded-full hover:bg-white hover:text-black dark:hover:bg-neutral-800 transition-200"
+                  className="block p-2 transition-colors rounded-full hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white transition-200"
                 >
                   Engineering
                 </a>
@@ -43,7 +43,7 @@ const Header = () => {
               <li>
                 <a
                   href="#"
-                  className="block p-2 transition-colors rounded-full hover:bg-white hover:text-black dark:hover:bg-neutral-800 transition-200"
+                  className="block p-2 transition-colors rounded-full hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white transition-200"
                 >
                   Design
                 </a>
@@ -51,7 +51,7 @@ const Header = () => {
               <li>
                 <a
                   href="#"
-                  className="block p-2 transition-colors rounded-full hover:bg-white hover:text-black dark:hover:bg-neutral-800 transition-200"
+                  className="block p-2 transition-colors rounded-full hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white transition-200"
                 >
                   Changelog
                 </a>
