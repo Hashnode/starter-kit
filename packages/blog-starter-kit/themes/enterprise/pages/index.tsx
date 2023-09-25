@@ -36,7 +36,10 @@ export default function Index({ publication, allPosts }: Props) {
       <SecondaryPost
         key={post.id}
         title={post.title}
-        coverImage={post.coverImage?.url}
+        coverImage={
+          post.coverImage?.url ||
+          "https://cdn.hashnode.com/res/hashnode/image/upload/v1683525272978/MB5H_kgOC.png?auto=format"
+        }
         date={post.publishedAt}
         author={{
           name: post.author.name,
@@ -64,7 +67,10 @@ export default function Index({ publication, allPosts }: Props) {
               {firstPost && (
                 <HeroPost
                   title={firstPost.title}
-                  coverImage={firstPost.coverImage?.url}
+                  coverImage={
+                    firstPost.coverImage?.url ||
+                    "https://cdn.hashnode.com/res/hashnode/image/upload/v1683525272978/MB5H_kgOC.png?auto=format"
+                  }
                   date={firstPost.publishedAt}
                   author={{
                     name: firstPost.author.name,

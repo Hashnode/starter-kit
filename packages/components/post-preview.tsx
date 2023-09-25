@@ -29,7 +29,14 @@ const PostPreview = ({
     <div className="grid grid-cols-1 gap-5">
       {coverImage && (
         <div className="col-span-1">
-          <CoverImage slug={slug} title={title} src={coverImage} />
+          <CoverImage
+            slug={slug}
+            title={title}
+            src={
+              coverImage ||
+              "https://cdn.hashnode.com/res/hashnode/image/upload/v1683525272978/MB5H_kgOC.png?auto=format"
+            }
+          />
         </div>
       )}
       <div className="flex flex-col col-span-1 gap-2">
