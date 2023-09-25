@@ -1,4 +1,6 @@
 import { PostFragment } from "../blog-starter-kit/themes/enterprise/generated/graphql";
+import Button from "./button";
+import { ChevronDownSVG } from "./icons";
 import PostPreview from "./post-preview";
 
 type Props = {
@@ -74,9 +76,13 @@ const MorePosts = ({ posts }: Props) => {
           </div>
         </> */}
       </div>
-      {/* <div className="flex flex-row items-center justify-center w-full">
-        <Button label="View all posts" />
-      </div> */}
+      <div className="flex flex-row items-center justify-center w-full">
+        <Button
+          type="outline"
+          icon={<ChevronDownSVG className="w-5 h-5 stroke-current" />}
+          label="Load more posts"
+        />
+      </div>
     </section>
   );
 };

@@ -6,6 +6,7 @@ import HashnodeSVG from './HashnodeSVG';
 import PlusCircleSVG from './PlusCircleSVG';
 import NewsletterPlusSVG from './NewsletterPlusSVG';
 import ExternalArrowSVG from './ExternalArrowSVG';
+import ChevronDownSVG from './ChevronDownSVG';
 
 export {
     RssSVG,
@@ -15,5 +16,6 @@ export {
     HashnodeSVG,
     PlusCircleSVG,
     NewsletterPlusSVG,
-    ExternalArrowSVG
+    ExternalArrowSVG,
+    ChevronDownSVG
 };

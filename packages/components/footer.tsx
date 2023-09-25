@@ -18,11 +18,11 @@ const Footer = () => {
             />
           </Link>
         </div>
-        <div className="grid w-full grid-cols-3 gap-5">
-          <div className="grid grid-cols-4 col-span-2 gap-5">
+        <div className="grid w-full grid-cols-5 gap-5">
+          <div className="grid grid-cols-4 col-span-3 gap-5">
             <div className="col-span-1">
               <p className="mb-2 font-semibold text-slate-600">Stay in touch</p>
-              <ul className="flex flex-col gap-2 text-slate-700">
+              <ul className="flex flex-col gap-1 text-slate-700">
                 <li>
                   <a href="#" className="hover:underline">
                     Contact us
@@ -47,7 +47,7 @@ const Footer = () => {
             </div>
             <div className="col-span-1">
               <p className="mb-2 font-semibold text-slate-600">Resources</p>
-              <ul className="flex flex-col gap-2 text-slate-700">
+              <ul className="flex flex-col gap- text-slate-700">
                 <li>
                   <a href="#" className="hover:underline">
                     Community
@@ -72,7 +72,7 @@ const Footer = () => {
             </div>
             <div className="col-span-1">
               <p className="mb-2 font-semibold text-slate-600">Product</p>
-              <ul className="flex flex-col gap-2 text-slate-700">
+              <ul className="flex flex-col gap-1 text-slate-700">
                 <li>
                   <a href="#" className="hover:underline">
                     Pricing
@@ -97,7 +97,7 @@ const Footer = () => {
             </div>
             <div className="col-span-1">
               <p className="mb-2 font-semibold text-slate-600">Product</p>
-              <ul className="flex flex-col gap-2 text-slate-700">
+              <ul className="flex flex-col gap-1 text-slate-700">
                 <li>
                   <a href="#" className="hover:underline">
                     Events
@@ -121,7 +121,7 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-          <div className="flex flex-col items-end col-span-1 gap-5 text-slate-600">
+          <div className="flex flex-col items-end col-span-2 gap-5 text-slate-600">
             <SocialLinks />
             <p>&copy; 2023 Finder Inc.</p>
             <p>
