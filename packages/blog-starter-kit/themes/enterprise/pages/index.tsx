@@ -100,9 +100,9 @@ export default function Index({ publication, allPosts }: Props) {
             </div>
           </div>
 
-          <div className="grid grid-cols-4 px-5 py-10 rounded-lg bg-primary-50">
+          <div className="grid grid-cols-4 px-5 py-10 rounded-lg bg-primary-50 dark:bg-neutral-800">
             <div className="col-span-2 col-start-2">
-              <h3 className="mb-5 text-lg font-semibold text-center text-primary-600">
+              <h3 className="mb-5 text-lg font-semibold text-center text-primary-600 dark:text-primary-500">
                 Subscribe to our newsletter for updates and changelog.
               </h3>
               <SubscribeForm />

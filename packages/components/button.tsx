@@ -12,7 +12,7 @@ const Button = ({ label, type, icon, className, secondaryIcon }: Props) => {
   switch (type) {
     case "outline":
       buttonClassName =
-        "text-slate-950 bg-white hover:bg-slate-50 dark:bg-neutral-900 dark:text-white";
+        "text-slate-950 bg-white hover:bg-slate-50 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:text-white";
       break;
 
     case "primary":

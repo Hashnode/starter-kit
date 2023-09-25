@@ -21,8 +21,10 @@ const Footer = () => {
         <div className="grid w-full grid-cols-5 gap-5">
           <div className="grid grid-cols-4 col-span-3 gap-5">
             <div className="col-span-1">
-              <p className="mb-2 font-semibold text-slate-600">Stay in touch</p>
-              <ul className="flex flex-col gap-1 text-slate-700">
+              <p className="mb-2 font-semibold text-slate-600 dark:text-neutral-200">
+                Stay in touch
+              </p>
+              <ul className="flex flex-col gap-1 text-slate-700 dark:text-neutral-300">
                 <li>
                   <a href="#" className="hover:underline">
                     Contact us
@@ -46,8 +48,10 @@ const Footer = () => {
               </ul>
             </div>
             <div className="col-span-1">
-              <p className="mb-2 font-semibold text-slate-600">Resources</p>
-              <ul className="flex flex-col gap- text-slate-700">
+              <p className="mb-2 font-semibold text-slate-600 dark:text-neutral-200">
+                Resources
+              </p>
+              <ul className="flex flex-col gap-1 text-slate-700 dark:text-neutral-300">
                 <li>
                   <a href="#" className="hover:underline">
                     Community
@@ -71,8 +75,10 @@ const Footer = () => {
               </ul>
             </div>
             <div className="col-span-1">
-              <p className="mb-2 font-semibold text-slate-600">Product</p>
-              <ul className="flex flex-col gap-1 text-slate-700">
+              <p className="mb-2 font-semibold text-slate-600 dark:text-neutral-200">
+                Product
+              </p>
+              <ul className="flex flex-col gap-1 text-slate-700 dark:text-neutral-300">
                 <li>
                   <a href="#" className="hover:underline">
                     Pricing
@@ -96,8 +102,10 @@ const Footer = () => {
               </ul>
             </div>
             <div className="col-span-1">
-              <p className="mb-2 font-semibold text-slate-600">Product</p>
-              <ul className="flex flex-col gap-1 text-slate-700">
+              <p className="mb-2 font-semibold text-slate-600 dark:text-neutral-200">
+                Product
+              </p>
+              <ul className="flex flex-col gap-1 text-slate-700 dark:text-neutral-300">
                 <li>
                   <a href="#" className="hover:underline">
                     Events
@@ -121,7 +129,7 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-          <div className="flex flex-col items-end col-span-2 gap-5 text-slate-600">
+          <div className="flex flex-col items-end col-span-2 gap-5 text-slate-600 dark:text-neutral-300">
             <SocialLinks />
             <p>&copy; 2023 Finder Inc.</p>
             <p>
