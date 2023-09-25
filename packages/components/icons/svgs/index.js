@@ -7,6 +7,7 @@ import PlusCircleSVG from './PlusCircleSVG';
 import NewsletterPlusSVG from './NewsletterPlusSVG';
 import ExternalArrowSVG from './ExternalArrowSVG';
 import ChevronDownSVG from './ChevronDownSVG';
+import ArticleSVG from './ArticleSVG';
 
 export {
     RssSVG,
@@ -17,5 +18,6 @@ export {
     PlusCircleSVG,
     NewsletterPlusSVG,
     ExternalArrowSVG,
-    ChevronDownSVG
+    ChevronDownSVG,
+    ArticleSVG
 };

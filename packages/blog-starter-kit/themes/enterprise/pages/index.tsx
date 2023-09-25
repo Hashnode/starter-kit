@@ -16,6 +16,8 @@ import {
 } from "../generated/graphql";
 import Navbar from "@starter-kit/components/navbar";
 import Footer from "@starter-kit/components/footer";
+import Image from "next/image";
+import { ArticleSVG } from "@starter-kit/components/icons";
 
 // Dynamic Imports
 const SubscribeForm = dynamic(
@@ -62,7 +64,16 @@ export default function Index({ publication, allPosts }: Props) {
         <Container className="flex flex-col items-stretch gap-10 px-5 pb-10">
           <Navbar />
 
-          <div className="grid items-start gap-6 xl:grid-cols-2">
+          <div className="grid grid-cols-1 py-20 lg:grid-cols-3">
+            <div className="flex flex-col items-center col-span-1 gap-5 text-center lg:col-start-2 text-slate-700 dark:text-neutral-400">
+              <div className="w-20">
+                <ArticleSVG clasName="stroke-current" />
+              </div>
+              <p className="text-xl font-semibold ">No posts yet.</p>
+            </div>
+          </div>
+
+          {/* <div className="grid items-start gap-6 xl:grid-cols-2">
             <div className="col-span-1">
               {firstPost && (
                 <HeroPost
@@ -95,7 +106,7 @@ export default function Index({ publication, allPosts }: Props) {
             </div>
           </div>
 
-          {morePosts.length > 0 && <MorePosts posts={morePosts} />}
+          {morePosts.length > 0 && <MorePosts posts={morePosts} />} */}
         </Container>
         <Footer />
       </Layout>
