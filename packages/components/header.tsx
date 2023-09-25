@@ -14,10 +14,10 @@ const Header = () => {
           <h1>
             <Link href={baseUrl} className="flex flex-row items-center gap-5">
               <img
-                className="block w-56"
-                src="https://uploads-ssl.webflow.com/62a8755be8bcc86e6307def8/6329b27b3fc044f886326c4e_mindsDB-full%20logo.svg"
+                className="block w-40"
+                src="https://cdn.hashnode.com/res/hashnode/image/upload/v1695624897726/JYChHGzvT.png?auto=format"
               />
-              <span className="text-3xl font-semibold text-white">Blog</span>
+              <span className="text-4xl font-semibold text-white">Blog</span>
             </Link>
           </h1>
         </div>

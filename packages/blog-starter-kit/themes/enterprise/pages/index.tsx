@@ -15,6 +15,7 @@ import {
   PostsByPublicationQueryVariables,
 } from "../generated/graphql";
 import Navbar from "@starter-kit/components/navbar";
+import Footer from "@starter-kit/components/footer";
 
 // Dynamic Imports
 const SubscribeForm = dynamic(
@@ -90,6 +91,7 @@ export default function Index({ publication, allPosts }: Props) {
 
           {morePosts.length > 0 && <MorePosts posts={morePosts} />}
         </Container>
+        <Footer />
       </Layout>
     </>
   );

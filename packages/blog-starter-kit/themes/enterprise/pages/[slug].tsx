@@ -1,6 +1,6 @@
 import request from "graphql-request";
 import ErrorPage from "next/error";
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Container from "@starter-kit/components/container";
@@ -18,11 +18,12 @@ import {
   SlugPostsByPublicationQueryVariables,
 } from "../generated/graphql";
 import Header from "@starter-kit/components/header";
+import Footer from "@starter-kit/components/footer";
 // import PostComments from "@starter-kit/components/post-comments";
 // import PostTOC from "@starter-kit/components/post-toc";
 
 // Dynamic Imports
-const Subscribe = dynamic(() => import('@starter-kit/components/subscribe'));
+const Subscribe = dynamic(() => import("@starter-kit/components/subscribe"));
 
 type Props = {
   post: PostType;
@@ -70,6 +71,7 @@ export default function Post({ post, morePosts, preview }: Props) {
           </>
         )}
       </Container>
+      <Footer />
     </Layout>
   );
 }
