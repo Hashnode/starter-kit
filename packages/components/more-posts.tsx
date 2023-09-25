@@ -29,52 +29,29 @@ const MorePosts = ({ posts }: Props) => {
             url={post.url}
           />
         ))}
-        {/* <>
+        <>
           <div className="flex flex-col items-stretch gap-3 animate-pulse">
             <div className="w-full pt-[56.25%] border dark:border-neutral-600 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
-            <h3 className="w-full h-10 mb-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></h3>
+            <h3 className="w-full h-10 rounded-xl bg-slate-200 dark:bg-neutral-800"></h3>
             <div className="w-full h-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
             <div className="w-3/4 h-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
             <div className="w-2/3 h-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
-            <div className="flex flex-row items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-slate-200 dark:bg-neutral-800"></div>
-              <div className="w-1/3 h-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
-            </div>
           </div>
           <div className="flex flex-col items-stretch gap-3 animate-pulse">
             <div className="w-full pt-[56.25%] border dark:border-neutral-600 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
-            <h3 className="w-full h-10 mb-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></h3>
+            <h3 className="w-full h-10 rounded-xl bg-slate-200 dark:bg-neutral-800"></h3>
             <div className="w-full h-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
             <div className="w-3/4 h-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
             <div className="w-2/3 h-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
-            <div className="flex flex-row items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-slate-200 dark:bg-neutral-800"></div>
-              <div className="w-1/3 h-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
-            </div>
           </div>
           <div className="flex flex-col items-stretch gap-3 animate-pulse">
             <div className="w-full pt-[56.25%] border dark:border-neutral-600 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
-            <h3 className="w-full h-10 mb-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></h3>
+            <h3 className="w-full h-10 rounded-xl bg-slate-200 dark:bg-neutral-800"></h3>
             <div className="w-full h-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
             <div className="w-3/4 h-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
             <div className="w-2/3 h-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
-            <div className="flex flex-row items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-slate-200 dark:bg-neutral-800"></div>
-              <div className="w-1/3 h-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
-            </div>
           </div>
-          <div className="flex flex-col items-stretch gap-3 animate-pulse">
-            <div className="w-full pt-[56.25%] border dark:border-neutral-600 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
-            <h3 className="w-full h-10 mb-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></h3>
-            <div className="w-full h-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
-            <div className="w-3/4 h-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
-            <div className="w-2/3 h-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
-            <div className="flex flex-row items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-slate-200 dark:bg-neutral-800"></div>
-              <div className="w-1/3 h-5 rounded-xl bg-slate-200 dark:bg-neutral-800"></div>
-            </div>
-          </div>
-        </> */}
+        </>
       </div>
       <div className="flex flex-row items-center justify-center w-full">
         <Button
