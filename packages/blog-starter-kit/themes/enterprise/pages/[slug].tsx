@@ -30,11 +30,10 @@ const Subscribe = dynamic(() => import("@starter-kit/components/subscribe"));
 type Props = {
   post: PostType;
   publication: PublicationType;
-  morePosts: PostType[];
   preview?: boolean;
 };
 
-export default function Post({ publication, post, morePosts, preview }: Props) {
+export default function Post({ publication, post, preview }: Props) {
   const router = useRouter();
   const title = `${post.title} | Next.js Blog Example with Hashnode`;
   if (!router.isFallback && !post?.slug) {
