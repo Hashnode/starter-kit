@@ -1492,6 +1492,14 @@ type ReadTimeFeature implements Feature {
   isEnabled: Boolean!
 }
 
+"""Contains a publication and a cursor for pagination."""
+type RecommendedPublicationEdge implements Edge {
+  """A cursor for use in pagination."""
+  cursor: String!
+  """The node holding the Publication information"""
+  node: Publication!
+}
+
 type RedirectionRule {
   """The destination URL of the redirection rule."""
   destination: String!

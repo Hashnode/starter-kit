@@ -9,16 +9,16 @@ type Props = {
 };
 
 const CoverImage = ({ title, src, slug }: Props) => {
-  const postURL = `${process.env.NEXT_PUBLIC_MODE === 'development' ? 'http://' : 'https://'}${process.env.NEXT_PUBLIC_BASE_URL}/${slug}`;
+  const postURL = `${
+    process.env.NEXT_PUBLIC_MODE === "development" ? "http://" : "https://"
+  }${process.env.NEXT_PUBLIC_BASE_URL}/${slug}`;
 
   const image = (
     <div className="relative pt-[56.25%]">
       <Image
         src={src}
         alt={`Cover Image for ${title}`}
-        className={cn("border dark:border-neutral-600 rounded-xl w-full", {
-          "hover:border-slate-400 duration-200": slug,
-        })}
+        className="w-full rounded-md hover:opacity-90"
         fill
         objectFit="cover"
         unoptimized

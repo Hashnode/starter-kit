@@ -1,4 +1,5 @@
 type PostType = {
+  id: string;
   slug: string;
   title: string;
   publishedAt: string;
@@ -6,6 +7,7 @@ type PostType = {
     url: string;
   };
   author: {
+    username: string;
     name: string;
     profilePicture: string;
   };

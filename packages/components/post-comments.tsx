@@ -18,7 +18,7 @@ const PostComments = ({ author }: Props) => {
         label="Discuss on Hashnode"
         secondaryIcon={<ExternalArrowSVG className="w-5 h-5 stroke-current" />}
       />
-      <div className="flex flex-col gap-5 p-5 border rounded-lg bg-slate-50 dark:bg-neutral-900 dark:border-neutral-600 border-slate-200">
+      <div className="flex flex-col gap-5 p-5 border rounded-lg bg-slate-50 dark:bg-neutral-900 dark:border-neutral-800 border-slate-200">
         <Avatar name={author.name} size={8} picture={author.profilePicture} />
         <div className="hashnode-content-style">
           <p>
@@ -42,7 +42,7 @@ const PostComments = ({ author }: Props) => {
           <a href="#">23 likes</a>
           <a href="#">Reply</a>
         </div>
-        <div className="flex flex-col gap-5 p-5 border rounded-lg bg-slate-50 dark:bg-neutral-900 dark:border-neutral-600 border-slate-200">
+        <div className="flex flex-col gap-5 p-5 border rounded-lg bg-slate-50 dark:bg-neutral-900 dark:border-neutral-800 border-slate-200">
           <Avatar name={author.name} size={8} picture={author.profilePicture} />
           <div className="hashnode-content-style">
             <p>
@@ -67,7 +67,7 @@ const PostComments = ({ author }: Props) => {
             <a href="#">Reply</a>
           </div>
         </div>
-        <div className="flex flex-col gap-5 p-5 border rounded-lg bg-slate-50 dark:bg-neutral-900 dark:border-neutral-600 border-slate-200">
+        <div className="flex flex-col gap-5 p-5 border rounded-lg bg-slate-50 dark:bg-neutral-900 dark:border-neutral-800 border-slate-200">
           <Avatar name={author.name} size={8} picture={author.profilePicture} />
           <div className="hashnode-content-style">
             <p>
@@ -93,7 +93,7 @@ const PostComments = ({ author }: Props) => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-5 p-5 border rounded-lg bg-slate-50 dark:bg-neutral-900 dark:border-neutral-600 border-slate-200">
+      <div className="flex flex-col gap-5 p-5 border rounded-lg bg-slate-50 dark:bg-neutral-900 dark:border-neutral-800 border-slate-200">
         <Avatar name={author.name} size={8} picture={author.profilePicture} />
         <div className="hashnode-content-style">
           <p>

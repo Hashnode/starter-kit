@@ -5,7 +5,7 @@ type Props = {
 const PostTOC = () => {
   return (
     <div className="w-full px-5">
-      <div className="w-full max-w-screen-md p-5 mx-auto text-base leading-snug border border-b-4 border-r-4 rounded-lg md:text-lg dark:border-neutral-600 md:p-8 dark:text-neutral-50">
+      <div className="w-full max-w-screen-md p-5 mx-auto text-base leading-snug border border-b-4 border-r-4 rounded-lg md:text-lg dark:border-neutral-800 md:p-8 dark:text-neutral-50">
         <h3 className="mb-5 text-lg font-bold md:text-xl">Table of content</h3>
         <ul className="flex flex-col gap-5 pl-5 mt-5 font-medium text-slate-800 dark:text-neutral-200">
           <li>
