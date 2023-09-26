@@ -1,10 +1,10 @@
-import { PostFragment } from "../blog-starter-kit/themes/enterprise/generated/graphql";
-import Button from "./button";
-import { ChevronDownSVG } from "./icons";
+import PostType from "../components/interfaces/post";
+// import Button from "./button";
+// import { ChevronDownSVG } from "./icons";
 import PostPreview from "./post-preview";
 
 type Props = {
-  posts: PostFragment[];
+  posts: PostType[];
 };
 
 const MorePosts = ({ posts }: Props) => {
@@ -21,6 +21,7 @@ const MorePosts = ({ posts }: Props) => {
             coverImage={post.coverImage?.url}
             date={post.publishedAt}
             author={{
+              username: post.author.username,
               name: post.author.name,
               profilePicture: post.author.profilePicture,
             }}

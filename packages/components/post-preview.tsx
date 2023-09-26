@@ -32,7 +32,7 @@ const PostPreview = ({
           slug={slug}
           title={title}
           src={
-            resizeImage(coverImage, { w: 800, h: 550 }) ||
+            resizeImage(coverImage, { w: 1600, h: 840, c: 'thumb' }) ||
             "https://cdn.hashnode.com/res/hashnode/image/upload/v1683525272978/MB5H_kgOC.png?auto=format"
           }
         />

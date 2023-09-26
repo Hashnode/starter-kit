@@ -105,7 +105,7 @@ const Footer = () => {
             </div>
             <div className="col-span-1">
               <p className="mb-2 font-semibold text-slate-600 dark:text-neutral-200">
-                Product
+                Other links
               </p>
               <ul className="flex flex-col gap-1 text-slate-700 dark:text-neutral-300">
                 <li>

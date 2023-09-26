@@ -28,6 +28,7 @@ query SinglePostByPublication($slug: String!, $host: String!) {
       }
       author {
         name
+        username
         profilePicture
       }
       id

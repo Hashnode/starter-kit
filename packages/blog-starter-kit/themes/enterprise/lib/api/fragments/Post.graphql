@@ -2,9 +2,6 @@ fragment Post on Post {
   id
   title
   url
-  content {
-    markdown
-  }
   author {
     name
     profilePicture

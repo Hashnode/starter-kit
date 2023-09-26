@@ -9,13 +9,13 @@ import Layout from "@starter-kit/components/layout";
 import MorePosts from "@starter-kit/components/more-posts";
 import type PublicationType from "@starter-kit/components/interfaces/publication";
 import {
-  PostFragment,
   PostsByPublicationDocument,
   PostsByPublicationQuery,
   PostsByPublicationQueryVariables,
 } from "../generated/graphql";
 import Navbar from "@starter-kit/components/navbar";
 import Footer from "@starter-kit/components/footer";
+import PostType from "@starter-kit/components/interfaces/post";
 import { ArticleSVG } from "@starter-kit/components/icons";
 import { AppProvider } from '@starter-kit/components/contexts/appContext';
 
@@ -28,7 +28,7 @@ const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 
 type Props = {
   publication: PublicationType;
-  allPosts: PostFragment[];
+  allPosts: PostType[];
 };
 
 export default function Index({ publication, allPosts }: Props) {
