@@ -1,4 +1,5 @@
 type PublicationType = {
+    id: string;
     title?: string;
     preferences: {
       logo: string;

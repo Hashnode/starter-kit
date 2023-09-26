@@ -1,23 +1,25 @@
 import Link from "next/link";
 import Container from "./container";
-import { HashnodeSVG } from "./icons";
 import SocialLinks from "./social-links";
+import { useAppContext } from "./contexts/appContext";
 
 const Footer = () => {
   const baseUrl = `${
     process.env.NEXT_PUBLIC_MODE === "development" ? "http://" : "https://"
   }${process.env.NEXT_PUBLIC_BASE_URL}`;
+  const { publication } = useAppContext();
+  const PUBLICATION_LOGO = publication.preferences.logo;
   return (
     <footer className="py-20 border-t dark:border-neutral-800 ">
       <Container className="px-5">
-        <div className="flex flex-row justify-center w-full mb-20">
+        {PUBLICATION_LOGO && <div className="flex flex-row justify-center w-full mb-20">
           <Link href={baseUrl} className="flex flex-row items-center gap-5">
             <img
               className="block w-40"
-              src="https://cdn.hashnode.com/res/hashnode/image/upload/v1695624876004/kwXpH8bC4.png?auto=format"
+              src={PUBLICATION_LOGO}
             />
           </Link>
-        </div>
+        </div>}
         <div className="grid w-full grid-cols-5 gap-5">
           <div className="grid grid-cols-4 col-span-3 gap-5">
             <div className="col-span-1">
@@ -131,7 +133,7 @@ const Footer = () => {
           </div>
           <div className="flex flex-col items-end col-span-2 gap-5 text-slate-600 dark:text-neutral-300">
             <SocialLinks />
-            <p>&copy; 2023 Finder Inc.</p>
+            <p>&copy; 2023 Company Inc.</p>
             <p>
               <a href="#" className="hover:underline">
                 Privacy Policy

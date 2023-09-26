@@ -3,6 +3,7 @@ import DateFormatter from "./date-formatter";
 import CoverImage from "./cover-image";
 import Link from "next/link";
 import type Author from "./interfaces/author";
+import { resizeImage } from "@starter-kit/utils/image";
 
 type Props = {
   title: string;
@@ -19,7 +20,6 @@ const PostPreview = ({
   coverImage,
   date,
   excerpt,
-  author,
   slug,
 }: Props) => {
   const postURL = `${
@@ -27,18 +27,16 @@ const PostPreview = ({
   }${process.env.NEXT_PUBLIC_BASE_URL}/${slug}`;
   return (
     <div className="grid grid-cols-1 gap-5">
-      {coverImage && (
-        <div className="col-span-1">
-          <CoverImage
-            slug={slug}
-            title={title}
-            src={
-              coverImage ||
-              "https://cdn.hashnode.com/res/hashnode/image/upload/v1683525272978/MB5H_kgOC.png?auto=format"
-            }
-          />
-        </div>
-      )}
+      <div className="col-span-1">
+        <CoverImage
+          slug={slug}
+          title={title}
+          src={
+            resizeImage(coverImage, { w: 800, h: 550 }) ||
+            "https://cdn.hashnode.com/res/hashnode/image/upload/v1683525272978/MB5H_kgOC.png?auto=format"
+          }
+        />
+      </div>
       <div className="flex flex-col col-span-1 gap-2">
         <h3 className="text-lg font-semibold leading-tight text-slate-800 dark:text-neutral-50">
           <Link

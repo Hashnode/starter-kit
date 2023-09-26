@@ -1,4 +1,5 @@
 type PostType = {
+  id: string;
   slug: string;
   title: string;
   publishedAt: string;

@@ -1,4 +1,4 @@
-export const resizeImage = (src: string, resize: object, defaultImage?: string) => {
+export const resizeImage = (src: string, resize: { w: number; h: number; mask?: string; 'corner-radius'?: string; fill?: string; c?: string; q?: string; }, defaultImage?: string) => {
     if (!src) {
         return defaultImage;
     }

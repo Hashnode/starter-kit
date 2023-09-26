@@ -1,6 +1,7 @@
 import Link from "next/link";
 import CoverImage from "./cover-image";
 import DateFormatter from "./date-formatter";
+import { resizeImage } from "@starter-kit/utils/image";
 
 type Props = {
   title: string;
@@ -34,7 +35,7 @@ const SecondaryPost = ({
       <div className="col-span-1">
         <CoverImage
           title={title}
-          src={coverImage || DEFAULT_COVER}
+          src={resizeImage(coverImage, { w: 600, h:300 }) || DEFAULT_COVER}
           slug={slug}
         />
       </div>
