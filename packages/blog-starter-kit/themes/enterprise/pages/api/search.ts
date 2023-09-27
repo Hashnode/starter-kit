@@ -12,6 +12,9 @@ query SearchPostsOfPublication($first: Int!, $filter: SearchPostsOfPublicationFi
         title
         cuid
         slug
+        coverImage {
+          url
+        }
         author {
           id
           name
