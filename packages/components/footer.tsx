@@ -12,14 +12,17 @@ const Footer = () => {
   return (
     <footer className="py-20 border-t dark:border-neutral-800 ">
       <Container className="px-5">
-        {PUBLICATION_LOGO && <div className="flex flex-row justify-center w-full mb-20">
-          <Link href={baseUrl} className="flex flex-row items-center gap-5">
-            <img
-              className="block w-40"
-              src={PUBLICATION_LOGO}
-            />
-          </Link>
-        </div>}
+        {PUBLICATION_LOGO ? (
+          <div className="flex flex-row justify-center w-full mb-20">
+            <Link href={baseUrl} className="flex flex-row items-center gap-5">
+              <img className="block w-40" src={PUBLICATION_LOGO} />
+            </Link>
+          </div>
+        ) : (
+          <p className="mb-20 text-xl font-semibold text-center text-white md:text-4xl">
+            {publication.title}
+          </p>
+        )}
         <div className="grid w-full grid-cols-5 gap-5">
           <div className="grid grid-cols-4 col-span-3 gap-5">
             <div className="col-span-1">

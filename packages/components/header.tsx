@@ -51,7 +51,7 @@ const Header = () => {
                 />
               ) : (
                 <span className="text-xl font-semibold text-white md:text-4xl">
-                  Blog
+                  {publication.title}
                 </span>
               )}
             </Link>
