@@ -5,7 +5,7 @@ import PostPreview from "./post-preview";
 
 type Props = {
   posts: PostType[];
-  context: 'home' | 'series';
+  context: 'home' | 'series' | 'tag';
 };
 
 const MorePosts = ({ posts, context }: Props) => {

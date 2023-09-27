@@ -7,21 +7,17 @@ import type PostType from "@starter-kit/interfaces/post";
 import Header from "@starter-kit/components/header";
 import Footer from "@starter-kit/components/footer";
 import { AppProvider } from "@starter-kit/components/contexts/appContext";
-import { SeriesPostsByPublicationDocument, SeriesPostsByPublicationQuery, SeriesPostsByPublicationQueryVariables } from "../../generated/graphql";
+import { TagPostsByPublicationDocument, TagPostsByPublicationQuery, TagPostsByPublicationQueryVariables } from "../../generated/graphql";
 import MorePosts from "@starter-kit/components/more-posts";
-import { resizeImage } from "@starter-kit/utils/image";
-import Error from "next/error";
 
 type Props = {
   posts: PostType[];
   publication: PublicationType;
+  tag: string;
 };
 
-export default function Post({ publication, posts }: Props) {
-  if (!publication.series) {
-    return <Error statusCode={404} />;
-  }
-  const title = `${publication.series.name} - ${publication.title}`;
+export default function Post({ publication, posts, tag }: Props) {
+  const title = `#${tag} - ${publication.title}`;
   return (
     <AppProvider publication={publication}>
       <Layout>
@@ -31,11 +27,10 @@ export default function Post({ publication, posts }: Props) {
         <Header />
         <Container className="pt-10">
           <div>
-            <h1>Series: {publication.series.name}</h1>
-            <img src={resizeImage(publication.series.coverImage, { w: 200, h: 200, c: 'thumb' })} />
+            <h1>Tag: #{tag}</h1>
             <br />
           </div>
-          {posts.length > 0 ? <MorePosts context="series" posts={posts} /> : <div>No Posts found</div>}
+          <MorePosts context="tag" posts={posts} />
         </Container>
         <Footer />
       </Layout>
@@ -51,26 +46,27 @@ type Params = {
 
 export async function getStaticProps({ params }: Params) {
   const data = await request<
-    SeriesPostsByPublicationQuery,
-    SeriesPostsByPublicationQueryVariables
+    TagPostsByPublicationQuery,
+    TagPostsByPublicationQueryVariables
   >(
     process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT,
-    SeriesPostsByPublicationDocument,
+    TagPostsByPublicationDocument,
     {
       host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
       first: 20,
-      seriesSlug: params.slug,
+      tagSlug: params.slug,
     }
   );
 
   // Extract the posts data from the GraphQL response
   const publication = data.publication;
-  const posts = publication.series ? publication.series.posts.edges.map((edge) => edge.node) : [];
+  const posts = publication.posts.edges.map((edge) => edge.node);
 
   return {
     props: {
       posts,
       publication,
+      tag: params.slug
     },
     revalidate: 1,
   };
