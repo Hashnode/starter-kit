@@ -25,6 +25,15 @@ type PublicationType = {
       linkedin?: string;
       hashnode?: string;
     }
+    series?: {
+      name: string;
+      slug: string;
+      coverImage: string;
+      about?: {
+        markdown?: string;
+        html?: string;
+      }
+    }
   };
   
   export default PublicationType;

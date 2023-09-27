@@ -1,0 +1,37 @@
+query SeriesPostsByPublication($host: String!, $seriesSlug: String!, $first: Int!, $after: String) {
+  publication(host: $host) {
+    id
+    title
+    preferences {
+      logo
+      darkMode {
+        logo
+      }
+      navbarItems {
+        label,
+        url
+      }
+    }
+    links {
+      twitter
+      github
+      linkedin
+      hashnode
+    }
+    series(slug: $seriesSlug) {
+      name
+      slug
+      description {
+        html
+      }
+      coverImage
+      posts(first: $first, after: $after) {
+        edges {
+          node {
+            ...Post
+          }
+        }
+      }
+    }
+  }
+}
