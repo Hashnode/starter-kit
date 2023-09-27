@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@starter-kit/interfaces": "workspace:^",
+    "rss": "^1.2.2",
     "sanitize-html": "^2.11.0"
   },
   "devDependencies": {

@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext } from "react";
-import type PublicationType from "../interfaces/publication";
+import type PublicationType from "@starter-kit/interfaces/publication";
 
 const appContext = createContext<{ publication: PublicationType }>({
     publication: null

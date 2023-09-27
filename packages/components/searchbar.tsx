@@ -2,7 +2,7 @@
 // import Link from "next/link";
 import { useAppContext } from "./contexts/appContext";
 import { useState, useRef } from "react";
-import PostType from "./interfaces/post";
+import PostType from "@starter-kit/interfaces/post";
 
 const Search = () => {
   const { publication } = useAppContext();

@@ -1,7 +1,7 @@
 type Author = {
   name: string;
   username: string;
-  profilePicture: string;
+  profilePicture?: string;
 };
 
 export default Author;

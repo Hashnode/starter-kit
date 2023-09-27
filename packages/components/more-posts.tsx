@@ -1,4 +1,4 @@
-import PostType from "../components/interfaces/post";
+import PostType from "@starter-kit/interfaces/post";
 // import Button from "./button";
 // import { ChevronDownSVG } from "./icons";
 import PostPreview from "./post-preview";

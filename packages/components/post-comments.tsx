@@ -1,5 +1,5 @@
 import Avatar from "./avatar";
-import type Author from "./interfaces/author";
+import type Author from "@starter-kit/interfaces/author";
 import Button from "./button";
 import { ExternalArrowSVG, HashnodeSVG, PlusCircleSVG } from "./icons";
 
