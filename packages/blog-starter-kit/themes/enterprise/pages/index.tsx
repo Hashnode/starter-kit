@@ -109,7 +109,7 @@ export default function Index({ publication, allPosts }: Props) {
             </div>
           </div>}
 
-          {morePosts.length > 0 && <MorePosts posts={morePosts} />}
+          {morePosts.length > 0 && <MorePosts context="home" posts={morePosts} />}
         </Container>
         <Footer />
       </Layout>
