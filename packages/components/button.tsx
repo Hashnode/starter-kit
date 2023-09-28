@@ -9,13 +9,22 @@ type Props = {
   as?: string;
 };
 
-const Button = ({ label, type, icon, className, secondaryIcon, href, as, onClick }: Props) => {
+const Button = ({
+  label,
+  type,
+  icon,
+  className,
+  secondaryIcon,
+  href,
+  as,
+  onClick,
+}: Props) => {
   let buttonClassName;
 
   switch (type) {
     case "outline":
       buttonClassName =
-        "text-slate-950 bg-white dark:border-neutral-800 hover:bg-slate-50 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:text-white";
+        "text-slate-950 bg-transparent dark:border-neutral-800 hover:bg-slate-50 dark:bg-transparent dark:hover:bg-neutral-800 dark:text-white";
       break;
 
     case "primary":
@@ -33,7 +42,7 @@ const Button = ({ label, type, icon, className, secondaryIcon, href, as, onClick
         "text-white bg-primary-600 hover:bg-primary-500 border-primary-600 dark:bg-primary-500 dark:text-white";
   }
 
-  if (as === 'a') {
+  if (as === "a") {
     return (
       <a
         href={href}

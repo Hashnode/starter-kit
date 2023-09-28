@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useAppContext } from "./contexts/appContext";
 import { resizeImage } from "@starter-kit/utils/image";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import HamburgerSVG from "./icons/svgs/HamburgerSVG";
 
 const Header = () => {
   const baseUrl = `${
@@ -83,14 +84,15 @@ const Header = () => {
   return (
     <header className="py-10 border-b dark:border-neutral-800 bg-slate-950 dark:bg-neutral-900">
       <Container className="grid grid-cols-4 gap-5 px-5">
-        <div className="flex flex-row items-center flex-1 col-span-1 gap-2">
-          {/* <div className="lg:hidden">
+        <div className="flex flex-row items-center flex-1 col-span-2 gap-2 lg:col-span-1">
+          <div className="lg:hidden">
             <Button
               type="outline"
               label=""
               icon={<HamburgerSVG className="w-5 h-5 stroke-current" />}
+              className="!px-3 !py-2 text-white border-transparent rounded-xl hover:bg-neutral-800"
             />
-          </div> */}
+          </div>
           <h1>
             <Link
               href={baseUrl}
@@ -98,7 +100,7 @@ const Header = () => {
             >
               {PUBLICATION_LOGO ? (
                 <img
-                  className="block w-20 md:w-40 shrink-0"
+                  className="block w-32 md:w-40 shrink-0"
                   src={resizeImage(PUBLICATION_LOGO, { w: 320, h: 80 })}
                 />
               ) : (
@@ -109,7 +111,7 @@ const Header = () => {
             </Link>
           </h1>
         </div>
-        <div className="flex flex-row items-center justify-end col-span-3 gap-5 text-slate-300">
+        <div className="flex flex-row items-center justify-end col-span-2 gap-5 lg:col-span-3 text-slate-300">
           <nav className="hidden lg:block">
             {/* <ul className="flex flex-row items-center gap-2">{navbarItems}</ul> */}
             {navList}
