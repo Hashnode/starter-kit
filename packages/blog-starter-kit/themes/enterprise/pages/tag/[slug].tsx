@@ -7,7 +7,11 @@ import type PostType from "@starter-kit/interfaces/post";
 import Header from "@starter-kit/components/header";
 import Footer from "@starter-kit/components/footer";
 import { AppProvider } from "@starter-kit/components/contexts/appContext";
-import { TagPostsByPublicationDocument, TagPostsByPublicationQuery, TagPostsByPublicationQueryVariables } from "../../generated/graphql";
+import {
+  TagPostsByPublicationDocument,
+  TagPostsByPublicationQuery,
+  TagPostsByPublicationQueryVariables,
+} from "../../generated/graphql";
 import MorePosts from "@starter-kit/components/more-posts";
 
 type Props = {
@@ -25,10 +29,14 @@ export default function Post({ publication, posts, tag }: Props) {
           <title>{title}</title>
         </Head>
         <Header />
-        <Container className="pt-10">
-          <div>
-            <h1>Tag: #{tag}</h1>
-            <br />
+        <Container className="flex flex-col items-stretch gap-10 px-5 pb-10">
+          <div className="flex flex-col gap-1 pt-5">
+            <p className="font-bold uppercase text-slate-500 dark:text-neutral-400">
+              Tag
+            </p>
+            <h1 className="text-4xl font-bold text-slate-900 dark:text-neutral-50">
+              #{tag}
+            </h1>
           </div>
           <MorePosts context="tag" posts={posts} />
         </Container>
@@ -66,7 +74,7 @@ export async function getStaticProps({ params }: Params) {
     props: {
       posts,
       publication,
-      tag: params.slug
+      tag: params.slug,
     },
     revalidate: 1,
   };
