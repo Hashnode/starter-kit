@@ -11,7 +11,7 @@ const PostBody = ({ contentMarkdown }: Props) => {
 
   return (
     <div
-      className="w-full px-5 mx-auto  md:max-w-screen-md hashnode-content-style"
+      className="w-full px-5 mx-auto md:max-w-screen-md hashnode-content-style"
       dangerouslySetInnerHTML={{ __html: content }}
     />
   );

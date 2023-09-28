@@ -20,7 +20,7 @@ type PostType = {
   };
   tags?: {
     name: string;
-    slug: string
+    slug: string;
   }[];
   brief?: string;
   url?: string;
