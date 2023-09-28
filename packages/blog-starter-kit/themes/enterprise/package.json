@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@graphql-typed-document-node/core": "^3.2.0",
+    "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@starter-kit/components": "workspace:^",
     "@starter-kit/interfaces": "workspace:^",
     "@starter-kit/utils": "workspace:^",
