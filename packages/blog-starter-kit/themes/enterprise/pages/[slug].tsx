@@ -115,12 +115,12 @@ export default function Post({ publication, post, preview }: Props) {
             />
             {/* <PostTOC /> */}
             <PostBody contentMarkdown={post.content.markdown} />
-            <div className="w-full px-5 mx-auto md:max-w-screen-md text-slate-600">
+            <div className="w-full px-5 mx-auto md:max-w-screen-md text-slate-600 dark:text-neutral-300">
               <ul className="flex flex-row flex-wrap items-center gap-2">
                 <li>
                   <a
                     href="#"
-                    className="block px-2 py-1 font-medium border rounded-full md:px-4 hover:bg-slate-50"
+                    className="block px-2 py-1 font-medium border rounded-full dark:border-neutral-800 dark:hover:bg-neutral-800 md:px-4 hover:bg-slate-50"
                   >
                     #javascript
                   </a>
@@ -128,7 +128,7 @@ export default function Post({ publication, post, preview }: Props) {
                 <li>
                   <a
                     href="#"
-                    className="block px-2 py-1 font-medium border rounded-full md:px-4 hover:bg-slate-50"
+                    className="block px-2 py-1 font-medium border rounded-full dark:border-neutral-800 dark:hover:bg-neutral-800 md:px-4 hover:bg-slate-50"
                   >
                     #ai
                   </a>
@@ -136,7 +136,7 @@ export default function Post({ publication, post, preview }: Props) {
                 <li>
                   <a
                     href="#"
-                    className="block px-2 py-1 font-medium border rounded-full md:px-4 hover:bg-slate-50"
+                    className="block px-2 py-1 font-medium border rounded-full dark:border-neutral-800 dark:hover:bg-neutral-800 md:px-4 hover:bg-slate-50"
                   >
                     #nodejs
                   </a>
