@@ -67,7 +67,7 @@ export default function Post({ publication, post, preview }: Props) {
                 <li>
                   <a
                     href="#"
-                    className="block px-2 py-2 font-semibold border rounded-full md:px-4 hover:bg-slate-50"
+                    className="block px-2 py-1 font-medium border rounded-full md:px-4 hover:bg-slate-50"
                   >
                     #javascript
                   </a>
@@ -75,7 +75,7 @@ export default function Post({ publication, post, preview }: Props) {
                 <li>
                   <a
                     href="#"
-                    className="block px-2 py-2 font-semibold border rounded-full md:px-4 hover:bg-slate-50"
+                    className="block px-2 py-1 font-medium border rounded-full md:px-4 hover:bg-slate-50"
                   >
                     #ai
                   </a>
@@ -83,7 +83,7 @@ export default function Post({ publication, post, preview }: Props) {
                 <li>
                   <a
                     href="#"
-                    className="block px-2 py-2 font-semibold border rounded-full md:px-4 hover:bg-slate-50"
+                    className="block px-2 py-1 font-medium border rounded-full md:px-4 hover:bg-slate-50"
                   >
                     #nodejs
                   </a>
