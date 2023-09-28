@@ -1,0 +1,42 @@
+query PageByPublication($slug: String!, $host: String!) {
+  publication(host: $host) {
+    id
+    title
+    url
+    metaTags
+    favicon
+    preferences {
+      logo
+      darkMode {
+        logo
+      }
+      navbarItems {
+        label,
+        url
+      }
+    }
+    links {
+      twitter
+      github
+      linkedin
+      hashnode
+    }
+    integrations {
+      gaTrackingID
+      fbPixelID
+      hotjarSiteID
+      matomoURL
+      matomoSiteID
+      fathomSiteID
+      fathomCustomDomain
+      fathomCustomDomainEnabled
+      plausibleAnalyticsEnabled
+    }
+    staticPage(slug: $slug) {
+      title
+      content {
+        markdown
+      }
+    }
+  }
+}
