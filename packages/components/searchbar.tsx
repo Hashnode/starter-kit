@@ -82,7 +82,7 @@ const Search = () => {
           <CoverImage
             title={post.title}
             src={
-              resizeImage(post.coverImage.url, {
+              resizeImage(post.coverImage?.url, {
                 w: 400,
                 h: 210,
                 c: "thumb",

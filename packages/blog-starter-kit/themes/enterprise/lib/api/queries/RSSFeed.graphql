@@ -2,6 +2,9 @@ query RSSFeed($host: String!, $first: Int!, $after: String) {
   publication(host: $host) {
     id
     title
+    url
+    metaTags
+    favicon
     preferences {
       logo
     }

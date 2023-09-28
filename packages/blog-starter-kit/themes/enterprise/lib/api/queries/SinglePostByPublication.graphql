@@ -1,6 +1,10 @@
 query SinglePostByPublication($slug: String!, $host: String!) {
   publication(host: $host) {
     id
+    title
+    url
+    metaTags
+    favicon
     preferences {
       logo
       darkMode {
@@ -16,6 +20,17 @@ query SinglePostByPublication($slug: String!, $host: String!) {
       github
       linkedin
       hashnode
+    }
+    integrations {
+      gaTrackingID
+      fbPixelID
+      hotjarSiteID
+      matomoURL
+      matomoSiteID
+      fathomSiteID
+      fathomCustomDomain
+      fathomCustomDomainEnabled
+      plausibleAnalyticsEnabled
     }
     post(slug: $slug) {
       slug

@@ -101,7 +101,7 @@ export default function Post({ publication, post, preview }: Props) {
   ));
 
   return (
-    <AppProvider publication={publication}>
+    <AppProvider publication={publication} post={post}>
       <Layout preview={preview}>
         <Header />
         <Container className="pt-10">
