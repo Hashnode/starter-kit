@@ -29,7 +29,7 @@ type PublicationType = {
       name: string;
       slug: string;
       coverImage: string;
-      about?: {
+      description?: {
         markdown?: string;
         html?: string;
       }

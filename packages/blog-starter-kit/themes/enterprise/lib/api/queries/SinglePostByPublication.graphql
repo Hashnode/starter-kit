@@ -40,6 +40,11 @@ query SinglePostByPublication($slug: String!, $host: String!) {
       ogMetaData {
         image
       }
+      tags {
+        id
+        name
+        slug
+      }
     }
   }
 }

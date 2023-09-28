@@ -20,6 +20,7 @@ query RSSFeed($host: String!, $first: Int!, $after: String) {
             html
           }
           tags {
+            id
             name
             slug
           }

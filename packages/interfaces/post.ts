@@ -19,6 +19,7 @@ type PostType = {
     html?: string;
   };
   tags?: {
+    id: string;
     name: string;
     slug: string;
   }[];

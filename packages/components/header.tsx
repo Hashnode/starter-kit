@@ -1,11 +1,10 @@
 import Container from "./container";
 import Button from "./button";
 import Link from "next/link";
-// import HamburgerSVG from "./icons/svgs/HamburgerSVG";
 import { useAppContext } from "./contexts/appContext";
 import { resizeImage } from "@starter-kit/utils/image";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import HamburgerSVG from "./icons/svgs/HamburgerSVG";
+// import HamburgerSVG from "./icons/svgs/HamburgerSVG";
 
 const Header = () => {
   const baseUrl = `${
@@ -15,20 +14,6 @@ const Header = () => {
   const { publication } = useAppContext();
   const PUBLICATION_LOGO =
     publication.preferences.darkMode.logo || publication.preferences.logo;
-  // const navbarItems = publication.preferences.navbarItems.map((item) => {
-  //   return (
-  //     <li key={item.url}>
-  //       <a
-  //         href={item.url}
-  //         target="_blank"
-  //         rel="noopener noreferrer"
-  //         className="block p-2 transition-colors rounded-full hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white transition-200"
-  //       >
-  //         {item.label}
-  //       </a>
-  //     </li>
-  //   );
-  // });
 
   const navbarItems = publication.preferences.navbarItems;
   const visibleItems = navbarItems.slice(0, 3);
@@ -84,14 +69,14 @@ const Header = () => {
     <header className="py-10 border-b dark:border-neutral-800 bg-slate-950 dark:bg-neutral-900">
       <Container className="grid grid-cols-4 gap-5 px-5">
         <div className="flex flex-row items-center flex-1 col-span-2 gap-2 lg:col-span-1">
-          <div className="lg:hidden">
+          {/* <div className="lg:hidden">
             <Button
               type="outline"
               label=""
               icon={<HamburgerSVG className="w-5 h-5 stroke-current" />}
               className="!px-3 !py-2 text-white border-transparent rounded-xl hover:bg-neutral-800"
             />
-          </div>
+          </div> */}
           <h1>
             <Link
               href={baseUrl}
