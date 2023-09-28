@@ -53,12 +53,36 @@ export default function Index({ publication, allPosts }: Props) {
     );
   });
   const morePosts = allPosts.slice(4);
+  const schema = {
+    "@context": "https://schema.org/",
+    "@type": "Blog",
+    "@id": "https://dataliberate.com/blog/",
+    mainEntityOfPage: "https://dataliberate.com/blog",
+    name: "Data Liberate Blog",
+    description:
+      "Thoughts about Linked Data, Schema.org, Structured Data, Cultural Heritage Meta Data, and associated technologies",
+    publisher: {
+      "@type": "Organization",
+      "@id": "https://dataliberate.com",
+      name: "Data Liberate",
+      logo: {
+        "@type": "ImageObject",
+        "@id":
+          "https://dataliberate.com/wp-content/uploads/2011/12/Data_Liberate_Logo-200.png",
+        url: "https://dataliberate.com/wp-content/uploads/2011/12/Data_Liberate_Logo-200.png",
+      },
+    },
+  };
 
   return (
     <AppProvider publication={publication}>
       <Layout>
         <Head>
           <title>{publication.title || `Hashnode Blog Starter Kit`}</title>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+          />
         </Head>
         <Header />
         <Container className="flex flex-col items-stretch gap-10 px-5 pb-10">

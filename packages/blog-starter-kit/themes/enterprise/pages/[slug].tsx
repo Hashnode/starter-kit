@@ -39,7 +39,56 @@ export default function Post({ publication, post, preview }: Props) {
   const highlightJsMonokaiTheme =
     ".hljs{display:block;overflow-x:auto;padding:.5em;background:#23241f}.hljs,.hljs-subst,.hljs-tag{color:#f8f8f2}.hljs-emphasis,.hljs-strong{color:#a8a8a2}.hljs-bullet,.hljs-link,.hljs-literal,.hljs-number,.hljs-quote,.hljs-regexp{color:#ae81ff}.hljs-code,.hljs-section,.hljs-selector-class,.hljs-title{color:#a6e22e}.hljs-strong{font-weight:700}.hljs-emphasis{font-style:italic}.hljs-attr,.hljs-keyword,.hljs-name,.hljs-selector-tag{color:#f92672}.hljs-attribute,.hljs-symbol{color:#66d9ef}.hljs-class .hljs-title,.hljs-params{color:#f8f8f2}.hljs-addition,.hljs-built_in,.hljs-builtin-name,.hljs-selector-attr,.hljs-selector-id,.hljs-selector-pseudo,.hljs-string,.hljs-template-variable,.hljs-type,.hljs-variable{color:#e6db74}.hljs-comment,.hljs-deletion,.hljs-meta{color:#75715e}";
 
-  console.log(post);
+  const schema = {
+    "@context": "https://schema.org/",
+    "@type": "Blog",
+    "@id": "https://dataliberate.com/blog/",
+    mainEntityOfPage: "https://dataliberate.com/blog",
+    name: "Data Liberate Blog",
+    description:
+      "Thoughts about Linked Data, Schema.org, Structured Data, Cultural Heritage Meta Data, and associated technologies",
+    publisher: {
+      "@type": "Organization",
+      "@id": "https://dataliberate.com",
+      name: "Data Liberate",
+      logo: {
+        "@type": "ImageObject",
+        "@id":
+          "https://dataliberate.com/wp-content/uploads/2011/12/Data_Liberate_Logo-200.png",
+        url: "https://dataliberate.com/wp-content/uploads/2011/12/Data_Liberate_Logo-200.png",
+      },
+    },
+    blogPost: [
+      {
+        "@type": "BlogPosting",
+        "@id":
+          "https://dataliberate.com/2019/05/14/library-metadata-evolution-final-mile/#BlogPosting",
+        mainEntityOfPage:
+          "https://dataliberate.com/2019/05/14/library-metadata-evolution-final-mile/",
+        headline: "Library Metadata Evolution: The Final Mile",
+        name: "Library Metadata Evolution: The Final Mile",
+        description:
+          "When Schema.org arrived on the scene I thought we might have arrived at the point where library metadata  could finally blossom; adding value outside of library systems to help library curated resources become first class citizens, and hence results, in the global web we all inhabit.  But as yet it has not happened.",
+        datePublished: "2019-05-14",
+        dateModified: "2019-05-14",
+        author: {
+          "@type": "Person",
+          "@id": "https://dataliberate.com/author/richard-wallis/#Person",
+          name: "Richard Wallis",
+          url: "https://dataliberate.com/author/richard-wallis/#Person",
+        },
+        image: {
+          "@type": "ImageObject",
+          "@id":
+            "https://dataliberate.com/wp-content/uploads/2019/05/Metadata_Evolution_the_Final_Mile.jpg",
+          url: "https://dataliberate.com/wp-content/uploads/2019/05/Metadata_Evolution_the_Final_Mile.jpg",
+        },
+        url: "https://dataliberate.com/2019/05/14/library-metadata-evolution-final-mile/",
+        keywords: ["Bibframe2Schema.org", "Libraries", "Library of Congress"],
+      },
+    ],
+  };
+
   return (
     <AppProvider publication={publication}>
       <Layout preview={preview}>
@@ -53,6 +102,10 @@ export default function Post({ publication, post, preview }: Props) {
               <style
                 dangerouslySetInnerHTML={{ __html: highlightJsMonokaiTheme }}
               ></style>
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+              />
             </Head>
             <PostHeader
               title={post.title}
