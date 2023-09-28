@@ -7,7 +7,7 @@ query SinglePostByPublication($slug: String!, $host: String!) {
         logo
       }
       navbarItems {
-        label,
+        label
         url
       }
     }
@@ -39,6 +39,10 @@ query SinglePostByPublication($slug: String!, $host: String!) {
       }
       ogMetaData {
         image
+      }
+      tags {
+        name
+        slug
       }
     }
   }
