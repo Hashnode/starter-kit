@@ -59,7 +59,7 @@ const Header = () => {
             </DropdownMenu.Trigger>
 
             <DropdownMenu.Portal>
-              <DropdownMenu.Content className="text-white bg-white border border-gray-300 rounded shadow-md dark:border-neutral-800 dark:bg-neutral-900 ">
+              <DropdownMenu.Content className="bg-white border border-gray-300 rounded shadow-md text-neutral-950 dark:text-white dark:border-neutral-800 dark:bg-neutral-900 ">
                 {hiddenItems.map((item) => (
                   <DropdownMenu.Item key={item.url}>
                     <a
