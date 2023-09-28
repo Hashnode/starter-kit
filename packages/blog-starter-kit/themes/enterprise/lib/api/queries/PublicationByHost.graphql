@@ -1,0 +1,21 @@
+query PublicationByHost($host: String!) {
+  publication(host: $host) {
+    id
+    preferences {
+      logo
+      darkMode {
+        logo
+      }
+      navbarItems {
+        label,
+        url
+      }
+    }
+    links {
+      twitter
+      github
+      linkedin
+      hashnode
+    }
+  }
+}
