@@ -19,6 +19,10 @@ import {
 import Header from "@starter-kit/components/header";
 import Footer from "@starter-kit/components/footer";
 import { AppProvider } from "@starter-kit/components/contexts/appContext";
+import PersonalHeader from "@starter-kit/components/personal-theme-header";
+import CoverImage from "@starter-kit/components/cover-image";
+import { resizeImage } from "@starter-kit/utils/image";
+import DateFormatter from "@starter-kit/components/date-formatter";
 // import PostComments from "@starter-kit/components/post-comments";
 // import PostTOC from "@starter-kit/components/post-toc";
 
@@ -92,8 +96,8 @@ export default function Post({ publication, post, preview }: Props) {
   return (
     <AppProvider publication={publication}>
       <Layout preview={preview}>
-        <Header />
-        <Container className="pt-10">
+        <Container className="flex flex-col items-stretch max-w-2xl gap-10 px-5 py-10 mx-auto">
+          <PersonalHeader />
           <article className="flex flex-col items-start gap-10 pb-10">
             <Head>
               <title>{title}</title>
@@ -107,15 +111,32 @@ export default function Post({ publication, post, preview }: Props) {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
               />
             </Head>
-            <PostHeader
+            {/* <PostHeader
               title={post.title}
               coverImage={post.coverImage?.url}
               date={post.publishedAt}
               author={post.author}
-            />
-            {/* <PostTOC /> */}
+            /> */}
+            <h1 className="text-4xl leading-snug tracking-tight text-black dark:text-white">
+              {post.title}
+            </h1>
+            <div className="text-neutral-600 dark:text-neutral-400">
+              <DateFormatter dateString={post.publishedAt} />
+            </div>
+            {post.coverImage && (
+              <div className="w-full">
+                <CoverImage
+                  title={title}
+                  src={resizeImage(post.coverImage.url, {
+                    w: 1600,
+                    h: 840,
+                    c: "thumb",
+                  })}
+                />
+              </div>
+            )}
             <PostBody contentMarkdown={post.content.markdown} />
-            <div className="w-full px-5 mx-auto md:max-w-screen-md text-slate-600 dark:text-neutral-300">
+            <div className="w-full mx-auto md:max-w-screen-md text-slate-600 dark:text-neutral-300">
               <ul className="flex flex-row flex-wrap items-center gap-2">
                 <li>
                   <a
@@ -146,8 +167,10 @@ export default function Post({ publication, post, preview }: Props) {
             {/* <PostComments author={post.author} /> */}
             <Subscribe />
           </article>
+          <footer className="pt-10 text-sm border-t text-neutral-500 dark:text-neutral-400 dark:border-neutral-800">
+            &copy; 2023 {publication.title}
+          </footer>
         </Container>
-        <Footer />
       </Layout>
     </AppProvider>
   );

@@ -4,6 +4,7 @@ import Head from "next/head";
 import { Container } from "@starter-kit/components/container";
 import Layout from "@starter-kit/components/layout";
 import MinimalPosts from "@starter-kit/components/minimal-posts";
+import PersonalHeader from "@starter-kit/components/personal-theme-header";
 import type PublicationType from "@starter-kit/interfaces/publication";
 import {
   PostsByPublicationDocument,
@@ -62,48 +63,7 @@ export default function Index({ publication, allPosts }: Props) {
           />
         </Head>
         <Container className="flex flex-col items-stretch max-w-2xl gap-10 px-5 py-10 mx-auto">
-          <header className="grid items-center grid-cols-2 gap-5 ">
-            <div className="col-span-full md:col-span-1">
-              <h1>
-                <Link
-                  className="flex flex-row items-center gap-2 text-lg font-bold tracking-tight text-black dark:text-white"
-                  href="/"
-                >
-                  <img
-                    className="block w-6 h-6 rounded-full fill-current"
-                    src="https://pbs.twimg.com/profile_images/1655035919823679498/xkgrwi5W_400x400.jpg"
-                  />
-                  {publication.title}
-                </Link>
-              </h1>
-            </div>
-            <div className="flex flex-row items-center justify-between gap-4 md:justify-end col-span-full md:col-span-1">
-              <nav>
-                <ul className="flex flex-row items-center gap-4 text-xs font-semibold tracking-tight uppercase list-none text-neutral-600 dark:text-neutral-300">
-                  <li>
-                    <a href="#" className="hover:underline">
-                      About
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:underline">
-                      Collab
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:underline">
-                      More
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-              <Button
-                type="outline"
-                className="!p-2"
-                icon={<NewsletterPlusSVG className="w-5 h-5 fill-current" />}
-              />
-            </div>
-          </header>
+          <PersonalHeader />
           {listPosts.length > 0 && (
             <MinimalPosts context="home" posts={listPosts} />
           )}
