@@ -1572,11 +1572,13 @@ export type ScheduledPostPayload = {
 export enum Scope {
   AcknowledgeEmailImport = 'acknowledge_email_import',
   ActiveProUser = 'active_pro_user',
+  AdminOwnerOnly = 'admin_owner_only',
   AssignProPublications = 'assign_pro_publications',
   ChangeProSubscription = 'change_pro_subscription',
   CreatePro = 'create_pro',
   ImportSubscribersToPublication = 'import_subscribers_to_publication',
   PublishPost = 'publish_post',
+  RecommendPublications = 'recommend_publications',
   Signup = 'signup',
   WritePost = 'write_post',
   WriteSeries = 'write_series'

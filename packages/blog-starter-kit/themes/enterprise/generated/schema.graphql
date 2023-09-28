@@ -1586,11 +1586,13 @@ Enum of all the scopes that can be used with the @requireAuth directive.
 enum Scope {
   acknowledge_email_import
   active_pro_user
+  admin_owner_only
   assign_pro_publications
   change_pro_subscription
   create_pro
   import_subscribers_to_publication
   publish_post
+  recommend_publications
   signup
   write_post
   write_series

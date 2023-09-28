@@ -17,7 +17,7 @@ import Navbar from "@starter-kit/components/navbar";
 import Footer from "@starter-kit/components/footer";
 import PostType from "@starter-kit/interfaces/post";
 import { ArticleSVG } from "@starter-kit/components/icons";
-import { AppProvider } from '@starter-kit/components/contexts/appContext';
+import { AppProvider } from "@starter-kit/components/contexts/appContext";
 
 // Dynamic Imports
 const SubscribeForm = dynamic(
@@ -65,16 +65,18 @@ export default function Index({ publication, allPosts }: Props) {
           <Navbar />
 
           {/* No article component */}
-          {allPosts.length === 0 && <div className="grid grid-cols-1 py-20 lg:grid-cols-3">
-            <div className="flex flex-col items-center col-span-1 gap-5 text-center lg:col-start-2 text-slate-700 dark:text-neutral-400">
-              <div className="w-20">
-                <ArticleSVG clasName="stroke-current" />
+          {allPosts.length === 0 && (
+            <div className="grid grid-cols-1 py-20 lg:grid-cols-3">
+              <div className="flex flex-col items-center col-span-1 gap-5 text-center lg:col-start-2 text-slate-700 dark:text-neutral-400">
+                <div className="w-20">
+                  <ArticleSVG clasName="stroke-current" />
+                </div>
+                <p className="text-xl font-semibold ">
+                  Hang tight! We're drafting the first article.
+                </p>
               </div>
-              <p className="text-xl font-semibold ">
-                Hang tight! We're drafting the first article.
-              </p>
             </div>
-          </div>}
+          )}
 
           <div className="grid items-start gap-6 xl:grid-cols-2">
             <div className="col-span-1">
@@ -100,16 +102,20 @@ export default function Index({ publication, allPosts }: Props) {
             </div>
           </div>
 
-          {allPosts.length > 0 && <div className="grid grid-cols-4 px-5 py-5 rounded-lg md:py-10 bg-primary-50 dark:bg-neutral-900">
-            <div className="md:col-start-2 col-span-full md:col-span-2">
-              <h3 className="mb-5 text-lg font-semibold text-center text-primary-600 dark:text-primary-500">
-                Subscribe to our newsletter for updates and changelog.
-              </h3>
-              <SubscribeForm />
+          {allPosts.length > 0 && (
+            <div className="grid grid-cols-4 px-5 py-5 rounded-lg md:py-10 bg-primary-50 dark:bg-neutral-900">
+              <div className="md:col-start-2 col-span-full md:col-span-2">
+                <h3 className="mb-5 text-lg font-semibold text-center text-primary-600 dark:text-primary-500">
+                  Subscribe to our newsletter for updates and changelog.
+                </h3>
+                <SubscribeForm />
+              </div>
             </div>
-          </div>}
+          )}
 
-          {morePosts.length > 0 && <MorePosts context="home" posts={morePosts} />}
+          {morePosts.length > 0 && (
+            <MorePosts context="home" posts={morePosts} />
+          )}
         </Container>
         <Footer />
       </Layout>
