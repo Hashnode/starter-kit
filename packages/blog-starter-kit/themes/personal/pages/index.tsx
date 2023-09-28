@@ -2,22 +2,19 @@ import request from "graphql-request";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import { Container } from "@starter-kit/components/container";
-import HeroPost from "@starter-kit/components/hero-post";
-import SecondaryPost from "@starter-kit/components/secondary-post";
-import Header from "@starter-kit/components/header";
 import Layout from "@starter-kit/components/layout";
-import MorePosts from "@starter-kit/components/more-posts";
+import MinimalPosts from "@starter-kit/components/minimal-posts";
 import type PublicationType from "@starter-kit/interfaces/publication";
 import {
   PostsByPublicationDocument,
   PostsByPublicationQuery,
   PostsByPublicationQueryVariables,
 } from "../generated/graphql";
-import Navbar from "@starter-kit/components/navbar";
-import Footer from "@starter-kit/components/footer";
 import PostType from "@starter-kit/interfaces/post";
-import { ArticleSVG } from "@starter-kit/components/icons";
+import { NewsletterPlusSVG } from "@starter-kit/components/icons";
 import { AppProvider } from "@starter-kit/components/contexts/appContext";
+import Link from "next/link";
+import Button from "@starter-kit/components/button";
 
 // Dynamic Imports
 const SubscribeForm = dynamic(
@@ -32,27 +29,7 @@ type Props = {
 };
 
 export default function Index({ publication, allPosts }: Props) {
-  const firstPost = allPosts[0];
-  const secondaryPosts = allPosts.slice(1, 4).map((post) => {
-    return (
-      <SecondaryPost
-        key={post.id}
-        title={post.title}
-        coverImage={
-          post.coverImage?.url ||
-          "https://cdn.hashnode.com/res/hashnode/image/upload/v1683525272978/MB5H_kgOC.png?auto=format"
-        }
-        date={post.publishedAt}
-        author={{
-          name: post.author.name,
-          profilePicture: post.author.profilePicture,
-        }}
-        slug={post.slug}
-        excerpt={post.brief}
-      />
-    );
-  });
-  const morePosts = allPosts.slice(4);
+  const listPosts = allPosts;
   const schema = {
     "@context": "https://schema.org/",
     "@type": "Blog",
@@ -84,11 +61,60 @@ export default function Index({ publication, allPosts }: Props) {
             dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
           />
         </Head>
-        <Header />
-        <Container className="flex flex-col items-stretch gap-10 px-5 pb-10">
+        <Container className="flex flex-col items-stretch max-w-2xl gap-10 px-5 py-10 mx-auto">
+          <header className="grid items-center grid-cols-2 gap-5 ">
+            <div className="col-span-full md:col-span-1">
+              <h1>
+                <Link
+                  className="flex flex-row items-center gap-2 text-lg font-bold tracking-tight text-black dark:text-white"
+                  href="/"
+                >
+                  <img
+                    className="block w-6 h-6 rounded-full fill-current"
+                    src="https://pbs.twimg.com/profile_images/1655035919823679498/xkgrwi5W_400x400.jpg"
+                  />
+                  {publication.title}
+                </Link>
+              </h1>
+            </div>
+            <div className="flex flex-row items-center justify-between gap-4 md:justify-end col-span-full md:col-span-1">
+              <nav>
+                <ul className="flex flex-row items-center gap-4 text-xs font-semibold tracking-tight uppercase list-none text-neutral-600 dark:text-neutral-300">
+                  <li>
+                    <a href="#" className="hover:underline">
+                      About
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="hover:underline">
+                      Collab
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="hover:underline">
+                      More
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+              <Button
+                type="outline"
+                className="!p-2"
+                icon={<NewsletterPlusSVG className="w-5 h-5 fill-current" />}
+              />
+            </div>
+          </header>
+          {listPosts.length > 0 && (
+            <MinimalPosts context="home" posts={listPosts} />
+          )}
+          <footer className="pt-10 text-sm border-t text-neutral-500 dark:text-neutral-400 dark:border-neutral-800">
+            &copy; 2023 {publication.title}
+          </footer>
+        </Container>
+        {/* <Header /> */}
+        {/* <Container className="flex flex-col items-stretch gap-10 px-5 pb-10">
           <Navbar />
 
-          {/* No article component */}
           {allPosts.length === 0 && (
             <div className="grid grid-cols-1 py-20 lg:grid-cols-3">
               <div className="flex flex-col items-center col-span-1 gap-5 text-center lg:col-start-2 text-slate-700 dark:text-neutral-400">
@@ -141,7 +167,7 @@ export default function Index({ publication, allPosts }: Props) {
             <MorePosts context="home" posts={morePosts} />
           )}
         </Container>
-        <Footer />
+        <Footer /> */}
       </Layout>
     </AppProvider>
   );

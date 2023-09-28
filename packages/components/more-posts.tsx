@@ -5,15 +5,17 @@ import PostPreview from "./post-preview";
 
 type Props = {
   posts: PostType[];
-  context: 'home' | 'series' | 'tag';
+  context: "home" | "series" | "tag";
 };
 
 const MorePosts = ({ posts, context }: Props) => {
   return (
     <section className="flex flex-col items-start gap-10 mb-10">
-      {context === 'home' && <h2 className="text-xl font-bold leading-tight tracking-tight dark:text-neutral-50 text-slate-900 lg:text-3xl">
-        More Posts
-      </h2>}
+      {context === "home" && (
+        <h2 className="text-xl font-bold leading-tight tracking-tight dark:text-neutral-50 text-slate-900 lg:text-3xl">
+          More Posts
+        </h2>
+      )}
       <div className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3">
         {posts.map((post) => (
           <PostPreview

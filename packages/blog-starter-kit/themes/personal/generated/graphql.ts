@@ -541,6 +541,7 @@ export type Mutation = {
   publishPost?: Maybe<PublishPostPayload>;
   /** Reschedule a post. */
   reschedulePost?: Maybe<ScheduledPostPayload>;
+  subscribeToNewsletter: SubscribeToNewsletterPayload;
   /**
    * Update the follow state for the user that is provided via id or username.
    * If the authenticated user does not follow the user, the mutation will follow the user.
@@ -548,6 +549,7 @@ export type Mutation = {
    * Only available to the authenticated user.
    */
   toggleFollowUser: ToggleFollowUserPayload;
+  unsubscribeFromNewsletter: UnsubscribeFromNewsletterPayload;
 };
 
 
@@ -566,9 +568,19 @@ export type MutationReschedulePostArgs = {
 };
 
 
+export type MutationSubscribeToNewsletterArgs = {
+  input: SubscribeToNewsletterInput;
+};
+
+
 export type MutationToggleFollowUserArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   username?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type MutationUnsubscribeFromNewsletterArgs = {
+  input: UnsubscribeFromNewsletterInput;
 };
 
 /**
@@ -659,6 +671,14 @@ export type NewsletterFeature = Feature & {
 export enum NewsletterFrequency {
   Asap = 'asap',
   Weekly = 'weekly'
+}
+
+export enum NewsletterSubscribeStatus {
+  Pending = 'PENDING'
+}
+
+export enum NewsletterUnsubscribeStatus {
+  Unsubscribed = 'UNSUBSCRIBED'
 }
 
 /** Node is a common interface for all types example User, Post, Comment, etc. */
@@ -1744,6 +1764,18 @@ export type StripeConfiguration = {
   country?: Maybe<Scalars['String']['output']>;
 };
 
+export type SubscribeToNewsletterInput = {
+  /** The email of the subscriber. */
+  email: Scalars['String']['input'];
+  /** The ID of the publication to subscribe to. */
+  publicationId: Scalars['ObjectId']['input'];
+};
+
+export type SubscribeToNewsletterPayload = {
+  __typename?: 'SubscribeToNewsletterPayload';
+  status?: Maybe<NewsletterSubscribeStatus>;
+};
+
 export type Tag = ITag & Node & {
   __typename?: 'Tag';
   /** Total number of users following this tag. */
@@ -1813,6 +1845,18 @@ export type ToggleFollowUserPayload = {
   __typename?: 'ToggleFollowUserPayload';
   /** The user that was followed/unfollowed. */
   user?: Maybe<User>;
+};
+
+export type UnsubscribeFromNewsletterInput = {
+  /** The email that is currently subscribed. */
+  email: Scalars['String']['input'];
+  /** The ID of the publication to unsubscribe from. */
+  publicationId: Scalars['ObjectId']['input'];
+};
+
+export type UnsubscribeFromNewsletterPayload = {
+  __typename?: 'UnsubscribeFromNewsletterPayload';
+  status?: Maybe<NewsletterUnsubscribeStatus>;
 };
 
 export enum UrlPattern {
