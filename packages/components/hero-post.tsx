@@ -35,7 +35,10 @@ const HeroPost = ({
       <div className="col-span-1">
         <CoverImage
           title={title}
-          src={resizeImage(coverImage, { w: 1600, h:840, c: 'thumb' }) || DEFAULT_COVER}
+          src={
+            resizeImage(coverImage, { w: 1600, h: 840, c: "thumb" }) ||
+            DEFAULT_COVER
+          }
           slug={slug}
         />
       </div>
@@ -54,7 +57,7 @@ const HeroPost = ({
             {excerpt}
           </p>
         </Link>
-        <div className="text-sm text-slate-500 dark:text-neutral-300">
+        <div className="text-sm font-semibold text-slate-500 dark:text-neutral-300">
           <Link as={postURL} href={postURL}>
             <DateFormatter dateString={date} />
           </Link>

@@ -15,13 +15,7 @@ type Props = {
   url: string;
 };
 
-const PostPreview = ({
-  title,
-  coverImage,
-  date,
-  excerpt,
-  slug,
-}: Props) => {
+const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) => {
   const postURL = `${
     process.env.NEXT_PUBLIC_MODE === "development" ? "http://" : "https://"
   }${process.env.NEXT_PUBLIC_BASE_URL}/${slug}`;
@@ -32,7 +26,7 @@ const PostPreview = ({
           slug={slug}
           title={title}
           src={
-            resizeImage(coverImage, { w: 1600, h: 840, c: 'thumb' }) ||
+            resizeImage(coverImage, { w: 1600, h: 840, c: "thumb" }) ||
             "https://cdn.hashnode.com/res/hashnode/image/upload/v1683525272978/MB5H_kgOC.png?auto=format"
           }
         />
@@ -52,7 +46,7 @@ const PostPreview = ({
             {excerpt.length > 140 ? excerpt.substring(0, 140) + "…" : excerpt}
           </p>
         </Link>
-        <div className="text-sm text-slate-500 dark:text-neutral-300">
+        <div className="text-sm font-semibold text-slate-500 dark:text-neutral-300">
           <Link as={postURL} href={postURL}>
             <DateFormatter dateString={date} />
           </Link>
