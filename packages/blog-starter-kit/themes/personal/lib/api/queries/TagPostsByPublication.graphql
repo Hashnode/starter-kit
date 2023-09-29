@@ -2,6 +2,9 @@ query TagPostsByPublication($host: String!, $tagSlug: String!, $first: Int!, $af
   publication(host: $host) {
     id
     title
+    url
+    metaTags
+    favicon
     preferences {
       logo
       darkMode {
@@ -17,6 +20,17 @@ query TagPostsByPublication($host: String!, $tagSlug: String!, $first: Int!, $af
       github
       linkedin
       hashnode
+    }
+    integrations {
+      gaTrackingID
+      fbPixelID
+      hotjarSiteID
+      matomoURL
+      matomoSiteID
+      fathomSiteID
+      fathomCustomDomain
+      fathomCustomDomainEnabled
+      plausibleAnalyticsEnabled
     }
     posts(first: $first, filter: { tagSlugs: [$tagSlug] }, after: $after) {
         edges {

@@ -2,6 +2,9 @@ query PostsByPublication($host: String!, $first: Int!, $after: String) {
   publication(host: $host) {
     id
     title
+    url
+    metaTags
+    favicon
     preferences {
       logo
       darkMode {
@@ -17,6 +20,17 @@ query PostsByPublication($host: String!, $first: Int!, $after: String) {
       github
       linkedin
       hashnode
+    }
+    integrations {
+      gaTrackingID
+      fbPixelID
+      hotjarSiteID
+      matomoURL
+      matomoSiteID
+      fathomSiteID
+      fathomCustomDomain
+      fathomCustomDomainEnabled
+      plausibleAnalyticsEnabled
     }
     posts(first: $first, after: $after) {
       edges {

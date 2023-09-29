@@ -1,4 +1,4 @@
-query SinglePostByPublication($slug: String!, $host: String!) {
+query PageByPublication($slug: String!, $host: String!) {
   publication(host: $host) {
     id
     title
@@ -32,33 +32,10 @@ query SinglePostByPublication($slug: String!, $host: String!) {
       fathomCustomDomainEnabled
       plausibleAnalyticsEnabled
     }
-    post(slug: $slug) {
-      slug
-      url
-      brief
-      title
-      publishedAt
-      coverImage {
-        url
-      }
-      author {
-        name
-        username
-        profilePicture
-      }
-      id
+    staticPage(slug: $slug) {
       title
       content {
         markdown
-        html
-      }
-      ogMetaData {
-        image
-      }
-      tags {
-        id
-        name
-        slug
       }
     }
   }
