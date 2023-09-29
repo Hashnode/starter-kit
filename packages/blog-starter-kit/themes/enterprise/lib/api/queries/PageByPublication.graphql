@@ -34,6 +34,7 @@ query PageByPublication($slug: String!, $host: String!) {
     }
     staticPage(slug: $slug) {
       title
+      slug
       content {
         markdown
       }
