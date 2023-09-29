@@ -78,15 +78,17 @@ const Header = () => {
             />
           </div> */}
           <h1>
-            <Link
-              href={baseUrl}
-              className="flex flex-row items-center gap-2 md:gap-5"
-            >
+            <Link href={baseUrl} className="flex flex-row items-center gap-3">
               {PUBLICATION_LOGO ? (
-                <img
-                  className="block w-32 md:w-40 shrink-0"
-                  src={resizeImage(PUBLICATION_LOGO, { w: 320, h: 80 })}
-                />
+                <>
+                  <img
+                    className="block w-32 md:w-40 shrink-0"
+                    src={resizeImage(PUBLICATION_LOGO, { w: 320, h: 80 })}
+                  />
+                  <span className="text-xl font-semibold text-white md:text-3xl">
+                    Blog
+                  </span>
+                </>
               ) : (
                 <span className="text-xl font-semibold text-white md:text-4xl">
                   {publication.title}

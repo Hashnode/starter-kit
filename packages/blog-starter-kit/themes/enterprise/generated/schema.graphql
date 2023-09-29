@@ -1229,6 +1229,8 @@ type PublicationIntegrations {
   A flag indicating if the custom domain is enabled for integration with Plausible Analytics.
   """
   plausibleAnalyticsEnabled: Boolean
+  """The ID for the Hashnode-provided Umami analytics instance."""
+  umamiWebsiteUUID: String
   """
   Web Monetization Payment Pointer for integration with Web Monetization.
   """
