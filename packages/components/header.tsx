@@ -20,7 +20,7 @@ const Header = () => {
   const hiddenItems = navbarItems.slice(3);
 
   const navList = (
-    <ul className="flex flex-row items-center gap-2 text-white w-96">
+    <ul className="flex flex-row items-center gap-2 text-white">
       {visibleItems.map((item) => (
         <li key={item.url}>
           <a
@@ -44,14 +44,18 @@ const Header = () => {
             </DropdownMenu.Trigger>
 
             <DropdownMenu.Portal>
-              <DropdownMenu.Content className="bg-white border border-gray-300 rounded shadow-md text-neutral-950 dark:text-white dark:border-neutral-800 dark:bg-neutral-900 ">
+              <DropdownMenu.Content
+                className="w-48 bg-white border border-gray-300 rounded shadow-md text-neutral-950 dark:text-white dark:border-neutral-800 dark:bg-neutral-900"
+                align="end"
+                sideOffset={5}
+              >
                 {hiddenItems.map((item) => (
                   <DropdownMenu.Item key={item.url}>
                     <a
                       href={item.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block p-2 transition-colors hover:bg-slate-100 hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white transition-200"
+                      className="block p-2 truncate transition-colors hover:bg-slate-100 hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white transition-200"
                     >
                       {item.label}
                     </a>
