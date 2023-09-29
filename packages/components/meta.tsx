@@ -1,9 +1,12 @@
-import Head from 'next/head'
-// import { CMS_NAME, HOME_OG_IMAGE_URL } from '../lib/constants'
+import Head from "next/head";
+import { useAppContext } from "./contexts/appContext";
+import parse from 'html-react-parser';
 
 const Meta = () => {
-  return (
-    <Head>
+  const { publication } = useAppContext();
+  const { metaTags, favicon } = publication;
+  const defaultFavicons = (
+    <>
       <link
         rel="apple-touch-icon"
         sizes="180x180"
@@ -21,24 +24,30 @@ const Meta = () => {
         sizes="16x16"
         href="/favicon/favicon-16x16.png"
       />
-      <link rel="manifest" href="/favicon/site.webmanifest" />
       <link
         rel="mask-icon"
         href="/favicon/safari-pinned-tab.svg"
         color="#000000"
       />
-      <link rel="shortcut icon" href="/favicon/favicon.ico" />
       <meta name="msapplication-TileColor" content="#000000" />
-      <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
       <meta name="theme-color" content="#000" />
+    </>
+  );
+
+  return (
+    <Head>
+      {favicon ? <link rel="icon" type="image/png" href={favicon} /> : defaultFavicons}
+      <link rel="manifest" href="/favicon/site.webmanifest" />
+      <link rel="shortcut icon" href="/favicon/favicon.ico" />
+      <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
       <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       <meta
         name="description"
-        content={`A statically generated blog example using Next.js and Hashnode.`}
+        content={`Blog Starter Kit powered by Hashnode APIs`}
       />
-      {/* <meta property="og:image" content={HOME_OG_IMAGE_URL} /> */}
+      {metaTags && parse(metaTags)}
     </Head>
-  )
-}
+  );
+};
 
-export default Meta
+export default Meta;

@@ -1,6 +1,9 @@
 type PublicationType = {
     id: string;
     title?: string;
+    url: string;
+    metaTags?: string;
+    favicon?: string;
     preferences?: {
       logo?: string;
       darkMode?: {
@@ -29,10 +32,22 @@ type PublicationType = {
       name: string;
       slug: string;
       coverImage: string;
-      about?: {
+      description?: {
         markdown?: string;
         html?: string;
       }
+    }
+    integrations?: {
+      gaTrackingID?: string;
+      umamiWebsiteUUID?: string;
+      fbPixelID?: string;
+      hotjarSiteID?: string;
+      matomoURL?: string;
+      matomoSiteID?: string;
+      fathomSiteID?: string;
+      fathomCustomDomain?: string;
+      fathomCustomDomainEnabled?: boolean;
+      plausibleAnalyticsEnabled?: boolean;
     }
   };
   

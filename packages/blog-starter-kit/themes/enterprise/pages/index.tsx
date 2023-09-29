@@ -88,7 +88,7 @@ export default function Index({ publication, allPosts }: Props) {
         <Container className="flex flex-col items-stretch gap-10 px-5 pb-10">
           <Navbar />
 
-          {/* No article component */}
+          {/* No articles found component */}
           {allPosts.length === 0 && (
             <div className="grid grid-cols-1 py-20 lg:grid-cols-3">
               <div className="flex flex-col items-center col-span-1 gap-5 text-center lg:col-start-2 text-slate-700 dark:text-neutral-400">

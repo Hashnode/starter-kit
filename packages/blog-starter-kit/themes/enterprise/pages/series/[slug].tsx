@@ -50,15 +50,7 @@ export default function Post({ publication, posts }: Props) {
               <h1 className="text-4xl font-bold text-slate-900 dark:text-neutral-50">
                 {publication.series.name}
               </h1>
-              <div className="hashnode-content-style">
-                <p>
-                  Cupidatat nostrud laborum qui tempor. Adipisicing aliquip
-                  ipsum tempor Lorem. Velit enim cillum aliquip sit dolore
-                  exercitation duis consequat. Voluptate veniam fugiat esse nisi
-                  do quis amet. Elit consequat commodo officia tempor est.
-                  Proident ad cupidatat laborum elit.
-                </p>
-              </div>
+              <div className="hashnode-content-style" dangerouslySetInnerHTML={{ __html: publication.series.description.html }}></div>
             </div>
             <div className="relative col-span-full md:col-span-2 lg:col-span-1">
               <CoverImage

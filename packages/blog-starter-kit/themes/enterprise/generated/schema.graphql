@@ -562,6 +562,7 @@ type Mutation {
   ): PublishPostPayload
   """Reschedule a post."""
   reschedulePost(input: ReschedulePostInput!): ScheduledPostPayload
+  subscribeToNewsletter(input: SubscribeToNewsletterInput!): SubscribeToNewsletterPayload!
   """
   Update the follow state for the user that is provided via id or username.
   If the authenticated user does not follow the user, the mutation will follow the user.
@@ -569,6 +570,7 @@ type Mutation {
   Only available to the authenticated user.
   """
   toggleFollowUser(id: ID, username: String): ToggleFollowUserPayload!
+  unsubscribeFromNewsletter(input: UnsubscribeFromNewsletterInput!): UnsubscribeFromNewsletterPayload!
 }
 
 """
@@ -664,6 +666,14 @@ type NewsletterFeature implements Feature {
 enum NewsletterFrequency {
   asap
   weekly
+}
+
+enum NewsletterSubscribeStatus {
+  PENDING
+}
+
+enum NewsletterUnsubscribeStatus {
+  UNSUBSCRIBED
 }
 
 """
@@ -1760,6 +1770,17 @@ type StripeConfiguration {
   country: String
 }
 
+input SubscribeToNewsletterInput {
+  """The email of the subscriber."""
+  email: String!
+  """The ID of the publication to subscribe to."""
+  publicationId: ObjectId!
+}
+
+type SubscribeToNewsletterPayload {
+  status: NewsletterSubscribeStatus
+}
+
 type Tag implements ITag & Node {
   """Total number of users following this tag."""
   followersCount: Int!
@@ -1835,6 +1856,17 @@ type TextSelectionSharerFeature implements Feature {
 type ToggleFollowUserPayload {
   """The user that was followed/unfollowed."""
   user: User
+}
+
+input UnsubscribeFromNewsletterInput {
+  """The email that is currently subscribed."""
+  email: String!
+  """The ID of the publication to unsubscribe from."""
+  publicationId: ObjectId!
+}
+
+type UnsubscribeFromNewsletterPayload {
+  status: NewsletterUnsubscribeStatus
 }
 
 enum UrlPattern {

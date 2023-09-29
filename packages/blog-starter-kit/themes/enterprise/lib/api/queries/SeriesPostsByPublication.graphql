@@ -2,6 +2,9 @@ query SeriesPostsByPublication($host: String!, $seriesSlug: String!, $first: Int
   publication(host: $host) {
     id
     title
+    url
+    metaTags
+    favicon
     preferences {
       logo
       darkMode {
@@ -17,6 +20,17 @@ query SeriesPostsByPublication($host: String!, $seriesSlug: String!, $first: Int
       github
       linkedin
       hashnode
+    }
+    integrations {
+      gaTrackingID
+      fbPixelID
+      hotjarSiteID
+      matomoURL
+      matomoSiteID
+      fathomSiteID
+      fathomCustomDomain
+      fathomCustomDomainEnabled
+      plausibleAnalyticsEnabled
     }
     series(slug: $seriesSlug) {
       name

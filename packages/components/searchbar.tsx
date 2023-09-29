@@ -1,7 +1,7 @@
 // import Image from "next/image";
 // import Link from "next/link";
 import { useAppContext } from "./contexts/appContext";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, KeyboardEventHandler } from "react";
 import PostType from "@starter-kit/interfaces/post";
 import CoverImage from "./cover-image";
 import { resizeImage } from "@starter-kit/utils/image";
@@ -11,31 +11,54 @@ const DEFAULT_COVER =
 
 const Search = () => {
   const { publication } = useAppContext();
+
   const searchInputRef = useRef<HTMLInputElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState<PostType[]>([]);
   const [isSearching, setIsSearching] = useState(false);
 
-  const search = async () => {
-    const query = searchInputRef.current?.value;
+  const resetInput = () => {
+    searchInputRef.current.value = "";
+    setQuery("");
+  }
 
+  const escapeSearchOnESC: KeyboardEventHandler<HTMLInputElement> = e => {
+    if (e.key === "Escape") {
+      resetInput();
+    }
+  }
+
+  const updateSearchQuery = () => {
+    setQuery(searchInputRef.current?.value || "");
+  };
+
+  const search = async (query: string) => {
     if (!query) {
       setSearchResults([]);
+      setIsSearching(false);
       return clearTimeout(timerRef.current);
     }
 
     if (timerRef.current) clearTimeout(timerRef.current);
-    setIsSearching(true);
 
     timerRef.current = setTimeout(async () => {
+      setIsSearching(true);
+
       const response = await fetch(
         `/api/search?q=${query}&publication=${publication.id}`
       );
       const posts = await response.json();
+
       setSearchResults(posts);
       setIsSearching(false);
     }, 500);
   };
+
+  useEffect(() => {
+    search(query);
+  }, [query]);
 
   const searchResultsList = searchResults.map((post) => {
     const postURL = `${
@@ -59,7 +82,7 @@ const Search = () => {
           <CoverImage
             title={post.title}
             src={
-              resizeImage(post.coverImage.url, {
+              resizeImage(post.coverImage?.url, {
                 w: 400,
                 h: 210,
                 c: "thumb",
@@ -74,39 +97,44 @@ const Search = () => {
   return (
     <div className="relative col-span-1">
       <input
-        ref={searchInputRef}
-        onChange={search}
         type="text"
+        ref={searchInputRef}
+        onKeyUp={escapeSearchOnESC}
+        onChange={updateSearchQuery}
         placeholder="Search blog posts…"
         className="w-full px-4 py-2 text-base border rounded-full bg-slate-50 border-slate-200 dark:bg-neutral-800 focus:bg-transparent dark:border-neutral-800 dark:placeholder:text-neutral-400 dark:hover:bg-neutral-950 dark:text-neutral-50"
       />
-      {isSearching && (
-        <div className="absolute left-0 z-10 flex flex-col items-stretch w-full p-1 mt-1 overflow-hidden text-left bg-white border rounded-lg shadow-2xl dark:border-neutral-800 dark:bg-neutral-900 text-slate-900 dark:text-neutral-50 top-100">
-          <div className="flex flex-col gap-1 p-4 animate-pulse">
-            <div className="w-full h-8 rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
-            <div className="w-full h-4 rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
-            <div className="w-2/3 h-4 rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
-          </div>
-          <div className="flex flex-col gap-1 p-4 animate-pulse">
-            <div className="w-full h-8 rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
-            <div className="w-full h-4 rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
-            <div className="w-2/3 h-4 rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
-          </div>
-          <div className="flex flex-col gap-1 p-4 animate-pulse">
-            <div className="w-full h-8 rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
-            <div className="w-full h-4 rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
-            <div className="w-2/3 h-4 rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
-          </div>
-        </div>
-      )}
-      {searchResults.length > 0 && !isSearching && (
-        <div className="absolute left-0 z-10 flex flex-col items-stretch w-full p-1 mt-1 overflow-hidden text-left bg-white border rounded-lg shadow-2xl dark:border-neutral-800 dark:bg-neutral-900 text-slate-900 dark:text-neutral-50 top-100">
-          <h3 className="px-4 py-2 font-medium text-slate-500 dark:text-neutral-400">
-            Found {searchResults.length} results
-          </h3>
-          <hr className="dark:border-neutral-800" />
-          {searchResultsList}
-        </div>
+      {query && (
+        <>
+          {isSearching && (
+            <div className="absolute left-0 z-10 flex flex-col items-stretch w-full p-1 mt-1 overflow-hidden text-left bg-white border rounded-lg shadow-2xl dark:border-neutral-800 dark:bg-neutral-900 text-slate-900 dark:text-neutral-50 top-100">
+              <div className="flex flex-col gap-1 p-4 animate-pulse">
+                <div className="w-full h-8 rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
+                <div className="w-full h-4 rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
+                <div className="w-2/3 h-4 rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
+              </div>
+              <div className="flex flex-col gap-1 p-4 animate-pulse">
+                <div className="w-full h-8 rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
+                <div className="w-full h-4 rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
+                <div className="w-2/3 h-4 rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
+              </div>
+              <div className="flex flex-col gap-1 p-4 animate-pulse">
+                <div className="w-full h-8 rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
+                <div className="w-full h-4 rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
+                <div className="w-2/3 h-4 rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
+              </div>
+            </div>
+          )}
+          {searchResults.length > 0 && !isSearching && (
+            <div className="absolute left-0 z-10 flex flex-col items-stretch w-full p-1 mt-1 overflow-hidden text-left bg-white border rounded-lg shadow-2xl dark:border-neutral-800 dark:bg-neutral-900 text-slate-900 dark:text-neutral-50 top-100">
+              <h3 className="px-4 py-2 font-medium text-slate-500 dark:text-neutral-400">
+                Found {searchResults.length} results
+              </h3>
+              <hr className="dark:border-neutral-800" />
+              {searchResultsList}
+            </div>
+          )}
+        </>
       )}
     </div>
   );

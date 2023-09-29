@@ -4,7 +4,7 @@ export default class ChevronDownSVG extends React.Component {
   render() {
     return (
       <svg className={this.props.className} fill="none" viewBox="0 0 24 24">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m6 10 6 6 6-6" />
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" strokeWidth="1.5" d="m6 10 6 6 6-6" />
       </svg>
     );
   }

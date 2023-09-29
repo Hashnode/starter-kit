@@ -1,7 +1,6 @@
-query SinglePostByPublication($slug: String!, $host: String!) {
+query PublicationByHost($host: String!) {
   publication(host: $host) {
     id
-    title
     url
     metaTags
     favicon
@@ -31,35 +30,6 @@ query SinglePostByPublication($slug: String!, $host: String!) {
       fathomCustomDomain
       fathomCustomDomainEnabled
       plausibleAnalyticsEnabled
-    }
-    post(slug: $slug) {
-      slug
-      url
-      brief
-      title
-      publishedAt
-      coverImage {
-        url
-      }
-      author {
-        name
-        username
-        profilePicture
-      }
-      id
-      title
-      content {
-        markdown
-        html
-      }
-      ogMetaData {
-        image
-      }
-      tags {
-        id
-        name
-        slug
-      }
     }
   }
 }
