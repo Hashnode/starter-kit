@@ -110,6 +110,82 @@ importers:
         specifier: ^8.4.14
         version: 8.4.29
 
+  packages/blog-starter-kit/themes/personal:
+    dependencies:
+      '@graphql-typed-document-node/core':
+        specifier: ^3.2.0
+        version: 3.2.0(graphql@16.8.0)
+      '@radix-ui/react-dropdown-menu':
+        specifier: ^2.0.6
+        version: 2.0.6(@types/react-dom@18.2.7)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)
+      '@starter-kit/components':
+        specifier: workspace:^
+        version: link:../../../components
+      '@starter-kit/interfaces':
+        specifier: workspace:^
+        version: link:../../../interfaces
+      '@starter-kit/utils':
+        specifier: workspace:^
+        version: link:../../../utils
+      '@tailwindcss/typography':
+        specifier: ^0.5.10
+        version: 0.5.10(tailwindcss@3.3.3)
+      graphql-request:
+        specifier: ^6.1.0
+        version: 6.1.0(graphql@16.8.0)
+      gray-matter:
+        specifier: ^4.0.3
+        version: 4.0.3
+      remark:
+        specifier: ^14.0.2
+        version: 14.0.3
+      remark-html:
+        specifier: ^15.0.1
+        version: 15.0.2
+      slug:
+        specifier: ^8.2.3
+        version: 8.2.3
+      validator:
+        specifier: ^13.11.0
+        version: 13.11.0
+    devDependencies:
+      '@graphql-codegen/cli':
+        specifier: ^5.0.0
+        version: 5.0.0(@parcel/watcher@2.3.0)(@types/node@18.17.17)(graphql@16.8.0)(typescript@5.2.2)
+      '@graphql-codegen/typed-document-node':
+        specifier: ^5.0.1
+        version: 5.0.1(graphql@16.8.0)
+      '@graphql-codegen/typescript':
+        specifier: ^4.0.1
+        version: 4.0.1(graphql@16.8.0)
+      '@graphql-codegen/typescript-operations':
+        specifier: ^4.0.1
+        version: 4.0.1(graphql@16.8.0)
+      '@parcel/watcher':
+        specifier: ^2.3.0
+        version: 2.3.0
+      '@types/node':
+        specifier: ^18.0.3
+        version: 18.17.17
+      '@types/react':
+        specifier: ^18.0.15
+        version: 18.2.21
+      '@types/react-dom':
+        specifier: ^18.0.6
+        version: 18.2.7
+      autoprefixer:
+        specifier: ^10.4.7
+        version: 10.4.15(postcss@8.4.29)
+      concurrently:
+        specifier: ^8.2.1
+        version: 8.2.1
+      next-transpile-modules:
+        specifier: ^10.0.1
+        version: 10.0.1
+      postcss:
+        specifier: ^8.4.14
+        version: 8.4.29
+
   packages/components:
     dependencies:
       '@radix-ui/react-dropdown-menu':
