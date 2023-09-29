@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useAppContext } from "./contexts/appContext";
-import parse from 'html-react-parser';
+import parse from "html-react-parser";
 
 const Meta = () => {
   const { publication } = useAppContext();
@@ -36,9 +36,12 @@ const Meta = () => {
 
   return (
     <Head>
-      {favicon ? <link rel="icon" type="image/png" href={favicon} /> : defaultFavicons}
+      {favicon ? (
+        <link rel="icon" type="image/png" href={favicon} />
+      ) : (
+        defaultFavicons
+      )}
       <link rel="manifest" href="/favicon/site.webmanifest" />
-      <link rel="shortcut icon" href="/favicon/favicon.ico" />
       <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
       <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       <meta
