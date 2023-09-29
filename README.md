@@ -11,7 +11,7 @@ The recommended approach is depoying to Vercel. If you don't have an account alr
 - Create a new project on Vercel and connect this repo
 - It's a monorepo. So, choose the following folder as Root Directory while importing on Vercel: `packages/blog-starter-kit/themes/enterprise`
   ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1695083263935/T5bByLxZT.png?auto=format)
-- **Make sure to choose `Next.js` as framework preset (just above Root Directory setting)**
+- **Make sure to choose `Next.js` as framework preset (just above Root Directory setting). It appears to get reset after selecting Root Directory. So, double check this.**
 - Set the following env vars 
 
 ```
