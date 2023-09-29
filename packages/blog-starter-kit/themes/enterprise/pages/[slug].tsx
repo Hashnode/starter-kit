@@ -9,6 +9,9 @@ import PostHeader from "@starter-kit/components/post-header";
 import type PublicationType from "@starter-kit/interfaces/publication";
 import type PostType from "@starter-kit/interfaces/post";
 import {
+  PageByPublicationDocument,
+  PageByPublicationQuery,
+  PageByPublicationQueryVariables,
   SinglePostByPublicationDocument,
   SinglePostByPublicationQuery,
   SinglePostByPublicationQueryVariables,
@@ -19,6 +22,7 @@ import {
 import Header from "@starter-kit/components/header";
 import Footer from "@starter-kit/components/footer";
 import { AppProvider } from "@starter-kit/components/contexts/appContext";
+import PageType from "@starter-kit/interfaces/page";
 // import PostComments from "@starter-kit/components/post-comments";
 // import PostTOC from "@starter-kit/components/post-toc";
 
@@ -27,15 +31,15 @@ const Subscribe = dynamic(() => import("@starter-kit/components/subscribe"));
 
 type Props = {
   post: PostType;
+  page: PageType;
   publication: PublicationType;
-  preview?: boolean;
 };
 
-export default function Post({ publication, post, preview }: Props) {
-  if (!post) {
+export default function Post({ publication, post, page }: Props) {
+  if (!post && !page) {
     return <ErrorPage statusCode={404} />;
   }
-  const title = `${post.title} | Next.js Blog Example with Hashnode`;
+  const title = post ? post.title : page.title;
   const highlightJsMonokaiTheme =
     ".hljs{display:block;overflow-x:auto;padding:.5em;background:#23241f}.hljs,.hljs-subst,.hljs-tag{color:#f8f8f2}.hljs-emphasis,.hljs-strong{color:#a8a8a2}.hljs-bullet,.hljs-link,.hljs-literal,.hljs-number,.hljs-quote,.hljs-regexp{color:#ae81ff}.hljs-code,.hljs-section,.hljs-selector-class,.hljs-title{color:#a6e22e}.hljs-strong{font-weight:700}.hljs-emphasis{font-style:italic}.hljs-attr,.hljs-keyword,.hljs-name,.hljs-selector-tag{color:#f92672}.hljs-attribute,.hljs-symbol{color:#66d9ef}.hljs-class .hljs-title,.hljs-params{color:#f8f8f2}.hljs-addition,.hljs-built_in,.hljs-builtin-name,.hljs-selector-attr,.hljs-selector-id,.hljs-selector-pseudo,.hljs-string,.hljs-template-variable,.hljs-type,.hljs-variable{color:#e6db74}.hljs-comment,.hljs-deletion,.hljs-meta{color:#75715e}";
 
@@ -89,7 +93,7 @@ export default function Post({ publication, post, preview }: Props) {
     ],
   };
 
-  const tagsList = post.tags.map((tag) => (
+  const tagsList = post && post.tags.map((tag) => (
     <li key={tag.id}>
       <a
         href={`/tag/${tag.slug}`}
@@ -102,37 +106,41 @@ export default function Post({ publication, post, preview }: Props) {
 
   return (
     <AppProvider publication={publication} post={post}>
-      <Layout preview={preview}>
+      <Layout>
         <Header />
         <Container className="pt-10">
           <article className="flex flex-col items-start gap-10 pb-10">
             <Head>
               <title>{title}</title>
-              <link rel="canonical" href={post.url} />
-              <meta property="og:image" content={post.ogMetaData.image} />
+              {post ? (
+                <>
+                  <link rel="canonical" href={post.url} />
+                  <meta property="og:image" content={post.ogMetaData.image} />
+                  <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+                  />
+                </>
+              ) : null}
               <style
                 dangerouslySetInnerHTML={{ __html: highlightJsMonokaiTheme }}
               ></style>
-              <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-              />
             </Head>
-            <PostHeader
+            {post && <PostHeader
               title={post.title}
               coverImage={post.coverImage?.url}
               date={post.publishedAt}
               author={post.author}
-            />
+            />}
             {/* <PostTOC /> */}
-            <PostBody contentMarkdown={post.content.markdown} />
-            <div className="w-full px-5 mx-auto md:max-w-screen-md text-slate-600 dark:text-neutral-300">
+            <PostBody contentMarkdown={post ? post.content.markdown : page.content.markdown} />
+            {post && <div className="w-full px-5 mx-auto md:max-w-screen-md text-slate-600 dark:text-neutral-300">
               <ul className="flex flex-row flex-wrap items-center gap-2">
                 {tagsList}
               </ul>
-            </div>
+            </div>}
             {/* <PostComments author={post.author} /> */}
-            <Subscribe />
+            {post && <Subscribe />}
           </article>
         </Container>
         <Footer />
@@ -161,8 +169,30 @@ export async function getStaticProps({ params }: Params) {
   );
 
   // Extract the post data from the GraphQL response
-  const post = data.publication.post;
   const publication = data.publication;
+  const post = publication.post;
+  if (!post) {
+    const staticPageData = await request<
+      PageByPublicationQuery,
+      PageByPublicationQueryVariables
+    >(
+      process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT,
+      PageByPublicationDocument,
+      {
+        host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
+        slug: params.slug,
+      }
+    );
+
+    const page = staticPageData.publication.staticPage;
+    return {
+      props: {
+        page,
+        publication,
+      },
+      revalidate: 1,
+    };
+  }
 
   return {
     props: {
