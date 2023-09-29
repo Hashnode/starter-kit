@@ -111,13 +111,7 @@ export default function Post({ publication, post, preview }: Props) {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
               />
             </Head>
-            {/* <PostHeader
-              title={post.title}
-              coverImage={post.coverImage?.url}
-              date={post.publishedAt}
-              author={post.author}
-            /> */}
-            <h1 className="text-4xl leading-snug tracking-tight text-black dark:text-white">
+            <h1 className="text-4xl leading-tight tracking-tight text-black dark:text-white">
               {post.title}
             </h1>
             <div className="text-neutral-600 dark:text-neutral-400">
