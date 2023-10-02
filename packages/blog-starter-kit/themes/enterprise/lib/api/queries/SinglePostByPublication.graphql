@@ -38,6 +38,7 @@ query SinglePostByPublication($slug: String!, $host: String!) {
       brief
       title
       publishedAt
+      updatedAt
       coverImage {
         url
       }
