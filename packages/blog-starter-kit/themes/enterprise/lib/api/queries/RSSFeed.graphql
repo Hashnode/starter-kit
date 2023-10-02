@@ -1,17 +1,6 @@
 query RSSFeed($host: String!, $first: Int!, $after: String) {
   publication(host: $host) {
-    id
-    title
-    url
-    metaTags
-    favicon
-    preferences {
-      logo
-    }
-    about {
-      markdown
-      html
-    }
+    ...Publication
     posts(first: $first, after: $after) {
       edges {
         node {
@@ -28,7 +17,7 @@ query RSSFeed($host: String!, $first: Int!, $after: String) {
             slug
           }
           author {
-            name,
+            name
             username
           }
         }

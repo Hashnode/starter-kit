@@ -11,10 +11,10 @@ export const addArticleJsonLd = (publication: PublicationType, post: PostType) =
         name: publication.title,
         description: publication.about?.markdown,
         publisher: {
-            "@type": "Organization",
+            "@type": publication.isTeam ? "Organization" : "Person",
             "@id": publication.url,
             name: publication.title,
-            logo: {
+            image: {
                 "@type": "ImageObject",
                 url: publication.preferences?.logo || publication.preferences?.darkMode?.logo,
             },

@@ -44,10 +44,6 @@ const Meta = () => {
       <link rel="manifest" href="/favicon/site.webmanifest" />
       <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
       <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
-      <meta
-        name="description"
-        content={`Blog Starter Kit powered by Hashnode APIs`}
-      />
       {metaTags && parse(metaTags)}
     </Head>
   );

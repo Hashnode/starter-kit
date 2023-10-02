@@ -4,6 +4,9 @@ type PostType = {
   title: string;
   publishedAt?: string;
   updatedAt?: string;
+  readTimeInMinutes?: number;
+  reactionCount?: number;
+  responseCount?: number;
   coverImage?: {
     url: string;
   };
@@ -11,10 +14,15 @@ type PostType = {
     username: string;
     name: string;
     profilePicture?: string;
+    followersCount?: number;
   };
   ogMetaData?: {
-    image: string;
+    image?: string;
   };
+  seo?: {
+    title: string;
+    description: string;
+  }
   content?: {
     markdown?: string;
     html?: string;

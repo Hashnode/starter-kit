@@ -1,35 +1,8 @@
 query PublicationByHost($host: String!) {
   publication(host: $host) {
-    id
-    url
-    metaTags
-    favicon
-    preferences {
-      logo
-      darkMode {
-        logo
-      }
-      navbarItems {
-        label,
-        url
-      }
-    }
-    links {
-      twitter
-      github
-      linkedin
-      hashnode
-    }
-    integrations {
-      gaTrackingID
-      fbPixelID
-      hotjarSiteID
-      matomoURL
-      matomoSiteID
-      fathomSiteID
-      fathomCustomDomain
-      fathomCustomDomainEnabled
-      plausibleAnalyticsEnabled
+    ...Publication
+    posts (first:0) {
+      totalDocuments
     }
   }
 }

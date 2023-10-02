@@ -1,36 +1,8 @@
 query SinglePostByPublication($slug: String!, $host: String!) {
   publication(host: $host) {
-    id
-    title
-    url
-    metaTags
-    favicon
-    preferences {
-      logo
-      darkMode {
-        logo
-      }
-      navbarItems {
-        label,
-        url
-      }
-    }
-    links {
-      twitter
-      github
-      linkedin
-      hashnode
-    }
-    integrations {
-      gaTrackingID
-      fbPixelID
-      hotjarSiteID
-      matomoURL
-      matomoSiteID
-      fathomSiteID
-      fathomCustomDomain
-      fathomCustomDomainEnabled
-      plausibleAnalyticsEnabled
+    ...Publication
+    posts(first: 0) {
+      totalDocuments
     }
     post(slug: $slug) {
       slug
@@ -39,6 +11,13 @@ query SinglePostByPublication($slug: String!, $host: String!) {
       title
       publishedAt
       updatedAt
+      readTimeInMinutes
+      reactionCount
+      responseCount
+      seo {
+        title
+        description
+      }
       coverImage {
         url
       }

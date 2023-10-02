@@ -1,9 +1,20 @@
 type PublicationType = {
     id: string;
     title?: string;
+    displayTitle?: string;
     url: string;
+    isTeam?: boolean;
     metaTags?: string;
     favicon?: string;
+    posts?: {
+      totalDocuments?: number;
+      edges?: {}[];
+    }
+    followersCount?: number;
+    descriptionSEO?: string;
+    ogMetaData?: {
+      image?: string;
+    }
     preferences?: {
       logo?: string;
       darkMode?: {
@@ -17,6 +28,8 @@ type PublicationType = {
     author?: {
       username: string;
       name: string;
+      profilePicture?: string;
+      followersCount?: number;
     }
     about?: {
       markdown: string;

@@ -3,12 +3,12 @@ query DraftById($id: ObjectId!) {
     id
     title
     content {
-        markdown
+      markdown
     }
     author {
-        id
-        name
-        username
+      id
+      name
+      username
     }
     dateUpdated
   }
