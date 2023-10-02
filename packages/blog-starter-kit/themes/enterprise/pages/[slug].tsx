@@ -24,7 +24,7 @@ import Footer from "@starter-kit/components/footer";
 import { AppProvider } from "@starter-kit/components/contexts/appContext";
 import PageType from "@starter-kit/interfaces/page";
 // import PostComments from "@starter-kit/components/post-comments";
-// import PostTOC from "@starter-kit/components/post-toc";
+import PostTOC from "@starter-kit/components/post-toc";
 
 // Dynamic Imports
 const Subscribe = dynamic(() => import("@starter-kit/components/subscribe"));
@@ -132,7 +132,7 @@ export default function Post({ publication, post, page }: Props) {
               date={post.publishedAt}
               author={post.author}
             />}
-            {/* <PostTOC /> */}
+            {post && post.features.tableOfContents.isEnabled && <PostTOC />}
             <PostBody contentMarkdown={post ? post.content.markdown : page.content.markdown} />
             {post && <div className="w-full px-5 mx-auto md:max-w-screen-md text-slate-600 dark:text-neutral-300">
               <ul className="flex flex-row flex-wrap items-center gap-2">

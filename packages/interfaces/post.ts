@@ -25,6 +25,18 @@ type PostType = {
   }[];
   brief?: string;
   url?: string;
+  features?: {
+    tableOfContents?: {
+      isEnabled: boolean;
+      items: {
+        id: string;
+        level: number;
+        parentId: string;
+        slug: string;
+        title: string;
+      }
+    }
+  }
 };
 
 export default PostType;

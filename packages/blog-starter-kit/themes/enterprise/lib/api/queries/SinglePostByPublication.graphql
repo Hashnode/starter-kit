@@ -60,6 +60,18 @@ query SinglePostByPublication($slug: String!, $host: String!) {
         name
         slug
       }
+      features {
+        tableOfContents {
+          isEnabled
+          items {
+            id
+            level
+            parentId
+            slug
+            title
+          }
+        }
+      }
     }
   }
 }

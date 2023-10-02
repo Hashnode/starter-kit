@@ -283,6 +283,10 @@ type Draft implements Node {
   author: User
   """Content of the draft in HTML and markdown"""
   content: Content
+  """
+  The cover image preference of the draft. Contains cover image URL and other details.
+  """
+  coverImage: DraftCoverImage
   """Unique identifier for the draft."""
   cuid: String
   """The date the draft was updated."""
@@ -295,6 +299,10 @@ type Draft implements Node {
   lastFailedBackupAt: DateTime
   """The date the draft was last successfully backed up."""
   lastSuccessfulBackupAt: DateTime
+  """
+  Returns list of tags added to the draft. Contains tag id, name, slug, etc.
+  """
+  tags: [Tag!]!
   """
   The title of the draft. It would become the title of the post when published.
   """
@@ -319,6 +327,12 @@ type DraftConnection implements Connection {
   pageInfo: PageInfo!
   """The total number of documents in the connection."""
   totalDocuments: Int!
+}
+
+"""Contains information about the cover image of the draft."""
+type DraftCoverImage {
+  """The URL of the cover image."""
+  url: String!
 }
 
 """An edge that contains a node of type draft and cursor to the node."""
@@ -818,6 +832,8 @@ type Post implements Node {
   The date and time the post was featured. Used along with featured flag to determine if the post is featured.
   """
   featuredAt: DateTime
+  """Post feature-related fields."""
+  features: PostFeatures!
   """
   A flag to indicate if the post contains LaTeX. Latex is used to write mathematical equations.
   """
@@ -965,6 +981,10 @@ type PostEdge implements Edge {
   cursor: String!
   """The node holding the Post information"""
   node: Post!
+}
+
+type PostFeatures {
+  tableOfContents: TableOfContentsFeature!
 }
 
 """
@@ -1781,6 +1801,28 @@ input SubscribeToNewsletterInput {
 
 type SubscribeToNewsletterPayload {
   status: NewsletterSubscribeStatus
+}
+
+type TableOfContentsFeature implements Feature {
+  """Wether or not ser has chosen to show a table of contents on the post."""
+  isEnabled: Boolean!
+  """The content of the table of contents."""
+  items: [TableOfContentsItem!]!
+}
+
+type TableOfContentsItem implements Node {
+  """Unique identifier."""
+  id: ID!
+  """The level of nesting. Refers to the heading level in the post."""
+  level: Int!
+  """
+  ID of the `TableOfContentsItem` that is one level higher in the hierarchy. `null` if this is a top level item.
+  """
+  parentId: ID
+  """The slug of the referenced headline."""
+  slug: String!
+  """The title of the referenced headline."""
+  title: String!
 }
 
 type Tag implements ITag & Node {
