@@ -1,10 +1,12 @@
-import PostType from "@starter-kit/interfaces/post";
+import {
+  Post
+} from "../generated/graphql";
 // import Button from "./button";
 // import { ChevronDownSVG } from "./icons";
 import PostPreview from "./post-preview";
 
 type Props = {
-  posts: PostType[];
+  posts: Post[];
   context: 'home' | 'series' | 'tag';
 };
 

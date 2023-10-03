@@ -1,6 +1,6 @@
 type Props = {
   label: string;
-  type: string;
+  type?: string;
   icon?: React.ReactNode;
   className?: string;
   secondaryIcon?: React.ReactNode;

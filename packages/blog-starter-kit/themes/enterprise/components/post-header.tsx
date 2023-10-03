@@ -2,14 +2,16 @@ import Avatar from "./avatar";
 import DateFormatter from "./date-formatter";
 import CoverImage from "./cover-image";
 import PostTitle from "./post-title";
-import type Author from "@starter-kit/interfaces/author";
+import {
+  User
+} from "../generated/graphql";
 import { resizeImage } from "@starter-kit/utils/image";
 
 type Props = {
   title: string;
   coverImage: string;
   date: string;
-  author: Author;
+  author: User;
 };
 
 const PostHeader = ({ title, coverImage, date, author }: Props) => {

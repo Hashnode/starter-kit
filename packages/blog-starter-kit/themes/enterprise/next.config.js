@@ -1,4 +1,4 @@
-const withTM = require("next-transpile-modules")(["@starter-kit/components", "@starter-kit/utils"]);
+const withTM = require("next-transpile-modules")(["@starter-kit/utils"]);
 const isProd = process.env.NEXT_PUBLIC_MODE === 'production';
 const ANALYTICS_BASE_URL = "https://hn-ping2.hashnode.com";
 const ADVANCED_ANALYTICS_BASE_URL = "https://stats.hashnode.com";

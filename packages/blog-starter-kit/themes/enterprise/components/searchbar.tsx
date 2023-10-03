@@ -2,7 +2,9 @@
 // import Link from "next/link";
 import { useAppContext } from "./contexts/appContext";
 import { useState, useRef, useEffect, KeyboardEventHandler } from "react";
-import PostType from "@starter-kit/interfaces/post";
+import {
+  Post
+} from "../generated/graphql";
 import CoverImage from "./cover-image";
 import { resizeImage } from "@starter-kit/utils/image";
 
@@ -16,7 +18,7 @@ const Search = () => {
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const [query, setQuery] = useState("");
-  const [searchResults, setSearchResults] = useState<PostType[]>([]);
+  const [searchResults, setSearchResults] = useState<Post[]>([]);
   const [isSearching, setIsSearching] = useState(false);
 
   const resetInput = () => {

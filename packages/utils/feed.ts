@@ -1,10 +1,8 @@
-import type PublicationType from "@starter-kit/interfaces/publication";
-import type PostType from "@starter-kit/interfaces/post";
 import RSS from 'rss';
 
 const NON_ASCII_REGEX = /[\u{0080}-\u{FFFF}]/gu;
 
-const constructRSSFeedFromPosts = (publication: PublicationType, posts: PostType[], page: number) => {
+const constructRSSFeedFromPosts = (publication, posts, page: number) => {
     const baseUrl = `${process.env.NEXT_PUBLIC_MODE === "development" ? "http://" : "https://"}${process.env.NEXT_PUBLIC_BASE_URL}`;
 
     const feedConfig = {

@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@starter-kit/interfaces": "workspace:^",
     "js-base64": "^3.7.5",
     "rss": "^1.2.2",
     "sanitize-html": "^2.11.0"

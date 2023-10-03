@@ -1,10 +1,12 @@
 import Avatar from "./avatar";
-import type Author from "@starter-kit/interfaces/author";
+import {
+  User
+} from "../generated/graphql";
 import Button from "./button";
-import { ExternalArrowSVG, HashnodeSVG, PlusCircleSVG } from "./icons";
+import { ExternalArrowSVG, HashnodeSVG } from "./icons";
 
 type Props = {
-  author: Author;
+  author: User;
 };
 
 const PostComments = ({ author }: Props) => {
@@ -19,7 +21,7 @@ const PostComments = ({ author }: Props) => {
         secondaryIcon={<ExternalArrowSVG className="w-5 h-5 stroke-current" />}
       />
       <div className="flex flex-col gap-5 p-5 border rounded-lg bg-slate-50 dark:bg-neutral-900 dark:border-neutral-800 border-slate-200">
-        <Avatar name={author.name} size={8} picture={author.profilePicture} />
+        <Avatar username={author.username} name={author.name} size={8} picture={author.profilePicture} />
         <div className="hashnode-content-style">
           <p>
             Esse fugiat anim minim non proident velit nisi proident aliqua. Ex
@@ -43,7 +45,7 @@ const PostComments = ({ author }: Props) => {
           <a href="#">Reply</a>
         </div>
         <div className="flex flex-col gap-5 p-5 border rounded-lg bg-slate-50 dark:bg-neutral-900 dark:border-neutral-800 border-slate-200">
-          <Avatar name={author.name} size={8} picture={author.profilePicture} />
+          <Avatar username={author.username} name={author.name} size={8} picture={author.profilePicture} />
           <div className="hashnode-content-style">
             <p>
               Esse fugiat anim minim non proident velit nisi proident aliqua. Ex
@@ -68,7 +70,7 @@ const PostComments = ({ author }: Props) => {
           </div>
         </div>
         <div className="flex flex-col gap-5 p-5 border rounded-lg bg-slate-50 dark:bg-neutral-900 dark:border-neutral-800 border-slate-200">
-          <Avatar name={author.name} size={8} picture={author.profilePicture} />
+          <Avatar username={author.username} name={author.name} size={8} picture={author.profilePicture} />
           <div className="hashnode-content-style">
             <p>
               Esse fugiat anim minim non proident velit nisi proident aliqua. Ex
@@ -94,7 +96,7 @@ const PostComments = ({ author }: Props) => {
         </div>
       </div>
       <div className="flex flex-col gap-5 p-5 border rounded-lg bg-slate-50 dark:bg-neutral-900 dark:border-neutral-800 border-slate-200">
-        <Avatar name={author.name} size={8} picture={author.profilePicture} />
+        <Avatar username={author.username} name={author.name} size={8} picture={author.profilePicture} />
         <div className="hashnode-content-style">
           <p>
             Esse fugiat anim minim non proident velit nisi proident aliqua. Ex
