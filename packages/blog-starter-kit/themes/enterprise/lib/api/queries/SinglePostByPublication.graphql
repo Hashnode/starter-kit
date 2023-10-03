@@ -52,6 +52,26 @@ query SinglePostByPublication($slug: String!, $host: String!) {
           }
         }
       }
+      preferences{
+        disableComments
+      }
+      comments(first: 25){
+        totalDocuments
+        edges{
+          node{
+            id
+            totalReactions
+            content{
+              markdown,
+            }
+            author{
+              name
+              username
+              profilePicture
+            }
+          }
+        }
+      }
     }
   }
 }

@@ -5,7 +5,7 @@ type Props = {
   contentMarkdown: string;
 };
 
-const PostBody = ({ contentMarkdown }: Props) => {
+const MarkdownToHtml = ({ contentMarkdown }: Props) => {
   const content = markdownToHtml(contentMarkdown);
   useEmbeds({ enabled: true });
 
@@ -17,4 +17,4 @@ const PostBody = ({ contentMarkdown }: Props) => {
   );
 };
 
-export default PostBody;
+export default MarkdownToHtml;

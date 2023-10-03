@@ -7,6 +7,8 @@ type Props = {
   href?: string;
   onClick?: () => void;
   as?: string;
+  rel?: string;
+  target?: string;
 };
 
 const Button = ({
@@ -16,7 +18,9 @@ const Button = ({
   className,
   secondaryIcon,
   href,
+  rel,
   as,
+  target,
   onClick,
 }: Props) => {
   let buttonClassName;
@@ -46,6 +50,8 @@ const Button = ({
     return (
       <a
         href={href}
+        rel={rel}
+        target={target}
         className={`flex flex-row items-center justify-start gap-2 px-2 py-2 text-sm font-semibold transition-colors duration-200 rounded-full border md:text-base md:px-5 md:py-3 ${buttonClassName} ${
           secondaryIcon ? `md:justify-between` : `md:justify-center`
         }  ${className}`}

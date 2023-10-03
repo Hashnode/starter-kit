@@ -3,7 +3,7 @@ import ErrorPage from "next/error";
 import Head from "next/head";
 import Container from "../../components/container";
 import Layout from "../../components/layout";
-import PostBody from "../../components/post-body";
+import MarkdownToHtml from "../../components/markdown-to-html";
 import PostHeader from "../../components/post-header";
 import {
   Post,
@@ -61,7 +61,7 @@ export default function Post({ publication, post, preview }: Props) {
               date={post.publishedAt}
               author={post.author}
             />
-            <PostBody contentMarkdown={post.content.markdown} />
+            <MarkdownToHtml contentMarkdown={post.content.markdown} />
             <div className="w-full px-5 mx-auto md:max-w-screen-md text-slate-600 dark:text-neutral-300">
               <ul className="flex flex-row flex-wrap items-center gap-2">
                 {tagsList}
