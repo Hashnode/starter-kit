@@ -1,13 +1,15 @@
 import React, { createContext, useState, useContext } from "react";
-import type PublicationType from "@starter-kit/interfaces/publication";
-import PostType from "@starter-kit/interfaces/post";
+import {
+    Publication,
+    Post
+} from "../../generated/graphql";
 
-const appContext = createContext<{ publication: PublicationType, post: PostType }>({
+const appContext = createContext<{ publication: Publication, post: Post }>({
     publication: null,
     post: null
 });
 
-const AppProvider = ({ children, publication, post }: { children: React.ReactChild; publication: PublicationType, post?: PostType }) => {
+const AppProvider = ({ children, publication, post }: { children: React.ReactChild; publication: Publication, post?: Post }) => {
     const [_publication] = useState(publication);
     const [_post,] = useState(post);
 

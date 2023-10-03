@@ -1,7 +1,7 @@
 query PublicationByHost($host: String!) {
   publication(host: $host) {
     ...Publication
-    posts (first:0) {
+    posts(first:0) {
       totalDocuments
     }
   }

@@ -1,9 +1,16 @@
-import Avatar from "./avatar";
 import DateFormatter from "./date-formatter";
 import CoverImage from "./cover-image";
 import Link from "next/link";
-import type Author from "@starter-kit/interfaces/author";
+import {
+  User
+} from "../generated/graphql";
 import { resizeImage } from "@starter-kit/utils/image";
+
+type Author = {
+  name: string;
+  username: string;
+  profilePicture: string;
+}
 
 type Props = {
   title: string;

@@ -1,6 +1,4 @@
-import type PublicationType from "@starter-kit/interfaces/publication";
-
-export const addPublicationJsonLd = (publication: PublicationType) => {
+export const addPublicationJsonLd = (publication) => {
     const schema = {
         "@context": "https://schema.org/",
         "@type": "Blog",

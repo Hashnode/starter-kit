@@ -1,7 +1,4 @@
-import type PostType from "@starter-kit/interfaces/post";
-import type PublicationType from "@starter-kit/interfaces/publication";
-
-export const addArticleJsonLd = (publication: PublicationType, post: PostType) => {
+export const addArticleJsonLd = (publication, post) => {
     const tags = post.tags?.map((tag) => tag.name);
     const schema = {
         "@context": "https://schema.org/",
@@ -26,7 +23,7 @@ export const addArticleJsonLd = (publication: PublicationType, post: PostType) =
                 mainEntityOfPage: post.url,
                 headline: post.title,
                 name: post.title,
-                description: post.brief,
+                description: post.seo?.description || post.brief,
                 datePublished: post.publishedAt,
                 dateModified: post.updatedAt,
                 author: {

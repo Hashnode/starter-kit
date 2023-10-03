@@ -1,24 +1,24 @@
 import request from "graphql-request";
 import ErrorPage from "next/error";
 import Head from "next/head";
-import Container from "@starter-kit/components/container";
-import Layout from "@starter-kit/components/layout";
-import PostBody from "@starter-kit/components/post-body";
-import PostHeader from "@starter-kit/components/post-header";
-import type PublicationType from "@starter-kit/interfaces/publication";
-import type PostType from "@starter-kit/interfaces/post";
+import Container from "../../components/container";
+import Layout from "../../components/layout";
+import PostBody from "../../components/post-body";
+import PostHeader from "../../components/post-header";
 import {
+  Post,
+  Publication,
   PublicationByHostDocument,
   PublicationByHostQuery,
   PublicationByHostQueryVariables,
 } from "../../generated/graphql";
-import Header from "@starter-kit/components/header";
-import Footer from "@starter-kit/components/footer";
-import { AppProvider } from "@starter-kit/components/contexts/appContext";
+import Header from "../../components/header";
+import Footer from "../../components/footer";
+import { AppProvider } from "../../components/contexts/appContext";
 
 type Props = {
-  post: PostType;
-  publication: PublicationType;
+  post: Post;
+  publication: Publication;
   preview?: boolean;
 };
 
