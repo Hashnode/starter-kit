@@ -1,25 +1,24 @@
 import request from "graphql-request";
-import { RssFeedDocument, RssFeedQuery, RssFeedQueryVariables } from "../generated/graphql";
-import constructRSSFeedFromPosts from "@starter-kit/utils/feed";
+import { SitemapDocument, SitemapQuery, SitemapQueryVariables } from "../generated/graphql";
+import getSitemap from "@starter-kit/utils/seo/sitemap";
 
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
-const RSS = () => null;
+const Sitemap = () => null;
 
 export async function getServerSideProps(ctx: { req: any; res: any; query: any }) {
   const { res } = ctx;
   
   const data = await request<
-  RssFeedQuery,
-  RssFeedQueryVariables
-  >(GQL_ENDPOINT, RssFeedDocument, {
-    first: 20,
+  SitemapQuery,
+  SitemapQueryVariables
+  >(GQL_ENDPOINT, SitemapDocument, {
     host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
+    postsCount: 50,
+    staticPagesCount: 50,
   });
 
   const publication = data.publication;
-  const allPosts = data.publication.posts.edges.map((edge) => edge.node);
-
-  const xml = constructRSSFeedFromPosts(publication, allPosts, 0); // Extend it to support 20+ posts eventually by passing page as 1, 2, 3, etc.
+  const xml = getSitemap(publication);
 
   res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate');
   res.setHeader('content-type', 'text/xml');
@@ -29,4 +28,4 @@ export async function getServerSideProps(ctx: { req: any; res: any; query: any }
   return { props: {} };
 }
 
-export default RSS;
+export default Sitemap;

@@ -7,7 +7,7 @@ const constructRSSFeedFromPosts = (publication, posts, page: number) => {
 
     const feedConfig = {
         title: `${publication.title || `${publication.author!.name}'s blog`}`,
-        description: publication.about!.html,
+        description: publication.about?.html,
         feed_url: `${baseUrl}/rss.xml${page === 0 ? '' : `?page=${page}`}`,
         site_url: baseUrl,
         image_url: publication.preferences!.logo,

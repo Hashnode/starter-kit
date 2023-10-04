@@ -1,0 +1,33 @@
+query Sitemap($host: String!, $postsCount: Int!, $staticPagesCount: Int!) {
+  publication(host: $host) {
+    ...Publication
+    staticPages (first: $staticPagesCount) {
+        edges {
+            node {
+                slug
+            }
+        }
+    }
+    posts(first: $postsCount) {
+      edges {
+        node {
+          id
+          title
+          url
+          slug
+          publishedAt
+          updatedAt
+          tags {
+            id
+            name
+            slug
+          }
+          author {
+            name
+            username
+          }
+        }
+      }
+    }
+  }
+}

@@ -8,7 +8,7 @@ const isProd = process.env.NEXT_PUBLIC_MODE === 'production';
 
 const Analytics = () => {
   if (!isProd) return null;
-  
+
   const { publication, post } = useAppContext();
 
   const _sendPageViewsToHashnodeGoogleAnalytics = () => {

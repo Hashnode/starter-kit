@@ -19,7 +19,7 @@ export async function getServerSideProps(ctx: { req: any; res: any; query: any }
   const publication = data.publication;
   const allPosts = data.publication.posts.edges.map((edge) => edge.node);
 
-  const xml = constructRSSFeedFromPosts(publication, allPosts, 0); // Extend it to support 20+ posts eventually by passing page as 1, 2, 3, etc.
+  const xml = constructRSSFeedFromPosts(publication, allPosts, 0); // Extend it to support 50+ posts eventually by passing page as 1, 2, 3, etc.
 
   res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate');
   res.setHeader('content-type', 'text/xml');
