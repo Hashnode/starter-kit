@@ -30,14 +30,18 @@ If your main project is deployed on Vercel, add the following rewrite to `next.c
 async rewrites() {
     return [
       {
+        source: "/blog",
+        destination: "https://starter-kit-rose-seven.vercel.app/blog", -> Replace https://starter-kit-rose-seven.vercel.app with your own Vercel deployment URL from step 1
+      },
+      {
         source: "/blog/:path*",
-        destination: "https://starter-kit-rose-seven.vercel.app/:path*", -> Replace https://starter-kit-rose-seven.vercel.app with your own Vercel deployment URL from step 1
+        destination: "https://starter-kit-rose-seven.vercel.app/blog/:path*", -> Replace https://starter-kit-rose-seven.vercel.app with your own Vercel deployment URL from step 1
       },
     ];
   },
 ```
 
-If your main domain is hosted elsewhere, you need to add a rewrite from `/blog/:path*` to `https://starter-kit-rose-seven.vercel.app/:path*` to open the blog on the subpath.
+If your main domain is hosted elsewhere, you need to add the above rewrites to open the blog on the subpath.
 
 ## Running Locally
 
