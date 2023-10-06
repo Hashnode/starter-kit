@@ -45,20 +45,19 @@ const HeroPost = ({
       <div className="flex flex-col col-span-1 gap-2">
         <h3 className="text-xl font-bold leading-snug lg:text-3xl text-slate-800 dark:text-neutral-50">
           <Link
-            as={postURL}
             href={postURL}
             className="leading-tight tracking-tight hover:underline hover:text-primary-600 dark:hover:text-primary-500"
           >
             {title}
           </Link>
         </h3>
-        <Link as={postURL} href={postURL}>
+        <Link href={postURL}>
           <p className="leading-snug text-md text-slate-500 dark:text-neutral-400">
             {excerpt}
           </p>
         </Link>
         <div className="text-sm font-semibold text-slate-500 dark:text-neutral-300">
-          <Link as={postURL} href={postURL}>
+          <Link href={postURL}>
             <DateFormatter dateString={date} />
           </Link>
         </div>

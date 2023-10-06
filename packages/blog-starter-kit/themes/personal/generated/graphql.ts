@@ -500,7 +500,7 @@ export type IUser = {
   coverPhoto?: Maybe<Scalars['String']['output']>;
   /** The date the user joined Hashnode. */
   dateJoined?: Maybe<Scalars['DateTime']['output']>;
-  /** Whether or not the user is deactivated. Only available to the authenticated user. */
+  /** Whether or not the user is deactivated. */
   deactivated: Scalars['Boolean']['output'];
   /** The number of users that follow the requested user. Visible in the user's profile. */
   followersCount: Scalars['Int']['output'];
@@ -773,7 +773,11 @@ export type Post = Node & {
   audioUrls?: Maybe<AudioUrls>;
   /** Returns the user details of the author of the post. */
   author: User;
-  /** Flag to indicate if the post is bookmarked by the requesting user. Returns false if the user is not authenticated. */
+  /**
+   * Flag to indicate if the post is bookmarked by the requesting user.
+   *
+   * Returns `false` if the user is not authenticated.
+   */
   bookmarked: Scalars['Boolean']['output'];
   /** Brief is a short description of the post extracted from the content of the post. It's 250 characters long sanitized string. */
   brief?: Maybe<Scalars['String']['output']>;
@@ -804,6 +808,14 @@ export type Post = Node & {
   hasLatexInPost: Scalars['Boolean']['output'];
   /** The ID of the post. Used to uniquely identify the post. */
   id: Scalars['ID']['output'];
+  /** Wether or not the post has automatically been published via RSS feed. */
+  isAutoPublishedFromRSS: Scalars['Boolean']['output'];
+  /**
+   * Wether or not the authenticated user is following this post.
+   *
+   * Returns `null` if the user is not authenticated.
+   */
+  isFollowed?: Maybe<Scalars['Boolean']['output']>;
   /** A list of users who liked the post. */
   likedBy: PostLikerConnection;
   /** Og Meta data of the post. Contains image url used in open graph meta tags. */
@@ -871,7 +883,28 @@ export type PostCommentsArgs = {
  */
 export type PostLikedByArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<PostLikerFilter>;
   first: Scalars['Int']['input'];
+};
+
+export type PostBadge = Node & {
+  __typename?: 'PostBadge';
+  /** Unique identifier. */
+  id: Scalars['ID']['output'];
+  /** The type of the badge. */
+  type: PostBadgeType;
+};
+
+export enum PostBadgeType {
+  FeaturedDailyDotDev = 'FEATURED_DAILY_DOT_DEV',
+  FeaturedHashnode = 'FEATURED_HASHNODE'
+}
+
+export type PostBadgesFeature = Feature & {
+  __typename?: 'PostBadgesFeature';
+  /** Wether or not the user has chosen to show badges on the post. */
+  isEnabled: Scalars['Boolean']['output'];
+  items: Array<PostBadge>;
 };
 
 /**
@@ -943,8 +976,13 @@ export enum PostCommenterSortBy {
 /** Contains information about the cover image of the post. */
 export type PostCoverImage = {
   __typename?: 'PostCoverImage';
+  attribution?: Maybe<Scalars['String']['output']>;
+  /** True if the image attribution should be hidden. */
+  isAttributionHidden: Scalars['Boolean']['output'];
   /** The URL of the cover image thumbnail. */
   isPortrait: Scalars['Boolean']['output'];
+  /** The photographer of the cover image. */
+  photographer?: Maybe<Scalars['String']['output']>;
   /** The URL of the cover image. */
   url: Scalars['String']['output'];
 };
@@ -960,6 +998,7 @@ export type PostEdge = Edge & {
 
 export type PostFeatures = {
   __typename?: 'PostFeatures';
+  badges: PostBadgesFeature;
   tableOfContents: TableOfContentsFeature;
 };
 
@@ -990,11 +1029,18 @@ export type PostLikerEdge = Edge & {
   reactionCount: Scalars['Int']['output'];
 };
 
+export type PostLikerFilter = {
+  /** Only return likes from users with the given user IDs. */
+  userIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+};
+
 /** Contains Post preferences. Used to determine if the post is pinned to blog, comments are disabled, or cover image is sticked to bottom. */
 export type PostPreferences = {
   __typename?: 'PostPreferences';
   /** A flag to indicate if the comments are disabled for the post. */
   disableComments: Scalars['Boolean']['output'];
+  /** Wether or not the post is hidden from the Hashnode community. */
+  isDelisted: Scalars['Boolean']['output'];
   /** A flag to indicate if the post is pinned to blog. Pinned post is shown on top of the blog. */
   pinnedToBlog: Scalars['Boolean']['output'];
   /** A flag to indicate if the cover image is shown below title of the post. Default position of cover is top of title. */
@@ -1511,6 +1557,13 @@ export type QueryUserArgs = {
   username: Scalars['String']['input'];
 };
 
+export type RssImport = Node & {
+  __typename?: 'RSSImport';
+  id: Scalars['ID']['output'];
+  /** The URL pointing to the RSS feed. */
+  rssURL: Scalars['String']['output'];
+};
+
 /**
  * Contains the flag indicating if the read time feature is enabled or not.
  * User can enable or disable the read time feature from the publication settings.
@@ -1612,14 +1665,15 @@ export type ScheduledPostPayload = {
 export enum Scope {
   AcknowledgeEmailImport = 'acknowledge_email_import',
   ActiveProUser = 'active_pro_user',
-  AdminOwnerOnly = 'admin_owner_only',
   AssignProPublications = 'assign_pro_publications',
   ChangeProSubscription = 'change_pro_subscription',
   CreatePro = 'create_pro',
   ImportSubscribersToPublication = 'import_subscribers_to_publication',
+  PublicationAdmin = 'publication_admin',
   PublishPost = 'publish_post',
   RecommendPublications = 'recommend_publications',
   Signup = 'signup',
+  WebhookAdmin = 'webhook_admin',
   WritePost = 'write_post',
   WriteSeries = 'write_series'
 }
@@ -1934,7 +1988,7 @@ export type User = IUser & Node & {
   coverPhoto?: Maybe<Scalars['String']['output']>;
   /** The date the user joined Hashnode. */
   dateJoined?: Maybe<Scalars['DateTime']['output']>;
-  /** Whether or not the user is deactivated. Only available to the authenticated user. */
+  /** Whether or not the user is deactivated. */
   deactivated: Scalars['Boolean']['output'];
   /** The number of users that follow the requested user. Visible in the user's profile. */
   followersCount: Scalars['Int']['output'];
@@ -2044,6 +2098,87 @@ export type ViewCountFeature = Feature & {
   __typename?: 'ViewCountFeature';
   /** A flag indicating if the view count feature is enabled or not. */
   isEnabled: Scalars['Boolean']['output'];
+};
+
+export type Webhook = Node & {
+  __typename?: 'Webhook';
+  createdAt: Scalars['DateTime']['output'];
+  events: Array<WebhookEvent>;
+  /** The ID of the post. Used to uniquely identify the post. */
+  id: Scalars['ID']['output'];
+  /**
+   * Messages that has been sent via this webhook.
+   * Messages include the request and eventual response.
+   */
+  messages: WebhookMessageConnection;
+  publication: Publication;
+  secret: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  url: Scalars['String']['output'];
+};
+
+
+export type WebhookMessagesArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  first: Scalars['Int']['input'];
+};
+
+export enum WebhookEvent {
+  PostDeleted = 'POST_DELETED',
+  PostPublished = 'POST_PUBLISHED',
+  PostUpdated = 'POST_UPDATED'
+}
+
+export type WebhookMessage = Node & {
+  __typename?: 'WebhookMessage';
+  createdAt: Scalars['DateTime']['output'];
+  event: WebhookEvent;
+  id: Scalars['ID']['output'];
+  /** True if either the request failed or the response status code was not 2xx. */
+  isError: Scalars['Boolean']['output'];
+  /** True if the message was resent. */
+  isResent: Scalars['Boolean']['output'];
+  /** True if the message was sent as a test. */
+  isTest: Scalars['Boolean']['output'];
+  request: WebhookMessageRequest;
+  response?: Maybe<WebhookMessageResponse>;
+  url: Scalars['String']['output'];
+};
+
+export type WebhookMessageConnection = Connection & {
+  __typename?: 'WebhookMessageConnection';
+  edges: Array<WebhookMessageEdge>;
+  pageInfo: PageInfo;
+};
+
+export type WebhookMessageEdge = Edge & {
+  __typename?: 'WebhookMessageEdge';
+  cursor: Scalars['String']['output'];
+  node: WebhookMessage;
+};
+
+export type WebhookMessageRequest = {
+  __typename?: 'WebhookMessageRequest';
+  body: Scalars['String']['output'];
+  error?: Maybe<WebhookMessageRequestError>;
+  headers: Scalars['String']['output'];
+  /** Unique identifier of the request. Can be used to deduplicate requests. */
+  uuid: Scalars['String']['output'];
+};
+
+export type WebhookMessageRequestError = {
+  __typename?: 'WebhookMessageRequestError';
+  code: Scalars['String']['output'];
+  message: Scalars['String']['output'];
+};
+
+export type WebhookMessageResponse = {
+  __typename?: 'WebhookMessageResponse';
+  body?: Maybe<Scalars['String']['output']>;
+  headers?: Maybe<Scalars['String']['output']>;
+  httpStatus: Scalars['Int']['output'];
+  /** The time it took from the moment the request has been send until the first byte of the response has been received. */
+  timeToFirstByteMilliseconds?: Maybe<Scalars['Int']['output']>;
 };
 
 export type PostFragment = { __typename?: 'Post', id: string, title: string, url?: string | null, publishedAt: string, slug: string, brief?: string | null, author: { __typename?: 'User', name: string, profilePicture?: string | null }, coverImage?: { __typename?: 'PostCoverImage', url: string } | null };

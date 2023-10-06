@@ -511,9 +511,7 @@ interface IUser {
   coverPhoto: String @deprecated(reason: "Cover images are not part of user's profile anymore. Will be removed on 25/09/2023.")
   """The date the user joined Hashnode."""
   dateJoined: DateTime
-  """
-  Whether or not the user is deactivated. Only available to the authenticated user.
-  """
+  """Whether or not the user is deactivated."""
   deactivated: Boolean!
   """
   The number of users that follow the requested user. Visible in the user's profile.
@@ -781,7 +779,9 @@ type Post implements Node {
   """Returns the user details of the author of the post."""
   author: User!
   """
-  Flag to indicate if the post is bookmarked by the requesting user. Returns false if the user is not authenticated.
+  Flag to indicate if the post is bookmarked by the requesting user.
+  
+  Returns `false` if the user is not authenticated.
   """
   bookmarked: Boolean!
   """
@@ -840,10 +840,19 @@ type Post implements Node {
   hasLatexInPost: Boolean!
   """The ID of the post. Used to uniquely identify the post."""
   id: ID!
+  """Wether or not the post has automatically been published via RSS feed."""
+  isAutoPublishedFromRSS: Boolean!
+  """
+  Wether or not the authenticated user is following this post.
+  
+  Returns `null` if the user is not authenticated.
+  """
+  isFollowed: Boolean
   """A list of users who liked the post."""
   likedBy(
     """A cursor to the last item of the previous page."""
     after: String
+    filter: PostLikerFilter
     """The number of users to be returned per page."""
     first: Int!
   ): PostLikerConnection!
@@ -897,6 +906,24 @@ type Post implements Node {
   The number of views on the post. Can be used to show the popularity of the post.
   """
   views: Int!
+}
+
+type PostBadge implements Node {
+  """Unique identifier."""
+  id: ID!
+  """The type of the badge."""
+  type: PostBadgeType!
+}
+
+enum PostBadgeType {
+  FEATURED_DAILY_DOT_DEV
+  FEATURED_HASHNODE
+}
+
+type PostBadgesFeature implements Feature {
+  """Wether or not the user has chosen to show badges on the post."""
+  isEnabled: Boolean!
+  items: [PostBadge!]!
 }
 
 """
@@ -969,8 +996,13 @@ enum PostCommenterSortBy {
 
 """Contains information about the cover image of the post."""
 type PostCoverImage {
+  attribution: String
+  """True if the image attribution should be hidden."""
+  isAttributionHidden: Boolean!
   """The URL of the cover image thumbnail."""
   isPortrait: Boolean!
+  """The photographer of the cover image."""
+  photographer: String
   """The URL of the cover image."""
   url: String!
 }
@@ -984,6 +1016,7 @@ type PostEdge implements Edge {
 }
 
 type PostFeatures {
+  badges: PostBadgesFeature!
   tableOfContents: TableOfContentsFeature!
 }
 
@@ -1016,12 +1049,19 @@ type PostLikerEdge implements Edge {
   reactionCount: Int!
 }
 
+input PostLikerFilter {
+  """Only return likes from users with the given user IDs."""
+  userIds: [ID!]
+}
+
 """
 Contains Post preferences. Used to determine if the post is pinned to blog, comments are disabled, or cover image is sticked to bottom.
 """
 type PostPreferences {
   """A flag to indicate if the comments are disabled for the post."""
   disableComments: Boolean!
+  """Wether or not the post is hidden from the Hashnode community."""
+  isDelisted: Boolean!
   """
   A flag to indicate if the post is pinned to blog. Pinned post is shown on top of the blog.
   """
@@ -1514,6 +1554,12 @@ type Query {
   ): User
 }
 
+type RSSImport implements Node {
+  id: ID!
+  """The URL pointing to the RSS feed."""
+  rssURL: String!
+}
+
 """
 Contains the flag indicating if the read time feature is enabled or not.
 User can enable or disable the read time feature from the publication settings.
@@ -1618,14 +1664,15 @@ Enum of all the scopes that can be used with the @requireAuth directive.
 enum Scope {
   acknowledge_email_import
   active_pro_user
-  admin_owner_only
   assign_pro_publications
   change_pro_subscription
   create_pro
   import_subscribers_to_publication
+  publication_admin
   publish_post
   recommend_publications
   signup
+  webhook_admin
   write_post
   write_series
 }
@@ -1946,9 +1993,7 @@ type User implements IUser & Node {
   coverPhoto: String @deprecated(reason: "Cover images are not part of user's profile anymore. Will be removed on 25/09/2023.")
   """The date the user joined Hashnode."""
   dateJoined: DateTime
-  """
-  Whether or not the user is deactivated. Only available to the authenticated user.
-  """
+  """Whether or not the user is deactivated."""
   deactivated: Boolean!
   """
   The number of users that follow the requested user. Visible in the user's profile.
@@ -2069,4 +2114,81 @@ Shows total views on blogs if enabled.
 type ViewCountFeature implements Feature {
   """A flag indicating if the view count feature is enabled or not."""
   isEnabled: Boolean!
+}
+
+type Webhook implements Node {
+  createdAt: DateTime!
+  events: [WebhookEvent!]!
+  """The ID of the post. Used to uniquely identify the post."""
+  id: ID!
+  """
+  Messages that has been sent via this webhook.
+  Messages include the request and eventual response.
+  """
+  messages(
+    """A cursor to the last item of the previous page."""
+    after: String
+    """The number of items to be returned per page."""
+    first: Int!
+  ): WebhookMessageConnection!
+  publication: Publication!
+  secret: String!
+  updatedAt: DateTime
+  url: String!
+}
+
+enum WebhookEvent {
+  POST_DELETED
+  POST_PUBLISHED
+  POST_UPDATED
+}
+
+type WebhookMessage implements Node {
+  createdAt: DateTime!
+  event: WebhookEvent!
+  id: ID!
+  """
+  True if either the request failed or the response status code was not 2xx.
+  """
+  isError: Boolean!
+  """True if the message was resent."""
+  isResent: Boolean!
+  """True if the message was sent as a test."""
+  isTest: Boolean!
+  request: WebhookMessageRequest!
+  response: WebhookMessageResponse
+  url: String!
+}
+
+type WebhookMessageConnection implements Connection {
+  edges: [WebhookMessageEdge!]!
+  pageInfo: PageInfo!
+}
+
+type WebhookMessageEdge implements Edge {
+  cursor: String!
+  node: WebhookMessage!
+}
+
+type WebhookMessageRequest {
+  body: String!
+  error: WebhookMessageRequestError
+  headers: String!
+  """Unique identifier of the request. Can be used to deduplicate requests."""
+  uuid: String!
+}
+
+type WebhookMessageRequestError {
+  code: String!
+  message: String!
+}
+
+type WebhookMessageResponse {
+  body: String
+  headers: String
+  httpStatus: Int!
+  """
+  The time it took from the moment the request has been send until the first byte of the response has been received.
+  """
+  timeToFirstByteMilliseconds: Int
 }
