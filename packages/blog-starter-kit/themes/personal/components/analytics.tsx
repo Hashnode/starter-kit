@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import { useAppContext } from "./contexts/appContext";
 
 const GA_TRACKING_ID = "G-72XG3F8LNJ"; // This is Hashnode's GA tracking ID
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_URL.indexOf('/') !== -1 ? process.env.NEXT_PUBLIC_BASE_URL.substring(process.env.NEXT_PUBLIC_BASE_URL.indexOf('/')) : '';
 const isProd = process.env.NEXT_PUBLIC_MODE === 'production';
 
 const Analytics = () => {
@@ -44,7 +45,7 @@ const Analytics = () => {
     
           event['device_id'] = deviceId;
     
-        await fetch(`/ping/data-event`, {
+        await fetch(`${BASE_PATH}/ping/data-event`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -100,7 +101,7 @@ const Analytics = () => {
 
     // send to Umami powered advanced Hashnode analytics
     if (publication.integrations?.umamiWebsiteUUID) {
-      await fetch(`/api/collect`, {
+      await fetch(`${BASE_PATH}/api/collect`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -120,7 +121,7 @@ const Analytics = () => {
     }
 
     // For Hashnode Blog Dashboard Analytics
-    fetch(`/ping/view`, {
+    fetch(`${BASE_PATH}/ping/view`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
