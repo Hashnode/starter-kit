@@ -1670,7 +1670,6 @@ export enum Scope {
   CreatePro = 'create_pro',
   ImportSubscribersToPublication = 'import_subscribers_to_publication',
   PublicationAdmin = 'publication_admin',
-  PublishPost = 'publish_post',
   RecommendPublications = 'recommend_publications',
   Signup = 'signup',
   WebhookAdmin = 'webhook_admin',
