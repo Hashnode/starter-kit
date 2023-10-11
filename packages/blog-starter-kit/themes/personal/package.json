@@ -36,7 +36,6 @@
     "@types/react-dom": "^18.0.6",
     "autoprefixer": "^10.4.7",
     "concurrently": "^8.2.1",
-    "next-transpile-modules": "^10.0.1",
     "postcss": "^8.4.14"
   }
 }
