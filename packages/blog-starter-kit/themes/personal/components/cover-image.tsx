@@ -14,7 +14,7 @@ const CoverImage = ({ title, src, slug }: Props) => {
   }${process.env.NEXT_PUBLIC_BASE_URL}/${slug}`;
 
   const image = (
-    <div className="relative pt-[56.25%]">
+    <div className="relative pt-[52.5%]">
       <Image
         src={src}
         alt={`Cover Image for ${title}`}
