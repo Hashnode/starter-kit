@@ -1,4 +1,3 @@
-import cn from "classnames";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -18,9 +17,8 @@ const CoverImage = ({ title, src, slug }: Props) => {
       <Image
         src={src}
         alt={`Cover Image for ${title}`}
-        className="w-full border rounded-md hover:opacity-90 dark:border-neutral-800"
+        className="w-full border rounded-md object-cover hover:opacity-90 dark:border-neutral-800"
         fill
-        objectFit="cover"
         unoptimized
       />
     </div>
