@@ -23,7 +23,7 @@ const Button = ({
   target,
   onClick,
 }: Props) => {
-  let buttonClassName;
+  let buttonClassName: string;
 
   switch (type) {
     case "outline":

@@ -1,10 +1,7 @@
-import Button from "./button";
 import Link from "next/link";
-// import HamburgerSVG from "./icons/svgs/HamburgerSVG";
 import { useAppContext } from "./contexts/appContext";
 import { resizeImage } from "@starter-kit/utils/image";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-// import { NewsletterPlusSVG } from "./icons";
 
 const PersonalHeader = () => {
   const { publication } = useAppContext();

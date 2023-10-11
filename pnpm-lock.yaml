@@ -75,9 +75,6 @@ importers:
       remark-html:
         specifier: ^15.0.1
         version: 15.0.2
-      slug:
-        specifier: ^8.2.3
-        version: 8.2.3
       uuid:
         specifier: ^9.0.1
         version: 9.0.1
@@ -97,6 +94,9 @@ importers:
       '@parcel/watcher':
         specifier: ^2.3.0
         version: 2.3.0
+      '@types/js-cookie':
+        specifier: ^3.0.4
+        version: 3.0.4
       '@types/node':
         specifier: ^18.0.3
         version: 18.17.17
@@ -106,6 +106,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.0.6
         version: 18.2.7
+      '@types/uuid':
+        specifier: ^9.0.5
+        version: 9.0.5
       autoprefixer:
         specifier: ^10.4.7
         version: 10.4.15(postcss@8.4.29)
@@ -154,9 +157,6 @@ importers:
       remark-html:
         specifier: ^15.0.1
         version: 15.0.2
-      slug:
-        specifier: ^8.2.3
-        version: 8.2.3
       uuid:
         specifier: ^9.0.1
         version: 9.0.1
@@ -176,6 +176,9 @@ importers:
       '@parcel/watcher':
         specifier: ^2.3.0
         version: 2.3.0
+      '@types/js-cookie':
+        specifier: ^3.0.4
+        version: 3.0.4
       '@types/node':
         specifier: ^18.0.3
         version: 18.17.17
@@ -185,6 +188,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.0.6
         version: 18.2.7
+      '@types/uuid':
+        specifier: ^9.0.5
+        version: 9.0.5
       autoprefixer:
         specifier: ^10.4.7
         version: 10.4.15(postcss@8.4.29)
@@ -206,6 +212,9 @@ importers:
       sanitize-html:
         specifier: ^2.11.0
         version: 2.11.0
+      slug:
+        specifier: ^8.2.3
+        version: 8.2.3
       validator:
         specifier: ^13.11.0
         version: 13.11.0
@@ -2208,6 +2217,10 @@ packages:
       '@types/unist': 2.0.8
     dev: false
 
+  /@types/js-cookie@3.0.4:
+    resolution: {integrity: sha512-vMMnFF+H5KYqdd/myCzq6wLDlPpteJK+jGFgBus3Da7lw+YsDmx2C8feGTzY2M3Fo823yON+HC2CL240j4OV+w==}
+    dev: true
+
   /@types/js-yaml@4.0.6:
     resolution: {integrity: sha512-ACTuifTSIIbyksx2HTon3aFtCKWcID7/h3XEmRpDYdMCXxPbl+m9GteOJeaAkiAta/NJaSFuA7ahZ0NkwajDSw==}
     dev: true
@@ -2261,6 +2274,10 @@ packages:
   /@types/unist@2.0.8:
     resolution: {integrity: sha512-d0XxK3YTObnWVp6rZuev3c49+j4Lo8g4L1ZRm9z5L0xpoZycUPshHgczK5gsUMaZOstjVYYi09p5gYvUtfChYw==}
     dev: false
+
+  /@types/uuid@9.0.5:
+    resolution: {integrity: sha512-xfHdwa1FMJ082prjSJpoEI57GZITiQz10r3vEJCHa2khEFQjKy91aWKz6+zybzssCvXUwE1LQWgWVwZ4nYUvHQ==}
+    dev: true
 
   /@types/ws@8.5.5:
     resolution: {integrity: sha512-lwhs8hktwxSjf9UaZ9tG5M03PGogvFaH8gUgLNbN9HKIg0dvv6q+gkSuJ8HN4/VbyxkuLzCjlN7GquQ0gUJfIg==}

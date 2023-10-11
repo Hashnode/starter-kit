@@ -17,7 +17,12 @@ export async function getServerSideProps(ctx: { req: any; res: any; query: any }
   });
 
   const publication = data.publication;
-  const allPosts = data.publication.posts.edges.map((edge) => edge.node);
+  if (!publication) {
+    return {
+      notFound: true,
+    };
+  }
+  const allPosts = publication.posts.edges.map((edge) => edge.node);
 
   const xml = constructRSSFeedFromPosts(publication, allPosts, 0); // Extend it to support 20+ posts eventually by passing page as 1, 2, 3, etc.
 

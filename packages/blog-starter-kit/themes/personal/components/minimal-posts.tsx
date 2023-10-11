@@ -19,7 +19,6 @@ const MinimalPosts = ({ posts }: Props) => {
           author={{
             username: post.author.username,
             name: post.author.name,
-            profilePicture: post.author.profilePicture,
           }}
           slug={post.slug}
           url={post.url}

@@ -66,8 +66,12 @@ export async function getStaticProps({ params }: Params) {
     }
   );
 
-  // Extract the posts data from the GraphQL response
   const publication = data.publication;
+  if (!publication) {
+    return {
+      notFound: true,
+    };
+  }
   const posts = publication.posts.edges.map((edge) => edge.node);
 
   return {

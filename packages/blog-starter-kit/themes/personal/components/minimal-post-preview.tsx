@@ -4,7 +4,6 @@ import Link from "next/link";
 type Author = {
   name: string;
   username: string;
-  profilePicture: string;
 };
 
 type Props = {
