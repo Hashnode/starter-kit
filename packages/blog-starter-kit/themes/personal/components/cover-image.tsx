@@ -20,7 +20,6 @@ const CoverImage = ({ title, src, slug }: Props) => {
         alt={`Cover Image for ${title}`}
         className="w-full border rounded-md hover:opacity-90 dark:border-neutral-800"
         fill
-        objectFit="cover"
         unoptimized
       />
     </div>
