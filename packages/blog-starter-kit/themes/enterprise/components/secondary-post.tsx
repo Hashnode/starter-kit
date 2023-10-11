@@ -43,7 +43,7 @@ const SecondaryPost = ({
         />
       </div>
       <div className="flex flex-col col-span-1 gap-2">
-        <h3 className="text-lg font-semibold leading-tight text-slate-800 dark:text-neutral-50">
+        <h1 className="text-lg font-semibold leading-tight text-slate-800 dark:text-neutral-50">
           <Link
             as={postURL}
             href={postURL}
@@ -51,7 +51,7 @@ const SecondaryPost = ({
           >
             {title}
           </Link>
-        </h3>
+        </h1>
         <Link as={postURL} href={postURL}>
           <p className="leading-snug text-md text-slate-500 dark:text-neutral-400">
             {excerpt.length > 100 ? excerpt.substring(0, 100) + "…" : excerpt}

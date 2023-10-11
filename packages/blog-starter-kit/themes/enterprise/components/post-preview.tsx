@@ -1,16 +1,14 @@
 import DateFormatter from "./date-formatter";
 import CoverImage from "./cover-image";
 import Link from "next/link";
-import {
-  User
-} from "../generated/graphql";
+import { User } from "../generated/graphql";
 import { resizeImage } from "@starter-kit/utils/image";
 
 type Author = {
   name: string;
   username: string;
   profilePicture: string;
-}
+};
 
 type Props = {
   title: string;
@@ -39,7 +37,7 @@ const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) => {
         />
       </div>
       <div className="flex flex-col col-span-1 gap-2">
-        <h3 className="text-lg font-semibold leading-tight text-slate-800 dark:text-neutral-50">
+        <h1 className="text-lg font-semibold leading-tight text-slate-800 dark:text-neutral-50">
           <Link
             as={postURL}
             href={postURL}
@@ -47,7 +45,7 @@ const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) => {
           >
             {title}
           </Link>
-        </h3>
+        </h1>
         <Link as={postURL} href={postURL}>
           <p className="leading-snug text-md text-slate-500 dark:text-neutral-400">
             {excerpt.length > 140 ? excerpt.substring(0, 140) + "…" : excerpt}

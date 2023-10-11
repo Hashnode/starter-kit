@@ -93,6 +93,7 @@ const Post = (publication: Publication, post: Post) => {
         <div className="w-full">
           <CoverImage
             title={post.title}
+            priority={true}
             src={resizeImage(post.coverImage.url, {
               w: 1600,
               h: 840,
