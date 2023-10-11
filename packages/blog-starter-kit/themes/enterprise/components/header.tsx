@@ -82,7 +82,11 @@ const Header = () => {
             />
           </div> */}
           <h1>
-            <Link href={baseUrl} className="flex flex-row items-center gap-3">
+            <Link
+              href={baseUrl}
+              aria-label={`Go to ${publication.title} home page`}
+              className="flex flex-row items-center gap-3"
+            >
               {PUBLICATION_LOGO ? (
                 <>
                   <img

@@ -14,7 +14,11 @@ const Footer = () => {
       <Container className="px-5">
         {PUBLICATION_LOGO ? (
           <div className="flex flex-row justify-center w-full mb-20">
-            <Link href={baseUrl} className="flex flex-row items-center gap-5">
+            <Link
+              href={baseUrl}
+              aria-label={`Go to ${publication.title} home page`}
+              className="flex flex-row items-center gap-5"
+            >
               <img
                 className="block w-40"
                 src={PUBLICATION_LOGO}

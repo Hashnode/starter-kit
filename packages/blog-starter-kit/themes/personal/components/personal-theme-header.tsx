@@ -70,6 +70,7 @@ const PersonalHeader = () => {
           <Link
             className="flex flex-row items-center gap-2 text-lg font-bold leading-tight tracking-tight text-black dark:text-white"
             href="/"
+            aria-label={`Go to ${publication.author.name}'s blog home page`}
           >
             {publication.author.profilePicture && (
               <img
