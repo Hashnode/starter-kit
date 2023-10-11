@@ -19,10 +19,9 @@ import { AppProvider } from "../../components/contexts/appContext";
 type Props = {
   post: Post;
   publication: Publication;
-  preview?: boolean;
 };
 
-export default function Post({ publication, post, preview }: Props) {
+export default function Post({ publication, post }: Props) {
   if (!post) {
     return <ErrorPage statusCode={404} />;
   }
@@ -43,7 +42,7 @@ export default function Post({ publication, post, preview }: Props) {
 
   return (
     <AppProvider publication={publication}>
-      <Layout preview={preview}>
+      <Layout>
         <Header />
         <Container className="pt-10">
           <article className="flex flex-col items-start gap-10 pb-10">
