@@ -75,15 +75,9 @@ importers:
       remark-html:
         specifier: ^15.0.1
         version: 15.0.2
-      slug:
-        specifier: ^8.2.3
-        version: 8.2.3
       uuid:
         specifier: ^9.0.1
         version: 9.0.1
-      validator:
-        specifier: ^13.11.0
-        version: 13.11.0
     devDependencies:
       '@graphql-codegen/cli':
         specifier: ^5.0.0
@@ -100,6 +94,9 @@ importers:
       '@parcel/watcher':
         specifier: ^2.3.0
         version: 2.3.0
+      '@types/js-cookie':
+        specifier: ^3.0.4
+        version: 3.0.4
       '@types/node':
         specifier: ^18.0.3
         version: 18.17.17
@@ -109,15 +106,15 @@ importers:
       '@types/react-dom':
         specifier: ^18.0.6
         version: 18.2.7
+      '@types/uuid':
+        specifier: ^9.0.5
+        version: 9.0.5
       autoprefixer:
         specifier: ^10.4.7
         version: 10.4.15(postcss@8.4.29)
       concurrently:
         specifier: ^8.2.1
         version: 8.2.1
-      next-transpile-modules:
-        specifier: ^10.0.1
-        version: 10.0.1
       postcss:
         specifier: ^8.4.14
         version: 8.4.29
@@ -160,15 +157,9 @@ importers:
       remark-html:
         specifier: ^15.0.1
         version: 15.0.2
-      slug:
-        specifier: ^8.2.3
-        version: 8.2.3
       uuid:
         specifier: ^9.0.1
         version: 9.0.1
-      validator:
-        specifier: ^13.11.0
-        version: 13.11.0
     devDependencies:
       '@graphql-codegen/cli':
         specifier: ^5.0.0
@@ -185,6 +176,9 @@ importers:
       '@parcel/watcher':
         specifier: ^2.3.0
         version: 2.3.0
+      '@types/js-cookie':
+        specifier: ^3.0.4
+        version: 3.0.4
       '@types/node':
         specifier: ^18.0.3
         version: 18.17.17
@@ -194,15 +188,15 @@ importers:
       '@types/react-dom':
         specifier: ^18.0.6
         version: 18.2.7
+      '@types/uuid':
+        specifier: ^9.0.5
+        version: 9.0.5
       autoprefixer:
         specifier: ^10.4.7
         version: 10.4.15(postcss@8.4.29)
       concurrently:
         specifier: ^8.2.1
         version: 8.2.1
-      next-transpile-modules:
-        specifier: ^10.0.1
-        version: 10.0.1
       postcss:
         specifier: ^8.4.14
         version: 8.4.29
@@ -218,6 +212,12 @@ importers:
       sanitize-html:
         specifier: ^2.11.0
         version: 2.11.0
+      slug:
+        specifier: ^8.2.3
+        version: 8.2.3
+      validator:
+        specifier: ^13.11.0
+        version: 13.11.0
     devDependencies:
       '@types/sanitize-html':
         specifier: ^2.9.0
@@ -2217,6 +2217,10 @@ packages:
       '@types/unist': 2.0.8
     dev: false
 
+  /@types/js-cookie@3.0.4:
+    resolution: {integrity: sha512-vMMnFF+H5KYqdd/myCzq6wLDlPpteJK+jGFgBus3Da7lw+YsDmx2C8feGTzY2M3Fo823yON+HC2CL240j4OV+w==}
+    dev: true
+
   /@types/js-yaml@4.0.6:
     resolution: {integrity: sha512-ACTuifTSIIbyksx2HTon3aFtCKWcID7/h3XEmRpDYdMCXxPbl+m9GteOJeaAkiAta/NJaSFuA7ahZ0NkwajDSw==}
     dev: true
@@ -2270,6 +2274,10 @@ packages:
   /@types/unist@2.0.8:
     resolution: {integrity: sha512-d0XxK3YTObnWVp6rZuev3c49+j4Lo8g4L1ZRm9z5L0xpoZycUPshHgczK5gsUMaZOstjVYYi09p5gYvUtfChYw==}
     dev: false
+
+  /@types/uuid@9.0.5:
+    resolution: {integrity: sha512-xfHdwa1FMJ082prjSJpoEI57GZITiQz10r3vEJCHa2khEFQjKy91aWKz6+zybzssCvXUwE1LQWgWVwZ4nYUvHQ==}
+    dev: true
 
   /@types/ws@8.5.5:
     resolution: {integrity: sha512-lwhs8hktwxSjf9UaZ9tG5M03PGogvFaH8gUgLNbN9HKIg0dvv6q+gkSuJ8HN4/VbyxkuLzCjlN7GquQ0gUJfIg==}
@@ -2959,14 +2967,6 @@ packages:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
     dev: true
 
-  /enhanced-resolve@5.15.0:
-    resolution: {integrity: sha512-LXYT42KJ7lpIKECr2mAXIaMldcNCh/7E0KBKOu4KSfkHmP+mZmSs+8V5gBAqisWBy0OO4W5Oyys0GO1Y8KtdKg==}
-    engines: {node: '>=10.13.0'}
-    dependencies:
-      graceful-fs: 4.2.11
-      tapable: 2.2.1
-    dev: true
-
   /entities@4.5.0:
     resolution: {integrity: sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==}
     engines: {node: '>=0.12'}
@@ -3187,6 +3187,7 @@ packages:
 
   /graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
+    dev: false
 
   /graphql-config@5.0.2(@types/node@18.17.17)(graphql@16.8.0)(typescript@5.2.2):
     resolution: {integrity: sha512-7TPxOrlbiG0JplSZYCyxn2XQtqVhXomEjXUmWJVSS5ET1nPhOJSsIb/WTwqWhcYX6G0RlHXSj9PLtGTKmxLNGg==}
@@ -4111,12 +4112,6 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  /next-transpile-modules@10.0.1:
-    resolution: {integrity: sha512-4VX/LCMofxIYAVV58UmD+kr8jQflpLWvas/BQ4Co0qWLWzVh06FoZkECkrX5eEZT6oJFqie6+kfbTA3EZCVtdQ==}
-    dependencies:
-      enhanced-resolve: 5.15.0
-    dev: true
-
   /next@13.4.19(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-HuPSzzAbJ1T4BD8e0bs6B9C1kWQ6gv8ykZoRWs5AQoiIuqbGHHdQO7Ljuvg05Q0Z24E2ABozHe6FxDvI6HfyAw==}
     engines: {node: '>=16.8.0'}
@@ -4988,11 +4983,6 @@ packages:
       sucrase: 3.34.0
     transitivePeerDependencies:
       - ts-node
-
-  /tapable@2.2.1:
-    resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
-    engines: {node: '>=6'}
-    dev: true
 
   /thenify-all@1.6.0:
     resolution: {integrity: sha512-RNxQH/qI8/t3thXJDwcstUO4zeqo64+Uy/+sNVRBx4Xn2OX+OZ9oP+iJnNFqplFra2ZUVeKCSa2oVWi3T4uVmA==}

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useAppContext } from "./contexts/appContext";
 import { resizeImage } from "@starter-kit/utils/image";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-// import HamburgerSVG from "./icons/svgs/HamburgerSVG";
 
 const Header = () => {
   const baseUrl = `${

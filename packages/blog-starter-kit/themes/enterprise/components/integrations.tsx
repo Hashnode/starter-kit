@@ -3,7 +3,7 @@ import { useAppContext } from "./contexts/appContext";
 
 export default function Integrations() {
   const { publication } = useAppContext();
-  const { gaTrackingID, fbPixelID,  hotjarSiteID, matomoURL, matomoSiteID, fathomSiteID, fathomCustomDomain, fathomCustomDomainEnabled, plausibleAnalyticsEnabled } = publication.integrations;
+  const { gaTrackingID, fbPixelID,  hotjarSiteID, matomoURL, matomoSiteID, fathomSiteID, fathomCustomDomain, fathomCustomDomainEnabled, plausibleAnalyticsEnabled } = publication.integrations ?? {};
   const domainURL = new URL(publication.url).hostname;
 
   let fbPixel = `

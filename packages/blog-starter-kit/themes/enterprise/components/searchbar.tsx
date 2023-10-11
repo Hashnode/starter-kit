@@ -1,5 +1,3 @@
-// import Image from "next/image";
-// import Link from "next/link";
 import { useAppContext } from "./contexts/appContext";
 import { useState, useRef, useEffect, KeyboardEventHandler } from "react";
 import {

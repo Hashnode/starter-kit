@@ -4,7 +4,6 @@ import Scripts from "./scripts";
 import Integrations from "./integrations";
 
 type Props = {
-  preview?: boolean;
   children: React.ReactNode;
 };
 
