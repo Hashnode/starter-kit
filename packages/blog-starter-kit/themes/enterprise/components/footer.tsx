@@ -15,7 +15,11 @@ const Footer = () => {
         {PUBLICATION_LOGO ? (
           <div className="flex flex-row justify-center w-full mb-20">
             <Link href={baseUrl} className="flex flex-row items-center gap-5">
-              <img className="block w-40" src={PUBLICATION_LOGO} />
+              <img
+                className="block w-40"
+                src={PUBLICATION_LOGO}
+                alt={publication.title}
+              />
             </Link>
           </div>
         ) : (
