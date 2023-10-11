@@ -71,18 +71,23 @@ const PersonalHeader = () => {
             className="flex flex-row items-center gap-2 text-lg font-bold leading-tight tracking-tight text-black dark:text-white"
             href="/"
           >
-            {publication.author.profilePicture && <img
-              className="block w-8 h-8 rounded-full fill-current"
-              src={resizeImage(publication.author.profilePicture, { w: 400, h: 400, c:'face' })}
-            />}
+            {publication.author.profilePicture && (
+              <img
+                className="block w-8 h-8 rounded-full fill-current"
+                alt={publication.author.name}
+                src={resizeImage(publication.author.profilePicture, {
+                  w: 400,
+                  h: 400,
+                  c: "face",
+                })}
+              />
+            )}
             {publication.title}
           </Link>
         </h1>
       </div>
       <div className="flex flex-row items-center justify-between gap-4 md:justify-end col-span-full md:col-span-1">
-        <nav>
-          {navList}
-        </nav>
+        <nav>{navList}</nav>
         {/* <Button
           label=""
           type="outline"

@@ -87,6 +87,7 @@ const Header = () => {
                 <>
                   <img
                     className="block w-32 md:w-40 shrink-0"
+                    alt={publication.title}
                     src={resizeImage(PUBLICATION_LOGO, { w: 320, h: 80 })}
                   />
                   <span className="text-xl font-semibold text-white md:text-3xl">
