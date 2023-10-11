@@ -6,9 +6,10 @@ type Props = {
   title: string;
   src: string;
   slug?: string;
+  priority?: boolean;
 };
 
-const CoverImage = ({ title, src, slug }: Props) => {
+const CoverImage = ({ title, src, slug, priority = false }: Props) => {
   const postURL = `${
     process.env.NEXT_PUBLIC_MODE === "development" ? "http://" : "https://"
   }${process.env.NEXT_PUBLIC_BASE_URL}/${slug}`;
@@ -22,6 +23,7 @@ const CoverImage = ({ title, src, slug }: Props) => {
         fill
         objectFit="cover"
         unoptimized
+        priority={priority}
       />
     </div>
   );

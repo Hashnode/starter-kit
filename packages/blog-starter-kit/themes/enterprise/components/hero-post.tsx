@@ -40,6 +40,7 @@ const HeroPost = ({
             DEFAULT_COVER
           }
           slug={slug}
+          priority={true}
         />
       </div>
       <div className="flex flex-col col-span-1 gap-2">
