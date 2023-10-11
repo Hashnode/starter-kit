@@ -41,7 +41,6 @@ const Meta = () => {
       ) : (
         defaultFavicons
       )}
-      <link rel="manifest" href="/favicon/site.webmanifest" />
       <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
       <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       {metaTags && parse(metaTags)}
