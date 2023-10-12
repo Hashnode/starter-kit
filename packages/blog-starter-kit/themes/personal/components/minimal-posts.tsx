@@ -1,8 +1,8 @@
-import { Post } from '../generated/graphql';
+import { PostFragment } from '../generated/graphql';
 import MinimalPostPreview from './minimal-post-preview';
 
 type Props = {
-	posts: Post[];
+	posts: PostFragment[];
 	context: 'home' | 'series' | 'tag';
 };
 
@@ -15,7 +15,6 @@ const MinimalPosts = ({ posts }: Props) => {
 					title={post.title}
 					date={post.publishedAt}
 					author={{
-						username: post.author.username,
 						name: post.author.name,
 					}}
 					slug={post.slug}

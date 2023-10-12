@@ -69,7 +69,8 @@ const markedOpts = {
 const extractMentions = (content: string) => {
 	const regex = /@<a([^>]*)href="@(\S+)"([^>]*)>((?:.(?!\<\/a\>))*.)<\/a>/g;
 
-	const replacer = (match, p1, p2, p3, p4) => {
+	const replacer = (substring: string, ...args: any[]) => {
+		const [p1, p2, p3, p4] = args;
 		return `<a target='_blank' rel='noopener noreferrer' href="https://hashnode.com/@${p2}">${p4}</a>`;
 	};
 	return content.replace(regex, replacer);

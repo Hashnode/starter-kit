@@ -1,4 +1,4 @@
-export const addPublicationJsonLd = (publication) => {
+export const addPublicationJsonLd = (publication: any) => {
 	const schema = {
 		'@context': 'https://schema.org/',
 		'@type': 'Blog',

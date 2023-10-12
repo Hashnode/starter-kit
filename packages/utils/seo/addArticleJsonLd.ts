@@ -1,5 +1,5 @@
-export const addArticleJsonLd = (publication, post) => {
-	const tags = post.tags?.map((tag) => tag.name);
+export const addArticleJsonLd = (publication: any, post: any) => {
+	const tags = (post.tags ?? []).map((tag: any) => tag.name);
 	const schema = {
 		'@context': 'https://schema.org/',
 		'@type': 'Blog',

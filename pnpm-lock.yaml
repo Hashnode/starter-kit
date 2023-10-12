@@ -249,6 +249,8 @@ importers:
         specifier: ^9.0.0
         version: 9.0.0(eslint@8.51.0)
 
+  packages/graphql-types: {}
+
   packages/tsconfig: {}
 
   packages/utils:
@@ -269,6 +271,9 @@ importers:
         specifier: ^13.11.0
         version: 13.11.0
     devDependencies:
+      '@types/rss':
+        specifier: ^0.0.30
+        version: 0.0.30
       '@types/sanitize-html':
         specifier: ^2.9.0
         version: 2.9.0
@@ -2391,6 +2396,10 @@ packages:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.3
       csstype: 3.1.2
+
+  /@types/rss@0.0.30:
+    resolution: {integrity: sha512-RnWs98qajbcAZqie6EWYraJ2N+1Q1Wy9KN7HcVPJ//sYJGVjLjvkChZdeQPwf88xAcNUCcLXt6Zz3kiid7s/yw==}
+    dev: true
 
   /@types/sanitize-html@2.9.0:
     resolution: {integrity: sha512-4fP/kEcKNj2u39IzrxWYuf/FnCCwwQCpif6wwY6ROUS1EPRIfWJjGkY3HIowY1EX/VbX5e86yq8AAE7UPMgATg==}

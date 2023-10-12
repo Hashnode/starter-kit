@@ -23,8 +23,7 @@ query RSSFeed($host: String!, $first: Int!, $after: String) {
 				}
 			}
 			pageInfo {
-				hasNextPage
-				endCursor
+				...PageInfo
 			}
 		}
 	}
