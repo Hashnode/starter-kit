@@ -901,7 +901,7 @@ type Post implements Node {
   """
   Complete URL of the post including the domain name. Example - https://johndoe.com/my-post-slug
   """
-  url: String
+  url: String!
   """
   The number of views on the post. Can be used to show the popularity of the post.
   """
