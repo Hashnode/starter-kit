@@ -4,7 +4,7 @@ export const getSitemap = (publication) => {
 
 	const domain = publication.url;
 	const staticPages = publication.staticPages.edges.map((edge) => edge.node);
-	const posts = publication.posts.edges.map((edge) => edge.node);
+	const posts = publication.posts;
 
 	xml += '<url>';
 	xml += `<loc>${domain}</loc>`;
