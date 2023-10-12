@@ -1,9 +1,19 @@
+import request from 'graphql-request';
 import { getBaseUrl } from '@starter-kit/utils/consts';
 import { resizeImage } from '@starter-kit/utils/image';
 import { KeyboardEventHandler, useEffect, useRef, useState } from 'react';
-import { Post } from '../generated/graphql';
+import {
+	SearchPostsOfPublicationDocument,
+	SearchPostsOfPublicationQuery,
+	SearchPostsOfPublicationQueryVariables,
+} from '../generated/graphql';
 import { useAppContext } from './contexts/appContext';
 import CoverImage from './cover-image';
+
+const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
+const NO_OF_SEARCH_RESULTS = 5;
+
+type Post = SearchPostsOfPublicationQuery['searchPostsOfPublication']['edges'][0]['node'];
 
 const DEFAULT_COVER =
 	'https://cdn.hashnode.com/res/hashnode/image/upload/v1683525272978/MB5H_kgOC.png?auto=format';
@@ -45,9 +55,14 @@ const Search = () => {
 		timerRef.current = setTimeout(async () => {
 			setIsSearching(true);
 
-			const response = await fetch(`/api/search?q=${query}&publication=${publication.id}`);
-			const posts = await response.json();
-
+			const data = await request<
+				SearchPostsOfPublicationQuery,
+				SearchPostsOfPublicationQueryVariables
+			>(GQL_ENDPOINT, SearchPostsOfPublicationDocument, {
+				first: NO_OF_SEARCH_RESULTS,
+				filter: { query, publicationId: publication.id },
+			});
+			const posts = data.searchPostsOfPublication.edges.map((edge) => edge.node);
 			setSearchResults(posts);
 			setIsSearching(false);
 		}, 500);

@@ -1,8 +1,17 @@
+import request from 'graphql-request';
 import { useRef, useState } from 'react';
+import {
+	SubscribeToNewsletterDocument,
+	SubscribeToNewsletterMutation,
+	SubscribeToNewsletterMutationVariables,
+	SubscribeToNewsletterPayload,
+} from '../generated/graphql';
 import { useAppContext } from './contexts/appContext';
 
+const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
+
 const SubscribeForm = () => {
-	const [status, setStatus] = useState();
+	const [status, setStatus] = useState<SubscribeToNewsletterPayload['status']>();
 	const [requestInProgress, setRequestInProgress] = useState(false);
 	const inputRef = useRef<HTMLInputElement>(null);
 	const { publication } = useAppContext();
@@ -12,17 +21,23 @@ const SubscribeForm = () => {
 		if (!email) return;
 
 		setRequestInProgress(true);
-		const response = await fetch('/api/subscribe', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ publication: publication.id, email }),
-		});
-		setRequestInProgress(false);
 
-		const data = await response.json();
-		setStatus(data.status);
+		try {
+			const data = await request<
+				SubscribeToNewsletterMutation,
+				SubscribeToNewsletterMutationVariables
+			>(GQL_ENDPOINT, SubscribeToNewsletterDocument, {
+				input: { publicationId: publication.id, email },
+			});
+			setRequestInProgress(false);
+			setStatus(data.subscribeToNewsletter.status);
+		} catch (error) {
+			const message = error.response?.errors?.[0]?.message;
+			if (message) {
+				window.alert(message);
+			}
+			setRequestInProgress(false);
+		}
 	};
 	return (
 		<>
@@ -37,7 +52,7 @@ const SubscribeForm = () => {
 					<button
 						disabled={requestInProgress}
 						onClick={subscribe}
-						className="bg-primary-600 dark:bg-primary-600 absolute right-3 top-3 rounded-full px-3 py-2 text-white"
+						className="bg-primary-600 dark:bg-primary-600 absolute right-3 top-3 rounded-full px-3 py-2 text-white disabled:cursor-not-allowed disabled:opacity-80"
 					>
 						Subscribe
 					</button>
