@@ -81,6 +81,9 @@ importers:
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
+      react-waypoint:
+        specifier: ^10.3.0
+        version: 10.3.0(react@18.2.0)
       remark:
         specifier: ^14.0.2
         version: 14.0.3
@@ -172,6 +175,9 @@ importers:
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
+      react-waypoint:
+        specifier: ^10.3.0
+        version: 10.3.0(react@18.2.0)
       remark:
         specifier: ^14.0.2
         version: 14.0.3
@@ -3115,6 +3121,10 @@ packages:
       yargs: 17.7.2
     dev: true
 
+  /consolidated-events@2.0.2:
+    resolution: {integrity: sha512-2/uRVMdRypf5z/TW/ncD/66l75P5hH2vM/GR8Jf8HLc2xnfJtmina6F6du8+v4Z2vTrMo7jC+W1tmEEuuELgkQ==}
+    dev: false
+
   /constant-case@3.0.4:
     resolution: {integrity: sha512-I2hSBi7Vvs7BEuJDr5dDHfzb/Ruj3FyvFyh7KLilAjNQw3Be+xgqUBA2W6scVEcL0hL1dwPRtIqEPVUCKkSsyQ==}
     dependencies:
@@ -5978,6 +5988,10 @@ packages:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
     dev: false
 
+  /react-is@18.2.0:
+    resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
+    dev: false
+
   /react-property@2.0.0:
     resolution: {integrity: sha512-kzmNjIgU32mO4mmH5+iUyrqlpFQhF8K2k7eZ4fdLSOPFrD1XgEuSBv9LDEgxRXTMBqMd8ppT0x6TIzqE5pdGdw==}
     dev: false
@@ -6032,6 +6046,18 @@ packages:
       invariant: 2.2.4
       react: 18.2.0
       tslib: 2.6.2
+    dev: false
+
+  /react-waypoint@10.3.0(react@18.2.0):
+    resolution: {integrity: sha512-iF1y2c1BsoXuEGz08NoahaLFIGI9gTUAAOKip96HUmylRT6DUtpgoBPjk/Y8dfcFVmfVDvUzWjNXpZyKTOV0SQ==}
+    peerDependencies:
+      react: ^15.3.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@babel/runtime': 7.22.15
+      consolidated-events: 2.0.2
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-is: 18.2.0
     dev: false
 
   /react@18.2.0:
