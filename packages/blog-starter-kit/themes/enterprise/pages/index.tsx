@@ -147,7 +147,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 						<>
 							<MorePosts context="home" posts={morePosts} />
 							{pageInfo.hasNextPage && pageInfo.endCursor && (
-								<button className="bg-white" onClick={loadMore}>
+								<button className="hidden bg-white" onClick={loadMore}>
 									Load more
 								</button>
 							)}
