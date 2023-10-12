@@ -1,0 +1,13 @@
+{
+	"name": "@starter-kit/eslint-config-custom",
+	"version": "0.0.0",
+	"license": "ISC",
+	"main": "index.js",
+	"dependencies": {
+		"eslint-config-next": "^13.5.4",
+		"eslint-config-prettier": "^9.0.0"
+	},
+	"peerDependencies": {
+		"eslint": "^8.0.0"
+	}
+}
