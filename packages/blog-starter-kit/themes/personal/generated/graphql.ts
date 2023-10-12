@@ -1510,6 +1510,8 @@ export type Query = {
   publication?: Maybe<Publication>;
   /** Get a scheduled post by ID. */
   scheduledPost?: Maybe<ScheduledPost>;
+  /** Returns a paginated list of posts based on search query for a particular publication id. */
+  searchPostsOfPublication: SearchPostConnection;
   /** Returns tag details by its slug. */
   tag?: Maybe<Tag>;
   /** Returns users who have most actively participated in discussions by commenting in the last 7 days. */
@@ -1539,6 +1541,13 @@ export type QueryPublicationArgs = {
 
 export type QueryScheduledPostArgs = {
   id?: InputMaybe<Scalars['ObjectId']['input']>;
+};
+
+
+export type QuerySearchPostsOfPublicationArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  filter: SearchPostsOfPublicationFilter;
+  first: Scalars['Int']['input'];
 };
 
 
@@ -1676,6 +1685,26 @@ export enum Scope {
   WritePost = 'write_post',
   WriteSeries = 'write_series'
 }
+
+/**
+ * Connection for posts within a publication search. Contains a list of edges containing nodes.
+ * Each node is a post.
+ * Page info contains information about pagination like hasNextPage and endCursor.
+ */
+export type SearchPostConnection = Connection & {
+  __typename?: 'SearchPostConnection';
+  /** A list of edges containing Post information */
+  edges: Array<PostEdge>;
+  /** Information for pagination in Post connection. */
+  pageInfo: PageInfo;
+};
+
+export type SearchPostsOfPublicationFilter = {
+  /** The ID of publications to search from. */
+  publicationId: Scalars['ObjectId']['input'];
+  /** The query to be searched in post. */
+  query: Scalars['String']['input'];
+};
 
 /**
  * Contains basic information about the series.

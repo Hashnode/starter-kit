@@ -11,6 +11,27 @@ const constructRSSFeedFromPosts = (
 ) => {
 	const baseUrl = getBaseUrl();
 
+	const customElements = [
+		{
+			'atom:link': {
+				_attr: {
+					rel: 'first',
+					href: `${baseUrl}/rss.xml`,
+				},
+			},
+		},
+	];
+	if (nextCursor) {
+		customElements.push({
+			'atom:link': {
+				_attr: {
+					rel: 'next',
+					href: `${baseUrl}/rss.xml${nextCursor ? `?after=${nextCursor}` : ''}`,
+				},
+			},
+		});
+	}
+
 	const feedConfig = {
 		title: `${publication.title || `${publication.author!.name}'s blog`}`,
 		description: publication.about?.html,
@@ -19,24 +40,7 @@ const constructRSSFeedFromPosts = (
 		image_url: publication.preferences!.logo,
 		language: 'en',
 		ttl: 60,
-		custom_elements: [
-			{
-				'atom:link': {
-					_attr: {
-						rel: 'next',
-						href: `${baseUrl}/rss.xml${nextCursor ? `?after=${nextCursor}` : ''}`,
-					},
-				},
-			},
-			{
-				'atom:link': {
-					_attr: {
-						rel: 'first',
-						href: `${baseUrl}/rss.xml`,
-					},
-				},
-			},
-		],
+		custom_elements: customElements,
 	};
 
 	const feed = new RSS(feedConfig);

@@ -28,7 +28,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 		publication,
 		allPosts,
 		after,
-		publication.posts.pageInfo.endCursor,
+		publication.posts.pageInfo.hasNextPage ? publication.posts.pageInfo.endCursor : null,
 	);
 
 	res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate');
