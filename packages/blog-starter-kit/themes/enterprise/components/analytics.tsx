@@ -11,7 +11,7 @@ const Analytics = () => {
 	const { publication, post } = useAppContext();
 
 	useEffect(() => {
-		if (!isProd) return null;
+		if (!isProd) return;
 
 		_sendPageViewsToHashnodeGoogleAnalytics();
 		_sendViewsToHashnodeInternalAnalytics();
