@@ -1,33 +1,54 @@
-query Sitemap($host: String!, $postsCount: Int!, $staticPagesCount: Int!) {
+query Sitemap($host: String!, $postsCount: Int!, $postsAfter: String, $staticPagesCount: Int!) {
   publication(host: $host) {
-    ...Publication
+    id
+    url
     staticPages (first: $staticPagesCount) {
-        edges {
-            node {
-                slug
-            }
-        }
-    }
-    posts(first: $postsCount) {
       edges {
-        node {
-          id
-          title
-          url
-          slug
-          publishedAt
-          updatedAt
-          tags {
-            id
-            name
-            slug
+          node {
+              slug
           }
-          author {
-            name
-            username
-          }
-        }
       }
     }
+    posts(first: $postsCount, after: $postsAfter) {
+      edges {
+        node {
+          ...RequiredSitemapPostFields
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+    }
+  }
+}
+
+query MoreSitemapPosts($host: String!, $postsCount: Int!, $postsAfter: String) {
+  publication(host: $host) {
+    id
+    posts(first: $postsCount, after: $postsAfter) {
+      edges {
+        node {
+          ...RequiredSitemapPostFields
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+    }
+  }
+}
+
+fragment RequiredSitemapPostFields on Post {
+  id
+  url
+  slug
+  publishedAt
+  updatedAt
+  tags {
+    id
+    name
+    slug
   }
 }
