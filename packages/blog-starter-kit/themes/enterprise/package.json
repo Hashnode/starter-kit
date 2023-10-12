@@ -5,6 +5,8 @@
 		"build": "next build",
 		"codegen": "graphql-codegen --config codegen.yml",
 		"dev": "concurrently \"next\" \"pnpm codegen --watch\" --names next,codegen",
+		"format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,json}\" --ignore-path ../../../../.prettierignore",
+		"lint": "next lint",
 		"start": "next start",
 		"typecheck": "tsc"
 	},
@@ -12,7 +14,7 @@
 		"@graphql-typed-document-node/core": "^3.2.0",
 		"@radix-ui/react-dropdown-menu": "^2.0.6",
 		"@radix-ui/react-popover": "^1.0.7",
-		"@starter-kit/utils": "workspace:^",
+		"@starter-kit/utils": "workspace:*",
 		"@tailwindcss/typography": "^0.5.10",
 		"date-fns": "^2.30.0",
 		"graphql-request": "^6.1.0",
@@ -29,6 +31,7 @@
 		"@graphql-codegen/typescript": "^4.0.1",
 		"@graphql-codegen/typescript-operations": "^4.0.1",
 		"@parcel/watcher": "^2.3.0",
+		"@starter-kit/eslint-config-custom": "workspace:*",
 		"@types/js-cookie": "^3.0.4",
 		"@types/node": "^18.0.3",
 		"@types/react": "^18.0.15",
@@ -36,6 +39,7 @@
 		"@types/uuid": "^9.0.5",
 		"autoprefixer": "^10.4.7",
 		"concurrently": "^8.2.1",
+		"eslint": "^8.51.0",
 		"postcss": "^8.4.14"
 	}
 }

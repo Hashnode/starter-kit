@@ -48,8 +48,8 @@ const SubscribeForm = () => {
 					<p className="font-bold text-green-600 dark:text-green-500">Almost there!</p>
 					<p className="font-medium text-slate-600 dark:text-neutral-300">
 						Check your inbox for a confirmation email and click{' '}
-						<strong>"Confirm and Subscribe"</strong> to complete your subscription. Thanks for
-						joining us!
+						<strong>&quot;Confirm and Subscribe&quot;</strong> to complete your subscription. Thanks
+						for joining us!
 					</p>
 				</div>
 			)}
