@@ -8,9 +8,17 @@ const GA_TRACKING_ID = 'G-72XG3F8LNJ'; // This is Hashnode's GA tracking ID
 const isProd = process.env.NEXT_PUBLIC_MODE === 'production';
 
 const Analytics = () => {
-	if (!isProd) return null;
-
 	const { publication, post } = useAppContext();
+
+	useEffect(() => {
+		if (!isProd) return null;
+
+		_sendPageViewsToHashnodeGoogleAnalytics();
+		_sendViewsToHashnodeInternalAnalytics();
+		_sendViewsToHashnodeAnalyticsDashboard();
+	}, []);
+
+	if (!isProd) return null;
 
 	const _sendPageViewsToHashnodeGoogleAnalytics = () => {
 		// @ts-ignore
@@ -130,11 +138,6 @@ const Analytics = () => {
 		});
 	};
 
-	useEffect(() => {
-		_sendPageViewsToHashnodeGoogleAnalytics();
-		_sendViewsToHashnodeInternalAnalytics();
-		_sendViewsToHashnodeAnalyticsDashboard();
-	}, []);
 	return null;
 };
 

@@ -85,7 +85,7 @@ export default function Index({ publication, allPosts }: Props) {
 									<ArticleSVG clasName="stroke-current" />
 								</div>
 								<p className="text-xl font-semibold ">
-									Hang tight! We're drafting the first article.
+									Hang tight! We&apos;re drafting the first article.
 								</p>
 							</div>
 						</div>
