@@ -4,6 +4,7 @@ import request from 'graphql-request';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useState } from 'react';
+import { Waypoint } from 'react-waypoint';
 import { Container } from '../components/container';
 import { AppProvider } from '../components/contexts/appContext';
 import Footer from '../components/footer';
@@ -39,6 +40,7 @@ type Props = {
 export default function Index({ publication, initialAllPosts, initialPageInfo }: Props) {
 	const [allPosts, setAllPosts] = useState<Post[]>(initialAllPosts);
 	const [pageInfo, setPageInfo] = useState<Props['initialPageInfo']>(initialPageInfo);
+	const [loadedMore, setLoadedMore] = useState(false);
 
 	const loadMore = async () => {
 		const data = await request<MorePostsByPublicationQuery, MorePostsByPublicationQueryVariables>(
@@ -53,6 +55,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 		const newPosts = data.publication.posts.edges.map((edge) => edge.node) as Post[];
 		setAllPosts([...allPosts, ...newPosts]);
 		setPageInfo(data.publication.posts.pageInfo);
+		setLoadedMore(true);
 	};
 
 	const firstPost = allPosts[0];
@@ -146,10 +149,13 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 					{morePosts.length > 0 && (
 						<>
 							<MorePosts context="home" posts={morePosts} />
-							{pageInfo.hasNextPage && pageInfo.endCursor && (
+							{!loadedMore && pageInfo.hasNextPage && pageInfo.endCursor && (
 								<button className="hidden bg-white" onClick={loadMore}>
 									Load more
 								</button>
+							)}
+							{loadedMore && pageInfo.hasNextPage && pageInfo.endCursor && (
+								<Waypoint onEnter={loadMore} bottomOffset={'10%'} />
 							)}
 						</>
 					)}
