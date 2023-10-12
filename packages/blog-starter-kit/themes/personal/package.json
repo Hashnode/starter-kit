@@ -32,6 +32,7 @@
 		"@graphql-codegen/typescript-operations": "^4.0.1",
 		"@parcel/watcher": "^2.3.0",
 		"@starter-kit/eslint-config-custom": "workspace:*",
+		"@starter-kit/tsconfig": "workspace:*",
 		"@types/js-cookie": "^3.0.4",
 		"@types/node": "^18.0.3",
 		"@types/react": "^18.0.15",
