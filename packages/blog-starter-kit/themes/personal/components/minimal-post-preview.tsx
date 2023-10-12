@@ -4,7 +4,6 @@ import DateFormatter from './date-formatter';
 
 type Author = {
 	name: string;
-	username: string;
 };
 
 type Props = {

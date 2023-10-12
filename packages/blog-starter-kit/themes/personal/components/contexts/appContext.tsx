@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from 'react';
-import { Post, Publication } from '../../generated/graphql';
+import { PostFullFragment, PublicationFragment } from '../../generated/graphql';
 
-type AppContext = { publication: Publication; post: Post | null };
+type AppContext = { publication: PublicationFragment; post: PostFullFragment | null };
 
 const AppContext = createContext<AppContext | null>(null);
 
@@ -11,8 +11,8 @@ const AppProvider = ({
 	post,
 }: {
 	children: React.ReactNode;
-	publication: Publication;
-	post?: Post;
+	publication: PublicationFragment;
+	post?: PostFullFragment | null;
 }) => {
 	return (
 		<AppContext.Provider
