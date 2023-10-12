@@ -6,10 +6,33 @@ query PostsByPublication($host: String!, $first: Int!, $after: String) {
       edges {
         node {
           ...Post
-          comments (first: 0) {
+          comments(first: 0) {
             totalDocuments
           }
         }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+}
+
+query MorePostsByPublication($host: String!, $first: Int!, $after: String) {
+  publication(host: $host) {
+    posts(first: $first, after: $after) {
+      edges {
+        node {
+          ...Post
+          comments(first: 0) {
+            totalDocuments
+          }
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
       }
     }
   }
