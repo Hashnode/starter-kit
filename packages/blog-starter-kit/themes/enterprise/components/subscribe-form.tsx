@@ -22,14 +22,22 @@ const SubscribeForm = () => {
 
 		setRequestInProgress(true);
 
-		const data = await request<
-			SubscribeToNewsletterMutation,
-			SubscribeToNewsletterMutationVariables
-		>(GQL_ENDPOINT, SubscribeToNewsletterDocument, {
-			input: { publicationId: publication.id, email },
-		});
-		setRequestInProgress(false);
-		setStatus(data.subscribeToNewsletter.status);
+		try {
+			const data = await request<
+				SubscribeToNewsletterMutation,
+				SubscribeToNewsletterMutationVariables
+			>(GQL_ENDPOINT, SubscribeToNewsletterDocument, {
+				input: { publicationId: publication.id, email },
+			});
+			setRequestInProgress(false);
+			setStatus(data.subscribeToNewsletter.status);
+		} catch (error) {
+			const message = error.response?.errors?.[0]?.message;
+			if (message) {
+				window.alert(message);
+			}
+			setRequestInProgress(false);
+		}
 	};
 	return (
 		<>
@@ -44,7 +52,7 @@ const SubscribeForm = () => {
 					<button
 						disabled={requestInProgress}
 						onClick={subscribe}
-						className="bg-primary-600 dark:bg-primary-600 absolute right-3 top-3 rounded-full px-3 py-2 text-white"
+						className="bg-primary-600 dark:bg-primary-600 absolute right-3 top-3 rounded-full px-3 py-2 text-white disabled:cursor-not-allowed disabled:opacity-80"
 					>
 						Subscribe
 					</button>
