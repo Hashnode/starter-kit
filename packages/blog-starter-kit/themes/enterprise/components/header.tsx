@@ -4,16 +4,12 @@ import Link from "next/link";
 import { useAppContext } from "./contexts/appContext";
 import { resizeImage } from "@starter-kit/utils/image";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import { getBaseUrl } from '@starter-kit/utils/consts';
 
 const Header = () => {
-  const baseUrl = `${
-    process.env.NEXT_PUBLIC_MODE === "development" ? "http://" : "https://"
-  }${process.env.NEXT_PUBLIC_BASE_URL}`;
-
+  const baseUrl = `${getBaseUrl()}/`;
   const { publication } = useAppContext();
-  const PUBLICATION_LOGO =
-    publication.preferences.darkMode.logo || publication.preferences.logo;
-
+  const PUBLICATION_LOGO = publication.preferences.darkMode.logo || publication.preferences.logo;
   const navbarItems = publication.preferences.navbarItems;
   const visibleItems = navbarItems.slice(0, 3);
   const hiddenItems = navbarItems.slice(3);

@@ -1,11 +1,10 @@
 import { GithubSVG, HashnodeSVG, LinkedinSVG, RssSVG, XSVG } from "./icons";
 import { useAppContext } from "./contexts/appContext";
+import { getBaseUrl } from "@starter-kit/utils/consts";
 
 const SocialLinks = () => {
   const { publication } = useAppContext();
-  const baseUrl = `${
-    process.env.NEXT_PUBLIC_MODE === "development" ? "http://" : "https://"
-  }${process.env.NEXT_PUBLIC_BASE_URL}`;
+  const baseUrl = getBaseUrl();
 
   return (
     <div className="flex flex-row justify-end col-span-1 gap-1 text-slate-600 dark:text-neutral-300">

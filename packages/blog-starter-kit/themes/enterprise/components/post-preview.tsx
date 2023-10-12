@@ -1,8 +1,8 @@
 import DateFormatter from "./date-formatter";
 import CoverImage from "./cover-image";
 import Link from "next/link";
-import { User } from "../generated/graphql";
 import { resizeImage } from "@starter-kit/utils/image";
+import { getBaseUrl } from '@starter-kit/utils/consts';
 
 type Author = {
   name: string;
@@ -21,9 +21,7 @@ type Props = {
 };
 
 const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) => {
-  const postURL = `${
-    process.env.NEXT_PUBLIC_MODE === "development" ? "http://" : "https://"
-  }${process.env.NEXT_PUBLIC_BASE_URL}/${slug}`;
+  const postURL = `${getBaseUrl()}/${slug}`;
   return (
     <div className="grid grid-cols-1 gap-5">
       <div className="col-span-1">

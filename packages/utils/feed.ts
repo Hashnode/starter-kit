@@ -1,9 +1,10 @@
 import RSS from 'rss';
+import { getBaseUrl } from './consts';
 
 const NON_ASCII_REGEX = /[\u{0080}-\u{FFFF}]/gu;
 
 const constructRSSFeedFromPosts = (publication, posts, page: number) => {
-    const baseUrl = `${process.env.NEXT_PUBLIC_MODE === "development" ? "http://" : "https://"}${process.env.NEXT_PUBLIC_BASE_URL}`;
+    const baseUrl = getBaseUrl();
 
     const feedConfig = {
         title: `${publication.title || `${publication.author!.name}'s blog`}`,

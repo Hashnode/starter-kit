@@ -1,3 +1,4 @@
+import { getBaseUrl } from "@starter-kit/utils/consts";
 import DateFormatter from "./date-formatter";
 import Link from "next/link";
 
@@ -21,9 +22,7 @@ const MinimalPostPreview = ({
   slug,
   commentCount,
 }: Props) => {
-  const postURL = `${
-    process.env.NEXT_PUBLIC_MODE === "development" ? "http://" : "https://"
-  }${process.env.NEXT_PUBLIC_BASE_URL}/${slug}`;
+  const postURL = `${getBaseUrl()}/${slug}`;
   return (
     <section className="flex flex-col items-start gap-1">
       <h2 className="text-lg leading-tight tracking-tight text-black dark:text-white">

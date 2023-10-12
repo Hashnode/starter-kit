@@ -5,6 +5,7 @@ import {
 } from "../generated/graphql";
 import CoverImage from "./cover-image";
 import { resizeImage } from "@starter-kit/utils/image";
+import { getBaseUrl } from "@starter-kit/utils/consts";
 
 const DEFAULT_COVER =
   "https://cdn.hashnode.com/res/hashnode/image/upload/v1683525272978/MB5H_kgOC.png?auto=format";
@@ -61,9 +62,7 @@ const Search = () => {
   }, [query]);
 
   const searchResultsList = searchResults.map((post) => {
-    const postURL = `${
-      process.env.NEXT_PUBLIC_MODE === "development" ? "http://" : "https://"
-    }${process.env.NEXT_PUBLIC_BASE_URL}/${post.slug}`;
+    const postURL = `${getBaseUrl()}/${post.slug}`;
     return (
       <a
         key={post.id}

@@ -2,16 +2,13 @@ import Link from "next/link";
 import CoverImage from "./cover-image";
 import DateFormatter from "./date-formatter";
 import { resizeImage } from "@starter-kit/utils/image";
+import { getBaseUrl } from "@starter-kit/utils/consts";
 
 type Props = {
   title: string;
   coverImage: string;
   date: string;
   excerpt: string;
-  author: {
-    name: string;
-    profilePicture: string;
-  };
   slug: string;
 };
 
@@ -23,12 +20,9 @@ const SecondaryPost = ({
   coverImage,
   date,
   excerpt,
-  author,
   slug,
 }: Props) => {
-  const postURL = `${
-    process.env.NEXT_PUBLIC_MODE === "development" ? "http://" : "https://"
-  }${process.env.NEXT_PUBLIC_BASE_URL}/${slug}`;
+  const postURL = `${getBaseUrl()}/${slug}`;
 
   return (
     <section className="grid items-start gap-5 md:grid-cols-2">

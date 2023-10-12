@@ -2,11 +2,10 @@ import Link from "next/link";
 import Container from "./container";
 import SocialLinks from "./social-links";
 import { useAppContext } from "./contexts/appContext";
+import { getBaseUrl } from '@starter-kit/utils/consts';
 
 const Footer = () => {
-  const baseUrl = `${
-    process.env.NEXT_PUBLIC_MODE === "development" ? "http://" : "https://"
-  }${process.env.NEXT_PUBLIC_BASE_URL}`;
+  const baseUrl = `${getBaseUrl()}/`;
   const { publication } = useAppContext();
   const PUBLICATION_LOGO = publication.preferences.logo;
   return (

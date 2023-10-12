@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import Cookies from 'js-cookie';
 import { useAppContext } from "./contexts/appContext";
+import { getBaseUrl } from '@starter-kit/utils/consts';
 
 const GA_TRACKING_ID = "G-72XG3F8LNJ"; // This is Hashnode's GA tracking ID
-const BASE_PATH = process.env.NEXT_PUBLIC_BASE_URL.indexOf('/') !== -1 ? process.env.NEXT_PUBLIC_BASE_URL.substring(process.env.NEXT_PUBLIC_BASE_URL.indexOf('/')) : '';
 const isProd = process.env.NEXT_PUBLIC_MODE === 'production';
 
 const Analytics = () => {
@@ -45,7 +45,7 @@ const Analytics = () => {
     
           event['device_id'] = deviceId;
     
-        await fetch(`${BASE_PATH}/ping/data-event`, {
+        await fetch(`${getBaseUrl()}/ping/data-event`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -101,7 +101,7 @@ const Analytics = () => {
 
     // send to Umami powered advanced Hashnode analytics
     if (publication.integrations?.umamiWebsiteUUID) {
-      await fetch(`${BASE_PATH}/api/collect`, {
+      await fetch(`${getBaseUrl()}/api/collect`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -121,7 +121,7 @@ const Analytics = () => {
     }
 
     // For Hashnode Blog Dashboard Analytics
-    fetch(`${BASE_PATH}/ping/view`, {
+    fetch(`${getBaseUrl()}/ping/view`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

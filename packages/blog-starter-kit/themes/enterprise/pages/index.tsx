@@ -43,10 +43,6 @@ export default function Index({ publication, allPosts }: Props) {
           "https://cdn.hashnode.com/res/hashnode/image/upload/v1683525272978/MB5H_kgOC.png?auto=format"
         }
         date={post.publishedAt}
-        author={{
-          name: post.author.name,
-          profilePicture: post.author.profilePicture,
-        }}
         slug={post.slug}
         excerpt={post.brief}
       />
@@ -113,10 +109,6 @@ export default function Index({ publication, allPosts }: Props) {
                     "https://cdn.hashnode.com/res/hashnode/image/upload/v1683525272978/MB5H_kgOC.png?auto=format"
                   }
                   date={firstPost.publishedAt}
-                  author={{
-                    name: firstPost.author.name,
-                    profilePicture: firstPost.author.profilePicture,
-                  }}
                   slug={firstPost.slug}
                   excerpt={firstPost.brief}
                 />
