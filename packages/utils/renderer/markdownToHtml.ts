@@ -8,7 +8,6 @@ const imageReplacer = require('./image').imageReplacer;
 // @ts-ignore
 renderer.link = function (href, title, text) {
 	var link = marked.Renderer.prototype.link.call(this, href, title, text);
-
 	var linkIsUserMention =
 		title &&
 		title.includes('s Profile - Hashnode') &&
@@ -18,11 +17,9 @@ renderer.link = function (href, title, text) {
 	if (linkIsUserMention) {
 		return link.replace('<a', "<a class='user-mention' target='_blank' rel='noopener noreferrer'");
 	}
-
 	if (href.indexOf('#') === 0) {
 		return link.replace('<a', "<a class='post-section-overview'");
 	}
-
 	return link.replace('<a', "<a target='_blank' rel='noopener noreferrer' ");
 };
 
@@ -69,10 +66,39 @@ const markedOpts = {
 	},
 };
 
+const extractMentions = (content: string) => {
+	const regex = /@<a([^>]*)href="@(\S+)"([^>]*)>((?:.(?!\<\/a\>))*.)<\/a>/g;
+
+	const replacer = (match, p1, p2, p3, p4) => {
+		return `<a target='_blank' rel='noopener noreferrer' href="https://hashnode.com/@${p2}">${p4}</a>`;
+	};
+	return content.replace(regex, replacer);
+};
+
+const getSanitizedHTML = (content: string) => {
+	return sanitizeHtml(content, sanitizeHtmlOptions);
+};
+
+const getHTMLFromMarkdown = (contentMarkdown: string) => {
+	return marked(contentMarkdown, markedOpts);
+};
+
+const getOptimizedImages = (content: string) => {
+	return imageReplacer(content, true);
+};
+
+const pipe =
+	(...fns: any[]) =>
+	(x: any) =>
+		fns.reduce((v, f) => f(v), x);
+
 export const markdownToHtml = (contentMarkdown: string) => {
-	const content = imageReplacer(
-		sanitizeHtml(marked(contentMarkdown, markedOpts), sanitizeHtmlOptions),
-		true,
-	);
+	const content = pipe(
+		getHTMLFromMarkdown,
+		getSanitizedHTML,
+		extractMentions,
+		getOptimizedImages,
+	)(contentMarkdown);
+
 	return content;
 };
