@@ -1,5 +1,6 @@
 import useEmbeds from '@starter-kit/utils/renderer/hooks/useEmbeds';
 import { markdownToHtml } from '@starter-kit/utils/renderer/markdownToHtml';
+import { memo } from 'react';
 
 type Props = {
 	contentMarkdown: string;
@@ -17,4 +18,4 @@ const MarkdownToHtml = ({ contentMarkdown }: Props) => {
 	);
 };
 
-export default MarkdownToHtml;
+export default memo(MarkdownToHtml);

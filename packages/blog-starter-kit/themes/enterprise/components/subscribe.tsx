@@ -8,14 +8,12 @@ const Subscribe = () => {
 		<div className="fixed bottom-10 right-10 z-50">
 			<Popover.Root>
 				<Popover.Trigger asChild>
-					<div>
-						<Button
-							label="Subscribe"
-							type="outline"
-							icon={<NewsletterPlusSVG className="h-5 w-5 fill-current" />}
-							className="bg-white"
-						/>
-					</div>
+					<Button
+						label="Subscribe"
+						type="outline"
+						icon={<NewsletterPlusSVG className="h-5 w-5 fill-current" />}
+						className="bg-white"
+					/>
 				</Popover.Trigger>
 				<Popover.Portal>
 					<Popover.Content
