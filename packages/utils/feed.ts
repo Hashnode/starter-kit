@@ -4,10 +4,10 @@ import { getBaseUrl } from './consts';
 const NON_ASCII_REGEX = /[\u{0080}-\u{FFFF}]/gu;
 
 const constructRSSFeedFromPosts = (
-	publication,
-	posts,
-	currentCursor: string,
-	nextCursor: string,
+	publication: any,
+	posts: any[],
+	currentCursor: string | null,
+	nextCursor: string | null,
 ) => {
 	const baseUrl = getBaseUrl();
 
@@ -50,7 +50,7 @@ const constructRSSFeedFromPosts = (
 			title: post.title,
 			description: post.content!.html!.replace(NON_ASCII_REGEX, ''),
 			url: `${baseUrl}/${post.slug}`,
-			categories: post.tags!.map((tag) => tag.name),
+			categories: post.tags!.map((tag: any) => tag.name),
 			author: post.author!.name,
 			date: post.publishedAt,
 			...(post.coverImage && { custom_elements: [{ cover_image: post.coverImage }] }),

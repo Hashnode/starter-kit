@@ -12,7 +12,7 @@
 		"moduleDetection": "force",
 		"isolatedModules": true,
 
-		"strict": false,
+		"strict": true,
 		"noUncheckedIndexedAccess": false,
 		"forceConsistentCasingInFileNames": true,
 

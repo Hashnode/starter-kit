@@ -1,6 +1,6 @@
-import request from 'graphql-request';
 import { getBaseUrl } from '@starter-kit/utils/consts';
 import { resizeImage } from '@starter-kit/utils/image';
+import request from 'graphql-request';
 import { KeyboardEventHandler, useEffect, useRef, useState } from 'react';
 import {
 	SearchPostsOfPublicationDocument,

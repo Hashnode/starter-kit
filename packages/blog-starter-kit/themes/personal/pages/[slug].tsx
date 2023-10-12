@@ -48,6 +48,14 @@ const Post = (publication: Publication, post: Post) => {
 		</li>
 	));
 
+	const coverImageSrc = !!post.coverImage?.url
+		? resizeImage(post.coverImage.url, {
+				w: 1600,
+				h: 840,
+				c: 'thumb',
+		  })
+		: undefined;
+
 	return (
 		<>
 			<Head>
@@ -84,17 +92,9 @@ const Post = (publication: Publication, post: Post) => {
 			<div className="text-neutral-600 dark:text-neutral-400">
 				<DateFormatter dateString={post.publishedAt} />
 			</div>
-			{post.coverImage && (
+			{!!coverImageSrc && (
 				<div className="w-full">
-					<CoverImage
-						title={post.title}
-						priority={true}
-						src={resizeImage(post.coverImage.url, {
-							w: 1600,
-							h: 840,
-							c: 'thumb',
-						})}
-					/>
+					<CoverImage title={post.title} priority={true} src={coverImageSrc} />
 				</div>
 			)}
 			<MarkdownToHtml contentMarkdown={post.content.markdown} />
@@ -173,7 +173,12 @@ export async function getStaticProps({ params }: Params) {
 			},
 		);
 
-		const page = staticPageData.publication.staticPage;
+		const page = staticPageData.publication?.staticPage;
+		if (!page) {
+			return {
+				notFound: true,
+			};
+		}
 		return {
 			props: {
 				page,
@@ -202,11 +207,10 @@ export async function getStaticPaths() {
 		},
 	);
 
-	// Extract the post slugs from the GraphQL response
-	const postSlugs = data.publication.posts.edges.map((edge: any) => edge.node.slug);
+	const postSlugs = (data.publication?.posts.edges ?? []).map((edge) => edge.node.slug);
 
 	return {
-		paths: postSlugs.map((slug: string) => {
+		paths: postSlugs.map((slug) => {
 			return {
 				params: {
 					slug: slug,

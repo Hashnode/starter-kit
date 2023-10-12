@@ -17,6 +17,7 @@
 		"validator": "^13.11.0"
 	},
 	"devDependencies": {
+		"@types/rss": "^0.0.30",
 		"@types/sanitize-html": "^2.9.0"
 	}
 }

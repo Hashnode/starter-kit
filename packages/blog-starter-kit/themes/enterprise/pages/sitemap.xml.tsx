@@ -16,11 +16,15 @@ const Sitemap = () => null;
 export async function getServerSideProps(ctx: { req: any; res: any; query: any }) {
 	const { res } = ctx;
 
-	const initialData = await request<SitemapQuery, SitemapQueryVariables>(GQL_ENDPOINT, SitemapDocument, {
-		host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
-		postsCount: 20,
-		staticPagesCount: 50,
-	});
+	const initialData = await request<SitemapQuery, SitemapQueryVariables>(
+		GQL_ENDPOINT,
+		SitemapDocument,
+		{
+			host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
+			postsCount: 20,
+			staticPagesCount: 50,
+		},
+	);
 
 	const publication = initialData.publication;
 	const posts = initialData.publication.posts.edges.map((edge) => edge.node);

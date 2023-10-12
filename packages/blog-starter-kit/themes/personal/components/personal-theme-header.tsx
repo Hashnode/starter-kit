@@ -1,12 +1,19 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { resizeImage } from '@starter-kit/utils/image';
 import Link from 'next/link';
+import { PublicationNavbarItem } from '../generated/graphql';
 import { useAppContext } from './contexts/appContext';
+
+function hasUrl(
+	navbarItem: PublicationNavbarItem,
+): navbarItem is PublicationNavbarItem & { url: string } {
+	return !!navbarItem.url && navbarItem.url.length > 0;
+}
 
 const PersonalHeader = () => {
 	const { publication } = useAppContext();
 
-	const navbarItems = publication.preferences.navbarItems;
+	const navbarItems = publication.preferences.navbarItems.filter(hasUrl);
 	const visibleItems = navbarItems.slice(0, 2);
 	const hiddenItems = navbarItems.slice(2);
 

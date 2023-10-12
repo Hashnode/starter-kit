@@ -1,9 +1,9 @@
-export const getSitemap = (publication) => {
+export const getSitemap = (publication: any) => {
 	let xml =
 		'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 
 	const domain = publication.url;
-	const staticPages = publication.staticPages.edges.map((edge) => edge.node);
+	const staticPages = publication.staticPages.edges.map((edge: any) => edge.node);
 	const posts = publication.posts;
 
 	xml += '<url>';

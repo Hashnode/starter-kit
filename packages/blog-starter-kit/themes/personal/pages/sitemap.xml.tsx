@@ -1,5 +1,6 @@
 import getSitemap from '@starter-kit/utils/seo/sitemap';
 import request from 'graphql-request';
+import { GetServerSideProps } from 'next';
 import {
 	MoreSitemapPostsDocument,
 	MoreSitemapPostsQuery,
@@ -13,21 +14,30 @@ const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 const MAX_POSTS = 1000;
 const Sitemap = () => null;
 
-export async function getServerSideProps(ctx: { req: any; res: any; query: any }) {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
 	const { res } = ctx;
 
-	const initialData = await request<SitemapQuery, SitemapQueryVariables>(GQL_ENDPOINT, SitemapDocument, {
-		host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
-		postsCount: 20,
-		staticPagesCount: 50,
-	});
+	const initialData = await request<SitemapQuery, SitemapQueryVariables>(
+		GQL_ENDPOINT,
+		SitemapDocument,
+		{
+			host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
+			postsCount: 20,
+			staticPagesCount: 50,
+		},
+	);
 
 	const publication = initialData.publication;
-	const posts = initialData.publication.posts.edges.map((edge) => edge.node);
+	if (!publication) {
+		return {
+			notFound: true,
+		};
+	}
+	const posts = publication.posts.edges.map((edge) => edge.node);
 
 	// Get more posts by pagination if exists
-	const initialPageInfo = initialData.publication.posts.pageInfo;
-	const fetchPosts = async (after) => {
+	const initialPageInfo = publication.posts.pageInfo;
+	const fetchPosts = async (after: string | null | undefined) => {
 		const variables = {
 			host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
 			postsCount: 20,
@@ -39,9 +49,9 @@ export async function getServerSideProps(ctx: { req: any; res: any; query: any }
 			MoreSitemapPostsDocument,
 			variables,
 		);
-		const pageInfo = data.publication.posts.pageInfo;
+		const pageInfo = publication.posts.pageInfo;
 
-		posts.push(...data.publication.posts.edges.map((edge) => edge.node));
+		posts.push(...publication.posts.edges.map((edge) => edge.node));
 
 		if (pageInfo.hasNextPage && posts.length < MAX_POSTS) {
 			await fetchPosts(pageInfo.endCursor);
@@ -63,6 +73,6 @@ export async function getServerSideProps(ctx: { req: any; res: any; query: any }
 	res.end();
 
 	return { props: {} };
-}
+};
 
 export default Sitemap;

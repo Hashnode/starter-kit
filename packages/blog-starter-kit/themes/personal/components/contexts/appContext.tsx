@@ -1,34 +1,38 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext } from 'react';
 import { Post, Publication } from '../../generated/graphql';
 
-const appContext = createContext<{ publication: Publication; post: Post }>({
-	publication: null,
-	post: null,
-});
+type AppContext = { publication: Publication; post: Post | null };
+
+const AppContext = createContext<AppContext | null>(null);
 
 const AppProvider = ({
 	children,
 	publication,
 	post,
 }: {
-	children: React.ReactChild;
+	children: React.ReactNode;
 	publication: Publication;
 	post?: Post;
 }) => {
-	const [_publication] = useState(publication);
-	const [_post] = useState(post);
-
 	return (
-		<appContext.Provider
+		<AppContext.Provider
 			value={{
-				publication: _publication,
-				post: _post,
+				publication,
+				post: post ?? null,
 			}}
 		>
 			{children}
-		</appContext.Provider>
+		</AppContext.Provider>
 	);
 };
 
-const useAppContext = () => useContext(appContext);
+const useAppContext = () => {
+	const context = useContext(AppContext);
+
+	if (!context) {
+		throw new Error('useAppContext must be used within a <AppProvider />');
+	}
+
+	return context;
+};
 export { AppProvider, useAppContext };
