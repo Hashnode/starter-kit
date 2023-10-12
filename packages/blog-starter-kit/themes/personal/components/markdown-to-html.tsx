@@ -1,20 +1,20 @@
-import { markdownToHtml } from "@starter-kit/utils/renderer/markdownToHtml";
-import useEmbeds from "@starter-kit/utils/renderer/hooks/useEmbeds";
+import useEmbeds from '@starter-kit/utils/renderer/hooks/useEmbeds';
+import { markdownToHtml } from '@starter-kit/utils/renderer/markdownToHtml';
 
 type Props = {
-  contentMarkdown: string;
+	contentMarkdown: string;
 };
 
 const MarkdownToHtml = ({ contentMarkdown }: Props) => {
-  const content = markdownToHtml(contentMarkdown);
-  useEmbeds({ enabled: true });
+	const content = markdownToHtml(contentMarkdown);
+	useEmbeds({ enabled: true });
 
-  return (
-    <div
-      className="w-full px-5 mx-auto md:max-w-screen-md hashnode-content-style"
-      dangerouslySetInnerHTML={{ __html: content }}
-    />
-  );
+	return (
+		<div
+			className="hashnode-content-style mx-auto w-full px-5 md:max-w-screen-md"
+			dangerouslySetInnerHTML={{ __html: content }}
+		/>
+	);
 };
 
 export default MarkdownToHtml;

@@ -1,13 +1,13 @@
-import { useAppContext } from "./contexts/appContext";
+import { useAppContext } from './contexts/appContext';
 
 const Footer = () => {
-  const { publication } = useAppContext();
+	const { publication } = useAppContext();
 
-  return (
-    <footer className="pt-10 text-sm border-t text-neutral-500 dark:text-neutral-400 dark:border-neutral-800">
-      &copy; {new Date().getFullYear()} {publication.title}
-    </footer>
-  );
+	return (
+		<footer className="border-t pt-10 text-sm text-neutral-500 dark:border-neutral-800 dark:text-neutral-400">
+			&copy; {new Date().getFullYear()} {publication.title}
+		</footer>
+	);
 };
 
 export default Footer;

@@ -1,4 +1,5 @@
 # Hashnode Blog Starter Kit
+
 Starter Kit built with Hashnode Public APIs. Use Hashnode's [world class editor](https://hashnode.com/neptune) to author content and collaborate. Use our starter kit to customize the front end.
 
 ## How to deploy
@@ -12,7 +13,7 @@ The recommended approach is depoying to Vercel. If you don't have an account alr
 - It's a monorepo. So, choose the following folder as Root Directory while importing on Vercel: `packages/blog-starter-kit/themes/enterprise`
   ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1695083263935/T5bByLxZT.png?auto=format)
 - **Make sure to choose `Next.js` as framework preset (just above Root Directory setting). It appears to get reset after selecting Root Directory. So, double check this.**
-- Set the following env vars 
+- Set the following env vars
 
 ```
 NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT=https://gql.hashnode.com
@@ -20,6 +21,7 @@ NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST=engineering.hashnode.com -> Change this to
 NEXT_PUBLIC_BASE_URL=dev.hashnode.com/engineering -> This could be yourdomain.cloud/blog if you are installing on subpath or leave it empty and set it (and redeploy) after getting the deployment URL from Vercel
 NEXT_PUBLIC_MODE=production
 ```
+
 Once this is deployed, just visit Vercel's auto generated domain to ensure it loads fine. Initially you won't see any posts. But you can always point `NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST` to a different domain such as `engineering.hashnode.com` to visualize.
 
 ### Step 2 (subpath installation)

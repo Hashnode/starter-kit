@@ -1,37 +1,34 @@
-import request from "graphql-request";
-import { RssFeedDocument, RssFeedQuery, RssFeedQueryVariables } from "../generated/graphql";
-import constructRSSFeedFromPosts from "@starter-kit/utils/feed";
+import constructRSSFeedFromPosts from '@starter-kit/utils/feed';
+import request from 'graphql-request';
+import { RssFeedDocument, RssFeedQuery, RssFeedQueryVariables } from '../generated/graphql';
 
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 const RSS = () => null;
 
 export async function getServerSideProps(ctx: { req: any; res: any; query: any }) {
-  const { res } = ctx;
-  
-  const data = await request<
-  RssFeedQuery,
-  RssFeedQueryVariables
-  >(GQL_ENDPOINT, RssFeedDocument, {
-    first: 20,
-    host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
-  });
+	const { res } = ctx;
 
-  const publication = data.publication;
-  if (!publication) {
-    return {
-      notFound: true,
-    };
-  }
-  const allPosts = publication.posts.edges.map((edge) => edge.node);
+	const data = await request<RssFeedQuery, RssFeedQueryVariables>(GQL_ENDPOINT, RssFeedDocument, {
+		first: 20,
+		host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
+	});
 
-  const xml = constructRSSFeedFromPosts(publication, allPosts, 0); // Extend it to support 20+ posts eventually by passing page as 1, 2, 3, etc.
+	const publication = data.publication;
+	if (!publication) {
+		return {
+			notFound: true,
+		};
+	}
+	const allPosts = publication.posts.edges.map((edge) => edge.node);
 
-  res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate');
-  res.setHeader('content-type', 'text/xml');
-  res.write(xml);
-  res.end();
+	const xml = constructRSSFeedFromPosts(publication, allPosts, 0); // Extend it to support 20+ posts eventually by passing page as 1, 2, 3, etc.
 
-  return { props: {} };
+	res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate');
+	res.setHeader('content-type', 'text/xml');
+	res.write(xml);
+	res.end();
+
+	return { props: {} };
 }
 
 export default RSS;

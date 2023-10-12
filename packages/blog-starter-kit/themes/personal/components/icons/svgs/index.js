@@ -1,24 +1,23 @@
+import ArticleSVG from './ArticleSVG';
+import ChevronDownSVG from './ChevronDownSVG';
+import ExternalArrowSVG from './ExternalArrowSVG';
+import GithubSVG from './GithubSVG';
+import HashnodeSVG from './HashnodeSVG';
+import LinkedinSVG from './LinkedinSVG';
+import NewsletterPlusSVG from './NewsletterPlusSVG';
+import PlusCircleSVG from './PlusCircleSVG';
 import RssSVG from './RssSVG';
 import XSVG from './XSVG';
-import GithubSVG from './GithubSVG';
-import LinkedinSVG from './LinkedinSVG';
-import HashnodeSVG from './HashnodeSVG';
-import PlusCircleSVG from './PlusCircleSVG';
-import NewsletterPlusSVG from './NewsletterPlusSVG';
-import ExternalArrowSVG from './ExternalArrowSVG';
-import ChevronDownSVG from './ChevronDownSVG';
-import ArticleSVG from './ArticleSVG';
-import HamburgerSVG from './HamburgerSVG';
 
 export {
-    RssSVG,
-    XSVG,
-    GithubSVG,
-    LinkedinSVG,
-    HashnodeSVG,
-    PlusCircleSVG,
-    NewsletterPlusSVG,
-    ExternalArrowSVG,
-    ChevronDownSVG,
-    ArticleSVG
+	ArticleSVG,
+	ChevronDownSVG,
+	ExternalArrowSVG,
+	GithubSVG,
+	HashnodeSVG,
+	LinkedinSVG,
+	NewsletterPlusSVG,
+	PlusCircleSVG,
+	RssSVG,
+	XSVG,
 };

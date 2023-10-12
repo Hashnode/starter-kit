@@ -1,22 +1,22 @@
 {
-  "name": "@starter-kit/utils",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "js-base64": "^3.7.5",
-    "rss": "^1.2.2",
-    "sanitize-html": "^2.11.0",
-    "slug": "^8.2.3",
-    "validator": "^13.11.0"
-  },
-  "devDependencies": {
-    "@types/sanitize-html": "^2.9.0"
-  }
+	"name": "@starter-kit/utils",
+	"version": "1.0.0",
+	"description": "",
+	"keywords": [],
+	"license": "ISC",
+	"author": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"dependencies": {
+		"js-base64": "^3.7.5",
+		"rss": "^1.2.2",
+		"sanitize-html": "^2.11.0",
+		"slug": "^8.2.3",
+		"validator": "^13.11.0"
+	},
+	"devDependencies": {
+		"@types/sanitize-html": "^2.9.0"
+	}
 }
