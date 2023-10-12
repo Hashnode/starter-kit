@@ -32,10 +32,10 @@ const Header = () => {
 			{hiddenItems.length > 0 && (
 				<li>
 					<DropdownMenu.Root>
-						<DropdownMenu.Trigger>
-							<a className="transition-200 block rounded-full p-2 transition-colors hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white">
+						<DropdownMenu.Trigger asChild>
+							<button className="transition-200 block rounded-full p-2 transition-colors hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white">
 								More
-							</a>
+							</button>
 						</DropdownMenu.Trigger>
 
 						<DropdownMenu.Portal>
@@ -45,7 +45,7 @@ const Header = () => {
 								sideOffset={5}
 							>
 								{hiddenItems.map((item) => (
-									<DropdownMenu.Item key={item.url}>
+									<DropdownMenu.Item asChild key={item.url}>
 										<a
 											href={item.url}
 											target="_blank"
@@ -79,7 +79,7 @@ const Header = () => {
 					<h1>
 						<Link
 							href={baseUrl}
-							aria-label={`Go to ${publication.title} home page`}
+							aria-label={`${publication.title} blog home page`}
 							className="flex flex-row items-center gap-3"
 						>
 							{PUBLICATION_LOGO ? (

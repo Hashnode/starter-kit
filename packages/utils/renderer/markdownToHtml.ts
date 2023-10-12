@@ -3,6 +3,7 @@ import sanitizeHtmlOptions from './sanitizeHTMLOptions';
 
 const marked = require('./marked');
 const renderer = new marked.Renderer();
+const imageReplacer = require('./image').imageReplacer;
 
 // @ts-ignore
 renderer.link = function (href, title, text) {
@@ -69,6 +70,9 @@ const markedOpts = {
 };
 
 export const markdownToHtml = (contentMarkdown: string) => {
-	const content = sanitizeHtml(marked(contentMarkdown, markedOpts), sanitizeHtmlOptions);
+	const content = imageReplacer(
+		sanitizeHtml(marked(contentMarkdown, markedOpts), sanitizeHtmlOptions),
+		true,
+	);
 	return content;
 };

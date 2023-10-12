@@ -24,19 +24,16 @@ const PersonalHeader = () => {
 				<li>
 					<DropdownMenu.Root>
 						<DropdownMenu.Trigger asChild>
-							<a href="#" className="hover:underline">
-								More
-							</a>
+							<button>More</button>
 						</DropdownMenu.Trigger>
-
 						<DropdownMenu.Portal>
 							<DropdownMenu.Content
-								className="flex flex-col items-stretch gap-1 rounded-lg border bg-white text-xs font-semibold uppercase tracking-tight text-neutral-600 shadow-xl dark:text-neutral-300"
+								className="flex flex-col items-stretch gap-1 rounded-lg border bg-white text-xs font-semibold uppercase tracking-tight text-neutral-600 shadow-xl dark:border-neutral-800 dark:bg-neutral-900  dark:text-neutral-300"
 								sideOffset={5}
 								align="end"
 							>
 								{hiddenItems.map((item) => (
-									<DropdownMenu.Item key={item.url}>
+									<DropdownMenu.Item asChild key={item.url}>
 										<a
 											href={item.url}
 											target="_blank"
@@ -62,7 +59,7 @@ const PersonalHeader = () => {
 					<Link
 						className="flex flex-row items-center gap-2 text-lg font-bold leading-tight tracking-tight text-black dark:text-white"
 						href="/"
-						aria-label={`Go to ${publication.author.name}'s blog home page`}
+						aria-label={`${publication.author.name}'s blog home page`}
 					>
 						{publication.author.profilePicture && (
 							<img

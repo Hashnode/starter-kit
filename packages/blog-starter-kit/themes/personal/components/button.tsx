@@ -33,7 +33,7 @@ const Button = ({
 
 		case 'primary':
 			buttonClassName =
-				'text-white bg-primary-600 hover:bg-primary-500 border-primary-600 dark:bg-primary-500 dark:text-white';
+				'text-white bg-primary-600 hover:bg-primary-500 border-primary-600 dark:bg-primary-600 dark:text-white';
 			break;
 
 		case 'outline-dark':
@@ -43,7 +43,7 @@ const Button = ({
 
 		default:
 			buttonClassName =
-				'text-white bg-primary-600 hover:bg-primary-500 border-primary-600 dark:bg-primary-500 dark:text-white';
+				'text-white bg-primary-600 hover:bg-primary-500 border-primary-600 dark:bg-primary-600 dark:text-white';
 	}
 
 	if (as === 'a') {
