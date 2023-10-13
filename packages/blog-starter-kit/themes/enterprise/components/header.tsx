@@ -1,5 +1,4 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { getBaseUrl } from '@starter-kit/utils/consts';
 import { resizeImage } from '@starter-kit/utils/image';
 import Link from 'next/link';
 import { PublicationNavbarItem } from '../generated/graphql';
@@ -14,7 +13,7 @@ function hasUrl(
 }
 
 export const Header = () => {
-	const baseUrl = `${getBaseUrl()}/`;
+	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || '/';
 	const { publication } = useAppContext();
 	const PUBLICATION_LOGO = publication.preferences.darkMode?.logo || publication.preferences.logo;
 	const navbarItems = publication.preferences.navbarItems.filter(hasUrl);
