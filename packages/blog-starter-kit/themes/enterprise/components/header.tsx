@@ -85,7 +85,7 @@ const Header = () => {
           </div> */}
 					<h1>
 						<Link
-							href={baseUrl}
+							href={'/'}
 							aria-label={`${publication.title} blog home page`}
 							className="flex flex-row items-center gap-3"
 						>

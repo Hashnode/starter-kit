@@ -1,4 +1,3 @@
-import { getBaseUrl } from '@starter-kit/utils/consts';
 import { resizeImage } from '@starter-kit/utils/image';
 import request from 'graphql-request';
 import { KeyboardEventHandler, useEffect, useRef, useState } from 'react';
@@ -74,7 +73,7 @@ const Search = () => {
 	}, [query]);
 
 	const searchResultsList = searchResults.map((post) => {
-		const postURL = `${getBaseUrl()}/${post.slug}`;
+		const postURL = `/${post.slug}`;
 		return (
 			<a
 				key={post.id}

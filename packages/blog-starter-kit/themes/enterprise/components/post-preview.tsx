@@ -13,7 +13,6 @@ type Props = {
 	excerpt: string;
 	author: Author;
 	slug: string;
-	url: string;
 };
 
 const DEFAULT_COVER =
@@ -21,6 +20,7 @@ const DEFAULT_COVER =
 
 const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) => {
 	const postURL = `/${slug}`;
+
 	return (
 		<div className="grid grid-cols-1 gap-5">
 			<div className="col-span-1">
@@ -33,7 +33,6 @@ const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) => {
 			<div className="col-span-1 flex flex-col gap-2">
 				<h1 className="text-lg font-semibold leading-tight text-slate-800 dark:text-neutral-50">
 					<Link
-						as={postURL}
 						href={postURL}
 						className="hover:text-primary-600 dark:hover:text-primary-500 hover:underline"
 					>

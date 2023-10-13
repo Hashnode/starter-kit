@@ -787,7 +787,7 @@ type Post implements Node {
   """
   Brief is a short description of the post extracted from the content of the post. It's 250 characters long sanitized string.
   """
-  brief: String
+  brief: String!
   """Canonical URL set by author in case of republished posts."""
   canonicalUrl: String
   """List of users who have commented on the post."""
