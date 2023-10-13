@@ -8,6 +8,10 @@
 	"scripts": {
 		"format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,json}\""
 	},
+	"engines": {
+		"node": ">=18.0.0",
+		"pnpm": ">=8.0.0"
+	},
 	"dependencies": {
 		"classnames": "^2.3.1",
 		"next": "^13.4.19",
