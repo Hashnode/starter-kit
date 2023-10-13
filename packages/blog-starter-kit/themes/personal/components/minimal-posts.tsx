@@ -18,7 +18,6 @@ const MinimalPosts = ({ posts }: Props) => {
 						name: post.author.name,
 					}}
 					slug={post.slug}
-					url={post.url}
 					commentCount={post.comments?.totalDocuments}
 				/>
 			))}

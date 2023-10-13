@@ -1,11 +1,9 @@
-import { getBaseUrl } from '@starter-kit/utils/consts';
 import Link from 'next/link';
 import Container from './container';
 import { useAppContext } from './contexts/appContext';
 import SocialLinks from './social-links';
 
 const Footer = () => {
-	const baseUrl = `${getBaseUrl()}/`;
 	const { publication } = useAppContext();
 	const PUBLICATION_LOGO = publication.preferences.logo;
 	return (
@@ -14,7 +12,7 @@ const Footer = () => {
 				{PUBLICATION_LOGO ? (
 					<div className="mb-20 flex w-full flex-row justify-center">
 						<Link
-							href={baseUrl}
+							href={'/'}
 							aria-label={`${publication.title} home page`}
 							className="flex flex-row items-center gap-5"
 						>

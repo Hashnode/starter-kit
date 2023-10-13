@@ -5,6 +5,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import ErrorPage from 'next/error';
 import Head from 'next/head';
+import Link from 'next/link';
 import Container from '../components/container';
 import { AppProvider } from '../components/contexts/appContext';
 import Footer from '../components/footer';
@@ -49,12 +50,12 @@ const Post = (publication: PublicationFragment, post: PostFullFragment) => {
 
 	const tagsList = (post.tags ?? []).map((tag) => (
 		<li key={tag.id}>
-			<a
+			<Link
 				href={`/tag/${tag.slug}`}
 				className="block rounded-full border px-2 py-1 font-medium hover:bg-slate-50 dark:border-neutral-800 dark:hover:bg-neutral-800 md:px-4"
 			>
 				#{tag.slug}
-			</a>
+			</Link>
 		</li>
 	));
 

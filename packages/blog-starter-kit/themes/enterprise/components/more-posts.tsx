@@ -27,7 +27,6 @@ const MorePosts = ({ posts, context }: Props) => {
 						}}
 						slug={post.slug}
 						excerpt={post.brief}
-						url={post.url}
 					/>
 				))}
 				{/* <>

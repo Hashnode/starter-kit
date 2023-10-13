@@ -1,4 +1,3 @@
-import { getBaseUrl } from '@starter-kit/utils/consts';
 import Link from 'next/link';
 import { User } from '../generated/graphql';
 import DateFormatter from './date-formatter';
@@ -10,12 +9,12 @@ type Props = {
 	date: string;
 	author: Author;
 	slug: string;
-	url: string;
 	commentCount: number;
 };
 
 const MinimalPostPreview = ({ title, date, slug, commentCount }: Props) => {
-	const postURL = `${getBaseUrl()}/${slug}`;
+	const postURL = `/${slug}`;
+
 	return (
 		<section className="flex flex-col items-start gap-1">
 			<h2 className="text-lg leading-tight tracking-tight text-black dark:text-white">
