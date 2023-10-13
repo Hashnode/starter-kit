@@ -1,5 +1,6 @@
 import { resizeImage } from '@starter-kit/utils/image';
 import request from 'graphql-request';
+import Link from 'next/link';
 import { KeyboardEventHandler, useEffect, useRef, useState } from 'react';
 import {
 	SearchPostsOfPublicationDocument,
@@ -75,7 +76,7 @@ const Search = () => {
 	const searchResultsList = searchResults.map((post) => {
 		const postURL = `/${post.slug}`;
 		return (
-			<a
+			<Link
 				key={post.id}
 				href={postURL}
 				className="flex flex-row items-center gap-5 px-4 py-2 hover:bg-slate-50 focus:outline-1 dark:hover:bg-neutral-800"
@@ -100,7 +101,7 @@ const Search = () => {
 						)}
 					/>
 				</div>
-			</a>
+			</Link>
 		);
 	});
 
