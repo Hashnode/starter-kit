@@ -27,7 +27,7 @@ const fontExtraBold = fetch(
 	new URL('../../../assets/PlusJakartaSans-ExtraBold.ttf', import.meta.url),
 ).then((res) => res.arrayBuffer());
 
-export default async function (req: NextRequest) {
+export default async function handler(req: NextRequest) {
 	const [fontDataRegular, fontDataMedium, fontDataSemiBold, fontDataBold, fontDataExtraBold] =
 		await Promise.all([fontRegular, fontMedium, fontSemiBold, fontBold, fontExtraBold]);
 

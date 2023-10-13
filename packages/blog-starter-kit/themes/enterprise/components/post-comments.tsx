@@ -7,6 +7,7 @@ import { ExternalArrowSVG, HashnodeSVG } from './icons';
 
 const PostComments = () => {
 	const { post } = useAppContext();
+	if (!post) return null;
 	const discussionUrl = `https://hashnode.com/discussions/post/${post.id}`;
 
 	const commentsList = post.comments.edges.map((edge) => {

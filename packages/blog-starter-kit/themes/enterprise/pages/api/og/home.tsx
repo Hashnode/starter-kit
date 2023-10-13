@@ -27,7 +27,7 @@ const fontExtraBold = fetch(
 	new URL('../../../assets/PlusJakartaSans-ExtraBold.ttf', import.meta.url),
 ).then((res) => res.arrayBuffer());
 
-const kFormatter = (num) => {
+const kFormatter = (num: number) => {
 	return num > 999 ? `${(num / 1000).toFixed(1)}K` : num;
 };
 

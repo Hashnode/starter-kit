@@ -8,6 +8,7 @@ query PageByPublication($slug: String!, $host: String!) {
 }
 
 fragment StaticPage on StaticPage {
+	id
 	title
 	slug
 	content {

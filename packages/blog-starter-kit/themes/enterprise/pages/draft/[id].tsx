@@ -1,3 +1,6 @@
+// Enable typechecking once this page is ready.
+// @ts-nocheck
+
 import request from 'graphql-request';
 import ErrorPage from 'next/error';
 import Head from 'next/head';

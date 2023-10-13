@@ -3,7 +3,7 @@ import { type GetServerSideProps } from 'next';
 const RobotsTxt = () => null;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-	const { req, res, query } = ctx;
+	const { res } = ctx;
 	const host = process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST;
 	if (!host) {
 		throw new Error('Could not determine host');

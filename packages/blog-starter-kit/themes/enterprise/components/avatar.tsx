@@ -1,11 +1,12 @@
 import { resizeImage } from '@starter-kit/utils/image';
+
 const DEFAULT_AVATAR =
 	'https://cdn.hashnode.com/res/hashnode/image/upload/v1659089761812/fsOct5gl6.png';
 
 type Props = {
 	username: string;
 	name: string;
-	picture: string;
+	picture: string | null | undefined;
 	size: number;
 };
 

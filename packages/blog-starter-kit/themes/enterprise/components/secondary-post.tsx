@@ -23,7 +23,7 @@ const SecondaryPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
 			<div className="col-span-1">
 				<CoverImage
 					title={title}
-					src={resizeImage(coverImage, { w: 1600, h: 840, c: 'thumb' }) || DEFAULT_COVER}
+					src={resizeImage(coverImage, { w: 1600, h: 840, c: 'thumb' }, DEFAULT_COVER)}
 					slug={slug}
 				/>
 			</div>

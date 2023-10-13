@@ -1,6 +1,9 @@
+import { PostFullFragment } from '../generated/graphql';
 import { useAppContext } from './contexts/appContext';
 
-const mapTableOfContentItems = (toc) => {
+type TableOfContentsItem = PostFullFragment['features']['tableOfContents']['items'][number];
+
+const mapTableOfContentItems = (toc: TableOfContentsItem[]) => {
 	try {
 		// `toc` is sometimes an array of arrays or an array of objects. Hashnode is trying to investigate this issue.
 		// Meanwhile, we can use the following code to map the table of content items to handle both cases.
@@ -22,7 +25,13 @@ const mapTableOfContentItems = (toc) => {
 	}
 };
 
-const Toc = ({ data, parentId }) => {
+const Toc = ({
+	data,
+	parentId,
+}: {
+	data: TableOfContentsItem[];
+	parentId: TableOfContentsItem['parentId'];
+}) => {
 	const children = data.filter((item) => item.parentId === parentId);
 	if (children.length === 0) return null;
 	return (
@@ -45,6 +54,9 @@ const Toc = ({ data, parentId }) => {
 
 const PostTOC = () => {
 	const { post } = useAppContext();
+
+	if (!post) return null;
+
 	return (
 		<div className="w-full px-5">
 			<div className="mx-auto w-full max-w-screen-md rounded-lg border border-b-4 border-r-4 p-5 text-base leading-snug dark:border-neutral-800 dark:text-neutral-50 md:p-8 md:text-lg">

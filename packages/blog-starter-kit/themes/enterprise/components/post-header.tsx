@@ -5,11 +5,13 @@ import CoverImage from './cover-image';
 import DateFormatter from './date-formatter';
 import PostTitle from './post-title';
 
+type Author = Pick<User, 'username' | 'name' | 'profilePicture'>;
+
 type Props = {
 	title: string;
-	coverImage: string;
+	coverImage: string | null | undefined;
 	date: string;
-	author: User;
+	author: Author;
 };
 
 const PostHeader = ({ title, coverImage, date, author }: Props) => {
