@@ -22,8 +22,7 @@ query SearchPostsOfPublication($first: Int!, $filter: SearchPostsOfPublicationFi
 			}
 		}
 		pageInfo {
-			hasNextPage
-			endCursor
+			...PageInfo
 		}
 	}
 }

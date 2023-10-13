@@ -2,15 +2,22 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { getBaseUrl } from '@starter-kit/utils/consts';
 import { resizeImage } from '@starter-kit/utils/image';
 import Link from 'next/link';
+import { PublicationNavbarItem } from '../generated/graphql';
 import Button from './button';
 import Container from './container';
 import { useAppContext } from './contexts/appContext';
 
+function hasUrl(
+	navbarItem: PublicationNavbarItem,
+): navbarItem is PublicationNavbarItem & { url: string } {
+	return !!navbarItem.url && navbarItem.url.length > 0;
+}
+
 const Header = () => {
 	const baseUrl = `${getBaseUrl()}/`;
 	const { publication } = useAppContext();
-	const PUBLICATION_LOGO = publication.preferences.darkMode.logo || publication.preferences.logo;
-	const navbarItems = publication.preferences.navbarItems;
+	const PUBLICATION_LOGO = publication.preferences.darkMode?.logo || publication.preferences.logo;
+	const navbarItems = publication.preferences.navbarItems.filter(hasUrl);
 	const visibleItems = navbarItems.slice(0, 3);
 	const hiddenItems = navbarItems.slice(3);
 

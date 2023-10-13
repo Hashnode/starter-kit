@@ -29,6 +29,7 @@ const Search = () => {
 	const [isSearching, setIsSearching] = useState(false);
 
 	const resetInput = () => {
+		if (!searchInputRef.current) return;
 		searchInputRef.current.value = '';
 		setQuery('');
 	};
@@ -44,13 +45,13 @@ const Search = () => {
 	};
 
 	const search = async (query: string) => {
+		if (timerRef.current) clearTimeout(timerRef.current);
+
 		if (!query) {
 			setSearchResults([]);
 			setIsSearching(false);
-			return clearTimeout(timerRef.current);
+			return;
 		}
-
-		if (timerRef.current) clearTimeout(timerRef.current);
 
 		timerRef.current = setTimeout(async () => {
 			setIsSearching(true);
@@ -89,13 +90,15 @@ const Search = () => {
 				<div className="w-56">
 					<CoverImage
 						title={post.title}
-						src={
-							resizeImage(post.coverImage?.url, {
+						src={resizeImage(
+							post.coverImage?.url,
+							{
 								w: 400,
 								h: 210,
 								c: 'thumb',
-							}) || DEFAULT_COVER
-						}
+							},
+							DEFAULT_COVER,
+						)}
 					/>
 				</div>
 			</a>

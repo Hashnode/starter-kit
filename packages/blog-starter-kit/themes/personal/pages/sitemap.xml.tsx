@@ -49,6 +49,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 			MoreSitemapPostsDocument,
 			variables,
 		);
+		const publication = data.publication;
+		if (!publication) {
+			return;
+		}
 		const pageInfo = publication.posts.pageInfo;
 
 		posts.push(...publication.posts.edges.map((edge) => edge.node));

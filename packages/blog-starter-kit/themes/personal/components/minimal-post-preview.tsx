@@ -1,10 +1,9 @@
 import { getBaseUrl } from '@starter-kit/utils/consts';
 import Link from 'next/link';
+import { User } from '../generated/graphql';
 import DateFormatter from './date-formatter';
 
-type Author = {
-	name: string;
-};
+type Author = Pick<User, 'name'>;
 
 type Props = {
 	title: string;

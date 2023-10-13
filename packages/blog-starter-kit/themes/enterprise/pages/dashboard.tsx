@@ -1,4 +1,5 @@
 import request from 'graphql-request';
+import { GetServerSideProps } from 'next';
 import {
 	PublicationByHostDocument,
 	PublicationByHostQuery,
@@ -8,7 +9,7 @@ import {
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 const Dashboard = () => null;
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps = async () => {
 	const data = await request<PublicationByHostQuery, PublicationByHostQueryVariables>(
 		GQL_ENDPOINT,
 		PublicationByHostDocument,
@@ -30,6 +31,6 @@ export async function getServerSideProps() {
 			permanent: false,
 		},
 	};
-}
+};
 
 export default Dashboard;

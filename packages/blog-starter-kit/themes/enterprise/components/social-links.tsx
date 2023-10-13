@@ -8,7 +8,7 @@ const SocialLinks = () => {
 
 	return (
 		<div className="col-span-1 flex flex-row justify-end gap-1 text-slate-600 dark:text-neutral-300">
-			{publication.links.twitter && (
+			{publication.links?.twitter && (
 				<a
 					href={publication.links.twitter}
 					target="_blank"
@@ -19,7 +19,7 @@ const SocialLinks = () => {
 					<XSVG className="h-5 w-5 stroke-current" />
 				</a>
 			)}
-			{publication.links.github && (
+			{publication.links?.github && (
 				<a
 					href={publication.links.github}
 					target="_blank"
@@ -30,7 +30,7 @@ const SocialLinks = () => {
 					<GithubSVG className="h-5 w-5 stroke-current" />
 				</a>
 			)}
-			{publication.links.linkedin && (
+			{publication.links?.linkedin && (
 				<a
 					href={publication.links.linkedin}
 					target="_blank"
@@ -41,7 +41,7 @@ const SocialLinks = () => {
 					<LinkedinSVG className="h-5 w-5 stroke-current" />
 				</a>
 			)}
-			{publication.links.hashnode && (
+			{publication.links?.hashnode && (
 				<a
 					href={publication.links.hashnode}
 					target="_blank"

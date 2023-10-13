@@ -1,18 +1,31 @@
-export const resizeImage = (
+type ResizeImageResizeOptions = {
+	w?: number;
+	h?: number;
+	mask?: string;
+	'corner-radius'?: string;
+	fill?: string;
+	c?: string;
+	q?: string;
+};
+
+export function resizeImage(
 	src: string,
-	resize: {
-		w?: number;
-		h?: number;
-		mask?: string;
-		'corner-radius'?: string;
-		fill?: string;
-		c?: string;
-		q?: string;
-	},
+	resize: ResizeImageResizeOptions,
 	defaultImage?: string,
-) => {
+): string;
+// must provide a default image in case the src can be null or undefined
+export function resizeImage(
+	src: string | null | undefined,
+	resize: ResizeImageResizeOptions,
+	defaultImage: string,
+): string;
+export function resizeImage(
+	src: string | null | undefined,
+	resize: ResizeImageResizeOptions,
+	defaultImage?: string,
+): string {
 	if (!src) {
-		return defaultImage;
+		return defaultImage as string;
 	}
 
 	let newSrc = src.replace('hashnode.imgix.net', 'cdn.hashnode.com');
@@ -80,4 +93,4 @@ export const resizeImage = (
 	}
 
 	return `${newSrc}?${opts}`;
-};
+}
