@@ -26,6 +26,9 @@ const config = {
 	transpilePackages: ['@starter-kit/utils'],
 	assetPrefix: getAssetPrefix(),
 	basePath: getBasePath(),
+	experimental: {
+		scrollRestoration: true,
+	},
 	images: {
 		remotePatterns: [
 			{

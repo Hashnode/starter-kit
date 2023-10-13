@@ -1,4 +1,3 @@
-import { getBaseUrl } from '@starter-kit/utils/consts';
 import { resizeImage } from '@starter-kit/utils/image';
 import Link from 'next/link';
 import { User } from '../generated/graphql';
@@ -21,8 +20,7 @@ const DEFAULT_COVER =
 	'https://cdn.hashnode.com/res/hashnode/image/upload/v1683525272978/MB5H_kgOC.png?auto=format';
 
 const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) => {
-	const postURL = `${getBaseUrl()}/${slug}`;
-
+	const postURL = `/${slug}`;
 	return (
 		<div className="grid grid-cols-1 gap-5">
 			<div className="col-span-1">
@@ -42,13 +40,13 @@ const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) => {
 						{title}
 					</Link>
 				</h1>
-				<Link as={postURL} href={postURL}>
+				<Link href={postURL}>
 					<p className="text-md leading-snug text-slate-500 dark:text-neutral-400">
 						{excerpt.length > 140 ? excerpt.substring(0, 140) + '…' : excerpt}
 					</p>
 				</Link>
 				<div className="text-sm font-semibold text-slate-500 dark:text-neutral-300">
-					<Link as={postURL} href={postURL}>
+					<Link href={postURL}>
 						<DateFormatter dateString={date} />
 					</Link>
 				</div>
