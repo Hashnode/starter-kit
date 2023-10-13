@@ -6,11 +6,8 @@
 	"license": "ISC",
 	"author": "",
 	"scripts": {
-		"format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,json}\""
-	},
-	"engines": {
-		"node": ">=18.0.0",
-		"pnpm": ">=8.0.0"
+		"format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,json}\"",
+		"preinstall": "npx only-allow pnpm"
 	},
 	"dependencies": {
 		"classnames": "^2.3.1",
@@ -28,5 +25,9 @@
 		"prettier-plugin-tailwindcss": "^0.5.5",
 		"tailwindcss": "^3.3.3",
 		"typescript": "^5.2.2"
+	},
+	"engines": {
+		"node": ">=18.0.0",
+		"pnpm": ">=8.0.0"
 	}
 }
