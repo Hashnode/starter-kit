@@ -1,4 +1,4 @@
-import HNRequest from './HNRequest';
+import { HNRequest } from './HNRequest';
 
 const WEBEMBED_URL = 'https://webembeds.com';
 

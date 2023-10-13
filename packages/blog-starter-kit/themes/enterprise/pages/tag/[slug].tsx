@@ -1,11 +1,11 @@
 import request from 'graphql-request';
 import Head from 'next/head';
-import Container from '../../components/container';
+import { Container } from '../../components/container';
 import { AppProvider } from '../../components/contexts/appContext';
-import Footer from '../../components/footer';
-import Header from '../../components/header';
-import Layout from '../../components/layout';
-import MorePosts from '../../components/more-posts';
+import { Footer } from '../../components/footer';
+import { Header } from '../../components/header';
+import { Layout } from '../../components/layout';
+import { MorePosts } from '../../components/more-posts';
 import {
 	Post,
 	Publication,

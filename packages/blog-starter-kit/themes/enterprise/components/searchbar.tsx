@@ -8,7 +8,7 @@ import {
 	SearchPostsOfPublicationQueryVariables,
 } from '../generated/graphql';
 import { useAppContext } from './contexts/appContext';
-import CoverImage from './cover-image';
+import { CoverImage } from './cover-image';
 
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 const NO_OF_SEARCH_RESULTS = 5;
@@ -18,7 +18,7 @@ type Post = SearchPostsOfPublicationQuery['searchPostsOfPublication']['edges'][0
 const DEFAULT_COVER =
 	'https://cdn.hashnode.com/res/hashnode/image/upload/v1683525272978/MB5H_kgOC.png?auto=format';
 
-const Search = () => {
+export const Search = () => {
 	const { publication } = useAppContext();
 
 	const searchInputRef = useRef<HTMLInputElement>(null);
@@ -150,5 +150,3 @@ const Search = () => {
 		</div>
 	);
 };
-
-export default Search;

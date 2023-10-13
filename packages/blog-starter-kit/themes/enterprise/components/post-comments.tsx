@@ -1,11 +1,11 @@
 import { markdownToHtml } from '@starter-kit/utils/renderer/markdownToHtml';
 import { Comment } from '../generated/graphql';
-import Avatar from './avatar';
-import Button from './button';
+import { Avatar } from './avatar';
+import { Button } from './button';
 import { useAppContext } from './contexts/appContext';
 import { ExternalArrowSVG, HashnodeSVG } from './icons';
 
-const PostComments = () => {
+export const PostComments = () => {
 	const { post } = useAppContext();
 	if (!post) return null;
 	const discussionUrl = `https://hashnode.com/discussions/post/${post.id}`;
@@ -57,5 +57,3 @@ const PostComments = () => {
 		</div>
 	);
 };
-
-export default PostComments;

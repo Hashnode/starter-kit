@@ -1,4 +1,4 @@
-const Scripts = () => {
+export const Scripts = () => {
 	const googleAnalytics = `
     window.dataLayer = window.dataLayer || [];
     function gtag(){window.dataLayer.push(arguments);}
@@ -10,5 +10,3 @@ const Scripts = () => {
 		</>
 	);
 };
-
-export default Scripts;

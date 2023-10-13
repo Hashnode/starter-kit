@@ -1,6 +1,6 @@
 import { useAppContext } from './contexts/appContext';
 
-const Footer = () => {
+export const Footer = () => {
 	const { publication } = useAppContext();
 
 	return (
@@ -9,5 +9,3 @@ const Footer = () => {
 		</footer>
 	);
 };
-
-export default Footer;

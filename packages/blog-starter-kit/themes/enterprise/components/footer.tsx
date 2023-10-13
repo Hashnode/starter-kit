@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import Container from './container';
+import { Container } from './container';
 import { useAppContext } from './contexts/appContext';
-import SocialLinks from './social-links';
+import { SocialLinks } from './social-links';
 
-const Footer = () => {
+export const Footer = () => {
 	const { publication } = useAppContext();
 	const PUBLICATION_LOGO = publication.preferences.logo;
 	return (
@@ -147,5 +147,3 @@ const Footer = () => {
 		</footer>
 	);
 };
-
-export default Footer;

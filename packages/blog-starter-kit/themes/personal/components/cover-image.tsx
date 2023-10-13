@@ -8,7 +8,7 @@ type Props = {
 	priority?: boolean;
 };
 
-const CoverImage = ({ title, src, slug, priority = false }: Props) => {
+export const CoverImage = ({ title, src, slug, priority = false }: Props) => {
 	const postURL = `/${slug}`;
 
 	const image = (
@@ -35,5 +35,3 @@ const CoverImage = ({ title, src, slug, priority = false }: Props) => {
 		</div>
 	);
 };
-
-export default CoverImage;

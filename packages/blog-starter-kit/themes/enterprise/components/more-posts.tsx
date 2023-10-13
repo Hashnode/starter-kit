@@ -1,12 +1,12 @@
 import { PostFragment } from '../generated/graphql';
-import PostPreview from './post-preview';
+import { PostPreview } from './post-preview';
 
 type Props = {
 	posts: PostFragment[];
 	context: 'home' | 'series' | 'tag';
 };
 
-const MorePosts = ({ posts, context }: Props) => {
+export const MorePosts = ({ posts, context }: Props) => {
 	return (
 		<section className="mb-10 flex flex-col items-start gap-10">
 			{context === 'home' && (
@@ -63,5 +63,3 @@ const MorePosts = ({ posts, context }: Props) => {
 		</section>
 	);
 };
-
-export default MorePosts;

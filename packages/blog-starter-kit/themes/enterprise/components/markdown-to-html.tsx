@@ -1,4 +1,4 @@
-import useEmbeds from '@starter-kit/utils/renderer/hooks/useEmbeds';
+import { useEmbeds } from '@starter-kit/utils/renderer/hooks/useEmbeds';
 import { markdownToHtml } from '@starter-kit/utils/renderer/markdownToHtml';
 import { memo } from 'react';
 
@@ -6,7 +6,7 @@ type Props = {
 	contentMarkdown: string;
 };
 
-const MarkdownToHtml = ({ contentMarkdown }: Props) => {
+const _MarkdownToHtml = ({ contentMarkdown }: Props) => {
 	const content = markdownToHtml(contentMarkdown);
 	useEmbeds({ enabled: true });
 
@@ -18,4 +18,4 @@ const MarkdownToHtml = ({ contentMarkdown }: Props) => {
 	);
 };
 
-export default memo(MarkdownToHtml);
+export const MarkdownToHtml = memo(_MarkdownToHtml);

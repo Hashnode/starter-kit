@@ -1,9 +1,9 @@
 import { resizeImage } from '@starter-kit/utils/image';
 import { User } from '../generated/graphql';
-import Avatar from './avatar';
-import CoverImage from './cover-image';
-import DateFormatter from './date-formatter';
-import PostTitle from './post-title';
+import { Avatar } from './avatar';
+import { CoverImage } from './cover-image';
+import { DateFormatter } from './date-formatter';
+import { PostTitle } from './post-title';
 
 type Author = Pick<User, 'username' | 'name' | 'profilePicture'>;
 
@@ -14,7 +14,7 @@ type Props = {
 	author: Author;
 };
 
-const PostHeader = ({ title, coverImage, date, author }: Props) => {
+export const PostHeader = ({ title, coverImage, date, author }: Props) => {
 	return (
 		<>
 			<PostTitle>{title}</PostTitle>
@@ -39,5 +39,3 @@ const PostHeader = ({ title, coverImage, date, author }: Props) => {
 		</>
 	);
 };
-
-export default PostHeader;

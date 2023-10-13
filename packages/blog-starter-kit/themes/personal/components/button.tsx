@@ -11,7 +11,7 @@ type Props = {
 	target?: string;
 };
 
-const Button = ({
+export const Button = ({
 	label,
 	type,
 	icon,
@@ -80,5 +80,3 @@ const Button = ({
 		</button>
 	);
 };
-
-export default Button;

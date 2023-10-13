@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useAppContext } from './contexts/appContext';
 import { GithubSVG, HashnodeSVG, LinkedinSVG, RssSVG, XSVG } from './icons';
 
-const SocialLinks = () => {
+export const SocialLinks = () => {
 	const { publication } = useAppContext();
 
 	return (
@@ -64,5 +64,3 @@ const SocialLinks = () => {
 		</div>
 	);
 };
-
-export default SocialLinks;

@@ -13,7 +13,7 @@ type Props = {
 	target?: string;
 };
 
-const Button = forwardRef<HTMLButtonElement, Props>(
+export const Button = forwardRef<HTMLButtonElement, Props>(
 	({ label, type, icon, className, secondaryIcon, href, rel, as, target, onClick }, ref) => {
 		let buttonClassName: string;
 
@@ -76,5 +76,3 @@ const Button = forwardRef<HTMLButtonElement, Props>(
 );
 
 Button.displayName = 'Button';
-
-export default Button;

@@ -1,4 +1,4 @@
-import constructRSSFeedFromPosts from '@starter-kit/utils/feed';
+import { constructRSSFeedFromPosts } from '@starter-kit/utils/feed';
 import request from 'graphql-request';
 import { GetServerSideProps } from 'next';
 import { RssFeedDocument, RssFeedQuery, RssFeedQueryVariables } from '../generated/graphql';

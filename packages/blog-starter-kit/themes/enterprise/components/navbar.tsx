@@ -1,7 +1,7 @@
-import Search from './searchbar';
-import SocialLinks from './social-links';
+import { Search } from './searchbar';
+import { SocialLinks } from './social-links';
 
-const Navbar = () => {
+export const Navbar = () => {
 	return (
 		<div className="grid grid-cols-1 items-center gap-5 pt-5 text-sm md:grid-cols-2">
 			<Search />
@@ -9,5 +9,3 @@ const Navbar = () => {
 		</div>
 	);
 };
-
-export default Navbar;

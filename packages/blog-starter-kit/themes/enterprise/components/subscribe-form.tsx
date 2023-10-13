@@ -10,7 +10,7 @@ import { useAppContext } from './contexts/appContext';
 
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 
-const SubscribeForm = () => {
+export const SubscribeForm = () => {
 	const [status, setStatus] = useState<SubscribeToNewsletterPayload['status']>();
 	const [requestInProgress, setRequestInProgress] = useState(false);
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -71,5 +71,3 @@ const SubscribeForm = () => {
 		</>
 	);
 };
-
-export default SubscribeForm;

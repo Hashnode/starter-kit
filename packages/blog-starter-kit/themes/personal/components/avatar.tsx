@@ -9,7 +9,7 @@ type Props = {
 	size: number;
 };
 
-const Avatar = ({ username, name, picture, size }: Props) => {
+export const Avatar = ({ username, name, picture, size }: Props) => {
 	return (
 		<div className="flex items-center gap-2">
 			<a href={`https://hashnode.com/@${username}`} target="_blank" rel="noopener noreferrer">
@@ -27,5 +27,3 @@ const Avatar = ({ username, name, picture, size }: Props) => {
 		</div>
 	);
 };
-
-export default Avatar;

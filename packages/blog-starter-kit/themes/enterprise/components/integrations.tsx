@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useAppContext } from './contexts/appContext';
 
-export default function Integrations() {
+export function Integrations() {
 	const { publication } = useAppContext();
 	const {
 		gaTrackingID,

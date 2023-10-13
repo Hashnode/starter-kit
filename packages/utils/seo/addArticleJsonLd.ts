@@ -43,4 +43,3 @@ export const addArticleJsonLd = (publication: any, post: any) => {
 	};
 	return schema;
 };
-export default addArticleJsonLd;

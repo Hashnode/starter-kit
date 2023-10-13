@@ -3,7 +3,7 @@ import { getBaseUrl } from './consts';
 
 const NON_ASCII_REGEX = /[\u{0080}-\u{FFFF}]/gu;
 
-const constructRSSFeedFromPosts = (
+export const constructRSSFeedFromPosts = (
 	publication: any,
 	posts: any[],
 	currentCursor: string | null,
@@ -60,6 +60,3 @@ const constructRSSFeedFromPosts = (
 	const xml = feed.xml();
 	return xml;
 };
-
-exports.constructRSSFeedFromPosts = constructRSSFeedFromPosts;
-export default constructRSSFeedFromPosts;

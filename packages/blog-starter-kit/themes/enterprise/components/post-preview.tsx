@@ -1,8 +1,8 @@
 import { resizeImage } from '@starter-kit/utils/image';
 import Link from 'next/link';
 import { User } from '../generated/graphql';
-import CoverImage from './cover-image';
-import DateFormatter from './date-formatter';
+import { CoverImage } from './cover-image';
+import { DateFormatter } from './date-formatter';
 
 type Author = Pick<User, 'name' | 'profilePicture'>;
 
@@ -18,7 +18,7 @@ type Props = {
 const DEFAULT_COVER =
 	'https://cdn.hashnode.com/res/hashnode/image/upload/v1683525272978/MB5H_kgOC.png?auto=format';
 
-const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) => {
+export const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) => {
 	const postURL = `/${slug}`;
 
 	return (
@@ -53,5 +53,3 @@ const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) => {
 		</div>
 	);
 };
-
-export default PostPreview;

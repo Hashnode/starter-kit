@@ -22,7 +22,7 @@ type TextResponseType = ResponseObject & {
  * HNRequest
  * A wrapper class to prepare, execute and has .json(), .text() with try/catch wrapped
  */
-export default class HNRequest {
+export class HNRequest {
 	url: string;
 
 	public rawResponse?: Response;

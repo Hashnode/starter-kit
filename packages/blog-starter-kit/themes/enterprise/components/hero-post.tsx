@@ -1,7 +1,7 @@
 import { resizeImage } from '@starter-kit/utils/image';
 import Link from 'next/link';
-import CoverImage from './cover-image';
-import DateFormatter from './date-formatter';
+import { CoverImage } from './cover-image';
+import { DateFormatter } from './date-formatter';
 
 type Props = {
 	title: string;
@@ -14,7 +14,7 @@ type Props = {
 const DEFAULT_COVER =
 	'https://cdn.hashnode.com/res/hashnode/image/upload/v1683525272978/MB5H_kgOC.png?auto=format';
 
-const HeroPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
+export const HeroPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
 	const postURL = `/${slug}`;
 
 	return (
@@ -48,5 +48,3 @@ const HeroPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
 		</section>
 	);
 };
-
-export default HeroPost;

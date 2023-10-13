@@ -1,9 +1,9 @@
 import * as Popover from '@radix-ui/react-popover';
-import Button from './button';
+import { Button } from './button';
 import { NewsletterPlusSVG } from './icons';
-import SubscribeForm from './subscribe-form';
+import { SubscribeForm } from './subscribe-form';
 
-const Subscribe = () => {
+export const Subscribe = () => {
 	return (
 		<div className="fixed bottom-10 right-10 z-50">
 			<Popover.Root>
@@ -31,5 +31,3 @@ const Subscribe = () => {
 		</div>
 	);
 };
-
-export default Subscribe;

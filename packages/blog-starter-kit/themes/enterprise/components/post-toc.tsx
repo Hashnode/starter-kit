@@ -52,7 +52,7 @@ const Toc = ({
 	);
 };
 
-const PostTOC = () => {
+export const PostTOC = () => {
 	const { post } = useAppContext();
 
 	if (!post) return null;
@@ -66,5 +66,3 @@ const PostTOC = () => {
 		</div>
 	);
 };
-
-export default PostTOC;
