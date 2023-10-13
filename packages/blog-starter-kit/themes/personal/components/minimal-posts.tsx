@@ -1,12 +1,12 @@
 import { PostFragment } from '../generated/graphql';
-import MinimalPostPreview from './minimal-post-preview';
+import { MinimalPostPreview } from './minimal-post-preview';
 
 type Props = {
 	posts: PostFragment[];
 	context: 'home' | 'series' | 'tag';
 };
 
-const MinimalPosts = ({ posts }: Props) => {
+export const MinimalPosts = ({ posts }: Props) => {
 	return (
 		<section className="flex w-full flex-col items-stretch gap-10 lg:max-w-lg">
 			{posts.map((post) => (
@@ -24,5 +24,3 @@ const MinimalPosts = ({ posts }: Props) => {
 		</section>
 	);
 };
-
-export default MinimalPosts;

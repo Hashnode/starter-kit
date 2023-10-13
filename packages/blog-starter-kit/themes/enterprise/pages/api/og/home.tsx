@@ -31,7 +31,7 @@ const kFormatter = (num: number) => {
 	return num > 999 ? `${(num / 1000).toFixed(1)}K` : num;
 };
 
-export default async function (req: NextRequest) {
+export default async function handler(req: NextRequest) {
 	const [fontDataRegular, fontDataMedium, fontDataSemiBold, fontDataBold, fontDataExtraBold] =
 		await Promise.all([fontRegular, fontMedium, fontSemiBold, fontBold, fontExtraBold]);
 

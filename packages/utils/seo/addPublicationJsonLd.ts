@@ -18,4 +18,3 @@ export const addPublicationJsonLd = (publication: any) => {
 	};
 	return schema;
 };
-export default addPublicationJsonLd;

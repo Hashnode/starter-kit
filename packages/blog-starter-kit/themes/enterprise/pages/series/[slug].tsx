@@ -2,13 +2,13 @@ import { resizeImage } from '@starter-kit/utils/image';
 import request from 'graphql-request';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
-import Container from '../../components/container';
+import { Container } from '../../components/container';
 import { AppProvider } from '../../components/contexts/appContext';
-import CoverImage from '../../components/cover-image';
-import Footer from '../../components/footer';
-import Header from '../../components/header';
-import Layout from '../../components/layout';
-import MorePosts from '../../components/more-posts';
+import { CoverImage } from '../../components/cover-image';
+import { Footer } from '../../components/footer';
+import { Header } from '../../components/header';
+import { Layout } from '../../components/layout';
+import { MorePosts } from '../../components/more-posts';
 import {
 	PostFragment,
 	PublicationFragment,

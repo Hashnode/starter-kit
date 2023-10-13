@@ -10,7 +10,7 @@ function hasUrl(
 	return !!navbarItem.url && navbarItem.url.length > 0;
 }
 
-const PersonalHeader = () => {
+export const PersonalHeader = () => {
 	const { publication } = useAppContext();
 
 	const navbarItems = publication.preferences.navbarItems.filter(hasUrl);
@@ -95,5 +95,3 @@ const PersonalHeader = () => {
 		</header>
 	);
 };
-
-export default PersonalHeader;

@@ -55,5 +55,3 @@ export const getSitemap = (publication: any) => {
 	xml += '</urlset>';
 	return xml;
 };
-
-export default getSitemap;

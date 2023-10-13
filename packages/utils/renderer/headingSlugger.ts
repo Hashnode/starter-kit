@@ -1,7 +1,7 @@
 import sanitizeHtml from 'sanitize-html';
 import slug from 'slug';
 
-class HeadingSlugger {
+export class HeadingSlugger {
 	headings: { [key: string]: number };
 
 	constructor() {
@@ -42,5 +42,3 @@ class HeadingSlugger {
 		return this.findSafeSlug(sanitizedSlug);
 	}
 }
-
-export default HeadingSlugger;

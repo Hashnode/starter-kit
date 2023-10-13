@@ -2,7 +2,7 @@ import parse from 'html-react-parser';
 import Head from 'next/head';
 import { useAppContext } from './contexts/appContext';
 
-const Meta = () => {
+export const Meta = () => {
 	const { publication } = useAppContext();
 	const { metaTags, favicon } = publication;
 	const defaultFavicons = (
@@ -25,5 +25,3 @@ const Meta = () => {
 		</Head>
 	);
 };
-
-export default Meta;

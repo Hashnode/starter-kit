@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { User } from '../generated/graphql';
-import DateFormatter from './date-formatter';
+import { DateFormatter } from './date-formatter';
 
 type Author = Pick<User, 'name'>;
 
@@ -12,7 +12,7 @@ type Props = {
 	commentCount: number;
 };
 
-const MinimalPostPreview = ({ title, date, slug, commentCount }: Props) => {
+export const MinimalPostPreview = ({ title, date, slug, commentCount }: Props) => {
 	const postURL = `/${slug}`;
 
 	return (
@@ -36,5 +36,3 @@ const MinimalPostPreview = ({ title, date, slug, commentCount }: Props) => {
 		</section>
 	);
 };
-
-export default MinimalPostPreview;

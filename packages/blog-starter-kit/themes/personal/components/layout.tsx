@@ -1,13 +1,13 @@
-import Analytics from './analytics';
-import Integrations from './integrations';
-import Meta from './meta';
-import Scripts from './scripts';
+import { Analytics } from './analytics';
+import { Integrations } from './integrations';
+import { Meta } from './meta';
+import { Scripts } from './scripts';
 
 type Props = {
 	children: React.ReactNode;
 };
 
-const Layout = ({ children }: Props) => {
+export const Layout = ({ children }: Props) => {
 	return (
 		<>
 			<Meta />
@@ -20,5 +20,3 @@ const Layout = ({ children }: Props) => {
 		</>
 	);
 };
-
-export default Layout;

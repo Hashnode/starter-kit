@@ -1,4 +1,4 @@
-import getSitemap from '@starter-kit/utils/seo/sitemap';
+import { getSitemap } from '@starter-kit/utils/seo/sitemap';
 import request from 'graphql-request';
 import { GetServerSideProps } from 'next';
 import {

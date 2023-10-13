@@ -4,7 +4,7 @@
  * https://github.com/chjj/marked
  */
 const { ImageAlignment } = require('./image');
-const { default: HeadingSlugger } = require('./headingSlugger');
+const { HeadingSlugger } = require('./headingSlugger');
 const { default: isURL } = require('validator/lib/isURL');
 
 (function () {
