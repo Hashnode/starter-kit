@@ -18,7 +18,7 @@ The recommended approach is depoying to Vercel. If you don't have an account alr
 ```
 NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT=https://gql.hashnode.com
 NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST=engineering.hashnode.com -> Change this to your Hashnode blog URL i.e. handle.hashnode.dev
-NEXT_PUBLIC_BASE_URL=dev.hashnode.com/engineering -> This could be yourdomain.cloud/blog if you are installing on subpath or leave it empty and set it (and redeploy) after getting the deployment URL from Vercel
+NEXT_PUBLIC_BASE_URL=/blog -> This could be /blog if you are installing on subpath; otherwise don't set it
 NEXT_PUBLIC_MODE=production
 ```
 
