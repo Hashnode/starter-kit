@@ -13,6 +13,7 @@ fragment PostFull on Post {
 	url
 	brief
 	title
+	subtitle
 	publishedAt
 	updatedAt
 	readTimeInMinutes
