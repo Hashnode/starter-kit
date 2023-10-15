@@ -11,5 +11,10 @@ query DraftById($id: ObjectId!) {
       username
     }
     dateUpdated
+    tags {
+      id
+      name
+      slug
+    }
   }
 }
