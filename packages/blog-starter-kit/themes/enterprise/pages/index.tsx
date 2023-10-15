@@ -6,12 +6,13 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useState } from 'react';
 import { Waypoint } from 'react-waypoint';
+import { Button } from '../components/button';
 import { Container } from '../components/container';
 import { AppProvider } from '../components/contexts/appContext';
 import { Footer } from '../components/footer';
 import { Header } from '../components/header';
 import { HeroPost } from '../components/hero-post';
-import { ArticleSVG } from '../components/icons';
+import { ArticleSVG, ChevronDownSVG } from '../components/icons';
 import { Layout } from '../components/layout';
 import { MorePosts } from '../components/more-posts';
 import { Navbar } from '../components/navbar';
@@ -114,7 +115,6 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 				<Container className="flex flex-col items-stretch gap-10 px-5 pb-10">
 					<Navbar />
 
-					{/* No articles found component */}
 					{allPosts.length === 0 && (
 						<div className="grid grid-cols-1 py-20 lg:grid-cols-3">
 							<div className="col-span-1 flex flex-col items-center gap-5 text-center text-slate-700 dark:text-neutral-400 lg:col-start-2">
@@ -161,9 +161,14 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 						<>
 							<MorePosts context="home" posts={morePosts} />
 							{!loadedMore && pageInfo.hasNextPage && pageInfo.endCursor && (
-								<button className="hidden bg-white" onClick={loadMore}>
-									Load more
-								</button>
+								<div className="flex w-full flex-row items-center justify-center">
+									<Button
+										onClick={loadMore}
+										type="outline"
+										icon={<ChevronDownSVG className="h-5 w-5 stroke-current" />}
+										label="Load more posts"
+									/>
+								</div>
 							)}
 							{loadedMore && pageInfo.hasNextPage && pageInfo.endCursor && (
 								<Waypoint onEnter={loadMore} bottomOffset={'10%'} />
