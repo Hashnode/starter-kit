@@ -26,6 +26,8 @@ Once this is deployed, just visit Vercel's auto generated domain to ensure it lo
 
 ### Step 2 (subpath installation)
 
+#### Vercel
+
 If your main project is deployed on Vercel, add the following rewrite to `next.config.js`:
 
 ```
@@ -43,7 +45,49 @@ async rewrites() {
   },
 ```
 
-If your main domain is hosted elsewhere, you need to add the above rewrites to open the blog on the subpath.
+Once you deploy your project, the subpath installation should work successfully.
+
+#### Cloudflare
+
+In case you are using Cloudflare in proxy mode (orange cloud on), you can deploy the following worker script and map it to `yourdomain.com/*`:
+
+```
+const subpath = '/blog'; // Replace with your subpath
+const blogBaseUrl = 'https://blog-woad-six-17.vercel.app'; // Replace with your blog URL from step 1
+
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request))
+})
+
+/**
+ * Respond to the request
+ * @param {Request} request
+ */
+async function handleRequest(request) {
+  const url = new URL(request.url)
+
+  if (url.pathname.startsWith(subpath)) {
+    // Proxy blog requests
+    return proxyBlog(request) 
+  } else {
+    // Passthrough everything else
+    return fetch(request)
+  }
+}
+
+/**
+ * Proxy blog requests
+ * @param {Request} request
+ */
+async function proxyBlog(request) {
+  const path = new URL(request.url).pathname;
+  return fetch(`${blogBaseUrl}${path}`, request)
+}
+```
+
+Be sure to replace the values of `subpath` and `blogBaseUrl` in the above snippet. This way cloudflare will proxy all the requests starting with `youdomain.com/blog` to your headless blog, and other requests will hit your origin as usual.
+
+If your main domain is hosted elsewhere, you need to involve engineers from your team to create above rewrites.
 
 ## Running Locally
 
