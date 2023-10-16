@@ -110,6 +110,18 @@ Be sure to replace the values of `subpath` and `blogBaseUrl` in the above snippe
 
 If your main domain is hosted elsewhere, you need to involve engineers from your team to create above rewrites.
 
+### Step 3
+
+Now that you have deployed the starter kit on your own domain, you need to tell Hashnode not to generate a UI for your blog. You can do that by visiting your blog dashboard -> advanced tab. Scroll down and locate the section "use Hashnode as a headless CMS". Enable it and enter your blog base URL.
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1697486863293/zMMctLjRZ.png?auto=format)
+
+After enabling, enter your blog URL like the following and save.
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1697487035077/1sIyw_0v1.png?auto=format)
+
+Congrats 🎉! Hashnode will now treat your blog as a headless blog and send readers directly to the origin.
+
 ## Running Locally
 
 - cd `packages/blog-starter-kit/themes/enterprise` or `packages/blog-starter-kit/themes/personal`
