@@ -1,5 +1,7 @@
 import { resizeImage } from '@starter-kit/utils/image';
-import { ImageResponse, type NextRequest } from 'next/server';
+import { type NextRequest } from 'next/server';
+import { ImageResponse } from '@vercel/og';
+
 const DEFAULT_AVATAR =
 	'https://cdn.hashnode.com/res/hashnode/image/upload/v1659089761812/fsOct5gl6.png';
 
