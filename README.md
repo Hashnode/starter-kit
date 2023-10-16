@@ -45,7 +45,9 @@ NEXT_PUBLIC_MODE=production
 
 Once this is deployed, just visit Vercel's auto generated domain to ensure it loads fine. Initially you won't see any posts. But you can always point `NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST` to a different domain such as `engineering.hashnode.com` to visualize.
 
-### Step 2 (subpath installation)
+### Step 2 (optional subpath installation)
+
+Follow the steps below if you would like to install your blog under a custom domain subpath. If not, you can directly map a custom domain to your project on Vercel and have a production-ready blog up and running.
 
 #### Vercel
 
