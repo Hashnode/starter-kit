@@ -8,9 +8,15 @@
   </a>
 </p>
 <p align="center">
-  <img src="https://img.shields.io/badge/MADE%20BY%20Hashnode-000000.svg?style=for-the-badge&logo=Hashnode&labelColor=000&link=https://hashnode.com/headless">
-  <img alt="" src="https://img.shields.io/badge/LICENSE%20%7C%20MIT-000.svg?style=for-the-badge&link=https://hashnode.com/headless">
-  <img alt="" src="https://img.shields.io/badge/Join%20the%20community-black.svg?style=for-the-badge&logo=discord&labelColor=000000&logoWidth=20&link=https://discord.gg/hashnode">
+  <a href="https://hashnode.com/headless">
+    <img src="https://img.shields.io/badge/MADE%20BY%20Hashnode-000000.svg?style=for-the-badge&logo=Hashnode&labelColor=000">
+  </a>
+  <a href="https://hashnode.com">
+    <img alt="" src="https://img.shields.io/badge/LICENSE%20%7C%20MIT-000.svg?style=for-the-badge">
+  </a>
+  <a href="https://discord.gg/hashnode">
+    <img alt="" src="https://img.shields.io/badge/Join%20the%20community-black.svg?style=for-the-badge&logo=discord&labelColor=000000&logoWidth=20">
+  </a>
 </p>
 
 # Hashnode Blog Starter Kit
@@ -27,13 +33,13 @@ The recommended approach is depoying to Vercel. If you don't have an account alr
 - Create a new project on Vercel and connect this repo
 - It's a monorepo. So, choose the either `packages/blog-starter-kit/themes/enterprise` or `packages/blog-starter-kit/themes/personal` as the root directory while importing on Vercel.
   ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1695083263935/T5bByLxZT.png?w=500&h=800&auto=format)
-- **Make sure to choose `Next.js` as framework preset (just above Root Directory setting). It appears to get reset after selecting Root Directory. So, double check this.**
+- Choose `Next.js` as framework preset (just above Root Directory setting).
 - Set the following env vars
 
 ```
 NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT=https://gql.hashnode.com
 NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST=engineering.hashnode.com -> Change this to your Hashnode blog URL i.e. handle.hashnode.dev
-NEXT_PUBLIC_BASE_URL=/blog -> This could be /blog if you are installing on subpath; otherwise don't set it
+NEXT_PUBLIC_BASE_URL=/blog -> This could be /blog if you are installing on subpath; otherwise remove this var
 NEXT_PUBLIC_MODE=production
 ```
 
