@@ -23,6 +23,11 @@
 
 Blog Starter Kit lets you instantly deploy a Next.js and Tailwind powered frontend for your Hashnode blog. It consumes [Hashnode's Public APIs](https://apidocs.hashnode.com), and gives you a fully customizable blog that can be deployed anywhere, including a subpath of a custom domain. Combined with [Hashnode's headless mode](https://hashnode.com/headless), it unlocks entirely new possibilities. You can now use Hashnode's [world class editor](https://hashnode.com/neptune) and dashboard to author content and collaborate. And use blog starter kit to customize the frontend to your liking.
 
+# Live Demos: 
+
+- [Personal Blog](https://sandeep.dev/blog)
+- [Enterprise Blog](https://demo.hashnode.com/engineering)
+
 ## How to deploy
 
 ### Step 1
@@ -132,3 +137,26 @@ Congrats 🎉! Hashnode will now treat your blog as a headless blog and send rea
 - `pnpm dev`
 
 Visit http://localhost:3000!
+
+## APIs
+
+If you prefer to build your frontend from scratch, you can use our public GraphQL APIs to do so:
+
+- [Docs](https://apidocs.hashnode.com)
+- [GraphQL Playground](https://gql.hashnode.com)
+
+## Found an issue?
+
+If you have found an issue or bug, please create an [issue](https://github.com/Hashnode/starter-kit/issues).
+
+If it's a quick fix, such as a misspelled word or a broken link, feel free to skip creating an issue. You can create a [pull request](https://github.com/Hashnode/starter-kit/pulls) directly.
+
+## Have feedback for us?
+
+Feel free to create an [issue](https://github.com/Hashnode/starter-kit/issues) with the **feedback** label. Our team will take a look and get back to you as soon as we can!
+
+## Reach out for help
+
+You can discuss ideas, ask questions, and meet other members from the Hashnode community in our [Discord](https://discord.gg/hashnode). You can also create tickets on [our intercom](https://hashnode.com/#support) to find support.
+
+If you like, you can also DM us on [X](https://x.com/hashnode)!
