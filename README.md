@@ -1,6 +1,21 @@
+<p align="center">
+  <a href="https://hashnode.com">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://cdn.hashnode.com/res/hashnode/image/upload/v1611902473383/CDyAuTy75.png?auto=compress">
+      <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1611902473383/CDyAuTy75.png?auto=compress" height="128">
+    </picture>
+    <h1 align="center">Hashnode</h1>
+  </a>
+</p>
+<p align="center">
+  <img src="https://img.shields.io/badge/MADE%20BY%20Hashnode-000000.svg?style=for-the-badge&logo=Hashnode&labelColor=000&link=https://hashnode.com/headless">
+  <img alt="" src="https://img.shields.io/badge/LICENSE%20%7C%20MIT-000.svg?style=for-the-badge&link=https://hashnode.com/headless">
+  <img alt="" src="https://img.shields.io/badge/Join%20the%20community-black.svg?style=for-the-badge&logo=discord&labelColor=000000&logoWidth=20&link=https://discord.gg/hashnode">
+</p>
+
 # Hashnode Blog Starter Kit
 
-Starter Kit built with Hashnode Public APIs. Use Hashnode's [world class editor](https://hashnode.com/neptune) to author content and collaborate. Use our starter kit to customize the front end.
+Blog Starter Kit lets you instantly deploy a Next.js and Tailwind powered frontend for your Hashnode blog. It consumes [Hashnode's Public APIs](https://apidocs.hashnode.com), and gives you a fully customizable blog that can be deployed anywhere, including a subpath of a custom domain. Combined with [Hashnode's headless mode](https://hashnode.com/headless), it unlocks entirely new possibilities. You can now use Hashnode's [world class editor](https://hashnode.com/neptune) and dashboard to author content and collaborate. And use blog starter kit to customize the frontend to your liking.
 
 ## How to deploy
 
@@ -10,8 +25,8 @@ The recommended approach is depoying to Vercel. If you don't have an account alr
 
 - Fork this repo
 - Create a new project on Vercel and connect this repo
-- It's a monorepo. So, choose the following folder as Root Directory while importing on Vercel: `packages/blog-starter-kit/themes/enterprise`
-  ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1695083263935/T5bByLxZT.png?auto=format)
+- It's a monorepo. So, choose the either `packages/blog-starter-kit/themes/enterprise` or `packages/blog-starter-kit/themes/personal` as the root directory while importing on Vercel.
+  ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1695083263935/T5bByLxZT.png?w=500&h=800&auto=format)
 - **Make sure to choose `Next.js` as framework preset (just above Root Directory setting). It appears to get reset after selecting Root Directory. So, double check this.**
 - Set the following env vars
 
