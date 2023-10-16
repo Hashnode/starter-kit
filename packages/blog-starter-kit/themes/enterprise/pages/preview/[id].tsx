@@ -10,11 +10,11 @@ import { Layout } from '../../components/layout';
 import { MarkdownToHtml } from '../../components/markdown-to-html';
 import { PostHeader } from '../../components/post-header';
 import {
-	Post,
-	Publication,
 	DraftByIdDocument,
 	DraftByIdQuery,
 	DraftByIdQueryVariables,
+	Post,
+	Publication,
 	PublicationByHostDocument,
 	PublicationByHostQuery,
 	PublicationByHostQueryVariables,

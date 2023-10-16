@@ -22,7 +22,7 @@ export const PostHeader = ({ title, coverImage, date, author }: Props) => {
 				<Avatar
 					username={author.username}
 					name={author.name}
-					size={10}
+					size={8}
 					picture={author.profilePicture}
 				/>
 				<DateFormatter dateString={date} />

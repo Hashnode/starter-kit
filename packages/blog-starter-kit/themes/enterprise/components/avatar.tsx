@@ -13,10 +13,19 @@ type Props = {
 export const Avatar = ({ username, name, picture, size }: Props) => {
 	return (
 		<div className="flex items-center gap-2">
-			<a href={`https://hashnode.com/@${username}`} target="_blank" rel="noopener noreferrer">
+			<a
+				href={`https://hashnode.com/@${username}`}
+				className={
+					size
+						? `w-${size} h-${size} block overflow-hidden rounded-full`
+						: 'block h-8 w-8 overflow-hidden rounded-full'
+				}
+				target="_blank"
+				rel="noopener noreferrer"
+			>
 				<img
+					className="block h-full w-full"
 					src={resizeImage(picture, { w: 160, h: 160, c: 'face' }, DEFAULT_AVATAR)}
-					className={size ? `w-${size} h-${size} rounded-full` : 'h-8 w-8 rounded-full'}
 					alt={name}
 				/>
 			</a>
