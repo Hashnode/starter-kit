@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "An OSS Starter Kit to roll out frontends using Hashnode Public APIs",
 	"keywords": [],
-	"license": "ISC",
+	"license": "MIT",
 	"author": "",
 	"scripts": {
 		"format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,json}\"",

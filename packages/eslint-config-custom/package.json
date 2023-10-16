@@ -1,7 +1,7 @@
 {
 	"name": "@starter-kit/eslint-config-custom",
 	"version": "0.0.0",
-	"license": "ISC",
+	"license": "MIT",
 	"main": "index.js",
 	"dependencies": {
 		"eslint-config-next": "^13.5.4",

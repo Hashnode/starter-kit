@@ -2,5 +2,5 @@
 	"name": "@starter-kit/tsconfig",
 	"version": "0.0.0",
 	"private": true,
-	"license": "ISC"
+	"license": "MIT"
 }
