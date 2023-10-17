@@ -145,6 +145,12 @@ If you prefer to build your frontend from scratch, you can use our public GraphQ
 - [Docs](https://apidocs.hashnode.com)
 - [GraphQL Playground](https://gql.hashnode.com)
 
+## Demo Videos
+
+[![Headless Hashnode Demo — With Blog Starter Kit (Deployed to Vercel)](https://cdn.hashnode.com/res/hashnode/image/upload/v1697541065189/5ct0eFWIu.png?auto=format&w=500)](https://youtu.be/5Yuxoqohvrk)
+
+[![Customizing Hashnode Blog Starter Kit using TailwindCSS — Headless Hashnode Demo](https://cdn.hashnode.com/res/hashnode/image/upload/v1697540919799/MWVa0aD78.png?auto=format&w=500)](https://youtu.be/oH8QG8E0Txk)
+
 ## Found an issue?
 
 If you have found an issue or bug, please create an [issue](https://github.com/Hashnode/starter-kit/issues).
