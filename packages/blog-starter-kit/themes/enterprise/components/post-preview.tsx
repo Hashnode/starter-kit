@@ -1,6 +1,7 @@
 import { resizeImage } from '@starter-kit/utils/image';
 import Link from 'next/link';
 import { User } from '../generated/graphql';
+import { DEFAULT_COVER } from '../utils/const';
 import { CoverImage } from './cover-image';
 import { DateFormatter } from './date-formatter';
 
@@ -14,9 +15,6 @@ type Props = {
 	author: Author;
 	slug: string;
 };
-
-const DEFAULT_COVER =
-	'https://cdn.hashnode.com/res/hashnode/image/upload/v1683525272978/MB5H_kgOC.png?auto=format';
 
 export const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) => {
 	const postURL = `/${slug}`;
