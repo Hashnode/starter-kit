@@ -1,8 +1,7 @@
 import { resizeImage } from '@starter-kit/utils/image';
-import { type NextRequest } from 'next/server';
 import { ImageResponse } from '@vercel/og';
-
-const DEFAULT_AVATAR = 'https://cdn.hashnode.com/res/hashnode/image/upload/v1659089761812/fsOct5gl6.png';
+import { type NextRequest } from 'next/server';
+import { DEFAULT_AVATAR } from '../../../utils/const';
 
 export const config = {
 	runtime: 'edge',
@@ -83,8 +82,7 @@ export default async function handler(req: NextRequest) {
 				>
 					<div tw="absolute -top-px -left-px -right-px -bottom-px rounded-xl border-2 border-black/5" />
 					<div tw="flex w-full flex-row items-center">
-						{/* if author image is not available, use the default author image. Source below */}
-						{/* https://cdn.hashnode.com/res/hashnode/image/upload/v1659089761812/fsOct5gl6.png?auto=compress */}
+						{/* if author image is not available, use the default author image (DEFAULT_AVATAR) from const */}
 						<img tw="mr-5 h-16 w-16 rounded-full" alt="name" src={photo} />
 						<div tw="flex flex-col items-start">
 							{/* Author name, even if it's team */}
