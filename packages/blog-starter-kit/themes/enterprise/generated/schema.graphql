@@ -447,6 +447,8 @@ enum FeedType {
   Personalised feed is curated per requesting user basis.
   """
   PERSONALIZED
+  """Returns posts which were viewed by the user, sorted based on recency."""
+  READING_HISTORY
   """Returns posts which were published recently, sorted based on recency."""
   RECENT
   """Returns posts based on old personalization algorithm."""
@@ -502,13 +504,11 @@ interface IUser {
   """
   The bio of the user. Visible in about me section of the user's profile.
   """
-  bio: String @deprecated(reason: "Will be removed on 18/09/2023. Use bioV2 instead of bio.")
+  bio: Content
   """
   The bio of the user. Visible in about me section of the user's profile.
   """
-  bioV2: Content
-  """The URL to the cover photo of the user's profile."""
-  coverPhoto: String @deprecated(reason: "Cover images are not part of user's profile anymore. Will be removed on 25/09/2023.")
+  bioV2: Content @deprecated(reason: "Will be removed on 26/10/2023. Use bio instead of bioV2")
   """The date the user joined Hashnode."""
   dateJoined: DateTime
   """Whether or not the user is deactivated."""
@@ -607,13 +607,11 @@ type MyUser implements IUser & Node {
   """
   The bio of the user. Visible in about me section of the user's profile.
   """
-  bio: String @deprecated(reason: "Will be removed on 18/09/2023. Use bioV2 instead of bio.")
+  bio: Content
   """
   The bio of the user. Visible in about me section of the user's profile.
   """
-  bioV2: Content
-  """The URL to the cover photo of the user's profile."""
-  coverPhoto: String @deprecated(reason: "Cover images are not part of user's profile anymore. Will be removed on 25/09/2023.")
+  bioV2: Content @deprecated(reason: "Will be removed on 26/10/2023. Use bio instead of bio.V2")
   """The date the user joined Hashnode."""
   dateJoined: DateTime
   """Whether or not the user is deactivated."""
@@ -1086,6 +1084,10 @@ type Preferences {
   disableFooterBranding: Boolean
   """An object containing pages enabled for the publication."""
   enabledPages: PagesPreferences
+  """
+  A flag indicating if subscription popup needs to be shown to be shown for the publication
+  """
+  isSubscriptionModalDisabled: Boolean
   """The selected publication's layout, can be stacked, grid or magazine."""
   layout: PublicationLayout
   """The publication's logo url."""
@@ -2013,13 +2015,11 @@ type User implements IUser & Node {
   """
   The bio of the user. Visible in about me section of the user's profile.
   """
-  bio: String @deprecated(reason: "Will be removed on 18/09/2023. Use bioV2 instead of bio.")
+  bio: Content
   """
   The bio of the user. Visible in about me section of the user's profile.
   """
-  bioV2: Content
-  """The URL to the cover photo of the user's profile."""
-  coverPhoto: String @deprecated(reason: "Cover images are not part of user's profile anymore. Will be removed on 25/09/2023.")
+  bioV2: Content @deprecated(reason: "Will be removed on 26/10/2023. Use bio instead of bioV2")
   """The date the user joined Hashnode."""
   dateJoined: DateTime
   """Whether or not the user is deactivated."""

@@ -67,9 +67,12 @@ const Post = (publication: PublicationFragment, post: PostFullFragment) => {
 				<title>{post.seo?.title || post.title}</title>
 				<link rel="canonical" href={post.url} />
 				<meta name="description" content={post.seo?.description || post.subtitle || post.brief} />
-				<meta property="twitter:card" content="summary_large_image"/>
+				<meta property="twitter:card" content="summary_large_image" />
 				<meta property="twitter:title" content={post.seo?.title || post.title} />
-				<meta property="twitter:description" content={post.seo?.description || post.subtitle || post.brief} />
+				<meta
+					property="twitter:description"
+					content={post.seo?.description || post.subtitle || post.brief}
+				/>
 				<meta
 					property="og:image"
 					content={
@@ -99,6 +102,7 @@ const Post = (publication: PublicationFragment, post: PostFullFragment) => {
 				coverImage={post.coverImage?.url}
 				date={post.publishedAt}
 				author={post.author}
+				readTimeInMinutes={post.readTimeInMinutes}
 			/>
 			{post.features.tableOfContents.isEnabled && <PostTOC />}
 			<MarkdownToHtml contentMarkdown={post.content.markdown} />
