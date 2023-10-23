@@ -17,15 +17,13 @@ import {
 	SeriesPostsByPublicationQuery,
 	SeriesPostsByPublicationQueryVariables,
 } from '../../generated/graphql';
+import { DEFAULT_COVER } from '../../utils/const';
 
 type Props = {
 	series: SeriesFragment;
 	posts: PostFragment[];
 	publication: PublicationFragment;
 };
-
-const DEFAULT_COVER =
-	'https://cdn.hashnode.com/res/hashnode/image/upload/v1683525272978/MB5H_kgOC.png?auto=format';
 
 export default function Post({ series, publication, posts }: Props) {
 	const title = `${series.name} - ${publication.title}`;
