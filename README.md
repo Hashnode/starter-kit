@@ -32,6 +32,7 @@ Blog Starter Kit lets you instantly deploy a Next.js and Tailwind powered fronte
 
 ### Step 1
 
+
 The recommended approach is deploying to Vercel. If you don't have an account already, you can sign up for a free plan.
 
 - Fork this repo
@@ -113,7 +114,8 @@ async function proxyBlog(request) {
 }
 ```
 
-Be sure to replace the values of `subpath` and `blogBaseUrl` in the above code snippet. This way cloudflare will proxy all the requests starting with `youdomain.com/blog` to your headless blog, and other requests will hit your origin as usual.
+
+Be sure to replace the values of `subpath` and `blogBaseUrl` in the above code snippet. This way cloudflare will proxy all the requests starting with `yourdomain.com/blog` to your headless blog, and other requests will hit your origin as usual.
 
 If your main domain is hosted elsewhere, you need to involve engineers from your team to create above rewrites.
 
