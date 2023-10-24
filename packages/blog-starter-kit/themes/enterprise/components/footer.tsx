@@ -131,7 +131,7 @@ export const Footer = () => {
 					</div>
 					<div className="col-span-2 flex flex-col items-end gap-5 text-right text-slate-600 dark:text-neutral-300 md:text-left">
 						<SocialLinks />
-						<p>&copy; 2023 Company Inc.</p>
+						<p>&copy; 2023 FutureCFO</p>
 						<p>
 							<a href="#" className="hover:underline">
 								Privacy Policy
