@@ -32,14 +32,15 @@ Blog Starter Kit lets you instantly deploy a Next.js and Tailwind powered fronte
 
 ### Step 1
 
-The recommended approach is deploying to Vercel. If you don't have an account already, sign up for a free plan.
+
+The recommended approach is deploying to Vercel. If you don't have an account already, you can sign up for a free plan.
 
 - Fork this repo
 - Create a new project on Vercel and connect this repo
-- It's a monorepo. So, choose the either `packages/blog-starter-kit/themes/enterprise` or `packages/blog-starter-kit/themes/personal` as the root directory while importing on Vercel.
-  ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1695083263935/T5bByLxZT.png?w=500&h=800&auto=format)
+- It's a monorepo. So, choose either `packages/blog-starter-kit/themes/enterprise` or `packages/blog-starter-kit/themes/personal` as the root directory while importing on Vercel.
+  ![selecting the directory to deploy a monorepo](https://cdn.hashnode.com/res/hashnode/image/upload/v1695083263935/T5bByLxZT.png?w=500&h=800&auto=format)
 - Choose `Next.js` as framework preset (just above Root Directory setting).
-- Set the following env vars
+- Set the following environment variables
 
 ```
 NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT=https://gql.hashnode.com
@@ -113,7 +114,8 @@ async function proxyBlog(request) {
 }
 ```
 
-Be sure to replace the values of `subpath` and `blogBaseUrl` in the above snippet. This way cloudflare will proxy all the requests starting with `yourdomain.com/blog` to your headless blog, and other requests will hit your origin as usual.
+
+Be sure to replace the values of `subpath` and `blogBaseUrl` in the above code snippet. This way cloudflare will proxy all the requests starting with `yourdomain.com/blog` to your headless blog, and other requests will hit your origin as usual.
 
 If your main domain is hosted elsewhere, you need to involve engineers from your team to create above rewrites.
 
@@ -121,11 +123,11 @@ If your main domain is hosted elsewhere, you need to involve engineers from your
 
 Now that you have deployed the starter kit on your own domain, you need to tell Hashnode not to generate a UI for your blog. You can do that by visiting your blog dashboard -> advanced tab. Scroll down and locate the section "use Hashnode as a headless CMS". Enable it and enter your blog base URL.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1697486863293/zMMctLjRZ.png?auto=format)
+![enable headless mode](https://cdn.hashnode.com/res/hashnode/image/upload/v1697486863293/zMMctLjRZ.png?auto=format)
 
 After enabling, enter your blog URL like the following and save.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1697487035077/1sIyw_0v1.png?auto=format)
+![blog base url](https://cdn.hashnode.com/res/hashnode/image/upload/v1697487035077/1sIyw_0v1.png?auto=format)
 
 Congrats 🎉! Hashnode will now treat your blog as a headless blog and send readers directly to the origin.
 

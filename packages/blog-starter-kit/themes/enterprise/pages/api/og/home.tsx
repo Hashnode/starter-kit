@@ -1,9 +1,7 @@
 import { resizeImage } from '@starter-kit/utils/image';
-import { type NextRequest } from 'next/server';
 import { ImageResponse } from '@vercel/og';
-
-const DEFAULT_AVATAR =
-	'https://cdn.hashnode.com/res/hashnode/image/upload/v1659089761812/fsOct5gl6.png';
+import { type NextRequest } from 'next/server';
+import { DEFAULT_AVATAR } from '../../../utils/const';
 
 export const config = {
 	runtime: 'edge',

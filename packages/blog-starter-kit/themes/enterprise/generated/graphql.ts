@@ -442,6 +442,8 @@ export enum FeedType {
    * Personalised feed is curated per requesting user basis.
    */
   Personalized = 'PERSONALIZED',
+  /** Returns posts which were viewed by the user, sorted based on recency. */
+  ReadingHistory = 'READING_HISTORY',
   /** Returns posts which were published recently, sorted based on recency. */
   Recent = 'RECENT',
   /** Returns posts based on old personalization algorithm. */
@@ -486,18 +488,13 @@ export type IUser = {
   availableFor?: Maybe<Scalars['String']['output']>;
   /** Returns a list of badges that the user has earned. Shown on blogs /badges page. Example - https://iamshadmirza.com/badges */
   badges: Array<Badge>;
+  /** The bio of the user. Visible in about me section of the user's profile. */
+  bio?: Maybe<Content>;
   /**
    * The bio of the user. Visible in about me section of the user's profile.
-   * @deprecated Will be removed on 18/09/2023. Use bioV2 instead of bio.
+   * @deprecated Will be removed on 26/10/2023. Use bio instead of bioV2
    */
-  bio?: Maybe<Scalars['String']['output']>;
-  /** The bio of the user. Visible in about me section of the user's profile. */
   bioV2?: Maybe<Content>;
-  /**
-   * The URL to the cover photo of the user's profile.
-   * @deprecated Cover images are not part of user's profile anymore. Will be removed on 25/09/2023.
-   */
-  coverPhoto?: Maybe<Scalars['String']['output']>;
   /** The date the user joined Hashnode. */
   dateJoined?: Maybe<Scalars['DateTime']['output']>;
   /** Whether or not the user is deactivated. */
@@ -611,18 +608,13 @@ export type MyUser = IUser & Node & {
   badges: Array<Badge>;
   /** A list of beta features that the user has access to. Only available to the authenticated user. */
   betaFeatures: Array<BetaFeature>;
+  /** The bio of the user. Visible in about me section of the user's profile. */
+  bio?: Maybe<Content>;
   /**
    * The bio of the user. Visible in about me section of the user's profile.
-   * @deprecated Will be removed on 18/09/2023. Use bioV2 instead of bio.
+   * @deprecated Will be removed on 26/10/2023. Use bio instead of bio.V2
    */
-  bio?: Maybe<Scalars['String']['output']>;
-  /** The bio of the user. Visible in about me section of the user's profile. */
   bioV2?: Maybe<Content>;
-  /**
-   * The URL to the cover photo of the user's profile.
-   * @deprecated Cover images are not part of user's profile anymore. Will be removed on 25/09/2023.
-   */
-  coverPhoto?: Maybe<Scalars['String']['output']>;
   /** The date the user joined Hashnode. */
   dateJoined?: Maybe<Scalars['DateTime']['output']>;
   /** Whether or not the user is deactivated. */
@@ -1056,6 +1048,8 @@ export type Preferences = {
   disableFooterBranding?: Maybe<Scalars['Boolean']['output']>;
   /** An object containing pages enabled for the publication. */
   enabledPages?: Maybe<PagesPreferences>;
+  /** A flag indicating if subscription popup needs to be shown to be shown for the publication */
+  isSubscriptionModalDisabled?: Maybe<Scalars['Boolean']['output']>;
   /** The selected publication's layout, can be stacked, grid or magazine. */
   layout?: Maybe<PublicationLayout>;
   /** The publication's logo url. */
@@ -2002,18 +1996,13 @@ export type User = IUser & Node & {
   availableFor?: Maybe<Scalars['String']['output']>;
   /** Returns a list of badges that the user has earned. Shown on blogs /badges page. Example - https://iamshadmirza.com/badges */
   badges: Array<Badge>;
+  /** The bio of the user. Visible in about me section of the user's profile. */
+  bio?: Maybe<Content>;
   /**
    * The bio of the user. Visible in about me section of the user's profile.
-   * @deprecated Will be removed on 18/09/2023. Use bioV2 instead of bio.
+   * @deprecated Will be removed on 26/10/2023. Use bio instead of bioV2
    */
-  bio?: Maybe<Scalars['String']['output']>;
-  /** The bio of the user. Visible in about me section of the user's profile. */
   bioV2?: Maybe<Content>;
-  /**
-   * The URL to the cover photo of the user's profile.
-   * @deprecated Cover images are not part of user's profile anymore. Will be removed on 25/09/2023.
-   */
-  coverPhoto?: Maybe<Scalars['String']['output']>;
   /** The date the user joined Hashnode. */
   dateJoined?: Maybe<Scalars['DateTime']['output']>;
   /** Whether or not the user is deactivated. */
