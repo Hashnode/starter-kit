@@ -1684,6 +1684,7 @@ enum Scope {
   publication_admin
   recommend_publications
   signup
+  update_post
   webhook_admin
   write_post
   write_series

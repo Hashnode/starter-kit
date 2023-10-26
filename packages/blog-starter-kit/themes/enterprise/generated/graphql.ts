@@ -1675,6 +1675,7 @@ export enum Scope {
   PublicationAdmin = 'publication_admin',
   RecommendPublications = 'recommend_publications',
   Signup = 'signup',
+  UpdatePost = 'update_post',
   WebhookAdmin = 'webhook_admin',
   WritePost = 'write_post',
   WriteSeries = 'write_series'
