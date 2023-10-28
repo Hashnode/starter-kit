@@ -2,11 +2,15 @@ import Link from 'next/link';
 import { useAppContext } from './contexts/appContext';
 import { GithubSVG, HashnodeSVG, LinkedinSVG, RssSVG, XSVG } from './icons';
 
-export const SocialLinks = () => {
+export const SocialLinks = ({ isSidebar }: { isSidebar?: boolean }) => {
 	const { publication } = useAppContext();
 
 	return (
-		<div className="col-span-1 flex flex-row flex-wrap justify-end gap-1 text-slate-600 dark:text-neutral-300 md:flex-nowrap">
+		<div
+			className={`col-span-1 flex flex-row flex-wrap gap-1 text-slate-600 dark:text-neutral-300 md:flex-nowrap ${
+				isSidebar ? 'justify-start' : 'justify-end'
+			}`}
+		>
 			{publication.links?.twitter && (
 				<a
 					href={publication.links.twitter}
