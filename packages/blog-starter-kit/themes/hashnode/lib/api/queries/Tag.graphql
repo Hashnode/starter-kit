@@ -1,0 +1,26 @@
+query TagInitial($slug: String!, $host: String!, $first: Int!, $after: String) {
+  tag(slug: $slug) {
+    id
+    name
+    logo
+    slug
+    tagline
+  }
+  publication(host: $host) {
+    ...RequiredPublicationFields
+    posts(first: $first, after: $after, filter: { tagSlugs: [$slug] }) {
+      edges {
+        node {
+          ...PostThumbnail
+        }
+        cursor
+        __typename
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+      __typename
+    }
+  }
+}
