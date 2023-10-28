@@ -8,12 +8,11 @@ import { SocialLinks } from './social-links';
 
 type Props = {
 	toggleSidebar: () => void;
-	currentActiveMenuItemId?: string | null;
 	navbarItems: (PublicationNavbarItem & { url: string })[];
 };
 
 function PublicationSidebar(props: Props) {
-	const { toggleSidebar, navbarItems, currentActiveMenuItemId } = props;
+	const { toggleSidebar, navbarItems } = props;
 	const [isMounted, setIsMounted] = useState(false);
 
 	useEffect(() => {
