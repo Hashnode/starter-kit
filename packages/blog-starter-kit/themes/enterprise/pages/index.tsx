@@ -86,7 +86,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 			<Layout>
 				<Head>
 					<title>
-						{publication.displayTitle || publication.title || 'Hashnode Blog Starter Kit'}
+						{publication.displayTitle || publication.title || 'Ramin Smk Blog'}
 					</title>
 					<meta
 						name="description"
@@ -97,7 +97,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 					<meta property="twitter:card" content="summary_large_image" />
 					<meta
 						property="twitter:title"
-						content={publication.displayTitle || publication.title || 'Hashnode Blog Starter Kit'}
+						content={publication.displayTitle || publication.title || 'Ramin Smk Blog'}
 					/>
 					<meta
 						property="twitter:description"
