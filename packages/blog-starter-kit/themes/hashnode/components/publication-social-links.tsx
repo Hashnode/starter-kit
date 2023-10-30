@@ -8,7 +8,6 @@ import {
   RssSVG,
   HashnodeLogoIconV2,
   YoutubeSVG,
-  DailyDevSVG,
   LinkedinSVG,
   MastodonSVG,
 } from './icons/svgs';
@@ -47,10 +46,6 @@ function PublicationSocialLinks(props: Props) {
       icon: <HashnodeLogoIconV2 className="h-5 w-5 fill-current" />,
       labelText: 'Find me on Hashnode, external website, opens in new tab',
     },
-    dailydev: {
-      icon: <DailyDevSVG className="h-5 w-5 fill-current" />,
-      labelText: 'Find me on daily.dev, external website, opens in new tab',
-    },
     website: {
       icon: <EarthSVG className="h-5 w-5 fill-current" />,
       labelText: 'Check out my website, external website, opens in new tab',
@@ -75,7 +70,6 @@ function PublicationSocialLinks(props: Props) {
         links.website ||
         links.hashnode ||
         links.youtube ||
-        links.dailydev ||
         links.linkedin) ? (
         <div
           className={twJoin(

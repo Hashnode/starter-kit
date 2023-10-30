@@ -13,7 +13,6 @@ import MastodonSVG from './MastodonSVG';
 import HashnodeLogoIconV2 from './HashnodeLogoIconV2';
 import EarthSVG from './EarthSVG';
 import YoutubeSVG from './YoutubeSVG';
-import DailyDevSVG from './DailyDevSVG';
 import TwitterXSVG from './TwitterXSVG';
 import ChevronDownV2SVG from './ChevronDownSVGV2';
 import CheckSVG from './CheckSVG';
@@ -53,7 +52,6 @@ export {
 	HashnodeLogoIconV2,
 	EarthSVG,
 	YoutubeSVG,
-	DailyDevSVG,
 	TwitterXSVG,
 	ChevronDownV2SVG,
 	CheckSVG,

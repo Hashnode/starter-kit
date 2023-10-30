@@ -114,7 +114,6 @@ fragment RequiredPublicationFields on Publication {
     website
     hashnode
     youtube
-    dailydev
     linkedin
     mastodon
   }

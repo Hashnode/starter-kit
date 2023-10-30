@@ -18,7 +18,6 @@ export interface PublicationLinks {
   website: string;
   hashnode: string;
   youtube: string;
-  dailydev: string;
   linkedin: string;
   mastodon: string;
 }
