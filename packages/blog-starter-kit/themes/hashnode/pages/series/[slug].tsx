@@ -1,32 +1,54 @@
 import { resizeImage } from '@starter-kit/utils/image';
-import request from 'graphql-request';
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetServerSideProps, GetStaticPaths } from 'next';
 import Head from 'next/head';
-import { Container } from '../../components/container';
 import { AppProvider } from '../../components/contexts/appContext';
-import { CoverImage } from '../../components/cover-image';
 import { Footer } from '../../components/footer';
 import { Header } from '../../components/header';
 import { Layout } from '../../components/layout';
-import { MorePosts } from '../../components/more-posts';
 import {
-	PostFragment,
 	PublicationFragment,
-	SeriesFragment,
-	SeriesPostsByPublicationDocument,
-	SeriesPostsByPublicationQuery,
-	SeriesPostsByPublicationQueryVariables,
+	SeriesPageInitialDocument,
+	SeriesPageInitialQuery,
 } from '../../generated/graphql';
-import { DEFAULT_COVER } from '../../utils/const';
+import { twJoin } from 'tailwind-merge';
+import PublicationPosts from '../../components/publication-posts';
+import { useQuery } from 'urql';
+import { useState } from 'react';
+import { WithUrqlProps, initUrqlClient } from 'next-urql';
+import { createHeaders, createSSRExchange, getUrqlClientConfig } from '../../lib/api/client';
 
-type Props = {
-	series: SeriesFragment;
-	posts: PostFragment[];
-	publication: PublicationFragment;
-};
-
-export default function Post({ series, publication, posts }: Props) {
+type Props = GetServerSideProps &
+  Required<WithUrqlProps> & {
+    publication:PublicationFragment;
+    posts: NonNullable<NonNullable<SeriesPageInitialQuery['publication']>['series']>['posts'];
+    series: NonNullable<NonNullable<SeriesPageInitialQuery['publication']>['series']>;
+    host: string;
+    slug: string;
+    initialLimit: number;
+  };
+const INITIAL_LIMIT = 6;
+export default function Series({ series, publication, posts, seriesSlug }: Props) {
 	const title = `${series.name} - ${publication.title}`;
+	const [after, setAfter] = useState<string | null>(null);
+	const [{ data, fetching }] = useQuery({
+		query: SeriesPageInitialDocument,
+		variables: { 
+			host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
+			slug: seriesSlug,
+			first: INITIAL_LIMIT,
+			after
+		},
+		requestPolicy: 'cache-first',
+	});
+	const postData = data?.publication?.series?.posts || posts;
+
+	const fetchedOnce = postData.edges.length > INITIAL_LIMIT;
+
+	const fetchMore = () => {
+		if (postData.pageInfo.hasNextPage) {
+		  setAfter(postData.edges[postData.edges.length - 1].cursor);
+		}
+	};
 
 	return (
 		<AppProvider publication={publication}>
@@ -35,43 +57,76 @@ export default function Post({ series, publication, posts }: Props) {
 					<title>{title}</title>
 				</Head>
 				<Header />
-				<Container className="flex flex-col items-stretch gap-10 px-5 pb-10">
-					<div
-						className={`${
-							series.coverImage ? 'col-span-full' : 'col-span-3'
-						} grid grid-cols-4 pt-5 md:gap-5`}
-					>
-						<div className="col-span-full flex flex-col gap-1 md:col-span-2 lg:col-span-3">
-							<p className="font-bold uppercase text-slate-500 dark:text-neutral-400">Series</p>
-							<h1 className="text-4xl font-bold text-slate-900 dark:text-neutral-50">
+				<div className={twJoin('blog-content-area feed-width mx-auto md:w-2/3', !!publication.about?.html && 'mt-12')}>
+					<div>
+						<div
+				className={twJoin(
+				'blog-series-card mt-12 mb-16',
+				publication.preferences.layout === 'grid' ? 'px-4 lg:px-8' : 'px-4 lg:px-16',
+				)}>
+							<div className="flex flex-col-reverse flex-wrap items-start md:flex-row">
+							<div className={twJoin('pr-8', series.coverImage ? 'w-full md:w-1/2' : 'w-full')}>
+								<span className="blog-series-label mb-2 font-semibold uppercase tracking-tight text-slate-600 dark:text-slate-400">
+								Series
+								</span>
+								<h1 className="blog-series-title mb-2 font-heading text-3xl font-bold text-slate-900 dark:text-white md:text-4xl xl:text-5xl">
 								{series.name}
-							</h1>
-							<div
-								className="hashnode-content-style"
-								dangerouslySetInnerHTML={{ __html: series.description?.html ?? '' }}
-							></div>
-						</div>
-						<div className="relative col-span-full md:col-span-2 lg:col-span-1">
-							<CoverImage
-								title={series.name}
-								src={resizeImage(
-									series.coverImage,
-									{
-										w: 400,
-										h: 210,
-										c: 'thumb',
-									},
-									DEFAULT_COVER,
+								</h1>
+								{series.description?.html && (
+								<div
+									className="blog-series-desc prose prose-lg mb-5 dark:prose-dark"
+									// eslint-disable-next-line react/no-danger
+									dangerouslySetInnerHTML={{ __html: series.description.html }}
+								/>
 								)}
-							/>
+							</div>
+							{series.coverImage && (
+								<div className="blog-series-cover-container mb-5 w-full md:mb-0 md:w-1/2">
+								{/* custom-style */}
+								<div
+									className="blog-series-cover h-32 w-full rounded-lg border bg-cover bg-center bg-no-repeat dark:border-slate-800"
+									style={{
+									backgroundImage: `url('${resizeImage(series.coverImage, { w: 800, c: 'thumb' })}')`,
+									width: '100%',
+									paddingTop: '52.5%',
+									}}
+								/>
+								</div>
+							)}
+							</div>
 						</div>
+
+						{posts.edges.length === 0 && publication.isTeam ? (
+							<div className="mb-6 flex w-full flex-col items-center rounded border-2 border-dashed p-6 dark:border-slate-800">
+							<img
+								className="mb-5 block w-56"
+								alt="No posts"
+								src="https://cdn.hashnode.com/res/hashnode/image/upload/v1584017401345/LrrwlBZC0.png"
+							/>
+							<p className="text-2xl font-bold leading-snug tracking-tight text-slate-700 dark:text-slate-400">
+								No posts yet
+							</p>
+							</div>
+						) : null}
+
+						{posts.edges.length > 0 && (
+							<div className="my-10 flex flex-col items-center justify-center">
+							<hr className="w-full border-t dark:border-slate-800" />
+							<p className="-mt-5 bg-white p-2 font-medium text-slate-600 dark:bg-slate-900 dark:text-slate-400">
+								Articles in this series
+							</p>
+							</div>
+						)}
+
+						<PublicationPosts
+							publication={publication}
+							posts={postData}
+							fetchMore={fetchMore}
+							fetchedOnce={fetchedOnce}
+							fetching={fetching}
+						/>
 					</div>
-					{posts.length > 0 ? (
-						<MorePosts context="series" posts={posts} />
-					) : (
-						<div>No Posts found</div>
-					)}
-				</Container>
+				</div>
 				<Footer />
 			</Layout>
 		</AppProvider>
@@ -82,42 +137,55 @@ type Params = {
 	slug: string;
 };
 
-export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) => {
-	if (!params) {
-		throw new Error('No params');
-	}
-	const data = await request<SeriesPostsByPublicationQuery, SeriesPostsByPublicationQueryVariables>(
-		process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT,
-		SeriesPostsByPublicationDocument,
-		{
+export async function getServerSideProps(ctx: { req: any; res: any; query: any; resolvedUrl: any }) {
+	const { query } = ctx;
+	const ssrCache = createSSRExchange();
+	const urqlClient = initUrqlClient(getUrqlClientConfig(ssrCache), false);
+	const publicationInfo = await urqlClient
+		.query(
+		SeriesPageInitialDocument,
+		{ 
 			host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
-			first: 20,
-			seriesSlug: params.slug,
+			slug: query.slug, 
+			first: INITIAL_LIMIT, 
+			after: null 
 		},
-	);
+		{
+			fetchOptions: {
+			headers: createHeaders({ byPassCache: false }),
+			},
+			requestPolicy: 'network-only',
+		},
+		)
+		.toPromise();
+	
+		const { publication } = publicationInfo.data || {};
 
-	const publication = data.publication;
-	const series = publication?.series;
-	if (!publication || !series) {
-		return {
+		if (!publication) {
+		  return {
 			notFound: true,
-		};
-	}
-	const posts = publication.series ? publication.series.posts.edges.map((edge) => edge.node) : [];
+		  };
+		}
+	  
+		const { series } = publication || {};
+	  
+		if (!series) {
+		  return {
+			notFound: true,
+		  };
+		}
+	  
+		const { posts } = series || {};
 
-	return {
-		props: {
-			series,
-			posts,
+		return {
+		  props: {
 			publication,
-		},
-		revalidate: 1,
-	};
+			series,
+			slug: query.slug,
+			urqlState: ssrCache.extractData(),
+			initialLimit: INITIAL_LIMIT,
+			posts,
+		  },
+		};
 };
 
-export const getStaticPaths: GetStaticPaths = () => {
-	return {
-		paths: [],
-		fallback: 'blocking',
-	};
-};
