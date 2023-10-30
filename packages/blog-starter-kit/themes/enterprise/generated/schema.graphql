@@ -300,6 +300,10 @@ type Draft implements Node {
   """The date the draft was last successfully backed up."""
   lastSuccessfulBackupAt: DateTime
   """
+  The subtitle of the draft. It would become the subtitle of the post when published.
+  """
+  subtitle: String
+  """
   Returns list of tags added to the draft. Contains tag id, name, slug, etc.
   """
   tags: [Tag!]!

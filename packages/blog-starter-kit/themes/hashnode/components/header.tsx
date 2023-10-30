@@ -73,7 +73,8 @@ export const Header = () => {
 	);
 
 	return (
-		<div className="container mx-auto px-2 md:px-4 2xl:px-10">
+		<header className="blog-header z-50 w-full border-b relative border-black/10 bg-white bg-opacity-70 dark:border-white/10 dark:bg-slate-900 dark:bg-opacity-70">
+			<div className="container mx-auto px-2 md:px-4 2xl:px-10">
 			<div className="relative z-40 flex flex-row items-center justify-between pb-2 pt-8 md:mb-4">
 				<div className="flex flex-row items-center py-1">
 					<div className="hidden md:block">
@@ -115,5 +116,6 @@ export const Header = () => {
           		/>
         	</div>
 		</div>
+		</header>
 	);
 };

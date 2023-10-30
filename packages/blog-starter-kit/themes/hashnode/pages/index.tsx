@@ -131,8 +131,7 @@ export default function Index(props: InferGetStaticPropsType<typeof getStaticPro
 					/>
 				</Head>
 				<Header />
-				<Container className="flex flex-col items-stretch gap-10 px-5 pb-10">
-
+				<div>
 					{postsToBeRendered.edges.length > 0 ? (
 						<FeaturedPosts posts={postsToBeRendered.edges.map((p: any) => p.node).slice(0, 3)} publication={publication} />
 					) : null}
@@ -177,7 +176,7 @@ export default function Index(props: InferGetStaticPropsType<typeof getStaticPro
 							fetching={fetching}
 						/>
 					) : null}
-				</Container>
+				</div>
 				<Footer />
 			</Layout>
 		</AppProvider>

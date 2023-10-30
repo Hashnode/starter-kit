@@ -110,23 +110,23 @@ export const PostHeader = ({ post }: Props) => {
 					</a>
 					</div>
 					<div className="mb-5 flex w-full flex-row items-center justify-center md:mb-0 md:w-auto md:justify-start">
-					<span className="mx-3 hidden font-bold text-slate-500 md:block">&middot;</span>
-					<a
-						href="/"
-						className="tooltip-handle text-slate-700 dark:text-slate-400"
-						data-title={`${moment(post.publishedAt).format('MMM D, YYYY HH:mm')}`}
-					>
-						<span>{moment(post.publishedAt).format('MMM D, YYYY')}</span>
-					</a>
-					{!post.publication?.features?.readTime?.isEnabled && (
-						<>
-						<span className="mx-3 block font-bold text-slate-500">&middot;</span>
-						<p className="flex flex-row items-center text-slate-700 dark:text-slate-400">
-							<BookOpenSVG className="mr-2 h-5 w-5 fill-current opacity-75" />
-							<span>{post.readTimeInMinutes} min read</span>
-						</p>
-						</>
-					)}
+						<span className="mx-3 hidden font-bold text-slate-500 md:block">&middot;</span>
+						<a
+							href="/"
+							className="tooltip-handle text-slate-700 dark:text-slate-400"
+							data-title={`${moment(post.publishedAt).format('MMM D, YYYY HH:mm')}`}
+						>
+							<span>{moment(post.publishedAt).format('MMM D, YYYY')}</span>
+						</a>
+						{post.publication?.features?.readTime?.isEnabled && (
+							<>
+							<span className="mx-3 block font-bold text-slate-500">&middot;</span>
+							<p className="flex flex-row items-center text-slate-700 dark:text-slate-400">
+								<BookOpenSVG className="mr-2 h-5 w-5 fill-current opacity-75" />
+								<span>{post.readTimeInMinutes} min read</span>
+							</p>
+							</>
+						)}
 					</div>
 				</div>
 				{post.coverImage?.url && post.preferences.stickCoverToBottom && (

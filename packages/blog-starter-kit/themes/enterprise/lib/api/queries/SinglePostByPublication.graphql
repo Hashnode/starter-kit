@@ -47,6 +47,13 @@ fragment PostFull on Post {
 		name
 		slug
 	}
+	publication {
+		features {
+			readTime {
+				isEnabled
+			}
+		}
+	}
 	features {
 		tableOfContents {
 			isEnabled
