@@ -1,6 +1,6 @@
 import { twJoin } from 'tailwind-merge';
 import dynamic from 'next/dynamic';
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, useState } from 'react';
 
 import moment from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -26,6 +26,9 @@ type Props = {
 	post: PostFullFragment
 };
 
+const PostFloatingMenu = dynamic(() => import('./post-floating-bar'), { ssr: false });
+const PostCommentsSidebar = dynamic(() => import('./post-comments-sidebar'), { ssr: false });
+
 const PublicationSubscribeStandOut = dynamic(
 	() => import('./publication-subscribe-standout'),
 	{ ssr: false },
@@ -34,8 +37,10 @@ const PublicationSubscribeStandOut = dynamic(
 
 export const PostHeader = ({ post }: Props) => {
 	const postContentEle = useRef<HTMLDivElement>(null);
+	const [selectedFilter, setSelectedFilter] = useState('totalReactions');
 	const toc = post.features?.tableOfContents?.isEnabled ? post.features?.tableOfContents?.items.flat() : [];
 	const memoizedPostContent = useMemo(() => imageReplacer(post.content?.html, true), [post.content?.html]);
+	const [showCommentsSheet, setShowCommentsSheet] = useState(false);
 	const tags = (post.tags ?? []).map((tag) => {
 		return {
 			_id: tag.id,
@@ -44,9 +49,27 @@ export const PostHeader = ({ post }: Props) => {
 			isActive: true,
 			isApproved: true,
 		  }
-		})
+	});
+
+	const shareText = `${post.title}\r\n{ by ${
+		post.author.socialMediaLinks?.twitter
+		  ? `@${post.author.socialMediaLinks?.twitter
+			  .substring(post.author.socialMediaLinks?.twitter.lastIndexOf('/') + 1)
+			  .replace('@', '')}`
+		  : post.author.name
+	} } from @hashnode`;
+
+	const handleOpenComments = () => {
+		setShowCommentsSheet(true);
+	};
+
+	const sortResponse = async (filter: string) => {
+		const filterKey = filter === 'recent' ? 'dateAdded' : 'totalReactions';
+		setSelectedFilter(filterKey);
+	};
 	return (
 		<Fragment>
+			<article>
 			<div className="blog-article-page container relative mx-auto grid grid-cols-8">
 				<div className="col-span-full lg:col-span-6 lg:col-start-2">
 					{/* Top cover */}
@@ -177,6 +200,14 @@ export const PostHeader = ({ post }: Props) => {
 					)}
 
 					{/* {props.isPublicationPost && renderPinnedWidgets(props.widgets, 'bottom')} */}
+
+					<PostFloatingMenu
+						isPublicationPost={true}
+						post={post}
+						shareText={shareText}
+						openComments={handleOpenComments}
+						list={toc}
+					/>
 					</div>
 
 					{post.publication && post.publication?.features?.newsletter?.isEnabled && (
@@ -199,6 +230,16 @@ export const PostHeader = ({ post }: Props) => {
 				</div>
 				</section>
           	</div>
+			</article>
+			{showCommentsSheet && (
+			<PostCommentsSidebar
+			hideSidebar={() => setShowCommentsSheet(false)}
+			isPublicationPost={true}
+			selectedFilter={selectedFilter}
+			sortResponse={sortResponse}
+			post={post}
+			/>
+		)}
 		</Fragment>
 	);
 };

@@ -35,6 +35,9 @@ import ChevronRightSVG_16x16 from './ChevronRightSVG_16x16';
 import ChevronUpSVG_16x16 from './ChevronUpSVG_16x16';
 import LinkAltSVG from './LinkAltSVG';
 import FileLineChartSVG from './FileLineChartSVG';
+import CommentSVGV2 from './CommentSVGV2';
+import NoCommentsDarkSVG from './NoCommentsDarkSVG';
+import NoCommentsLightSVG from './NoCommentsLightSVG';
 
 export {
 	ArticleSVG,
@@ -73,5 +76,8 @@ export {
 	ChevronUpSVG_16x16,
 	ChevronRightSVG_16x16,
 	LinkAltSVG,
-	FileLineChartSVG
+	FileLineChartSVG,
+	CommentSVGV2,
+	NoCommentsLightSVG,
+	NoCommentsDarkSVG
 };

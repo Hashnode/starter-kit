@@ -2,6 +2,8 @@ import { RefObject } from 'react';
 import { PublicationFragment, User } from '../generated/graphql';
 import { DEFAULT_DARK_POST_COVER, DEFAULT_LIGHT_POST_COVER } from './const';
 
+export const isBrowser = typeof window !== 'undefined';
+
 export const generateBlogTitleWithoutDisplayTitle = (
     publication: Pick<PublicationFragment, 'title'> & {
       author: Pick<User, 'name'>;
@@ -57,6 +59,15 @@ export const blurActiveFocus = () => {
  */
 export const returnFocusToElement = (elRef: RefObject<HTMLElement>) => {
   if (elRef && elRef.current) elRef.current.focus();
+};
+
+export const getHashId = () => {
+  if (!isBrowser) return null;
+  const hashId = window.location.hash?.substring(1);
+  if (hashId.length > 0) {
+    return hashId.split('?')[0];
+  }
+  return null;
 };
 
 export const getDefaultPostCoverImageUrl = (darkTheme?: boolean) =>

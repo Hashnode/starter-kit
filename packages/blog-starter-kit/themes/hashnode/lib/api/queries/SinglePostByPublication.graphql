@@ -22,6 +22,7 @@ fragment PostFull on Post {
 		}
 	}
 	id
+	replyCount
 	slug
 	url
 	brief
@@ -41,9 +42,13 @@ fragment PostFull on Post {
 		isPortrait
 	}
 	author {
+		id
 		name
 		username
 		profilePicture
+		socialMediaLinks {
+          twitter
+        }
 	}
 	title
 	content {
