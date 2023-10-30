@@ -8,6 +8,7 @@ import PublicationLogo from './publication-logo';
 import HeaderBlogSearch from './header-blog-search';
 import PublicationSocialLinks from './publication-social-links';
 import PublicationNavLinks from './publication-nav-links';
+import HeaderLeftSidebar from './header-left-sidebar';
 
 function hasUrl(
 	navbarItem: PublicationNavbarItem,
@@ -77,6 +78,15 @@ export const Header = () => {
 			<div className="container mx-auto px-2 md:px-4 2xl:px-10">
 			<div className="relative z-40 flex flex-row items-center justify-between pb-2 pt-8 md:mb-4">
 				<div className="flex flex-row items-center py-1">
+					 {/* Navigation for mobile view */}
+					<div
+						className={twJoin(
+						'md:hidden',
+						isUserThemeDark ? 'text-white' : publication.headerColor ? 'text-black' : 'dark:text-white',
+						)}
+					>
+						<HeaderLeftSidebar isUserThemeDark={isUserThemeDark} publication={publication} />
+					</div>
 					<div className="hidden md:block">
 						<PublicationLogo publication={publication} size="lg" withProfileImage />
 					</div>

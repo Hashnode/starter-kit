@@ -7,7 +7,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 
 import { resizeImage } from '@starter-kit/utils/image';
-import { PostFullFragment, User } from '../generated/graphql';
+import { PostFullFragment } from '../generated/graphql';
 import CustomImage from './custom-image';
 import { blurImageDimensions } from '../utils/const/images';
 import { getBlurHash, imageReplacer } from '../utils/image';
