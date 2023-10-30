@@ -1,5 +1,6 @@
 fragment Publication on Publication {
 	id
+	imprint
 	title
 	displayTitle
 	url
@@ -58,6 +59,7 @@ fragment Publication on Publication {
 	preferences {
 		layout
 		logo
+		disableFooterBranding
 		enabledPages {
 			badges
 			newsletter

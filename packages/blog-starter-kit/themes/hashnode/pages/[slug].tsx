@@ -32,6 +32,7 @@ import {
 import { lightOrDark } from '../utils/commonUtils';
 import PostPageNavbar from '../components/post-page-navbar';
 import { twJoin } from 'tailwind-merge';
+import PublicationFooter from '../components/publication-footer';
 
 const Subscribe = dynamic(() => import('../components/subscribe').then((mod) => mod.Subscribe));
 const PostComments = dynamic(() =>
@@ -154,7 +155,16 @@ export default function PostOrPage({ publication, post, page, isUserThemeDark }:
 					{post ? Post(publication, post) : Page(page)}
 				</article>
 			</Container>
-			<Footer />
+			<PublicationFooter
+					authorName={publication.author.name}
+					title={publication.title}
+					imprint={publication.imprint}
+					postsCount={0} // TODO: From where is this data coming?
+					disableFooterBranding={publication.preferences.disableFooterBranding}
+					isTeam={publication.isTeam}
+					logo={publication.preferences.logo}
+					darkMode={publication.preferences.darkMode}
+				/>
 			</Layout>
 		</AppProvider>
 	);

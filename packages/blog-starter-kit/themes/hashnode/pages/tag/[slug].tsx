@@ -24,6 +24,7 @@ import { GetServerSideProps } from 'next';
 import PublicationPosts from '../../components/publication-posts';
 import { useState } from 'react';
 import { useQuery } from 'urql';
+import PublicationFooter from '../../components/publication-footer';
 
 const INITIAL_LIMIT = 6;
 
@@ -109,7 +110,16 @@ export default function Post({ publication, posts, tag, slug }: Props) {
 						fetching={fetching}
 					/>{' '}
 				</div>
-				<Footer />
+				<PublicationFooter
+					authorName={publication.author.name}
+					title={publication.title}
+					imprint={publication.imprint}
+					postsCount={0} // TODO: From where is this data coming?
+					disableFooterBranding={publication.preferences.disableFooterBranding}
+					isTeam={publication.isTeam}
+					logo={publication.preferences.logo}
+					darkMode={publication.preferences.darkMode}
+				/>
 			</Layout>
 		</AppProvider>
 	);

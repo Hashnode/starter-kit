@@ -16,6 +16,7 @@ import { useQuery } from 'urql';
 import { useState } from 'react';
 import { WithUrqlProps, initUrqlClient } from 'next-urql';
 import { createHeaders, createSSRExchange, getUrqlClientConfig } from '../../lib/api/client';
+import PublicationFooter from '../../components/publication-footer';
 
 type Props = GetServerSideProps &
   Required<WithUrqlProps> & {
@@ -127,7 +128,16 @@ export default function Series({ series, publication, posts, seriesSlug }: Props
 						/>
 					</div>
 				</div>
-				<Footer />
+				<PublicationFooter
+					authorName={publication.author.name}
+					title={publication.title}
+					imprint={publication.imprint}
+					postsCount={0} // TODO: From where is this data coming?
+					disableFooterBranding={publication.preferences.disableFooterBranding}
+					isTeam={publication.isTeam}
+					logo={publication.preferences.logo}
+					darkMode={publication.preferences.darkMode}
+				/>
 			</Layout>
 		</AppProvider>
 	);

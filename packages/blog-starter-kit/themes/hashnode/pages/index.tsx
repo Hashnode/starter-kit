@@ -25,6 +25,7 @@ import FeaturedPosts from '../components/features-posts';
 import { twJoin } from 'tailwind-merge';
 import PublicationMeta from '../components/publication-meta';
 import { resizeImage } from '../utils/image';
+import PublicationFooter from '../components/publication-footer';
 
 const REVALIDATION_INTERVAL_POST_VIEWS_ACTIVE = 60 * 60; // 1 hour
 const REVALIDATION_INTERVAL = 60 * 60 * 24 * 30; // 1 month
@@ -177,7 +178,18 @@ export default function Index(props: InferGetStaticPropsType<typeof getStaticPro
 						/>
 					) : null}
 				</div>
-				<Footer />
+				{publication ? (
+				<PublicationFooter
+					authorName={publication.author.name}
+					title={publication.title}
+					imprint={publication.imprint}
+					postsCount={0} // TODO: From where is this data coming?
+					disableFooterBranding={publication.preferences.disableFooterBranding}
+					isTeam={publication.isTeam}
+					logo={publication.preferences.logo}
+					darkMode={publication.preferences.darkMode}
+				/>
+				) : null}
 			</Layout>
 		</AppProvider>
 	);

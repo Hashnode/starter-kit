@@ -19,6 +19,7 @@ import {
 	PublicationByHostQuery,
 	PublicationByHostQueryVariables,
 } from '../../generated/graphql';
+import PublicationFooter from '../../components/publication-footer';
 
 type Props = {
 	post: Post;
@@ -68,7 +69,16 @@ export default function Post({ publication, post }: Props) {
 						</div>
 					</article>
 				</Container>
-				<Footer />
+				<PublicationFooter
+					authorName={publication.author.name}
+					title={publication.title}
+					imprint={publication.imprint}
+					postsCount={0} // TODO: From where is this data coming?
+					disableFooterBranding={publication.preferences.disableFooterBranding}
+					isTeam={publication.isTeam}
+					logo={publication.preferences.logo}
+					darkMode={publication.preferences.darkMode}
+				/>
 			</Layout>
 		</AppProvider>
 	);
