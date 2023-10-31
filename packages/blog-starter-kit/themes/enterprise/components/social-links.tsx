@@ -6,7 +6,7 @@ export const SocialLinks = () => {
 	const { publication } = useAppContext();
 
 	return (
-		<div className="col-span-1 flex flex-row flex-wrap justify-end gap-1 text-slate-600 dark:text-neutral-300 md:flex-nowrap">
+		<div className="col-span-1 flex flex-row flex-wrap justify-end gap-1 text-gre dark:text-neutral-300 md:flex-nowrap">
 			{publication.links?.twitter && (
 				<a
 					href={publication.links.twitter}
