@@ -299,6 +299,8 @@ export type Draft = Node & {
   lastFailedBackupAt?: Maybe<Scalars['DateTime']['output']>;
   /** The date the draft was last successfully backed up. */
   lastSuccessfulBackupAt?: Maybe<Scalars['DateTime']['output']>;
+  /** The subtitle of the draft. It would become the subtitle of the post when published. */
+  subtitle?: Maybe<Scalars['String']['output']>;
   /** Returns list of tags added to the draft. Contains tag id, name, slug, etc. */
   tags: Array<Tag>;
   /** The title of the draft. It would become the title of the post when published. */
@@ -1675,6 +1677,7 @@ export enum Scope {
   PublicationAdmin = 'publication_admin',
   RecommendPublications = 'recommend_publications',
   Signup = 'signup',
+  UpdatePost = 'update_post',
   WebhookAdmin = 'webhook_admin',
   WritePost = 'write_post',
   WriteSeries = 'write_series'
