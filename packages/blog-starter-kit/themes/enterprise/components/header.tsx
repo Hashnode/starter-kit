@@ -71,7 +71,7 @@ export const Header = () => {
 	);
 
 	return (
-		<header className="border-b bg-slate-950 py-10 dark:border-neutral-800 dark:bg-neutral-900">
+		<header className="border-b bg-[#00012B] py-5 dark:border-neutral-800 dark:bg-neutral-900">
 			<Container className="grid grid-cols-4 gap-5 px-5">
 				<div className="col-span-2 flex flex-1 flex-row items-center gap-2 lg:col-span-1">
 					{/* <div className="lg:hidden">
@@ -95,7 +95,6 @@ export const Header = () => {
 										alt={publication.title}
 										src={resizeImage(PUBLICATION_LOGO, { w: 320, h: 80 })}
 									/>
-									<span className="text-xl font-semibold text-white md:text-3xl">Blog</span>
 								</>
 							) : (
 								<span className="text-xl font-semibold text-white md:text-4xl">
@@ -107,7 +106,7 @@ export const Header = () => {
 				</div>
 				<div className="col-span-2 flex flex-row items-center justify-end gap-5 text-slate-300 lg:col-span-3">
 					<nav className="hidden lg:block">{navList}</nav>
-					<Button href={baseUrl} as="a" type="primary" label="Book a demo" />
+					<Button href='https://ramin.website/' as="a" type="primary" label="Portfolio" />
 				</div>
 			</Container>
 		</header>
