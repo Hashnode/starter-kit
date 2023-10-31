@@ -12,6 +12,7 @@
 	},
 	"dependencies": {
 		"@graphql-typed-document-node/core": "^3.2.0",
+		"@radix-ui/react-separator": "^1.0.1",
 		"@radix-ui/react-dialog": "^1.0.4",
 		"@radix-ui/react-dropdown-menu": "^2.0.6",
 		"@radix-ui/react-popover": "^1.0.7",
@@ -34,6 +35,8 @@
 		"react-perfect-scrollbar": "^1.5.8",
 		"next-axiom": "0.18.0",
 		"next-urql": "5.0.2",
+		"react-remove-scroll": "^2.5.5",
+		"react-use": "17.4.0",
 		"react-waypoint": "^10.3.0",
 		"remark": "^14.0.2",
 		"remark-html": "^15.0.1",

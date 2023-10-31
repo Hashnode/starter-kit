@@ -38,6 +38,14 @@ import FileLineChartSVG from './FileLineChartSVG';
 import CommentSVGV2 from './CommentSVGV2';
 import NoCommentsDarkSVG from './NoCommentsDarkSVG';
 import NoCommentsLightSVG from './NoCommentsLightSVG';
+import FacebookSVGRound from './FacebookSVGRound';
+import HackernewsSVGV2 from './HackernewsSVGV2';
+import LinkedInSVGV2 from './LinkedInSVGV2';
+import LinkSVGV2 from './LinkSVGV2';
+import RedditSVGV2 from './RedditSVGV2';
+import ShareSVGV2 from './ShareSVGV2';
+import WhatsappSVG from './WhatsappSVG';
+import AlertSVG from './AlertSVG';
 
 export {
 	ArticleSVG,
@@ -79,5 +87,13 @@ export {
 	FileLineChartSVG,
 	CommentSVGV2,
 	NoCommentsLightSVG,
-	NoCommentsDarkSVG
+	NoCommentsDarkSVG,
+	FacebookSVGRound,
+	HackernewsSVGV2,
+	LinkSVGV2,
+	LinkedInSVGV2,
+	RedditSVGV2,
+	ShareSVGV2,
+	WhatsappSVG,
+	AlertSVG
 };

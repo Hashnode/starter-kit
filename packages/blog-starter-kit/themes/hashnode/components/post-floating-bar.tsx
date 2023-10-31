@@ -4,8 +4,11 @@ import { kFormatter } from '../utils/image';
 import * as Tooltip from '@radix-ui/react-tooltip';
 import { useEffect } from 'react';
 
+import { Separator } from './separator-root';
 import PostFloatingBarTooltipWrapper from './post-floating-bar-tooltip-wrapper';
 import { PostFullFragment } from '../generated/graphql';
+import TocSheet from './toc-sheet';
+import PostShareWidget from './post-share-widget';
 
 
 function PostFloatingMenu(props: {
@@ -125,7 +128,7 @@ function PostFloatingMenu(props: {
 
           {/* <Separator className="mx-2 h-5" /> */}
 
-          {/* {post && post.enableToc && (
+          {post && post.features.tableOfContents.isEnabled && (
             <>
               <TocSheet list={list} />
               <Separator className="mx-2 h-5" />
@@ -133,8 +136,6 @@ function PostFloatingMenu(props: {
           )}
 
           <PostShareWidget post={post} shareText={shareText} />
-          {currentUser && <Separator className="mx-2 h-5" />} */}
-
         </div>
       </div>
     </Tooltip.Provider>
