@@ -5,30 +5,14 @@ query DraftById($id: ObjectId!) {
     content {
       markdown
     }
-    author {
-      id
-      name
-      username
-    }
-    dateUpdated
-    tags {
-      id
-      name
-      slug
-    }
-  }
-}
-
-fragment draft on Post {
-	 id
-    title
-    content {
-      markdown
+    coverImage {
+        url
     }
     author {
       id
       name
       username
+      profilePicture
     }
     dateUpdated
     tags {
