@@ -39,7 +39,7 @@ The recommended approach is deploying to Vercel. If you don't have an account al
 - Create a new project on Vercel and connect this repo
 - It's a monorepo. So, choose either `packages/blog-starter-kit/themes/enterprise` or `packages/blog-starter-kit/themes/personal` as the root directory while importing on Vercel.
 
-  ![selecting the directory to deploy a monorepo](https://github.com/victornwakpa/starter-kit/assets/61851642/f6d25a80-065a-48a2-9501-4047de544eb5)
+  ![selecting the directory to deploy a monorepo](https://cdn.hashnode.com/res/hashnode/image/upload/v1698839884060/O8OoBML5v.PNG?auto=format)
 
 - Choose `Next.js` as framework preset (just above Root Directory setting).
 - Set the following environment variables
