@@ -84,6 +84,7 @@ fragment PostFull on Post {
 		edges {
 			node {
 				id
+				dateAdded
 				totalReactions
 				content {
 					markdown

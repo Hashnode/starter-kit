@@ -5,11 +5,16 @@ import { getHashId } from '../utils/commonUtils';
 import ResponseCard from './response-card';
 import { useAppContext } from './contexts/appContext';
 import { NoCommentsLightSVG, NoCommentsDarkSVG } from './icons/svgs';
+import dynamic from 'next/dynamic';
 
 interface Props {
   isPublicationPost: boolean;
   currentFilter: string;
 }
+
+const PostComments = dynamic(() =>
+	import('../components/post-comments').then((mod) => mod.PostComments),
+);
 
 function ResponseList(props: Props) {
   const { isPublicationPost, currentFilter } = props;
@@ -17,28 +22,8 @@ function ResponseList(props: Props) {
   const { post: _post } = useAppContext();
   const post = _post as any;
   const [isLoading, setLoading] = useState(false);
-  const [responsesLoaded, setResponsesLoaded] = useState(false);
   const [initialResponsesLoaded, setInitialResponsesLoaded] = useState(false);
-  const [isFetchingReactionStatus, setIsFetchingReactionStatus] = useState(true);
   const hashId = getHashId();
-
-  const responses: any = [];
-  post.responses.forEach((response: any, index: any) => {
-    if (
-      !response.isCollapsed
-    ) {
-      responses.push(
-        <ResponseCard
-          key={response._id.toString()}
-          isPublicationPost={isPublicationPost}
-          response={response}
-          context="spp"
-          isLast={index === post.responses.length - 1}
-          isValidating={isFetchingReactionStatus}
-        />,
-      );
-    }
-  });
 
   useEffect(() => {
     (async () => {
@@ -46,8 +31,6 @@ function ResponseList(props: Props) {
         return;
       }
       setLoading(true);
-      setResponsesLoaded(false);
-      setResponsesLoaded(true);
       setLoading(false);
       if (!initialResponsesLoaded) {
         setInitialResponsesLoaded(true);
@@ -64,17 +47,6 @@ function ResponseList(props: Props) {
     })();
   }, [currentFilter]);
 
-  useEffect(() => {
-    (async () => {
-      if (!responsesLoaded || !post) {
-        setIsFetchingReactionStatus(false);
-        return;
-      }
-      setIsFetchingReactionStatus(true);
-      setIsFetchingReactionStatus(false);
-    })();
-  }, [responsesLoaded]);
-
   if (post.responseCount === 0) {
     return (
       <div className="flex h-3/5 flex-col items-center justify-center text-sm text-slate-500 dark:text-slate-400">
@@ -86,7 +58,7 @@ function ResponseList(props: Props) {
 
   return (
     <div className="mx-2 pb-10 lg:mx-0" id="comments-list">
-      {post.responseCount > 0 && !isLoading && responses}
+      <PostComments />
       {isLoading &&
         [...Array(3).keys()].map((val: number) => (
           <div key={`comments-list-loader-${val}`} className="animate-pulse border-b-1/2 dark:border-slate-700">

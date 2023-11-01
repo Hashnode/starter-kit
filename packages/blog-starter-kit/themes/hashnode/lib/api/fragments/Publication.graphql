@@ -10,6 +10,15 @@ fragment Publication on Publication {
 	headerColor
 	followersCount
 	descriptionSEO
+	features {
+      	customCSS {
+        	published {
+				home
+				post
+				static
+        }
+      }
+    }
 	about {
 		html
 	}

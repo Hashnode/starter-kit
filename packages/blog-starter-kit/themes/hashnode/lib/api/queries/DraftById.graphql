@@ -18,3 +18,23 @@ query DraftById($id: ObjectId!) {
     }
   }
 }
+
+fragment draft on Post {
+	 id
+    title
+    content {
+      markdown
+    }
+    author {
+      id
+      name
+      username
+    }
+    dateUpdated
+    tags {
+      id
+      name
+      slug
+    }
+  }
+}

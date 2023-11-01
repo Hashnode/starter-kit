@@ -17,19 +17,6 @@ const PostCommentsSidebar = ({
 }) => (
   <CommentsSheet hideSheet={hideSidebar}>
 
-    {post.responseCount > 1 && !post.preferences.disableComments && (
-      <div className="my-4 ml-4">
-        <Dropdown
-          elements={[
-            { key: 'popular', name: 'Top Comments' },
-            { key: 'recent', name: 'New Comments' },
-          ]}
-          defaultName={selectedFilter === 'dateAdded' ? 'New Comments' : 'Top Comments'}
-          onElementSelect={sortResponse!}
-        />
-      </div>
-    )}
-
     {!post.preferences.disableComments ? (
       <ResponseList
         isPublicationPost={isPublicationPost}
