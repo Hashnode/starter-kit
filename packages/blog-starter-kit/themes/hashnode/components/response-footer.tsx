@@ -22,10 +22,9 @@ function ResponseFooter(props: Props) {
   const [replyAreaVisible, toggleReplyAreaVisibility] = useState(false);
   const [replyInitialValue, setReplyInitialValue] = useState('');
   const { post } = useAppContext();
-
   const showAllReplies = (e: any) => {
     e.preventDefault();
-    setRepliesToShow(response.replies.length);
+    setRepliesToShow(response.replies.edges.length);
     toggleShowAllBox(true);
   };
 
@@ -36,7 +35,7 @@ function ResponseFooter(props: Props) {
   };
 
   const toggleAllReplies = (e: any) => {
-    if (response.replies.length > 1) {
+    if (response.replies.edges.length > 1) {
       if (!hideShowAllBox) {
         showAllReplies(e);
       } else hideAllReplies(e);
@@ -50,16 +49,16 @@ function ResponseFooter(props: Props) {
     return null;
   };
 
-  const replies = response.replies.slice(-1 * repliesToShow).map((reply) => (
-    <div key={reply._id.toString()}>
+  const replies = response.replies.edges.slice(-1 * repliesToShow).map((reply: any) => (
+    <div key={reply.node.id.toString()}>
       <div className="my-1.5 ml-3.5 h-6 w-px border dark:border-slate-600" />
       <ResponseReplyCard
         showReplyArea={showReplyArea}
         draftId={draftId}
         isPublicationPost={isPublicationPost}
-        key={reply._id.toString()}
+        key={reply.node.id.toString()}
         response={response}
-        reply={reply}
+        reply={reply.node}
         isValidating={isValidating}
       />
     </div>
@@ -68,7 +67,7 @@ function ResponseFooter(props: Props) {
   return (
     <div className="w-full">
       <div className="flex flex-row flex-nowrap items-center gap-4">
-        {response.replies.length > 0 && (
+        {response.replies.edges.length > 0 && (
           <div className="flex items-center">
             <Button
               variant="transparent"
@@ -86,15 +85,15 @@ function ResponseFooter(props: Props) {
                 hideShowAllBox && 'hover:underline',
               )}
             >
-              <span>{!hideShowAllBox ? response.replies.length : 'Hide replies'}</span>
+              <span>{!hideShowAllBox ? response.replies.edges.length : 'Hide replies'}</span>
             </button>
           </div>
         )}
       </div>
-      {response.replies.length > 0 && (
+      {response.replies.edges.length > 0 && (
         <div className="ml-3 min-w-0">
           {replies}
-          {response.replies.length > 1 && !hideShowAllBox && (
+          {response.replies.edges.length > 1 && !hideShowAllBox && (
             <a href="#" onClick={showAllReplies} className="flex py-2 text-sm text-blue-500 hover:underline">
               <span className="font-medium">Show more replies</span>
             </a>

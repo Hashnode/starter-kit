@@ -6,15 +6,12 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import ErrorPage from 'next/error';
 import Head from 'next/head';
-import Link from 'next/link';
 
 import { Container } from '../components/container';
 import { AppProvider } from '../components/contexts/appContext';
-import { Footer } from '../components/footer';
 import { Layout } from '../components/layout';
 import { MarkdownToHtml } from '../components/markdown-to-html';
 import { PostHeader } from '../components/post-header';
-import { PostTOC } from '../components/post-toc';
 import {
 	PageByPublicationDocument,
 	PageByPublicationQuery,

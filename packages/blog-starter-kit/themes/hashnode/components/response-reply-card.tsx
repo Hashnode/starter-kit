@@ -10,6 +10,7 @@ import { Response, Reply, User } from '../types';
 
 import { twJoin } from 'tailwind-merge';
 import { useAppContext } from './contexts/appContext';
+import { markdownToHtml } from '@starter-kit/utils/renderer/markdownToHtml';
 
 moment.extend(relativeTime);
 moment.extend(localizedFormat);
@@ -17,7 +18,7 @@ interface Props {
   showReplyArea: (e: any, user: User) => void;
   isPublicationPost: boolean;
   response: Response;
-  reply: Reply;
+  reply: any; //TODO: to be fixed
   draftId?: string;
   isValidating?: boolean;
 }
@@ -32,7 +33,7 @@ function ResponseReplyCard(props: Props) {
   } = props;
   const { post } = useAppContext();
 
-  const isArticleAuthor = reply.author._id.toString() === post?.author.id.toString();
+  const isArticleAuthor = reply.author.id.toString() === post?.author.id.toString();
 
   const loadUserProfile = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -50,8 +51,8 @@ function ResponseReplyCard(props: Props) {
     
     showReplyArea(e, reply.author);
   };
-
-  const replyContent = Autolinker.link(reply.content, {
+  const content = markdownToHtml(reply.content.markdown);
+  const replyContent = Autolinker.link(content, {
     twitter: true,
     truncate: 45,
     css: 'autolinkedURL',
@@ -151,17 +152,6 @@ function ResponseReplyCard(props: Props) {
               // eslint-disable-next-line react/no-danger
               dangerouslySetInnerHTML={{ __html: replyContent }}
             />
-            <div className="flex flex-row flex-nowrap items-center gap-4">
-
-              <button
-                type="button"
-                onClick={_showReplyArea}
-                className="flex flex-row items-center p-0 text-sm font-medium text-slate-600 hover:underline focus:outline-none dark:text-slate-200"
-                aria-label="Reply to comment"
-              >
-                Reply
-              </button>
-            </div>
           </div>
         </div>
       ) : !draftId ? (

@@ -243,11 +243,11 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 			</article>
 			{showCommentsSheet && (
 			<PostCommentsSidebar
-			hideSidebar={() => setShowCommentsSheet(false)}
-			isPublicationPost={true}
-			selectedFilter={selectedFilter}
-			sortResponse={sortResponse}
-			post={post}
+				hideSidebar={() => setShowCommentsSheet(false)}
+				isPublicationPost={true}
+				selectedFilter={selectedFilter}
+				sortResponse={sortResponse}
+				post={post}
 			/>
 		)}
 		</Fragment>

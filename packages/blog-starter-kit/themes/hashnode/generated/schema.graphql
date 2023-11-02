@@ -280,17 +280,18 @@ A draft is a post that is not published yet.
 """
 type Draft implements Node {
   """The author of the draft."""
-  author: User
+  author: User!
+  canonicalUrl: String
   """Content of the draft in HTML and markdown"""
   content: Content
   """
   The cover image preference of the draft. Contains cover image URL and other details.
   """
   coverImage: DraftCoverImage
-  """Unique identifier for the draft."""
-  cuid: String
   """The date the draft was updated."""
-  dateUpdated: DateTime!
+  dateUpdated: DateTime! @deprecated(reason: "Use updatedAt instead. Will be removed on 26/12/2023.")
+  """Draft feature-related fields."""
+  features: DraftFeatures!
   """The ID of the draft."""
   id: ID!
   """Information about the last backup of the draft."""
@@ -299,6 +300,19 @@ type Draft implements Node {
   lastFailedBackupAt: DateTime
   """The date the draft was last successfully backed up."""
   lastSuccessfulBackupAt: DateTime
+  """
+  OG meta-data of the draft. Contains image url used in open graph meta tags.
+  """
+  ogMetaData: OpenGraphMetaData
+  readTimeInMinutes: Int!
+  """
+  SEO information of the draft. Contains title and description used in meta tags.
+  """
+  seo: SEO
+  """Information of the series the draft belongs to."""
+  series: Series
+  settings: DraftSettings!
+  slug: String!
   """
   The subtitle of the draft. It would become the subtitle of the post when published.
   """
@@ -311,6 +325,7 @@ type Draft implements Node {
   The title of the draft. It would become the title of the post when published.
   """
   title: String
+  updatedAt: DateTime!
 }
 
 type DraftBackup {
@@ -335,6 +350,12 @@ type DraftConnection implements Connection {
 
 """Contains information about the cover image of the draft."""
 type DraftCoverImage {
+  """Provides attribution information for the cover image, if available."""
+  attribution: String
+  """True if the image attribution should be hidden."""
+  isAttributionHidden: Boolean!
+  """The name of the photographer who captured the cover image."""
+  photographer: String
   """The URL of the cover image."""
   url: String!
 }
@@ -345,6 +366,21 @@ type DraftEdge implements Edge {
   cursor: String!
   """A node in the connection containing a draft."""
   node: Draft!
+}
+
+type DraftFeatures {
+  tableOfContents: TableOfContentsFeature!
+}
+
+type DraftSettings {
+  """A flag to indicate if the comments are disabled for the post."""
+  disableComments: Boolean!
+  """Wether or not the post is hidden from the Hashnode community."""
+  isDelisted: Boolean!
+  """
+  A flag to indicate if the cover image is shown below title of the post. Default position of cover is top of title.
+  """
+  stickCoverToBottom: Boolean!
 }
 
 """
@@ -859,7 +895,7 @@ type Post implements Node {
     first: Int!
   ): PostLikerConnection!
   """
-  Og Meta data of the post. Contains image url used in open graph meta tags.
+  OG meta-data of the post. Contains image url used in open graph meta tags.
   """
   ogMetaData: OpenGraphMetaData
   """
@@ -998,12 +1034,13 @@ enum PostCommenterSortBy {
 
 """Contains information about the cover image of the post."""
 type PostCoverImage {
+  """Provides attribution information for the cover image, if available."""
   attribution: String
   """True if the image attribution should be hidden."""
   isAttributionHidden: Boolean!
-  """The URL of the cover image thumbnail."""
+  """Indicates whether the cover image is in portrait orientation."""
   isPortrait: Boolean!
-  """The photographer of the cover image."""
+  """The name of the photographer who captured the cover image."""
   photographer: String
   """The URL of the cover image."""
   url: String!

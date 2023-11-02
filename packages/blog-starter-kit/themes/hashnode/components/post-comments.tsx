@@ -1,4 +1,3 @@
-import { markdownToHtml } from '@starter-kit/utils/renderer/markdownToHtml';
 import { Comment } from '../generated/graphql';
 import moment from 'dayjs';
 
@@ -13,6 +12,7 @@ import ProfileImage from './profile-image';
 import { twJoin } from 'tailwind-merge';
 import { formatDate } from '../utils';
 import { imageReplacer } from '../utils/image';
+import ResponseFooter from './response-footer';
 
 moment.extend(relativeTime);
 moment.extend(localizedFormat);
@@ -42,7 +42,7 @@ export const PostComments = () => {
 	  };
 
 	const commentsList = post.comments.edges.map((edge) => {
-		const comment = edge.node as Comment;
+		const comment = edge.node as any;
 		return (
 		<div key={comment.id} className="border-b-1/2 bg-white px-4 py-4 dark:border-slate-700 dark:bg-slate-900 md:flex-nowrap">
             <div className="flex flex-col">
@@ -122,22 +122,26 @@ export const PostComments = () => {
 				  })),
               }}
             />
-			<div className="flex flex-row gap-5 font-medium text-slate-600 dark:text-neutral-400">
-				{comment.totalReactions > 1 && (
-					<a href={discussionUrl} target="_blank" rel="noopener noreferrer">
-						{comment.totalReactions} likes
-					</a>
-				)}
-			</div>
+			<ResponseFooter
+              draftId={undefined}
+              isPublicationPost={true}
+              response={comment}
+              isValidating={false} // To check
+            />
         </div>
 		);
 	});
 
 	return (
-		<div className="mx-auto flex w-full max-w-screen-md flex-col gap-5">
-			<h3 className="text-xl font-bold tracking-tight text-slate-900 dark:text-neutral-100">
-				Comments ({post.comments.totalDocuments})
-			</h3>
+		<div id="write-comment" className="mx-2">
+			<div className="relative z-50 flex flex-row flex-wrap items-center justify-between bg-white p-4 dark:bg-transparent">
+				<div className="flex w-full flex-row items-center dark:text-slate-200 md:w-auto">
+					<h3 className="text-xl font-medium tracking-tight text-slate-900 dark:text-slate-100">
+					Comments{' '}
+					{post.responseCount > 0 ? <span>({(post.responseCount || 0) + (post.replyCount || 0)})</span> : ''}
+					</h3>
+				</div>
+			</div>
 			<Button
 				as="a"
 				href={discussionUrl}
@@ -147,7 +151,7 @@ export const PostComments = () => {
 				label="Discuss on Hashnode"
 				secondaryIcon={<ExternalArrowSVG className="h-4 w-4 stroke-current" />}
 			/>
-			<div className="flex flex-col gap-5 rounded-lg p-5 dark:border-neutral-800 dark:bg-neutral-900">
+			<div>
 				{commentsList}
 			</div>
 		</div>

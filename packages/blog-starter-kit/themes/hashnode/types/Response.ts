@@ -28,7 +28,7 @@ export type Response = {
   stamp: string;
   upvotes: number;
   reactions: string[] | Reaction[];
-  replies: Reply[];
+  replies: any;
   reactionToCountMap: Record<string, number>;
   totalReactions: number;
   reactionsByCurrentUser: string[] | Reaction[];

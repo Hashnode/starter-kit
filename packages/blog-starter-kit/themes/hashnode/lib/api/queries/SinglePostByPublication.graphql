@@ -89,11 +89,29 @@ fragment PostFull on Post {
 				id
 				dateAdded
 				totalReactions
+				replies(first: 10) {
+					edges {
+						node {
+							id
+							dateAdded
+							author {
+								name
+								id
+								username
+								profilePicture
+							}
+							content {
+								markdown
+							}
+						}
+					}
+				}
 				content {
 					markdown
 				}
 				author {
 					name
+					id
 					username
 					profilePicture
 				}
