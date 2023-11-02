@@ -37,14 +37,6 @@ function PublicationFooter(props: any) {
             &copy;{new Date().getFullYear()} {title || `${authorName}'s Blog`}
           </p>
           <div className="flex flex-row items-center text-slate-600 dark:text-slate-300">
-            {true ? (
-              <>
-                <Link href="/archive" className="mx-2 underline" rel="noopener">
-                  Archive
-                </Link>
-                <span className="font-extrabold text-black opacity-20 dark:text-white">&middot;</span>
-              </>
-            ) : null}
             <a href="https://hashnode.com/privacy?source=blog-footer" className="mx-2 underline">
               Privacy policy
             </a>

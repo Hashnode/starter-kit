@@ -97,15 +97,6 @@ function PublicationSidebarNavLinks(props: IPublicationSidebarNavLinks) {
           headerColor={headerColor}
         />
       ) : null}
-      {enabledPages?.members ? (
-        <PublicationSidebarNavLinkItem
-          href="/members"
-          isUserThemeDark={isUserThemeDark}
-          label="Members"
-          isActive={!!isMembersPage}
-          headerColor={headerColor}
-        />
-      ) : null}
     </nav>
   );
 }
