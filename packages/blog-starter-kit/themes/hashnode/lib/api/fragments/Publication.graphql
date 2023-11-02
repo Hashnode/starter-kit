@@ -86,9 +86,13 @@ fragment Publication on Publication {
 	}
 	links {
 		twitter
+		instagram
 		github
-		linkedin
+		website
 		hashnode
+		youtube
+		linkedin
+		mastodon
 	}
 	integrations {
 		umamiWebsiteUUID
