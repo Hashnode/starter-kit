@@ -24,6 +24,9 @@ fragment PostFull on Post {
 	id
 	replyCount
 	slug
+	series {
+		id
+	}
 	url
 	brief
 	title

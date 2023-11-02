@@ -14,7 +14,7 @@ function BlogPostPreview(props: {
 }) {
   const { post, publication } = props;
   const isDarkTheme = false; //  TOBEFIXED
-  const postURL = post.url as string;
+  const postURL = post.url && `${new URL(post.url).pathname}`;
   const postCoverImageURL = post.coverImage?.url ?? getDefaultPostCoverImageUrl(isDarkTheme);
 
   const preload = async () => {

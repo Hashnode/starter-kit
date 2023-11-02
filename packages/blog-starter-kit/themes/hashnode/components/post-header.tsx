@@ -13,6 +13,7 @@ import { blurImageDimensions } from '../utils/const/images';
 import { getBlurHash, imageReplacer } from '../utils/image';
 import ProfileImage from './profile-image';
 import TocRenderDesign from './toc-render-design';
+const OtherPostsOfAccount = dynamic(() => import('./other-posts-of-account'), { ssr: false });
 
 import {
 	BookOpenSVG,
@@ -24,6 +25,7 @@ moment.extend(localizedFormat);
 
 type Props = {
 	post: PostFullFragment
+	morePosts: any // TODO: type to be fixed
 };
 
 const PostFloatingMenu = dynamic(() => import('./post-floating-bar'), { ssr: false });
@@ -35,7 +37,7 @@ const PublicationSubscribeStandOut = dynamic(
   );
   
 
-export const PostHeader = ({ post }: Props) => {
+export const PostHeader = ({ post, morePosts }: Props) => {
 	const postContentEle = useRef<HTMLDivElement>(null);
 	const [selectedFilter, setSelectedFilter] = useState('totalReactions');
 	const toc = post.features?.tableOfContents?.isEnabled ? post.features?.tableOfContents?.items.flat() : [];
@@ -67,6 +69,9 @@ export const PostHeader = ({ post }: Props) => {
 		const filterKey = filter === 'recent' ? 'dateAdded' : 'totalReactions';
 		setSelectedFilter(filterKey);
 	};
+
+	const filteredPosts = morePosts.edges.filter((postNode: any) => postNode.node.id !== post.id);
+
 	return (
 		<Fragment>
 			<article>
@@ -75,27 +80,27 @@ export const PostHeader = ({ post }: Props) => {
 					{/* Top cover */}
 					{post.coverImage?.url && !post.preferences.stickCoverToBottom && (
 					<div className="relative">
-					<CustomImage
-						className="mb-0 block w-full"
-						placeholder="blur"
-						originalSrc={post.coverImage.url}
-						src={resizeImage(post.coverImage.url, {
-						w: 1600,
-						h: 840,
-						...(!post.coverImage.isPortrait ? { c: 'thumb' } : { fill: 'blur' }),
-						})}
-						blurDataURL={getBlurHash(
-						resizeImage(post.coverImage.url, {
-							...blurImageDimensions,
+						<CustomImage
+							className="mb-0 block w-full"
+							placeholder="blur"
+							originalSrc={post.coverImage.url}
+							src={resizeImage(post.coverImage.url, {
+							w: 1600,
+							h: 840,
 							...(!post.coverImage.isPortrait ? { c: 'thumb' } : { fill: 'blur' }),
-						}),
-						)}
-						width={1600}
-						height={840}
-						alt={post.title}
-						priority
-						layout="responsive"
-					/>
+							})}
+							blurDataURL={getBlurHash(
+							resizeImage(post.coverImage.url, {
+								...blurImageDimensions,
+								...(!post.coverImage.isPortrait ? { c: 'thumb' } : { fill: 'blur' }),
+							}),
+							)}
+							width={1600}
+							height={840}
+							alt={post.title}
+							priority
+							layout="responsive"
+						/>
 					</div>
 				)}
 
@@ -230,6 +235,11 @@ export const PostHeader = ({ post }: Props) => {
 				</div>
 				</section>
           	</div>
+			 {/* More posts from current post's author/publication rendered here */}
+				{/* TODO: Below breaking on failed nw request */}
+				{!post.series && (
+					<OtherPostsOfAccount post={post} morePosts={filteredPosts}/>
+				)}
 			</article>
 			{showCommentsSheet && (
 			<PostCommentsSidebar

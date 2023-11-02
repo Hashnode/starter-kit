@@ -5,6 +5,7 @@ query PostsByPublication($host: String!, $first: Int!, $after: String) {
 			totalDocuments
 			edges {
 				node {
+					...Publication
 					...Post
 				}
 			}

@@ -20,6 +20,9 @@ import {
 	PageByPublicationQuery,
 	PageByPublicationQueryVariables,
 	PostFullFragment,
+	PostsByPublicationDocument,
+	PostsByPublicationQuery,
+	PostsByPublicationQueryVariables,
 	PublicationFragment,
 	SinglePostByPublicationDocument,
 	SinglePostByPublicationQuery,
@@ -45,15 +48,17 @@ type Props =
 			page: null;
 			publication: PublicationFragment;
 			isUserThemeDark: boolean;
+			morePosts: any // TODO: type to be fixed
 	  }
 	| {
 			post: null;
 			page: StaticPageFragment;
 			publication: PublicationFragment;
 			isUserThemeDark: boolean;
+			morePosts: any // TODO: type to be fixed
 	  };
 
-	  const Post = (publication: PublicationFragment, post: PostFullFragment) => {
+	  const Post = (publication: PublicationFragment, post: PostFullFragment, morePosts: PostFullFragment[]) => {
 		const highlightJsMonokaiTheme =
 			'.hljs{display:block;overflow-x:auto;padding:.5em;background:#23241f}.hljs,.hljs-subst,.hljs-tag{color:#f8f8f2}.hljs-emphasis,.hljs-strong{color:#a8a8a2}.hljs-bullet,.hljs-link,.hljs-literal,.hljs-number,.hljs-quote,.hljs-regexp{color:#ae81ff}.hljs-code,.hljs-section,.hljs-selector-class,.hljs-title{color:#a6e22e}.hljs-strong{font-weight:700}.hljs-emphasis{font-style:italic}.hljs-attr,.hljs-keyword,.hljs-name,.hljs-selector-tag{color:#f92672}.hljs-attribute,.hljs-symbol{color:#66d9ef}.hljs-class .hljs-title,.hljs-params{color:#f8f8f2}.hljs-addition,.hljs-built_in,.hljs-builtin-name,.hljs-selector-attr,.hljs-selector-id,.hljs-selector-pseudo,.hljs-string,.hljs-template-variable,.hljs-type,.hljs-variable{color:#e6db74}.hljs-comment,.hljs-deletion,.hljs-meta{color:#75715e}';
 	
@@ -95,6 +100,7 @@ type Props =
 				</Head>
 				<PostHeader
 					post={post}
+					morePosts={morePosts}
 				/>
 			</>
 		);
@@ -112,7 +118,7 @@ const Page = (page: StaticPageFragment) => {
 	);
 };
 
-export default function PostOrPage({ publication, post, page, isUserThemeDark }: Props) {
+export default function PostOrPage({ publication, post, page, isUserThemeDark, morePosts }: Props) {
 	const headerRef = useRef<HTMLElement | null>(null);
 	if (!post && !page) {
 		return <ErrorPage statusCode={404} />;
@@ -140,7 +146,7 @@ export default function PostOrPage({ publication, post, page, isUserThemeDark }:
 			</header>
 			<Container>
 				<article className="flex flex-col items-start gap-10 pb-10">
-					{post ? Post(publication, post) : Page(page)}
+					{post ? Post(publication, post, morePosts) : Page(page)}
 				</article>
 			</Container>
 			<PublicationFooter
@@ -166,17 +172,26 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
 	if (!params) {
 		throw new Error('No params');
 	}
-	const data = await request<SinglePostByPublicationQuery, SinglePostByPublicationQueryVariables>(
-		process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT,
-		SinglePostByPublicationDocument,
-		{
-			host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
-			slug: params.slug,
-		},
-	);
-	
-	// Extract the post data from the GraphQL response
-	const publication = data.publication;
+	const [postDetailsData, morePostsData] = await Promise.all([
+		request<SinglePostByPublicationQuery, SinglePostByPublicationQueryVariables>(
+			process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT,
+			SinglePostByPublicationDocument,
+			{
+				host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
+				slug: params.slug,
+			},
+		),
+		request<PostsByPublicationQuery, PostsByPublicationQueryVariables>(
+			process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT,
+			PostsByPublicationDocument,
+			{
+				first: 4,
+				host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
+			},
+		),
+	]);
+	const publication = postDetailsData.publication;
+	const morePosts = morePostsData.publication?.posts;
 	if (!publication) {
 		return {
 			notFound: true,
@@ -206,7 +221,8 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
 				post: null,
 				page,
 				publication,
-				isUserThemeDark
+				isUserThemeDark,
+				morePosts
 			},
 			revalidate: 1,
 		};
@@ -214,6 +230,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
 	return {
 		props: {
 			post,
+			morePosts,
 			page: null,
 			publication,
 			isUserThemeDark
