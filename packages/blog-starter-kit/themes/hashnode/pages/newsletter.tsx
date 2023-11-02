@@ -15,6 +15,7 @@ import { createHeaders, createSSRExchange, getUrqlClientConfig } from '../lib/ap
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { log as _log } from 'next-axiom';
 import { initUrqlClient } from 'next-urql';
+import { Header } from '../components/header';
 
 const Newsletter = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { recent3Posts, publication } = props;
@@ -33,6 +34,7 @@ const Newsletter = (props: InferGetServerSidePropsType<typeof getServerSideProps
 
   return (
     <AppProvider publication={publication}>
+      <Header />
       <div className="blog-page-area mx-auto min-h-screen px-4 pb-8 pt-20 md:px-10 md:pt-20">
         <div className="blog-page-card container relative z-30 mx-auto grid grid-flow-row grid-cols-8 pb-0 2xl:grid-cols-10">
           <div className="col-span-full">
