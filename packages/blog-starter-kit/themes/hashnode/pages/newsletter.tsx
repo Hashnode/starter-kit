@@ -16,6 +16,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { log as _log } from 'next-axiom';
 import { initUrqlClient } from 'next-urql';
 import { Header } from '../components/header';
+import PublicationFooter from '../components/publication-footer';
 
 const Newsletter = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { recent3Posts, publication } = props;
@@ -66,6 +67,18 @@ const Newsletter = (props: InferGetServerSidePropsType<typeof getServerSideProps
           </>
         )}
       </div>
+      {publication ? (
+				<PublicationFooter
+					authorName={publication.author.name}
+					title={publication.title}
+					imprint={publication.imprint}
+					postsCount={0} // TODO: From where is this data coming?
+					disableFooterBranding={publication.preferences.disableFooterBranding}
+					isTeam={publication.isTeam}
+					logo={publication.preferences.logo}
+					darkMode={publication.preferences.darkMode}
+				/>
+				) : null}
     </AppProvider>
   );
 };
