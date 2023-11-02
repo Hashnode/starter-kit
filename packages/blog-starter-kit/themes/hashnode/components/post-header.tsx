@@ -70,8 +70,8 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 		setSelectedFilter(filterKey);
 	};
 
-	const filteredPosts = morePosts.edges.filter((postNode: any) => postNode.node.id !== post.id);
-
+	const filteredPostsWithoutCurrentPost = morePosts.edges.filter((postNode: any) => postNode.node.id !== post.id);
+	const top3FilteredPosts = filteredPostsWithoutCurrentPost.slice(0, 3);
 	return (
 		<Fragment>
 			<article>
@@ -238,7 +238,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 			 {/* More posts from current post's author/publication rendered here */}
 				{/* TODO: Below breaking on failed nw request */}
 				{!post.series && (
-					<OtherPostsOfAccount post={post} morePosts={filteredPosts}/>
+					<OtherPostsOfAccount post={post} morePosts={top3FilteredPosts}/>
 				)}
 			</article>
 			{showCommentsSheet && (
