@@ -12,6 +12,7 @@ query SinglePostByPublication($slug: String!, $host: String!) {
 
 fragment PostFull on Post {
 	publication {
+		id
 		features {
 			newsletter {
             	isEnabled

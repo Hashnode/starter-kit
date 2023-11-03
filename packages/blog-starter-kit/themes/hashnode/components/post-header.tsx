@@ -1,6 +1,6 @@
 import { twJoin } from 'tailwind-merge';
 import dynamic from 'next/dynamic';
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import moment from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -19,6 +19,8 @@ import {
 	BookOpenSVG,
   } from './icons/svgs';
 import { Fragment } from 'react';
+import { useEmbeds } from '@starter-kit/utils/renderer/hooks/useEmbeds';
+import { loadIframeResizer } from '@starter-kit/utils/renderer/services/embed';
 
 moment.extend(relativeTime);
 moment.extend(localizedFormat);
@@ -36,7 +38,6 @@ const PublicationSubscribeStandOut = dynamic(
 	{ ssr: false },
   );
   
-
 export const PostHeader = ({ post, morePosts }: Props) => {
 	const postContentEle = useRef<HTMLDivElement>(null);
 	const [selectedFilter, setSelectedFilter] = useState('totalReactions');
@@ -72,6 +73,28 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 
 	const filteredPostsWithoutCurrentPost = morePosts.edges.filter((postNode: any) => postNode.node.id !== post.id);
 	const top3FilteredPosts = filteredPostsWithoutCurrentPost.slice(0, 3);
+	const [, setMobMount] = useState(false);
+	const [canLoadEmbeds, setCanLoadEmbeds] = useState(false);
+	useEmbeds({ enabled: canLoadEmbeds });
+
+	useEffect(() => {
+		if (screen.width <= 425) {
+		  setMobMount(true);
+		}
+	
+		if (!post) {
+		  return;
+		}
+	
+		// TODO:
+		// More of an alert, did this below to wrap async funcs inside useEffect
+		(async () => {
+		  await loadIframeResizer();
+		  //triggerCustomWidgetEmbed(post.publication.id.toString());
+		  setCanLoadEmbeds(true);
+		})();
+	  }, []);
+
 	return (
 		<Fragment>
 			<article>

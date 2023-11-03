@@ -1723,6 +1723,7 @@ enum Scope {
   create_pro
   import_subscribers_to_publication
   publication_admin
+  publish_draft
   recommend_publications
   signup
   update_post
