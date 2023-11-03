@@ -38,7 +38,9 @@ The recommended approach is deploying to Vercel. If you don't have an account al
 - Fork this repo
 - Create a new project on Vercel and connect this repo
 - It's a monorepo. So, choose either `packages/blog-starter-kit/themes/enterprise` or `packages/blog-starter-kit/themes/personal` as the root directory while importing on Vercel.
-  ![selecting the directory to deploy a monorepo](https://cdn.hashnode.com/res/hashnode/image/upload/v1695083263935/T5bByLxZT.png?w=500&h=800&auto=format)
+
+  ![selecting the directory to deploy a monorepo](https://cdn.hashnode.com/res/hashnode/image/upload/v1698839884060/O8OoBML5v.PNG?auto=format)
+
 - Choose `Next.js` as framework preset (just above Root Directory setting).
 - Set the following environment variables
 
@@ -146,6 +148,7 @@ If you prefer to build your frontend from scratch, you can use our public GraphQ
 
 - [Docs](https://apidocs.hashnode.com)
 - [GraphQL Playground](https://gql.hashnode.com)
+- [Generate queries/mutations by talking to AI](https://chatgql.com/chat?url=https://gql.hashnode.com)
 
 ## Demo Videos
 

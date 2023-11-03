@@ -303,15 +303,6 @@ export type Draft = Node & {
   lastFailedBackupAt?: Maybe<Scalars['DateTime']['output']>;
   /** The date the draft was last successfully backed up. */
   lastSuccessfulBackupAt?: Maybe<Scalars['DateTime']['output']>;
-  /** OG meta-data of the draft. Contains image url used in open graph meta tags. */
-  ogMetaData?: Maybe<OpenGraphMetaData>;
-  readTimeInMinutes: Scalars['Int']['output'];
-  /** SEO information of the draft. Contains title and description used in meta tags. */
-  seo?: Maybe<Seo>;
-  /** Information of the series the draft belongs to. */
-  series?: Maybe<Series>;
-  settings: DraftSettings;
-  slug: Scalars['String']['output'];
   /** The subtitle of the draft. It would become the subtitle of the post when published. */
   subtitle?: Maybe<Scalars['String']['output']>;
   /** Returns list of tags added to the draft. Contains tag id, name, slug, etc. */
