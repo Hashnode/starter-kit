@@ -4,6 +4,7 @@ fragment Publication on Publication {
 	title
 	displayTitle
 	url
+	urlPattern
 	metaTags
 	favicon
 	isTeam

@@ -54,11 +54,16 @@ export function getSingleQueryParam(query: ParsedUrlQuery, key: string) {
 export const createPublicationOrigin = (
   publication: any, // TODO: Need to think what we need to do about legacyPublication
 ) => {
-  if (!publication || (!publication.domain && !publication.username)) {
+  const domain = publication.domainInfo.domain?.host ?? '';
+  const username = publication.domainInfo.hashnodeSubdomain ?? '';
+  const domainStatus = {
+    ready: publication.domainInfo.domain?.ready ?? undefined,
+    certIssued: publication.domainInfo?.domain?.ready ?? undefined,
+  };
+  if (!publication || (!domain && !username)) {
     // using the hashnode domain as a fallback in order to prevent errors
     return getAppUrl();
   }
-  const { domain, username, domainStatus } = publication;
 
   const hasReadyDomain = !!domain && !!domainStatus?.ready;
 
@@ -86,7 +91,7 @@ export const createPublicationOrigin = (
     }
   
     const origin = createPublicationOrigin(publication);
-    const isSimpleUrl = publication.urlPattern === 'simple';
+    const isSimpleUrl = publication.urlPattern === 'SIMPLE';
     const pathname = isSimpleUrl ? `/${slug}` : `/${slug}-${cuid}`;
     return `${origin}${pathname}`;
   };

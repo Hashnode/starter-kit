@@ -13,6 +13,14 @@ query SinglePostByPublication($slug: String!, $host: String!) {
 fragment PostFull on Post {
 	publication {
 		id
+		domainInfo {
+			hashnodeSubdomain
+			domain {
+				host
+				ready
+        	}
+		}
+		urlPattern
 		features {
 			newsletter {
             	isEnabled
@@ -23,6 +31,7 @@ fragment PostFull on Post {
 		}
 	}
 	id
+	cuid
 	replyCount
 	slug
 	series {

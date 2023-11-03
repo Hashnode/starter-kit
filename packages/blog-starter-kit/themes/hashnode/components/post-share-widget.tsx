@@ -58,7 +58,7 @@ const PostShareWidget = (props: PostShareWidgetProps) => {
 
   const getAbsolutePostURL = (): string => {
     if (post) {
-      return createPostUrl(entity!, entity!.publication);
+      return createPostUrl({...entity!, partOfPublication: true}, entity!.publication);
     }
 
     if (draft) {
