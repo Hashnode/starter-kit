@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 
-import { Post } from '../types';
 import { getHashId } from '../utils/commonUtils';
-import ResponseCard from './response-card';
+import { ExternalArrowSVG, HashnodeSVG } from './icons';
 import { useAppContext } from './contexts/appContext';
 import { NoCommentsLightSVG, NoCommentsDarkSVG } from './icons/svgs';
 import dynamic from 'next/dynamic';
+import { Button } from './button';
 
 interface Props {
   isPublicationPost: boolean;
@@ -48,8 +48,18 @@ function ResponseList(props: Props) {
   }, [currentFilter]);
 
   if (post.responseCount === 0) {
+    const discussionUrl = `https://hashnode.com/discussions/post/${post.id}`;
     return (
       <div className="flex h-3/5 flex-col items-center justify-center text-sm text-slate-500 dark:text-slate-400">
+        <Button
+          as="a"
+          href={discussionUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          icon={<HashnodeSVG className="h-3 w-3 stroke-current" />}
+          label="Discuss on Hashnode"
+          secondaryIcon={<ExternalArrowSVG className="h-4 w-4 stroke-current" />}
+			  />
         {isDarkTheme ? <NoCommentsDarkSVG className="h-40 w-40" /> : <NoCommentsLightSVG className="h-40 w-40" />}
         <p>No comments yet</p>
       </div>
