@@ -126,7 +126,7 @@ function PostFloatingMenu(props: {
             )}
           </PostFloatingBarTooltipWrapper>
 
-          {/* <Separator className="mx-2 h-5" /> */}
+          <Separator className="mx-2 h-5" />
 
           {post && post.features.tableOfContents.isEnabled && (
             <>
