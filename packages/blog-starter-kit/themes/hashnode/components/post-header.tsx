@@ -21,6 +21,7 @@ import {
 import { Fragment } from 'react';
 import { useEmbeds } from '@starter-kit/utils/renderer/hooks/useEmbeds';
 import { loadIframeResizer } from '@starter-kit/utils/renderer/services/embed';
+import Link from 'next/link';
 
 moment.extend(relativeTime);
 moment.extend(localizedFormat);
@@ -162,13 +163,13 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 					</div>
 					<div className="mb-5 flex w-full flex-row items-center justify-center md:mb-0 md:w-auto md:justify-start">
 						<span className="mx-3 hidden font-bold text-slate-500 md:block">&middot;</span>
-						<a
+						<Link
 							href="/"
 							className="tooltip-handle text-slate-700 dark:text-slate-400"
 							data-title={`${moment(post.publishedAt).format('MMM D, YYYY HH:mm')}`}
 						>
 							<span>{moment(post.publishedAt).format('MMM D, YYYY')}</span>
-						</a>
+						</Link>
 						{post.publication?.features?.readTime?.isEnabled && (
 							<>
 							<span className="mx-3 block font-bold text-slate-500">&middot;</span>

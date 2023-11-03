@@ -20,6 +20,8 @@ import CustomImage from './custom-image';
 import { blurImageDimensions } from '../utils/const/images';
 import { twJoin } from 'tailwind-merge';
 import TocRenderDesign from './toc-render-design';
+import Link from 'next/link';
+import { PostFullFragment } from '../generated/graphql';
 
 moment.extend(relativeTime);
 moment.extend(localizedFormat);
@@ -32,12 +34,18 @@ const PublicationSubscribeStandOut = dynamic(
 function PostView(props: any) {
   const postContentEle = useRef<HTMLDivElement>(null);
   const { post: _post } = useAppContext();
-  const post = _post as unknown as Post;
-  const textSelectionSharerEnabled = post.partOfPublication
-    ? post.publication.textSelectionSharerEnabled || typeof post.publication.textSelectionSharerEnabled === 'undefined'
-    : false;
+  const post = _post as unknown as PostFullFragment;
+  const textSelectionSharerEnabled = post.publication?.features?.textSelectionSharer?.isEnabled || typeof post.publication?.features?.textSelectionSharer?.isEnabled === 'undefined';
 
-  const toc = post.toc ? post.toc.flat() : [];
+  const toc = post.features.tableOfContents.items.map((item) => [
+    {
+      id: item.id,
+      level: item.level,
+      slug: item.slug,
+      title: item.title,
+      parentId: item.parentId,
+    },
+  ]);
 
   const memoizedPostContent = useMemo(() => imageReplacer(post.content, true), [post.content]);
 
@@ -47,21 +55,21 @@ function PostView(props: any) {
             <div className="blog-article-page container relative mx-auto grid grid-cols-8">
             <div className="col-span-full lg:col-span-6 lg:col-start-2">
                 {/* Top cover */}
-                {post.coverImage && post.coverImage.url && !post.stickCoverToBottom && (
+                {post.coverImage && post.coverImage.url && !post.preferences.stickCoverToBottom && (
                 <div className="relative">
                     <CustomImage
                     className="mb-0 block w-full"
                     placeholder="blur"
-                    originalSrc={post.coverImage}
+                    originalSrc={post.coverImage.url}
                     src={resizeImage(post.coverImage, {
                         w: 1600,
                         h: 840,
-                        ...(!post.isCoverImagePortrait ? { c: 'thumb' } : { fill: 'blur' }),
+                        ...(!post.coverImage?.isPortrait ?? false ? { c: 'thumb' } : { fill: 'blur' }),
                     })}
                     blurDataURL={getBlurHash(
                         resizeImage(post.coverImage, {
                         ...blurImageDimensions,
-                        ...(!post.isCoverImagePortrait ? { c: 'thumb' } : { fill: 'blur' }),
+                        ...(!post.coverImage?.isPortrait ?? false ? { c: 'thumb' } : { fill: 'blur' }),
                         }),
                     )}
                     width={1600}
@@ -108,39 +116,39 @@ function PostView(props: any) {
                 </div>
                 <div className="mb-5 flex w-full flex-row items-center justify-center md:mb-0 md:w-auto md:justify-start">
                     <span className="mx-3 hidden font-bold text-slate-500 md:block">&middot;</span>
-                    <a
+                    <Link
                     href='/'
                     className="tooltip-handle text-slate-700 dark:text-slate-400"
-                    data-title={`${moment(post.dateAdded).format('MMM D, YYYY HH:mm')}`}
+                    data-title={`${moment(new Date(post.publishedAt)).format('MMM D, YYYY HH:mm')}`}
                     >
-                    <span>{moment(post.dateAdded).format('MMM D, YYYY')}</span>
-                    </a>
-                    {(!post.partOfPublication || (post.partOfPublication && !post.publication.readTimeHidden)) && (
+                    <span>{moment(new Date(post.publishedAt)).format('MMM D, YYYY')}</span>
+                    </Link>
+                    {(post?.publication?.features.readTime.isEnabled) && (
                     <>
                         <span className="mx-3 block font-bold text-slate-500">&middot;</span>
                         <p className="flex flex-row items-center text-slate-700 dark:text-slate-400">
                         <BookOpenSVG className="mr-2 h-5 w-5 fill-current opacity-75" />
-                        <span>{post.readTime} min read</span>
+                        <span>{post.readTimeInMinutes} min read</span>
                         </p>
                     </>
                     )}
                 </div>
                 </div>
-                {post.coverImage && post.stickCoverToBottom && (
+                {post.coverImage && post.preferences.stickCoverToBottom && (
                 <div className="relative my-8 md:my-14">
                     <CustomImage
                     className="mb-0 block w-full"
                     placeholder="blur"
-                    originalSrc={post.coverImage}
+                    originalSrc={post.coverImage.url}
                     src={resizeImage(post.coverImage, {
                         w: 1600,
                         h: 840,
-                        ...(!post.isCoverImagePortrait ? { c: 'thumb' } : { fill: 'blur' }),
+                        ...(!post.coverImage?.isPortrait ?? false ? { c: 'thumb' } : { fill: 'blur' }),
                     })}
                     blurDataURL={getBlurHash(
                         resizeImage(post.coverImage, {
                         ...blurImageDimensions,
-                        ...(!post.isCoverImagePortrait ? { c: 'thumb' } : { fill: 'blur' }),
+                        ...(!post.coverImage?.isPortrait ?? false ? { c: 'thumb' } : { fill: 'blur' }),
                         }),
                     )}
                     width={1600}
@@ -156,7 +164,7 @@ function PostView(props: any) {
             <section className="blog-content-main z-20 col-span-8 mb-10 px-4 md:z-10 lg:col-span-6 lg:col-start-2 lg:px-0 xl:col-span-6 xl:col-start-2 2xl:col-span-6 2xl:col-start-3">
                 <div className="relative">
 
-                {post.enableToc && <TocRenderDesign list={toc} />}
+                {post.features.tableOfContents.isEnabled && <TocRenderDesign list={toc} />}
 
                 {/* temporarily hiding the modal */}
 
@@ -174,34 +182,11 @@ function PostView(props: any) {
                     )}
                 </div>
 
-                {post.partOfPublication && post.publication && post.publication.newsletterEnabled && (
+                {post.publication && post.publication.features.newsletter.isEnabled && (
                     <PublicationSubscribeStandOut subscribeEventOrigin="blog-post-page-stand-out" />
                 )}
 
-                {post.partOfPublication &&
-                    post.publication.stripe &&
-                    post.publication.stripe.connected &&
-                    post.readTime >= 2 && (
-                    <div className="blog-sponsor-widget mb-10 flex flex-row items-start rounded-lg border-2 border-slate-200 p-5 dark:border-slate-800 md:items-center md:p-10">
-                        <div className="w-2/3">
-                        <h3 className="mb-2 font-heading text-2xl font-bold text-slate-900 dark:text-slate-100">
-                            Did you find this article valuable?
-                        </h3>
-                        <p className="mb-5 text-lg leading-snug text-slate-600 dark:text-slate-400">
-                            Support{' '}
-                            <strong>
-                            {post.publication.isTeam ? post.publication.title || post.author.name : post.author.name}
-                            </strong>{' '}
-                            by becoming a sponsor. Any amount is appreciated!
-                        </p>
-                        </div>
-                        <div className="flex w-1/3 flex-row items-center justify-end pl-2 text-slate-300 dark:text-slate-600">
-                        <BadgeDollarSVG className="h-28 w-28 fill-current" />
-                        </div>
-                    </div>
-                    )}
-
-                {post.tags.length > 0 && (
+                {post?.tags && post.tags.length > 0 && (
                     <div className="mb-5 flex w-full flex-row flex-wrap justify-center md:mb-0">
                     {post.tags.map((tag: any) => (
                         <a

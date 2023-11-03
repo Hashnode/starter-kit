@@ -13,6 +13,7 @@ import { ChevronLeftSVG } from './icons/svgs/';
 import { Preferences, RequiredPublicationFieldsFragment, PublicationNavbarItem, User } from '../generated/graphql';
 import PublicationLogo from './publication-logo';
 import { twJoin } from 'tailwind-merge';
+import Link from 'next/link';
 
 type Props = {
   publication: Pick<
@@ -45,13 +46,13 @@ const PostPageNavbar = forwardRef<HTMLElement, Props>((props, ref) => {
           )}
         >
           <HeaderTooltip tooltipClassName="blog-home-tooltip" tooltipText="Home" headerColor={publication.headerColor}>
-            <a
+            <Link
               href="/"
               aria-label="Back to blog home"
               className={twJoin('blog-back-to-home-button', commonIconBtnStyles, 'mr-2 p-3')}
             >
               <ChevronLeftSVG className="h-4 w-4 fill-current pr-1" />
-            </a>
+            </Link>
           </HeaderTooltip>
 
           {/* Navigation for mobile view */}

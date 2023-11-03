@@ -28,6 +28,9 @@ fragment PostFull on Post {
 			readTime {
 				isEnabled
 			}
+			 textSelectionSharer {
+				isEnabled
+			}
 		}
 	}
 	id
