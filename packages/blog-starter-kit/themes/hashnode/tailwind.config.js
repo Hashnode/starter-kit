@@ -14,6 +14,13 @@ module.exports = {
 				cyan: '#79FFE1',
 				primary: colors.blue,
 			},
+			width: {
+				5.5: '1.35rem',
+			},
+			height: {
+				5.5: '1.35rem',
+				fc: 'fit-content',
+			},
 			inset: {
 				100: '100%',
 				50: '50%',
