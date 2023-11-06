@@ -3,7 +3,7 @@ const colors = require('tailwindcss/colors');
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
-	content: ['./components/**/*.tsx', './pages/**/*.tsx'],
+	content: ['./components/**/*.tsx', './pages/**/*.tsx', './components/*.js'],
 	theme: {
 		extend: {
 			colors: {
@@ -13,6 +13,10 @@ module.exports = {
 				success: '#0070f3',
 				cyan: '#79FFE1',
 				primary: colors.blue,
+			},
+			inset: {
+				100: '100%',
+				50: '50%',
 			},
 			spacing: {
 				28: '7rem',
@@ -37,6 +41,14 @@ module.exports = {
 			boxShadow: {
 				sm: '0 5px 10px rgba(0, 0, 0, 0.12)',
 				md: '0 8px 30px rgba(0, 0, 0, 0.12)',
+			},
+			minHeight: {
+				12: '12vh',
+				16: '16vh',
+				30: '30vh',
+			  },
+			maxHeight: {
+				80: '80vh',
 			},
 		},
 	},
