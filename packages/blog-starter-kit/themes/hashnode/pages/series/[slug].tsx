@@ -1,8 +1,7 @@
 import { resizeImage } from '@starter-kit/utils/image';
-import { GetServerSideProps, GetStaticPaths } from 'next';
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { AppProvider } from '../../components/contexts/appContext';
-import { Footer } from '../../components/footer';
 import { Header } from '../../components/header';
 import { Layout } from '../../components/layout';
 import {
@@ -26,9 +25,10 @@ type Props = GetServerSideProps &
     host: string;
     slug: string;
     initialLimit: number;
+	currentMenuId: string;
   };
 const INITIAL_LIMIT = 6;
-export default function Series({ series, publication, posts, seriesSlug }: Props) {
+export default function Series({ series, publication, posts, seriesSlug, currentMenuId }: Props) {
 	const title = `${series.name} - ${publication.title}`;
 	const [after, setAfter] = useState<string | null>(null);
 	const [{ data, fetching }] = useQuery({
@@ -57,7 +57,7 @@ export default function Series({ series, publication, posts, seriesSlug }: Props
 				<Head>
 					<title>{title}</title>
 				</Head>
-				<Header />
+				<Header currentMenuId={currentMenuId}/>
 				<div className={twJoin('blog-content-area feed-width mx-auto md:w-2/3', !!publication.about?.html && 'mt-12')}>
 					<div>
 						<div
@@ -148,9 +148,12 @@ type Params = {
 };
 
 export async function getServerSideProps(ctx: { req: any; res: any; query: any; resolvedUrl: any }) {
-	const { query } = ctx;
+	const { req, res, query, resolvedUrl } = ctx;
+	const requestHost = query['x-host'] || req.headers.host;
+	const [resolvedPath] = resolvedUrl.split('?');
 	const ssrCache = createSSRExchange();
 	const urqlClient = initUrqlClient(getUrqlClientConfig(ssrCache), false);
+	let rawCurrentMenuId = '';
 	const publicationInfo = await urqlClient
 		.query(
 		SeriesPageInitialDocument,
@@ -184,6 +187,30 @@ export async function getServerSideProps(ctx: { req: any; res: any; query: any; 
 			notFound: true,
 		  };
 		}
+
+		if (publication && series) {
+			const menu = publication.preferences.navbarItems || [];
+		
+			for (let i = 0; i < menu.length; i++) {
+			  const menuItem = menu[i];
+		
+			  if (menuItem.type === 'series' && menuItem.series && menuItem.series.id === series.id) {
+				rawCurrentMenuId = menuItem.id!;
+				break;
+			  }
+			  // check for links that could be mapped to the series page
+			  if (menuItem.type === 'link' && menuItem.url && !rawCurrentMenuId) {
+				const { pathname, host } = new URL(menuItem.url);
+				const isLinkOnSameDomain = requestHost === host;
+				const pathnameMatches = resolvedPath === pathname;
+		
+				if (pathnameMatches && isLinkOnSameDomain) {
+				  rawCurrentMenuId = menuItem.id.toString();
+				  break;
+				}
+			  }
+			}
+		  }
 	  
 		const { posts } = series || {};
 
@@ -195,6 +222,7 @@ export async function getServerSideProps(ctx: { req: any; res: any; query: any; 
 			urqlState: ssrCache.extractData(),
 			initialLimit: INITIAL_LIMIT,
 			posts,
+			currentMenuId: rawCurrentMenuId,
 		  },
 		};
 };

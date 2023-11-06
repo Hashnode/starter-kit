@@ -15,8 +15,12 @@ function hasUrl(
 ): navbarItem is PublicationNavbarItem & { url: string } {
 	return !!navbarItem.url && navbarItem.url.length > 0;
 }
+type Props = {
+	currentMenuId?: string | null;
+  };
 
-export const Header = () => {
+export const Header = (props: Props) => {
+	const { currentMenuId } = props;
 	const { publication } = useAppContext();
 	const navbarItems = publication.preferences.navbarItems.filter(hasUrl);
 	const visibleItems = navbarItems.slice(0, 3);
@@ -119,7 +123,7 @@ export const Header = () => {
           		data-tom="hidden md:flex relative flex-row items-center justify-center overflow-hidden text-base mt-8">
           		<PublicationNavLinks
 					isHome={true}
-					currentActiveMenuItemId={null}
+					currentActiveMenuItemId={currentMenuId}
 					enabledPages={publication.preferences?.enabledPages}
 					navbarItems={publication.preferences?.navbarItems || []}
 					headerColor={publication.headerColor}

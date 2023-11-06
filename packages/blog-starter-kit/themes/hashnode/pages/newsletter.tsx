@@ -18,8 +18,14 @@ import { initUrqlClient } from 'next-urql';
 import { Header } from '../components/header';
 import PublicationFooter from '../components/publication-footer';
 
-const Newsletter = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const { recent3Posts, publication } = props;
+type Props = {
+  publication: PublicationFragment;
+  recent3Posts: PostThumbnailFragment[];
+  currentMenuId: string;
+}
+
+const Newsletter = (props: Props) => {
+  const { recent3Posts, publication, currentMenuId } = props;
 
   const profile = publication.author;
 
@@ -35,7 +41,7 @@ const Newsletter = (props: InferGetServerSidePropsType<typeof getServerSideProps
 
   return (
     <AppProvider publication={publication}>
-      <Header />
+      <Header currentMenuId={currentMenuId}/>
       <div className="blog-page-area mx-auto min-h-screen px-4 pb-8 pt-20 md:px-10 md:pt-20">
         <div className="blog-page-card container relative z-30 mx-auto grid grid-flow-row grid-cols-8 pb-0 2xl:grid-cols-10">
           <div className="col-span-full">
@@ -148,7 +154,8 @@ export const getServerSideProps: GetServerSideProps<{
   return {
     props: {
       publication,
-      recent3Posts: publication.recentPosts.edges.map((edge) => edge.node)
+      recent3Posts: publication.recentPosts.edges.map((edge) => edge.node),
+      currentMenuId: 'newsletter'
     },
   };
 };
