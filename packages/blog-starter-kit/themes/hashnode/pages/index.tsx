@@ -5,10 +5,8 @@ import Head from 'next/head';
 import { WithUrqlProps, initUrqlClient } from 'next-urql';
 import Image from 'next/legacy/image';
 
-import { useRef, useState } from 'react';
-import { Container } from '../components/container';
+import { useState } from 'react';
 import { AppProvider } from '../components/contexts/appContext';
-import { Footer } from '../components/footer';
 import { Header } from '../components/header';
 import { Layout } from '../components/layout';
 import ModernLayoutPosts from '../components/modern-layout-posts';
@@ -53,7 +51,6 @@ export default function Index(props: InferGetStaticPropsType<typeof getStaticPro
 	const ssrCache = createSSRExchange();
 	const urqlClient = initUrqlClient(getUrqlClientConfig(ssrCache), false); // TODO: Check why is urqlClient not automatically being passed in props. Ideally, since we are using WithUrqlClient HOC, it should automatically come
 
-	const loginPromptTimerRef = useRef<any>(null);
 	const [fetching, setFetching] = useState(false);
   
 	const { author, preferences, pinnedPost } = publication;

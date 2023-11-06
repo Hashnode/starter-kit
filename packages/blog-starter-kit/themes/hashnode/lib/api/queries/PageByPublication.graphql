@@ -16,5 +16,6 @@ fragment StaticPage on StaticPage {
 	slug
 	content {
 		markdown
+		html
 	}
 }
