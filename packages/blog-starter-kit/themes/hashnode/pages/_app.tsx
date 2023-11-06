@@ -1,5 +1,9 @@
 import { AppProps } from 'next/app';
 import { withUrqlClient } from 'next-urql';
+import 'tailwindcss/tailwind.css'
+
+import '../styles/index.css';
+
 import { getUrqlClientConfig } from '../lib/api/client';
 
 import '../styles/index.css';

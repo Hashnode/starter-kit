@@ -131,7 +131,7 @@ export default function Index(props: InferGetStaticPropsType<typeof getStaticPro
 						}}
 					/>
 				</Head>
-				<Header />
+				<Header isHome={true}/>
 				<div>
 					{postsToBeRendered.edges.length > 0 ? (
 						<FeaturedPosts posts={postsToBeRendered.edges.map((p: any) => p.node).slice(0, 3)} publication={publication} />

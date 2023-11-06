@@ -57,7 +57,7 @@ export default function Series({ series, publication, posts, seriesSlug, current
 				<Head>
 					<title>{title}</title>
 				</Head>
-				<Header currentMenuId={currentMenuId}/>
+				<Header currentMenuId={currentMenuId} isHome={false}/>
 				<div className={twJoin('blog-content-area feed-width mx-auto md:w-2/3', !!publication.about?.html && 'mt-12')}>
 					<div>
 						<div

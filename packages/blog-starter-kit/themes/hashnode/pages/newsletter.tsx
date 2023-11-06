@@ -41,7 +41,7 @@ const Newsletter = (props: Props) => {
 
   return (
     <AppProvider publication={publication}>
-      <Header currentMenuId={currentMenuId}/>
+      <Header currentMenuId={currentMenuId} isHome={false}/>
       <div className="blog-page-area mx-auto min-h-screen px-4 pb-8 pt-20 md:px-10 md:pt-20">
         <div className="blog-page-card container relative z-30 mx-auto grid grid-flow-row grid-cols-8 pb-0 2xl:grid-cols-10">
           <div className="col-span-full">

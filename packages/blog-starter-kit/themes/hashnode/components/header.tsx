@@ -17,65 +17,14 @@ function hasUrl(
 }
 type Props = {
 	currentMenuId?: string | null;
+	isHome: boolean;
   };
 
 export const Header = (props: Props) => {
-	const { currentMenuId } = props;
+	const { currentMenuId, isHome } = props;
 	const { publication } = useAppContext();
-	const navbarItems = publication.preferences.navbarItems.filter(hasUrl);
-	const visibleItems = navbarItems.slice(0, 3);
-	const hiddenItems = navbarItems.slice(3);
 	const headerColor = publication.headerColor;
 	const isUserThemeDark = headerColor ? lightOrDark(headerColor) === 'dark' : false;
-	const navList = (
-		<ul className="flex flex-row items-center gap-2 text-white">
-			{visibleItems.map((item) => (
-				<li key={item.url}>
-					<a
-						href={item.url}
-						target="_blank"
-						rel="noopener noreferrer"
-						className="transition-200 block max-w-[200px] truncate text-ellipsis whitespace-nowrap rounded-full p-2 transition-colors hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
-					>
-						{item.label}
-					</a>
-				</li>
-			))}
-
-			{hiddenItems.length > 0 && (
-				<li>
-					<DropdownMenu.Root>
-						<DropdownMenu.Trigger asChild>
-							<button className="transition-200 block rounded-full p-2 transition-colors hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white">
-								More
-							</button>
-						</DropdownMenu.Trigger>
-
-						<DropdownMenu.Portal>
-							<DropdownMenu.Content
-								className="w-48 rounded border border-gray-300 bg-white text-neutral-950 shadow-md dark:border-neutral-800 dark:bg-neutral-900 dark:text-white"
-								align="end"
-								sideOffset={5}
-							>
-								{hiddenItems.map((item) => (
-									<DropdownMenu.Item asChild key={item.url}>
-										<a
-											href={item.url}
-											target="_blank"
-											rel="noopener noreferrer"
-											className="transition-200 block truncate p-2 transition-colors hover:bg-slate-100 hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
-										>
-											{item.label}
-										</a>
-									</DropdownMenu.Item>
-								))}
-							</DropdownMenu.Content>
-						</DropdownMenu.Portal>
-					</DropdownMenu.Root>
-				</li>
-			)}
-		</ul>
-	);
 
 	return (
 		<header className="blog-header z-50 w-full border-b relative border-black/10 bg-white bg-opacity-70 dark:border-white/10 dark:bg-slate-900 dark:bg-opacity-70">
@@ -122,7 +71,7 @@ export const Header = (props: Props) => {
 			<div className="relative mt-8 hidden flex-row items-center justify-center overflow-hidden text-base md:flex"
           		data-tom="hidden md:flex relative flex-row items-center justify-center overflow-hidden text-base mt-8">
           		<PublicationNavLinks
-					isHome={true}
+					isHome={isHome}
 					currentActiveMenuItemId={currentMenuId}
 					enabledPages={publication.preferences?.enabledPages}
 					navbarItems={publication.preferences?.navbarItems || []}

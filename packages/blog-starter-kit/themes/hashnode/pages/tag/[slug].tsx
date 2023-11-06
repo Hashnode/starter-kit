@@ -1,20 +1,15 @@
-import request from 'graphql-request';
 import Head from 'next/head';
-import { Container } from '../../components/container';
+import { ParsedUrlQuery } from 'querystring';
+
+
 import { AppProvider } from '../../components/contexts/appContext';
-import { Footer } from '../../components/footer';
 import { Header } from '../../components/header';
 import { Layout } from '../../components/layout';
-import { MorePosts } from '../../components/more-posts';
 import {
 	Post,
-	Publication,
 	PublicationFragment,
 	TagInitialDocument,
 	TagInitialQuery,
-	TagPostsByPublicationDocument,
-	TagPostsByPublicationQuery,
-	TagPostsByPublicationQueryVariables,
 } from '../../generated/graphql';
 import { twJoin } from 'tailwind-merge';
 import ExternalLinkSVG from '../../components/icons/svgs/ExternalLinkSVG';
@@ -26,6 +21,13 @@ import { useState } from 'react';
 import { useQuery } from 'urql';
 import PublicationFooter from '../../components/publication-footer';
 
+interface Query extends ParsedUrlQuery {
+	isDarkTheme: string;
+	preview: string;
+	'x-host': string;
+	slug: string;
+  }
+
 const INITIAL_LIMIT = 6;
 
 type Props = {
@@ -33,9 +35,10 @@ type Props = {
 	publication: PublicationFragment;
 	tag: NonNullable<TagInitialQuery['tag']>;
 	slug: string;
+	currentMenuId: string;
 };
 
-export default function Post({ publication, posts, tag, slug }: Props) {
+export default function Post({ publication, posts, tag, slug, currentMenuId }: Props) {
 	const title = `#${tag.name} - ${publication.title}`;
 	const [after, setAfter] = useState<string | null>(null);
 	const [{ data, fetching }] = useQuery({
@@ -57,7 +60,7 @@ export default function Post({ publication, posts, tag, slug }: Props) {
 				<Head>
 					<title>{title}</title>
 				</Head>
-				<Header />
+				<Header currentMenuId={currentMenuId} isHome={false} />
 				<div className={twJoin('blog-content-area feed-width', 'mx-auto md:w-2/3', !!publication.about?.html && 'mt-12')}>
 					<div
 						className={twJoin(
@@ -131,15 +134,24 @@ type Params = {
 	};
 };
 
-export async function getStaticProps({ params }: Params) {
+export const getServerSideProps: any = async (ctx: any) => { // TODO: type needs to be fixed
+  const { req, res, query } = ctx;
+  const { resolvedUrl } = ctx;
+  const [resolvedPath] = resolvedUrl.split('?');
+  const { 'x-host': queryHost } = query;
   const ssrCache = createSSRExchange();
   const urqlClient = initUrqlClient(getUrqlClientConfig(ssrCache), false);
+  let currentMenu = '';
+
+  const host = (queryHost as string) || req.headers.host!;
+  const slug = query.slug as string;
+
   const { data } = await urqlClient
     .query(
       TagInitialDocument,
       { 
 		host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
-		slug: params.slug, 
+		slug: slug, 
 		first: INITIAL_LIMIT, after: null 
 	},
       {
@@ -167,19 +179,28 @@ export async function getStaticProps({ params }: Params) {
     };
   }
 
+  const menu = publication.preferences.navbarItems || [];
+  for (let i = 0; i < menu.length; i++) {
+    const menuItem = menu[i];
+    if (menuItem.type === 'link') {
+      const { pathname, host: menuItemHost } = new URL(menuItem.url!);
+      const isLinkOnSameDomain = menuItemHost === host;
+      const pathnameMatches = resolvedPath === pathname;
+      if (pathnameMatches && isLinkOnSameDomain) {
+        currentMenu = menuItem.id!;
+        break;
+      }
+    }
+  }
+
   return {
     props: {
       publication,
       posts,
       tag,
-	  slug: params.slug
+	  slug: slug,
+	  currentMenuId: currentMenu
     },
   };
 }
 
-export async function getStaticPaths() {
-	return {
-		paths: [],
-		fallback: 'blocking',
-	};
-}

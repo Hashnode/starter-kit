@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const colors = require('tailwindcss/colors');
+const plugin = require('tailwindcss/plugin');
 
 module.exports = {
 	content: ['./components/**/*.tsx', './pages/**/*.tsx'],
@@ -39,5 +40,21 @@ module.exports = {
 			},
 		},
 	},
-	plugins: [require('@tailwindcss/typography')],
+	plugins: [
+		require('@tailwindcss/typography'),
+		plugin(function ({ addUtilities }) {
+		  addUtilities({
+			/**
+			 * Mimics the deprecated word-wrap: break-word; property (see: https://drafts.csswg.org/css-text-3/#word-break-property).
+			 *
+			 * Prefer Tailwinds `word-break` and only use this if soft wrap opportunities should be considered
+			 * (https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap).
+			 */
+			'.hn-break-words': {
+			  'word-break': 'normal',
+			  'overflow-wrap': 'anywhere',
+			},
+		  });
+		}),
+	],
 };
