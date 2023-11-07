@@ -1,4 +1,3 @@
-import { Comment } from '../generated/graphql';
 import moment from 'dayjs';
 
 import relativeTime from 'dayjs/plugin/relativeTime';

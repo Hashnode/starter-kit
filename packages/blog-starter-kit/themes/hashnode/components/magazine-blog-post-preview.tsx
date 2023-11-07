@@ -1,6 +1,5 @@
 import CustomImage from './custom-image';
 import { BookOpenSVG, ChartMixedSVG } from './icons/svgs';
-import { useAppContext } from './contexts/appContext';
 import { getDefaultPostCoverImageUrl } from '../utils/commonUtils';
 import { blurImageDimensions } from '../utils/const/images';
 import { getBlurHash, resizeImage } from '../utils/image';

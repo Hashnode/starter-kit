@@ -1,6 +1,7 @@
 import React from 'react';
-import { CheckSVG, CloseSVG, AlertSVG } from './icons/svgs';
 import { twJoin } from 'tailwind-merge';
+
+import { CheckSVG, CloseSVG, AlertSVG } from './icons/svgs';
 
 export default class Toast extends React.Component {
   constructor(props, context) {

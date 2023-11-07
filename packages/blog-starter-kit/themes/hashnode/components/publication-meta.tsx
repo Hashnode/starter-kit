@@ -1,7 +1,4 @@
-import Image from 'next/legacy/image';
-
-import { resizeImage, getBlurHash } from '../utils/image';
-import { kFormatter } from '../utils/image';
+import { resizeImage } from '../utils/image';
 import { Publication } from '../generated/graphql';
 import { twJoin } from 'tailwind-merge';
 

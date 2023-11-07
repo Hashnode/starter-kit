@@ -25,7 +25,6 @@ interface Props {
 
 function ResponseReplyCard(props: Props) {
   const {
-    showReplyArea,
     isPublicationPost,
     response,
     reply,
@@ -44,13 +43,6 @@ function ResponseReplyCard(props: Props) {
     e.preventDefault();
   };
 
-  const _showReplyArea = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-      //   const query = '?next=' + window.location.pathname;
-      //   return Router.pushRoute('/login' + query);
-    
-    showReplyArea(e, reply.author);
-  };
   const content = markdownToHtml(reply.content.markdown);
   const replyContent = Autolinker.link(content, {
     twitter: true,

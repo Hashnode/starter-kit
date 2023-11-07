@@ -1,5 +1,4 @@
 import { CommentSVGV2 } from './icons/svgs';
-import { Post } from '../types/Post';
 import { kFormatter } from '../utils/image';
 import * as Tooltip from '@radix-ui/react-tooltip';
 import { useEffect } from 'react';

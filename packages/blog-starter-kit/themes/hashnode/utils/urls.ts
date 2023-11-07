@@ -1,5 +1,4 @@
 import { ParsedUrlQuery } from 'querystring';
-import { Post, Publication } from '../generated/graphql';
 
 /**
  * Gets the first query param value from a query object by its key.

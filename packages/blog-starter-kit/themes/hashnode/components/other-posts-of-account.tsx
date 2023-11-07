@@ -1,6 +1,5 @@
 import { twJoin } from 'tailwind-merge';
 
-
 import { resizeImage } from '../utils/image';
 import ProfileImage from './profile-image';
 import CustomImage from './custom-image';

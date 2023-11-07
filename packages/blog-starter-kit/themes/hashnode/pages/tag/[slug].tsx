@@ -15,7 +15,6 @@ import { twJoin } from 'tailwind-merge';
 import ExternalLinkSVG from '../../components/icons/svgs/ExternalLinkSVG';
 import { createHeaders, createSSRExchange, getUrqlClientConfig } from '../../lib/api/client';
 import { initUrqlClient } from 'next-urql';
-import { GetServerSideProps } from 'next';
 import PublicationPosts from '../../components/publication-posts';
 import { useState } from 'react';
 import { useQuery } from 'urql';

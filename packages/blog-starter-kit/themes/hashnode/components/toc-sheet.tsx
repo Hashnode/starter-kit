@@ -1,10 +1,10 @@
 import { CloseSVG, ListSVG } from './icons/svgs';
-
-import * as Tooltip from '@radix-ui/react-tooltip';
-import Button from './hn-button';
-import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { useStickyNavElement } from './use-sticky-nav-scroll';
 import { create } from 'zustand';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
+import * as Tooltip from '@radix-ui/react-tooltip';
+
+import Button from './hn-button';
+import { useStickyNavElement } from './use-sticky-nav-scroll';
 import TocRenderDesign from './toc-render-design';
 import CustomScrollArea from './scroll-area';
 import PostFloatingBarTooltipWrapper from './post-floating-bar-tooltip-wrapper';

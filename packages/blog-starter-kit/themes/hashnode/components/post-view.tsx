@@ -6,7 +6,6 @@ import moment from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import {
-  BadgeDollarSVG,
   BookOpenSVG,
 } from './icons/svgs';
 
@@ -14,7 +13,6 @@ import { useAppContext } from './contexts/appContext';
 
 import ProfileImage from './profile-image';
 import { getBlurHash, imageReplacer, resizeImage } from '../utils/image';
-import { Post } from '../types/index';
 import CustomImage from './custom-image';
 
 import { blurImageDimensions } from '../utils/const/images';

@@ -1,5 +1,4 @@
 import React from 'react';
-// import { ResizableImage } from '@/components/molecules/ResizableImage';
 
 import Image from 'next/legacy/image';
 import { resizeImage } from '../utils/image';

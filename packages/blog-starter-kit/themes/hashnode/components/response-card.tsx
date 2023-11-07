@@ -12,7 +12,7 @@ import localizedFormat from 'dayjs/plugin/localizedFormat';
 import ProfileImage from './profile-image';
 import ResponseFooter from './response-footer';
 import { formatDate } from '../utils/index';
-import { Post, ReportScrollFunction, Response } from '../types';
+import { ReportScrollFunction, Response } from '../types';
 
 import { useAppContext } from './contexts/appContext';
 moment.extend(relativeTime);

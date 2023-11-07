@@ -1,16 +1,15 @@
 import cuid from 'cuid';
+import Image from 'next/legacy/image';
+import Link from 'next/link';
+import { twJoin } from 'tailwind-merge';
 
 import CustomImage from './custom-image';
 import { BookOpenSVG, ChartMixedSVG, PinSVG } from './icons/svgs';
-import { useAppContext } from './contexts/appContext';
 import { getDefaultPostCoverImageUrl } from '../utils/commonUtils';
 import { DEFAULT_AVATAR, blurImageDimensions } from '../utils/const/images';
 import { getBlurHash, kFormatter, resizeImage } from '../utils/image';
 
 import { Post, PostThumbnailFragment, RequiredPublicationFieldsFragment } from '../generated/graphql';
-import Image from 'next/legacy/image';
-import Link from 'next/link';
-import { twJoin } from 'tailwind-merge';
 
 const FeaturedPosts = (props: {
   posts: Array<PostThumbnailFragment>;

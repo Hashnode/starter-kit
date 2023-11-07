@@ -1,5 +1,4 @@
 import CommentsSheet from './comments-sheet';
-import Dropdown from './dropdown';
 import ResponseList from './response-list';
 
 const PostCommentsSidebar = ({

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { twJoin, twMerge } from 'tailwind-merge';
-import { RemoveScroll } from 'react-remove-scroll';
 import {
     Content as DropdownContent,
     Item as DropdownItem,

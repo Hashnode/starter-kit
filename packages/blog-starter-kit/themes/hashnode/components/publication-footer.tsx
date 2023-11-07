@@ -2,8 +2,6 @@
 import Image from 'next/legacy/image';
 
 import { HashnodeLogoIconV2 } from './icons/svgs';
-import { Publication } from '../generated/graphql';
-import { useAppContext } from './contexts/appContext';
 import { resizeImage } from '../utils/image';
 import Link from 'next/link';
 

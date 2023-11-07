@@ -11,7 +11,6 @@ import { DEFAULT_AVATAR, blurImageDimensions } from '../utils/const/images';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import { PostThumbnailFragment } from '../generated/graphql';
 import { getDefaultPostCoverImageUrl } from '../utils/commonUtils';
-import { useAppContext } from './contexts/appContext';
 import { twJoin } from 'tailwind-merge';
 import { RequiredPublicationProps } from './publication-posts';
 

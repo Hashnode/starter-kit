@@ -9,7 +9,6 @@ import {
   NewsletterQueryVariables,
   PostThumbnailFragment,
   PublicationFragment,
-  RequiredPublicationFieldsFragment,
 } from '../generated/graphql';
 import { createHeaders, createSSRExchange, getUrqlClientConfig } from '../lib/api/client';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
