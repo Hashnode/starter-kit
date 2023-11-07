@@ -1,7 +1,6 @@
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { twJoin } from 'tailwind-merge';
 
-import { PublicationNavbarItem } from '../generated/graphql';
+
 import { useAppContext } from './contexts/appContext';
 import { lightOrDark } from '../utils/commonUtils';
 import PublicationLogo from './publication-logo';
@@ -10,11 +9,6 @@ import PublicationSocialLinks from './publication-social-links';
 import PublicationNavLinks from './publication-nav-links';
 import HeaderLeftSidebar from './header-left-sidebar';
 
-function hasUrl(
-	navbarItem: PublicationNavbarItem,
-): navbarItem is PublicationNavbarItem & { url: string } {
-	return !!navbarItem.url && navbarItem.url.length > 0;
-}
 type Props = {
 	currentMenuId?: string | null;
 	isHome: boolean;
@@ -27,7 +21,9 @@ export const Header = (props: Props) => {
 	const isUserThemeDark = headerColor ? lightOrDark(headerColor) === 'dark' : false;
 
 	return (
-		<header className="blog-header z-50 w-full border-b relative border-black/10 bg-white bg-opacity-70 dark:border-white/10 dark:bg-slate-900 dark:bg-opacity-70">
+		<header style={{
+			backgroundColor: headerColor || '',
+		}} className="blog-header z-50 w-full border-b relative border-black/10 bg-white bg-opacity-70 dark:border-white/10 dark:bg-slate-900 dark:bg-opacity-70">
 			<div className="container mx-auto px-2 md:px-4 2xl:px-10">
 			<div className="relative z-40 flex flex-row items-center justify-between pb-2 pt-8 md:mb-4">
 				<div className="flex flex-row items-center py-1">
