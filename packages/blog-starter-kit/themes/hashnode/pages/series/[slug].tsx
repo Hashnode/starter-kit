@@ -132,7 +132,6 @@ export default function Series({ series, publication, posts, seriesSlug, current
 					authorName={publication.author.name}
 					title={publication.title}
 					imprint={publication.imprint}
-					postsCount={0} // TODO: From where is this data coming?
 					disableFooterBranding={publication.preferences.disableFooterBranding}
 					isTeam={publication.isTeam}
 					logo={publication.preferences.logo}

@@ -12,6 +12,7 @@ import {
 	DraftByIdDocument,
 	DraftByIdQuery,
 	DraftByIdQueryVariables,
+	DraftFragment,
 	Post,
 	PublicationByHostDocument,
 	PublicationByHostQuery,
@@ -33,7 +34,7 @@ import { markdownToHtml } from '@starter-kit/utils/renderer/markdownToHtml';
 import TocRenderDesign from '../../components/toc-render-design';
 
 type Props = {
-	draft: any; // TODO: to be fixed
+	draft: DraftFragment; // TODO: to be fixed
 	publication: PublicationFragment;
 };
 
@@ -46,8 +47,8 @@ export default function Post({ publication, draft }: Props) {
 	const highlightJsMonokaiTheme =
 		'.hljs{display:block;overflow-x:auto;padding:.5em;background:#23241f}.hljs,.hljs-subst,.hljs-tag{color:#f8f8f2}.hljs-emphasis,.hljs-strong{color:#a8a8a2}.hljs-bullet,.hljs-link,.hljs-literal,.hljs-number,.hljs-quote,.hljs-regexp{color:#ae81ff}.hljs-code,.hljs-section,.hljs-selector-class,.hljs-title{color:#a6e22e}.hljs-strong{font-weight:700}.hljs-emphasis{font-style:italic}.hljs-attr,.hljs-keyword,.hljs-name,.hljs-selector-tag{color:#f92672}.hljs-attribute,.hljs-symbol{color:#66d9ef}.hljs-class .hljs-title,.hljs-params{color:#f8f8f2}.hljs-addition,.hljs-built_in,.hljs-builtin-name,.hljs-selector-attr,.hljs-selector-id,.hljs-selector-pseudo,.hljs-string,.hljs-template-variable,.hljs-type,.hljs-variable{color:#e6db74}.hljs-comment,.hljs-deletion,.hljs-meta{color:#75715e}';
 	const navPositionStyles = 'relative transform-none md:sticky md:top-0 md:left-0 md:backdrop-blur-lg';
-	const readTime = draft && getReadTime(draft.content.markdown);
-	const content = markdownToHtml(draft.content.markdown);
+	const readTime = draft && getReadTime(draft.content?.markdown);
+	const content = markdownToHtml(draft.content?.markdown || '');
 	const postContent = Autolinker.link(content, {
 		twitter: true,
 		truncate: 45,
@@ -91,7 +92,7 @@ export default function Post({ publication, draft }: Props) {
 				<Container>
 					<Head>
 						<title>{title}</title>
-						<link rel="canonical" href={draft.url} />
+						<link rel="canonical" href={draft.canonicalUrl || ''} />
 						<style dangerouslySetInnerHTML={{ __html: highlightJsMonokaiTheme }}></style>
 					</Head>
 					<main className="blog-post-detail-card pb-24">
@@ -108,17 +109,17 @@ export default function Post({ publication, draft }: Props) {
 										src={resizeImage(draft.coverImage.url, {
 											w: 1600,
 											h: 840,
-											...(!draft.coverImage?.isPortrait ? { c: 'thumb' } : { fill: 'blur' }),
+											...(false ? { c: 'thumb' } : { fill: 'blur' }),
 										})}
 										blurDataURL={getBlurHash(
 											resizeImage(draft.coverImage.url, {
 											...blurImageDimensions,
-											...(!draft.coverImage?.isPortrait ? { c: 'thumb' } : { fill: 'blur' }),
+											...(false ? { c: 'thumb' } : { fill: 'blur' }),
 											}),
 										)}
 										width={1600}
 										height={840}
-										alt={draft.title}
+										alt={draft.title || ''}
 										layout="responsive"
 										priority
 										/>
@@ -162,9 +163,9 @@ export default function Post({ publication, draft }: Props) {
 											<span className="mx-3 hidden font-bold text-slate-500 md:block">&middot;</span>
 											<a
 											className="tooltip-handle text-slate-700 dark:text-slate-400"
-											data-title={`${moment(draft.dateUpdated).format('MMM D, YYYY HH:mm')}`}
+											data-title={`${moment(draft.updatedAt).format('MMM D, YYYY HH:mm')}`}
 											>
-											<span>{moment(draft.dateAdded || draft.dateUpdated).format('MMM D, YYYY')}</span>
+											<span>{moment(draft.updatedAt).format('MMM D, YYYY')}</span>
 											</a>
 											<span className="mx-3 block font-bold text-slate-500">&middot;</span>
 											{publication.features?.readTime?.isEnabled && (
@@ -223,7 +224,6 @@ export default function Post({ publication, draft }: Props) {
 					authorName={publication.author.name}
 					title={publication.title}
 					imprint={publication.imprint}
-					postsCount={0} // TODO: From where is this data coming?
 					disableFooterBranding={publication.preferences.disableFooterBranding}
 					isTeam={publication.isTeam}
 					logo={publication.preferences.logo}

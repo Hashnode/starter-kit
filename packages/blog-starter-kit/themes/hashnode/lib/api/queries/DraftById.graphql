@@ -1,36 +1,5 @@
 query DraftById($id: ObjectId!) {
   draft(id: $id) {
-    id
-    title
-    features {
-      tableOfContents {
-        isEnabled
-        items {
-          id
-          level
-          parentId
-          slug
-          title
-        }
-      }
-    }
-    content {
-      markdown
-    }
-    coverImage {
-        url
-    }
-    author {
-      id
-      name
-      username
-      profilePicture
-    }
-    dateUpdated
-    tags {
-      id
-      name
-      slug
-    }
+   ...Draft
   }
 }

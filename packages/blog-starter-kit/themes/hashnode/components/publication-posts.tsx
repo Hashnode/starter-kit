@@ -1,7 +1,3 @@
-/**
- * TODO:
- * Button hover styles
- */
 import { Waypoint } from 'react-waypoint';
 import { twJoin } from 'tailwind-merge';
 

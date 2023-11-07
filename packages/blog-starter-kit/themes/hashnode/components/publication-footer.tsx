@@ -11,8 +11,7 @@ import Link from 'next/link';
 //   }; // TODO: types need to be fixed
 
 function PublicationFooter(props: any) {
-  const { isTeam, authorName, title, postsCount, imprint, disableFooterBranding, darkMode, logo } = props;
-  const isDarkTheme = false; // TODO: theme needs to be passed correctly
+  const { isTeam, authorName, title, imprint, disableFooterBranding, logo } = props;
 
   return (
     <footer className="blog-footer-area -mt-px border-t bg-slate-100 px-5 py-10 text-center text-slate-800 dark:border-slate-800 dark:bg-black dark:text-slate-500 md:px-10 md:py-12 lg:py-20">
@@ -52,7 +51,7 @@ function PublicationFooter(props: any) {
                   <Image
                     layout="fill"
                     alt={title || `${authorName}'s ${isTeam ? 'team' : ''} blog`}
-                    src={resizeImage(isDarkTheme ? darkMode?.logo || logo : logo, { w: 1000, h: 250, c: 'thumb' })}
+                    src={resizeImage(logo, { w: 1000, h: 250, c: 'thumb' })}
                   />
                 </Link>
               </div>

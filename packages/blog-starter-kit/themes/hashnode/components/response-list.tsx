@@ -17,8 +17,7 @@ const PostComments = dynamic(() =>
 );
 
 function ResponseList(props: Props) {
-  const { isPublicationPost, currentFilter } = props;
-  const isDarkTheme = false; // TODO: To be fixed
+  const { currentFilter } = props;
   const { post: _post } = useAppContext();
   const post = _post as any;
   const [isLoading, setLoading] = useState(false);
@@ -60,7 +59,7 @@ function ResponseList(props: Props) {
           label="Discuss on Hashnode"
           secondaryIcon={<ExternalArrowSVG className="h-4 w-4 stroke-current" />}
 			  />
-        {isDarkTheme ? <NoCommentsDarkSVG className="h-40 w-40" /> : <NoCommentsLightSVG className="h-40 w-40" />}
+        <NoCommentsLightSVG className="h-40 w-40" />
         <p>No comments yet</p>
       </div>
     );

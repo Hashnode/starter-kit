@@ -1,3 +1,4 @@
+import { PostFullFragment } from '../generated/graphql';
 import CommentsSheet from './comments-sheet';
 import ResponseList from './response-list';
 
@@ -10,7 +11,7 @@ const PostCommentsSidebar = ({
   hideSidebar: () => void;
   isPublicationPost: boolean;
   selectedFilter: string;
-  post: any; // TODO:tobefixed
+  post: PostFullFragment;
 }) => (
   <CommentsSheet hideSheet={hideSidebar}>
 
