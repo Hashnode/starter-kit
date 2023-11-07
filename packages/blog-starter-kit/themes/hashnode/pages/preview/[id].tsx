@@ -31,6 +31,7 @@ import getReadTime from '../../utils/getReadTime';
 import Autolinker from "../../utils/autolinker";
 import DraftFloatingMenu from '../../components/draft-floating-menu';
 import { markdownToHtml } from '@starter-kit/utils/renderer/markdownToHtml';
+import TocRenderDesign from '../../components/toc-render-design';
 
 type Props = {
 	draft: any; // TODO: to be fixed
@@ -67,7 +68,7 @@ export default function Post({ publication, draft }: Props) {
 	});
 
 	const allTags = draft.tags;
-
+	const toc = draft.features?.tableOfContents?.isEnabled ? draft.features?.tableOfContents?.items.flat() : [];
 	return (
 		<AppProvider publication={publication}>
 			<Layout>
@@ -180,6 +181,7 @@ export default function Post({ publication, draft }: Props) {
 							<div className="blog-content-wrapper article-main-wrapper container relative z-30 mx-auto grid grid-flow-row grid-cols-8 xl:gap-6 2xl:grid-cols-10">
 								<section className="blog-content-main relative z-20 col-span-8 mb-10 px-4 md:z-10 lg:col-span-6 lg:col-start-2 lg:px-0 xl:col-span-6 xl:col-start-2 2xl:col-span-6 2xl:col-start-3">
 									<div className="relative">
+									{draft.features.tableOfContents.isEnabled && <TocRenderDesign list={toc} />}
 									{postContent && (
 										<div id="post-content-parent" className="relative mb-10 pb-14">
 										<div
