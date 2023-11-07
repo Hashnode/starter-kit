@@ -20,7 +20,6 @@ const FeaturedPosts = (props: {
   const { publication, posts } = props;
   const limit = 3;
   const padding = limit - posts.length;
-  const isDarkTheme = false; // TODO: TOBEFIXED
 
   const preload = (slug: string) => async () => {
     const nextData = document.getElementById('__NEXT_DATA__');
@@ -40,7 +39,7 @@ const FeaturedPosts = (props: {
           const isFirstPost = index === 0;
           const isPinnedToBlog = publication.pinnedPost?.id === post.id;
           if (!postURL) return null;
-          const postCoverImageURL = post.coverImage?.url ?? getDefaultPostCoverImageUrl(isDarkTheme);
+          const postCoverImageURL = post.coverImage?.url ?? getDefaultPostCoverImageUrl();
 
           return (
             <div

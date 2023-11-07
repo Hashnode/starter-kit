@@ -1,7 +1,9 @@
-import { CheckSVG } from './icons/svgs';
-import { Publication } from '../generated/graphql';
 import Link from 'next/link';
 import { twJoin } from 'tailwind-merge';
+
+import { CheckSVG } from './icons/svgs';
+import { Publication } from '../generated/graphql';
+
 
 type IPublicationSidebarNavLinks = {
   currentActiveMenuItemId?: string | null;
@@ -50,7 +52,6 @@ function PublicationSidebarNavLinks(props: IPublicationSidebarNavLinks) {
   const isHomePage = !currentActiveMenuItemId && isHome;
   const isBadgePage = !currentActiveMenuItemId && isBadge;
   const isNewsletterPage = currentActiveMenuItemId && currentActiveMenuItemId === 'newsletter';
-  const isMembersPage = currentActiveMenuItemId && currentActiveMenuItemId === 'members';
 
   return (
     <nav className="pb-8">

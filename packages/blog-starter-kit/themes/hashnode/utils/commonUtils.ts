@@ -1,6 +1,6 @@
 import { RefObject } from 'react';
 import { PublicationFragment, User } from '../generated/graphql';
-import { DEFAULT_DARK_POST_COVER, DEFAULT_LIGHT_POST_COVER } from './const';
+import { DEFAULT_LIGHT_POST_COVER } from './const';
 
 export const isBrowser = typeof window !== 'undefined';
 
@@ -79,8 +79,9 @@ export const getHashId = () => {
   return null;
 };
 
-export const getDefaultPostCoverImageUrl = (darkTheme?: boolean) =>
-  darkTheme ? DEFAULT_DARK_POST_COVER : DEFAULT_LIGHT_POST_COVER;
+export const getDefaultPostCoverImageUrl = () => {
+  return DEFAULT_LIGHT_POST_COVER;
+};
 
 export const doesPublicationHaveSocialLinks = (pubLinks: any) =>
   Object.entries(pubLinks || {})

@@ -1,17 +1,16 @@
 import moment from 'dayjs';
 import Image from 'next/legacy/image';
 import Link from 'next/link';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+import { twJoin } from 'tailwind-merge';
 
 import { BookOpenSVG, FileLineChartSVG, PinSVG } from './icons/svgs';
 import { getBlurHash, resizeImage } from '../utils/image';
 import { kFormatter } from '../utils/image';
-
 import CustomImage from './custom-image';
 import { DEFAULT_AVATAR, blurImageDimensions } from '../utils/const/images';
-import localizedFormat from 'dayjs/plugin/localizedFormat';
 import { PostThumbnailFragment } from '../generated/graphql';
 import { getDefaultPostCoverImageUrl } from '../utils/commonUtils';
-import { twJoin } from 'tailwind-merge';
 import { RequiredPublicationProps } from './publication-posts';
 
 moment.extend(localizedFormat);
@@ -27,9 +26,8 @@ function BlogPostPreview(props: {
     preferences: { layout },
     features,
   } = publication;
-  const isDarkTheme = false; // TODO: theme logic to be fixed
 
-  const postCoverImageURL = post.coverImage?.url ?? getDefaultPostCoverImageUrl(isDarkTheme);
+  const postCoverImageURL = post.coverImage?.url ?? getDefaultPostCoverImageUrl();
 
   const preload = async () => {
     const nextData = document.getElementById('__NEXT_DATA__');

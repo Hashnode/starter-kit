@@ -6,7 +6,6 @@ import ResponseReplyCard from './response-reply-card';
 import Button from './hn-button';
 import { Response } from '../types';
 import { CommentSVGV2 } from './icons/svgs';
-import { useAppContext } from './contexts/appContext';
 
 interface Props {
   isPublicationPost: boolean;
@@ -19,9 +18,6 @@ function ResponseFooter(props: Props) {
   const { isPublicationPost, response, draftId, isValidating = false } = props;
   const [repliesToShow, setRepliesToShow] = useState(1);
   const [hideShowAllBox, toggleShowAllBox] = useState(false);
-  const [replyAreaVisible, toggleReplyAreaVisibility] = useState(false);
-  const [replyInitialValue, setReplyInitialValue] = useState('');
-  const { post } = useAppContext();
   const showAllReplies = (e: any) => {
     e.preventDefault();
     setRepliesToShow(response.replies.edges.length);
@@ -42,18 +38,10 @@ function ResponseFooter(props: Props) {
     }
   };
 
-  const showReplyArea = (e: any, mention?: { name: string; username: string }) => {
-    e.preventDefault();
-    toggleReplyAreaVisibility(true);
-    setReplyInitialValue(mention ? `@[${mention.name}](@${mention.username}) ` : '');
-    return null;
-  };
-
   const replies = response.replies.edges.slice(-1 * repliesToShow).map((reply: any) => (
     <div key={reply.node.id.toString()}>
       <div className="my-1.5 ml-3.5 h-6 w-px border dark:border-slate-600" />
       <ResponseReplyCard
-        showReplyArea={showReplyArea}
         draftId={draftId}
         isPublicationPost={isPublicationPost}
         key={reply.node.id.toString()}

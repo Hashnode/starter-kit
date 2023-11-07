@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState, MutableRefObject } from 'react';
 import dayjs from 'dayjs';
-
 import * as DialogPrimitive from '@radix-ui/react-dialog';
+import { twJoin, twMerge } from 'tailwind-merge';
+import { useQuery } from 'urql';
+import { Waypoint } from 'react-waypoint';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
 
 import SearchSVG from './icons/svgs/SearchSvg';
 import RefreshSVG from './icons/svgs/RefreshSVG';
@@ -13,12 +16,10 @@ import { inputText } from '../utils/const/styles';
 import { resizeImage, getBlurHash } from '../utils/image';
 import { blurActiveFocus, returnFocusToElement } from '../utils/commonUtils';
 
-import localizedFormat from 'dayjs/plugin/localizedFormat';
+
 import { blurImageDimensions } from '../utils/const/images';
-import { twJoin, twMerge } from 'tailwind-merge';
-import { useQuery } from 'urql';
 import CustomScrollArea from './scroll-area';
-import { Waypoint } from 'react-waypoint';
+
 
 dayjs.extend(localizedFormat);
 

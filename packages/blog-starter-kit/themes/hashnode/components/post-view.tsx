@@ -1,24 +1,20 @@
 import { useRef, useMemo } from 'react';
 import dynamic from 'next/dynamic';
-
-
+import Link from 'next/link';
+import { twJoin } from 'tailwind-merge';
 import moment from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
+
 import {
   BookOpenSVG,
 } from './icons/svgs';
-
 import { useAppContext } from './contexts/appContext';
-
 import ProfileImage from './profile-image';
 import { getBlurHash, imageReplacer, resizeImage } from '../utils/image';
 import CustomImage from './custom-image';
-
 import { blurImageDimensions } from '../utils/const/images';
-import { twJoin } from 'tailwind-merge';
 import TocRenderDesign from './toc-render-design';
-import Link from 'next/link';
 import { PostFullFragment } from '../generated/graphql';
 
 moment.extend(relativeTime);
@@ -181,7 +177,7 @@ function PostView(props: any) {
                 </div>
 
                 {post.publication && post.publication.features.newsletter.isEnabled && (
-                    <PublicationSubscribeStandOut subscribeEventOrigin="blog-post-page-stand-out" />
+                    <PublicationSubscribeStandOut />
                 )}
 
                 {post?.tags && post.tags.length > 0 && (

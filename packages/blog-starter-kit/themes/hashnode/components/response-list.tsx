@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 
 import { getHashId } from '../utils/commonUtils';
 import { ExternalArrowSVG, HashnodeSVG } from './icons';
 import { useAppContext } from './contexts/appContext';
 import { NoCommentsLightSVG, NoCommentsDarkSVG } from './icons/svgs';
-import dynamic from 'next/dynamic';
-import { Button } from './button';
+import { Button } from './custom-button';
 
 interface Props {
   isPublicationPost: boolean;

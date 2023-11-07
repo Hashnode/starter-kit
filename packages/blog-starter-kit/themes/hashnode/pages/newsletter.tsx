@@ -56,7 +56,7 @@ const Newsletter = (props: Props) => {
                 layout="responsive"
               />
             </span>
-            <PublicationSubscribeStandOut subscribeEventOrigin="newsletter-page-stand-out" />
+            <PublicationSubscribeStandOut />
           </div>
         </div>
         {recent3Posts && recent3Posts.length > 0 && (

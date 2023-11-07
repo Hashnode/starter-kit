@@ -1,4 +1,6 @@
 import { forwardRef } from 'react';
+import { twJoin } from 'tailwind-merge';
+import Link from 'next/link';
 
 /* eslint-disable no-nested-ternary */
 import { useAppContext } from './contexts/appContext';
@@ -12,8 +14,7 @@ import { ChevronLeftSVG } from './icons/svgs/';
 
 import { Preferences, RequiredPublicationFieldsFragment, PublicationNavbarItem, User } from '../generated/graphql';
 import PublicationLogo from './publication-logo';
-import { twJoin } from 'tailwind-merge';
-import Link from 'next/link';
+
 
 type Props = {
   publication: Pick<

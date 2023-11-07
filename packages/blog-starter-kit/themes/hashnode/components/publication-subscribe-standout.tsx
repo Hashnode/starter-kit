@@ -7,12 +7,8 @@ import { PaperPlaneSVG } from './icons/svgs';
 import { useMutation } from 'urql';
 import { SubscribeToNewsletterDocument } from '../generated/graphql';
 
-interface Props {
-  subscribeEventOrigin: 'blog-post-page-stand-out' | 'newsletter-page-stand-out';
-}
 
-function PublicationSubscribeStandOut(props: Props) {
-  const { subscribeEventOrigin } = props;
+function PublicationSubscribeStandOut() {
   const { publication } = useAppContext();
   const [, subscribeToNewsletter] = useMutation(SubscribeToNewsletterDocument);
 

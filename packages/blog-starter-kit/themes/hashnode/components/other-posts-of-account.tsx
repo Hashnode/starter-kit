@@ -14,8 +14,6 @@ type Props = {
 function OtherPostsOfAccount(props: Props) {
   const {  morePosts, post } = props;
  
-  console.log("Post: ", post);
-  console.log("More Posts: ", morePosts);
   if (!morePosts || morePosts.length === 0) {
     return <div />;
   }

@@ -1,8 +1,8 @@
 /* eslint-disable no-nested-ternary */
 import { useState, useRef } from 'react';
 import dynamic from 'next/dynamic';
-import CommonHeaderIconBtn from './common-header-icon-btn';
 
+import CommonHeaderIconBtn from './common-header-icon-btn';
 import { Preferences, Publication, PublicationNavbarItem, User } from '../generated/graphql';
 import SearchSVG from './icons/svgs/SearchSvg';
 

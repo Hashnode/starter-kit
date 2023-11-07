@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import CustomImage from './custom-image';
 import { BookOpenSVG, ChartMixedSVG } from './icons/svgs';
 import { getDefaultPostCoverImageUrl } from '../utils/commonUtils';
@@ -5,16 +7,14 @@ import { blurImageDimensions } from '../utils/const/images';
 import { getBlurHash, resizeImage } from '../utils/image';
 import { kFormatter } from '../utils/image';
 import { PostThumbnailFragment, RequiredPublicationFieldsFragment } from '../generated/graphql';
-import Link from 'next/link';
 
 function BlogPostPreview(props: {
   post: PostThumbnailFragment;
   publication: Pick<RequiredPublicationFieldsFragment, 'features'>;
 }) {
   const { post, publication } = props;
-  const isDarkTheme = false; //  TOBEFIXED
   const postURL = post.url && `${new URL(post.url).pathname}`;
-  const postCoverImageURL = post.coverImage?.url ?? getDefaultPostCoverImageUrl(isDarkTheme);
+  const postCoverImageURL = post.coverImage?.url ?? getDefaultPostCoverImageUrl();
 
   const preload = async () => {
     const nextData = document.getElementById('__NEXT_DATA__');

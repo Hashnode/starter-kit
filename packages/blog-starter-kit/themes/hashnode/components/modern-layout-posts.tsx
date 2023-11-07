@@ -1,4 +1,5 @@
 import { Waypoint } from 'react-waypoint';
+
 import Button from './hn-button';
 import { ChevronDownSVG } from './icons/svgs';
 import { PageInfo, RequiredPublicationFieldsFragment, PostThumbnailFragment } from '../generated/graphql';

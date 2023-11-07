@@ -1,7 +1,6 @@
 import { twJoin } from 'tailwind-merge';
 import dynamic from 'next/dynamic';
 import { useEffect, useMemo, useRef, useState } from 'react';
-
 import moment from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
@@ -66,11 +65,6 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 
 	const handleOpenComments = () => {
 		setShowCommentsSheet(true);
-	};
-
-	const sortResponse = async (filter: string) => {
-		const filterKey = filter === 'recent' ? 'dateAdded' : 'totalReactions';
-		setSelectedFilter(filterKey);
 	};
 
 	const filteredPostsWithoutCurrentPost = morePosts.edges.filter((postNode: any) => postNode.node.id !== post.id);
@@ -241,7 +235,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 					</div>
 
 					{post.publication && post.publication?.features?.newsletter?.isEnabled && (
-						<PublicationSubscribeStandOut subscribeEventOrigin="blog-post-page-stand-out" />
+						<PublicationSubscribeStandOut />
 					)}
 
 					{tags.length > 0 && (
@@ -271,7 +265,6 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 				hideSidebar={() => setShowCommentsSheet(false)}
 				isPublicationPost={true}
 				selectedFilter={selectedFilter}
-				sortResponse={sortResponse}
 				post={post}
 			/>
 		)}

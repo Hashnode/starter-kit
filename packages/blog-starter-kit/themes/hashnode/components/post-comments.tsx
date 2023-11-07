@@ -3,7 +3,7 @@ import moment from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 
-import { Button } from './button';
+import { Button } from './custom-button';
 import Autolinker from '../utils/autolinker';
 import { useAppContext } from './contexts/appContext';
 import { ExternalArrowSVG, HashnodeSVG } from './icons';
@@ -72,11 +72,11 @@ export const PostComments = () => {
                           </span>
                         </a>
 
-                        {/* {checkIfCommentByAuthor(comment) && (
+                        {checkIfCommentByAuthor(comment) && (
                           <span className="block rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium leading-normal text-green-700 dark:bg-green-800 dark:text-green-50">
                             Author
                           </span>
-                        )} */}
+                        )}
                       </p>
                     </div>
 

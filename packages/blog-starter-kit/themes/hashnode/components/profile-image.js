@@ -1,9 +1,9 @@
 import React from 'react';
-
+import { twMerge } from 'tailwind-merge';
 import Image from 'next/legacy/image';
+
 import { resizeImage } from '../utils/image';
 import { DEFAULT_AVATAR } from '../utils/const/images';
-import { twMerge } from 'tailwind-merge';
 
 export default class ProfileImage extends React.Component {
   componentDidMount() {

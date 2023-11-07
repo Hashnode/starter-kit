@@ -1,8 +1,8 @@
-import { CommentSVGV2 } from './icons/svgs';
-import { kFormatter } from '../utils/image';
 import * as Tooltip from '@radix-ui/react-tooltip';
 import { useEffect } from 'react';
 
+import { CommentSVGV2 } from './icons/svgs';
+import { kFormatter } from '../utils/image';
 import { Separator } from './separator-root';
 import PostFloatingBarTooltipWrapper from './post-floating-bar-tooltip-wrapper';
 import { PostFullFragment } from '../generated/graphql';

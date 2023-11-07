@@ -5,13 +5,11 @@ const PostCommentsSidebar = ({
   hideSidebar,
   isPublicationPost,
   selectedFilter,
-  sortResponse,
   post,
 }: {
   hideSidebar: () => void;
   isPublicationPost: boolean;
   selectedFilter: string;
-  sortResponse: (key: string) => void;
   post: any; // TODO:tobefixed
 }) => (
   <CommentsSheet hideSheet={hideSidebar}>

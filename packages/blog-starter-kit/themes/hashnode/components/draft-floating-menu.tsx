@@ -1,13 +1,7 @@
 import * as Tooltip from '@radix-ui/react-tooltip';
 import { useEffect } from 'react';
 
-import { Post } from '../types';
 import { PublicationFragment } from '../generated/graphql';
-
-/**
- * Can be used for both Draft preview page and Single post page
- */
-type DraftType = Post & { pendingScheduledDateArrival: boolean };
 
 function DraftFloatingMenu(props: {
   draft?: any; // TODO: Needs to be fixed

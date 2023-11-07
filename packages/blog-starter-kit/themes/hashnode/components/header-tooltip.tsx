@@ -1,6 +1,7 @@
-import { useAppContext } from './contexts/appContext';
 import * as RadixTooltip from '@radix-ui/react-tooltip';
 import { twJoin } from 'tailwind-merge';
+
+import { useAppContext } from './contexts/appContext';
 
 interface IHeaderTooltip {
   tooltipClassName: string;

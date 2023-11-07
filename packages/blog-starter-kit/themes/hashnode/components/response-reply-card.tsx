@@ -6,7 +6,7 @@ import localizedFormat from 'dayjs/plugin/localizedFormat';
 import Autolinker from '../utils/autolinker';
 import ProfileImage from './profile-image';
 import { formatDate } from '../utils';
-import { Response, Reply, User } from '../types';
+import { Response } from '../types';
 
 import { twJoin } from 'tailwind-merge';
 import { useAppContext } from './contexts/appContext';
@@ -15,7 +15,6 @@ import { markdownToHtml } from '@starter-kit/utils/renderer/markdownToHtml';
 moment.extend(relativeTime);
 moment.extend(localizedFormat);
 interface Props {
-  showReplyArea: (e: any, user: User) => void;
   isPublicationPost: boolean;
   response: Response;
   reply: any; //TODO: to be fixed

@@ -3,6 +3,7 @@
  * Button hover styles
  */
 import { Waypoint } from 'react-waypoint';
+import { twJoin } from 'tailwind-merge';
 
 import { ChevronDownSVG } from './icons/svgs';
 import Button from './hn-button';
@@ -10,7 +11,7 @@ import PubLoaderComponent from './pub-loader-component';
 
 import { PageInfo, Preferences, RequiredPublicationFieldsFragment, PostThumbnailFragment } from '../generated/graphql';
 
-import { twJoin } from 'tailwind-merge';
+
 import BlogPostPreview from './blog-post-preview';
 
 export type RequiredPublicationProps = Pick<RequiredPublicationFieldsFragment, 'features' | 'isTeam'> & {
