@@ -1,14 +1,14 @@
 import * as Tooltip from '@radix-ui/react-tooltip';
 import { useEffect } from 'react';
 
-import { PublicationFragment } from '../generated/graphql';
+import TocSheet from './toc-sheet';
+
 
 function DraftFloatingMenu(props: {
-  draft?: any; // TODO: Needs to be fixed
-  openComments?: () => void;
-  publication: PublicationFragment;
+  draft?: any;
+  list: any[];
 }) {
-  const { draft, openComments } = props;
+  const { draft, list } = props;
 
   const handleFloatingBarDisplay = () => {
     const blogHeader = document.querySelector('.blog-header');
@@ -76,6 +76,16 @@ function DraftFloatingMenu(props: {
             `,
         }}
       />
+
+      <div className="post-floating-bar fixed left-0 right-0 z-50 flex h-12 w-full flex-wrap justify-center 2xl:h-14">
+        <div className="mx-auto flex h-12 max-w-[380px] flex-wrap items-center justify-around rounded-full border-1/2 border-slate-200 bg-white px-5 py-1 text-sm  text-slate-800 shadow-lg dark:border-slate-500 dark:bg-slate-700 dark:text-slate-50 2xl:h-14">
+          {draft.features.tableOfContents.isEnabled && (
+            <>
+              <TocSheet list={list} />
+            </>
+          )}
+        </div>
+      </div>
     </Tooltip.Provider>
   );
 }

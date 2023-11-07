@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import { ParsedUrlQuery } from 'querystring';
 import { twJoin } from 'tailwind-merge';
 import { useState } from 'react';
 import { useQuery } from 'urql';
@@ -18,13 +17,6 @@ import ExternalLinkSVG from '../../components/icons/svgs/ExternalLinkSVG';
 import { createHeaders, createSSRExchange, getUrqlClientConfig } from '../../lib/api/client';
 import PublicationPosts from '../../components/publication-posts';
 import PublicationFooter from '../../components/publication-footer';
-
-interface Query extends ParsedUrlQuery {
-	isDarkTheme: string;
-	preview: string;
-	'x-host': string;
-	slug: string;
-  }
 
 const INITIAL_LIMIT = 6;
 

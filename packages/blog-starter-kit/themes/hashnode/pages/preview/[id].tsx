@@ -3,7 +3,6 @@ import ErrorPage from 'next/error';
 import Head from 'next/head';
 import moment from 'dayjs';
 
-import { HASHNODE_NEXT_URL } from '../../utils/const';
 import { Container } from '../../components/container';
 import { AppProvider } from '../../components/contexts/appContext';
 import PostPageNavbar from '../../components/post-page-navbar';
@@ -184,22 +183,21 @@ export default function Post({ publication, draft }: Props) {
 									{draft.features.tableOfContents.isEnabled && <TocRenderDesign list={toc} />}
 									{postContent && (
 										<div id="post-content-parent" className="relative mb-10 pb-14">
-										<div
-											id="post-content-wrapper"
-											className="prose prose-lg mx-auto mb-10 min-h-30 break-words dark:prose-dark xl:prose-xl"
-											// eslint-disable-next-line react/no-danger
-											dangerouslySetInnerHTML={{
-											__html: imageReplacer(postContent),
-											}}
-										/>
+											<div
+												id="post-content-wrapper"
+												className="prose prose-lg mx-auto mb-10 min-h-30 break-words dark:prose-dark xl:prose-xl"
+												// eslint-disable-next-line react/no-danger
+												dangerouslySetInnerHTML={{
+												__html: imageReplacer(postContent),
+												}}
+											/>
 
-										{/* {isPublicationPost && renderPinnedWidgets(props.widgets, 'bottom')} */}
+											{/* {isPublicationPost && renderPinnedWidgets(props.widgets, 'bottom')} */}
 
-										{/* <DraftFloatingMenu
-											draft={draft}
-											publication={publication}
-											openComments={() => setShowCommentsSheet(true)}
-										/> */}
+											<DraftFloatingMenu
+												draft={draft}
+												list={toc}
+											/>
 										</div>
 									)}
 									{allTags.length > 0 && (

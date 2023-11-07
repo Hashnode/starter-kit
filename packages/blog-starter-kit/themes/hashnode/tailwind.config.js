@@ -336,6 +336,13 @@ module.exports = {
 				5.5: '1.35rem',
 				fc: 'fit-content',
 			},
+			borderColor: {
+				default: 'rgba(204, 214, 221, .5)',
+			},
+			borderWidth: {
+				'1/2': '0.5px',
+				'1-1/2': '1.5px',
+			},
 			inset: {
 				100: '100%',
 				50: '50%',
@@ -347,9 +354,6 @@ module.exports = {
 				96: '24rem',
 				108: '27rem',
 				116: '29rem',
-			},
-			letterSpacing: {
-				tighter: '-.04em',
 			},
 			lineHeight: {
 				tight: 1.2,

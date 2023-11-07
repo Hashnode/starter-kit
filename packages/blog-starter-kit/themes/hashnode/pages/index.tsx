@@ -86,8 +86,6 @@ export default function Index(props: InferGetStaticPropsType<typeof getStaticPro
 		  setFetching(false);
 		});
 	};
-  
-	const router = useRouter();
 
 	return (
 		<AppProvider publication={publication} isUserThemeDark={false}>
