@@ -1,6 +1,9 @@
 import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
-
+import { twJoin } from 'tailwind-merge';
+import { useState } from 'react';
+import { useQuery } from 'urql';
+import { initUrqlClient } from 'next-urql';
 
 import { AppProvider } from '../../components/contexts/appContext';
 import { Header } from '../../components/header';
@@ -11,13 +14,9 @@ import {
 	TagInitialDocument,
 	TagInitialQuery,
 } from '../../generated/graphql';
-import { twJoin } from 'tailwind-merge';
 import ExternalLinkSVG from '../../components/icons/svgs/ExternalLinkSVG';
 import { createHeaders, createSSRExchange, getUrqlClientConfig } from '../../lib/api/client';
-import { initUrqlClient } from 'next-urql';
 import PublicationPosts from '../../components/publication-posts';
-import { useState } from 'react';
-import { useQuery } from 'urql';
 import PublicationFooter from '../../components/publication-footer';
 
 interface Query extends ParsedUrlQuery {
@@ -126,12 +125,6 @@ export default function Post({ publication, posts, tag, slug, currentMenuId }: P
 		</AppProvider>
 	);
 }
-
-type Params = {
-	params: {
-		slug: string;
-	};
-};
 
 export const getServerSideProps: any = async (ctx: any) => { // TODO: type needs to be fixed
   const { req, res, query } = ctx;
