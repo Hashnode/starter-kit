@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { PublicationNavbarItem } from '../generated/graphql';
 import { Button } from './button';
+import { useAppContext } from './contexts/appContext';
 import CloseSVG from './icons/svgs/CloseSVG';
 import { PublicationLogo } from './publication-logo';
 import { SocialLinks } from './social-links';
@@ -15,6 +16,8 @@ type Props = {
 function PublicationSidebar(props: Props) {
 	const { toggleSidebar, navbarItems } = props;
 	const [isMounted, setIsMounted] = useState(false);
+	const { publication } = useAppContext();
+	const hasSocialLinks = !Object.values(publication.links!).every((val) => val === '');
 
 	useEffect(() => {
 		setIsMounted(true);
@@ -87,6 +90,11 @@ function PublicationSidebar(props: Props) {
 							</ul>
 						</section>
 
+						{hasSocialLinks && (
+							<h2 className="mb-4 text-sm font-semibold uppercase leading-6 text-slate-500 dark:text-slate-400">
+								Blog socials
+							</h2>
+						)}
 						<SocialLinks isSidebar />
 					</div>
 				</DialogPrimitive.Content>
