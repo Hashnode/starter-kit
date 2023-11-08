@@ -1,4 +1,5 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { PublicationNavbarItem } from '../generated/graphql';
 import { Button } from './button';
@@ -37,7 +38,7 @@ function PublicationSidebar(props: Props) {
 					className={`${
 						// When the sheet is mounted, we want to slide it in from the left.
 						!isMounted ? '-translate-x-96' : 'translate-x-0'
-					} fixed bottom-0 left-0 top-0 z-50 flex w-80 transform flex-col shadow-2xl duration-300 ease-out dark:border-neutral-800 dark:bg-neutral-950`}
+					} fixed bottom-0 left-0 top-0 z-50 flex w-80 transform flex-col bg-white shadow-2xl duration-300 ease-out dark:border-neutral-800 dark:bg-neutral-950`}
 				>
 					<div className="blog-sidebar-header w-full shrink-0 py-6">
 						<div className="flex items-center justify-between pl-8 pr-4">
@@ -50,7 +51,7 @@ function PublicationSidebar(props: Props) {
 									type="outline"
 									label=""
 									icon={<CloseSVG className="h-5 w-5 fill-current" />}
-									className="rounded-xl !border-transparent !px-3 !py-2 text-white hover:bg-neutral-800"
+									className="rounded-xl !border-transparent !px-3 !py-2 hover:bg-neutral-800 dark:text-white"
 									onClick={() => {
 										toggleSidebar();
 									}}
@@ -60,19 +61,25 @@ function PublicationSidebar(props: Props) {
 					</div>
 
 					<div className="py-10 pl-8 pr-4">
-						<h2 className="mb-4 text-sm font-semibold uppercase text-slate-400">Blog menu</h2>
+						<h2 className="mb-4 text-sm font-semibold uppercase text-slate-500">Blog menu</h2>
 						<section className="mb-10">
-							<ul className="flex flex-col gap-2 text-white">
+							<ul className="flex flex-col gap-2 text-slate-700 dark:text-white">
+								<li>
+									<Link
+										href="/"
+										className="transition-200 block max-w-[200px] truncate text-ellipsis whitespace-nowrap p-2 transition-colors hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
+									>
+										Home
+									</Link>
+								</li>
 								{navbarItems.map((item) => (
 									<li key={item.url}>
-										<a
+										<Link
 											href={item.url}
-											target="_blank"
-											rel="noopener noreferrer"
-											className="transition-200 block max-w-[200px] truncate text-ellipsis whitespace-nowrap rounded-full p-2 transition-colors hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
+											className="transition-200 block max-w-[200px] truncate text-ellipsis whitespace-nowrap p-2 transition-colors hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
 										>
 											{item.label}
-										</a>
+										</Link>
 									</li>
 								))}
 							</ul>

@@ -18,12 +18,9 @@ export const Header = () => {
 	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || '/';
 	const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>();
 	const { publication } = useAppContext();
-	const PUBLICATION_LOGO = publication.preferences.darkMode?.logo || publication.preferences.logo;
 	const navbarItems = publication.preferences.navbarItems.filter(hasUrl);
 	const visibleItems = navbarItems.slice(0, 3);
 	const hiddenItems = navbarItems.slice(3);
-
-	console.log(navbarItems);
 
 	const toggleSidebar = () => {
 		setIsSidebarVisible((prevVisibility) => !prevVisibility);
@@ -88,7 +85,7 @@ export const Header = () => {
 							type="outline"
 							label=""
 							icon={<HamburgerSVG className="h-5 w-5 stroke-current" />}
-							className="rounded-xl border-transparent !px-3 !py-2 text-white hover:bg-neutral-800"
+							className="rounded-xl border-transparent !px-3 !py-2 text-white hover:bg-slate-900 dark:hover:bg-neutral-800"
 							onClick={toggleSidebar}
 						/>
 
