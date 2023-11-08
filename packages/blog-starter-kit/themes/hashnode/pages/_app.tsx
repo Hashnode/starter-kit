@@ -3,13 +3,19 @@ import { withUrqlClient } from 'next-urql';
 import 'tailwindcss/tailwind.css'
 
 import '../styles/index.css';
-
+import { GlobalFontVariables } from '../components/fonts';
 import { getUrqlClientConfig } from '../lib/api/client';
 
 import '../styles/index.css';
+import { Fragment } from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {
-	return <Component {...pageProps} />;
+	return (
+		<Fragment>
+			 <GlobalFontVariables />
+			 <Component {...pageProps} />
+		</Fragment>
+	);
 }
 
 // `withUrqlClient` HOC provides the `urqlClient` prop and takes care of restoring cache from urqlState

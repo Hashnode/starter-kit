@@ -10,6 +10,10 @@ module.exports = {
 	content: ['./components/**/*.tsx', './pages/**/*.tsx', './components/*.js'],
 	theme: {
 		extend: {
+			fontFamily: {
+				sans: [fontInterVar, ...defaultTheme.fontFamily.sans],
+				heading: [fontPlusJakartaVar, ...defaultTheme.fontFamily.sans],
+			},
 			colors: {
 				'accent-1': '#FAFAFA',
 				'accent-2': '#EAEAEA',
