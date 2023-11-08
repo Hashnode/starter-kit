@@ -142,10 +142,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 							{firstPost && (
 								<HeroPost
 									title={firstPost.title}
-									coverImage={
-										firstPost.coverImage?.url ||
-										DEFAULT_COVER
-									}
+									coverImage={firstPost.coverImage?.url || DEFAULT_COVER}
 									date={firstPost.publishedAt}
 									slug={firstPost.slug}
 									excerpt={firstPost.brief}

@@ -10,7 +10,6 @@ export const DateFormatter = ({ dateString }: Props) => {
 
 	return (
 		<>
-			<span className="mx-3 hidden font-bold text-slate-500 md:block">&middot;</span>
 			<time dateTime={dateString}>{format(date, 'LLL d, yyyy')}</time>
 		</>
 	);

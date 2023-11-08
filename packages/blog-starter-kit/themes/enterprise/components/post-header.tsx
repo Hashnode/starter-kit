@@ -20,17 +20,17 @@ export const PostHeader = ({ title, coverImage, date, author, readTimeInMinutes 
 	return (
 		<>
 			<PostTitle>{title}</PostTitle>
-			<div className="flex w-full flex-col items-center justify-center gap-5 text-slate-700 dark:text-neutral-300 md:flex-row md:gap-0">
+			<div className="flex flex-row flex-wrap items-center justify-center w-full gap-2 px-2 text-slate-700 dark:text-neutral-300 md:px-0">
 				<Avatar
 					username={author.username}
 					name={author.name}
 					size={8}
 					picture={author.profilePicture}
 				/>
-				<section className="flex">
-					<DateFormatter dateString={date} />
-					<ReadTimeInMinutes readTimeInMinutes={readTimeInMinutes} />
-				</section>
+				<span className="block font-bold text-slate-500">&middot;</span>
+				<DateFormatter dateString={date} />
+				{readTimeInMinutes && <span className="block font-bold text-slate-500">&middot;</span>}
+				<ReadTimeInMinutes readTimeInMinutes={readTimeInMinutes} />
 			</div>
 			{coverImage && (
 				<div className="w-full px-5 sm:mx-0">
