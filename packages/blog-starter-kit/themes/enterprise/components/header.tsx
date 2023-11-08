@@ -23,6 +23,8 @@ export const Header = () => {
 	const visibleItems = navbarItems.slice(0, 3);
 	const hiddenItems = navbarItems.slice(3);
 
+	console.log(navbarItems);
+
 	const toggleSidebar = () => {
 		setIsSidebarVisible((prevVisibility) => !prevVisibility);
 	};
