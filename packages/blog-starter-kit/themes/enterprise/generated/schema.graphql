@@ -280,17 +280,18 @@ A draft is a post that is not published yet.
 """
 type Draft implements Node {
   """The author of the draft."""
-  author: User
+  author: User!
+  canonicalUrl: String
   """Content of the draft in HTML and markdown"""
   content: Content
   """
   The cover image preference of the draft. Contains cover image URL and other details.
   """
   coverImage: DraftCoverImage
-  """Unique identifier for the draft."""
-  cuid: String
   """The date the draft was updated."""
-  dateUpdated: DateTime!
+  dateUpdated: DateTime! @deprecated(reason: "Use updatedAt instead. Will be removed on 26/12/2023.")
+  """Draft feature-related fields."""
+  features: DraftFeatures!
   """The ID of the draft."""
   id: ID!
   """Information about the last backup of the draft."""
@@ -299,6 +300,19 @@ type Draft implements Node {
   lastFailedBackupAt: DateTime
   """The date the draft was last successfully backed up."""
   lastSuccessfulBackupAt: DateTime
+  """
+  OG meta-data of the draft. Contains image url used in open graph meta tags.
+  """
+  ogMetaData: OpenGraphMetaData
+  readTimeInMinutes: Int!
+  """
+  SEO information of the draft. Contains title and description used in meta tags.
+  """
+  seo: SEO
+  """Information of the series the draft belongs to."""
+  series: Series
+  settings: DraftSettings!
+  slug: String!
   """
   The subtitle of the draft. It would become the subtitle of the post when published.
   """
@@ -311,6 +325,7 @@ type Draft implements Node {
   The title of the draft. It would become the title of the post when published.
   """
   title: String
+  updatedAt: DateTime!
 }
 
 type DraftBackup {
@@ -335,6 +350,12 @@ type DraftConnection implements Connection {
 
 """Contains information about the cover image of the draft."""
 type DraftCoverImage {
+  """Provides attribution information for the cover image, if available."""
+  attribution: String
+  """True if the image attribution should be hidden."""
+  isAttributionHidden: Boolean!
+  """The name of the photographer who captured the cover image."""
+  photographer: String
   """The URL of the cover image."""
   url: String!
 }
@@ -345,6 +366,21 @@ type DraftEdge implements Edge {
   cursor: String!
   """A node in the connection containing a draft."""
   node: Draft!
+}
+
+type DraftFeatures {
+  tableOfContents: TableOfContentsFeature!
+}
+
+type DraftSettings {
+  """A flag to indicate if the comments are disabled for the post."""
+  disableComments: Boolean!
+  """Wether or not the post is hidden from the Hashnode community."""
+  isDelisted: Boolean!
+  """
+  A flag to indicate if the cover image is shown below title of the post. Default position of cover is top of title.
+  """
+  stickCoverToBottom: Boolean!
 }
 
 """
@@ -575,7 +611,7 @@ type Mutation {
   publishPost(
     """Information about the post to be published."""
     input: PublishPostInput!
-  ): PublishPostPayload
+  ): PublishPostPayload!
   """Reschedule a post."""
   reschedulePost(input: ReschedulePostInput!): ScheduledPostPayload
   subscribeToNewsletter(input: SubscribeToNewsletterInput!): SubscribeToNewsletterPayload!
@@ -587,6 +623,7 @@ type Mutation {
   """
   toggleFollowUser(id: ID, username: String): ToggleFollowUserPayload!
   unsubscribeFromNewsletter(input: UnsubscribeFromNewsletterInput!): UnsubscribeFromNewsletterPayload!
+  updatePost(input: UpdatePostInput!): UpdatePostPayload!
 }
 
 """
@@ -859,7 +896,7 @@ type Post implements Node {
     first: Int!
   ): PostLikerConnection!
   """
-  Og Meta data of the post. Contains image url used in open graph meta tags.
+  OG meta-data of the post. Contains image url used in open graph meta tags.
   """
   ogMetaData: OpenGraphMetaData
   """
@@ -998,12 +1035,13 @@ enum PostCommenterSortBy {
 
 """Contains information about the cover image of the post."""
 type PostCoverImage {
+  """Provides attribution information for the cover image, if available."""
   attribution: String
   """True if the image attribution should be hidden."""
   isAttributionHidden: Boolean!
-  """The URL of the cover image thumbnail."""
+  """Indicates whether the cover image is in portrait orientation."""
   isPortrait: Boolean!
-  """The photographer of the cover image."""
+  """The name of the photographer who captured the cover image."""
   photographer: String
   """The URL of the cover image."""
   url: String!
@@ -1417,6 +1455,8 @@ type PublicationSponsorship {
 
 """Contains information about the post to be published."""
 input PublishPostInput {
+  """Ids of the co-authors of the post."""
+  coAuthors: [ObjectId!]
   """Content of the post in markdown format."""
   contentMarkdown: String!
   """Options for the cover image of the post."""
@@ -1686,6 +1726,7 @@ enum Scope {
   create_pro
   import_subscribers_to_publication
   publication_admin
+  publish_draft
   recommend_publications
   signup
   update_post
@@ -1994,6 +2035,71 @@ input UnsubscribeFromNewsletterInput {
 
 type UnsubscribeFromNewsletterPayload {
   status: NewsletterUnsubscribeStatus
+}
+
+input UpdatePostInput {
+  """
+  Update co-authors of the post.
+  Must be a member of the publication.
+  """
+  coAuthors: [ObjectId!]
+  """The publication the post is published to."""
+  contentMarkdown: String
+  """Options for the cover image of the post."""
+  coverImageOptions: CoverImageOptionsInput
+  """The id of the post to update."""
+  id: ID!
+  """
+  Information about the meta tags added to the post, used for SEO purpose.
+  """
+  metaTags: MetaTagsInput
+  """Canonical URL of the original article."""
+  originalArticleURL: String
+  """If the publication should be changed this is the new Publication ID"""
+  publicationId: ObjectId
+  """
+  Set a different author for the post than the requesting user.
+  Must be a member of the publication.
+  """
+  publishAs: ObjectId
+  """Backdated publish date."""
+  publishedAt: DateTime
+  """
+  Providing a seriesId will add the post to that series.
+  Must be a series of the publication.
+  """
+  seriesId: ObjectId
+  """Whether or not to enable the table of content."""
+  settings: UpdatePostSettingsInput
+  """
+  Slug of the post. Only if you want to override the slug that will be generated based on the title.
+  """
+  slug: String
+  """The subtitle of the post"""
+  subtitle: String
+  """
+  Tags to add to the post. New tags will be created if they don't exist. It overrides the existing tags.
+  """
+  tags: [PublishPostTagInput!]
+  """The new title of the post"""
+  title: String
+}
+
+type UpdatePostPayload {
+  post: Post
+}
+
+input UpdatePostSettingsInput {
+  """
+  A flag to indicate if the post is delisted, used to hide the post from public feed.
+  """
+  delisted: Boolean
+  """Whether or not comments should be disabled."""
+  disableComments: Boolean
+  """A flag to indicate if the post contains table of content"""
+  isTableOfContentEnabled: Boolean
+  """Pin the post to the blog homepage."""
+  pinToBlog: Boolean
 }
 
 enum UrlPattern {

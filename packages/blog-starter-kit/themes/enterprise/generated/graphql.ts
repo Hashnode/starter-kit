@@ -282,15 +282,19 @@ export type DomainStatus = {
 export type Draft = Node & {
   __typename?: 'Draft';
   /** The author of the draft. */
-  author?: Maybe<User>;
+  author: User;
+  canonicalUrl?: Maybe<Scalars['String']['output']>;
   /** Content of the draft in HTML and markdown */
   content?: Maybe<Content>;
   /** The cover image preference of the draft. Contains cover image URL and other details. */
   coverImage?: Maybe<DraftCoverImage>;
-  /** Unique identifier for the draft. */
-  cuid?: Maybe<Scalars['String']['output']>;
-  /** The date the draft was updated. */
+  /**
+   * The date the draft was updated.
+   * @deprecated Use updatedAt instead. Will be removed on 26/12/2023.
+   */
   dateUpdated: Scalars['DateTime']['output'];
+  /** Draft feature-related fields. */
+  features: DraftFeatures;
   /** The ID of the draft. */
   id: Scalars['ID']['output'];
   /** Information about the last backup of the draft. */
@@ -299,12 +303,22 @@ export type Draft = Node & {
   lastFailedBackupAt?: Maybe<Scalars['DateTime']['output']>;
   /** The date the draft was last successfully backed up. */
   lastSuccessfulBackupAt?: Maybe<Scalars['DateTime']['output']>;
+  /** OG meta-data of the draft. Contains image url used in open graph meta tags. */
+  ogMetaData?: Maybe<OpenGraphMetaData>;
+  readTimeInMinutes: Scalars['Int']['output'];
+  /** SEO information of the draft. Contains title and description used in meta tags. */
+  seo?: Maybe<Seo>;
+  /** Information of the series the draft belongs to. */
+  series?: Maybe<Series>;
+  settings: DraftSettings;
+  slug: Scalars['String']['output'];
   /** The subtitle of the draft. It would become the subtitle of the post when published. */
   subtitle?: Maybe<Scalars['String']['output']>;
   /** Returns list of tags added to the draft. Contains tag id, name, slug, etc. */
   tags: Array<Tag>;
   /** The title of the draft. It would become the title of the post when published. */
   title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type DraftBackup = {
@@ -332,6 +346,12 @@ export type DraftConnection = Connection & {
 /** Contains information about the cover image of the draft. */
 export type DraftCoverImage = {
   __typename?: 'DraftCoverImage';
+  /** Provides attribution information for the cover image, if available. */
+  attribution?: Maybe<Scalars['String']['output']>;
+  /** True if the image attribution should be hidden. */
+  isAttributionHidden: Scalars['Boolean']['output'];
+  /** The name of the photographer who captured the cover image. */
+  photographer?: Maybe<Scalars['String']['output']>;
   /** The URL of the cover image. */
   url: Scalars['String']['output'];
 };
@@ -343,6 +363,21 @@ export type DraftEdge = Edge & {
   cursor: Scalars['String']['output'];
   /** A node in the connection containing a draft. */
   node: Draft;
+};
+
+export type DraftFeatures = {
+  __typename?: 'DraftFeatures';
+  tableOfContents: TableOfContentsFeature;
+};
+
+export type DraftSettings = {
+  __typename?: 'DraftSettings';
+  /** A flag to indicate if the comments are disabled for the post. */
+  disableComments: Scalars['Boolean']['output'];
+  /** Wether or not the post is hidden from the Hashnode community. */
+  isDelisted: Scalars['Boolean']['output'];
+  /** A flag to indicate if the cover image is shown below title of the post. Default position of cover is top of title. */
+  stickCoverToBottom: Scalars['Boolean']['output'];
 };
 
 /**
@@ -548,7 +583,7 @@ export type Mutation = {
   /** Adds a post to a series. */
   addPostToSeries: AddPostToSeriesPayload;
   /** Creates a new post. */
-  publishPost?: Maybe<PublishPostPayload>;
+  publishPost: PublishPostPayload;
   /** Reschedule a post. */
   reschedulePost?: Maybe<ScheduledPostPayload>;
   subscribeToNewsletter: SubscribeToNewsletterPayload;
@@ -560,6 +595,7 @@ export type Mutation = {
    */
   toggleFollowUser: ToggleFollowUserPayload;
   unsubscribeFromNewsletter: UnsubscribeFromNewsletterPayload;
+  updatePost: UpdatePostPayload;
 };
 
 
@@ -591,6 +627,11 @@ export type MutationToggleFollowUserArgs = {
 
 export type MutationUnsubscribeFromNewsletterArgs = {
   input: UnsubscribeFromNewsletterInput;
+};
+
+
+export type MutationUpdatePostArgs = {
+  input: UpdatePostInput;
 };
 
 /**
@@ -812,7 +853,7 @@ export type Post = Node & {
   isFollowed?: Maybe<Scalars['Boolean']['output']>;
   /** A list of users who liked the post. */
   likedBy: PostLikerConnection;
-  /** Og Meta data of the post. Contains image url used in open graph meta tags. */
+  /** OG meta-data of the post. Contains image url used in open graph meta tags. */
   ogMetaData?: Maybe<OpenGraphMetaData>;
   /** Preference settings for the post. Contains information about if the post is pinned to blog, comments are disabled, etc. */
   preferences: PostPreferences;
@@ -970,12 +1011,13 @@ export enum PostCommenterSortBy {
 /** Contains information about the cover image of the post. */
 export type PostCoverImage = {
   __typename?: 'PostCoverImage';
+  /** Provides attribution information for the cover image, if available. */
   attribution?: Maybe<Scalars['String']['output']>;
   /** True if the image attribution should be hidden. */
   isAttributionHidden: Scalars['Boolean']['output'];
-  /** The URL of the cover image thumbnail. */
+  /** Indicates whether the cover image is in portrait orientation. */
   isPortrait: Scalars['Boolean']['output'];
-  /** The photographer of the cover image. */
+  /** The name of the photographer who captured the cover image. */
   photographer?: Maybe<Scalars['String']['output']>;
   /** The URL of the cover image. */
   url: Scalars['String']['output'];
@@ -1410,6 +1452,8 @@ export type PublicationSponsorship = {
 
 /** Contains information about the post to be published. */
 export type PublishPostInput = {
+  /** Ids of the co-authors of the post. */
+  coAuthors?: InputMaybe<Array<Scalars['ObjectId']['input']>>;
   /** Content of the post in markdown format. */
   contentMarkdown: Scalars['String']['input'];
   /** Options for the cover image of the post. */
@@ -1675,6 +1719,7 @@ export enum Scope {
   CreatePro = 'create_pro',
   ImportSubscribersToPublication = 'import_subscribers_to_publication',
   PublicationAdmin = 'publication_admin',
+  PublishDraft = 'publish_draft',
   RecommendPublications = 'recommend_publications',
   Signup = 'signup',
   UpdatePost = 'update_post',
@@ -1980,6 +2025,64 @@ export type UnsubscribeFromNewsletterPayload = {
   status?: Maybe<NewsletterUnsubscribeStatus>;
 };
 
+export type UpdatePostInput = {
+  /**
+   * Update co-authors of the post.
+   * Must be a member of the publication.
+   */
+  coAuthors?: InputMaybe<Array<Scalars['ObjectId']['input']>>;
+  /** The publication the post is published to. */
+  contentMarkdown?: InputMaybe<Scalars['String']['input']>;
+  /** Options for the cover image of the post. */
+  coverImageOptions?: InputMaybe<CoverImageOptionsInput>;
+  /** The id of the post to update. */
+  id: Scalars['ID']['input'];
+  /** Information about the meta tags added to the post, used for SEO purpose. */
+  metaTags?: InputMaybe<MetaTagsInput>;
+  /** Canonical URL of the original article. */
+  originalArticleURL?: InputMaybe<Scalars['String']['input']>;
+  /** If the publication should be changed this is the new Publication ID */
+  publicationId?: InputMaybe<Scalars['ObjectId']['input']>;
+  /**
+   * Set a different author for the post than the requesting user.
+   * Must be a member of the publication.
+   */
+  publishAs?: InputMaybe<Scalars['ObjectId']['input']>;
+  /** Backdated publish date. */
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /**
+   * Providing a seriesId will add the post to that series.
+   * Must be a series of the publication.
+   */
+  seriesId?: InputMaybe<Scalars['ObjectId']['input']>;
+  /** Whether or not to enable the table of content. */
+  settings?: InputMaybe<UpdatePostSettingsInput>;
+  /** Slug of the post. Only if you want to override the slug that will be generated based on the title. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** The subtitle of the post */
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  /** Tags to add to the post. New tags will be created if they don't exist. It overrides the existing tags. */
+  tags?: InputMaybe<Array<PublishPostTagInput>>;
+  /** The new title of the post */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdatePostPayload = {
+  __typename?: 'UpdatePostPayload';
+  post?: Maybe<Post>;
+};
+
+export type UpdatePostSettingsInput = {
+  /** A flag to indicate if the post is delisted, used to hide the post from public feed. */
+  delisted?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Whether or not comments should be disabled. */
+  disableComments?: InputMaybe<Scalars['Boolean']['input']>;
+  /** A flag to indicate if the post contains table of content */
+  isTableOfContentEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Pin the post to the blog homepage. */
+  pinToBlog?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
 export enum UrlPattern {
   /** Post URLs contain the slug (for example `my slug`) and a random id (like `1234`) , e.g. "/my-slug-1234". */
   Default = 'DEFAULT',
@@ -2219,7 +2322,7 @@ export type DraftByIdQueryVariables = Exact<{
 }>;
 
 
-export type DraftByIdQuery = { __typename?: 'Query', draft?: { __typename?: 'Draft', id: string, title?: string | null, dateUpdated: string, content?: { __typename?: 'Content', markdown: string } | null, author?: { __typename?: 'User', id: string, name: string, username: string } | null, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }> } | null };
+export type DraftByIdQuery = { __typename?: 'Query', draft?: { __typename?: 'Draft', id: string, title?: string | null, dateUpdated: string, content?: { __typename?: 'Content', markdown: string } | null, author: { __typename?: 'User', id: string, name: string, username: string }, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }> } | null };
 
 export type PageByPublicationQueryVariables = Exact<{
   slug: Scalars['String']['input'];
