@@ -9,11 +9,9 @@ export const SocialLinks = ({ isSidebar }: { isSidebar?: boolean }) => {
 	return (
 		<>
 			{hasSocialLinks && (
-				<>
-					<h2 className="mb-4 text-sm font-semibold uppercase leading-6 text-slate-500 dark:text-slate-400">
-						Blog socials
-					</h2>
-				</>
+				<h2 className="mb-4 text-sm font-semibold uppercase leading-6 text-slate-500 dark:text-slate-400">
+					Blog socials
+				</h2>
 			)}
 			<div
 				className={`col-span-1 flex flex-row flex-wrap gap-1 text-slate-600 dark:text-neutral-300 md:flex-nowrap ${
