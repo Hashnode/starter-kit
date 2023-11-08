@@ -72,7 +72,7 @@ function PublicationSidebar(props: Props) {
 								<li>
 									<Link
 										href="/"
-										className="transition-200 block max-w-[200px] truncate text-ellipsis whitespace-nowrap p-2 transition-colors hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
+										className="transition-200 block truncate text-ellipsis whitespace-nowrap rounded p-2 px-3 transition-colors hover:bg-slate-100 hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
 									>
 										Home
 									</Link>
@@ -81,7 +81,7 @@ function PublicationSidebar(props: Props) {
 									<li key={item.url}>
 										<Link
 											href={item.url}
-											className="transition-200 block max-w-[200px] truncate text-ellipsis whitespace-nowrap p-2 transition-colors hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
+											className="transition-200 block truncate text-ellipsis whitespace-nowrap rounded p-2 px-3 transition-colors hover:bg-slate-100 hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
 										>
 											{item.label}
 										</Link>
