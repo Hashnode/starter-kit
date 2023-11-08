@@ -9,7 +9,12 @@ query DraftById($id: ObjectId!) {
       id
       name
       username
+      profilePicture
     }
+    coverImage {
+      url
+    }
+    readTimeInMinutes
     dateUpdated
     tags {
       id

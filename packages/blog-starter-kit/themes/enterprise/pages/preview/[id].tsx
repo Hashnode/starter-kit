@@ -58,7 +58,7 @@ export default function Post({ publication, post }: Props) {
 						<PostHeader
 							title={post.title}
 							coverImage={post.coverImage?.url}
-							date={post.publishedAt}
+							date={new Date().toISOString()}
 							author={post.author}
 							readTimeInMinutes={post.readTimeInMinutes}
 						/>
