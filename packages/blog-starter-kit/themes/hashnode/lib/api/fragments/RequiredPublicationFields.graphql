@@ -136,17 +136,4 @@ fragment RequiredPublicationFields on Publication {
     destination
     type
   }
-
-  # they are only part of this fragment in order to be able to map to the legacy Publication type
-  sponsorship {
-    content {
-      html
-      markdown
-    }
-    stripe {
-      connected
-      accountId
-      country
-    }
-  }
 }
