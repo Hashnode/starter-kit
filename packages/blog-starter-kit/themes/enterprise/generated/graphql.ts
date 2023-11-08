@@ -303,6 +303,15 @@ export type Draft = Node & {
   lastFailedBackupAt?: Maybe<Scalars['DateTime']['output']>;
   /** The date the draft was last successfully backed up. */
   lastSuccessfulBackupAt?: Maybe<Scalars['DateTime']['output']>;
+  /** OG meta-data of the draft. Contains image url used in open graph meta tags. */
+  ogMetaData?: Maybe<OpenGraphMetaData>;
+  readTimeInMinutes: Scalars['Int']['output'];
+  /** SEO information of the draft. Contains title and description used in meta tags. */
+  seo?: Maybe<Seo>;
+  /** Information of the series the draft belongs to. */
+  series?: Maybe<Series>;
+  settings: DraftSettings;
+  slug: Scalars['String']['output'];
   /** The subtitle of the draft. It would become the subtitle of the post when published. */
   subtitle?: Maybe<Scalars['String']['output']>;
   /** Returns list of tags added to the draft. Contains tag id, name, slug, etc. */
@@ -574,7 +583,7 @@ export type Mutation = {
   /** Adds a post to a series. */
   addPostToSeries: AddPostToSeriesPayload;
   /** Creates a new post. */
-  publishPost?: Maybe<PublishPostPayload>;
+  publishPost: PublishPostPayload;
   /** Reschedule a post. */
   reschedulePost?: Maybe<ScheduledPostPayload>;
   subscribeToNewsletter: SubscribeToNewsletterPayload;
@@ -586,6 +595,7 @@ export type Mutation = {
    */
   toggleFollowUser: ToggleFollowUserPayload;
   unsubscribeFromNewsletter: UnsubscribeFromNewsletterPayload;
+  updatePost: UpdatePostPayload;
 };
 
 
@@ -617,6 +627,11 @@ export type MutationToggleFollowUserArgs = {
 
 export type MutationUnsubscribeFromNewsletterArgs = {
   input: UnsubscribeFromNewsletterInput;
+};
+
+
+export type MutationUpdatePostArgs = {
+  input: UpdatePostInput;
 };
 
 /**
@@ -1437,6 +1452,8 @@ export type PublicationSponsorship = {
 
 /** Contains information about the post to be published. */
 export type PublishPostInput = {
+  /** Ids of the co-authors of the post. */
+  coAuthors?: InputMaybe<Array<Scalars['ObjectId']['input']>>;
   /** Content of the post in markdown format. */
   contentMarkdown: Scalars['String']['input'];
   /** Options for the cover image of the post. */
@@ -2006,6 +2023,64 @@ export type UnsubscribeFromNewsletterInput = {
 export type UnsubscribeFromNewsletterPayload = {
   __typename?: 'UnsubscribeFromNewsletterPayload';
   status?: Maybe<NewsletterUnsubscribeStatus>;
+};
+
+export type UpdatePostInput = {
+  /**
+   * Update co-authors of the post.
+   * Must be a member of the publication.
+   */
+  coAuthors?: InputMaybe<Array<Scalars['ObjectId']['input']>>;
+  /** The publication the post is published to. */
+  contentMarkdown?: InputMaybe<Scalars['String']['input']>;
+  /** Options for the cover image of the post. */
+  coverImageOptions?: InputMaybe<CoverImageOptionsInput>;
+  /** The id of the post to update. */
+  id: Scalars['ID']['input'];
+  /** Information about the meta tags added to the post, used for SEO purpose. */
+  metaTags?: InputMaybe<MetaTagsInput>;
+  /** Canonical URL of the original article. */
+  originalArticleURL?: InputMaybe<Scalars['String']['input']>;
+  /** If the publication should be changed this is the new Publication ID */
+  publicationId?: InputMaybe<Scalars['ObjectId']['input']>;
+  /**
+   * Set a different author for the post than the requesting user.
+   * Must be a member of the publication.
+   */
+  publishAs?: InputMaybe<Scalars['ObjectId']['input']>;
+  /** Backdated publish date. */
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /**
+   * Providing a seriesId will add the post to that series.
+   * Must be a series of the publication.
+   */
+  seriesId?: InputMaybe<Scalars['ObjectId']['input']>;
+  /** Whether or not to enable the table of content. */
+  settings?: InputMaybe<UpdatePostSettingsInput>;
+  /** Slug of the post. Only if you want to override the slug that will be generated based on the title. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** The subtitle of the post */
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  /** Tags to add to the post. New tags will be created if they don't exist. It overrides the existing tags. */
+  tags?: InputMaybe<Array<PublishPostTagInput>>;
+  /** The new title of the post */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdatePostPayload = {
+  __typename?: 'UpdatePostPayload';
+  post?: Maybe<Post>;
+};
+
+export type UpdatePostSettingsInput = {
+  /** A flag to indicate if the post is delisted, used to hide the post from public feed. */
+  delisted?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Whether or not comments should be disabled. */
+  disableComments?: InputMaybe<Scalars['Boolean']['input']>;
+  /** A flag to indicate if the post contains table of content */
+  isTableOfContentEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Pin the post to the blog homepage. */
+  pinToBlog?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export enum UrlPattern {

@@ -5,7 +5,6 @@ import { useRef } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import ErrorPage from 'next/error';
 import Head from 'next/head';
-
 import { Container } from '../components/container';
 import { AppProvider } from '../components/contexts/appContext';
 import { Layout } from '../components/layout';

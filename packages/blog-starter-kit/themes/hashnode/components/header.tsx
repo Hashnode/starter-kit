@@ -1,6 +1,4 @@
 import { twJoin } from 'tailwind-merge';
-
-
 import { useAppContext } from './contexts/appContext';
 import { lightOrDark } from '../utils/commonUtils';
 import PublicationLogo from './publication-logo';
@@ -12,7 +10,7 @@ import HeaderLeftSidebar from './header-left-sidebar';
 type Props = {
 	currentMenuId?: string | null;
 	isHome: boolean;
-  };
+};
 
 export const Header = (props: Props) => {
 	const { currentMenuId, isHome } = props;

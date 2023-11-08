@@ -1,5 +1,5 @@
 import CustomImage from './custom-image';
-
+import Link from 'next/link';
 import { resizeImage, getBlurHash } from '../utils/image';
 import { Preferences, User, Maybe, PublicationFragment } from '../generated/graphql';
 import { twJoin } from 'tailwind-merge';
@@ -49,7 +49,7 @@ const CustomLogo = ({
 
   return (
     <h1 className="blog-main-logo">
-      <a
+      <Link
         className={twJoin(
           'blog-logo focus-ring-base flex flex-row items-center',
           isUserThemeDark
@@ -71,7 +71,7 @@ const CustomLogo = ({
           height={250}
           alt={blogTitle}
         />
-      </a>
+      </Link>
     </h1>
   );
 };
@@ -104,7 +104,7 @@ const DefaultLogo = ({
         isUserThemeDark ? 'text-white' : publication.headerColor ? 'text-black' : 'dark:text-white',
       )}
     >
-      <a
+      <Link
         href={`/${isPostPage ? '?source=top_nav_blog_home' : ''}`}
         className={twJoin(
           'focus-ring-base flex flex-row items-center',
@@ -130,7 +130,7 @@ const DefaultLogo = ({
           </div>
         )}
         {blogTitle}
-      </a>
+      </Link>
     </h1>
   );
 };
@@ -142,7 +142,6 @@ function PublicationLogo(props: PublicationLogoProps) {
   if (!publication) {
     return null;
   }
-  const useDarkLogo = preferences.darkMode?.logo;
   const useLogo = false || preferences.logo;
   const isUserThemeDark = true;
   if (useLogo) {

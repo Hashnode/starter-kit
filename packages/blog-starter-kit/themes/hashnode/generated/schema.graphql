@@ -611,7 +611,7 @@ type Mutation {
   publishPost(
     """Information about the post to be published."""
     input: PublishPostInput!
-  ): PublishPostPayload
+  ): PublishPostPayload!
   """Reschedule a post."""
   reschedulePost(input: ReschedulePostInput!): ScheduledPostPayload
   subscribeToNewsletter(input: SubscribeToNewsletterInput!): SubscribeToNewsletterPayload!
@@ -623,6 +623,7 @@ type Mutation {
   """
   toggleFollowUser(id: ID, username: String): ToggleFollowUserPayload!
   unsubscribeFromNewsletter(input: UnsubscribeFromNewsletterInput!): UnsubscribeFromNewsletterPayload!
+  updatePost(input: UpdatePostInput!): UpdatePostPayload!
 }
 
 """
@@ -1454,6 +1455,8 @@ type PublicationSponsorship {
 
 """Contains information about the post to be published."""
 input PublishPostInput {
+  """Ids of the co-authors of the post."""
+  coAuthors: [ObjectId!]
   """Content of the post in markdown format."""
   contentMarkdown: String!
   """Options for the cover image of the post."""
@@ -2032,6 +2035,71 @@ input UnsubscribeFromNewsletterInput {
 
 type UnsubscribeFromNewsletterPayload {
   status: NewsletterUnsubscribeStatus
+}
+
+input UpdatePostInput {
+  """
+  Update co-authors of the post.
+  Must be a member of the publication.
+  """
+  coAuthors: [ObjectId!]
+  """The publication the post is published to."""
+  contentMarkdown: String
+  """Options for the cover image of the post."""
+  coverImageOptions: CoverImageOptionsInput
+  """The id of the post to update."""
+  id: ID!
+  """
+  Information about the meta tags added to the post, used for SEO purpose.
+  """
+  metaTags: MetaTagsInput
+  """Canonical URL of the original article."""
+  originalArticleURL: String
+  """If the publication should be changed this is the new Publication ID"""
+  publicationId: ObjectId
+  """
+  Set a different author for the post than the requesting user.
+  Must be a member of the publication.
+  """
+  publishAs: ObjectId
+  """Backdated publish date."""
+  publishedAt: DateTime
+  """
+  Providing a seriesId will add the post to that series.
+  Must be a series of the publication.
+  """
+  seriesId: ObjectId
+  """Whether or not to enable the table of content."""
+  settings: UpdatePostSettingsInput
+  """
+  Slug of the post. Only if you want to override the slug that will be generated based on the title.
+  """
+  slug: String
+  """The subtitle of the post"""
+  subtitle: String
+  """
+  Tags to add to the post. New tags will be created if they don't exist. It overrides the existing tags.
+  """
+  tags: [PublishPostTagInput!]
+  """The new title of the post"""
+  title: String
+}
+
+type UpdatePostPayload {
+  post: Post
+}
+
+input UpdatePostSettingsInput {
+  """
+  A flag to indicate if the post is delisted, used to hide the post from public feed.
+  """
+  delisted: Boolean
+  """Whether or not comments should be disabled."""
+  disableComments: Boolean
+  """A flag to indicate if the post contains table of content"""
+  isTableOfContentEnabled: Boolean
+  """Pin the post to the blog homepage."""
+  pinToBlog: Boolean
 }
 
 enum UrlPattern {

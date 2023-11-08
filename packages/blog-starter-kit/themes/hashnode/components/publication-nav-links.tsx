@@ -1,10 +1,10 @@
 /* eslint-disable no-nested-ternary */
 import { useRef } from 'react';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import * as DropdownPrimitive from '@radix-ui/react-dropdown-menu';
 import { twJoin } from 'tailwind-merge';
-
 import { useAppContext } from './contexts/appContext';
 import { ChevronDownV2SVG } from './icons/svgs';
 
@@ -57,7 +57,7 @@ function PublicationNavLinks(props: Props) {
           if (!item.url) return null;
 
           return (
-            <a
+            <Link
               className={twJoin(
                 item.isActive ? 'blog-nav-active' : 'blog-nav',
                 'group flex items-center justify-center border-b-2 border-transparent px-2 capitalize focus:outline-none',
@@ -88,7 +88,7 @@ function PublicationNavLinks(props: Props) {
               >
                 {item.label}
               </span>
-            </a>
+            </Link>
           );
         })
       : null;
