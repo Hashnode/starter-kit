@@ -61,7 +61,9 @@ function PublicationSidebar(props: Props) {
 					</div>
 
 					<div className="py-10 pl-8 pr-4">
-						<h2 className="mb-4 text-sm font-semibold uppercase text-slate-500">Blog menu</h2>
+						<h2 className="mb-4 text-sm font-semibold uppercase text-slate-500 dark:text-slate-400">
+							Blog menu
+						</h2>
 						<section className="mb-10">
 							<ul className="flex flex-col gap-2 text-slate-700 dark:text-white">
 								<li>
@@ -85,12 +87,7 @@ function PublicationSidebar(props: Props) {
 							</ul>
 						</section>
 
-						<>
-							<h2 className="mb-4 text-sm font-semibold uppercase leading-6 text-slate-500 dark:text-slate-400">
-								Blog socials
-							</h2>
-							<SocialLinks isSidebar />
-						</>
+						<SocialLinks isSidebar />
 					</div>
 				</DialogPrimitive.Content>
 			</DialogPrimitive.Portal>

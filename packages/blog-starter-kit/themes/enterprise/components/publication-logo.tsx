@@ -7,7 +7,7 @@ export const PublicationLogo = ({ isSidebar }: { isSidebar?: boolean }) => {
 	const PUBLICATION_LOGO = publication.preferences.darkMode?.logo || publication.preferences.logo;
 
 	return (
-		<h1 className="relative w-full px-5">
+		<h1 className="relative w-full">
 			<Link
 				href={'/'}
 				aria-label={`${publication.title} blog home page`}
@@ -24,7 +24,7 @@ export const PublicationLogo = ({ isSidebar }: { isSidebar?: boolean }) => {
 					</>
 				) : (
 					<span
-						className={`block text-center text-2xl font-semibold ${
+						className={`block text-2xl font-semibold ${
 							isSidebar ? 'text-black dark:text-white' : 'text-white md:text-4xl'
 						}`}
 					>
