@@ -20,7 +20,7 @@ function OtherPostsOfAccount(props: Props) {
   
   const morePostsRendered = morePosts.map((postNode: any) => {
     const post  = postNode.node;
-    const postURL = post.url && `${new URL(post.url).pathname}`;
+    const postURL = `/${post.slug}`;
     return (
       <div
         className={twJoin(

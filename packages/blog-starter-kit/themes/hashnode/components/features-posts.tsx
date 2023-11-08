@@ -35,7 +35,7 @@ const FeaturedPosts = (props: {
     <div className="blog-featured-area mx-auto border-b bg-slate-50 dark:border-slate-800 dark:bg-black">
       <div className="blog-featured-container container mx-auto grid grid-cols-1 gap-8 px-4 py-4 md:grid-flow-col md:grid-cols-2 md:grid-rows-2 xl:grid-cols-3 xl:py-10 xl:px-10 2xl:px-24 2xl:py-10">
         {posts.map((post, index) => {
-          const postURL = post.url && `${new URL(post.url).pathname}`;
+          const postURL = `/${post.slug}`;
           const isFirstPost = index === 0;
           const isPinnedToBlog = publication.pinnedPost?.id === post.id;
           if (!postURL) return null;

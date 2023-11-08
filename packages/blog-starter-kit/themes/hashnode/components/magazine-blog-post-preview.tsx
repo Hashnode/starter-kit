@@ -13,7 +13,7 @@ function BlogPostPreview(props: {
   publication: Pick<RequiredPublicationFieldsFragment, 'features'>;
 }) {
   const { post, publication } = props;
-  const postURL = post.url && `${new URL(post.url).pathname}`;
+  const postURL = `/${post.slug}`;
   const postCoverImageURL = post.coverImage?.url ?? getDefaultPostCoverImageUrl();
 
   const preload = async () => {
