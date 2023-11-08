@@ -58,7 +58,7 @@ export const Header = (props: Props) => {
 						)}
 					>
 						<HeaderBlogSearch isUserThemeDark={isUserThemeDark} publication={publication} />
-						<Button href="#" type="primary" label="Sign up" />
+						<Button as="a" href="#" type="primary" label="Sign up" />
 					</div>
 				</div>
 
