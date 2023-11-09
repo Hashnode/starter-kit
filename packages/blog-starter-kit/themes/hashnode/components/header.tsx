@@ -17,7 +17,6 @@ export const Header = (props: Props) => {
 	const { currentMenuId, isHome } = props;
 	const { publication } = useAppContext();
 	const headerColor = publication.headerColor;
-	const isUserThemeDark = headerColor ? lightOrDark(headerColor) === 'dark' : false;
 
 	return (
 		<header
@@ -33,14 +32,12 @@ export const Header = (props: Props) => {
 						<div
 							className={twJoin(
 								'md:hidden',
-								isUserThemeDark
-									? 'text-white'
-									: publication.headerColor
+									publication.headerColor
 									? 'text-black'
 									: 'dark:text-white',
 							)}
 						>
-							<HeaderLeftSidebar isUserThemeDark={isUserThemeDark} publication={publication} />
+							<HeaderLeftSidebar publication={publication} />
 						</div>
 						<div className="hidden md:block">
 							<PublicationLogo publication={publication} size="lg" withProfileImage />
@@ -50,14 +47,12 @@ export const Header = (props: Props) => {
 					<div
 						className={twJoin(
 							'flex flex-row items-center',
-							isUserThemeDark
-								? 'text-white'
-								: publication.headerColor
+								publication.headerColor
 								? 'text-black'
 								: 'dark:text-white',
 						)}
 					>
-						<HeaderBlogSearch isUserThemeDark={isUserThemeDark} publication={publication} />
+						<HeaderBlogSearch publication={publication} />
 						<Button as="a" href="#" type="primary" label="Sign up" />
 					</div>
 				</div>

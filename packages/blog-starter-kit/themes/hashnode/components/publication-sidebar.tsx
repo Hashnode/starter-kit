@@ -34,8 +34,6 @@ function PublicationSidebar(props: Props) {
   const [isMounted, setIsMounted] = useState(false);
   const sidebarHeaderRef = useRef<HTMLDivElement>(null);
 
-  const { isUserThemeDark } = useAppContext();
-
   const userHasSocialLinks = doesPublicationHaveSocialLinks(publication.links);
 
   useEffect(() => {
@@ -75,8 +73,7 @@ function PublicationSidebar(props: Props) {
           >
             <div
               className={twJoin(
-                'flex items-center justify-between pl-8 pr-4',
-                isUserThemeDark ? 'text-white' : publication.headerColor ? 'text-black' : 'dark:text-white',
+                'flex items-center justify-between pl-8 pr-4',publication.headerColor ? 'text-black' : 'dark:text-white',
               )}
             >
               <PublicationLogo publication={publication} size="xs" withProfileImage isPostPage={isPostPage} />
@@ -92,9 +89,7 @@ function PublicationSidebar(props: Props) {
                   className={twJoin(
                     'blog-sidebar-close-button',
                     'ml-2 rounded-full border border-transparent p-2 font-semibold transition-colors duration-150 focus:outline-none',
-                    isUserThemeDark
-                      ? 'hover:bg-white/20 focus:bg-white/20'
-                      : publication.headerColor
+                   publication.headerColor
                       ? 'hover:bg-black/10 focus:bg-black/10'
                       : 'hover:bg-black/10 focus:bg-black/10 dark:hover:bg-white/20 dark:focus:bg-white/20',
                   )}
@@ -115,7 +110,6 @@ function PublicationSidebar(props: Props) {
                 enabledPages={enabledPages}
                 navbarItems={navbarItems}
                 headerColor={publication.headerColor}
-                isUserThemeDark={isUserThemeDark}
               />
 
               {userHasSocialLinks ? (

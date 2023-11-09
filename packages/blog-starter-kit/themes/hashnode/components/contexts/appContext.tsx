@@ -1,27 +1,24 @@
 import React, { createContext, useContext } from 'react';
 import { PostFullFragment, PublicationFragment } from '../../generated/graphql';
 
-type AppContext = { publication: PublicationFragment; post: PostFullFragment | null, isUserThemeDark: boolean; };
+type AppContext = { publication: PublicationFragment; post: PostFullFragment | null };
 
 const AppContext = createContext<AppContext | null>(null);
 
 const AppProvider = ({
 	children,
 	publication,
-	isUserThemeDark,
 	post,
 }: {
 	children: React.ReactNode;
 	publication: PublicationFragment;
 	post?: PostFullFragment | null;
-	isUserThemeDark?: boolean | false;
 }) => {
 	return (
 		<AppContext.Provider
 			value={{
 				publication,
 				post: post ?? null,
-				isUserThemeDark: isUserThemeDark ?? false
 			}}
 		>
 			{children}

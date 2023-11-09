@@ -90,7 +90,7 @@ export default function Index(
 	};
 
 	return (
-		<AppProvider publication={publication} isUserThemeDark={false}>
+		<AppProvider publication={publication}>
 			<Layout>
 				<Head>
 					<title>

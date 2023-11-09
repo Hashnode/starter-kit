@@ -4,7 +4,6 @@ import { twJoin } from 'tailwind-merge';
 
 /* eslint-disable no-nested-ternary */
 import { getCommonBtnStyles } from './common-header-icon-btn';
-import { useAppContext } from './contexts/appContext';
 import HeaderBlogSearch from './header-blog-search';
 import HeaderLeftSidebar from './header-left-sidebar';
 import HeaderTooltip from './header-tooltip';
@@ -38,10 +37,8 @@ const PostPageNavbar = forwardRef<HTMLElement, Props>((props, ref) => {
 	const { publication } = props;
 
 	useStickyNavScroll({ elRef: ref });
-	const { isUserThemeDark } = useAppContext();
 
 	const commonIconBtnStyles = getCommonBtnStyles({
-		isUserThemeDark,
 		headerColor: publication.headerColor,
 	});
 
@@ -51,9 +48,7 @@ const PostPageNavbar = forwardRef<HTMLElement, Props>((props, ref) => {
 				<div
 					className={twJoin(
 						'mb-2 flex flex-row items-center md:mb-0',
-						isUserThemeDark
-							? 'text-white'
-							: publication.headerColor
+						publication.headerColor
 							? 'text-black'
 							: 'dark:text-white',
 					)}
@@ -74,7 +69,7 @@ const PostPageNavbar = forwardRef<HTMLElement, Props>((props, ref) => {
 
 					{/* Navigation for mobile view */}
 					<div className="mr-2">
-						<HeaderLeftSidebar isUserThemeDark={isUserThemeDark} publication={publication} />
+						<HeaderLeftSidebar publication={publication} />
 					</div>
 
 					<div className="hidden md:block">
@@ -85,14 +80,12 @@ const PostPageNavbar = forwardRef<HTMLElement, Props>((props, ref) => {
 				<div
 					className={twJoin(
 						'flex flex-row items-center',
-						isUserThemeDark
-							? 'text-white'
-							: publication.headerColor
+						publication.headerColor
 							? 'text-black'
 							: 'dark:text-white',
 					)}
 				>
-					<HeaderBlogSearch isUserThemeDark={isUserThemeDark} publication={publication} />
+					<HeaderBlogSearch publication={publication} />
 					<Button as="a" href="#" type="primary" label="Sign up" />
 				</div>
 			</div>

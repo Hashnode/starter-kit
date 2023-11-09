@@ -39,14 +39,12 @@ type Props =
 			post: PostFullFragment;
 			page: null;
 			publication: PublicationFragment;
-			isUserThemeDark: boolean;
 			morePosts: any // TODO: type to be fixed
 	  }
 	| {
 			post: null;
 			page: StaticPageFragment;
 			publication: PublicationFragment;
-			isUserThemeDark: boolean;
 			morePosts: any // TODO: type to be fixed
 	  };
 
@@ -112,7 +110,7 @@ const Page = (page: StaticPageFragment) => {
 	);
 };
 
-export default function PostOrPage({ publication, post, page, isUserThemeDark, morePosts }: Props) {
+export default function PostOrPage({ publication, post, page, morePosts }: Props) {
 	const headerRef = useRef<HTMLElement | null>(null);
 	if (!post && !page) {
 		return <ErrorPage statusCode={404} />;
@@ -120,7 +118,7 @@ export default function PostOrPage({ publication, post, page, isUserThemeDark, m
 	const navPositionStyles = 'relative transform-none md:sticky md:top-0 md:left-0 md:backdrop-blur-lg';
 	if(post) {
 		return (
-			<AppProvider publication={publication} post={post} isUserThemeDark={isUserThemeDark}>
+			<AppProvider publication={publication} post={post}>
 				<Layout>
 					<header
 						ref={headerRef}
@@ -158,7 +156,7 @@ export default function PostOrPage({ publication, post, page, isUserThemeDark, m
 		)
 	} else {
 		return (
-			<AppProvider publication={publication} post={post} isUserThemeDark={isUserThemeDark}>
+			<AppProvider publication={publication} post={post}>
 				<Layout>
 					<Head>
 						<title>
@@ -250,8 +248,6 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
 			notFound: true,
 		};
 	}
-	const headerColor = publication.headerColor;
-	const isUserThemeDark = headerColor ? lightOrDark(headerColor) === 'dark' : false;
 	const post = publication.post;
 	if (!post) {
 		const staticPageData = await request<PageByPublicationQuery, PageByPublicationQueryVariables>(
@@ -274,7 +270,6 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
 				post: null,
 				page,
 				publication,
-				isUserThemeDark,
 				morePosts
 			},
 			revalidate: 1,
@@ -285,8 +280,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
 			post,
 			morePosts,
 			page: null,
-			publication,
-			isUserThemeDark
+			publication
 		},
 		revalidate: 1,
 	};

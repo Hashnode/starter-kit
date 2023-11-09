@@ -35,12 +35,10 @@ const CustomLogo = ({
   logoSrc,
   size = 'lg',
   isPostPage,
-  isUserThemeDark,
 }: {
   publication: Pick<PublicationFragment, 'title' | 'headerColor'> & {
     author: Pick<User, 'name'>;
   };
-  isUserThemeDark?: boolean;
   logoSrc: Maybe<string> | undefined;
   size?: 'xs' | 'sm' | 'lg' | 'xl';
   isPostPage?: boolean | null;
@@ -52,9 +50,7 @@ const CustomLogo = ({
       <Link
         className={twJoin(
           'blog-logo focus-ring-base flex flex-row items-center',
-          isUserThemeDark
-            ? 'focus-ring-colors-dark-header'
-            : publication.headerColor
+          publication.headerColor
             ? 'focus-ring-colors-light-header'
             : 'focus-ring-colors-base',
           logoSizes[size],
@@ -78,7 +74,6 @@ const CustomLogo = ({
 
 const DefaultLogo = ({
   publication,
-  isUserThemeDark,
   size = 'lg',
   withProfileImage = false,
   isPostPage,
@@ -88,7 +83,6 @@ const DefaultLogo = ({
   } & {
     preferences: Pick<Preferences, 'logo' | 'darkMode'>;
   };
-  isUserThemeDark?: boolean;
   size?: 'xs' | 'sm' | 'lg' | 'xl';
   withProfileImage?: boolean;
   isPostPage?: boolean | null;
@@ -101,16 +95,14 @@ const DefaultLogo = ({
         'blog-title',
         textStyles[size],
         'break-words font-heading font-semibold leading-snug md:font-bold',
-        isUserThemeDark ? 'text-white' : publication.headerColor ? 'text-black' : 'dark:text-white',
+       publication.headerColor ? 'text-black' : 'dark:text-white',
       )}
     >
       <Link
         href={`/${isPostPage ? '?source=top_nav_blog_home' : ''}`}
         className={twJoin(
           'focus-ring-base flex flex-row items-center',
-          isUserThemeDark
-            ? 'focus-ring-colors-dark-header'
-            : publication.headerColor
+          publication.headerColor
             ? 'focus-ring-colors-light-header'
             : 'focus-ring-colors-base',
         )}
@@ -143,7 +135,6 @@ function PublicationLogo(props: PublicationLogoProps) {
     return null;
   }
   const useLogo = false || preferences.logo;
-  const isUserThemeDark = true;
   if (useLogo) {
     const logoSrc = false ? preferences.darkMode?.logo : preferences.logo;
     return (
@@ -152,7 +143,6 @@ function PublicationLogo(props: PublicationLogoProps) {
         logoSrc={logoSrc}
         size={size}
         isPostPage={isPostPage}
-        isUserThemeDark={isUserThemeDark}
       />
     );
   }
@@ -161,7 +151,6 @@ function PublicationLogo(props: PublicationLogoProps) {
       publication={publication}
       size={size}
       withProfileImage={withProfileImage}
-      isUserThemeDark={isUserThemeDark}
       isPostPage={isPostPage}
     />
   );

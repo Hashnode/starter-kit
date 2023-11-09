@@ -10,20 +10,17 @@ type IPublicationSidebarNavLinks = {
   isHome?: boolean | null;
   isBadge?: boolean | null;
   headerColor?: string | null;
-  isUserThemeDark: boolean;
 } & Pick<NonNullable<Publication['preferences']>, 'enabledPages' | 'navbarItems'>;
 
 type IPublicationSidebarNavLinkItem = {
   href: string;
   label?: string | null;
-  isUserThemeDark: boolean;
   headerColor?: string | null;
   isActive?: boolean;
 };
 
 const PublicationSidebarNavLinkItem = ({
   href,
-  isUserThemeDark,
   headerColor,
   label,
   isActive,
@@ -34,9 +31,7 @@ const PublicationSidebarNavLinkItem = ({
       className={twJoin(
         isActive ? 'blog-nav-active font-semibold' : 'blog-nav',
         'focus-ring-base mb-1 flex w-full flex-row items-center justify-between rounded p-3 font-medium text-slate-700 transition-colors duration-100 hover:bg-slate-100 active:opacity-100 dark:text-slate-200 dark:hover:bg-slate-800',
-        isUserThemeDark
-          ? 'ring-slate-950/80 dark:ring-white/80 dark:ring-offset-slate-800'
-          : headerColor
+       headerColor
           ? 'ring-slate-950/80 dark:ring-white/80 dark:ring-offset-slate-800'
           : 'focus-ring-colors-base',
       )}
@@ -48,7 +43,7 @@ const PublicationSidebarNavLinkItem = ({
 };
 
 function PublicationSidebarNavLinks(props: IPublicationSidebarNavLinks) {
-  const { currentActiveMenuItemId, isHome, isBadge, enabledPages, navbarItems, headerColor, isUserThemeDark } = props;
+  const { currentActiveMenuItemId, isHome, isBadge, enabledPages, navbarItems, headerColor } = props;
   const isHomePage = !currentActiveMenuItemId && isHome;
   const isBadgePage = !currentActiveMenuItemId && isBadge;
   const isNewsletterPage = currentActiveMenuItemId && currentActiveMenuItemId === 'newsletter';
@@ -57,7 +52,6 @@ function PublicationSidebarNavLinks(props: IPublicationSidebarNavLinks) {
     <nav className="pb-8">
       <PublicationSidebarNavLinkItem
         href="/"
-        isUserThemeDark={isUserThemeDark}
         headerColor={headerColor}
         label="Home"
         isActive={!!isHomePage}
@@ -72,7 +66,6 @@ function PublicationSidebarNavLinks(props: IPublicationSidebarNavLinks) {
               <PublicationSidebarNavLinkItem
                 key={navItem.id}
                 href={navItem.url}
-                isUserThemeDark={isUserThemeDark}
                 label={navItem.label}
                 isActive={!!customTabIsActive}
                 headerColor={headerColor}
@@ -83,7 +76,6 @@ function PublicationSidebarNavLinks(props: IPublicationSidebarNavLinks) {
       {enabledPages?.badges ? (
         <PublicationSidebarNavLinkItem
           href="/badges"
-          isUserThemeDark={isUserThemeDark}
           label="Badges"
           isActive={!!isBadgePage}
           headerColor={headerColor}
@@ -92,7 +84,6 @@ function PublicationSidebarNavLinks(props: IPublicationSidebarNavLinks) {
       {enabledPages?.newsletter ? (
         <PublicationSidebarNavLinkItem
           href="/newsletter"
-          isUserThemeDark={isUserThemeDark}
           label="Newsletter"
           isActive={!!isNewsletterPage}
           headerColor={headerColor}

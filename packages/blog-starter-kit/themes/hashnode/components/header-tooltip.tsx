@@ -12,7 +12,6 @@ interface IHeaderTooltip {
 
 const HeaderTooltip = (props: IHeaderTooltip) => {
   const { headerColor, tooltipClassName, tooltipText, children } = props;
-  const { isUserThemeDark } = useAppContext();
 
   return (
     <RadixTooltip.Provider delayDuration={800}>
@@ -23,9 +22,7 @@ const HeaderTooltip = (props: IHeaderTooltip) => {
             className={twJoin(
               tooltipClassName,
               'z-50 rounded-md px-3 py-2 text-xs',
-              isUserThemeDark
-                ? 'bg-slate-50 text-slate-900'
-                : headerColor
+                headerColor
                 ? 'bg-slate-800 text-white'
                 : 'bg-slate-800 text-white dark:bg-white dark:text-slate-900',
             )}
