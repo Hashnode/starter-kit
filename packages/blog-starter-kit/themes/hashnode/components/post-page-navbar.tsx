@@ -23,7 +23,7 @@ import PublicationLogo from './publication-logo';
 type Props = {
 	publication: Pick<
 		RequiredPublicationFieldsFragment,
-		'id' | 'title' | 'url' | 'headerColor' | 'links' | 'features' | 'isTeam'
+		'id' | 'title' | 'url' | 'links' | 'features' | 'isTeam'
 	> & {
 		author: Pick<User, 'id' | 'username' | 'name' | 'profilePicture'>;
 	} & {
@@ -38,25 +38,19 @@ const PostPageNavbar = forwardRef<HTMLElement, Props>((props, ref) => {
 
 	useStickyNavScroll({ elRef: ref });
 
-	const commonIconBtnStyles = getCommonBtnStyles({
-		headerColor: publication.headerColor,
-	});
+	const commonIconBtnStyles = getCommonBtnStyles();
 
 	return (
 		<div className="container mx-auto px-2 md:px-4 md:py-1 2xl:px-10">
 			<div className="relative z-40 flex flex-row items-center justify-between pb-2 pt-8 md:py-4">
 				<div
 					className={twJoin(
-						'mb-2 flex flex-row items-center md:mb-0',
-						publication.headerColor
-							? 'text-black'
-							: 'dark:text-white',
+						'mb-2 flex flex-row items-center md:mb-0','dark:text-white',
 					)}
 				>
 					<HeaderTooltip
 						tooltipClassName="blog-home-tooltip"
 						tooltipText="Home"
-						headerColor={publication.headerColor}
 					>
 						<Link
 							href="/"
@@ -79,10 +73,7 @@ const PostPageNavbar = forwardRef<HTMLElement, Props>((props, ref) => {
 
 				<div
 					className={twJoin(
-						'flex flex-row items-center',
-						publication.headerColor
-							? 'text-black'
-							: 'dark:text-white',
+						'flex flex-row items-center','dark:text-white',
 					)}
 				>
 					<HeaderBlogSearch publication={publication} />
@@ -98,7 +89,7 @@ const PostPageNavbar = forwardRef<HTMLElement, Props>((props, ref) => {
 			<div className="blog-sub-header mb-4 md:hidden" data-testid="blog-sub-header">
 				{/* Social Links for mobile view */}
 				<div className="mt-6">
-					<PublicationSocialLinks links={publication.links} headerColor={publication.headerColor} />
+					<PublicationSocialLinks links={publication.links} />
 				</div>
 			</div>
 		</div>

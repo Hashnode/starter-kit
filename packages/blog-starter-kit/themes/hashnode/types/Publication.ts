@@ -51,7 +51,6 @@ export interface Publication {
   viewCountVisible?: boolean;
   darkModeEnabled?: boolean;
   favicon?: string;
-  headerColor?: string;
   fbPixelID?: string;
   fathomSiteID?: string;
   fathomCustomDomainEnabled?: boolean;
@@ -113,7 +112,6 @@ export type PublicationType = {
   favicon: string;
   title: string;
   author: Pick<User, '_id' | 'name' | 'photo' | 'username'>;
-  headerColor: string;
   displayTitle: string;
   description: string;
   wmPaymentPointer: string | null | undefined;

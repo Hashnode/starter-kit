@@ -36,7 +36,7 @@ const CustomLogo = ({
   size = 'lg',
   isPostPage,
 }: {
-  publication: Pick<PublicationFragment, 'title' | 'headerColor'> & {
+  publication: Pick<PublicationFragment, 'title'> & {
     author: Pick<User, 'name'>;
   };
   logoSrc: Maybe<string> | undefined;
@@ -49,10 +49,7 @@ const CustomLogo = ({
     <h1 className="blog-main-logo">
       <Link
         className={twJoin(
-          'blog-logo focus-ring-base flex flex-row items-center',
-          publication.headerColor
-            ? 'focus-ring-colors-light-header'
-            : 'focus-ring-colors-base',
+          'blog-logo focus-ring-base flex flex-row items-center','focus-ring-colors-base',
           logoSizes[size],
         )}
         aria-label={`${blogTitle} home page`}
@@ -78,7 +75,7 @@ const DefaultLogo = ({
   withProfileImage = false,
   isPostPage,
 }: {
-  publication: Pick<PublicationFragment, 'title' | 'isTeam' | 'headerColor'> & {
+  publication: Pick<PublicationFragment, 'title' | 'isTeam'> & {
     author: Pick<User, 'username' | 'name' | 'profilePicture'>;
   } & {
     preferences: Pick<Preferences, 'logo' | 'darkMode'>;
@@ -94,17 +91,13 @@ const DefaultLogo = ({
       className={twJoin(
         'blog-title',
         textStyles[size],
-        'break-words font-heading font-semibold leading-snug md:font-bold',
-       publication.headerColor ? 'text-black' : 'dark:text-white',
+        'break-words font-heading font-semibold leading-snug md:font-bold','dark:text-white',
       )}
     >
       <Link
         href={`/${isPostPage ? '?source=top_nav_blog_home' : ''}`}
         className={twJoin(
-          'focus-ring-base flex flex-row items-center',
-          publication.headerColor
-            ? 'focus-ring-colors-light-header'
-            : 'focus-ring-colors-base',
+          'focus-ring-base flex flex-row items-center','focus-ring-colors-base',
         )}
         aria-label={`${blogTitle} home page`}
       >

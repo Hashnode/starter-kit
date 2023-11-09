@@ -28,31 +28,24 @@ const variants = {
 interface ICommonHeaderIconBtn {
   handleClick: () => void;
   children: React.ReactNode;
-  headerColor?: string | null;
   variant: keyof typeof variants;
   btnRef?: RefObject<HTMLButtonElement>;
 }
 
-export const getCommonBtnStyles = ({
-  headerColor,
-}: {
-  headerColor?: string | null;
-}) =>
+export const getCommonBtnStyles = () =>
   twJoin(
     'focus-ring-base flex flex-row items-center rounded-full font-medium transition duration-100 ease-in-out',
-      headerColor
-      ? 'focus-ring-colors-light-header hover:bg-black/10'
-      : 'focus-ring-colors-base hover:bg-black/10 dark:hover:bg-white/20',
+    'focus-ring-colors-base hover:bg-black/10 dark:hover:bg-white/20',
   );
 
 const CommonHeaderIconBtn = (props: ICommonHeaderIconBtn) => {
-  const { handleClick, headerColor, variant, btnRef, children } = props;
+  const { handleClick, variant, btnRef, children } = props;
 
   const { label, buttonClassName, tooltipClassName, tooltipText } = variants[variant];
-  const btnStyles = getCommonBtnStyles({ headerColor });
+  const btnStyles = getCommonBtnStyles();
 
   return (
-    <HeaderTooltip tooltipClassName={tooltipClassName} tooltipText={tooltipText} headerColor={headerColor}>
+    <HeaderTooltip tooltipClassName={tooltipClassName} tooltipText={tooltipText}>
       <button
         type="button"
         aria-label={label}

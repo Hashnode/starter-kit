@@ -5,13 +5,12 @@ import { useAppContext } from './contexts/appContext';
 
 interface IHeaderTooltip {
   tooltipClassName: string;
-  headerColor?: string | null;
   tooltipText: string;
   children: React.ReactNode;
 }
 
 const HeaderTooltip = (props: IHeaderTooltip) => {
-  const { headerColor, tooltipClassName, tooltipText, children } = props;
+  const { tooltipClassName, tooltipText, children } = props;
 
   return (
     <RadixTooltip.Provider delayDuration={800}>
@@ -22,9 +21,7 @@ const HeaderTooltip = (props: IHeaderTooltip) => {
             className={twJoin(
               tooltipClassName,
               'z-50 rounded-md px-3 py-2 text-xs',
-                headerColor
-                ? 'bg-slate-800 text-white'
-                : 'bg-slate-800 text-white dark:bg-white dark:text-slate-900',
+              'bg-slate-800 text-white dark:bg-white dark:text-slate-900',
             )}
             side="bottom"
             align="center"

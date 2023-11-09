@@ -9,7 +9,7 @@ import SearchSVG from './icons/svgs/SearchSvg';
 const PublicationSearch = dynamic(() => import('./publication-search'), { ssr: false });
 
 interface Props {
-  publication: Pick<Publication, 'id' | 'title' | 'url' | 'isTeam' | 'headerColor' | 'favicon' | 'links'> & {
+  publication: Pick<Publication, 'id' | 'title' | 'url' | 'isTeam' | 'favicon' | 'links'> & {
     author: Pick<User, 'id' | 'username' | 'name' | 'profilePicture'>;
   } & {
     preferences: Omit<Preferences, 'navbarItems'> & {
@@ -35,7 +35,6 @@ const HeaderBlogSearch = (props: Props) => {
       ) : null}
       <CommonHeaderIconBtn
         handleClick={toggleSearchUI}
-        headerColor={publication.headerColor}
         variant="search"
         btnRef={triggerRef}
       >

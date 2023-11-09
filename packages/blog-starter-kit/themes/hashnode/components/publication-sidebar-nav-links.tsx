@@ -9,19 +9,16 @@ type IPublicationSidebarNavLinks = {
   currentActiveMenuItemId?: string | null;
   isHome?: boolean | null;
   isBadge?: boolean | null;
-  headerColor?: string | null;
 } & Pick<NonNullable<Publication['preferences']>, 'enabledPages' | 'navbarItems'>;
 
 type IPublicationSidebarNavLinkItem = {
   href: string;
   label?: string | null;
-  headerColor?: string | null;
   isActive?: boolean;
 };
 
 const PublicationSidebarNavLinkItem = ({
   href,
-  headerColor,
   label,
   isActive,
 }: IPublicationSidebarNavLinkItem) => {
@@ -31,9 +28,7 @@ const PublicationSidebarNavLinkItem = ({
       className={twJoin(
         isActive ? 'blog-nav-active font-semibold' : 'blog-nav',
         'focus-ring-base mb-1 flex w-full flex-row items-center justify-between rounded p-3 font-medium text-slate-700 transition-colors duration-100 hover:bg-slate-100 active:opacity-100 dark:text-slate-200 dark:hover:bg-slate-800',
-       headerColor
-          ? 'ring-slate-950/80 dark:ring-white/80 dark:ring-offset-slate-800'
-          : 'focus-ring-colors-base',
+       'focus-ring-colors-base',
       )}
     >
       <span>{label}</span>
@@ -43,7 +38,7 @@ const PublicationSidebarNavLinkItem = ({
 };
 
 function PublicationSidebarNavLinks(props: IPublicationSidebarNavLinks) {
-  const { currentActiveMenuItemId, isHome, isBadge, enabledPages, navbarItems, headerColor } = props;
+  const { currentActiveMenuItemId, isHome, isBadge, enabledPages, navbarItems } = props;
   const isHomePage = !currentActiveMenuItemId && isHome;
   const isBadgePage = !currentActiveMenuItemId && isBadge;
   const isNewsletterPage = currentActiveMenuItemId && currentActiveMenuItemId === 'newsletter';
@@ -52,7 +47,6 @@ function PublicationSidebarNavLinks(props: IPublicationSidebarNavLinks) {
     <nav className="pb-8">
       <PublicationSidebarNavLinkItem
         href="/"
-        headerColor={headerColor}
         label="Home"
         isActive={!!isHomePage}
       />
@@ -68,7 +62,6 @@ function PublicationSidebarNavLinks(props: IPublicationSidebarNavLinks) {
                 href={navItem.url}
                 label={navItem.label}
                 isActive={!!customTabIsActive}
-                headerColor={headerColor}
               />
             );
           })
@@ -78,7 +71,6 @@ function PublicationSidebarNavLinks(props: IPublicationSidebarNavLinks) {
           href="/badges"
           label="Badges"
           isActive={!!isBadgePage}
-          headerColor={headerColor}
         />
       ) : null}
       {enabledPages?.newsletter ? (
@@ -86,7 +78,6 @@ function PublicationSidebarNavLinks(props: IPublicationSidebarNavLinks) {
           href="/newsletter"
           label="Newsletter"
           isActive={!!isNewsletterPage}
-          headerColor={headerColor}
         />
       ) : null}
     </nav>

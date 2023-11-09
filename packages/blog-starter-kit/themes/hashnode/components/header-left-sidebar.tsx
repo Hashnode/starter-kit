@@ -11,7 +11,7 @@ const PublicationSidebar = dynamic(() => import('./publication-sidebar'), {
 });
 
 interface Props {
-  publication: Pick<Publication, 'id' | 'title' | 'url' | 'isTeam' | 'headerColor' | 'favicon' | 'links'> & {
+  publication: Pick<Publication, 'id' | 'title' | 'url' | 'isTeam' | 'favicon' | 'links'> & {
     author: Pick<User, 'id' | 'username' | 'name' | 'profilePicture'>;
   } & {
     preferences: Omit<Preferences, 'navbarItems'> & {
@@ -36,7 +36,6 @@ const LeftSidebarButton = (props: Props) => {
         <PublicationSidebar publication={publication} toggleSidebar={toggleSidebar} triggerRef={triggerRef} />
       ) : null}
       <CommonHeaderIconBtn
-        headerColor={publication.headerColor}
         handleClick={toggleSidebar}
         variant="leftSidebar"
         btnRef={triggerRef}

@@ -16,13 +16,9 @@ type Props = {
 export const Header = (props: Props) => {
 	const { currentMenuId, isHome } = props;
 	const { publication } = useAppContext();
-	const headerColor = publication.headerColor;
 
 	return (
 		<header
-			style={{
-				backgroundColor: headerColor || '',
-			}}
 			className="blog-header relative z-50 w-full border-b border-black/10 bg-white bg-opacity-70 dark:border-white/10 dark:bg-slate-900 dark:bg-opacity-70"
 		>
 			<div className="container mx-auto px-2 md:px-4 2xl:px-10">
@@ -31,10 +27,7 @@ export const Header = (props: Props) => {
 						{/* Navigation for mobile view */}
 						<div
 							className={twJoin(
-								'md:hidden',
-									publication.headerColor
-									? 'text-black'
-									: 'dark:text-white',
+								'md:hidden','dark:text-white',
 							)}
 						>
 							<HeaderLeftSidebar publication={publication} />
@@ -46,10 +39,7 @@ export const Header = (props: Props) => {
 
 					<div
 						className={twJoin(
-							'flex flex-row items-center',
-								publication.headerColor
-								? 'text-black'
-								: 'dark:text-white',
+							'flex flex-row items-center','dark:text-white',
 						)}
 					>
 						<HeaderBlogSearch publication={publication} />
@@ -67,14 +57,12 @@ export const Header = (props: Props) => {
 					<div className="justify-betweem mx-0 mb-2 hidden w-full flex-row items-center md:flex">
 						<PublicationSocialLinks
 							links={publication.links}
-							headerColor={publication.headerColor}
 						/>
 					</div>
 					{/* Mobile view */}
 					<div className="mb-2 flex w-full flex-col items-center md:hidden">
 						<PublicationSocialLinks
 							links={publication.links}
-							headerColor={publication.headerColor}
 						/>
 					</div>
 				</div>
@@ -88,7 +76,6 @@ export const Header = (props: Props) => {
 						currentActiveMenuItemId={currentMenuId}
 						enabledPages={publication.preferences?.enabledPages}
 						navbarItems={publication.preferences?.navbarItems || []}
-						headerColor={publication.headerColor}
 					/>
 				</div>
 			</div>
