@@ -1,0 +1,110 @@
+fragment Publication on Publication {
+	id
+	imprint
+	title
+	displayTitle
+	url
+	urlPattern
+	metaTags
+	favicon
+	isTeam
+	headerColor
+	followersCount
+	descriptionSEO
+	features {
+      	customCSS {
+        	published {
+				home
+				post
+				static
+        }
+      }
+    }
+	about {
+		html
+	}
+	features {
+		newsletter {
+		isEnabled
+		}
+		viewCount {
+		isEnabled
+		}
+		readTime {
+		isEnabled
+		}
+		audioBlog {
+		isEnabled
+		voiceType
+		}
+		textSelectionSharer {
+		isEnabled
+		}
+		customCSS {
+		isEnabled
+		published {
+			__typename
+			homeMinified
+			postMinified
+			staticMinified
+		}
+		draft {
+			__typename
+			homeMinified
+			postMinified
+			staticMinified
+		}
+		}
+  	}
+	author {
+		id
+		name
+		username
+		profilePicture
+		followersCount
+	}
+	ogMetaData {
+		image
+	}
+	preferences {
+		layout
+		logo
+		disableFooterBranding
+		enabledPages {
+			badges
+			newsletter
+			members
+		}
+		darkMode {
+			logo
+		}
+		navbarItems {
+			id
+			type
+			label
+			url
+		}
+	}
+	links {
+		twitter
+		instagram
+		github
+		website
+		hashnode
+		youtube
+		linkedin
+		mastodon
+	}
+	integrations {
+		umamiWebsiteUUID
+		gaTrackingID
+		fbPixelID
+		hotjarSiteID
+		matomoURL
+		matomoSiteID
+		fathomSiteID
+		fathomCustomDomain
+		fathomCustomDomainEnabled
+		plausibleAnalyticsEnabled
+	}
+}

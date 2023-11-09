@@ -1,10 +1,18 @@
 import { resizeImage } from '@starter-kit/utils/image';
 import Link from 'next/link';
 import { useAppContext } from './contexts/appContext';
+import { PublicationFragment } from '../generated/graphql';
+
+const getPublicationLogo = (publication: PublicationFragment, isSidebar?: boolean) => {
+	if (isSidebar) {
+		return publication.preferences.logo; // Always display light mode logo in sidebar
+	}
+	return publication.preferences.darkMode?.logo || publication.preferences.logo;
+}
 
 export const PublicationLogo = ({ isSidebar }: { isSidebar?: boolean }) => {
 	const { publication } = useAppContext();
-	const PUBLICATION_LOGO = publication.preferences.darkMode?.logo || publication.preferences.logo;
+	const PUBLICATION_LOGO = getPublicationLogo(publication, isSidebar);
 
 	return (
 		<h1 className="relative w-full">
