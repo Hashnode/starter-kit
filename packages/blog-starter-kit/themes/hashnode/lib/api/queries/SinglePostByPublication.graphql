@@ -116,12 +116,14 @@ fragment PostFull on Post {
 							}
 							content {
 								markdown
+								html
 							}
 						}
 					}
 				}
 				content {
 					markdown
+					html
 				}
 				author {
 					name
