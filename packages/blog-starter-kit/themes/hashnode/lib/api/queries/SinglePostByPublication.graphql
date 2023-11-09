@@ -43,6 +43,7 @@ fragment PostFull on Post {
 	url
 	brief
 	title
+	hasLatexInPost
 	subtitle
 	publishedAt
 	updatedAt

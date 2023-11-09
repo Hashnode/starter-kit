@@ -22,6 +22,7 @@ import { useEmbeds } from '@starter-kit/utils/renderer/hooks/useEmbeds';
 import { loadIframeResizer } from '@starter-kit/utils/renderer/services/embed';
 import Link from 'next/link';
 import { createPostUrl } from '../utils/urls';
+import handleMathJax from '../utils/handle-math-jax';
 
 moment.extend(relativeTime);
 moment.extend(localizedFormat);
@@ -73,6 +74,11 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 	const [canLoadEmbeds, setCanLoadEmbeds] = useState(false);
 	useEmbeds({ enabled: canLoadEmbeds });
 	const absolutePostURL = createPostUrl(post, post.publication);
+	if (post.hasLatexInPost) {
+		setTimeout(() => {
+		  handleMathJax(true);
+		}, 500);
+	}
 	useEffect(() => {
 		if (screen.width <= 425) {
 		  setMobMount(true);
