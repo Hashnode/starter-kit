@@ -28,16 +28,17 @@ Blog Starter Kit lets you instantly deploy a Next.js and Tailwind powered fronte
 - [Personal Blog](https://sandeep.dev/blog)
 - [Enterprise Blog](https://demo.hashnode.com/engineering)
 
+We also have a third theme called "hashnode", but there is currently no live demo available.
+
 ## How to deploy
 
 ### Step 1
-
 
 The recommended approach is deploying to Vercel. If you don't have an account already, you can sign up for a free plan.
 
 - Fork this repo
 - Create a new project on Vercel and connect this repo
-- It's a monorepo. So, choose either `packages/blog-starter-kit/themes/enterprise` or `packages/blog-starter-kit/themes/personal` as the root directory while importing on Vercel.
+- It's a monorepo. So, choose either `packages/blog-starter-kit/themes/enterprise`, `packages/blog-starter-kit/themes/hashnode` or `packages/blog-starter-kit/themes/personal` as the root directory while importing on Vercel.
 
   ![selecting the directory to deploy a monorepo](https://cdn.hashnode.com/res/hashnode/image/upload/v1698839884060/O8OoBML5v.PNG?auto=format)
 
@@ -135,7 +136,7 @@ Congrats 🎉! Hashnode will now treat your blog as a headless blog and send rea
 
 ## Running Locally
 
-- cd `packages/blog-starter-kit/themes/enterprise` or `packages/blog-starter-kit/themes/personal`
+- cd `packages/blog-starter-kit/themes/enterprise`, `packages/blog-starter-kit/themes/hashnode` or `packages/blog-starter-kit/themes/personal`
 - Copy `.env.example` to `.env.local`
 - `pnpm install`
 - `pnpm dev`
