@@ -136,7 +136,7 @@ Congrats 🎉! Hashnode will now treat your blog as a headless blog and send rea
 
 ## Running Locally
 
-- cd `packages/blog-starter-kit/themes/enterprise`, `packages/blog-starter-kit/themes/hashnode` or `packages/blog-starter-kit/themes/personal`
+- cd into either `packages/blog-starter-kit/themes/enterprise`, or `packages/blog-starter-kit/themes/hashnode` or `packages/blog-starter-kit/themes/personal`
 - Copy `.env.example` to `.env.local`
 - `pnpm install`
 - `pnpm dev`
