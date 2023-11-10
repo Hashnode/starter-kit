@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import moment from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
+import Link from 'next/link';
 
 import { resizeImage } from '@starter-kit/utils/image';
 // @ts-ignore
@@ -22,9 +23,9 @@ import {
 import { Fragment } from 'react';
 import { useEmbeds } from '@starter-kit/utils/renderer/hooks/useEmbeds';
 import { loadIframeResizer } from '@starter-kit/utils/renderer/services/embed';
-import Link from 'next/link';
+// @ts-ignore
+import { triggerCustomWidgetEmbed } from '@starter-kit/utils/trigger-custom-widget-embed';
 import { createPostUrl } from '../utils/urls';
-import { triggerCustomWidgetEmbed } from '../utils';
 
 
 moment.extend(relativeTime);

@@ -33,7 +33,8 @@ import {
 import { useEffect, useState } from 'react';
 import { useEmbeds } from '@starter-kit/utils/renderer/hooks/useEmbeds';
 import { loadIframeResizer } from '@starter-kit/utils/renderer/services/embed';
-import { triggerCustomWidgetEmbed } from '../utils';
+// @ts-ignore
+import { triggerCustomWidgetEmbed } from '@starter-kit/utils/trigger-custom-widget-embed';
 
 type Props =
 	| {
