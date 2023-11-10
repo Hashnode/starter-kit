@@ -24,6 +24,7 @@ import { useEmbeds } from '@starter-kit/utils/renderer/hooks/useEmbeds';
 import { loadIframeResizer } from '@starter-kit/utils/renderer/services/embed';
 import Link from 'next/link';
 import { createPostUrl } from '../utils/urls';
+import { triggerCustomWidgetEmbed } from '../utils';
 
 
 moment.extend(relativeTime);
@@ -94,10 +95,10 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 		// More of an alert, did this below to wrap async funcs inside useEffect
 		(async () => {
 		  await loadIframeResizer();
-		  //triggerCustomWidgetEmbed(post.publication.id.toString());
+		  triggerCustomWidgetEmbed(post.publication?.id.toString());
 		  setCanLoadEmbeds(true);
 		})();
-	  }, []);
+	}, []);
 
 	return (
 		<Fragment>

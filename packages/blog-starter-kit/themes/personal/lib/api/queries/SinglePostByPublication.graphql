@@ -20,6 +20,9 @@ fragment PostFull on Post {
 	readTimeInMinutes
 	reactionCount
 	responseCount
+	publication {
+		id
+	}
 	seo {
 		title
 		description
