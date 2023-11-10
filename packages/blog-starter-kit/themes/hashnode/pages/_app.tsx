@@ -6,7 +6,6 @@ import '../styles/index.css';
 import { GlobalFontVariables } from '../components/fonts';
 import { getUrqlClientConfig } from '../lib/api/client';
 
-import '../styles/index.css';
 import { Fragment } from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {

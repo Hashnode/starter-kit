@@ -13,7 +13,7 @@ import { twJoin } from 'tailwind-merge';
 import { returnFocusToElement, blurActiveFocus, doesPublicationHaveSocialLinks } from '../utils/commonUtils';
 
 type Props = {
-  publication: Pick<Publication, 'id' | 'title' | 'isTeam' | 'headerColor' | 'links'> & {
+  publication: Pick<Publication, 'id' | 'title' | 'isTeam' | 'links'> & {
     author: Pick<User, 'username' | 'name' | 'profilePicture'>;
   } & {
     preferences: Pick<Preferences, 'navbarItems' | 'enabledPages' | 'logo' | 'darkMode'> & {
@@ -33,8 +33,6 @@ function PublicationSidebar(props: Props) {
   const { enabledPages, navbarItems } = publication.preferences;
   const [isMounted, setIsMounted] = useState(false);
   const sidebarHeaderRef = useRef<HTMLDivElement>(null);
-
-  const { isUserThemeDark } = useAppContext();
 
   const userHasSocialLinks = doesPublicationHaveSocialLinks(publication.links);
 
@@ -70,13 +68,11 @@ function PublicationSidebar(props: Props) {
         >
           <div
             ref={sidebarHeaderRef}
-            style={{ backgroundColor: publication.headerColor || '' }}
             className="blog-sidebar-header w-full shrink-0 bg-white py-6 dark:bg-slate-900"
           >
             <div
               className={twJoin(
-                'flex items-center justify-between pl-8 pr-4',
-                isUserThemeDark ? 'text-white' : publication.headerColor ? 'text-black' : 'dark:text-white',
+                'flex items-center justify-between pl-8 pr-4', 'dark:text-white',
               )}
             >
               <PublicationLogo publication={publication} size="xs" withProfileImage isPostPage={isPostPage} />
@@ -92,11 +88,7 @@ function PublicationSidebar(props: Props) {
                   className={twJoin(
                     'blog-sidebar-close-button',
                     'ml-2 rounded-full border border-transparent p-2 font-semibold transition-colors duration-150 focus:outline-none',
-                    isUserThemeDark
-                      ? 'hover:bg-white/20 focus:bg-white/20'
-                      : publication.headerColor
-                      ? 'hover:bg-black/10 focus:bg-black/10'
-                      : 'hover:bg-black/10 focus:bg-black/10 dark:hover:bg-white/20 dark:focus:bg-white/20',
+                  'hover:bg-black/10 focus:bg-black/10 dark:hover:bg-white/20 dark:focus:bg-white/20',
                   )}
                 >
                   <CloseSVG className="h-5 w-5 fill-current" />
@@ -114,8 +106,6 @@ function PublicationSidebar(props: Props) {
                 currentActiveMenuItemId={currentActiveMenuItemId}
                 enabledPages={enabledPages}
                 navbarItems={navbarItems}
-                headerColor={publication.headerColor}
-                isUserThemeDark={isUserThemeDark}
               />
 
               {userHasSocialLinks ? (
@@ -123,7 +113,7 @@ function PublicationSidebar(props: Props) {
                   <h2 className="mb-4 text-sm font-semibold uppercase leading-6 text-slate-500 dark:text-slate-400">
                     Blog socials
                   </h2>
-                  <PublicationSocialLinks links={publication.links} headerColor={publication.headerColor} isSidebar />
+                  <PublicationSocialLinks links={publication.links} isSidebar />
                 </>
               ) : null}
             </div>

@@ -11,8 +11,7 @@ const PublicationSidebar = dynamic(() => import('./publication-sidebar'), {
 });
 
 interface Props {
-  isUserThemeDark: boolean;
-  publication: Pick<Publication, 'id' | 'title' | 'url' | 'isTeam' | 'headerColor' | 'favicon' | 'links'> & {
+  publication: Pick<Publication, 'id' | 'title' | 'url' | 'isTeam' | 'favicon' | 'links'> & {
     author: Pick<User, 'id' | 'username' | 'name' | 'profilePicture'>;
   } & {
     preferences: Omit<Preferences, 'navbarItems'> & {
@@ -22,7 +21,7 @@ interface Props {
 }
 
 const LeftSidebarButton = (props: Props) => {
-  const { isUserThemeDark, publication } = props;
+  const { publication } = props;
 
   const triggerRef = useRef<HTMLButtonElement>(null);
   const [isSidebarVisible, toggleSidebarVisibility] = useState(false);
@@ -37,8 +36,6 @@ const LeftSidebarButton = (props: Props) => {
         <PublicationSidebar publication={publication} toggleSidebar={toggleSidebar} triggerRef={triggerRef} />
       ) : null}
       <CommonHeaderIconBtn
-        isUserThemeDark={isUserThemeDark}
-        headerColor={publication.headerColor}
         handleClick={toggleSidebar}
         variant="leftSidebar"
         btnRef={triggerRef}

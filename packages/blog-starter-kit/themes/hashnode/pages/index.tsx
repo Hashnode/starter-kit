@@ -90,7 +90,7 @@ export default function Index(
 	};
 
 	return (
-		<AppProvider publication={publication} isUserThemeDark={false}>
+		<AppProvider publication={publication}>
 			<Layout>
 				<Head>
 					<title>
@@ -140,9 +140,6 @@ export default function Index(
 					{publication.about?.html ? (
 						<div
 							className="blog-author-container border-b dark:border-slate-800"
-							style={{
-								backgroundColor: publication.headerColor ? `${publication.headerColor}1a` : '',
-							}}
 						>
 							<div
 								className={twJoin(
@@ -276,7 +273,6 @@ export const getStaticProps = async () => {
 			urqlState: ssrCache.extractData(),
 			host,
 			isHome: true,
-			headerColor: publication.headerColor,
 		},
 		revalidate: hasPostViewsActive
 			? REVALIDATION_INTERVAL_POST_VIEWS_ACTIVE

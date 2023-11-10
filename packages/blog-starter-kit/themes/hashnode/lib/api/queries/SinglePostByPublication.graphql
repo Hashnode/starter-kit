@@ -43,6 +43,7 @@ fragment PostFull on Post {
 	url
 	brief
 	title
+	hasLatexInPost
 	subtitle
 	publishedAt
 	updatedAt
@@ -115,12 +116,14 @@ fragment PostFull on Post {
 							}
 							content {
 								markdown
+								html
 							}
 						}
 					}
 				}
 				content {
 					markdown
+					html
 				}
 				author {
 					name

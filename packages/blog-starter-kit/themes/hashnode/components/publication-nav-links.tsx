@@ -21,13 +21,12 @@ import { MAX_MAIN_NAV_LINKS } from '../utils/const';
 type Props = {
   currentActiveMenuItemId?: string | null;
   isHome?: boolean | null;
-} & Pick<Publication, 'headerColor'> &
-  Pick<NonNullable<Publication['preferences']>, 'enabledPages' | 'navbarItems'> & {
+} & Pick<NonNullable<Publication['preferences']>, 'enabledPages' | 'navbarItems'> & {
     navbarItems: Omit<Publication['preferences']['navbarItems'], 'series' | 'page'>;
   };
 
 function PublicationNavLinks(props: Props) {
-  const { currentActiveMenuItemId, isHome, enabledPages, navbarItems, headerColor } = props;
+  const { currentActiveMenuItemId, isHome, enabledPages, navbarItems } = props;
 
   const navItemsRef = useRef(
     [
@@ -42,7 +41,6 @@ function PublicationNavLinks(props: Props) {
     ].filter((item: any) => item),
   );
 
-  const { isUserThemeDark } = useAppContext();
   const extraNavItems = navItemsRef.current.slice(MAX_MAIN_NAV_LINKS);
   const activeDropdownMenuItem = extraNavItems.find((item: any) => item?.isActive);
   const isActiveItemInDropdown = !!activeDropdownMenuItem;
@@ -62,11 +60,7 @@ function PublicationNavLinks(props: Props) {
                 item.isActive ? 'blog-nav-active' : 'blog-nav',
                 'group flex items-center justify-center border-b-2 border-transparent px-2 capitalize focus:outline-none',
                 item.isActive
-                  ? isUserThemeDark
-                    ? 'border-slate-50'
-                    : headerColor
-                    ? 'border-black'
-                    : 'border-black dark:border-slate-50'
+                  ? 'border-black dark:border-slate-50'
                   : '',
               )}
               key={item.label}
@@ -76,11 +70,7 @@ function PublicationNavLinks(props: Props) {
                 className={twJoin(
                   'blog-nav-text',
                   'mb-2 block rounded-lg px-2 py-1 ring-offset-2 transition-colors duration-150 group-focus:ring',
-                  isUserThemeDark
-                    ? 'text-white hover:bg-white/20 group-focus:ring-white/80 group-focus:ring-offset-custom-header'
-                    : headerColor
-                    ? 'text-black hover:bg-black/10 group-focus:ring-slate-950/80 group-focus:ring-offset-custom-header'
-                    : 'text-slate-900 hover:bg-slate-100 group-focus:ring-blue-600 group-focus:ring-offset-white dark:text-white dark:hover:bg-slate-800 dark:group-focus:ring-offset-slate-800',
+                'text-slate-900 hover:bg-slate-100 group-focus:ring-blue-600 group-focus:ring-offset-white dark:text-white dark:hover:bg-slate-800 dark:group-focus:ring-offset-slate-800',
                   item.isActive
                     ? 'font-semibold text-opacity-100 dark:text-opacity-100'
                     : 'font-medium text-opacity-70 dark:text-opacity-70',
@@ -108,11 +98,7 @@ function PublicationNavLinks(props: Props) {
                   isActiveItemInDropdown ? 'blog-nav-active' : 'blog-nav',
                   'group ml-2 border-b-2 border-transparent focus:outline-none active:outline-none',
                   isActiveItemInDropdown
-                    ? isUserThemeDark
-                      ? 'border-slate-50'
-                      : headerColor
-                      ? 'border-black'
-                      : 'border-black dark:border-slate-50'
+                    ?'border-black dark:border-slate-50'
                     : '',
                 )}
               >
@@ -120,11 +106,7 @@ function PublicationNavLinks(props: Props) {
                   className={twJoin(
                     'blog-nav-text',
                     'mb-2 flex flex-row items-center rounded-lg px-2 py-1 ring-offset-2 transition-colors duration-150 group-focus:ring',
-                    isUserThemeDark
-                      ? 'text-white hover:bg-white/20 group-focus:ring-white/80 group-focus:ring-offset-custom-header'
-                      : headerColor
-                      ? 'text-black hover:bg-black/10 group-focus:ring-slate-950/80 group-focus:ring-offset-custom-header'
-                      : 'text-black hover:bg-slate-100 group-focus:ring-blue-600 group-focus:ring-offset-white dark:text-white dark:hover:bg-slate-800 dark:group-focus:ring-offset-slate-800',
+                 'text-black hover:bg-slate-100 group-focus:ring-blue-600 group-focus:ring-offset-white dark:text-white dark:hover:bg-slate-800 dark:group-focus:ring-offset-slate-800',
                     isActiveItemInDropdown
                       ? 'font-semibold text-opacity-100 dark:text-opacity-100'
                       : 'font-medium text-opacity-70 dark:text-opacity-70',

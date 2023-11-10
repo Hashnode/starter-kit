@@ -42,8 +42,7 @@ function ResponseReplyCard(props: Props) {
     e.preventDefault();
   };
 
-  const content = markdownToHtml(reply.content.markdown);
-  const replyContent = Autolinker.link(content, {
+  const replyContent = Autolinker.link(reply.content.html, {
     twitter: true,
     truncate: 45,
     css: 'autolinkedURL',

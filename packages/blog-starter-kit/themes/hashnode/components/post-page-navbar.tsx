@@ -4,7 +4,6 @@ import { twJoin } from 'tailwind-merge';
 
 /* eslint-disable no-nested-ternary */
 import { getCommonBtnStyles } from './common-header-icon-btn';
-import { useAppContext } from './contexts/appContext';
 import HeaderBlogSearch from './header-blog-search';
 import HeaderLeftSidebar from './header-left-sidebar';
 import HeaderTooltip from './header-tooltip';
@@ -24,7 +23,7 @@ import PublicationLogo from './publication-logo';
 type Props = {
 	publication: Pick<
 		RequiredPublicationFieldsFragment,
-		'id' | 'title' | 'url' | 'headerColor' | 'links' | 'features' | 'isTeam'
+		'id' | 'title' | 'url' | 'links' | 'features' | 'isTeam'
 	> & {
 		author: Pick<User, 'id' | 'username' | 'name' | 'profilePicture'>;
 	} & {
@@ -38,30 +37,20 @@ const PostPageNavbar = forwardRef<HTMLElement, Props>((props, ref) => {
 	const { publication } = props;
 
 	useStickyNavScroll({ elRef: ref });
-	const { isUserThemeDark } = useAppContext();
 
-	const commonIconBtnStyles = getCommonBtnStyles({
-		isUserThemeDark,
-		headerColor: publication.headerColor,
-	});
+	const commonIconBtnStyles = getCommonBtnStyles();
 
 	return (
 		<div className="container mx-auto px-2 md:px-4 md:py-1 2xl:px-10">
 			<div className="relative z-40 flex flex-row items-center justify-between pb-2 pt-8 md:py-4">
 				<div
 					className={twJoin(
-						'mb-2 flex flex-row items-center md:mb-0',
-						isUserThemeDark
-							? 'text-white'
-							: publication.headerColor
-							? 'text-black'
-							: 'dark:text-white',
+						'mb-2 flex flex-row items-center md:mb-0','dark:text-white',
 					)}
 				>
 					<HeaderTooltip
 						tooltipClassName="blog-home-tooltip"
 						tooltipText="Home"
-						headerColor={publication.headerColor}
 					>
 						<Link
 							href="/"
@@ -74,7 +63,7 @@ const PostPageNavbar = forwardRef<HTMLElement, Props>((props, ref) => {
 
 					{/* Navigation for mobile view */}
 					<div className="mr-2">
-						<HeaderLeftSidebar isUserThemeDark={isUserThemeDark} publication={publication} />
+						<HeaderLeftSidebar publication={publication} />
 					</div>
 
 					<div className="hidden md:block">
@@ -84,15 +73,10 @@ const PostPageNavbar = forwardRef<HTMLElement, Props>((props, ref) => {
 
 				<div
 					className={twJoin(
-						'flex flex-row items-center',
-						isUserThemeDark
-							? 'text-white'
-							: publication.headerColor
-							? 'text-black'
-							: 'dark:text-white',
+						'flex flex-row items-center','dark:text-white',
 					)}
 				>
-					<HeaderBlogSearch isUserThemeDark={isUserThemeDark} publication={publication} />
+					<HeaderBlogSearch publication={publication} />
 					<Button as="a" href="#" type="primary" label="Sign up" />
 				</div>
 			</div>
@@ -105,7 +89,7 @@ const PostPageNavbar = forwardRef<HTMLElement, Props>((props, ref) => {
 			<div className="blog-sub-header mb-4 md:hidden" data-testid="blog-sub-header">
 				{/* Social Links for mobile view */}
 				<div className="mt-6">
-					<PublicationSocialLinks links={publication.links} headerColor={publication.headerColor} />
+					<PublicationSocialLinks links={publication.links} />
 				</div>
 			</div>
 		</div>

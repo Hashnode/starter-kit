@@ -9,8 +9,7 @@ import SearchSVG from './icons/svgs/SearchSvg';
 const PublicationSearch = dynamic(() => import('./publication-search'), { ssr: false });
 
 interface Props {
-  isUserThemeDark: boolean;
-  publication: Pick<Publication, 'id' | 'title' | 'url' | 'isTeam' | 'headerColor' | 'favicon' | 'links'> & {
+  publication: Pick<Publication, 'id' | 'title' | 'url' | 'isTeam' | 'favicon' | 'links'> & {
     author: Pick<User, 'id' | 'username' | 'name' | 'profilePicture'>;
   } & {
     preferences: Omit<Preferences, 'navbarItems'> & {
@@ -20,7 +19,7 @@ interface Props {
 }
 
 const HeaderBlogSearch = (props: Props) => {
-  const { isUserThemeDark, publication } = props;
+  const { publication } = props;
 
   const [isSearchUIVisible, toggleSearchUIState] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -35,9 +34,7 @@ const HeaderBlogSearch = (props: Props) => {
         <PublicationSearch publication={publication} toggleSearchUI={toggleSearchUI} triggerRef={triggerRef} />
       ) : null}
       <CommonHeaderIconBtn
-        isUserThemeDark={isUserThemeDark}
         handleClick={toggleSearchUI}
-        headerColor={publication.headerColor}
         variant="search"
         btnRef={triggerRef}
       >

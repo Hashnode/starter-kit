@@ -107,7 +107,7 @@ export const PostComments = () => {
 					// eslint-disable-next-line react/no-danger
 					dangerouslySetInnerHTML={{
 						__html: imageReplacer(
-							Autolinker.link(comment.content.markdown, {
+							Autolinker.link(comment.content.html, {
 								twitter: true,
 								truncate: 45,
 								css: 'autolinkedURL',
