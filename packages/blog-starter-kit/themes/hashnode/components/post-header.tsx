@@ -6,6 +6,8 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 
 import { resizeImage } from '@starter-kit/utils/image';
+// @ts-ignore
+import handleMathJax from '@starter-kit/utils/handle-math-jax';
 import { PostFullFragment } from '../generated/graphql';
 import CustomImage from './custom-image';
 import { blurImageDimensions } from '../utils/const/images';
@@ -22,7 +24,7 @@ import { useEmbeds } from '@starter-kit/utils/renderer/hooks/useEmbeds';
 import { loadIframeResizer } from '@starter-kit/utils/renderer/services/embed';
 import Link from 'next/link';
 import { createPostUrl } from '../utils/urls';
-import handleMathJax from '../utils/handle-math-jax';
+
 
 moment.extend(relativeTime);
 moment.extend(localizedFormat);

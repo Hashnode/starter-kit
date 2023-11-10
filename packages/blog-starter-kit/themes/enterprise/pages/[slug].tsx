@@ -28,6 +28,8 @@ import {
 	SlugPostsByPublicationQueryVariables,
 	StaticPageFragment,
 } from '../generated/graphql';
+// @ts-ignore
+import handleMathJax from '@starter-kit/utils/handle-math-jax';
 
 const Subscribe = dynamic(() => import('../components/subscribe').then((mod) => mod.Subscribe));
 const PostComments = dynamic(() =>
@@ -60,6 +62,12 @@ const Post = (publication: PublicationFragment, post: PostFullFragment) => {
 			</Link>
 		</li>
 	));
+
+	if (post.hasLatexInPost) {
+		setTimeout(() => {
+		  handleMathJax(true);
+		}, 500);
+	}
 
 	return (
 		<>
