@@ -398,6 +398,14 @@ export const Header = () => {
 				</div>
 				<div className="col-span-2 flex flex-row items-center justify-end gap-5 text-slate-300 lg:col-span-3">
 					{/* <nav className="hidden lg:block">{navList}</nav> */}
+					<a href="https://github.com/mindsdb/mindsdb">
+						<img
+							height={60}
+							width={100}
+							alt="GitHub Repo stars"
+							src="https://img.shields.io/github/stars/mindsdb/mindsdb?style=social"
+						/>
+					</a>
 
 					{/* <Bars3Icon className=" h-10 w-6" aria-hidden="true" /> */}
 					<a href="https://mindsdb.com/joincommunity" className="flex flex-row gap-2">
