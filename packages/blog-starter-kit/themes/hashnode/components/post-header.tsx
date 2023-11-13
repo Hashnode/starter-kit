@@ -4,8 +4,11 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import moment from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
+import Link from 'next/link';
 
 import { resizeImage } from '@starter-kit/utils/image';
+// @ts-ignore
+import handleMathJax from '@starter-kit/utils/handle-math-jax';
 import { PostFullFragment } from '../generated/graphql';
 import CustomImage from './custom-image';
 import { blurImageDimensions } from '../utils/const/images';
@@ -20,9 +23,10 @@ import {
 import { Fragment } from 'react';
 import { useEmbeds } from '@starter-kit/utils/renderer/hooks/useEmbeds';
 import { loadIframeResizer } from '@starter-kit/utils/renderer/services/embed';
-import Link from 'next/link';
+// @ts-ignore
+import { triggerCustomWidgetEmbed } from '@starter-kit/utils/trigger-custom-widget-embed';
 import { createPostUrl } from '../utils/urls';
-import handleMathJax from '../utils/handle-math-jax';
+
 
 moment.extend(relativeTime);
 moment.extend(localizedFormat);
@@ -92,10 +96,10 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 		// More of an alert, did this below to wrap async funcs inside useEffect
 		(async () => {
 		  await loadIframeResizer();
-		  //triggerCustomWidgetEmbed(post.publication.id.toString());
+		  triggerCustomWidgetEmbed(post.publication?.id.toString());
 		  setCanLoadEmbeds(true);
 		})();
-	  }, []);
+	}, []);
 
 	return (
 		<Fragment>

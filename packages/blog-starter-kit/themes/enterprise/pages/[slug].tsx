@@ -28,6 +28,13 @@ import {
 	SlugPostsByPublicationQueryVariables,
 	StaticPageFragment,
 } from '../generated/graphql';
+// @ts-ignore
+import handleMathJax from '@starter-kit/utils/handle-math-jax';
+import { useEffect, useState } from 'react';
+import { loadIframeResizer } from '@starter-kit/utils/renderer/services/embed';
+// @ts-ignore
+import { triggerCustomWidgetEmbed } from '@starter-kit/utils/trigger-custom-widget-embed';
+import { useEmbeds } from '@starter-kit/utils/renderer/hooks/useEmbeds';
 
 const Subscribe = dynamic(() => import('../components/subscribe').then((mod) => mod.Subscribe));
 const PostComments = dynamic(() =>
@@ -60,6 +67,32 @@ const Post = (publication: PublicationFragment, post: PostFullFragment) => {
 			</Link>
 		</li>
 	));
+	const [, setMobMount] = useState(false);
+	const [canLoadEmbeds, setCanLoadEmbeds] = useState(false);
+	useEmbeds({ enabled: canLoadEmbeds });
+	if (post.hasLatexInPost) {
+		setTimeout(() => {
+		  handleMathJax(true);
+		}, 500);
+	}
+
+	useEffect(() => {
+		if (screen.width <= 425) {
+		  setMobMount(true);
+		}
+	
+		if (!post) {
+		  return;
+		}
+	
+		// TODO:
+		// More of an alert, did this below to wrap async funcs inside useEffect
+		(async () => {
+		  await loadIframeResizer();
+		  triggerCustomWidgetEmbed(post.publication?.id.toString());
+		  setCanLoadEmbeds(true);
+		})();
+	}, []);
 
 	return (
 		<>

@@ -284,6 +284,12 @@ export type Draft = Node & {
   /** The author of the draft. */
   author: User;
   canonicalUrl?: Maybe<Scalars['String']['output']>;
+  /**
+   * Returns the user details of the co-authors of the post.
+   * Hashnode users can add up to 4 co-authors as collaborators to their posts.
+   * This functionality is limited to teams publication.
+   */
+  coAuthors?: Maybe<Array<User>>;
   /** Content of the draft in HTML and markdown */
   content?: Maybe<Content>;
   /** The cover image preference of the draft. Contains cover image URL and other details. */
@@ -818,6 +824,12 @@ export type Post = Node & {
   brief: Scalars['String']['output'];
   /** Canonical URL set by author in case of republished posts. */
   canonicalUrl?: Maybe<Scalars['String']['output']>;
+  /**
+   * Returns the user details of the co-authors of the post.
+   * Hashnode users can add up to 4 co-authors as collaborators to their posts.
+   * This functionality is limited to teams publication.
+   */
+  coAuthors?: Maybe<Array<User>>;
   /** List of users who have commented on the post. */
   commenters: PostCommenterConnection;
   /** A list of comments on the post. */
