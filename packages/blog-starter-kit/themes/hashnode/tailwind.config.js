@@ -8,6 +8,7 @@ const fontPlusJakartaVar = 'var(--font-plus-jakarta-sans)';
 
 module.exports = {
 	content: ['./components/**/*.tsx', './pages/**/*.tsx', './components/*.js'],
+	darkMode: 'class',
 	theme: {
 		extend: {
 			fontFamily: {
