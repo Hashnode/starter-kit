@@ -265,7 +265,6 @@ export const getStaticProps = async () => {
 		};
 	}
 
-	const hasPostViewsActive = !!publicationInfo.data?.publication.features.viewCount.isEnabled;
 	return {
 		props: {
 			publication,
@@ -274,8 +273,6 @@ export const getStaticProps = async () => {
 			host,
 			isHome: true,
 		},
-		revalidate: hasPostViewsActive
-			? REVALIDATION_INTERVAL_POST_VIEWS_ACTIVE
-			: REVALIDATION_INTERVAL,
+		revalidate: 1,
 	};
 };
