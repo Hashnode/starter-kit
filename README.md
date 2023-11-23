@@ -27,8 +27,7 @@ Blog Starter Kit lets you instantly deploy a Next.js and Tailwind powered fronte
 
 - [Personal Blog](https://sandeep.dev/blog)
 - [Enterprise Blog](https://demo.hashnode.com/engineering)
-
-We also have a third theme called "hashnode", but there is currently no live demo available.
+- [Hashnode Blog](https://saikrishna.dev/blog)
 
 ## How to deploy
 
