@@ -26,6 +26,7 @@ Blog Starter Kit lets you instantly deploy a Next.js and Tailwind powered fronte
 # Live Demos
 
 - [Personal Blog](https://sandeep.dev/blog)
+- [Engineering Blog](https://blog.buildwithfern.com/?utm_source=hashnode/starter-kit/readme)
 - [Enterprise Blog](https://demo.hashnode.com/engineering)
 - [Hashnode Blog](https://saikrishna.dev/blog)
 
