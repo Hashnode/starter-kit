@@ -328,7 +328,7 @@ export const Header = () => {
 	const hiddenItems = navbarItems.slice(3);
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-	function classNames(...classes) {
+	function classNames(...classes: string[]) {
 		return classes.filter(Boolean).join(' ');
 	}
 
