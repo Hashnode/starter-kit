@@ -537,10 +537,14 @@ export type IUser = {
   dateJoined?: Maybe<Scalars['DateTime']['output']>;
   /** Whether or not the user is deactivated. */
   deactivated: Scalars['Boolean']['output'];
+  /** The users who are following this user */
+  followers: UserConnection;
   /** The number of users that follow the requested user. Visible in the user's profile. */
   followersCount: Scalars['Int']['output'];
   /** The number of users that this user is following. Visible in the user's profile. */
   followingsCount: Scalars['Int']['output'];
+  /** The users which this user is following */
+  follows: UserConnection;
   /** The ID of the user. It can be used to identify the user. */
   id: Scalars['ID']['output'];
   /** The location of the user. */
@@ -561,6 +565,20 @@ export type IUser = {
   tagsFollowing: Array<Tag>;
   /** The username of the user. It is unique and tied with user's profile URL. Example - https://hashnode.com/@username */
   username: Scalars['String']['output'];
+};
+
+
+/** Basic information about a user on Hashnode. */
+export type IUserFollowersArgs = {
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+};
+
+
+/** Basic information about a user on Hashnode. */
+export type IUserFollowsArgs = {
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
 };
 
 
@@ -671,10 +689,14 @@ export type MyUser = IUser & Node & {
   deactivated: Scalars['Boolean']['output'];
   /** Email address of the user. Only available to the authenticated user. */
   email?: Maybe<Scalars['String']['output']>;
+  /** The users who are following this user */
+  followers: UserConnection;
   /** The number of users that follow the requested user. Visible in the user's profile. */
   followersCount: Scalars['Int']['output'];
   /** The number of users that this user is following. Visible in the user's profile. */
   followingsCount: Scalars['Int']['output'];
+  /** The users which this user is following */
+  follows: UserConnection;
   /** The ID of the user. It can be used to identify the user. */
   id: Scalars['ID']['output'];
   /** The location of the user. */
@@ -698,6 +720,26 @@ export type MyUser = IUser & Node & {
   unsubscribeCode?: Maybe<Scalars['String']['output']>;
   /** The username of the user. It is unique and tied with user's profile URL. Example - https://hashnode.com/@username */
   username: Scalars['String']['output'];
+};
+
+
+/**
+ * Basic information about the authenticated user.
+ * User must be authenticated to use this type.
+ */
+export type MyUserFollowersArgs = {
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+};
+
+
+/**
+ * Basic information about the authenticated user.
+ * User must be authenticated to use this type.
+ */
+export type MyUserFollowsArgs = {
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
 };
 
 
@@ -1180,7 +1222,7 @@ export type Publication = Node & {
   author: User;
   /** The canonical URL of the publication. */
   canonicalURL: Scalars['String']['output'];
-  /** The description of the publication, used in og:description meta tag. */
+  /** The description of the publication, used in og:description meta tag. Fall backs to Publication.about.text if no SEO description is provided. */
   descriptionSEO?: Maybe<Scalars['String']['output']>;
   /** The title of the publication. Shown in blog home page. */
   displayTitle?: Maybe<Scalars['String']['output']>;
@@ -2211,6 +2253,8 @@ export type User = IUser & Node & {
   dateJoined?: Maybe<Scalars['DateTime']['output']>;
   /** Whether or not the user is deactivated. */
   deactivated: Scalars['Boolean']['output'];
+  /** The users who are following this user */
+  followers: UserConnection;
   /** The number of users that follow the requested user. Visible in the user's profile. */
   followersCount: Scalars['Int']['output'];
   /**
@@ -2220,6 +2264,8 @@ export type User = IUser & Node & {
   following: Scalars['Boolean']['output'];
   /** The number of users that this user is following. Visible in the user's profile. */
   followingsCount: Scalars['Int']['output'];
+  /** The users which this user is following */
+  follows: UserConnection;
   /**
    * Wether or not this user follows the authenticated user.
    * Returns false if the authenticated user this user.
@@ -2251,6 +2297,20 @@ export type User = IUser & Node & {
 
 
 /** Basic information about a user on Hashnode. */
+export type UserFollowersArgs = {
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+};
+
+
+/** Basic information about a user on Hashnode. */
+export type UserFollowsArgs = {
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+};
+
+
+/** Basic information about a user on Hashnode. */
 export type UserPostsArgs = {
   filter?: InputMaybe<UserPostConnectionFilter>;
   page: Scalars['Int']['input'];
@@ -2264,6 +2324,21 @@ export type UserPublicationsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   filter?: InputMaybe<UserPublicationsConnectionFilter>;
   first: Scalars['Int']['input'];
+};
+
+/**
+ * Connection for users to another user. Contains a list of nodes.
+ * Each node is a user.
+ * Page info contains information about pagination like hasNextPage and endCursor.
+ */
+export type UserConnection = PageConnection & {
+  __typename?: 'UserConnection';
+  /** A list of users */
+  nodes: Array<User>;
+  /** Information for page based pagination in users connection. */
+  pageInfo: OffsetPageInfo;
+  /** The total number of documents in the connection. */
+  totalDocuments: Scalars['Int']['output'];
 };
 
 /** Contains a node of type user and cursor for pagination. */

@@ -20,8 +20,22 @@ module.exports = {
 				'accent-2': '#EAEAEA',
 				'accent-7': '#333',
 				success: '#0070f3',
+				'krida-secondary': '#CC65A7',
+				'krida-primary': '#64cc89',
 				cyan: '#79FFE1',
-				primary: colors.blue,
+				primary: {
+					'50': '#fbf4f9',
+					'100': '#f8ebf4',
+					'200': '#f3d7eb',
+					'300': '#eab7da',
+					'400': '#db8bc1',
+					'500': '#cc65a7',
+					'600': '#b9498b',
+					'700': '#9e3871',
+					'800': '#83315e',
+					'900': '#6f2c51',
+					'950': '#42152e',
+				}
 			},
 			typography: () => ({
 				DEFAULT: {
@@ -96,7 +110,7 @@ module.exports = {
 					  marginBottom: '0.5rem',
 					},
 					kbd: {
-					  backgroundColor: '#eee',
+					  backgroundColor: '#CC65A7',
 					  borderRadius: '3px',
 					  border: '1px solid #b4b4b4',
 					  boxShadow: '0 1px 1px rgba(0, 0, 0, .2), 0 2px 0 0 rgba(255, 255, 255, .7) inset',

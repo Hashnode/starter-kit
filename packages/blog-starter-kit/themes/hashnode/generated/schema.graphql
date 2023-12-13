@@ -555,6 +555,13 @@ interface IUser {
   dateJoined: DateTime
   """Whether or not the user is deactivated."""
   deactivated: Boolean!
+  """The users who are following this user"""
+  followers(
+    """The page number that should be returned."""
+    page: Int!
+    """The number of users to return on a single page."""
+    pageSize: Int!
+  ): UserConnection!
   """
   The number of users that follow the requested user. Visible in the user's profile.
   """
@@ -563,6 +570,13 @@ interface IUser {
   The number of users that this user is following. Visible in the user's profile.
   """
   followingsCount: Int!
+  """The users which this user is following"""
+  follows(
+    """The page number that should be returned."""
+    page: Int!
+    """The number of users to return on a single page."""
+    pageSize: Int!
+  ): UserConnection!
   """The ID of the user. It can be used to identify the user."""
   id: ID!
   """The location of the user."""
@@ -668,6 +682,13 @@ type MyUser implements IUser & Node {
   deactivated: Boolean!
   """Email address of the user. Only available to the authenticated user."""
   email: String
+  """The users who are following this user"""
+  followers(
+    """The page number that should be returned."""
+    page: Int!
+    """The number of posts to return on a single page."""
+    pageSize: Int!
+  ): UserConnection!
   """
   The number of users that follow the requested user. Visible in the user's profile.
   """
@@ -676,6 +697,13 @@ type MyUser implements IUser & Node {
   The number of users that this user is following. Visible in the user's profile.
   """
   followingsCount: Int!
+  """The users which this user is following"""
+  follows(
+    """The page number that should be returned."""
+    page: Int!
+    """The number of posts to return on a single page."""
+    pageSize: Int!
+  ): UserConnection!
   """The ID of the user. It can be used to identify the user."""
   id: ID!
   """The location of the user."""
@@ -1213,7 +1241,9 @@ type Publication implements Node {
   author: User!
   """The canonical URL of the publication."""
   canonicalURL: String!
-  """The description of the publication, used in og:description meta tag."""
+  """
+  The description of the publication, used in og:description meta tag. Fall backs to Publication.about.text if no SEO description is provided.
+  """
   descriptionSEO: String
   """The title of the publication. Shown in blog home page."""
   displayTitle: String
@@ -2224,6 +2254,13 @@ type User implements IUser & Node {
   dateJoined: DateTime
   """Whether or not the user is deactivated."""
   deactivated: Boolean!
+  """The users who are following this user"""
+  followers(
+    """The page number that should be returned."""
+    page: Int!
+    """The number of posts to return on a single page."""
+    pageSize: Int!
+  ): UserConnection!
   """
   The number of users that follow the requested user. Visible in the user's profile.
   """
@@ -2237,6 +2274,13 @@ type User implements IUser & Node {
   The number of users that this user is following. Visible in the user's profile.
   """
   followingsCount: Int!
+  """The users which this user is following"""
+  follows(
+    """The page number that should be returned."""
+    page: Int!
+    """The number of posts to return on a single page."""
+    pageSize: Int!
+  ): UserConnection!
   """
   Wether or not this user follows the authenticated user.
   Returns false if the authenticated user this user.
@@ -2284,6 +2328,20 @@ type User implements IUser & Node {
   The username of the user. It is unique and tied with user's profile URL. Example - https://hashnode.com/@username
   """
   username: String!
+}
+
+"""
+Connection for users to another user. Contains a list of nodes.
+Each node is a user.
+Page info contains information about pagination like hasNextPage and endCursor.
+"""
+type UserConnection implements PageConnection {
+  """A list of users"""
+  nodes: [User!]!
+  """Information for page based pagination in users connection."""
+  pageInfo: OffsetPageInfo!
+  """The total number of documents in the connection."""
+  totalDocuments: Int!
 }
 
 """Contains a node of type user and cursor for pagination."""
