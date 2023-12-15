@@ -14,6 +14,10 @@ RUN pnpm install
 # Copy the code
 COPY . /app
 
+# Set our env vars needed for building it for /blog
+ENV NEXT_PUBLIC_BASE_URL='/blog'
+ENV NEXT_PUBLIC_MODE='production'
+
 RUN cd packages/blog-starter-kit/themes/enterprise && \
     pnpm install
 
