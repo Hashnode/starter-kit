@@ -1,0 +1,9 @@
+.DS_Store
+.pnpm-store
+.vscode
+node_modules
+.docker*
+Docker*
+.editor*
+.git*
+*.md
