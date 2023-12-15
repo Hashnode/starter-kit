@@ -18,23 +18,24 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: 'true'
+      - uses: ./.github/actions/setup-env
       - uses: ./.github/actions/build-push-ecr
         with:
-          module-name: mindsdb
+          module-name: ${{ env.CI_REPOSITORY_NAME_SLUG }}
           build-for-environment: dev
           # extra-build-args: "-f docker/mindsdb.Dockerfile"
 
-  deploy:
-    runs-on: [self-hosted, dev]
-    needs: [build-mindsdb]
-    environment:
-      name: dev
-    steps:
-      - uses: actions/checkout@v2
-      - uses: ./.github/actions/setup-env
-      - uses: DevOps-Nirvana/aws-helm-multi-deploy-nodocker@v2
-        with:
-          environment-slug: ${{matrix.deploy-env}}
-          k8s-namespace: ${{matrix.deploy-env}}
-          image-tag: development-${{ env.SLUG }}
-          timeout: 600s
+  # deploy:
+  #   runs-on: [self-hosted, dev]
+  #   needs: [build-mindsdb]
+  #   environment:
+  #     name: dev
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: ./.github/actions/setup-env
+  #     - uses: DevOps-Nirvana/aws-helm-multi-deploy-nodocker@v2
+  #       with:
+  #         environment-slug: dev
+  #         k8s-namespace: dev
+  #         image-tag: dev-${{ env.SLUG }}
+  #         timeout: 600s
