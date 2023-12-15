@@ -9,7 +9,7 @@ import { twJoin } from 'tailwind-merge';
 import { resizeImage } from '@starter-kit/utils/image';
 // @ts-ignore
 import handleMathJax from '@starter-kit/utils/handle-math-jax';
-import { PostFullFragment } from '../generated/graphql';
+import { MorePostsEdgeFragment, PostFullFragment } from '../generated/graphql';
 import { blurImageDimensions } from '../utils/const/images';
 import { getBlurHash, imageReplacer } from '../utils/image';
 import CoAuthorsModal from './co-authors-modal';
@@ -32,7 +32,7 @@ moment.extend(localizedFormat);
 
 type Props = {
 	post: PostFullFragment;
-	morePosts: any; // TODO: type to be fixed
+	morePosts: MorePostsEdgeFragment[];
 };
 
 const PostFloatingMenu = dynamic(() => import('./post-floating-bar'), { ssr: false });
@@ -75,7 +75,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 		setShowCommentsSheet(true);
 	};
 
-	const filteredPostsWithoutCurrentPost = morePosts.edges.filter(
+	const filteredPostsWithoutCurrentPost = morePosts.filter(
 		(postNode: any) => postNode.node.id !== post.id,
 	);
 	const top3FilteredPosts = filteredPostsWithoutCurrentPost.slice(0, 3);
