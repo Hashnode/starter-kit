@@ -25,17 +25,17 @@ jobs:
           build-for-environment: dev
           # extra-build-args: "-f docker/mindsdb.Dockerfile"
 
-  # deploy:
-  #   runs-on: [self-hosted, dev]
-  #   needs: [build-mindsdb]
-  #   environment:
-  #     name: dev
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: ./.github/actions/setup-env
-  #     - uses: DevOps-Nirvana/aws-helm-multi-deploy-nodocker@v2
-  #       with:
-  #         environment-slug: dev
-  #         k8s-namespace: dev
-  #         image-tag: dev-${{ env.SLUG }}
-  #         timeout: 600s
+  deploy:
+    runs-on: [self-hosted, dev]
+    needs: [build-mindsdb]
+    environment:
+      name: dev
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/setup-env
+      - uses: DevOps-Nirvana/aws-helm-multi-deploy-nodocker@v2
+        with:
+          environment-slug: dev
+          k8s-namespace: dev
+          image-tag: dev-${{ env.SLUG }}
+          timeout: 600s
