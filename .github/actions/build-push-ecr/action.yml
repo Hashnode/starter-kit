@@ -19,16 +19,13 @@ runs:
   using: 'composite'
   steps:
     - uses: ./.github/actions/setup-env
+    # https://github.com/aws-actions/amazon-ecr-login
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
-      env:
-        AWS_REGION: us-west-2
-      with:
-        registries: "987071820073"
     - shell: bash
-      env:
-        AWS_REGION: us-west-2
       run: |
         # Env var parsing
         INPUT_SRC_PATH=${{ inputs.src-path }}
@@ -39,19 +36,15 @@ runs:
         ENVIRONMENT=${{ inputs.build-for-environment }}
         BRANCH_NAME=${{env.ENV_NAME}}
         IMAGE_TAG=$ENVIRONMENT-${{ env.SLUG }}
-        BUILDER_TAG=$ENVIRONMENT-build-${{ env.SLUG }}
 
         # Create repo if needed
         aws ecr create-repository --repository-name $IMAGE_NAME || true # Just let this fail if the repo already exists
 
-        # Go into folder
+        # Grab our cached images, if present
         cd $SRC_PATH
-
-        # Generic args
+        CACHE_FROM_ARGS="--cache-to type=local,dest=/mnt/shared/layercache,mode=max --cache-from type=local,src=/mnt/shared/layercache"
         BUILD_ARGS="--build-arg BUILD_FOR_ENVIRONMENT=$ENVIRONMENT --build-arg IMAGE_TAG=$IMAGE_TAG"
 
         # Finally, build our runner container
-        echo "Running: \n    docker build ${{ inputs.extra-build-args }} $BUILD_ARGS $CACHE_FROM_ARGS -t $REPO_IMAGE:$IMAGE_TAG -t $REPO_IMAGE:latest --push ."
-        docker build ${{ inputs.extra-build-args }} $BUILD_ARGS $CACHE_FROM_ARGS -t $REPO_IMAGE:$IMAGE_TAG -t $REPO_IMAGE:latest .
-        docker push $REPO_IMAGE:$IMAGE_TAG
-        docker push $REPO_IMAGE:latest
+        echo "Running: \n    docker buildx build ${{ inputs.extra-build-args }} $BUILD_ARGS $CACHE_FROM_ARGS -t $REPO_IMAGE:$IMAGE_TAG -t $REPO_IMAGE:latest --push ."
+        docker buildx build ${{ inputs.extra-build-args }} $BUILD_ARGS $CACHE_FROM_ARGS -t $REPO_IMAGE:$IMAGE_TAG -t $REPO_IMAGE:latest --push .
