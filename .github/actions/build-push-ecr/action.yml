@@ -1,0 +1,57 @@
+# Builds a docker image, then tags it with the github sha and pushes it to our Amazon ECR registry
+
+inputs:
+  module-name:
+    description: "Name of the module to build. Used as the default image name and src dir unless 'image-name' or 'src-path' are used."
+    required: true
+  build-for-environment:
+    description: "The backend environment we are building for (API calls are pointed to).  This should be one of (development, staging, production)."
+    required: true
+  extra-build-args:
+    description: "Extra args passed to 'docker build'."
+    required: false
+  src-path:
+    description: "What folder to be (generally to find the Dockerfile in) default is root of repo"
+    required: false
+
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: ./.github/actions/setup-env
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+      env:
+        AWS_REGION: us-west-2
+      with:
+        registries: "987071820073"
+    - shell: bash
+      env:
+        AWS_REGION: us-west-2
+      run: |
+        # Env var parsing
+        INPUT_SRC_PATH=${{ inputs.src-path }}
+        IMAGE_NAME=${{ inputs.module-name }}
+        SRC_PATH=${INPUT_SRC_PATH:-"./"}
+        REPO_IMAGE=${{ steps.login-ecr.outputs.registry }}/$IMAGE_NAME
+        DOCKER_BUILDKIT=1
+        ENVIRONMENT=${{ inputs.build-for-environment }}
+        BRANCH_NAME=${{env.ENV_NAME}}
+        IMAGE_TAG=$ENVIRONMENT-${{ env.SLUG }}
+        BUILDER_TAG=$ENVIRONMENT-build-${{ env.SLUG }}
+
+        # Create repo if needed
+        aws ecr create-repository --repository-name $IMAGE_NAME || true # Just let this fail if the repo already exists
+
+        # Go into folder
+        cd $SRC_PATH
+
+        # Generic args
+        BUILD_ARGS="--build-arg BUILD_FOR_ENVIRONMENT=$ENVIRONMENT --build-arg IMAGE_TAG=$IMAGE_TAG"
+
+        # Finally, build our runner container
+        echo "Running: \n    docker build ${{ inputs.extra-build-args }} $BUILD_ARGS $CACHE_FROM_ARGS -t $REPO_IMAGE:$IMAGE_TAG -t $REPO_IMAGE:latest --push ."
+        docker build ${{ inputs.extra-build-args }} $BUILD_ARGS $CACHE_FROM_ARGS -t $REPO_IMAGE:$IMAGE_TAG -t $REPO_IMAGE:latest .
+        docker push $REPO_IMAGE:$IMAGE_TAG
+        docker push $REPO_IMAGE:latest

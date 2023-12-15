@@ -1,0 +1,40 @@
+name: Dev - Build and Deploy on main
+
+on:
+  push:
+    branches:
+      - master
+      - main
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+
+  build-mindsdb:
+    runs-on: [self-hosted, dev]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'true'
+      - uses: ./.github/actions/build-push-ecr
+        with:
+          module-name: mindsdb
+          build-for-environment: dev
+          # extra-build-args: "-f docker/mindsdb.Dockerfile"
+
+  deploy:
+    runs-on: [self-hosted, dev]
+    needs: [build-mindsdb]
+    environment:
+      name: dev
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/setup-env
+      - uses: DevOps-Nirvana/aws-helm-multi-deploy-nodocker@v2
+        with:
+          environment-slug: ${{matrix.deploy-env}}
+          k8s-namespace: ${{matrix.deploy-env}}
+          image-tag: development-${{ env.SLUG }}
+          timeout: 600s
