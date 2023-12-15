@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webflow-ssl-proxy
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    meta.helm.sh/release-name: webflow-ssl-proxy
+data:
+  kubernetes.conf: |
+    Options FollowSymLinks ExecCGI
+    ProxyPreserveHost Off
+
+    <VirtualHost *:80>
+        ServerName webflow-ssl-proxy-80
+        ServerAlias *
+
+        Header add X-Forwarded-Proto "https"
+        RequestHeader set X-Forwarded-Proto "https"
+
+        # Setup our proxying
+        SSLProxyEngine On
+        SSLProxyCheckPeerCN off
+        SSLProxyCheckPeerExpire off
+        SSLVerifyClient none
+        SSLProxyVerify none
+
+        ProxyPass / "https://mindsdb.webflow.io/"
+        ProxyPassReverse / "https://mindsdb.webflow.io/"
+
+    </VirtualHost>

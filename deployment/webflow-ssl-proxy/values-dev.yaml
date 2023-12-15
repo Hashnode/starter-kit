@@ -1,0 +1,18 @@
+---
+# Default values for dev
+deployment:
+
+  # Only on sandbox and prod we want high-availability & scalability
+  # autoscaling:
+  #   enabled: true
+
+  # This is setup to route from the nginx-ingress controller which is the actual public interface
+  ingress:
+    hosts:
+      - host: 'hashnode.dev.mindsdb.com'
+        paths:
+          - /
+
+  extraEnvs:
+    - name: OTHERENVS
+      value: GOHERE

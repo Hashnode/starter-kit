@@ -40,3 +40,7 @@ next-env.d.ts
 # vscode
 .vscode/*
 !.vscode/extensions.json
+
+# Kubernetes / DevOps Nirvana
+requirements.lock
+deployment/*/charts
