@@ -13,6 +13,12 @@ query SinglePostByPublication($slug: String!, $host: String!) {
 fragment PostFull on Post {
 	publication {
 		id
+		title
+		isTeam
+		favicon
+		about {
+			html
+		}
 		domainInfo {
 			hashnodeSubdomain
 			domain {
@@ -66,7 +72,19 @@ fragment PostFull on Post {
 		socialMediaLinks {
           twitter
         }
+		bio {
+			html
+		}
 	}
+	coAuthors {
+		username
+		id
+		name
+		bio {
+			html
+		}
+		profilePicture
+  	}
 	title
 	content {
 		markdown

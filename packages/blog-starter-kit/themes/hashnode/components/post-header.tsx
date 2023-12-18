@@ -16,6 +16,7 @@ import { getBlurHash, imageReplacer } from '../utils/image';
 import ProfileImage from './profile-image';
 import TocRenderDesign from './toc-render-design';
 const OtherPostsOfAccount = dynamic(() => import('./other-posts-of-account'), { ssr: false });
+const AboutAuthor = dynamic(() => import('./about-author'), { ssr: false });
 
 import {
 	BookOpenSVG,
@@ -261,6 +262,8 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 					))}
 					</div>
 					)}
+
+					<AboutAuthor />
 				</div>
 				</section>
           	</div>
