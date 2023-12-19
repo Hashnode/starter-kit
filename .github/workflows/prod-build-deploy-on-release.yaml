@@ -11,7 +11,7 @@ defaults:
 jobs:
 
   build-hashnode-starter-kit:
-    runs-on: [self-hosted, prod]
+    runs-on: [self-hosted, dev]
     steps:
       - uses: actions/checkout@v2
         with:
