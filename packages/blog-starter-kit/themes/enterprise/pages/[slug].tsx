@@ -36,6 +36,7 @@ import { loadIframeResizer } from '@starter-kit/utils/renderer/services/embed';
 import { triggerCustomWidgetEmbed } from '@starter-kit/utils/trigger-custom-widget-embed';
 import { useEmbeds } from '@starter-kit/utils/renderer/hooks/useEmbeds';
 
+const AboutAuthor = dynamic(() => import('../components/about-author'), { ssr: false });
 const Subscribe = dynamic(() => import('../components/subscribe').then((mod) => mod.Subscribe));
 const PostComments = dynamic(() =>
 	import('../components/post-comments').then((mod) => mod.PostComments),
@@ -144,6 +145,7 @@ const Post = (publication: PublicationFragment, post: PostFullFragment) => {
 					<ul className="flex flex-row flex-wrap items-center gap-2">{tagsList}</ul>
 				</div>
 			)}
+			<AboutAuthor />
 			{!post.preferences.disableComments && post.comments.totalDocuments > 0 && <PostComments />}
 			<Subscribe />
 		</>
