@@ -205,6 +205,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
 	if (!publication) {
 		return {
 			notFound: true,
+			revalidate: 1,
 		};
 	}
 	const post = publication.post;
@@ -222,6 +223,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
 		if (!page) {
 			return {
 				notFound: true,
+				revalidate: 1,
 			};
 		}
 		return {
