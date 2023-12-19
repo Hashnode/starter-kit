@@ -11,6 +11,7 @@ import { resizeImage } from '@starter-kit/utils/image';
 import handleMathJax from '@starter-kit/utils/handle-math-jax';
 import { PostFullFragment } from '../generated/graphql';
 import CustomImage from './custom-image';
+import CoAuthorsModal from './co-authors-modal';
 import { blurImageDimensions } from '../utils/const/images';
 import { getBlurHash, imageReplacer } from '../utils/image';
 import ProfileImage from './profile-image';
@@ -84,6 +85,13 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 		  handleMathJax(true);
 		}, 500);
 	}
+	const [isCoAuthorModalVisible, setIsCoAuthorModalVisible] = useState(false);
+	const closeCoAuthorModal = () => {
+		setIsCoAuthorModalVisible(false);
+	};
+	const openCoAuthorModal = () => {
+		setIsCoAuthorModalVisible(true);
+	};
 	useEffect(() => {
 		if (screen.width <= 425) {
 		  setMobMount(true);
@@ -101,7 +109,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 		  setCanLoadEmbeds(true);
 		})();
 	}, []);
-
+	const authorsArray = [post.author, ...(post.coAuthors || [])];
 	return (
 		<Fragment>
 			<article>
@@ -157,15 +165,53 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 
 				<div className="relative z-20 mb-8 flex flex-row flex-wrap items-center justify-center px-4 md:-mt-7 md:mb-14 md:text-lg last:md:mb-10">
 					<div className="mb-5 flex w-full flex-row items-center justify-center md:mb-0 md:w-auto md:justify-start">
-					<div className="mr-2 h-10 w-10 overflow-hidden rounded-full bg-slate-200 dark:bg-white/20 md:mr-3 md:h-12 md:w-12">
-						<ProfileImage user={post.author} width="200" height="200" hoverDisabled={true} />
-					</div>
-					<a
+					{authorsArray.map((coAuthor, index) => (
+						<div
+						key={coAuthor.id?.toString()}
+						style={{ zIndex: index + 1 }}
+						className={twJoin(
+							'overflow-hidden rounded-full  bg-slate-200  dark:bg-white/20 md:mr-3',
+							index > 0 ? 'hidden md:block' : '',
+							authorsArray.length === 1
+							? 'h-10 w-10 md:h-12 md:w-12'
+							: 'h-8 w-8 border-2 border-slate-100 dark:border-slate-800 md:h-9 md:w-9 [&:not(:first-of-type)]:-ml-3 md:[&:not(:first-of-type)]:-ml-6 ',
+						)}
+						>
+						<ProfileImage user={coAuthor} width="200" height="200" hoverDisabled={true} />
+						</div>
+					))}
+					{post.coAuthors && post.coAuthors.length > 0 && (
+						<button
+						onClick={openCoAuthorModal}
+						style={{ zIndex: post.coAuthors?.length }}
+						className="relative -ml-3 flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border-1-1/2 border-slate-100 bg-slate-100 px-1 group-hover:border-slate-200 dark:border-slate-800 dark:bg-slate-600 dark:text-white group-hover:dark:border-slate-700 md:hidden"
+						>
+						<p className="truncate text-xs font-normal">+{post.coAuthors.length}</p>
+						</button>
+					)}
+					{!post.coAuthors?.length && (
+						<a
 						href={`https://hashnode.com/@${post.author.username}`}
-						className="font-medium text-slate-900 dark:text-white"
-					>
+						className="ml-2 font-semibold text-slate-600 dark:text-white md:ml-0"
+						>
 						<span>{post.author.name}</span>
-					</a>
+						</a>
+					)}
+					{post?.coAuthors?.length && post.coAuthors.length > 0 && (
+						<button
+						onClick={openCoAuthorModal}
+						className="ml-2 text-left font-semibold text-slate-600 hover:underline dark:text-white"
+						>
+						<span>{post.author.name}</span>
+						{post.coAuthors && (
+							<span className="font-normal">
+							{' '}
+							<br className="block sm:hidden" />
+							with {post.coAuthors.length} co-author{post.coAuthors.length === 1 ? '' : 's'}
+							</span>
+						)}
+						</button>
+					)}
 					</div>
 					<div className="mb-5 flex w-full flex-row items-center justify-center md:mb-0 md:w-auto md:justify-start">
 						<span className="mx-3 hidden font-bold text-slate-500 md:block">&middot;</span>
@@ -280,7 +326,10 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 				selectedFilter={selectedFilter}
 				post={post}
 			/>
-		)}
+			)}
+			{isCoAuthorModalVisible && (
+				<CoAuthorsModal closeModal={closeCoAuthorModal} />
+			)}
 		</Fragment>
 	);
 };
