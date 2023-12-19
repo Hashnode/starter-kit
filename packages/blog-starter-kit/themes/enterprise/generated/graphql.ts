@@ -533,25 +533,26 @@ export type IUser = {
   badges: Array<Badge>;
   /** The bio of the user. Visible in about me section of the user's profile. */
   bio?: Maybe<Content>;
-  /**
-   * The bio of the user. Visible in about me section of the user's profile.
-   * @deprecated Will be removed on 26/10/2023. Use bio instead of bioV2
-   */
-  bioV2?: Maybe<Content>;
   /** The date the user joined Hashnode. */
   dateJoined?: Maybe<Scalars['DateTime']['output']>;
   /** Whether or not the user is deactivated. */
   deactivated: Scalars['Boolean']['output'];
+  /** The users who are following this user */
+  followers: UserConnection;
   /** The number of users that follow the requested user. Visible in the user's profile. */
   followersCount: Scalars['Int']['output'];
   /** The number of users that this user is following. Visible in the user's profile. */
   followingsCount: Scalars['Int']['output'];
+  /** The users which this user is following */
+  follows: UserConnection;
   /** The ID of the user. It can be used to identify the user. */
   id: Scalars['ID']['output'];
   /** The location of the user. */
   location?: Maybe<Scalars['String']['output']>;
   /** The name of the user. */
   name: Scalars['String']['output'];
+  /** Returns the list of posts the user has published. */
+  posts: UserPostConnection;
   /** The URL to the profile picture of the user. */
   profilePicture?: Maybe<Scalars['String']['output']>;
   /** Publications associated with the user. Includes personal and team publications. */
@@ -564,6 +565,29 @@ export type IUser = {
   tagsFollowing: Array<Tag>;
   /** The username of the user. It is unique and tied with user's profile URL. Example - https://hashnode.com/@username */
   username: Scalars['String']['output'];
+};
+
+
+/** Basic information about a user on Hashnode. */
+export type IUserFollowersArgs = {
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+};
+
+
+/** Basic information about a user on Hashnode. */
+export type IUserFollowsArgs = {
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+};
+
+
+/** Basic information about a user on Hashnode. */
+export type IUserPostsArgs = {
+  filter?: InputMaybe<UserPostConnectionFilter>;
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+  sortBy?: InputMaybe<UserPostsSort>;
 };
 
 
@@ -648,7 +672,7 @@ export type MyUser = IUser & Node & {
   __typename?: 'MyUser';
   /**
    * Whether or not the user is an ambassador.
-   * @deprecated Ambassadors program no longer active
+   * @deprecated Ambassadors program no longer active. Will be removed after 02/01/2024
    */
   ambassador: Scalars['Boolean']['output'];
   /** The availability of the user based on tech stack and interests. Shown on the "I am available for" section in user's profile. */
@@ -659,27 +683,28 @@ export type MyUser = IUser & Node & {
   betaFeatures: Array<BetaFeature>;
   /** The bio of the user. Visible in about me section of the user's profile. */
   bio?: Maybe<Content>;
-  /**
-   * The bio of the user. Visible in about me section of the user's profile.
-   * @deprecated Will be removed on 26/10/2023. Use bio instead of bio.V2
-   */
-  bioV2?: Maybe<Content>;
   /** The date the user joined Hashnode. */
   dateJoined?: Maybe<Scalars['DateTime']['output']>;
   /** Whether or not the user is deactivated. */
   deactivated: Scalars['Boolean']['output'];
   /** Email address of the user. Only available to the authenticated user. */
   email?: Maybe<Scalars['String']['output']>;
+  /** The users who are following this user */
+  followers: UserConnection;
   /** The number of users that follow the requested user. Visible in the user's profile. */
   followersCount: Scalars['Int']['output'];
   /** The number of users that this user is following. Visible in the user's profile. */
   followingsCount: Scalars['Int']['output'];
+  /** The users which this user is following */
+  follows: UserConnection;
   /** The ID of the user. It can be used to identify the user. */
   id: Scalars['ID']['output'];
   /** The location of the user. */
   location?: Maybe<Scalars['String']['output']>;
   /** The name of the user. */
   name: Scalars['String']['output'];
+  /** Returns the list of posts the user has published. */
+  posts: UserPostConnection;
   /** The URL to the profile picture of the user. */
   profilePicture?: Maybe<Scalars['String']['output']>;
   provider?: Maybe<Scalars['String']['output']>;
@@ -695,6 +720,38 @@ export type MyUser = IUser & Node & {
   unsubscribeCode?: Maybe<Scalars['String']['output']>;
   /** The username of the user. It is unique and tied with user's profile URL. Example - https://hashnode.com/@username */
   username: Scalars['String']['output'];
+};
+
+
+/**
+ * Basic information about the authenticated user.
+ * User must be authenticated to use this type.
+ */
+export type MyUserFollowersArgs = {
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+};
+
+
+/**
+ * Basic information about the authenticated user.
+ * User must be authenticated to use this type.
+ */
+export type MyUserFollowsArgs = {
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+};
+
+
+/**
+ * Basic information about the authenticated user.
+ * User must be authenticated to use this type.
+ */
+export type MyUserPostsArgs = {
+  filter?: InputMaybe<UserPostConnectionFilter>;
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+  sortBy?: InputMaybe<UserPostsSort>;
 };
 
 
@@ -739,11 +796,42 @@ export type Node = {
   id: Scalars['ID']['output'];
 };
 
+/** Contains information to help in pagination for page based pagination. */
+export type OffsetPageInfo = {
+  __typename?: 'OffsetPageInfo';
+  /** Indicates if there are more pages. */
+  hasNextPage?: Maybe<Scalars['Boolean']['output']>;
+  /** Indicates if there are previous pages */
+  hasPreviousPage?: Maybe<Scalars['Boolean']['output']>;
+  /**
+   * The page after the current page.
+   * Use it to build page navigation
+   */
+  nextPage?: Maybe<Scalars['Int']['output']>;
+  /**
+   * The page before the current page.
+   * Use it to build page navigation
+   */
+  previousPage?: Maybe<Scalars['Int']['output']>;
+};
+
 /** Information to help in open graph related meta tags. */
 export type OpenGraphMetaData = {
   __typename?: 'OpenGraphMetaData';
   /** The image used in og:image tag for SEO purposes. */
   image?: Maybe<Scalars['String']['output']>;
+};
+
+/**
+ * A Connection for page based pagination to get a list of items.
+ * Returns a list of nodes which contains the items.
+ * This is a common interface for all page connections.
+ */
+export type PageConnection = {
+  /** A list of edges of items connection. */
+  nodes: Array<Node>;
+  /** Information to aid in pagination. */
+  pageInfo: OffsetPageInfo;
 };
 
 /** Contains information to help in pagination. */
@@ -933,6 +1021,14 @@ export type PostLikedByArgs = {
   filter?: InputMaybe<PostLikerFilter>;
   first: Scalars['Int']['input'];
 };
+
+/** The author type of a post from a user's perspective */
+export enum PostAuthorType {
+  /** The user has authored the post. */
+  Author = 'AUTHOR',
+  /** The user is a co-author of post. */
+  CoAuthor = 'CO_AUTHOR'
+}
 
 export type PostBadge = Node & {
   __typename?: 'PostBadge';
@@ -1126,7 +1222,7 @@ export type Publication = Node & {
   author: User;
   /** The canonical URL of the publication. */
   canonicalURL: Scalars['String']['output'];
-  /** The description of the publication, used in og:description meta tag. */
+  /** The description of the publication, used in og:description meta tag. Fall backs to Publication.about.text if no SEO description is provided. */
   descriptionSEO?: Maybe<Scalars['String']['output']>;
   /** The title of the publication. Shown in blog home page. */
   displayTitle?: Maybe<Scalars['String']['output']>;
@@ -1148,8 +1244,13 @@ export type Publication = Node & {
   headerColor?: Maybe<Scalars['String']['output']>;
   /** The ID of the publication. */
   id: Scalars['ID']['output'];
-  /** Summary of the contact information and information related to copyrights, usually used in German-speaking countries. */
+  /**
+   * Summary of the contact information and information related to copyrights, usually used in German-speaking countries.
+   * @deprecated Use `imprintV2` instead. Will be removed after 16/12/2023.
+   */
   imprint?: Maybe<Scalars['String']['output']>;
+  /** Summary of the contact information and information related to copyrights, usually used in German-speaking countries. */
+  imprintV2?: Maybe<Content>;
   /** The integrations connected to the publication. */
   integrations?: Maybe<PublicationIntegrations>;
   /** Returns true if GitHub backup is configured and active and false otherwise. */
@@ -1172,6 +1273,10 @@ export type Publication = Node & {
   posts: PublicationPostConnection;
   /** The publication preferences around layout, theme and other personalisations. */
   preferences: Preferences;
+  /** Publications that are recommended by this publication. */
+  recommendedPublications: Array<UserRecommendedPublicationEdge>;
+  /** Publications that are recommending this publication. */
+  recommendingPublications: PublicationUserRecommendingPublicationConnection;
   /** Configured redirection rules for the publication. */
   redirectionRules: Array<RedirectionRule>;
   /** Returns the scheduled drafts of the publication. */
@@ -1193,6 +1298,8 @@ export type Publication = Node & {
    * Title is used as logo if logo is not provided.
    */
   title: Scalars['String']['output'];
+  /** The total amount of recommended publications by this publication. */
+  totalRecommendedPublications: Scalars['Int']['output'];
   /** The domain of the publication. Used to access publication. Example https://johndoe.com */
   url: Scalars['String']['output'];
   /** Determines the structure of the post URLs. */
@@ -1228,6 +1335,16 @@ export type PublicationPostsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   filter?: InputMaybe<PublicationPostConnectionFilter>;
   first: Scalars['Int']['input'];
+};
+
+
+/**
+ * Contains basic information about the publication.
+ * A publication is a blog that can be created for a user or a team.
+ */
+export type PublicationRecommendingPublicationsArgs = {
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
 };
 
 
@@ -1462,6 +1579,18 @@ export type PublicationSponsorship = {
   stripe?: Maybe<StripeConfiguration>;
 };
 
+export type PublicationUserRecommendingPublicationConnection = PageConnection & {
+  __typename?: 'PublicationUserRecommendingPublicationConnection';
+  /** A list of edges containing Post information */
+  edges: Array<UserRecommendingPublicationEdge>;
+  /** Publications recommending this publication. */
+  nodes: Array<Publication>;
+  /** Information for page based pagination in Post connection. */
+  pageInfo: OffsetPageInfo;
+  /** The total number of documents in the connection. */
+  totalDocuments: Scalars['Int']['output'];
+};
+
 /** Contains information about the post to be published. */
 export type PublishPostInput = {
   /** Ids of the co-authors of the post. */
@@ -1472,8 +1601,6 @@ export type PublishPostInput = {
   coverImageOptions?: InputMaybe<CoverImageOptionsInput>;
   /** A flag to indicate if the comments are disabled for the post. */
   disableComments?: InputMaybe<Scalars['Boolean']['input']>;
-  /** The ID of the draft to be published. */
-  draftId: Scalars['ObjectId']['input'];
   /** Information about the meta tags added to the post, used for SEO purpose. */
   metaTags?: InputMaybe<MetaTagsInput>;
   /** The URL of the original article if the post is imported from an external source. */
@@ -1731,10 +1858,17 @@ export enum Scope {
   CreatePro = 'create_pro',
   ImportSubscribersToPublication = 'import_subscribers_to_publication',
   PublicationAdmin = 'publication_admin',
+  PublishComment = 'publish_comment',
   PublishDraft = 'publish_draft',
+  PublishPost = 'publish_post',
+  PublishReply = 'publish_reply',
   RecommendPublications = 'recommend_publications',
+  RemoveComment = 'remove_comment',
+  RemoveReply = 'remove_reply',
   Signup = 'signup',
+  UpdateComment = 'update_comment',
   UpdatePost = 'update_post',
+  UpdateReply = 'update_reply',
   WebhookAdmin = 'webhook_admin',
   WritePost = 'write_post',
   WriteSeries = 'write_series'
@@ -2107,7 +2241,7 @@ export type User = IUser & Node & {
   __typename?: 'User';
   /**
    * Whether or not the user is an ambassador.
-   * @deprecated Ambassadors program no longer active
+   * @deprecated Ambassadors program no longer active. Will be removed after 02/01/2024
    */
   ambassador: Scalars['Boolean']['output'];
   /** The availability of the user based on tech stack and interests. Shown on the "I am available for" section in user's profile. */
@@ -2125,6 +2259,8 @@ export type User = IUser & Node & {
   dateJoined?: Maybe<Scalars['DateTime']['output']>;
   /** Whether or not the user is deactivated. */
   deactivated: Scalars['Boolean']['output'];
+  /** The users who are following this user */
+  followers: UserConnection;
   /** The number of users that follow the requested user. Visible in the user's profile. */
   followersCount: Scalars['Int']['output'];
   /**
@@ -2134,6 +2270,8 @@ export type User = IUser & Node & {
   following: Scalars['Boolean']['output'];
   /** The number of users that this user is following. Visible in the user's profile. */
   followingsCount: Scalars['Int']['output'];
+  /** The users which this user is following */
+  follows: UserConnection;
   /**
    * Wether or not this user follows the authenticated user.
    * Returns false if the authenticated user this user.
@@ -2147,6 +2285,8 @@ export type User = IUser & Node & {
   location?: Maybe<Scalars['String']['output']>;
   /** The name of the user. */
   name: Scalars['String']['output'];
+  /** Returns the list of posts the user has published. */
+  posts: UserPostConnection;
   /** The URL to the profile picture of the user. */
   profilePicture?: Maybe<Scalars['String']['output']>;
   /** Publications associated with the user. Includes personal and team publications. */
@@ -2163,10 +2303,48 @@ export type User = IUser & Node & {
 
 
 /** Basic information about a user on Hashnode. */
+export type UserFollowersArgs = {
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+};
+
+
+/** Basic information about a user on Hashnode. */
+export type UserFollowsArgs = {
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+};
+
+
+/** Basic information about a user on Hashnode. */
+export type UserPostsArgs = {
+  filter?: InputMaybe<UserPostConnectionFilter>;
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+  sortBy?: InputMaybe<UserPostsSort>;
+};
+
+
+/** Basic information about a user on Hashnode. */
 export type UserPublicationsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   filter?: InputMaybe<UserPublicationsConnectionFilter>;
   first: Scalars['Int']['input'];
+};
+
+/**
+ * Connection for users to another user. Contains a list of nodes.
+ * Each node is a user.
+ * Page info contains information about pagination like hasNextPage and endCursor.
+ */
+export type UserConnection = PageConnection & {
+  __typename?: 'UserConnection';
+  /** A list of users */
+  nodes: Array<User>;
+  /** Information for page based pagination in users connection. */
+  pageInfo: OffsetPageInfo;
+  /** The total number of documents in the connection. */
+  totalDocuments: Scalars['Int']['output'];
 };
 
 /** Contains a node of type user and cursor for pagination. */
@@ -2177,6 +2355,69 @@ export type UserEdge = Edge & {
   /** The node containing User information */
   node: User;
 };
+
+/**
+ * Connection for posts written by a single user. Contains a list of edges containing nodes.
+ * Each node is a post.
+ * Page info contains information about pagination like hasNextPage and endCursor.
+ */
+export type UserPostConnection = PageConnection & {
+  __typename?: 'UserPostConnection';
+  /** A list of edges containing Post information */
+  edges: Array<UserPostEdge>;
+  /** A list of posts */
+  nodes: Array<Post>;
+  /** Information for page based pagination in Post connection. */
+  pageInfo: OffsetPageInfo;
+  /** The total number of documents in the connection. */
+  totalDocuments: Scalars['Int']['output'];
+};
+
+/** Filter for the posts of a user. */
+export type UserPostConnectionFilter = {
+  /** Filtering by author status. Either all posts the user has authored or co-authored are returned or the authored posts only. */
+  authorType?: InputMaybe<UserPostsAuthorTypeFilter>;
+  /** Filtering by publication IDs will return posts from the author within the publication. */
+  publications?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /**
+   * Only include posts that reference the provided tag slugs.
+   *
+   * Filtering by `tags` and `tagSlugs` will filter posts that match either of those two filters.
+   */
+  tagSlugs?: InputMaybe<Array<Scalars['String']['input']>>;
+  /**
+   * Only include posts that reference the provided tag IDs.
+   *
+   *
+   * Filtering by `tags` and `tagSlugs` will filter posts that match either of those two filters.
+   */
+  tags?: InputMaybe<Array<Scalars['ID']['input']>>;
+};
+
+/** Contains a post and the author status. */
+export type UserPostEdge = {
+  __typename?: 'UserPostEdge';
+  /** Indicates weather the user is the author or co-author of the post. */
+  authorType: PostAuthorType;
+  /** The node holding the Post information. */
+  node: Post;
+};
+
+/** Filter for the posts of a user. */
+export enum UserPostsAuthorTypeFilter {
+  /** Only posts that are authored by the user. */
+  AuthorOnly = 'AUTHOR_ONLY',
+  /** Only posts that are co-authored by the user. */
+  CoAuthorOnly = 'CO_AUTHOR_ONLY'
+}
+
+/** Sorting for the posts of a user. */
+export enum UserPostsSort {
+  /** Oldest posts first. */
+  DatePublishedAsc = 'DATE_PUBLISHED_ASC',
+  /** Newest posts first. */
+  DatePublishedDesc = 'DATE_PUBLISHED_DESC'
+}
 
 /** The role of the user in the publication. */
 export enum UserPublicationRole {
@@ -2224,6 +2465,22 @@ export type UserPublicationsEdge = Edge & {
   role: UserPublicationRole;
 };
 
+export type UserRecommendedPublicationEdge = {
+  __typename?: 'UserRecommendedPublicationEdge';
+  /** The publication that is recommended by the publication this connection originates from. */
+  node: Publication;
+  /** The amount of followers the publication referenced in `node` has gained by recommendations from the publication. */
+  totalFollowersGained: Scalars['Int']['output'];
+};
+
+export type UserRecommendingPublicationEdge = {
+  __typename?: 'UserRecommendingPublicationEdge';
+  /** The publication that is recommending the publication this connection originates from. */
+  node: Publication;
+  /** The amount of followers the publication has gained by recommendations from the publication referenced in `node`. */
+  totalFollowersGained: Scalars['Int']['output'];
+};
+
 /**
  * Contains the flag indicating if the view count feature is enabled or not.
  * User can enable or disable the view count feature from the publication settings.
@@ -2261,7 +2518,10 @@ export type WebhookMessagesArgs = {
 export enum WebhookEvent {
   PostDeleted = 'POST_DELETED',
   PostPublished = 'POST_PUBLISHED',
-  PostUpdated = 'POST_UPDATED'
+  PostUpdated = 'POST_UPDATED',
+  StaticPageDeleted = 'STATIC_PAGE_DELETED',
+  StaticPageEdited = 'STATIC_PAGE_EDITED',
+  StaticPagePublished = 'STATIC_PAGE_PUBLISHED'
 }
 
 export type WebhookMessage = Node & {

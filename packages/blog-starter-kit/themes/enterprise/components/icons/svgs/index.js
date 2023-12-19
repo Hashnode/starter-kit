@@ -15,6 +15,7 @@ import ContactSVG from './NavbarIcons/ContactSVG';
 import DocsNavSVG from './NavbarIcons/DocsNavSVG';
 import EnterpriseSVG from './NavbarIcons/EnterpriseSVG';
 import EventsSVG from './NavbarIcons/EventsSVG';
+import HashnodeBlueSVG from './NavbarIcons/HashnodeSVG';
 import NewsroomSVG from './NavbarIcons/NewsroomSVG';
 import ProductUpdatesSVG from './NavbarIcons/ProductUpdatesSVG';
 import SlackNavSGV from './NavbarIcons/SlackNavSGV';
@@ -41,6 +42,7 @@ export {
 	EventsSVG,
 	ExternalArrowSVG,
 	GithubSVG,
+	HashnodeBlueSVG,
 	HashnodeSVG,
 	LinkedinSVG,
 	MindsdbLogoSVG,

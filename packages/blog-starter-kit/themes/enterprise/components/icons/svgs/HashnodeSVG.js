@@ -3,7 +3,7 @@ import React from 'react';
 export default class HashnodeSVG extends React.Component {
 	render() {
 		return (
-			<svg className={this.props.className} fill="none" viewBox="0 0 24 24">
+			<svg className={this.props.className} fill="none" width="24" height="24" viewBox="0 0 24 24">
 				<path
 					stroke="currentColor"
 					strokeWidth="1.5"
