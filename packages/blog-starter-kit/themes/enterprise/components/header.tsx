@@ -13,13 +13,13 @@ import {
 	BlogNavSGV,
 	CareersSVG,
 	CaseStudiesSVG,
-	CloudNavBarSVG,
 	CommunitySVG,
 	ContactSVG,
 	DocsNavSVG,
 	EnterpriseSVG,
 	EventsSVG,
 	GithubSVG,
+	HashnodeBlueSVG,
 	MindsdbLogoSVG,
 	NewsroomSVG,
 	ProductUpdatesSVG,
@@ -36,11 +36,17 @@ function hasUrl(
 }
 
 const product1 = [
+	// {
+	// 	name: 'MindsDB Pro',
+	// 	description: 'Try our managed service',
+	// 	href: 'https://cloud.mindsdb.com/',
+	// 	Icon: <CloudNavBarSVG />,
+	// },
 	{
-		name: 'MindsDB Pro',
-		description: 'Try our managed service',
-		href: 'https://cloud.mindsdb.com/',
-		Icon: <CloudNavBarSVG />,
+		name: 'Github',
+		description: 'Visit our Repo',
+		href: 'https://github.com/mindsdb/mindsdb/',
+		Icon: <GithubSVG />,
 	},
 	{
 		name: 'MindsDB Enterprise',
@@ -120,19 +126,19 @@ const company1 = [
 	{
 		name: 'About Us',
 		description: 'Our vision and team',
-		href: 'https://mindsdb.com/joincommunity',
+		href: 'https://mindsdb.com/about',
 		Icon: <AboutUsNavSVG />,
 	},
 	{
 		name: 'Events',
 		description: 'Archive of past and upcoming events',
-		href: 'https://docs.mindsdb.com/',
+		href: 'https://mindsdb.com/events',
 		Icon: <EventsSVG />,
 	},
 	{
 		name: 'Newsroom',
 		description: 'Read the latest news about MindsDB',
-		href: 'https://mindsdb.com/case-studies',
+		href: 'https://mindsdb.com/newsroom',
 		Icon: <NewsroomSVG />,
 	},
 ];
@@ -140,14 +146,20 @@ const company2 = [
 	{
 		name: 'Careers',
 		description: 'Learn about open roles at MindsDB',
-		href: 'https://mindsdb.com/machine-learning-use-cases',
+		href: 'https://mindsdb.com/careers',
 		Icon: <CareersSVG />,
 	},
 	{
 		name: 'Contacts',
 		description: 'Find the right channel to get in touch',
-		href: 'https://mindsdb.com/blog-categories/product-updates',
+		href: 'https://mindsdb.com/contact',
 		Icon: <ContactSVG />,
+	},
+	{
+		name: 'Contests',
+		description: 'Build Your Own AI Agent Online Hackathon',
+		href: 'https://hashnode.com/hackathons/mindsdb',
+		Icon: <HashnodeBlueSVG />,
 	},
 ];
 
@@ -190,10 +202,10 @@ const ProductPopover = () => {
 				leaveFrom="opacity-100 translate-y-0"
 				leaveTo="opacity-0 translate-y-1"
 			>
-				<Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-2xl overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
+				<Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-96 max-w-2xl overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
 					<div className="flex flex-row p-4 text-black ">
 						<div className="w-full">
-							<p className="mb-4 border-b px-4 pb-3 text-black">CLOUD</p>
+							{/* <p className="mb-4 border-b px-4 pb-3 text-black">CLOUD</p> */}
 
 							{product1.map((item) => (
 								<NavItem
@@ -205,7 +217,8 @@ const ProductPopover = () => {
 								/>
 							))}
 						</div>
-						<div className="w-full">
+
+						{/* <div className="w-full">
 							<p className="mb-4 border-b px-4 pb-3 text-black">OPEN-SOURCE</p>
 
 							{product2.map((item) => (
@@ -217,7 +230,7 @@ const ProductPopover = () => {
 									url={item.href}
 								/>
 							))}
-						</div>
+						</div> */}
 					</div>
 				</Popover.Panel>
 			</Transition>
@@ -342,7 +355,7 @@ export const Header = () => {
 							aria-label={`${publication.title} blog home page`}
 							className="flex flex-row items-center gap-3"
 						>
-							{!PUBLICATION_LOGO ? (
+							{PUBLICATION_LOGO ? (
 								<>
 									<MindsdbLogoSVG className="block w-32 shrink-0 md:w-40" alt={publication.title} />
 									<span className="text-xl font-semibold text-white md:text-3xl"></span>
