@@ -8,7 +8,6 @@ import NewsletterPlusSVG from './NewsletterPlusSVG';
 import PlusCircleSVG from './PlusCircleSVG';
 import RssSVG from './RssSVG';
 import XSVG from './XSVG';
-import PublicationPlaceholderSVG from './PublicationPlaceholderSVG';
 
 export {
 	ArticleSVG,
@@ -21,5 +20,4 @@ export {
 	PlusCircleSVG,
 	RssSVG,
 	XSVG,
-	PublicationPlaceholderSVG,
 };
