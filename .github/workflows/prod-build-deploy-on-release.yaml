@@ -1,10 +1,8 @@
-name: Dev - Build and Deploy on main
+name: Prod - Build and Deploy on release
 
 on:
-  push:
-    branches:
-      - master
-      - main
+  release:
+    types: [published]
 
 defaults:
   run:
@@ -13,7 +11,7 @@ defaults:
 jobs:
 
   build-hashnode-starter-kit:
-    runs-on: [self-hosted, dev]
+    runs-on: [self-hosted, prod]
     steps:
       - uses: actions/checkout@v2
         with:
@@ -22,21 +20,21 @@ jobs:
       - uses: ./.github/actions/build-push-ecr
         with:
           module-name: ${{ env.CI_REPOSITORY_NAME_SLUG }}
-          build-for-environment: dev
+          build-for-environment: prod
           # extra-build-args: "-f docker/mindsdb.Dockerfile"
 
   deploy:
-    runs-on: [self-hosted, dev]
+    runs-on: [self-hosted, prod]
     needs: [build-hashnode-starter-kit]
     environment:
-      name: dev
-      url: https://hashnode.dev.mindsdb.com/blog
+      name: prod
+      url: https://mindsdb.com/blog
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/setup-env
       - uses: DevOps-Nirvana/aws-helm-multi-deploy-nodocker@v2
         with:
-          environment-slug: dev
-          k8s-namespace: dev
-          image-tag: dev-${{ env.SLUG }}
+          environment-slug: prod
+          k8s-namespace: prod
+          image-tag: prod-${{ env.SLUG }}
           timeout: 600s
