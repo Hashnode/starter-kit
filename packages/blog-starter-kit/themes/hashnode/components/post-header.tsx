@@ -112,7 +112,6 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 	const authorsArray = [post.author, ...(post.coAuthors || [])];
 	return (
 		<Fragment>
-			<article>
 			<div className="blog-article-page container relative mx-auto grid grid-cols-8">
 				<div className="col-span-full lg:col-span-6 lg:col-start-2">
 					{/* Top cover */}
@@ -318,7 +317,6 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 				{!post.series && (
 					<OtherPostsOfAccount post={post} morePosts={top3FilteredPosts}/>
 				)}
-			</article>
 			{showCommentsSheet && (
 			<PostCommentsSidebar
 				hideSidebar={() => setShowCommentsSheet(false)}
