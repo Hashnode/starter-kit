@@ -32,22 +32,22 @@ export const Footer = () => {
 							</p>
 							<ul className="flex flex-col gap-1 text-slate-700 dark:text-neutral-300">
 								<li>
-									<a href="#" className="hover:underline">
+									<a href="https://mindsdb.com/contact" className="hover:underline">
 										Contact us
 									</a>
 								</li>
 								<li>
-									<a href="#" className="hover:underline">
+									<a href="https://mindsdb.com/book-a-demo" className="hover:underline">
 										Book a demo
 									</a>
 								</li>
 								<li>
-									<a href="#" className="hover:underline">
+									<a href="https://mindsdb.com/newsletter" className="hover:underline">
 										Newsletter
 									</a>
 								</li>
 								<li>
-									<a href="#" className="hover:underline">
+									<a href="https://mindsdb.com/joincommunity" className="hover:underline">
 										Slack
 									</a>
 								</li>
@@ -57,22 +57,25 @@ export const Footer = () => {
 							<p className="mb-2 font-semibold text-slate-600 dark:text-neutral-200">Resources</p>
 							<ul className="flex flex-col gap-1 text-slate-700 dark:text-neutral-300">
 								<li>
-									<a href="#" className="hover:underline">
+									<a href="https://mindsdb.com/rewards" className="hover:underline">
 										Community
 									</a>
 								</li>
 								<li>
-									<a href="#" className="hover:underline">
+									<a
+										href="https://mindsdb.com/machine-learning-use-cases"
+										className="hover:underline"
+									>
 										Use Cases
 									</a>
 								</li>
 								<li>
-									<a href="#" className="hover:underline">
+									<a href="https://github.com/mindsdb/mindsdb" className="hover:underline">
 										Source Code
 									</a>
 								</li>
 								<li>
-									<a href="#" className="hover:underline">
+									<a href="https://mindsdb.com/blog" className="hover:underline">
 										Blog
 									</a>
 								</li>
@@ -82,22 +85,25 @@ export const Footer = () => {
 							<p className="mb-2 font-semibold text-slate-600 dark:text-neutral-200">Product</p>
 							<ul className="flex flex-col gap-1 text-slate-700 dark:text-neutral-300">
 								<li>
-									<a href="#" className="hover:underline">
+									<a href="https://mindsdb.com/pricing" className="hover:underline">
 										Pricing
 									</a>
 								</li>
 								<li>
-									<a href="#" className="hover:underline">
+									<a href="https://docs.mindsdb.com/" className="hover:underline">
 										Documentation
 									</a>
 								</li>
 								<li>
-									<a href="#" className="hover:underline">
+									<a href="https://mindsdb.com/integrations" className="hover:underline">
 										Integrations
 									</a>
 								</li>
 								<li>
-									<a href="#" className="hover:underline">
+									<a
+										href="https://github.com/mindsdb/mindsdb/discussions/"
+										className="hover:underline"
+									>
 										Support
 									</a>
 								</li>
@@ -107,22 +113,22 @@ export const Footer = () => {
 							<p className="mb-2 font-semibold text-slate-600 dark:text-neutral-200">Other links</p>
 							<ul className="flex flex-col gap-1 text-slate-700 dark:text-neutral-300">
 								<li>
-									<a href="#" className="hover:underline">
+									<a href="https://mindsdb.com/events" className="hover:underline">
 										Events
 									</a>
 								</li>
 								<li>
-									<a href="#" className="hover:underline">
+									<a href="https://mindsdb.com/careers" className="hover:underline">
 										Careers
 									</a>
 								</li>
 								<li>
-									<a href="#" className="hover:underline">
+									<a href="https://mindsdb.com/newsroom" className="hover:underline">
 										Newsroom
 									</a>
 								</li>
 								<li>
-									<a href="#" className="hover:underline">
+									<a href="https://mindsdb.com/about" className="hover:underline">
 										About us
 									</a>
 								</li>
@@ -133,11 +139,11 @@ export const Footer = () => {
 						<SocialLinks />
 						<p>&copy; 2023 Company Inc.</p>
 						<p>
-							<a href="#" className="hover:underline">
+							<a href="https://mindsdb.com/privacy-policy" className="hover:underline">
 								Privacy Policy
 							</a>{' '}
 							·{' '}
-							<a href="#" className="hover:underline">
+							<a href="https://mindsdb.com/terms" className="hover:underline">
 								Terms
 							</a>
 						</p>

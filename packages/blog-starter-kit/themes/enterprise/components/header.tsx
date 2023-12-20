@@ -407,7 +407,7 @@ export const Header = () => {
 							</a>
 
 							<Button
-								href="https://github.com/mindsdb/mindsdb"
+								href="https://cloud.mindsdb.com/login"
 								as="a"
 								type="outline"
 								label="LOG IN"
