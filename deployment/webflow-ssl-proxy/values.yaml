@@ -18,15 +18,15 @@ deployment:
   # Only specify the values you need to override from the defaults
   livenessProbe:
     enabled: true
-    probeType: tcpSocket
     initialDelaySeconds: 30
+    path: /
 
   # readinessProbes are used to determine when a container is ready to start accepting traffic
   # Only specify the values you need to override from the defaults
   readinessProbe:
     enabled: true
-    probeType: tcpSocket
     initialDelaySeconds: 1
+    path: /
 
   # deployment container resource requests/limits
   # this is set VERY low by default, to be aggressive above resource limiting, please override this if necessary
