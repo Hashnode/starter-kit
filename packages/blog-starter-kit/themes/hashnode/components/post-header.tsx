@@ -197,7 +197,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 						<span>{post.author.name}</span>
 						</a>
 					)}
-					{post?.coAuthors?.length && post.coAuthors.length > 0 && (
+					{post.coAuthors && post.coAuthors.length > 0 && (
 						<button
 						onClick={openCoAuthorModal}
 						className="ml-2 text-left font-semibold text-slate-600 hover:underline dark:text-white"
