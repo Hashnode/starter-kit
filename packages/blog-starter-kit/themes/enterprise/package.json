@@ -12,8 +12,10 @@
 	},
 	"dependencies": {
 		"@graphql-typed-document-node/core": "^3.2.0",
+		"@radix-ui/react-dialog": "^1.0.5",
 		"@radix-ui/react-dropdown-menu": "^2.0.6",
 		"@radix-ui/react-popover": "^1.0.7",
+		"@radix-ui/react-scroll-area": "^1.0.2",
 		"@starter-kit/utils": "workspace:*",
 		"@tailwindcss/typography": "^0.5.10",
 		"@vercel/og": "^0.5.18",
@@ -25,6 +27,7 @@
 		"react-waypoint": "^10.3.0",
 		"remark": "^14.0.2",
 		"remark-html": "^15.0.1",
+		"tailwind-merge": "^1.13.2",
 		"uuid": "^9.0.1"
 	},
 	"devDependencies": {

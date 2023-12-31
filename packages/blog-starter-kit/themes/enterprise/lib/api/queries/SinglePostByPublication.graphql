@@ -22,6 +22,16 @@ fragment PostFull on Post {
 	readTimeInMinutes
 	reactionCount
 	responseCount
+	hasLatexInPost
+	publication {
+		id
+		isTeam
+		favicon
+		title
+		about {
+			html
+		}
+	}
 	seo {
 		title
 		description
@@ -30,10 +40,26 @@ fragment PostFull on Post {
 		url
 	}
 	author {
+		id
 		name
 		username
 		profilePicture
+		socialMediaLinks {
+          twitter
+        }
+		bio {
+			html
+		}
 	}
+	coAuthors {
+		username
+		id
+		name
+		bio {
+			html
+		}
+		profilePicture
+  	}
 	title
 	content {
 		markdown

@@ -23,21 +23,27 @@
 
 Blog Starter Kit lets you instantly deploy a Next.js and Tailwind powered frontend for your Hashnode blog. It consumes [Hashnode's Public APIs](https://apidocs.hashnode.com), and gives you a fully customizable blog that can be deployed anywhere, including a subpath of a custom domain. Combined with [Hashnode's headless mode](https://hashnode.com/headless), it unlocks entirely new possibilities. You can now use Hashnode's [world class editor](https://hashnode.com/neptune) and dashboard to author content and collaborate. And use blog starter kit to customize the frontend to your liking.
 
-# Live Demos: 
+# Live Demos
 
-- [Personal Blog](https://sandeep.dev/blog)
-- [Enterprise Blog](https://demo.hashnode.com/engineering)
+- [Personal theme](https://sandeep.dev/blog)
+- [Enterprise theme](https://demo.hashnode.com/engineering)
+- [Hashnode theme](https://saikrishna.dev/blog)
+
+# Example company blogs built with Headless
+
+- [Outerbase](https://outerbase.com/blog)
+- [Fern](https://blog.buildwithfern.com/)
+- [Fix](https://fix.tt/blog)
 
 ## How to deploy
 
 ### Step 1
 
-
 The recommended approach is deploying to Vercel. If you don't have an account already, you can sign up for a free plan.
 
 - Fork this repo
 - Create a new project on Vercel and connect this repo
-- It's a monorepo. So, choose either `packages/blog-starter-kit/themes/enterprise` or `packages/blog-starter-kit/themes/personal` as the root directory while importing on Vercel.
+- It's a monorepo. So, choose either `packages/blog-starter-kit/themes/enterprise`, `packages/blog-starter-kit/themes/hashnode` or `packages/blog-starter-kit/themes/personal` as the root directory while importing on Vercel.
 
   ![selecting the directory to deploy a monorepo](https://cdn.hashnode.com/res/hashnode/image/upload/v1698839884060/O8OoBML5v.PNG?auto=format)
 
@@ -135,7 +141,7 @@ Congrats 🎉! Hashnode will now treat your blog as a headless blog and send rea
 
 ## Running Locally
 
-- cd `packages/blog-starter-kit/themes/enterprise` or `packages/blog-starter-kit/themes/personal`
+- cd into either `packages/blog-starter-kit/themes/enterprise`, or `packages/blog-starter-kit/themes/hashnode` or `packages/blog-starter-kit/themes/personal`
 - Copy `.env.example` to `.env.local`
 - `pnpm install`
 - `pnpm dev`
@@ -148,7 +154,6 @@ If you prefer to build your frontend from scratch, you can use our public GraphQ
 
 - [Docs](https://apidocs.hashnode.com)
 - [GraphQL Playground](https://gql.hashnode.com)
-- [Generate queries/mutations by talking to AI](https://chatgql.com/chat?url=https://gql.hashnode.com)
 
 ## Demo Videos
 

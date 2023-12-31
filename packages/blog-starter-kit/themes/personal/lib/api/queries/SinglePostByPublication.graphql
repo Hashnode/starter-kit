@@ -14,11 +14,15 @@ fragment PostFull on Post {
 	brief
 	title
 	subtitle
+	hasLatexInPost
 	publishedAt
 	updatedAt
 	readTimeInMinutes
 	reactionCount
 	responseCount
+	publication {
+		id
+	}
 	seo {
 		title
 		description
