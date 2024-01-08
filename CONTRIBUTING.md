@@ -6,10 +6,6 @@ We would ❤️ you to contribute to Headless Hashnode Starter kit and help make
 
 If you are worried or don’t know where to start, you can checkout open issues or add new issues and comment your interest and a maintainer can guide you. Alternatively, you can send your questions to anyone from the [Hashnode team on Discord](https://hshno.de/discord).
 
-## Code of Conduct
-
-Help us keep Appwrite open and inclusive. Please read and follow our [Code of Conduct](https://github.com/appwrite/.github/blob/main/CODE_OF_CONDUCT.md).
-
 ## Submit a Pull Request 🚀
 
 Branch naming convention is as following
