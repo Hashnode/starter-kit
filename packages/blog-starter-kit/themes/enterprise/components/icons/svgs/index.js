@@ -1,5 +1,7 @@
 import ArticleSVG from './ArticleSVG';
+import BookOpenSVG from './BookOpenSVG';
 import ChevronDownSVG from './ChevronDownSVG';
+import CloseSVG from './CloseSVG';
 import ExternalArrowSVG from './ExternalArrowSVG';
 import GithubSVG from './GithubSVG';
 import HashnodeSVG from './HashnodeSVG';
@@ -31,9 +33,11 @@ export {
 	AboutUsNavSVG,
 	ArticleSVG,
 	BlogNavSGV,
+	BookOpenSVG,
 	CareersSVG,
 	CaseStudiesSVG,
 	ChevronDownSVG,
+	CloseSVG,
 	CloudNavBarSVG,
 	CommunitySVG,
 	ContactSVG,

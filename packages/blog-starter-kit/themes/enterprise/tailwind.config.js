@@ -32,6 +32,10 @@ module.exports = {
 			letterSpacing: {
 				tighter: '-.04em',
 			},
+			inset: {
+				100: '100%',
+				50: '50%',
+			},
 			lineHeight: {
 				tight: 1.2,
 			},
