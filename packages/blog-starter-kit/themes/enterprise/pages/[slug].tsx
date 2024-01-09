@@ -103,6 +103,7 @@ const Post = (publication: PublicationFragment, post: PostFullFragment) => {
 				coverImage={post.coverImage?.url}
 				date={post.publishedAt}
 				author={post.author}
+				readTimeInMinutes={post.readTimeInMinutes}
 			/>
 			{post.features.tableOfContents.isEnabled && <PostTOC />}
 			<MarkdownToHtml contentMarkdown={post.content.markdown} />
