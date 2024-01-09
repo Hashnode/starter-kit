@@ -19,16 +19,20 @@ query MorePostsByPublication($host: String!, $first: Int!, $after: String) {
 	publication(host: $host) {
 		posts(first: $first, after: $after) {
 			edges {
-				node {
-					...Post
-					comments(first: 0) {
-						totalDocuments
-					}
-				}
+				...MorePostsEdge
 			}
 			pageInfo {
 				...PageInfo
 			}
+		}
+	}
+}
+
+fragment MorePostsEdge on PostEdge {
+	node {
+		...Post
+		comments(first: 0) {
+			totalDocuments
 		}
 	}
 }
