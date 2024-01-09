@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { Waypoint } from 'react-waypoint';
 import { Container } from '../components/container';
 import { AppProvider } from '../components/contexts/appContext';
+import { ThemeProvider } from '../components/contexts/themeContext';
 import { Footer } from '../components/footer';
 import { Layout } from '../components/layout';
 import { MinimalPosts } from '../components/minimal-posts';
@@ -55,6 +56,7 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 		setLoadedMore(true);
 	};
 	return (
+		<ThemeProvider>
 		<AppProvider publication={publication}>
 			<Layout>
 				<Head>
@@ -99,6 +101,7 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 				</Container>
 			</Layout>
 		</AppProvider>
+		</ThemeProvider>
 	);
 }
 
