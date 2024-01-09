@@ -3,6 +3,8 @@ import { resizeImage } from '@starter-kit/utils/image';
 import Link from 'next/link';
 import { PublicationNavbarItem } from '../generated/graphql';
 import { useAppContext } from './contexts/appContext';
+import { useTheme } from './contexts/themeContext';
+import { Layout } from './layout';
 
 function hasUrl(
 	navbarItem: PublicationNavbarItem,
@@ -12,7 +14,7 @@ function hasUrl(
 
 export const PersonalHeader = () => {
 	const { publication } = useAppContext();
-
+	const { theme, toggleTheme }:any = useTheme();
 	const navbarItems = publication.preferences.navbarItems.filter(hasUrl);
 	const visibleItems = navbarItems.slice(0, 2);
 	const hiddenItems = navbarItems.slice(2);
@@ -58,9 +60,10 @@ export const PersonalHeader = () => {
 			)}
 		</ul>
 	);
-
 	return (
+		<Layout>
 		<header className="grid grid-cols-2 items-center gap-5 ">
+				<div>
 			<div className="col-span-full md:col-span-1">
 				<h1>
 					<Link
@@ -85,6 +88,19 @@ export const PersonalHeader = () => {
 			</div>
 			<div className="col-span-full flex flex-row items-center justify-between gap-4 md:col-span-1 md:justify-end">
 				<nav>{navList}</nav>
+				<div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+					<input 
+					type="checkbox"  
+        			id="toggle" 
+        			className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
+       				onChange={toggleTheme} // Change to onChange
+        			checked={theme === 'dark'} // Reflects the current theme
+      			/>
+                    <label 
+                        htmlFor="toggle" 
+                        className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
+                    ></label>
+                </div>
 				{/* <Button
           label=""
           type="outline"
@@ -92,6 +108,9 @@ export const PersonalHeader = () => {
           icon={<NewsletterPlusSVG className="w-5 h-5 fill-current" />}
         /> */}
 			</div>
+			</div>
 		</header>
+		</Layout>
+		
 	);
 };
