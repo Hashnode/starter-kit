@@ -8,23 +8,23 @@ metadata:
 data:
   kubernetes.conf: |
     Options FollowSymLinks ExecCGI
-    ProxyPreserveHost Off
+    ProxyPreserveHost off
 
     <VirtualHost *:80>
         ServerName webflow-ssl-proxy-80
         ServerAlias *
 
-        Header add X-Forwarded-Proto "https"
+        # Add X-Forwarded-Proto header
         RequestHeader set X-Forwarded-Proto "https"
 
-        # Setup our proxying
-        SSLProxyEngine On
-        SSLProxyCheckPeerCN off
-        SSLProxyCheckPeerExpire off
-        SSLVerifyClient none
-        SSLProxyVerify none
-
-        ProxyPass / "https://mindsdb.webflow.io/"
-        ProxyPassReverse / "https://mindsdb.webflow.io/"
-
+        # Proxy requests to backend server, but "fake" a different hostname (mindsdb.com) needed because of how webflow works
+        ProxyRemote "*" "http://proxy.webflow.com"
+        ProxyPass / "http://mindsdb.com/"
+        ProxyPassReverse / "http://mindsdb.com/"
     </VirtualHost>
+  # IMPLEMENTATION NOTE: Uncomment below to debug raw any requests sent to proxies and such
+  # zz-debug.conf: |
+  #   LoadModule dumpio_module modules/mod_dumpio.so
+  #   LogLevel dumpio:trace7
+  #   DumpIOInput On
+  #   DumpIOOutput On

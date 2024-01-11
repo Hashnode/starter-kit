@@ -19,14 +19,14 @@ deployment:
   livenessProbe:
     enabled: true
     initialDelaySeconds: 30
-    path: /
+    path: /robots.txt
 
   # readinessProbes are used to determine when a container is ready to start accepting traffic
   # Only specify the values you need to override from the defaults
   readinessProbe:
     enabled: true
     initialDelaySeconds: 1
-    path: /
+    path: /robots.txt
 
   # deployment container resource requests/limits
   # this is set VERY low by default, to be aggressive above resource limiting, please override this if necessary
