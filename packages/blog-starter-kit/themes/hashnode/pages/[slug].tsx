@@ -96,7 +96,7 @@ const Page = ({ page }: PageProps) => {
 				<title>{title}</title>
 			</Head>
 			<div className="blog-page-area mx-auto min-h-screen px-4 py-8 md:w-2/3 md:p-10">
-				<StaticPageContent pageContent={page} />
+				<StaticPageContent pageContent={page} isHomePage={page.slug === 'home'} />
 			</div>
 		</>
 	);
