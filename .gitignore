@@ -41,3 +41,5 @@ next-env.d.ts
 .vscode/*
 !.vscode/extensions.json
 .idea/
+
+packages/blog-starter-kit/themes/hashnode/generated/
