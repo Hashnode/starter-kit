@@ -40,3 +40,6 @@ next-env.d.ts
 # vscode
 .vscode/*
 !.vscode/extensions.json
+.idea/
+
+packages/blog-starter-kit/themes/hashnode/generated/
