@@ -40,3 +40,4 @@ next-env.d.ts
 # vscode
 .vscode/*
 !.vscode/extensions.json
+.idea/
