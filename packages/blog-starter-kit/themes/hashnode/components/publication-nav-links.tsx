@@ -5,6 +5,7 @@ import Link from 'next/link';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import * as DropdownPrimitive from '@radix-ui/react-dropdown-menu';
 import { twJoin } from 'tailwind-merge';
+import { useAppContext } from './contexts/appContext';
 import { ChevronDownV2SVG } from './icons/svgs';
 
 const PublicationNavLinksDropdown = dynamic(
@@ -29,8 +30,8 @@ function PublicationNavLinks(props: Props) {
 
   const navItemsRef = useRef(
     [
-      { label: 'About Me', url: '/', isActive: currentActiveMenuItemId === 'home'},
-      { label: 'Blog', url: '/blog', isActive: !currentActiveMenuItemId && isHome },
+      { label: 'About Me', url: '/home', isActive: currentActiveMenuItemId === 'home'},
+      { label: 'Blog', url: '/', isActive: !currentActiveMenuItemId && isHome },
       ...navbarItems.map((item) => {
         const isCustomMenuItemActive = currentActiveMenuItemId && item.id === currentActiveMenuItemId;
         return { ...item, isActive: isCustomMenuItemActive };
