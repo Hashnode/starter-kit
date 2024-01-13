@@ -175,7 +175,7 @@ export default function PostOrPage(props: Props) {
 						}}
 					/>
 				</Head>
-				<Header isHome={false} />
+				<Header isHome={false} currentMenuId={props.page.slug} />
 				<Container>
 					<article className="flex flex-col items-start gap-10 pb-10">
 						<Page {...props} />
