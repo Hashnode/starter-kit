@@ -9,14 +9,14 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRef } from 'react';
 import { twJoin } from 'tailwind-merge';
-import { Container } from '../components/container';
-import { AppProvider } from '../components/contexts/appContext';
-import { Header } from '../components/header';
-import { Layout } from '../components/layout';
-import { PostHeader } from '../components/post-header';
-import PostPageNavbar from '../components/post-page-navbar';
-import PublicationFooter from '../components/publication-footer';
-import StaticPageContent from '../components/static-page-content';
+import { Container } from '../../components/container';
+import { AppProvider } from '../../components/contexts/appContext';
+import { Header } from '../../components/header';
+import { Layout } from '../../components/layout';
+import { PostHeader } from '../../components/post-header';
+import PostPageNavbar from '../../components/post-page-navbar';
+import PublicationFooter from '../../components/publication-footer';
+import StaticPageContent from '../../components/static-page-content';
 import {
 	MorePostsByPublicationDocument,
 	MorePostsEdgeFragment,
@@ -26,7 +26,7 @@ import {
 	SinglePostByPublicationDocument,
 	SlugPostsByPublicationDocument,
 	StaticPageFragment,
-} from '../generated/graphql';
+} from '../../generated/graphql';
 
 type PostProps = {
 	type: 'post';
