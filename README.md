@@ -45,7 +45,7 @@ The recommended approach is deploying to Vercel. If you don't have an account al
 
 - Fork this repo
 - Create a new project on Vercel and connect this repo
-- It's a monorepo, so, choose either `packages/blog-starter-kit/themes/enterprise`, `packages/blog-starter-kit/themes/hashnode` or `packages/blog-starter-kit/themes/personal` as the root directory while importing on Vercel.
+- It's a monorepo, So choose either `packages/blog-starter-kit/themes/enterprise`, `packages/blog-starter-kit/themes/hashnode`, or `packages/blog-starter-kit/themes/personal` as the root directory while importing on Vercel.
 
   ![selecting the directory to deploy a monorepo](https://cdn.hashnode.com/res/hashnode/image/upload/v1698839884060/O8OoBML5v.PNG?auto=format)
 
