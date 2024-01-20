@@ -1,27 +1,96 @@
-
 .landingPage {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    position: relative;
+    z-index: 3 !important;
 
     h1 {
-        font-family: 'Paytone One';
-        font-size: 7rem;
-        line-height: 1.1em;
+        font-family: 'Inter';
+        font-size: 5rem;
+        line-height: 1.2em;
         width: 100%;
-        font-weight: 100;
+        margin-top: .5em;
+        font-weight: 900;
         text-align: center;
         color: #fff;
         overflow: hidden;
-        letter-spacing: 2px;
+
+        // letter-spacing: 2px;
+        span {
+            color: #17f1d1;
+        }
     }
 
-    h1:last-child {
-        margin-left: 3em;
+    .box {
+        width: 90%;
+        height: 20%;
+        background: #fff;
+        border: 2px solid #10141F;
+        position: absolute;
+        bottom: -2.5%;
+        right: -5%;
+        border-radius: 100px;
+        padding: .5em;
+        background: #2765FA;
+        color: #10141F;
+        z-index: 9;
+        font-size: .8em;
+        font-weight: 700;
+
+
+        span {
+            position: absolute;
+            width: 90%;
+            bottom: 15%;
+            left: 5%;
+        }
+
+        .profile {
+            width: 100px;
+            height: 100px;
+            border-radius: 100px;
+            background: #10141F;
+        }
     }
 
-    h1 {
-        transform: translateX(-5%);
+    .box::before {
+        content: "";
+        display: block;
+        background: #ffffff;
+        border: 2px solid #10141F;
+        width: 100%;
+        border-radius: 100px;
+        height: 100%;
+        position: absolute;
+        bottom: 10%;
+        z-index: -1;
+        right: 2.5%;
+
+    }
+
+    .swiper {
+        width: 100%;
+        height: 100%;
+        cursor: grab;
+        z-index: 9;
+
+        .swiperSlider {
+            margin: 3em 0;
+            position: relative;
+            height: 250px;
+            width: 250px;
+            border-radius: 20px;
+            img {
+                width: 100%;
+                height: 100%;
+                border-radius: 20px;
+            }
+        }
+
+        .swiperSlider:nth-child(1) {
+            margin-left: 1em;
+        }
     }
 }
