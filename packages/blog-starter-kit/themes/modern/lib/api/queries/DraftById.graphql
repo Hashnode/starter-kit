@@ -1,0 +1,5 @@
+query DraftById($id: ObjectId!) {
+  draft(id: $id) {
+   ...Draft
+  }
+}
