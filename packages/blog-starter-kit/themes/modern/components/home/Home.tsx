@@ -2,10 +2,28 @@
 import React, { useEffect, useState, useRef } from 'react'
 import styles from "./home.module.scss"
 import Typewriter from 'typewriter-effect/dist/core';
+import { Post, PostThumbnailFragment, RequiredPublicationFieldsFragment } from '../../generated/graphql';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import { getDefaultPostCoverImageUrl } from '../../utils/commonUtils';
+import CustomImage from '../custom-image';
+import { getBlurHash, resizeImage } from '@starter-kit/utils/image';
+import { DEFAULT_AVATAR, blurImageDimensions } from '../../utils/const/images';
+import { MdPeopleAlt } from "react-icons/md";
+import { MdOutlineRemoveRedEye } from 'react-icons/md';
+import { IoIosTime } from "react-icons/io";
+import Image from 'next/image';
 
-export default function Home() {
+export default function Home(props: {
+  posts: Array<PostThumbnailFragment>;
+  publication: Pick<RequiredPublicationFieldsFragment, 'id' | 'features'> & {
+    pinnedPost?: Pick<Post, 'id'> | null;
+  };
+}) {
+
+  const swiperRef = useRef(null);
+  const [sliderPosition, setSliderPosition] = useState(0);
+  const { publication, posts } = props;
 
   useEffect(() => {
     new Typewriter('#typingEffect', {
@@ -15,71 +33,9 @@ export default function Home() {
     });
   })
 
-  const testimonials = [
-    {
-      url: "hello-world/cover.jpg",
-      title: "got my portfolio ready in 18 hours with CMS !!",
-      id: 1,
-    },
-    {
-      url: "hello-world/cover.jpg",
-      title: "got my portfolio ready in 18 hours with CMS !!",
-      id: 2,
-    },
-    {
-      url: "hello-world/cover.jpg",
-      title: "Learnt prompting for free and got 23% hike !!",
-      id: 3,
-    },{
-      url: "hello-world/cover.jpg",
-      title: "got my portfolio ready in 18 hours with CMS !!",
-      id: 1,
-    },
-    {
-      url: "hello-world/cover.jpg",
-      title: "got my portfolio ready in 18 hours with CMS !!",
-      id: 2,
-    },
-    {
-      url: "hello-world/cover.jpg",
-      title: "Learnt prompting for free and got 23% hike !!",
-      id: 3,
-    },{
-      url: "hello-world/cover.jpg",
-      title: "got my portfolio ready in 18 hours with CMS !!",
-      id: 1,
-    },
-    {
-      url: "hello-world/cover.jpg",
-      title: "got my portfolio ready in 18 hours with CMS !!",
-      id: 2,
-    },
-    {
-      url: "hello-world/cover.jpg",
-      title: "Learnt prompting for free and got 23% hike !!",
-      id: 3,
-    },{
-      url: "hello-world/cover.jpg",
-      title: "got my portfolio ready in 18 hours with CMS !!",
-      id: 1,
-    },
-    {
-      url: "hello-world/cover.jpg",
-      title: "got my portfolio ready in 18 hours with CMS !!",
-      id: 2,
-    },
-    {
-      url: "hello-world/cover.jpg",
-      title: "Learnt prompting for free and got 23% hike !!",
-      id: 3,
-    },
-  ];
-
-  const swiperRef = useRef(null);
-  const [sliderPosition, setSliderPosition] = useState(0);
   useEffect(() => {
     const handleScroll = (event: any) => {
-      const scrollDelta = event.deltaY * 0.5;
+      const scrollDelta = event.deltaY * 1;
       const newSliderPosition = sliderPosition + scrollDelta;
 
       if (newSliderPosition >= 0) {
@@ -93,6 +49,8 @@ export default function Home() {
 
     return () => window.removeEventListener('wheel', handleScroll);
   }, [sliderPosition]);
+
+
   return (
     <div className={styles.landingPage}>
       <h1>
@@ -109,21 +67,98 @@ export default function Home() {
         mousewheel={{ releaseOnEdges: true }}
       >
 
-        {testimonials.map((card, index) => {
+        {posts.map((post, index) => {
+          const postURL = `/${post.slug}`;
+          const isFirstPost = index === 0;
+
+          if (!postURL) return null;
+          const postCoverImageURL = post.coverImage?.url ?? getDefaultPostCoverImageUrl();
+
           return (
-            <SwiperSlide key={index} style={{ transform: `translate3d(${-sliderPosition}px, ${-sliderPosition/3}px, ${-sliderPosition}px)` }} className={styles.swiperSlider}>
-              <img src='https://media.discordapp.net/attachments/1144663357845147790/1198278477464473710/woman.png?ex=65be52cb&is=65abddcb&hm=8fc86c0a031eaa4dee52bd7050be9c074bdbaf99f261ff21620226b346d31ef7&=&format=webp&quality=lossless&width=429&height=490'/>
+            <SwiperSlide key={post.id} style={{ transform: `translateX(${-sliderPosition}px` }} className={styles.swiperSlider}>
               <div>
-                <p className={styles.box}>
-                  {/* <div className="profile"></div> */}
-                  <span>{card.title}</span>
-                </p>
+                <CustomImage
+                  className="block w-full"
+                  originalSrc={postCoverImageURL}
+                  src={resizeImage(postCoverImageURL, {
+                    w: 1600,
+                    h: 840,
+                    ...(!post.coverImage?.isPortrait ? { c: 'thumb' } : { fill: 'blur' }),
+                  })}
+                  width={1600}
+                  height={840}
+                  placeholder="blur"
+                  blurDataURL={getBlurHash(
+                    resizeImage(postCoverImageURL, {
+                      ...blurImageDimensions,
+                      ...(!post.coverImage?.isPortrait ? { c: 'thumb' } : { fill: 'blur' }),
+                    }),
+                  )}
+                  layout="responsive"
+                  alt={post.title}
+                  priority={isFirstPost}
+                />
+                <div className={styles.profile}>
+                  <div className={styles.profileImg}>
+                    <Image
+                      alt={post.author.name || 'Author'}
+                      className="block"
+                      width={72}
+                      height={72}
+                      src={resizeImage(post.author.profilePicture || DEFAULT_AVATAR, { w: 72, h: 72, c: 'face' })}
+                    />
+                  </div>
+                  <div className={styles.content}>
+                    <h3>{post.author.name}</h3>
+                    <article>@{post.author.username}</article>
+                  </div>
+                </div>
+              </div>
+
+              <div className={styles.blogContent}>
+                <h2><a href={postURL}>{post.title}</a></h2>
+                <p> {post.subtitle || post.brief}</p>
+              </div>
+
+              <div className={styles.blogInfo}>
+                <div>
+                  <MdPeopleAlt size={25} className={styles.icon} />
+                  <p>{formatNumbers(post.author.followersCount)}</p>
+                </div>
+
+
+                <div>
+                  <IoIosTime size={25} className={styles.icon} />
+                  <p>{formatNumbers(post.readTimeInMinutes) + ' min'}</p>
+                </div>
+
+                <div>
+                  <MdOutlineRemoveRedEye size={25} className={styles.icon} />
+                  <p>{formatNumbers(post.views)}</p>
+                </div>
               </div>
             </SwiperSlide>
           )
-
         })}
       </Swiper>
     </div>
   )
+}
+
+function formatNumbers(likes: number): string {
+  const suffixes: string[] = ["", "K", "M", "B", "T"];
+  const num: number = parseFloat(likes.toString());
+
+  if (num < 1000) {
+    return num.toString();
+  }
+
+  const tier: number = Math.floor(Math.log10(Math.abs(num)) / 3);
+  const suffix: string = suffixes[Math.min(tier, suffixes.length - 1)]; // Choose suffix based on tier, preventing array index overflow
+  const scale: number = Math.pow(10, tier * 3);
+
+  const scaledNumber: number = num / scale;
+  const formattedNumber: string = scaledNumber.toFixed(1).replace(/\.0$/, ""); // Remove '.0' for whole numbers
+
+  return formattedNumber + suffix;
 }
