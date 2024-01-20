@@ -34,6 +34,7 @@
 		"mongodb": "3.7.3",
 		"next-axiom": "0.18.0",
 		"next-urql": "5.0.2",
+		"react-icons": "^5.0.1",
 		"react-perfect-scrollbar": "^1.5.8",
 		"react-remove-scroll": "^2.5.5",
 		"react-use": "17.4.0",

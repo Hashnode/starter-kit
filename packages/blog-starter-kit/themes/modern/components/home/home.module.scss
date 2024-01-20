@@ -1,0 +1,27 @@
+
+.landingPage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    h1 {
+        font-family: 'Paytone One';
+        font-size: 7rem;
+        line-height: 1.1em;
+        width: 100%;
+        font-weight: 100;
+        text-align: center;
+        color: #fff;
+        overflow: hidden;
+        letter-spacing: 2px;
+    }
+
+    h1:last-child {
+        margin-left: 3em;
+    }
+
+    h1 {
+        transform: translateX(-5%);
+    }
+}

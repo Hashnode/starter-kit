@@ -1,0 +1,280 @@
+.navbar {
+    font-family: 'Paytone One';
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5em 2em;
+    width: 100%;
+
+    .logo {
+        font-size: 1.65rem;
+        font-weight: 400;
+        z-index: 100;
+        color: #17f1d1;
+        transition: color 2s ease;
+    }
+
+    .logo.active {
+        color: #8b52ff;
+        
+        text-shadow:
+            1px 1px 0 #000000,
+            2px 1px 0 #000000,
+            2px -1px 0 #000000,
+            -2px -1px 0 #000;
+    }
+
+    .buttons {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+
+        .getStarted {
+            background: transparent;
+            border: 1.5px solid #a374ff;
+            border-radius: 50px;
+            padding: .8rem 1.5rem;
+            color: #fff;
+            font-size: .925rem;
+            font-weight: 700;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .hamburger {
+            border-radius: 100px;
+            border: none;
+            outline: none;
+            padding: 1.8em 1em;
+            height: 100%;
+            background: #8b52ff;
+            z-index: 100;
+            cursor: pointer;
+
+            div {
+                width: 25px;
+                height: 3px;
+                background: #fff;
+                position: relative;
+                transition: all 0.3s ease-in-out;
+                scale: .8;
+
+                &:after,
+                &:before {
+                    content: "";
+                    width: 25px;
+                    height: 3px;
+                    background: #fff;
+                    position: absolute;
+                    transition: all 0.3s ease-in-out;
+                }
+
+                &:before {
+                    top: -8px;
+                    left: 0;
+                }
+
+                &:after {
+                    top: 8px;
+                    left: 0;
+                }
+            }
+
+            &.active div {
+                transform: rotate(45deg);
+            }
+
+            &.active div:before {
+                transform: rotate(90deg) translate(2px, -2px);
+            }
+
+            &.active div:after {
+                transform: rotate(-90deg) translate(2px, 2px);
+            }
+        }
+    }
+
+    .navItems {
+        position: absolute;
+        top: -100%;
+        z-index: 99;
+        left: 0;
+        transform: perspective(1000px) rotateX(90deg);
+        width: 100%;
+        height: 100%;
+        // border-bottom-right-radius: 1000px;
+        // border-bottom-left-radius: 1000px;
+        transform: translateY(20);
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        transition: all .5s ease-out;
+        padding: 2em;
+
+        .links {
+            font-size: 3rem;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-start;
+            margin-left: 1.5em;
+
+            h2 {
+                width: fit-content;
+                transition: all .5s ease;
+                cursor: pointer;
+            }
+
+            h2:hover {
+                color: #fff;
+                text-shadow:
+                    1px 1px 0 #000000,
+                    5px 2px 0 #000000,
+                    5px -1px 0 #000000,
+                    -3px -2px 0 #000;
+            }
+        }
+
+        .left {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-end;
+            flex-direction: column;
+            // padding-right: 2em;
+
+            .socials {
+                display: flex;
+                align-items: center;
+                gap: .5em;
+                margin-bottom: .5em;
+
+                svg {
+                    fill: #fff;
+                    background: #1d1d1f;
+                    padding: .5em;
+                    border-radius: 8px;
+                }
+            }
+
+            .contact {
+                width: 100%;
+                background: #1d1d1f;
+                border: 2px solid #1d1d1f;
+                color: #fff;
+                padding: 1em;
+                border-radius: 15px;
+
+                .getInTouch {
+                    font-size: 1rem;
+                    color: #8b52ff;
+                }
+
+                .mail,
+                .phone,
+                .name {
+                    font-size: 2rem;
+                    font-weight: 200;
+                }
+            }
+        }
+    }
+
+    .navItems.active {
+        top: 0;
+        border-bottom-right-radius: 0px;
+        transform: perspective(1000px) rotateX(0deg);
+
+        border-bottom-left-radius: 0px;
+    }
+}
+
+
+@media screen and (max-width: 1200px) {
+    .left {
+        width: 60% !important;
+        .phone, .mail, .name {
+            font-size: 1.8rem !important;
+        }
+    }
+
+    .links {
+        font-size: 2.5rem !important;
+    }
+}
+
+@media screen and (max-width: 944px) {
+    .left {
+        width: 60% !important;
+        .phone, .mail, .name {
+            font-size: 1.5rem !important;
+        }
+    }
+
+    .links {
+        font-size: 2.5rem !important;
+    }
+}
+
+@media screen and (max-width: 870px) {
+    .links {
+        font-size: 2rem !important;
+    }
+
+    .getStarted {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .navItems {
+        flex-direction: column-reverse;
+        .links, .left {
+            width: 100% !important;
+            height: fit-content !important;
+            padding-right: 0 !important;
+        }
+
+        
+
+        .links {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr;
+            margin-top: 2em;
+            margin-bottom: 1em;
+            gap: .5em;
+            h2 {
+                background: #1d1d1f;
+                width: 100% !important;
+                border-radius: 10px;
+                text-align: center;
+                color: #fff;
+                font-size: 2.5rem;
+                padding: .25em;
+                font-weight: 100;
+            }
+        }
+     }
+}
+
+
+@media screen and (max-width: 600px) {
+    .links {
+        h2 {
+            font-size: 2rem !important;
+        }
+    }
+}
+
+@media screen and (max-width: 520px) {
+
+    .navItems {
+        height: fit-content !important;   
+    }
+
+    .links {
+        grid-template-columns: 1fr !important;
+    }
+}
