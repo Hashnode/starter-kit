@@ -63,7 +63,6 @@ export default function Home(props: {
         ref={swiperRef}
         freeMode={true}
         loop={true}
-
         mousewheel={{ releaseOnEdges: true }}
       >
 

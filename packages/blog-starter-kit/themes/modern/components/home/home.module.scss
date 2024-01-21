@@ -23,53 +23,6 @@
         }
     }
 
-    .box {
-        width: 90%;
-        height: 20%;
-        background: #fff;
-        border: 2px solid #10141F;
-        position: absolute;
-        bottom: -2.5%;
-        right: -5%;
-        border-radius: 100px;
-        padding: .5em;
-        background: #2765FA;
-        color: #10141F;
-        z-index: 9;
-        font-size: .8em;
-        font-weight: 700;
-
-
-        span {
-            position: absolute;
-            width: 90%;
-            bottom: 15%;
-            left: 5%;
-        }
-
-        .profile {
-            width: 100px;
-            height: 100px;
-            border-radius: 100px;
-            background: #10141F;
-        }
-    }
-
-    .box::before {
-        content: "";
-        display: block;
-        background: #ffffff;
-        border: 2px solid #10141F;
-        width: 100%;
-        border-radius: 100px;
-        height: 100%;
-        position: absolute;
-        bottom: 10%;
-        z-index: -1;
-        right: 2.5%;
-
-    }
-
     .swiper {
         width: 100%;
         height: 100%;
@@ -84,6 +37,7 @@
             border-radius: 20px;
             background: #10141F;
             padding: 1em;
+            box-shadow: 10px 10px 0px 0px #fff;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -241,6 +195,8 @@
                 }
             }
         }
+
+        
 
         .swiperSlider:nth-child(1) {
             margin-left: 1em;
