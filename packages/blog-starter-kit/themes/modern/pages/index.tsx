@@ -56,7 +56,6 @@ export default function Index(
 	const urqlClient = initUrqlClient(getUrqlClientConfig(ssrCache), false); // TODO: Check why is urqlClient not automatically being passed in props. Ideally, since we are using WithUrqlClient HOC, it should automatically come
 
 	const [fetching, setFetching] = useState(false);
-	const [mouseCoordinate, setMouseCoordinate] = useState()
 	const blob = useRef<HTMLDivElement | null>(null);
 
 	const { author, preferences, pinnedPost } = publication;
@@ -68,9 +67,9 @@ export default function Index(
 	});
 
 	const { posts } = data?.publication!;
+	console.log(data, "POSTS:")
 
 	const fetchedOnce = posts.edges.length > initialLimit;
-
 	const postsToBeRendered = {
 		edges: pinnedPost
 			? [{ node: pinnedPost, cursor: `${pinnedPost.id}_${pinnedPost.publishedAt}` }].concat(
@@ -79,6 +78,37 @@ export default function Index(
 			: posts.edges,
 		pageInfo: posts.pageInfo,
 	};
+
+
+	console.log(postsToBeRendered, "POST TO BE RENDER")
+	const javascript = [];
+	const python = [];
+	const typescript = [];
+
+	postsToBeRendered.edges.forEach(({ node }) => {
+		const title = node.title || '';
+		const brief = node.brief || '';
+
+		// Check if the title or brief contains the keyword "javascript"
+		if (title.toLowerCase().includes('javascript') || brief.toLowerCase().includes('javascript')) {
+			javascript.push(node);
+		}
+
+		// Check if the title or brief contains the keyword "python"
+		if (title.toLowerCase().includes('python') || brief.toLowerCase().includes('python')) {
+			python.push(node);
+		}
+
+		// Check if the title or brief contains the keyword "typescript"
+		if (title.toLowerCase().includes('typescript') || brief.toLowerCase().includes('typescript')) {
+			typescript.push(node);
+		}
+	});
+
+	// Now, javascript, python, and typescript contain posts filtered by keywords.
+	console.log('JavaScript Posts:', javascript);
+	console.log('Python Posts:', python);
+	console.log('typescript Posts:', typescript);
 
 	const fetchMore = async () => {
 		setFetching(true);
@@ -150,14 +180,27 @@ export default function Index(
 					/>
 				</Head>
 				<Navbar></Navbar>
-				{postsToBeRendered.edges.length > 0 ? (
-					<Home
-						posts={postsToBeRendered.edges.map((p: any) => p.node).slice(0, 12)}
-						publication={publication}
-					/>
+				{postsToBeRendered.edges.length > 3 ? (
+					<>
+						<Home
+							posts={postsToBeRendered.edges.map((p: any) => p.node).slice(0, 12)}
+							publication={publication}
+						/>
+						<BlogsLayout posts={{javascript, python, typescript}}/>
+					</>
 				) : null}
 
-				<BlogsLayout />
+				{/* {postsToBeRendered.edges.length > 5 ? (
+					<ModernLayoutPosts
+						publication={publication}
+						posts={postsToBeRendered}
+						fetchMore={fetchMore}
+						fetchedOnce={fetchedOnce}
+						fetching={fetching}
+					/>
+				) : null} */}
+
+
 
 				<div ref={blob} className={styles.blob}></div>
 				{/* <div>
@@ -263,8 +306,7 @@ export const getStaticProps = async () => {
 	const { publication } = publicationInfo.data;
 
 	const subtractValue = publication.pinnedPost ? 1 : 0;
-	const initialLimit =
-		publication.preferences.layout === 'magazine' ? 12 - subtractValue : 6 - subtractValue;
+	const initialLimit = 20;
 
 	const homePagePostsVariables: HomePagePostsQueryVariables = {
 		host,

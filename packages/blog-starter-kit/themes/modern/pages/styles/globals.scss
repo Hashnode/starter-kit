@@ -33,6 +33,8 @@
     padding: 0;
     margin: 0;
     scrollbar-color: #f2f0f0 #DD8919;
+    user-drag: none !important;
+    -webkit-user-drag: none !important;
 }
 
 html,

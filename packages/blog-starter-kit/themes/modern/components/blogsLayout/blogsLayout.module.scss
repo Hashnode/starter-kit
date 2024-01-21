@@ -1,5 +1,5 @@
 .parent{
-    height: 200vh;
+    height: fit-content;
     width: 100vw;
     display: flex;
     align-items: center;
@@ -75,6 +75,22 @@
                 aspect-ratio: 16/9;
                 border: 5px solid #fff;
                 border-radius: 15px;
+                overflow: hidden;
+                span {
+                    position: inherit !important;
+                }
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 10px;
+                    transition: scale .5s ease;
+
+                }
+            }
+
+            .swiperSlider:hover img {
+                scale: 1.2;
             }
         }
     }
