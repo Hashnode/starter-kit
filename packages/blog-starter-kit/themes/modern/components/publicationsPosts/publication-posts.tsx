@@ -1,14 +1,14 @@
 import { Waypoint } from 'react-waypoint';
 import { twJoin } from 'tailwind-merge';
+import styles from "./publication-posts.module.scss"
+import { ChevronDownSVG } from '../icons/svgs';
+import Button from '../hn-button';
+import PubLoaderComponent from '../pub-loader-component';
 
-import { ChevronDownSVG } from './icons/svgs';
-import Button from './hn-button';
-import PubLoaderComponent from './pub-loader-component';
-
-import { PageInfo, Preferences, RequiredPublicationFieldsFragment, PostThumbnailFragment } from '../generated/graphql';
+import { PageInfo, Preferences, RequiredPublicationFieldsFragment, PostThumbnailFragment } from '../../generated/graphql';
 
 
-import BlogPostPreview from './blog-post-preview';
+import BlogPostPreview from '../blogPostPreview/blog-post-preview';
 
 export type RequiredPublicationProps = Pick<RequiredPublicationFieldsFragment, 'features' | 'isTeam'> & {
   preferences: Pick<Preferences, 'layout'>;
@@ -39,9 +39,11 @@ const PublicationPosts = (props: {
       <div
         className={twJoin('blog-posts-wrapper mt-10', layout === 'grid' ? 'flex flex-row flex-wrap items-start' : '')}
       >
-        {edges.map(({ node }) => (
-          <BlogPostPreview key={node.id} post={node} publication={publication} pinnedPostId={pinnedPostId} />
-        ))}
+        <div className={styles.grid}>
+          {edges.map(({ node }) => (
+            <BlogPostPreview key={node.id} post={node} publication={publication} pinnedPostId={pinnedPostId} />
+          ))}
+        </div>
         {pageInfo.hasNextPage && !fetchedOnce && !fetching ? (
           <div className="mb-16 flex w-full flex-row items-center justify-center">
             <Button

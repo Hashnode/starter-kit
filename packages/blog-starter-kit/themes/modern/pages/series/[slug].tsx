@@ -10,7 +10,7 @@ import {
 	SeriesPageInitialQuery,
 } from '../../generated/graphql';
 import { twJoin } from 'tailwind-merge';
-import PublicationPosts from '../../components/publication-posts';
+import PublicationPosts from '../../components/publicationsPosts/publication-posts';
 import { useQuery } from 'urql';
 import { useState } from 'react';
 import { WithUrqlProps, initUrqlClient } from 'next-urql';

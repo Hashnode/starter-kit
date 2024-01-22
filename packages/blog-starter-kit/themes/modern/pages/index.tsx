@@ -16,6 +16,8 @@ import { AppProvider } from '../components/contexts/appContext';
 import { Layout } from '../components/layout';
 import BlogsLayout from '../components/blogsLayout/BlogsLayout';
 import { PostThumbnailFragment } from '../generated/graphql';
+import ModernLayoutPosts from '../components/publicationsPosts/publication-posts';
+
 import {
 	HomePageInitialDocument,
 	HomePageInitialQueryVariables,
@@ -25,7 +27,6 @@ import {
 import { createHeaders, createSSRExchange, getUrqlClientConfig } from '../lib/api/client';
 import About from '../components/about/About';
 import FeaturedPosts from '../components/features-posts';
-
 import PublicationFooter from '../components/publication-footer';
 import PublicationMeta from '../components/publication-meta';
 import { resizeImage } from '../utils/image';
@@ -184,20 +185,17 @@ export default function Index(
 							posts={postsToBeRendered.edges.map((p: any) => p.node).slice(0, 12)}
 							publication={publication}
 						/>
-						<BlogsLayout posts={{javascript, python, typescript}}/>
-						<About publication={publication}/>
+						<BlogsLayout posts={{ javascript, python, typescript }} />
+						<About publication={publication} />
+						<ModernLayoutPosts
+							publication={publication}
+							posts={postsToBeRendered}
+							fetchMore={fetchMore}
+							fetchedOnce={fetchedOnce}
+							fetching={fetching}
+						/>
 					</>
 				) : null}
-
-				{/* {postsToBeRendered.edges.length > 5 ? (
-					<ModernLayoutPosts
-						publication={publication}
-						posts={postsToBeRendered}
-						fetchMore={fetchMore}
-						fetchedOnce={fetchedOnce}
-						fetching={fetching}
-					/>
-				) : null} */}
 
 
 
