@@ -50,7 +50,6 @@ export default function Home(props: {
     return () => window.removeEventListener('wheel', handleScroll);
   }, [sliderPosition]);
 
-
   return (
     <div className={styles.landingPage}>
       <h1>
@@ -72,7 +71,14 @@ export default function Home(props: {
 
           if (!postURL) return null;
           const postCoverImageURL = post.coverImage?.url ?? getDefaultPostCoverImageUrl();
-
+          let postBrief = post.subtitle || '';
+          if (postBrief.length < 151 && post.brief) {
+            postBrief = `${postBrief}${postBrief ? ' · ' : ''}${post.brief.substring(0, 151 - postBrief.length)}`;
+            if (postBrief.length >= 151) {
+              const indexLastSpace = postBrief.lastIndexOf(' ');
+              postBrief = `${indexLastSpace === -1 ? postBrief : postBrief.substring(0, indexLastSpace)}...`;
+            }
+          }
           return (
             <SwiperSlide key={post.id} style={{ transform: `translateX(${-sliderPosition}px` }} className={styles.swiperSlider}>
               <div>
@@ -116,7 +122,7 @@ export default function Home(props: {
 
               <div className={styles.blogContent}>
                 <h2><a href={postURL}>{post.title}</a></h2>
-                <p> {post.subtitle || post.brief}</p>
+                <p> {postBrief}</p>
               </div>
 
               <div className={styles.blogInfo}>

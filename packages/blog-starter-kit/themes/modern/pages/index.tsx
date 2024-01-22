@@ -7,7 +7,7 @@ import { twJoin } from 'tailwind-merge';
 import { useQuery } from 'urql';
 import Navbar from '../components/navbar/Navbar';
 import Home from '../components/home/Home';
-import styles from "./index.module.scss"
+import styles from "./styles/index.module.scss"
 import { useEffect, useRef } from 'react';
 import { Header } from '../components/header';
 import { addPublicationJsonLd } from '@starter-kit/utils/seo/addPublicationJsonLd';
@@ -125,19 +125,37 @@ export default function Index(
 			});
 	};
 
-	useEffect(() => {
-		document.body.onpointermove = (event) => {
-			const { clientX, clientY } = event;
-			console.log(clientX, clientY)
-			if (blob.current) {
-				blob.current.animate({
-					left: clientX + "px",
-					top: clientY + "px"
-				}, { duration: 2000, fill: "forwards" })
-			}
+	function isMobile() {
+		const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+		return regex.test(navigator.userAgent);
+	}
 
+	useEffect(() => {
+		let handleMove = () => {}
+		if (!isMobile()) {
+			handleMove = (event: MouseEvent) => {
+				const { clientX, clientY } = event;
+
+				const blobElement = blob.current;
+				if (blobElement) {
+					const blobRect = blobElement.getBoundingClientRect();
+					
+					blobElement.animate({
+						left: clientX + "px",
+						top: clientY + "px"
+					}, { duration: 5000, fill: "forwards" })
+				}
+			};
+
+			document.body.addEventListener("mousemove", handleMove);
+			document.body.addEventListener("touchmove", handleMove);
 		}
-	})
+
+		return () => {
+			document.body.removeEventListener("mousemove", handleMove);
+			document.body.removeEventListener("touchmove", handleMove);
+		};
+	}, [blob]);
 
 	return (
 		<AppProvider publication={publication}>
@@ -200,68 +218,7 @@ export default function Index(
 
 
 				<div ref={blob} className={styles.blob}></div>
-				{/* <div>
-					{postsToBeRendered.edges.length > 0 ? (
-						<FeaturedPosts
-							posts={postsToBeRendered.edges.map((p: any) => p.node).slice(0, 3)}
-							publication={publication}
-						/>
-					) : null}
-
-					{publication.about?.html ? (
-						<div
-							className="blog-author-container border-b dark:border-slate-800"
-						>
-							<div
-								className={twJoin(
-									'blog-author-area feed-width mx-auto md:w-3/4 lg:w-2/3',
-									preferences.layout === 'grid' ? '' : 'px-4 lg:px-8',
-								)}
-							>
-								<PublicationMeta
-									author={author}
-									aboutHTML={publication.about.html}
-									isTeam={publication.isTeam}
-								/>
-							</div>
-						</div>
-					) : null}
-
-					<div className="blog-content-area feed-width mx-auto md:w-2/3">
-						<div>
-							{postsToBeRendered.edges.length === 0 ? (
-								<>
-									<div className="min-h-30 my-10 flex w-full flex-col items-center px-6 dark:border-slate-800">
-										<div className="block">
-											<NoPostsImage alt="No Posts" />
-										</div>
-									</div>
-								</>
-							) : null}
-						</div>
-					</div>
-
-					{postsToBeRendered.edges.length > 3 ? (
-						<ModernLayoutPosts
-							publication={publication}
-							posts={postsToBeRendered}
-							fetchMore={fetchMore}
-							fetchedOnce={fetchedOnce}
-							fetching={fetching}
-						/>
-					) : null}
-				</div>
-				{publication ? (
-					<PublicationFooter
-						authorName={publication.author.name}
-						title={publication.title}
-						imprint={publication.imprint}
-						disableFooterBranding={publication.preferences.disableFooterBranding}
-						isTeam={publication.isTeam}
-						logo={publication.preferences.logo}
-						darkMode={publication.preferences.darkMode}
-					/>
-				) : null} */}
+				
 			</Layout>
 		</AppProvider>
 	);

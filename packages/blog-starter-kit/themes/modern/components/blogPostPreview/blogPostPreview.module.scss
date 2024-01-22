@@ -1,7 +1,13 @@
+
+@media screen and (max-width: 700px) {
+    
+}
+
 .swiperSlider {
     position: relative;
-    height: 500px;
-    width: 400px;
+    height: fit-content;
+    width: 100%;
+    // margin-left: 1em;
     border-radius: 20px;
     background: #10141F;
     padding: 1em;

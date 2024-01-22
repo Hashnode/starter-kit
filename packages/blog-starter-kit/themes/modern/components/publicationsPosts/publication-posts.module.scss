@@ -3,4 +3,51 @@
     grid-template-columns: 1fr 1fr 1fr;
     place-items: center;
     row-gap: 1em;
+    column-gap: 1em;
+    padding: 0 2em 2em 2em;
+}
+
+.loadMore {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    // padding: .5em;
+    button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1em;
+        color: #fff;
+        width: fit-content;
+        background: #10141F;
+        outline: none;
+        border: 2px solid #000;
+        border-radius: 15px;
+        padding: 1em 2em;
+        margin-bottom: 1em;
+        cursor: pointer;
+        .text {
+            font-size: 1.2rem;
+        }
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    .grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .grid {
+        padding: 1em;
+    }
 }
