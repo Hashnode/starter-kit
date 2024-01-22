@@ -9,7 +9,7 @@ import { PostThumbnailFragment } from '../../generated/graphql';
 import CustomImage from '../custom-image';
 import { getBlurHash, resizeImage } from '@starter-kit/utils/image';
 import { blurImageDimensions } from '../../utils/const/images';
-import SplitText from './SpliText';
+import SplitText from './SplitText';
 import { getDefaultPostCoverImageUrl } from '../../utils/commonUtils';
 
 export default function BlogsLayout(props: {
