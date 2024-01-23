@@ -19,7 +19,7 @@ import {
 	PublicationByHostQueryVariables,
 	PublicationFragment,
 } from '../../generated/graphql';
-import PublicationFooter from '../../components/publication-footer';
+import PublicationFooter from '../../components/PublicationFooter/publication-footer';
 import { useRef } from 'react';
 import { twJoin } from 'tailwind-merge';
 import CustomImage from '../../components/custom-image';

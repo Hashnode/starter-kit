@@ -33,7 +33,7 @@ function PostFloatingMenu(props: {
     const floatingBar = document.querySelector('.post-floating-bar');
 
     if (!floatingBar?.classList.contains('freeze')) {
-      if (window.scrollY > blogHeader!.clientHeight) {
+      if (window.scrollY > window.clientHeight) {
         floatingBar?.classList.add('active', 'animation');
       } else if (floatingBar?.classList.contains('active')) {
         floatingBar?.classList.remove('active');

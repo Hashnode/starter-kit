@@ -15,7 +15,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { log as _log } from 'next-axiom';
 import { initUrqlClient } from 'next-urql';
 import { Header } from '../components/header';
-import PublicationFooter from '../components/publication-footer';
+import PublicationFooter from '../components/PublicationFooter/publication-footer';
 
 type Props = {
   publication: PublicationFragment;

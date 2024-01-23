@@ -6,7 +6,7 @@ import { getBlurHash, resizeImage } from '@starter-kit/utils/image';
 import { getDefaultPostCoverImageUrl } from '../../utils/commonUtils';
 import { DEFAULT_AVATAR, blurImageDimensions } from '../../utils/const/images';
 
-export default function About(props: { publication }) {
+export default function About(props: { publication: any }) {
     const { publication } = props
     console.log(publication, "GHJKL")
 
@@ -17,7 +17,7 @@ export default function About(props: { publication }) {
             <div className={styles.left}>
 
                 <div className={styles.customImg}>
-              <img src={publication.ogMetaData.image}/>
+              <img src={publication.ogMetaData.image || publication.author.profilePicture}/>
                 </div>
             </div>
             <div className={styles.right}>

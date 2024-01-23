@@ -27,7 +27,7 @@ import {
 import { createHeaders, createSSRExchange, getUrqlClientConfig } from '../lib/api/client';
 import About from '../components/about/About';
 import FeaturedPosts from '../components/features-posts';
-import PublicationFooter from '../components/publication-footer';
+import PublicationFooter from '../components/PublicationFooter/publication-footer';
 import PublicationMeta from '../components/publication-meta';
 import { resizeImage } from '../utils/image';
 
@@ -68,7 +68,7 @@ export default function Index(
 	});
 
 	const { posts } = data?.publication!;
-	console.log(data, "POSTS:")
+	console.log(data, posts, "POSTS:")
 
 	const fetchedOnce = posts.edges.length > initialLimit;
 
@@ -81,34 +81,29 @@ export default function Index(
 		pageInfo: posts.pageInfo,
 	};
 
-	const javascript: PostThumbnailFragment[] = [];
-	const python: Array<PostThumbnailFragment> = [];
-	const typescript: Array<PostThumbnailFragment> = [];
+	const react: PostThumbnailFragment[] = [];
+	const nodeJs: Array<PostThumbnailFragment> = [];
+	const hackathon: Array<PostThumbnailFragment> = [];
 
 	postsToBeRendered.edges.forEach(({ node }) => {
 		const title = node.title || '';
 		const brief = node.brief || '';
 
-		// Check if the title or brief contains the keyword "javascript"
-		if (title.toLowerCase().includes('javascript') || brief.toLowerCase().includes('javascript')) {
-			javascript.push(node);
+		// Check if the title or brief contains the keyword "react"
+		if (title.toLowerCase().includes('react') || brief.toLowerCase().includes('react')) {
+			react.push(node);
 		}
 
-		// Check if the title or brief contains the keyword "python"
-		if (title.toLowerCase().includes('python') || brief.toLowerCase().includes('python')) {
-			python.push(node);
+		// Check if the title or brief contains the keyword "nodeJs"
+		if (title.toLowerCase().includes('node') || brief.toLowerCase().includes('node')) {
+			nodeJs.push(node);
 		}
 
-		// Check if the title or brief contains the keyword "typescript"
-		if (title.toLowerCase().includes('typescript') || brief.toLowerCase().includes('typescript')) {
-			typescript.push(node);
+		// Check if the title or brief contains the keyword "hackathon"
+		if (title.toLowerCase().includes('hackathon') || brief.toLowerCase().includes('hackathon')) {
+			hackathon.push(node);
 		}
 	});
-
-	// Now, javascript, python, and typescript contain posts filtered by keywords.
-	console.log('JavaScript Posts:', javascript);
-	console.log('Python Posts:', python);
-	console.log('typescript Posts:', typescript);
 
 	const fetchMore = async () => {
 		setFetching(true);
@@ -203,7 +198,7 @@ export default function Index(
 							posts={postsToBeRendered.edges.map((p: any) => p.node).slice(0, 12)}
 							publication={publication}
 						/>
-						<BlogsLayout posts={{ javascript, python, typescript }} />
+						<BlogsLayout posts={{ react, nodeJs, hackathon }} />
 						<About publication={publication} />
 						<ModernLayoutPosts
 							publication={publication}
@@ -258,8 +253,6 @@ export const getStaticProps = async () => {
 	}
 
 	const { publication } = publicationInfo.data;
-
-	const subtractValue = publication.pinnedPost ? 1 : 0;
 	const initialLimit = 20;
 
 	const homePagePostsVariables: HomePagePostsQueryVariables = {

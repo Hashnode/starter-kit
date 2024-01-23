@@ -16,7 +16,7 @@ import {
 import ExternalLinkSVG from '../../components/icons/svgs/ExternalLinkSVG';
 import { createHeaders, createSSRExchange, getUrqlClientConfig } from '../../lib/api/client';
 import PublicationPosts from '../../components/publicationsPosts/publication-posts';
-import PublicationFooter from '../../components/publication-footer';
+import PublicationFooter from '../../components/PublicationFooter/publication-footer';
 
 const INITIAL_LIMIT = 6;
 

@@ -147,7 +147,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 					{/* Article title */}
 					<div
 						className={twJoin(
-							`font-heading mt-6 break-words px-4 text-center text-3xl font-extrabold text-slate-900 dark:text-white md:mt-10 md:px-5 md:text-4xl lg:px-8 xl:px-20 xl:text-5xl`,
+							`font-heading mt-6 break-words px-4 text-center text-3xl font-extrabold dark:text-white md:mt-10 md:px-5 md:text-4xl lg:px-8 xl:px-20 xl:text-5xl`,
 							post.subtitle ? `mb-5` : `mb-8 md:mb-14`,
 						)}
 					>
@@ -159,7 +159,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 					{/* Article subtitle */}
 					{post.subtitle && (
 						<div className="font-heading mb-8 px-4 text-center md:mb-14 md:px-5 lg:px-8 xl:px-20">
-							<h2 className="text-2xl leading-snug text-slate-700 dark:text-slate-400 md:text-3xl xl:text-3xl">
+							<h2 className="text-2xl leading-snug  text-slate-400 md:text-3xl xl:text-3xl">
 								{post.subtitle}
 							</h2>
 						</div>
@@ -172,11 +172,11 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 									key={coAuthor.id?.toString()}
 									style={{ zIndex: index + 1 }}
 									className={twJoin(
-										'overflow-hidden rounded-full  bg-slate-200  dark:bg-white/20 md:mr-3',
+										'overflow-hidden rounded-fullbg-white/20 md:mr-3',
 										index > 0 ? 'hidden md:block' : '',
 										authorsArray.length === 1
 											? 'h-10 w-10 md:h-12 md:w-12'
-											: 'h-8 w-8 border-2 border-slate-100 dark:border-slate-800 md:h-9 md:w-9 [&:not(:first-of-type)]:-ml-3 md:[&:not(:first-of-type)]:-ml-6 ',
+											: 'h-8 w-8 border-2 border-slate-100 border-slate-800 md:h-9 md:w-9 [&:not(:first-of-type)]:-ml-3 md:[&:not(:first-of-type)]:-ml-6 ',
 									)}
 								>
 									<ProfileImage user={coAuthor} width="200" height="200" hoverDisabled={true} />
@@ -186,7 +186,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 								<button
 									onClick={openCoAuthorModal}
 									style={{ zIndex: post.coAuthors?.length }}
-									className="border-1-1/2 relative -ml-3 flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border-slate-100 bg-slate-100 px-1 group-hover:border-slate-200 dark:border-slate-800 dark:bg-slate-600 dark:text-white group-hover:dark:border-slate-700 md:hidden"
+									className="border-1-1/2 relative -ml-3 flex h-8 w-8 items-center justify-center overflow-hidden rounded-full  px-1  border-slate-800 bg-slate-600 text-white group-hover:border-slate-700 md:hidden"
 								>
 									<p className="truncate text-xs font-normal">+{post.coAuthors.length}</p>
 								</button>
@@ -194,7 +194,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 							{!post.coAuthors?.length && (
 								<a
 									href={`https://hashnode.com/@${post.author.username}`}
-									className="ml-2 font-semibold text-slate-600 dark:text-white md:ml-0"
+									className="ml-2 font-semibold text-white md:ml-0"
 								>
 									<span>{post.author.name}</span>
 								</a>
@@ -202,7 +202,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 							{post.coAuthors && post.coAuthors.length > 0 && (
 								<button
 									onClick={openCoAuthorModal}
-									className="ml-2 text-left font-semibold text-slate-600 hover:underline dark:text-white"
+									className="ml-2 text-left font-semibold  hover:underline text-white"
 								>
 									<span>{post.author.name}</span>
 									{post.coAuthors && (
@@ -219,7 +219,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 							<span className="mx-3 hidden font-bold text-slate-500 md:block">&middot;</span>
 							<Link
 								href={absolutePostURL}
-								className="tooltip-handle text-slate-700 dark:text-slate-400"
+								className="tooltip-handle text-slate-400"
 								data-title={`${moment(post.publishedAt).format('MMM D, YYYY HH:mm')}`}
 							>
 								<span>{moment(post.publishedAt).format('MMM D, YYYY')}</span>
@@ -227,7 +227,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 							{post.publication?.features?.readTime?.isEnabled && (
 								<>
 									<span className="mx-3 block font-bold text-slate-500">&middot;</span>
-									<p className="flex flex-row items-center text-slate-700 dark:text-slate-400">
+									<p className="flex flex-row items-center text-slate-400">
 										<BookOpenSVG className="mr-2 h-5 w-5 fill-current opacity-75" />
 										<span>{post.readTimeInMinutes} min read</span>
 									</p>
@@ -273,7 +273,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 								<div
 									id="post-content-wrapper"
 									ref={postContentEle}
-									className="prose prose-lg min-h-30 dark:prose-dark xl:prose-xl mx-auto mb-10 break-words"
+									className="prose prose-lg min-h-30 prose-dark xl:prose-xl mx-auto mb-10 break-words"
 									// eslint-disable-next-line react/no-danger
 									dangerouslySetInnerHTML={{
 										__html: memoizedPostContent,
@@ -300,7 +300,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 							<div className="mb-5 flex w-full flex-row flex-wrap justify-center md:mb-0">
 								{tags.map((tag) => (
 									<a
-										className="mb-2 mr-3 rounded-lg border bg-slate-100 px-2 py-1 text-base font-medium text-slate-700 hover:bg-slate-200 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700"
+										className="mb-2 mr-3 rounded-lg border px-2 py-1 text-base font-medium  border-slate-800 bg-slate-800 text-slate-100 hover:bg-slate-700"
 										key={tag._id}
 										href={`/tag/${tag.slug}?source=tags_bottom_blogs`}
 									>

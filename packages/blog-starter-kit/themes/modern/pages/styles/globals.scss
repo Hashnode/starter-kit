@@ -1,3 +1,7 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Climate+Crisis&family=Paytone+One&family=Roboto+Slab:wght@100..900&display=swap');
 
 ::-webkit-scrollbar {
@@ -41,7 +45,7 @@ html,
 body {
     max-width: 100vw !important;
     overflow-x: hidden !important;
-    background: #1d1d1f;
+    background: #1d1d1f !important;
     box-sizing: border-box;
     font-family: antique-olive,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
 }

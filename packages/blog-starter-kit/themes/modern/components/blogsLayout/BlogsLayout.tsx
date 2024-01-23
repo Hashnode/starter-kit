@@ -30,7 +30,7 @@ export default function BlogsLayout(props: {
         title: sectionTitle,
         headline: `Expand Your Job Oppurtunities With Our Top Professional <span>${key.replace(/^\w/, (match) => match.toUpperCase())}</span`,
         description: `Dive into the dynamic world of web development, a crucial skill sought after in today's tech-driven landscape. From crafting responsive websites to mastering the latest frameworks, our web development courses empower you to thrive in the digital realm.`,
-        courses: posts[key].slice(0, 2).map((post) => ({
+        courses: posts[key].map((post) => ({
           ...post
         })),
       };
@@ -75,7 +75,6 @@ export default function BlogsLayout(props: {
             spaceBetween={30}
             className={styles.swiper}
             freeMode={true}
-            loop={true}
             mousewheel={{ releaseOnEdges: true }}
             modules={[Autoplay]}
             autoplay={{

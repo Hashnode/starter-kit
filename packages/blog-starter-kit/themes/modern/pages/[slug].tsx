@@ -13,10 +13,10 @@ import { Container } from '../components/container';
 import { AppProvider } from '../components/contexts/appContext';
 import { Header } from '../components/header';
 import { Layout } from '../components/layout';
-import { PostHeader } from '../components/post-header';
-import PostPageNavbar from '../components/post-page-navbar';
-import PublicationFooter from '../components/publication-footer';
 import StaticPageContent from '../components/static-page-content';
+import {PostHeader} from "../components/post-header"
+
+import styles from "./styles/[slug].module.scss"
 import {
 	MorePostsByPublicationDocument,
 	MorePostsEdgeFragment,
@@ -27,6 +27,9 @@ import {
 	SlugPostsByPublicationDocument,
 	StaticPageFragment,
 } from '../generated/graphql';
+import Navbar from '../components/navbar/Navbar';
+import Link from 'next/link';
+import { HashnodeLogoIconV2 } from '../components/icons';
 
 type PostProps = {
 	type: 'post';
@@ -103,41 +106,28 @@ const Page = ({ page }: PageProps) => {
 };
 
 export default function PostOrPage(props: Props) {
-	const headerRef = useRef<HTMLElement | null>(null);
 	const maybePost = props.type === 'post' ? props.post : null;
 	const publication = props.publication;
-	const navPositionStyles =
-		'relative transform-none md:sticky md:top-0 md:left-0 md:backdrop-blur-lg';
 
 	if (props.type === 'post') {
 		return (
 			<AppProvider publication={publication} post={props.post}>
 				<Layout>
-					<header
-						ref={headerRef}
-						className={twJoin(
-							'blog-header',
-							'z-50 w-full border-b',
-							navPositionStyles,
-							'border-black/10 bg-white bg-opacity-70 dark:border-white/10 dark:bg-slate-900 dark:bg-opacity-70',
-						)}
-					>
-						<PostPageNavbar publication={publication} ref={headerRef} />
-					</header>
+					<Navbar />
 					<Container>
-						<article className="flex flex-col items-start gap-10 pb-10">
-							<Post {...props} />
-						</article>
+						<Post {...props} />
 					</Container>
-					<PublicationFooter
-						authorName={publication.author.name}
-						title={publication.title}
-						imprint={publication.imprint}
-						disableFooterBranding={publication.preferences.disableFooterBranding}
-						isTeam={publication.isTeam}
-						logo={publication.preferences.logo}
-						darkMode={publication.preferences.darkMode}
-					/>
+
+					<Link
+						aria-label="Publish with Hashnode"
+						className=" fixed bottom-0 right-6 mb-4 flex flex-row items-center content-center rounded-lg border border-slate-300 bg-white w-fit p-3 font-heading font-bold tracking-wide text-slate-600 transition-colors duration-75 hover:border-slate-400 hover:text-slate-900 dark:border-slate-800 dark:bg-black dark:text-slate-300 dark:hover:border-slate-500 dark:hover:text-white"
+						href="https://hashnode.com/onboard?unlock-blog=true&source=blog-footer"
+					>
+						<span className="mr-2 block text-blue-600">
+							<HashnodeLogoIconV2 className="h-6 w-6 fill-current" />
+						</span>
+						<span>Publish with Hashnode</span>
+					</Link>
 				</Layout>
 			</AppProvider>
 		);
@@ -178,18 +168,11 @@ export default function PostOrPage(props: Props) {
 				<Header isHome={false} />
 				<Container>
 					<article className="flex flex-col items-start gap-10 pb-10">
+						HELLO
 						<Page {...props} />
 					</article>
 				</Container>
-				<PublicationFooter
-					authorName={publication.author.name}
-					title={publication.title}
-					imprint={publication.imprint}
-					disableFooterBranding={publication.preferences.disableFooterBranding}
-					isTeam={publication.isTeam}
-					logo={publication.preferences.logo}
-					darkMode={publication.preferences.darkMode}
-				/>
+
 			</Layout>
 		</AppProvider>
 	);

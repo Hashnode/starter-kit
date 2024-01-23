@@ -6,6 +6,7 @@ type Props = {
 
 function StaticPageContent(props: Props) {
   const { content, title } = props.pageContent;
+  console.log(content, "BLOG CONTNET")
 
   return (
     <div className={`blog-page-card pb-32`}>

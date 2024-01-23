@@ -15,7 +15,7 @@ import { useQuery } from 'urql';
 import { useState } from 'react';
 import { WithUrqlProps, initUrqlClient } from 'next-urql';
 import { createHeaders, createSSRExchange, getUrqlClientConfig } from '../../lib/api/client';
-import PublicationFooter from '../../components/publication-footer';
+import PublicationFooter from '../../components/PublicationFooter/publication-footer';
 
 type Props = GetServerSideProps &
   Required<WithUrqlProps> & {
