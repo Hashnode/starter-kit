@@ -51,7 +51,7 @@ export const Footer = () => {
 		
 					<div className="col-span-2 flex flex-col items-end gap-5 text-right text-slate-600 dark:text-neutral-300 md:text-left">
 						<SocialLinks />
-						<p>&copy; {return new Date().year()} </> if & else</p>
+						<p>&copy; 2024 </> if & else</p>
 						
 						<p>
 							<a href="#" className="hover:underline">
