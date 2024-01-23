@@ -151,7 +151,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 							post.subtitle ? `mb-5` : `mb-8 md:mb-14`,
 						)}
 					>
-						<h1 className="leading-snug" data-query="post-title">
+						<h1 className="leading-snug text-white" data-query="post-title">
 							{post.title}
 						</h1>
 					</div>
@@ -235,30 +235,6 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 							)}
 						</div>
 					</div>
-					{post.coverImage?.url && post.preferences.stickCoverToBottom && (
-						<div className="relative my-8 md:my-14">
-							<CustomImage
-								className="mb-0 block w-full"
-								placeholder="blur"
-								originalSrc={post.coverImage.url}
-								src={resizeImage(post.coverImage.url, {
-									w: 1600,
-									h: 840,
-									...(!post.coverImage.isPortrait ? { c: 'thumb' } : { fill: 'blur' }),
-								})}
-								blurDataURL={getBlurHash(
-									resizeImage(post.coverImage.url, {
-										...blurImageDimensions,
-										...(!post.coverImage.isPortrait ? { c: 'thumb' } : { fill: 'blur' }),
-									}),
-								)}
-								width={1600}
-								height={840}
-								alt={post.title}
-								layout="responsive"
-							/>
-						</div>
-					)}
 				</div>
 			</div>
 			<div className="blog-content-wrapper article-main-wrapper container relative z-30 mx-auto grid grid-flow-row grid-cols-8 xl:gap-6 2xl:grid-cols-10">

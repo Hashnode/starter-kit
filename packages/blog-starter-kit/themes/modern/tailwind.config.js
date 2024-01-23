@@ -38,6 +38,7 @@ module.exports = {
 					  display: 'flex',
 					  'justify-content': 'flex-start',
 					  'align-items': 'flex-start',
+					  'background-color': '#F8FAFC',
 					  border: '1px solid #E2E8F0',
 					  padding: ' 1rem 1.5rem',
 					  gap: '0.5rem',
@@ -46,6 +47,7 @@ module.exports = {
 					  'word-break': 'break-word',
 					},
 					'div[data-node-type="callout-emoji"]': {
+					  background: '#E2E8F0',
 					  'border-radius': '0.5rem',
 					  minWidth: '1.75rem',
 					  width: '1.75rem',
@@ -77,6 +79,9 @@ module.exports = {
 					  padding: '0.5em 0 0.5em 1em',
 					  position: 'relative',
 					  margin: '0',
+					},
+					h1: {
+						fontSize: ""
 					},
 					'details > :not(summary)::before': {
 					  position: 'absolute',
@@ -172,7 +177,11 @@ module.exports = {
 					  color: '#fafafa',
 					},
 					'div[data-node-type="callout"]': {
+					  'background-color': '#1E293B',
 					  border: '1px solid #334155',
+					},
+					'div[data-node-type="callout-emoji"]': {
+					  background: '#475569',
 					},
 					'details > :not(summary)::before': {
 					  border: '1px solid #334155',
