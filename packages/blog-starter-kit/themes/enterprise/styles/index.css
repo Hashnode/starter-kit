@@ -30,3 +30,44 @@ td code::before, td code::after  {
 .dark td code::before, .dark td code::after{
   content: "" !important;
 }
+
+/* Override to remove the backtick */
+.hashnode-content-style :where(code):not(:where([class~="not-prose"],[class~="not-prose"] *))::before, .hashnode-content-style :where(code):not(:where([class~="not-prose"],[class~="not-prose"] *))::after  {
+    content: none;
+}
+
+.prose code {
+    border-radius: 0.25rem;
+    font-weight: 400 !important;
+    padding: 0.25rem;
+    --tw-text-opacity: 1;
+    color: rgba(0, 0, 0, var(--tw-text-opacity));
+    font-size: 80%;
+    background: #f0efed;
+}
+
+.dark .prose code {
+    --tw-bg-opacity: 1;
+    background-color: rgba(36, 41, 46, var(--tw-bg-opacity));
+    --tw-text-opacity: 1;
+    color: rgba(238, 238, 238, var(--tw-text-opacity));
+}
+
+.prose pre {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+}
+
+.prose pre code {
+    background-color: transparent;
+    border-radius: 0px;
+    font-weight: 500 !important;
+    padding: 0px;
+    font-size: 100%;
+    color: #fafafa;
+}
+
+.dark .prose pre code {
+    background-color: transparent;
+    color: #ddd;
+}
