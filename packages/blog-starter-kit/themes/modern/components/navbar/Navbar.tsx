@@ -1,7 +1,8 @@
 import React from 'react'
 import styles from "./navbar.module.scss"
 import { useState } from 'react'
-import { FaGithub, FaInstagram, FaLinkedin, FaTwitter, FaYoutube  } from "react-icons/fa";
+import { FaGithub, FaInstagram, FaLinkedin, FaTwitter, FaYoutube } from "react-icons/fa";
+import { info } from "../../info.config"
 
 export default function Navbar() {
 
@@ -26,24 +27,38 @@ export default function Navbar() {
             <div className={`${styles.navItems} ${navbarIsOpen ? styles.active : ""}`}>
                 <div className={styles.left}>
                     <div className={styles.socials}>
-                        <FaGithub size={60}/>
-                        <FaLinkedin size={60}/>
-                        <FaTwitter size={60}/>
-                        <FaYoutube size={60}/>
-                        <FaInstagram size={60}/>
+                        <a href={info.github}>
+                            <FaGithub size={60} />
+                        </a>
+                        <a href={info.linkedIn}>
+                            <FaLinkedin size={60} />
+                        </a>
+                        <a href={info.twitter}>
+                            <FaTwitter size={60} />
+                        </a>
+                        <a href={info.youtube}>
+                            <FaYoutube size={60} />
+                        </a>
+                        <a href={info.insta}>
+                            <FaInstagram size={60} />
+                        </a>
                     </div>
                     <div className={styles.contact}>
                         <h1 className={styles.getInTouch}>GET IN TOUCH</h1>
-                        <p className={styles.mail}>prashanthiakash@gmail.com</p>
-                        <p className={styles.phone}>+91 7676856815, Akash</p>
+                        <p className={styles.mail}>{info.gmail}</p>
+                        <p className={styles.phone}>{info.phoneNumber}, {info.displayName}</p>
                     </div>
                 </div>
                 <div className={styles.links}>
-                    <h2>PORTFOLIO</h2>
-                    <h2>RESUME</h2>
-                    <h2>CONTACT US</h2>
-                    <h2>MY CAREER</h2>
-                    <h2>YOUTUBE</h2>
+                    {
+                        info.navLinks.map((item, index) => {
+                            return (
+                                <h2 key={index}>
+                                    <a href={item.link}>{item.display}</a>
+                                </h2>
+                            )
+                        })
+                    }
                 </div>
             </div>
         </div>

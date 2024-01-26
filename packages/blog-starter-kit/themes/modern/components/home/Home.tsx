@@ -13,6 +13,7 @@ import { MdPeopleAlt } from "react-icons/md";
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { IoIosTime } from "react-icons/io";
 import Image from 'next/image';
+import { kFormatter } from '../../utils/image';
 
 export default function Home(props: {
   posts: Array<PostThumbnailFragment>;
@@ -57,11 +58,11 @@ export default function Home(props: {
       </h1>
       <Swiper
         slidesPerView={"auto"}
-        spaceBetween={30}
         className={styles.swiper}
         ref={swiperRef}
         freeMode={true}
         loop={true}
+        centeredSlides={true}
         mousewheel={{ releaseOnEdges: true }}
       >
 
@@ -128,18 +129,18 @@ export default function Home(props: {
               <div className={styles.blogInfo}>
                 <div>
                   <MdPeopleAlt size={25} className={styles.icon} />
-                  <p>{formatNumbers(post.author.followersCount)}</p>
+                  <p>{kFormatter(post.author.followersCount)}</p>
                 </div>
 
 
                 <div>
                   <IoIosTime size={25} className={styles.icon} />
-                  <p>{formatNumbers(post.readTimeInMinutes) + ' min'}</p>
+                  <p>{kFormatter(post.readTimeInMinutes) + 'm'}</p>
                 </div>
 
                 <div>
                   <MdOutlineRemoveRedEye size={25} className={styles.icon} />
-                  <p>{formatNumbers(post.views)}</p>
+                  <p>{kFormatter(post.views)}</p>
                 </div>
               </div>
             </SwiperSlide>
@@ -148,22 +149,4 @@ export default function Home(props: {
       </Swiper>
     </div>
   )
-}
-
-function formatNumbers(likes: number): string {
-  const suffixes: string[] = ["", "K", "M", "B", "T"];
-  const num: number = parseFloat(likes.toString());
-
-  if (num < 1000) {
-    return num.toString();
-  }
-
-  const tier: number = Math.floor(Math.log10(Math.abs(num)) / 3);
-  const suffix: string = suffixes[Math.min(tier, suffixes.length - 1)]; // Choose suffix based on tier, preventing array index overflow
-  const scale: number = Math.pow(10, tier * 3);
-
-  const scaledNumber: number = num / scale;
-  const formattedNumber: string = scaledNumber.toFixed(1).replace(/\.0$/, ""); // Remove '.0' for whole numbers
-
-  return formattedNumber + suffix;
 }

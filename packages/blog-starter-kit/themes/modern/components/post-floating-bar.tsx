@@ -8,7 +8,7 @@ import PostFloatingBarTooltipWrapper from './post-floating-bar-tooltip-wrapper';
 import { PostFullFragment } from '../generated/graphql';
 import TocSheet from './toc-sheet';
 import PostShareWidget from './post-share-widget';
-
+import { BiHeart, BiSave, BiCommentDetail, BiShareAlt } from 'react-icons/bi';
 
 function PostFloatingMenu(props: {
   isPublicationPost: boolean;
@@ -26,16 +26,17 @@ function PostFloatingMenu(props: {
     openComments,
     list,
   } = props;
+  console.log(post)
 
   const handleFloatingBarDisplay = () => {
     const blogHeader = document.querySelector<HTMLDivElement>('.blog-header');
     const blogContent = document.querySelector('#post-content-parent');
     const floatingBar = document.querySelector('.post-floating-bar');
-  
+
     if (!floatingBar?.classList.contains('freeze')) {
       // Check if the scroll position is greater than the blogHeader height
       const isScrollPastHeader = window.scrollY > (blogHeader?.clientHeight || 0);
-  
+
       if (isScrollPastHeader) {
         // Add active class and animation only if not already active
         if (!floatingBar?.classList.contains('active')) {
@@ -46,7 +47,7 @@ function PostFloatingMenu(props: {
         floatingBar?.classList.remove('active');
       }
     }
-  
+
     const currentViewportHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
     // Adding 40 as a buffer to adjust the trigger
     const isPostContentBottomInsideViewport = blogContent!.getBoundingClientRect().bottom + 40 <= currentViewportHeight;
@@ -54,7 +55,7 @@ function PostFloatingMenu(props: {
     const isPostContentBottomAlmostOut =
       window.scrollY + currentViewportHeight - 175 >= blogContent!.clientHeight &&
       floatingBar?.classList.contains('freeze');
-  
+
     if (isPostContentBottomInsideViewport) {
       // Remove active class and add freeze class when the content is fully visible
       floatingBar?.classList.remove('active');
@@ -77,9 +78,8 @@ function PostFloatingMenu(props: {
   // Best practice to have the accessible name being with the visible text (comment count)
   const commentBtnAccessibleLabel =
     post?.responseCount > 0
-      ? `${kFormatter(post.responseCount + (post.replyCount || 0))} comment${
-          post.responseCount === 1 ? '' : 's'
-        }, open the comments`
+      ? `${kFormatter(post.responseCount + (post.replyCount || 0))} comment${post.responseCount === 1 ? '' : 's'
+      }, open the comments`
       : 'Open comments';
 
   return (
@@ -112,38 +112,52 @@ function PostFloatingMenu(props: {
       />
       <div className="post-floating-bar fixed left-0 right-0 z-50 flex h-12 w-full flex-wrap justify-center 2xl:h-14">
         <div className="relative mx-auto flex h-12 shrink flex-wrap items-center justify-center rounded-full border-1/2 border-slate-200 bg-white px-5 py-1 text-sm  text-slate-800 shadow-xl dark:border-slate-500 dark:bg-slate-700 dark:text-slate-50 2xl:h-14">
-            <PostFloatingBarTooltipWrapper label="Write a comment">
+          <PostFloatingBarTooltipWrapper label="Write a comment">
             {post && (
-              <div>
-                <button
-                  type="button"
-                  onClick={openComments}
-                  aria-label={commentBtnAccessibleLabel}
-                  className="outline-none! flex cursor-pointer items-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800"
-                >
-                  <>
-                    <span className="rounded-full p-2">
-                      <CommentSVGV2 className="h-4 w-4 stroke-current text-slate-800 dark:text-slate-50 sm:h-5 sm:w-5 2xl:h-6 2xl:w-6" />
-                    </span>
-                    {post?.responseCount > 0 && (
-                      <span className="ml-0.5 pr-2">{kFormatter(post.responseCount + (post.replyCount || 0))}</span>
-                    )}
-                  </>
-                </button>
-              </div>
+              <>
+                <div>
+                  <button
+                    type="button"
+                    onClick={openComments}
+                    aria-label={commentBtnAccessibleLabel}
+                    className="outline-none! flex cursor-pointer items-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800"
+                  >
+                    <>
+                      <span className="rounded-full p-2">
+                        <CommentSVGV2 className="h-4 w-4 stroke-current text-slate-800 dark:text-slate-50 sm:h-5 sm:w-5 2xl:h-6 2xl:w-6" />
+                      </span>
+                      {post?.responseCount !== 0 ? <span className="ml-0.5 pr-2">{kFormatter(post.reactionCount)}</span> : <span className="ml-0.5 pr-2">0</span>}
+
+                    </>
+                  </button>
+                </div></>
             )}
           </PostFloatingBarTooltipWrapper>
 
           <Separator className="mx-2 h-5" />
 
-          {post && post.features.tableOfContents.isEnabled && (
+          {post && (
             <>
               <TocSheet list={list} />
               <Separator className="mx-2 h-5" />
+              <PostShareWidget post={post} shareText={shareText} />
+              <Separator className="mx-2 h-5" />
+              <div>
+                <button
+                  type="button"
+                  className="outline-none! flex cursor-pointer items-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800"
+                >
+                  <>
+                    <span className="rounded-full p-2">
+                      <BiHeart className="h-4 w-4 stroke-current text-slate-800 dark:text-slate-50 sm:h-5 sm:w-5 2xl:h-6 2xl:w-6" />
+                    </span>
+                    {post?.reactionCount !== 0 ? <span className="ml-0.5 pr-2">{kFormatter(post.reactionCount)}</span> : <span className="ml-0.5 pr-2">0</span>}
+                  </>
+                </button>
+              </div>
             </>
           )}
 
-          <PostShareWidget post={post} shareText={shareText} />
         </div>
       </div>
     </Tooltip.Provider>

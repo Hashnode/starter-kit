@@ -5,26 +5,27 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { twJoin } from 'tailwind-merge';
-
+import styles from "./postHeader.module.scss"
 import { resizeImage } from '@starter-kit/utils/image';
 // @ts-ignore
 import handleMathJax from '@starter-kit/utils/handle-math-jax';
-import { MorePostsEdgeFragment, PostFullFragment } from '../generated/graphql';
-import { blurImageDimensions } from '../utils/const/images';
-import { getBlurHash, imageReplacer } from '../utils/image';
-import CoAuthorsModal from './co-authors-modal';
-import CustomImage from './custom-image';
-import ProfileImage from './profile-image';
-import TocRenderDesign from './toc-render-design';
-const OtherPostsOfAccount = dynamic(() => import('./other-posts-of-account'), { ssr: false });
+import { MorePostsEdgeFragment, PostFullFragment } from '../../generated/graphql';
+import { blurImageDimensions } from '../../utils/const/images';
+import { getBlurHash, imageReplacer } from '../../utils/image';
+import CoAuthorsModal from '../co-authors-modal';
+import CustomImage from '../custom-image';
+import ProfileImage from '../profile-image';
+import TocRenderDesign from '../toc-render-design';
+const OtherPostsOfAccount = dynamic(() => import('../other-posts-of-account'), { ssr: false });
+import { IoCloseCircle } from "react-icons/io5";
 
 import { useEmbeds } from '@starter-kit/utils/renderer/hooks/useEmbeds';
 import { loadIframeResizer } from '@starter-kit/utils/renderer/services/embed';
 import { Fragment } from 'react';
-import { BookOpenSVG } from './icons/svgs';
+import { BookOpenSVG } from '../icons/svgs';
 // @ts-ignore
 import { triggerCustomWidgetEmbed } from '@starter-kit/utils/trigger-custom-widget-embed';
-import { createPostUrl } from '../utils/urls';
+import { createPostUrl } from '../../utils/urls';
 
 moment.extend(relativeTime);
 moment.extend(localizedFormat);
@@ -34,15 +35,19 @@ type Props = {
 	morePosts: MorePostsEdgeFragment[];
 };
 
-const PostFloatingMenu = dynamic(() => import('./post-floating-bar'), { ssr: false });
-const PostCommentsSidebar = dynamic(() => import('./post-comments-sidebar'), { ssr: false });
+const PostFloatingMenu = dynamic(() => import('../post-floating-bar'), { ssr: false });
+const PostCommentsSidebar = dynamic(() => import('../post-comments-sidebar'), { ssr: false });
 
-const PublicationSubscribeStandOut = dynamic(() => import('./publication-subscribe-standout'), {
+const PublicationSubscribeStandOut = dynamic(() => import('../publication-subscribe-standout'), {
 	ssr: false,
 });
 
 export const PostHeader = ({ post, morePosts }: Props) => {
 	const postContentEle = useRef<HTMLDivElement>(null);
+
+	const [isModalOpen, setIsModalOpen] = useState(false)
+	const [code, setCode] = useState<HTMLDivElement>()
+
 	const [selectedFilter, setSelectedFilter] = useState('totalReactions');
 	const toc = post.features?.tableOfContents?.isEnabled
 		? post.features?.tableOfContents?.items.flat()
@@ -62,13 +67,14 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 		};
 	});
 
-	const shareText = `${post.title}\r\n{ by ${
-		post.author.socialMediaLinks?.twitter
+	console.log(memoizedPostContent, "POST")
+
+	const shareText = `${post.title}\r\n{ by ${post.author.socialMediaLinks?.twitter
 			? `@${post.author.socialMediaLinks?.twitter
-					.substring(post.author.socialMediaLinks?.twitter.lastIndexOf('/') + 1)
-					.replace('@', '')}`
+				.substring(post.author.socialMediaLinks?.twitter.lastIndexOf('/') + 1)
+				.replace('@', '')}`
 			: post.author.name
-	} } from @hashnode`;
+		} } from @hashnode`;
 
 	const handleOpenComments = () => {
 		setShowCommentsSheet(true);
@@ -111,9 +117,54 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 			setCanLoadEmbeds(true);
 		})();
 	}, []);
+
+	useEffect(() => {
+		// Function to find and append "Run Code" button
+		const appendRunCodeButton = () => {
+			const postContentWrapper = document.getElementById('post-content-wrapper');
+
+			if (postContentWrapper) {
+				const codeBlocks = postContentWrapper.querySelectorAll('pre code.lang-xml');
+
+				codeBlocks.forEach((codeBlock) => {
+					const parentPre = codeBlock.parentNode;
+
+					// Create and append "Run Code" button
+					const runCodeButton = document.createElement('button');
+					runCodeButton.setAttribute("class", styles.runCode)
+					runCodeButton.innerText = 'Run Code';
+					runCodeButton.addEventListener('click', () => {
+						setIsModalOpen(true)
+						console.log(parentPre)
+						setCode(parentPre?.querySelector("code")?.innerText)
+					});
+
+					parentPre?.appendChild(runCodeButton);
+				});
+			}
+		};
+
+		// Call the function after the component has been rendered
+		appendRunCodeButton();
+	}, [memoizedPostContent]);
 	const authorsArray = [post.author, ...(post.coAuthors || [])];
 	return (
 		<Fragment>
+			{
+				isModalOpen ?
+					(
+						<div className={styles.outputModal}>
+							<div className={styles.header}>
+								<h2>index.html</h2>
+								<button onClick={() => setIsModalOpen(false)}>
+								<IoCloseCircle size={30}/>
+								</button>
+							</div>
+							<div className={styles.output} dangerouslySetInnerHTML={{__html: code}}>
+							</div>
+						</div>
+					) : ""
+			}
 			<div className="blog-article-page container relative mx-auto grid grid-cols-8">
 				<div className="col-span-full lg:col-span-6 lg:col-start-2">
 					{/* Top cover */}

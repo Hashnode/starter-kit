@@ -96,3 +96,76 @@
     }
 }
 
+
+
+
+@media screen and (max-width: 650px) {
+    .courseContainer {
+        h1 {
+            font-size: 1.5rem !important;
+        }
+
+        p {
+            font-size: .8rem !important;
+        }
+
+        .swiper .swiperSlider {
+            width: 300px !important;
+        }
+    }
+
+    .tabs .tab {
+        font-size: .8rem;
+    }
+
+    .tabs {
+        margin-bottom: .25em !important;
+    }
+
+    .editorContainer {
+        padding: .5em !important;
+    }
+}
+
+
+@media screen and (max-width: 500px) {
+
+    .editorContainer {
+        margin-bottom: 1em;
+    }
+
+    .courses .headline {
+        margin: 2em 0 1em 0;
+    }
+
+    .tab::after {
+        content: " " !important;
+    }
+
+    .workflow .btns, .services .btns {
+        margin-top: -.5em;
+    }
+
+    .blogs .swiper {
+        margin: 0em;
+    }
+    .btns {
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        gap: .25em !important;
+    }
+    .btns button {
+        font-size: .8rem;
+        display: flex;
+        align-items: center;
+        margin: 0 !important;
+        justify-content: center;
+        width: 100%;        
+    }
+
+    .blogs .btns {
+        margin-top: 1.5em !important;
+    }
+
+}

@@ -14,7 +14,7 @@ import { AppProvider } from '../components/contexts/appContext';
 import { Header } from '../components/header';
 import { Layout } from '../components/layout';
 import StaticPageContent from '../components/static-page-content';
-import {PostHeader} from "../components/post-header"
+import {PostHeader} from "../components/postHeader/post-header"
 
 import styles from "./styles/[slug].module.scss"
 import {

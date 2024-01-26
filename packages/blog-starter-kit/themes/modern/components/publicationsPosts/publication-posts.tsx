@@ -38,10 +38,11 @@ const PublicationPosts = (props: {
   return (
     <>
       <div
-        className={twJoin('blog-posts-wrapper mt-10', layout === 'grid' ? 'flex flex-row flex-wrap items-start' : '')}
+        className={twJoin('blog-posts-wrapper', layout === 'grid' ? 'flex flex-row flex-wrap items-start' : '')}
       >
         <div className={styles.grid}>
           {edges.map(({ node }) => (
+            // @ts-ignore
             <BlogPostPreview key={node.id} post={node} publication={publication} pinnedPostId={pinnedPostId} />
           ))}
           

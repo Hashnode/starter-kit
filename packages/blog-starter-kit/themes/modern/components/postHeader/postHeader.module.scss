@@ -1,0 +1,53 @@
+.runCode {
+    border: 2px solid #8b52ff;
+    background: #1d1d1f !important;
+    color: #8b52ff;
+    font-weight: bolder;
+    position: absolute;
+    right: 10px;
+    border-radius: 10px;
+    top: 10px;
+    padding: .25em 2em;
+}
+
+.outputModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 90%;
+    border-radius: 20px;
+    border: 2px solid #1d1d1f;
+    background: #8b52ff;
+    z-index: 9999;
+    padding: .5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: .5em;
+
+
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1em;
+        background: #1d1d1f;
+        color: #fff;
+        width: 100%;
+        fill: #fff;
+        border-radius: 15px;
+    }
+
+    .output {
+        height: 100%;
+        width: 100%;
+        background: #fff;
+        border-radius: 15px;
+        border: 2px solid #1d1d1f;
+        padding: 1em;
+        overflow: scroll;
+    }
+}

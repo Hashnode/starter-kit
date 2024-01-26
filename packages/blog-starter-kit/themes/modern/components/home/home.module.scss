@@ -30,7 +30,7 @@
         z-index: 9;
 
         .swiperSlider {
-            margin: 3em 0;
+            margin: 2em 1em 2em 1em;
             position: relative;
             height: 480px;
             width: 400px;
@@ -97,7 +97,7 @@
                     -webkit-box-orient: vertical;
                     color: #fff;
                 }
-    
+
                 h2:after {
                     content: '';
                     position: absolute;
@@ -113,23 +113,23 @@
                     transform-origin: bottom right;
                     transition: transform 0.25s ease-out;
                 }
-    
+
                 h2:hover:after {
                     transform: scaleX(1);
                     transform-origin: bottom left;
                 }
-    
+
                 h2:hover {
                     transition: all .5s ease;
                     padding: .2em 0em .2em 1em;
                     font-weight: 700;
                 }
-    
+
                 h2:not(:hover) {
                     padding: .2em 0em;
                     transition: all .5s ease;
                 }
-    
+
                 p {
                     color: #ffffff77;
                     font-size: .8rem;
@@ -140,7 +140,7 @@
                     -webkit-box-orient: vertical;
                 }
             }
-            
+
 
             .blogInfo {
                 width: 100%;
@@ -194,10 +194,69 @@
             }
         }
 
-        
+
 
         .swiperSlider:nth-child(1) {
             margin-left: 1em;
         }
+    }
+}
+
+
+@media screen and (max-width: 1000px) {
+    .landingPage h1 {
+        font-size: 4rem;
+    }
+
+    .swiperSlider {
+        width: 350px !important;
+    }
+}
+
+
+@media screen and (max-width: 850px) {
+    .landingPage h1 {
+        font-size: 3rem;
+    }
+
+    .swiperSlider {
+        width: 300px !important;
+        height: 420px !important;
+        margin: 2em 1em !important;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .landingPage h1 {
+        font-size: 2.5rem;
+    }
+
+    .swiperSlider {
+        height: 400px !important;
+    }
+
+    
+    .blogContent p {
+        display: -webkit-box;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .landingPage h1 {
+        font-size: 2rem;
+    }
+
+    .swiperSlider {
+        height: 400px !important;
+        margin: 2em 1em 2em 1em !important;
+    }
+
+    
+    .blogContent p {
+        display: -webkit-box;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical;
     }
 }
