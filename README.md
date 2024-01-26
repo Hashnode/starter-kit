@@ -31,6 +31,8 @@ Blog Starter Kit lets you instantly deploy a Next.js and Tailwind powered fronte
 
 # Example company blogs built with Headless
 
+- [MindsDB](https://mindsdb.com/blog)
+- [Pangea Cloud](https://pangea.cloud/blog)
 - [Outerbase](https://outerbase.com/blog)
 - [Fern](https://blog.buildwithfern.com/)
 - [Fix](https://fix.tt/blog)
