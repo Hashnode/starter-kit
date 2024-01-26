@@ -16,33 +16,14 @@ import styles from "./blogPostPreview.module.scss"
 import { MdPeopleAlt } from "react-icons/md";
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { IoIosTime } from "react-icons/io"
-
 moment.extend(localizedFormat);
-
-function formatNumbers(likes: number): string {
-  const suffixes: string[] = ["", "K", "M", "B", "T"];
-  const num: number = parseFloat(likes.toString());
-
-  if (num < 1000) {
-    return num.toString();
-  }
-
-  const tier: number = Math.floor(Math.log10(Math.abs(num)) / 3);
-  const suffix: string = suffixes[Math.min(tier, suffixes.length - 1)]; // Choose suffix based on tier, preventing array index overflow
-  const scale: number = Math.pow(10, tier * 3);
-
-  const scaledNumber: number = num / scale;
-  const formattedNumber: string = scaledNumber.toFixed(1).replace(/\.0$/, ""); // Remove '.0' for whole numbers
-
-  return formattedNumber + suffix;
-}
 
 function BlogPostPreview(props: {
   post: PostThumbnailFragment;
-  publication: RequiredPublicationProps;
   pinnedPostId?: string;
+  featured?: boolean;
 }) {
-  const { post, publication, pinnedPostId } = props;
+  const { post, pinnedPostId, featured } = props;
   const postURL = `/${post.slug}`;
 
   const postCoverImageURL = post.coverImage?.url ?? getDefaultPostCoverImageUrl();
@@ -67,7 +48,7 @@ function BlogPostPreview(props: {
   }
 
   return (
-    <div key={post.id} className={styles.swiperSlider}>
+    <div key={post.id} className={`${styles.swiperSlider} ${featured? styles.fixedHeight: ""}`}>
       <div>
         <CustomImage
           className="block w-full"
@@ -102,7 +83,7 @@ function BlogPostPreview(props: {
           </div>
           <div className={styles.content}>
             <h3>{post.author.name}</h3>
-            <article>@{post.author.username}</article>
+            <article>@{post.author.name.replaceAll(" ", "")}</article>
           </div>
         </div>
       </div>
@@ -112,25 +93,29 @@ function BlogPostPreview(props: {
         <p> {postBrief}</p>
       </div>
 
-      <div className={styles.blogInfo}>
-        <div>
-          <MdPeopleAlt size={25} className={styles.icon} />
-          <p>{formatNumbers(post.author.followersCount)}</p>
-        </div>
+      {
+        !featured ? (
+          <div className={styles.blogInfo}>
+            <div>
+              <MdPeopleAlt size={25} className={styles.icon} />
+              <p>{kFormatter(post.author.followersCount)}</p>
+            </div>
 
 
-        <div>
-          <IoIosTime size={25} className={styles.icon} />
-          <p>{formatNumbers(post.readTimeInMinutes) + ' min'}</p>
-        </div>
+            <div>
+              <IoIosTime size={25} className={styles.icon} />
+              <p>{kFormatter(post.readTimeInMinutes) + ' min'}</p>
+            </div>
 
-        <div>
-          <MdOutlineRemoveRedEye size={25} className={styles.icon} />
-          <p>{formatNumbers(post.views)}</p>
-        </div>
-      </div>
+            <div>
+              <MdOutlineRemoveRedEye size={25} className={styles.icon} />
+              <p>{kFormatter(post.views)}</p>
+            </div>
+          </div>
+        ) : ""
+      }
     </div>
-  );
+  )
 }
 
 export default BlogPostPreview;

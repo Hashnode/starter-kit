@@ -28,30 +28,39 @@ function PostFloatingMenu(props: {
   } = props;
 
   const handleFloatingBarDisplay = () => {
-    const blogHeader = document.querySelector('.blog-header');
+    const blogHeader = document.querySelector<HTMLDivElement>('.blog-header');
     const blogContent = document.querySelector('#post-content-parent');
     const floatingBar = document.querySelector('.post-floating-bar');
-
+  
     if (!floatingBar?.classList.contains('freeze')) {
-      if (window.scrollY > window.clientHeight) {
-        floatingBar?.classList.add('active', 'animation');
-      } else if (floatingBar?.classList.contains('active')) {
+      // Check if the scroll position is greater than the blogHeader height
+      const isScrollPastHeader = window.scrollY > (blogHeader?.clientHeight || 0);
+  
+      if (isScrollPastHeader) {
+        // Add active class and animation only if not already active
+        if (!floatingBar?.classList.contains('active')) {
+          floatingBar?.classList.add('active', 'animation');
+        }
+      } else {
+        // Remove active class if not past the header
         floatingBar?.classList.remove('active');
       }
     }
-
+  
     const currentViewportHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
     // Adding 40 as a buffer to adjust the trigger
     const isPostContentBottomInsideViewport = blogContent!.getBoundingClientRect().bottom + 40 <= currentViewportHeight;
     // Adding 175 as a buffer to adjust the trigger
     const isPostContentBottomAlmostOut =
-      window.scrollY - currentViewportHeight - 175 <= blogContent!.clientHeight &&
+      window.scrollY + currentViewportHeight - 175 >= blogContent!.clientHeight &&
       floatingBar?.classList.contains('freeze');
-
+  
     if (isPostContentBottomInsideViewport) {
+      // Remove active class and add freeze class when the content is fully visible
       floatingBar?.classList.remove('active');
       floatingBar?.classList.add('freeze');
     } else if (isPostContentBottomAlmostOut) {
+      // Remove freeze class and add active class when content is almost out of view
       floatingBar?.classList.remove('freeze', 'animation');
       floatingBar?.classList.add('active');
     }

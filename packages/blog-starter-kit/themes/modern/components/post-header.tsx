@@ -17,7 +17,6 @@ import CustomImage from './custom-image';
 import ProfileImage from './profile-image';
 import TocRenderDesign from './toc-render-design';
 const OtherPostsOfAccount = dynamic(() => import('./other-posts-of-account'), { ssr: false });
-const AboutAuthor = dynamic(() => import('./about-author'), { ssr: false });
 
 import { useEmbeds } from '@starter-kit/utils/renderer/hooks/useEmbeds';
 import { loadIframeResizer } from '@starter-kit/utils/renderer/services/embed';
@@ -286,7 +285,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 							</div>
 						)}
 
-						<AboutAuthor />
+						{/* <AboutAuthor /> */}
 					</div>
 				</section>
 			</div>

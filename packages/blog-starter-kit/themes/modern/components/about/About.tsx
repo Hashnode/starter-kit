@@ -17,23 +17,30 @@ export default function About(props: { publication: any }) {
             <div className={styles.left}>
 
                 <div className={styles.customImg}>
-              <img src={publication.ogMetaData.image || publication.author.profilePicture}/>
+                    <img src={publication.ogMetaData.image || publication.author.profilePicture} />
                 </div>
             </div>
             <div className={styles.right}>
                 <h1>
                     <p>{publication.title}</p>
                     {publication.author.name}
+                    {publication.author.username}
                 </h1>
                 {/* <p>{publication.author.followersCount}</p> */}
                 <p>{publication.about.text}</p>
                 {/* <p>{publication.posts.totalDocuments}</p> */}
                 <div className={styles.btns}>
                     <button>
-                        Follow ME
+                        <a href={`https://hashnode.com/@${publication.author.username}`}>
+                            Follow ME
+                        </a>
+
                     </button>
                     <button>
-                        Sponser ME
+                        <a href={`https://www.buymeacoffee.com/akash.srinivasan`}>
+                            Sponser ME
+                        </a>
+
                     </button>
                 </div>
             </div>
