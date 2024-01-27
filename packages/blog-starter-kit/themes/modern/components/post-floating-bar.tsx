@@ -115,80 +115,85 @@ const [isSpeaking, setIsSpeaking] = useState(false)
     },
   ]
   async function readTheBlog() {
-  if (!isSpeaking) {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(postContent, 'text/html');
-    const paragraphs = Array.from(doc.body.children);
+    if (!isSpeaking) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(postContent, 'text/html');
+      const paragraphs = Array.from(doc.body.children);
+  
+      // Retrieve voices asynchronously after checking for speech
+      const voices = await getVoicesAsync();
+      console.log(voices, "VVVV")
+  
+      const translatedPromises = paragraphs.map((paragraph) => {
+        if (paragraph.tagName === 'PRE' || paragraph.tagName === 'CODE') {
+          return Promise.resolve(paragraph.innerHTML);
+        }
+  
+        const textContent = paragraph.textContent;
+  
+        return new Promise((resolve) => {
+          const options = {
+            pitch: 5, // Set the desired pitch
+            text: textContent,
+            voice: voices.find((voice) => {
+              const matches = (voice.name === 'Microsoft Zira - English (United States)' || voice.name === "Google UK English Female") &&
+                (voice.lang === 'en-US' || voice.lang === 'en-GB') &&
+                voice.localService;
+              console.log(voice, matches); // Log each voice and its matching status
+              return matches;
+            }),
+          };    console.log(options.voice); // Log the selected voice
 
-    const voices = await getVoicesAsync();
-
-    const translatedPromises = paragraphs.map((paragraph) => {
-      if (paragraph.tagName === 'PRE' || paragraph.tagName === 'CODE') {
-        return Promise.resolve(paragraph.innerHTML);
-      }
-
-      const textContent = paragraph.textContent;
-
-      return new Promise((resolve) => {
-        const options = {
-          pitch: 5, // Set the desired pitch
-          text: textContent,
-          voice: voices.find(
-            (voice) =>
-              voice.name === 'Google UK English Female' &&
-              voice.lang === 'en-GB' &&
-              voice.localService
-          ),
-        };
-
-        speak(options, resolve);
+  
+          // Ensure voice is found before speaking
+          if (options.voice) {
+            speak(options, resolve);
+          } else {
+            console.error('Desired female voice not found.');
+            resolve(textContent); // Resolve without speaking
+          }
+        });
       });
-    });
-
-    Promise.all(translatedPromises).then(() => {
-      setIsSpeaking(false);
-    });
-
-    setIsSpeaking(true);
-  } else {
-    window.speechSynthesis.cancel();
-    setIsSpeaking(false);
-  }
-}
-
-async function getVoicesAsync() {
-  return new Promise((resolve) => {
-    const voices = window.speechSynthesis.getVoices();
-    if (voices.length > 0) {
-      resolve(voices);
+  
+      Promise.all(translatedPromises).then(() => {
+        setIsSpeaking(false);
+      });
+  
+      setIsSpeaking(true);
     } else {
-      window.speechSynthesis.onvoiceschanged = () => {
-        window.speechSynthesis.onvoiceschanged = null;
-        resolve(window.speechSynthesis.getVoices());
-      };
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
     }
-  });
-}
-
-/**
- * Trigger speaking based on speech options selected.
- */
-function speak(options, resolve) {
-  const utterance = new SpeechSynthesisUtterance();
-
-  utterance.onend = () => {
-    resolve(options.text); // Resolve the promise once speech is completed
-  };
-  utterance.onboundary = (event) => {
-    // Handle boundary events if needed
-  };
-
-  utterance.pitch = options.pitch;
-  utterance.text = options.text;
-  utterance.voice = options.voice;
-
-  window.speechSynthesis.speak(utterance);
-}
+  }
+  
+  async function getVoicesAsync() {
+    return new Promise((resolve) => {
+      const voices = window.speechSynthesis.getVoices();
+  
+      if (voices.length > 0) {
+        resolve(voices);
+      } else {
+        window.speechSynthesis.onvoiceschanged = resolve; // Resolve directly with voices when available
+      }
+    });
+  }
+  
+  function speak(options, resolve) {
+    const utterance = new SpeechSynthesisUtterance();
+  
+    utterance.onend = () => {
+      resolve(options.text); // Resolve the promise once speech is completed
+    };
+    utterance.onboundary = (event) => {
+      // Handle boundary events if needed
+    };
+  
+    utterance.pitch = options.pitch;
+    utterance.text = options.text;
+    utterance.voice = options.voice;
+  
+    window.speechSynthesis.speak(utterance);
+  }
   function translate(inputLanguage: string, outputLanguage: string) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(postContent, 'text/html');
