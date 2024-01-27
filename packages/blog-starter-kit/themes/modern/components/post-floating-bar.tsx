@@ -43,8 +43,7 @@ function PostFloatingMenu(props: {
     onDataChange,
     postContent
   } = props;
-  console.log(post)
-const [isSpeaking, setIsSpeaking] = useState(false)
+  const [isSpeaking, setIsSpeaking] = useState(false)
   const handleFloatingBarDisplay = () => {
     const blogHeader = document.querySelector<HTMLDivElement>('.blog-header');
     const blogContent = document.querySelector('#post-content-parent');
@@ -114,62 +113,60 @@ const [isSpeaking, setIsSpeaking] = useState(false)
       fullForm: "Chinese"
     },
   ]
+  
   async function readTheBlog() {
     if (!isSpeaking) {
       const parser = new DOMParser();
       const doc = parser.parseFromString(postContent, 'text/html');
       const paragraphs = Array.from(doc.body.children);
-  
+
       // Retrieve voices asynchronously after checking for speech
       const voices = await getVoicesAsync();
-      console.log(voices, "VVVV")
-  
+
       const translatedPromises = paragraphs.map((paragraph) => {
         if (paragraph.tagName === 'PRE' || paragraph.tagName === 'CODE') {
           return Promise.resolve(paragraph.innerHTML);
         }
-  
+
         const textContent = paragraph.textContent;
-  
+
         return new Promise((resolve) => {
           const options = {
             pitch: 5, // Set the desired pitch
             text: textContent,
-            voice: voices.find((voice) => {
+            // @ts-ignore
+            voice: voices.find((voice: any) => {
               const matches = (voice.name === 'Microsoft Zira - English (United States)' || voice.name === "Google UK English Female") &&
                 (voice.lang === 'en-US' || voice.lang === 'en-GB') &&
                 voice.localService;
-              console.log(voice, matches); // Log each voice and its matching status
               return matches;
             }),
-          };    console.log(options.voice); // Log the selected voice
-
-  
+          };
           // Ensure voice is found before speaking
           if (options.voice) {
             speak(options, resolve);
           } else {
-            console.error('Desired female voice not found.');
+            console.error('Desired voice not found.');
             resolve(textContent); // Resolve without speaking
           }
         });
       });
-  
+
       Promise.all(translatedPromises).then(() => {
         setIsSpeaking(false);
       });
-  
+
       setIsSpeaking(true);
     } else {
       window.speechSynthesis.cancel();
       setIsSpeaking(false);
     }
   }
-  
+
   async function getVoicesAsync() {
     return new Promise((resolve) => {
       const voices = window.speechSynthesis.getVoices();
-  
+
       if (voices.length > 0) {
         resolve(voices);
       } else {
@@ -177,21 +174,21 @@ const [isSpeaking, setIsSpeaking] = useState(false)
       }
     });
   }
-  
-  function speak(options, resolve) {
+
+  function speak(options: any, resolve: any) {
     const utterance = new SpeechSynthesisUtterance();
-  
+
     utterance.onend = () => {
       resolve(options.text); // Resolve the promise once speech is completed
     };
     utterance.onboundary = (event) => {
       // Handle boundary events if needed
     };
-  
+
     utterance.pitch = options.pitch;
     utterance.text = options.text;
     utterance.voice = options.voice;
-  
+
     window.speechSynthesis.speak(utterance);
   }
   function translate(inputLanguage: string, outputLanguage: string) {

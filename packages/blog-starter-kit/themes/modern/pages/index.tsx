@@ -4,7 +4,6 @@ import { WithUrqlProps, initUrqlClient } from 'next-urql';
 import Head from 'next/head';
 import Image from 'next/legacy/image';
 import { useState } from 'react';
-import { twJoin } from 'tailwind-merge';
 import { useQuery } from 'urql';
 import Navbar from '../components/navbar/Navbar';
 import Home from '../components/home/Home';

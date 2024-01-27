@@ -1,3 +1,4 @@
+import React from 'react';
 import moment from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -48,6 +49,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 	const [isModalOpen, setIsModalOpen] = useState<Boolean>(false)
 	const [code, setCode] = useState<HTMLDivElement>()
 	const [translatedBlog, setTranslatedBlog] = useState<string>()
+	const [contentWithSpans, setContentWithSpans] = useState('');
 
 	const [selectedFilter, setSelectedFilter] = useState('totalReactions');
 	const toc = post.features?.tableOfContents?.isEnabled
@@ -76,10 +78,10 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 	console.log(memoizedPostContent, "POST")
 
 	const shareText = `${post.title}\r\n{ by ${post.author.socialMediaLinks?.twitter
-			? `@${post.author.socialMediaLinks?.twitter
-				.substring(post.author.socialMediaLinks?.twitter.lastIndexOf('/') + 1)
-				.replace('@', '')}`
-			: post.author.name
+		? `@${post.author.socialMediaLinks?.twitter
+			.substring(post.author.socialMediaLinks?.twitter.lastIndexOf('/') + 1)
+			.replace('@', '')}`
+		: post.author.name
 		} } from @hashnode`;
 
 	const handleOpenComments = () => {
@@ -164,11 +166,11 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 							<div className={styles.header}>
 								<h2>index.html</h2>
 								<button onClick={() => setIsModalOpen(false)}>
-								<IoCloseCircle size={30}/>
+									<IoCloseCircle size={30} />
 								</button>
 							</div>
 							{/* @ts-ignore */}
-							<div className={styles.output} dangerouslySetInnerHTML={{__html: code}}>
+							<div className={styles.output} dangerouslySetInnerHTML={{ __html: code }}>
 							</div>
 						</div>
 					) : ""
@@ -249,6 +251,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 									<p className="truncate text-xs font-normal">+{post.coAuthors.length}</p>
 								</button>
 							)}
+
 							{!post.coAuthors?.length && (
 								<a
 									href={`https://hashnode.com/@${post.author.username}`}
@@ -305,23 +308,23 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 						<div id="post-content-parent" className="relative mb-10 pb-14">
 							{
 								translatedBlog ? (
-										<div
-											id="post-content-wrapper"
-											ref={postContentEle}
-											className="prose prose-lg min-h-30 prose-dark xl:prose-xl mx-auto mb-10 break-words"
-											// eslint-disable-next-line react/no-danger
-											dangerouslySetInnerHTML={{
-												__html: translatedBlog,
-											}}
-										/>
-								): memoizedPostContent && (
 									<div
 										id="post-content-wrapper"
 										ref={postContentEle}
 										className="prose prose-lg min-h-30 prose-dark xl:prose-xl mx-auto mb-10 break-words"
 										// eslint-disable-next-line react/no-danger
 										dangerouslySetInnerHTML={{
-											__html: memoizedPostContent,
+											__html: translatedBlog,
+										}}
+									/>
+								) : memoizedPostContent && (
+									<div
+										id="post-content-wrapper"
+										ref={postContentEle}
+										className="prose prose-lg min-h-30 prose-dark xl:prose-xl mx-auto mb-10 break-words"
+										// eslint-disable-next-line react/no-danger
+										dangerouslySetInnerHTML={{
+											__html: memoizedPostContent
 										}}
 									/>
 								)
@@ -335,7 +338,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 								shareText={shareText}
 								openComments={handleOpenComments}
 								list={toc}
-								onDataChange={translateBlog} 
+								onDataChange={translateBlog}
 								postContent={memoizedPostContent}
 							/>
 						</div>
