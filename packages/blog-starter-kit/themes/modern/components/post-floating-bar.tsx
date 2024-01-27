@@ -1,5 +1,6 @@
 import * as Tooltip from '@radix-ui/react-tooltip';
 import { useEffect } from 'react';
+import { MdGTranslate } from "react-icons/md";
 
 import { CommentSVGV2 } from './icons/svgs';
 import { kFormatter } from '../utils/image';
@@ -8,7 +9,18 @@ import PostFloatingBarTooltipWrapper from './post-floating-bar-tooltip-wrapper';
 import { PostFullFragment } from '../generated/graphql';
 import TocSheet from './toc-sheet';
 import PostShareWidget from './post-share-widget';
-import { BiHeart, BiSave, BiCommentDetail, BiShareAlt } from 'react-icons/bi';
+import Translate from "./translate"
+import Button from './hn-button';
+import { dropdownMenu } from '../utils/const/styles';
+import { twJoin } from 'tailwind-merge';
+import { BiHeart, BiCommentDetail, BiShareAlt } from 'react-icons/bi';
+import {
+  Content as DropdownContent,
+  Item as DropdownItem,
+  Portal as DropdownPortal,
+  Root as DropdownRoot,
+  Trigger as DropdownTrigger,
+} from '@radix-ui/react-dropdown-menu';
 
 function PostFloatingMenu(props: {
   isPublicationPost: boolean;
@@ -17,6 +29,8 @@ function PostFloatingMenu(props: {
   showPaymentModal?: () => void;
   openComments?: () => void;
   list: any[];
+  onDataChange: any;
+  postContent: any;
 }) {
   const {
     isPublicationPost,
@@ -25,6 +39,8 @@ function PostFloatingMenu(props: {
     showPaymentModal,
     openComments,
     list,
+    onDataChange,
+    postContent
   } = props;
   console.log(post)
 
@@ -66,6 +82,76 @@ function PostFloatingMenu(props: {
       floatingBar?.classList.add('active');
     }
   };
+
+  const languages = [
+    {
+      short: "en",
+      fullForm: "English"
+    },
+    {
+      short: "te",
+      fullForm: "Telugu"
+    },
+    {
+      short: "hi",
+      fullForm: "Hindi"
+    },
+    {
+      short: "fr",
+      fullForm: "French"
+    },
+    {
+      short: "es",
+      fullForm: "Spanish"
+    },
+    {
+      short: "ru",
+      fullForm: "Russian"
+    },
+    {
+      short: "zh-CN",
+      fullForm: "Chinese"
+    },
+  ]
+
+  function translate(inputLanguage: string, outputLanguage: string) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(postContent, 'text/html');
+    const paragraphs = Array.from(doc.body.children);
+
+    const translatedPromises = paragraphs.map((paragraph) => {
+      if (paragraph.tagName === 'PRE' || paragraph.tagName === 'CODE') {
+        return Promise.resolve(paragraph.innerHTML);
+      }
+
+      const textContent = paragraph.textContent;
+      // @ts-ignore
+      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage}&dt=t&q=${encodeURI(textContent)}`;
+
+      return fetch(url)
+        .then((response) => response.json())
+        .then((json) => json[0].map((item: string) => item[0]).join(""))
+        .catch((error) => {
+          console.log(error);
+          return ''; // Return an empty string in case of an error
+        });
+    });
+
+    Promise.all(translatedPromises)
+      .then((translatedChunks) => {
+        paragraphs.forEach((paragraph, index) => {
+          if (!(paragraph.tagName === 'PRE' || paragraph.tagName === 'CODE')) {
+            paragraph.textContent = translatedChunks[index];
+          }
+        });
+
+        const translatedContent = doc.body.innerHTML;
+        onDataChange(translatedContent);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   useEffect(() => {
     handleFloatingBarDisplay();
@@ -153,6 +239,54 @@ function PostFloatingMenu(props: {
                     </span>
                     {post?.reactionCount !== 0 ? <span className="ml-0.5 pr-2">{kFormatter(post.reactionCount)}</span> : <span className="ml-0.5 pr-2">0</span>}
                   </>
+                </button>
+              </div>
+              <Separator className="mx-2 h-5" />
+              <div>
+                <button
+                  type="button"
+                  className="outline-none! flex cursor-pointer items-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800"
+                >
+
+                  <DropdownRoot >
+                    <PostFloatingBarTooltipWrapper label="Share this article">
+                      <DropdownTrigger
+                        aria-label="Share this article"
+                        className="outline-none! cursor-pointer rounded-full p-2 hover:bg-slate-100 dark:hover:bg-slate-800"
+                      >
+                        <MdGTranslate className="h-4 w-4 stroke-current text-slate-800 dark:text-slate-50 sm:h-5 sm:w-5 2xl:h-6 2xl:w-6" />
+                      </DropdownTrigger>
+                    </PostFloatingBarTooltipWrapper>
+                    <DropdownPortal>
+                      <DropdownContent
+                        sideOffset={16}
+                        className="z-50 w-40 rounded-xl border border-slate-200 bg-white px-1 py-2 text-sm font-semibold text-slate-700 shadow-xl dark:border-slate-700 dark:bg-slate-700 dark:text-slate-50"
+                      >
+
+                        {
+                          languages.map((item, index) => {
+                            return (
+                              <DropdownItem key={index} className="outline-none!" asChild>
+                                <Button
+                                  variant="transparent"
+                                  className={twJoin(
+                                    dropdownMenu,
+                                    'flex flex-wrap rounded px-2 text-sm font-normal dark:hover:bg-slate-800',
+                                  )}
+                                  onClick={() => translate("auto", item.short)}
+                                  aria-label={`Copy ${post ? 'article permalink' : 'draft link'}`}
+                                >
+                                  <span className="px-2 font-normal text-slate-700 dark:text-slate-100">
+                                    {item.fullForm}
+                                  </span>
+                                </Button>
+                              </DropdownItem>
+                            )
+                          })
+                        }
+                      </DropdownContent>
+                    </DropdownPortal>
+                  </DropdownRoot>
                 </button>
               </div>
             </>

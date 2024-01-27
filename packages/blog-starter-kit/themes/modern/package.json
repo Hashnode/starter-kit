@@ -22,6 +22,8 @@
 		"@tailwindcss/typography": "^0.5.10",
 		"@urql/exchange-graphcache": "6.1.4",
 		"@vercel/og": "^0.5.18",
+		"axios": "^1.6.7",
+		"cheerio": "1.0.0-rc.12",
 		"clipboard": "^2.0.8",
 		"cuid": "^2.1.8",
 		"date-fns": "^2.30.0",

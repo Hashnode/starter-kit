@@ -45,8 +45,9 @@ const PublicationSubscribeStandOut = dynamic(() => import('../publication-subscr
 export const PostHeader = ({ post, morePosts }: Props) => {
 	const postContentEle = useRef<HTMLDivElement>(null);
 
-	const [isModalOpen, setIsModalOpen] = useState(false)
+	const [isModalOpen, setIsModalOpen] = useState<Boolean>(false)
 	const [code, setCode] = useState<HTMLDivElement>()
+	const [translatedBlog, setTranslatedBlog] = useState<string>()
 
 	const [selectedFilter, setSelectedFilter] = useState('totalReactions');
 	const toc = post.features?.tableOfContents?.isEnabled
@@ -56,6 +57,11 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 		() => imageReplacer(post.content?.html, true),
 		[post.content?.html],
 	);
+
+	function translateBlog(newData: string) {
+		setTranslatedBlog(newData)
+	}
+
 	const [showCommentsSheet, setShowCommentsSheet] = useState(false);
 	const tags = (post.tags ?? []).map((tag) => {
 		return {
@@ -116,7 +122,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 			triggerCustomWidgetEmbed(post.publication?.id.toString());
 			setCanLoadEmbeds(true);
 		})();
-	}, []);
+	}, [post]);
 
 	useEffect(() => {
 		// Function to find and append "Run Code" button
@@ -136,6 +142,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 					runCodeButton.addEventListener('click', () => {
 						setIsModalOpen(true)
 						console.log(parentPre)
+						// @ts-ignore
 						setCode(parentPre?.querySelector("code")?.innerText)
 					});
 
@@ -160,6 +167,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 								<IoCloseCircle size={30}/>
 								</button>
 							</div>
+							{/* @ts-ignore */}
 							<div className={styles.output} dangerouslySetInnerHTML={{__html: code}}>
 							</div>
 						</div>
@@ -226,7 +234,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 										index > 0 ? 'hidden md:block' : '',
 										authorsArray.length === 1
 											? 'h-10 w-10 md:h-12 md:w-12'
-											: 'h-8 w-8 border-2 border-slate-100 border-slate-800 md:h-9 md:w-9 [&:not(:first-of-type)]:-ml-3 md:[&:not(:first-of-type)]:-ml-6 ',
+											: 'h-8 w-8 border-2 border-slate-800 md:h-9 md:w-9 [&:not(:first-of-type)]:-ml-3 md:[&:not(:first-of-type)]:-ml-6 ',
 									)}
 								>
 									<ProfileImage user={coAuthor} width="200" height="200" hoverDisabled={true} />
@@ -295,17 +303,29 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 						{/* {isPublicationPost && renderPinnedWidgets(props.widgets, 'top')} */}
 
 						<div id="post-content-parent" className="relative mb-10 pb-14">
-							{memoizedPostContent && (
-								<div
-									id="post-content-wrapper"
-									ref={postContentEle}
-									className="prose prose-lg min-h-30 prose-dark xl:prose-xl mx-auto mb-10 break-words"
-									// eslint-disable-next-line react/no-danger
-									dangerouslySetInnerHTML={{
-										__html: memoizedPostContent,
-									}}
-								/>
-							)}
+							{
+								translatedBlog ? (
+										<div
+											id="post-content-wrapper"
+											ref={postContentEle}
+											className="prose prose-lg min-h-30 prose-dark xl:prose-xl mx-auto mb-10 break-words"
+											// eslint-disable-next-line react/no-danger
+											dangerouslySetInnerHTML={{
+												__html: translatedBlog,
+											}}
+										/>
+								): memoizedPostContent && (
+									<div
+										id="post-content-wrapper"
+										ref={postContentEle}
+										className="prose prose-lg min-h-30 prose-dark xl:prose-xl mx-auto mb-10 break-words"
+										// eslint-disable-next-line react/no-danger
+										dangerouslySetInnerHTML={{
+											__html: memoizedPostContent,
+										}}
+									/>
+								)
+							}
 
 							{/* {props.isPublicationPost && renderPinnedWidgets(props.widgets, 'bottom')} */}
 
@@ -315,6 +335,8 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 								shareText={shareText}
 								openComments={handleOpenComments}
 								list={toc}
+								onDataChange={translateBlog} 
+								postContent={memoizedPostContent}
 							/>
 						</div>
 
