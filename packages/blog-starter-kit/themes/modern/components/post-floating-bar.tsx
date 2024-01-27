@@ -1,5 +1,5 @@
 import * as Tooltip from '@radix-ui/react-tooltip';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { MdGTranslate } from "react-icons/md";
 
 import { CommentSVGV2 } from './icons/svgs';
@@ -9,11 +9,12 @@ import PostFloatingBarTooltipWrapper from './post-floating-bar-tooltip-wrapper';
 import { PostFullFragment } from '../generated/graphql';
 import TocSheet from './toc-sheet';
 import PostShareWidget from './post-share-widget';
-import Translate from "./translate"
 import Button from './hn-button';
 import { dropdownMenu } from '../utils/const/styles';
 import { twJoin } from 'tailwind-merge';
-import { BiHeart, BiCommentDetail, BiShareAlt } from 'react-icons/bi';
+import { BiHeart } from 'react-icons/bi';
+import { HiSpeakerWave } from "react-icons/hi2";
+
 import {
   Content as DropdownContent,
   Item as DropdownItem,
@@ -43,7 +44,7 @@ function PostFloatingMenu(props: {
     postContent
   } = props;
   console.log(post)
-
+const [isSpeaking, setIsSpeaking] = useState(false)
   const handleFloatingBarDisplay = () => {
     const blogHeader = document.querySelector<HTMLDivElement>('.blog-header');
     const blogContent = document.querySelector('#post-content-parent');
@@ -113,7 +114,81 @@ function PostFloatingMenu(props: {
       fullForm: "Chinese"
     },
   ]
+  async function readTheBlog() {
+  if (!isSpeaking) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(postContent, 'text/html');
+    const paragraphs = Array.from(doc.body.children);
 
+    const voices = await getVoicesAsync();
+
+    const translatedPromises = paragraphs.map((paragraph) => {
+      if (paragraph.tagName === 'PRE' || paragraph.tagName === 'CODE') {
+        return Promise.resolve(paragraph.innerHTML);
+      }
+
+      const textContent = paragraph.textContent;
+
+      return new Promise((resolve) => {
+        const options = {
+          pitch: 5, // Set the desired pitch
+          text: textContent,
+          voice: voices.find(
+            (voice) =>
+              voice.name === 'Google UK English Female' &&
+              voice.lang === 'en-GB' &&
+              voice.localService
+          ),
+        };
+
+        speak(options, resolve);
+      });
+    });
+
+    Promise.all(translatedPromises).then(() => {
+      setIsSpeaking(false);
+    });
+
+    setIsSpeaking(true);
+  } else {
+    window.speechSynthesis.cancel();
+    setIsSpeaking(false);
+  }
+}
+
+async function getVoicesAsync() {
+  return new Promise((resolve) => {
+    const voices = window.speechSynthesis.getVoices();
+    if (voices.length > 0) {
+      resolve(voices);
+    } else {
+      window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.onvoiceschanged = null;
+        resolve(window.speechSynthesis.getVoices());
+      };
+    }
+  });
+}
+
+/**
+ * Trigger speaking based on speech options selected.
+ */
+function speak(options, resolve) {
+  const utterance = new SpeechSynthesisUtterance();
+
+  utterance.onend = () => {
+    resolve(options.text); // Resolve the promise once speech is completed
+  };
+  utterance.onboundary = (event) => {
+    // Handle boundary events if needed
+  };
+
+  utterance.pitch = options.pitch;
+  utterance.text = options.text;
+  utterance.voice = options.voice;
+
+  window.speechSynthesis.speak(utterance);
+}
   function translate(inputLanguage: string, outputLanguage: string) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(postContent, 'text/html');
@@ -226,7 +301,21 @@ function PostFloatingMenu(props: {
             <>
               <TocSheet list={list} />
               <Separator className="mx-2 h-5" />
-              <PostShareWidget post={post} shareText={shareText} />
+              {/* <PostShareWidget post={post} shareText={shareText} /> */}
+              {/* <Separator className="mx-2 h-5" /> */}
+              <div>
+                <button
+                  type="button"
+                  onClick={readTheBlog}
+                  className="outline-none! flex cursor-pointer items-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800"
+                >
+                  <>
+                    <span className="rounded-full p-2">
+                      <HiSpeakerWave className="h-4 w-4 stroke-current text-slate-800 dark:text-slate-50 sm:h-5 sm:w-5 2xl:h-6 2xl:w-6" />
+                    </span>
+                  </>
+                </button>
+              </div>
               <Separator className="mx-2 h-5" />
               <div>
                 <button
@@ -242,6 +331,7 @@ function PostFloatingMenu(props: {
                 </button>
               </div>
               <Separator className="mx-2 h-5" />
+
               <div>
                 <button
                   type="button"

@@ -1,3 +1,4 @@
+import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
 import { InferGetStaticPropsType } from 'next';
 import { WithUrqlProps, initUrqlClient } from 'next-urql';
 import Head from 'next/head';
@@ -212,7 +213,9 @@ export default function Index(
 
 
 				<div ref={blob} className={styles.blob}></div>
-				
+				<TawkMessengerReact
+                propertyId="65b4deda0ff6374032c57e76"
+                widgetId="1hl58d1p4"/>
 			</Layout>
 		</AppProvider>
 	);

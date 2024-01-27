@@ -3,7 +3,6 @@ import { withUrqlClient } from 'next-urql';
 import './styles/globals.scss'
 import { GlobalFontVariables } from '../components/fonts';
 import { getUrqlClientConfig } from '../lib/api/client';
-import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
 
 import { Fragment } from 'react';
 
@@ -12,9 +11,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 		<Fragment>
 			 <GlobalFontVariables />
 			 <Component {...pageProps} />
-			 <TawkMessengerReact
-                propertyId="65b4deda0ff6374032c57e76"
-                widgetId="1hl58d1p4"/>
 		</Fragment>
 	);
 }
