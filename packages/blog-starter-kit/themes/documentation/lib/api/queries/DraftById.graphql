@@ -1,0 +1,25 @@
+query DraftById($id: ObjectId!) {
+  draft(id: $id) {
+    id
+    title
+    content {
+      markdown
+    }
+    author {
+      id
+      name
+      username
+      profilePicture
+    }
+    coverImage {
+      url
+    }
+    readTimeInMinutes
+    dateUpdated
+    tags {
+      id
+      name
+      slug
+    }
+  }
+}
