@@ -20,6 +20,7 @@
 		"@radix-ui/react-tooltip": "^1.0.7",
 		"@starter-kit/utils": "workspace:*",
 		"@tailwindcss/typography": "^0.5.10",
+		"@tawk.to/tawk-messenger-react": "^2.0.2",
 		"@urql/exchange-graphcache": "6.1.4",
 		"@vercel/og": "^0.5.18",
 		"axios": "^1.6.7",
