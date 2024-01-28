@@ -25,6 +25,7 @@ import FeaturedPosts from '../components/features-posts';
 import PublicationFooter from '../components/publication-footer';
 import PublicationMeta from '../components/publication-meta';
 import { resizeImage } from '../utils/image';
+import { Subscribe } from '../components/subscribe';
 
 const REVALIDATION_INTERVAL_POST_VIEWS_ACTIVE = 60 * 60; // 1 hour
 const REVALIDATION_INTERVAL = 60 * 60 * 24 * 30; // 1 month
@@ -194,6 +195,8 @@ export default function Index(
 								<SubscribeForm />
 							</div>
 						</div>
+
+					<Subscribe />
 					
 
 				
