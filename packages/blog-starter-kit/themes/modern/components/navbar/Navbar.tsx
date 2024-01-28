@@ -3,6 +3,7 @@ import styles from "./navbar.module.scss"
 import { useState } from 'react'
 import { FaGithub, FaInstagram, FaLinkedin, FaTwitter, FaYoutube } from "react-icons/fa";
 import { info } from "../../info.config"
+import Link from 'next/link';
 
 export default function Navbar() {
 
@@ -16,7 +17,9 @@ export default function Navbar() {
     }
     return (
         <div className={styles.navbar}>
-            <h1 className={`${styles.logo} ${navbarIsOpen ? styles.active : ""}`}>Akash Srinivasan</h1>
+            <h1 className={`${styles.logo} ${navbarIsOpen ? styles.active : ""}`}>
+                <Link href={"/"}>Akash Srinivasan</Link>
+            </h1>
             <div className={styles.buttons}>
                 <button className={styles.getStarted}>Get In Touch</button>
                 <button onClick={handleNavBar} className={`${styles.hamburger} ${navbarIsOpen ? styles.active : ""}`}>

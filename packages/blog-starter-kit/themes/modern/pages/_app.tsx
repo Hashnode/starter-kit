@@ -3,10 +3,11 @@ import { AppProps } from 'next/app';
 import { withUrqlClient } from 'next-urql';
 import { Fragment, useState } from 'react';
 import { getUrqlClientConfig } from '../lib/api/client';
-
+import { AnimatePresence, motion } from 'framer-motion';
 // Import styles and fonts
 import './styles/globals.scss';
 import { GlobalFontVariables } from '../components/fonts';
+import { useRouter } from 'next/router';
 
 // MyApp component
 function MyApp({ Component, pageProps }: AppProps) {
@@ -52,18 +53,48 @@ function MyApp({ Component, pageProps }: AppProps) {
   function copyText() {
     // TODO:
   }
+  const router = useRouter()
 
   return (
-    <Fragment>
+    <AnimatePresence mode={'wait'}>
       <GlobalFontVariables />
       <div
         onContextMenu={handleContextMenu}
         onClick={handleClickOutside}
+        style={{background: "#8b52ff"}}
       >
-        {/* Render your content */}
-        <Component {...pageProps} />
+        <motion.div
+          key={router.route}
+          initial="initialState"
+          animate="animateState"
+          exit="exitState"
+          style={{background: "#1d1d1f"}}
+          transition={{
+            duration: 0.75,
+          }}
+          variants={{
+            initialState: {
+              opacity: 0,
+              clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)",
+              scale: 0,
+              borderRadius: "100"
+            },
+            animateState: {
+              opacity: 1,
+              clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)",
+              scale: 1,
+              borderRadius: 0
+            },
+            exitState: {
+              clipPath: "polygon(50% 0, 50% 0, 50% 100%, 50% 100%)",
+              width: "0"
+            },
+          }}
+          className="base-page-size"
+        >
+          <Component {...pageProps} />
 
-        {/* Custom context menu */}
+        </motion.div>
         {contextMenu.isVisible && (
           <div
             className={"custom-context-menu active"}
@@ -74,7 +105,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               <h4>DEFINATIONS:- </h4>
               {
                 defination.length > 0 ?
-                  defination.map((item: {word: string}, index: number) => {
+                  defination.map((item: { word: string }, index: number) => {
                     console.log(item)
                     return <div key={index} className="tag">{item.word}</div>
                   }) : ""
@@ -83,7 +114,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           </div>
         )}
       </div>
-    </Fragment>
+    </AnimatePresence>
   );
 }
 

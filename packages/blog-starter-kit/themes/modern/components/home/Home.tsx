@@ -14,6 +14,7 @@ import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { IoIosTime } from "react-icons/io";
 import Image from 'next/image';
 import { kFormatter } from '../../utils/image';
+import Link from 'next/link'
 
 export default function Home(props: {
   posts: Array<PostThumbnailFragment>;
@@ -122,7 +123,7 @@ export default function Home(props: {
               </div>
 
               <div className={styles.blogContent}>
-                <h2><a href={postURL}>{post.title}</a></h2>
+                <h2><Link href={postURL}>{post.title}</Link></h2>
                 <p> {postBrief}</p>
               </div>
 

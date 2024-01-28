@@ -61,6 +61,7 @@ a {
 .app-container {
     position: relative;
 }
+
 .custom-context-menu {
     display: block;
     position: absolute;
@@ -91,13 +92,15 @@ a {
     }
 }
 
-.definations{
+.definations {
     display: flex;
     flex-wrap: wrap;
     gap: .25em;
+
     h4 {
         padding: 8px;
     }
+
     .tag {
         background: #111625;
         font-size: .8em;
@@ -105,7 +108,8 @@ a {
     }
 }
 
-.custom-menu-item, .tag {
+.custom-menu-item,
+.tag {
     cursor: pointer;
     padding: 8px;
     user-select: none;
@@ -122,6 +126,7 @@ question {
     display: flex;
     align-items: center;
     flex-direction: column;
+
     div {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -129,6 +134,7 @@ question {
         width: 100%;
         margin-top: .5em;
     }
+
     button {
         width: 100%;
         background: transparent;
@@ -161,9 +167,14 @@ question {
         color: #000;
         font-weight: bolder;
         border: 2px solid #70d583;
-        
+
         &:hover {
             background: #23b33d;
         }
     }
+}
+
+.splashscreen {
+    width: 100%;
+    min-height: 100vh;
 }
