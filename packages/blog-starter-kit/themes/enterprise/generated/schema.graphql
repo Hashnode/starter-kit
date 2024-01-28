@@ -11,6 +11,15 @@ directive @private on FIELD_DEFINITION | OBJECT
 
 directive @requireAuth(scopes: [Scope!]) on FIELD_DEFINITION | OBJECT
 
+input AddCommentInput {
+  contentMarkdown: String!
+  postId: ID!
+}
+
+type AddCommentPayload {
+  comment: Comment
+}
+
 input AddPostToSeriesInput {
   """The ID of the post to be added to the series."""
   postId: ObjectId!
@@ -21,6 +30,15 @@ input AddPostToSeriesInput {
 type AddPostToSeriesPayload {
   """The series to which the post was added."""
   series: Series
+}
+
+input AddReplyInput {
+  commentId: ID!
+  contentMarkdown: String!
+}
+
+type AddReplyPayload {
+  reply: Reply
 }
 
 """
@@ -96,6 +114,16 @@ type BetaFeature implements Node {
   title: String
   """The url of the beta feature."""
   url: String
+}
+
+input CancelScheduledDraftInput {
+  """The Draft ID of the scheduled draft."""
+  draftId: ID!
+}
+
+type CancelScheduledDraftPayload {
+  """Payload returned in response of cancel scheduled post mutation."""
+  scheduledPost: ScheduledPost!
 }
 
 """
@@ -211,6 +239,17 @@ input CoverImageOptionsInput {
   stickCoverToBottom: Boolean
 }
 
+input CreateWebhookInput {
+  events: [WebhookEvent!]!
+  publicationId: ID!
+  secret: String!
+  url: String!
+}
+
+type CreateWebhookPayload {
+  webhook: Webhook
+}
+
 type CustomCSS {
   """Custom CSS that will be applied on the publication homepage."""
   home: String
@@ -249,6 +288,10 @@ type DarkModePreferences {
 A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 """
 scalar DateTime
+
+type DeleteWebhookPayload {
+  webhook: Webhook
+}
 
 """Contains the publication's domain information."""
 type DomainInfo {
@@ -619,6 +662,24 @@ interface IUser {
   username: String!
 }
 
+input LikeCommentInput {
+  commentId: ID!
+  likesCount: Int = 1
+}
+
+type LikeCommentPayload {
+  comment: Comment
+}
+
+input LikePostInput {
+  likesCount: Int = 1
+  postId: ID!
+}
+
+type LikePostPayload {
+  post: Post
+}
+
 """
 Contains information about meta tags of the post. Used for SEO purpose.
 """
@@ -632,15 +693,44 @@ input MetaTagsInput {
 }
 
 type Mutation {
+  """Adds a comment to a post."""
+  addComment(input: AddCommentInput!): AddCommentPayload!
   """Adds a post to a series."""
   addPostToSeries(input: AddPostToSeriesInput!): AddPostToSeriesPayload!
+  """Adds a reply to a comment."""
+  addReply(input: AddReplyInput!): AddReplyPayload!
+  cancelScheduledDraft(input: CancelScheduledDraftInput!): CancelScheduledDraftPayload!
+  createWebhook(input: CreateWebhookInput!): CreateWebhookPayload!
+  deleteWebhook(id: ID!): DeleteWebhookPayload!
+  """Likes a comment."""
+  likeComment(input: LikeCommentInput!): LikeCommentPayload!
+  """Likes a post."""
+  likePost(input: LikePostInput!): LikePostPayload!
+  """Publishes an existing draft as a post."""
+  publishDraft(
+    """Information about the draft to be published."""
+    input: PublishDraftInput!
+  ): PublishDraftPayload!
   """Creates a new post."""
   publishPost(
     """Information about the post to be published."""
     input: PublishPostInput!
   ): PublishPostPayload!
-  """Reschedule a post."""
-  reschedulePost(input: ReschedulePostInput!): ScheduledPostPayload
+  recommendPublications(input: RecommendPublicationsInput!): RecommendPublicationsPayload!
+  """Removes a comment from a post."""
+  removeComment(input: RemoveCommentInput!): RemoveCommentPayload!
+  """Removes a post."""
+  removePost(input: RemovePostInput!): RemovePostPayload!
+  removeRecommendation(input: RemoveRecommendationInput!): RemoveRecommendationPayload!
+  """Removes a reply from a comment."""
+  removeReply(input: RemoveReplyInput!): RemoveReplyPayload!
+  """Reschedule a draft."""
+  rescheduleDraft(input: RescheduleDraftInput!): RescheduleDraftPayload!
+  resendWebhookRequest(input: ResendWebhookRequestInput!): ResendWebhookRequestPayload!
+  scheduleDraft(
+    """Information about the draft to be published."""
+    input: ScheduleDraftInput!
+  ): ScheduleDraftPayload!
   subscribeToNewsletter(input: SubscribeToNewsletterInput!): SubscribeToNewsletterPayload!
   """
   Update the follow state for the user that is provided via id or username.
@@ -649,8 +739,14 @@ type Mutation {
   Only available to the authenticated user.
   """
   toggleFollowUser(id: ID, username: String): ToggleFollowUserPayload!
+  triggerWebhookTest(input: TriggerWebhookTestInput!): TriggerWebhookTestPayload!
   unsubscribeFromNewsletter(input: UnsubscribeFromNewsletterInput!): UnsubscribeFromNewsletterPayload!
+  """Updates a comment on a post."""
+  updateComment(input: UpdateCommentInput!): UpdateCommentPayload!
   updatePost(input: UpdatePostInput!): UpdatePostPayload!
+  """Updates a reply"""
+  updateReply(input: UpdateReplyInput!): UpdateReplyPayload!
+  updateWebhook(input: UpdateWebhookInput!): UpdateWebhookPayload!
 }
 
 """
@@ -1430,6 +1526,8 @@ type PublicationIntegrations {
   fathomSiteID: String
   """FB Pixel ID for integration with Facebook Pixel."""
   fbPixelID: String
+  """Google Tag Manager ID for integration with Google Tag Manager."""
+  gTagManagerID: String
   """Google Analytics Tracking ID for integration with Google Analytics."""
   gaTrackingID: String
   """Hotjar Site ID for integration with Hotjar."""
@@ -1571,6 +1669,16 @@ type PublicationUserRecommendingPublicationConnection implements PageConnection 
   pageInfo: OffsetPageInfo!
   """The total number of documents in the connection."""
   totalDocuments: Int!
+}
+
+input PublishDraftInput {
+  """The id of the draft that should be published"""
+  draftId: ObjectId!
+}
+
+type PublishDraftPayload {
+  """The newly created post based on the draft"""
+  post: Post
 }
 
 """Contains information about the post to be published."""
@@ -1745,6 +1853,15 @@ type ReadTimeFeature implements Feature {
   isEnabled: Boolean!
 }
 
+input RecommendPublicationsInput {
+  recommendedPublicationIds: [ID!]!
+  recommendingPublicationId: ID!
+}
+
+type RecommendPublicationsPayload {
+  recommendedPublications: [UserRecommendedPublicationEdge!]
+}
+
 """Contains a publication and a cursor for pagination."""
 type RecommendedPublicationEdge implements Edge {
   """A cursor for use in pagination."""
@@ -1760,6 +1877,42 @@ type RedirectionRule {
   source: String!
   """The type of the redirection rule."""
   type: HttpRedirectionType!
+}
+
+input RemoveCommentInput {
+  id: ID!
+}
+
+type RemoveCommentPayload {
+  comment: Comment
+}
+
+input RemovePostInput {
+  """The ID of the post to remove."""
+  id: ID!
+}
+
+type RemovePostPayload {
+  """The deleted post."""
+  post: Post
+}
+
+input RemoveRecommendationInput {
+  recommendedPublicationId: ID!
+  recommendingPublicationId: ID!
+}
+
+type RemoveRecommendationPayload {
+  recommendedPublication: Publication!
+}
+
+input RemoveReplyInput {
+  commentId: ID!
+  replyId: ID!
+}
+
+type RemoveReplyPayload {
+  reply: Reply
 }
 
 """
@@ -1790,11 +1943,25 @@ type Reply implements Node {
   totalReactions: Int!
 }
 
-input ReschedulePostInput {
-  """The Draft ID of the scheduled post."""
-  draftId: ObjectId!
-  """New scheduled date for the post to be rescheduled."""
-  scheduledDate: DateTime!
+input RescheduleDraftInput {
+  """The Draft ID of the scheduled draft."""
+  draftId: ID!
+  """New scheduled date for the draft to be rescheduled."""
+  publishAt: DateTime!
+}
+
+type RescheduleDraftPayload {
+  """Payload returned in response of reschedulePost mutation."""
+  scheduledPost: ScheduledPost!
+}
+
+input ResendWebhookRequestInput {
+  webhookId: ID!
+  webhookMessageId: ID!
+}
+
+type ResendWebhookRequestPayload {
+  webhookMessage: WebhookMessage
 }
 
 """Information to help in seo related meta tags."""
@@ -1803,6 +1970,20 @@ type SEO {
   description: String
   """The title used in og:title tag for SEO purposes."""
   title: String
+}
+
+input ScheduleDraftInput {
+  """The Author ID of the draft that should be published"""
+  authorId: ID!
+  """The id of the draft that should be published"""
+  draftId: ID!
+  """The date the draft should be published"""
+  publishAt: DateTime!
+}
+
+type ScheduleDraftPayload {
+  """Payload returned in response of reschedulePost mutation."""
+  scheduledPost: ScheduledPost!
 }
 
 """
@@ -1828,11 +2009,6 @@ type ScheduledPost implements Node {
   scheduledDate: DateTime!
 }
 
-type ScheduledPostPayload {
-  """Payload returned in response of reschedulePost mutation."""
-  payload: ScheduledPost!
-}
-
 """
 Enum of all the scopes that can be used with the @requireAuth directive.
 """
@@ -1852,6 +2028,7 @@ enum Scope {
   remove_comment
   remove_reply
   signup
+  team_hashnode
   update_comment
   update_post
   update_reply
@@ -2151,6 +2328,14 @@ type ToggleFollowUserPayload {
   user: User
 }
 
+input TriggerWebhookTestInput {
+  webhookId: ID!
+}
+
+type TriggerWebhookTestPayload {
+  webhook: Webhook
+}
+
 input UnsubscribeFromNewsletterInput {
   """The email that is currently subscribed."""
   email: String!
@@ -2160,6 +2345,15 @@ input UnsubscribeFromNewsletterInput {
 
 type UnsubscribeFromNewsletterPayload {
   status: NewsletterUnsubscribeStatus
+}
+
+input UpdateCommentInput {
+  contentMarkdown: String!
+  id: ID!
+}
+
+type UpdateCommentPayload {
+  comment: Comment
 }
 
 input UpdatePostInput {
@@ -2225,6 +2419,27 @@ input UpdatePostSettingsInput {
   isTableOfContentEnabled: Boolean
   """Pin the post to the blog homepage."""
   pinToBlog: Boolean
+}
+
+input UpdateReplyInput {
+  commentId: ID!
+  contentMarkdown: String!
+  replyId: ID!
+}
+
+type UpdateReplyPayload {
+  reply: Reply
+}
+
+input UpdateWebhookInput {
+  events: [WebhookEvent!]
+  id: ID!
+  secret: String
+  url: String
+}
+
+type UpdateWebhookPayload {
+  webhook: Webhook
 }
 
 enum UrlPattern {
@@ -2585,4 +2800,32 @@ type WebhookMessageResponse {
   The time it took from the moment the request has been send until the first byte of the response has been received.
   """
   timeToFirstByteMilliseconds: Int
+}
+
+type Widget implements Node {
+  """Content of the widget, can be a simple string or HTML"""
+  content: String!
+  """The date and time the widget was created."""
+  createdAt: DateTime!
+  """The unique identifier of the widget"""
+  id: ID!
+  pinSettings: WidgetPinSettings
+  """WidgetId, can be embedded as %%[widgetId] in the article"""
+  widgetId: String!
+}
+
+enum WidgetPinLocation {
+  BOTTOM
+  TOP
+}
+
+type WidgetPinSettings {
+  """
+  Signifies if pinning of widget on all the articles of publication is enabled or not
+  """
+  isPinned: Boolean!
+  """
+  Describes the location of the widget on the article, can be TOP or BOTTOM
+  """
+  location: WidgetPinLocation!
 }
