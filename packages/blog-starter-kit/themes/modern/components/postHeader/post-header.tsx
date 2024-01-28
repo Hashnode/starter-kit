@@ -8,7 +8,6 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { twJoin } from 'tailwind-merge';
 import styles from "./postHeader.module.scss"
 import { resizeImage } from '@starter-kit/utils/image';
-
 // @ts-ignore
 import handleMathJax from '@starter-kit/utils/handle-math-jax';
 import { MorePostsEdgeFragment, PostFullFragment } from '../../generated/graphql';
@@ -25,7 +24,6 @@ import { useEmbeds } from '@starter-kit/utils/renderer/hooks/useEmbeds';
 import { loadIframeResizer } from '@starter-kit/utils/renderer/services/embed';
 import { Fragment } from 'react';
 import { BookOpenSVG } from '../icons/svgs';
-
 // @ts-ignore
 import { triggerCustomWidgetEmbed } from '@starter-kit/utils/trigger-custom-widget-embed';
 import { createPostUrl } from '../../utils/urls';
@@ -51,6 +49,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 	const [isModalOpen, setIsModalOpen] = useState<Boolean>(false)
 	const [code, setCode] = useState<HTMLDivElement>()
 	const [translatedBlog, setTranslatedBlog] = useState<string>()
+	const [contentWithSpans, setContentWithSpans] = useState('');
 
 	const [selectedFilter, setSelectedFilter] = useState('totalReactions');
 	const toc = post.features?.tableOfContents?.isEnabled
@@ -157,22 +156,23 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 
 				paragraphs.forEach((paragraph) => {
 					const questionTag = paragraph.querySelector("question")
-					if (questionTag) {
-						paragraph.innerHTML = paragraph.innerText
-						const buttons = paragraph.querySelectorAll("button")
-						const buttonsDiv = document.createElement('div');
+					paragraph.innerHTML = paragraph.innerText
+					const buttons = paragraph.querySelectorAll("button")
+					const buttonsDiv = document.createElement('div');
 
-						buttons.forEach((button) => {
-							button.addEventListener('click', () => {
-								if (button.getAttribute('correct') !== null) {
-									button.classList.add('correct');
-								} else {
-									button.classList.add('wrong');
-								}
-							});
-							buttonsDiv.appendChild(button);
+					buttons.forEach((button) => {
+						button.addEventListener('click', () => {
+							if (button.getAttribute('correct') !== null) {
+								button.classList.add('correct');
+							} else {
+								button.classList.add('wrong');
+							}
 						});
-						questionTag.appendChild(buttonsDiv);
+						buttonsDiv.appendChild(button);
+					});
+					const question = paragraph.querySelector("question")
+					if (question) {
+						question.appendChild(buttonsDiv);
 					}
 				});
 			}

@@ -75,18 +75,15 @@ function MyApp({ Component, pageProps }: AppProps) {
           variants={{
             initialState: {
               opacity: 0,
-              clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)",
               scale: 0,
               borderRadius: "100"
             },
             animateState: {
               opacity: 1,
-              clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)",
               scale: 1,
               borderRadius: 0
             },
             exitState: {
-              clipPath: "polygon(50% 0, 50% 0, 50% 100%, 50% 100%)",
               width: "0"
             },
           }}

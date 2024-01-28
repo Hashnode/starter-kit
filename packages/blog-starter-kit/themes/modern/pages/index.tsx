@@ -16,6 +16,7 @@ import { Layout } from '../components/layout';
 import BlogsShowcase from "../components/blogsShowcase/BlogsShowcase"
 import { PostThumbnailFragment } from '../generated/graphql';
 import ModernLayoutPosts from '../components/publicationsPosts/publication-posts';
+import { useRouter } from 'next/router';
 
 import {
 	HomePageInitialDocument,
@@ -48,7 +49,8 @@ export default function Index(
 	props: InferGetStaticPropsType<typeof getStaticProps> & Required<WithUrqlProps>,
 ) {
 	const { host, publication, initialLimit } = props;
-
+	const [isHomePage, setIsHomePage] = useState(false)
+	const router = useRouter();
 	const ssrCache = createSSRExchange();
 	const urqlClient = initUrqlClient(getUrqlClientConfig(ssrCache), false); // TODO: Check why is urqlClient not automatically being passed in props. Ideally, since we are using WithUrqlClient HOC, it should automatically come
 
@@ -122,7 +124,7 @@ export default function Index(
 	}
 
 	useEffect(() => {
-		let handleMove = () => {}
+		let handleMove = () => { }
 		if (!isMobile()) {
 			//@ts-ignore
 			handleMove = (event: MouseEvent) => {
@@ -131,7 +133,7 @@ export default function Index(
 				const blobElement = blob.current;
 				if (blobElement) {
 					const blobRect = blobElement.getBoundingClientRect();
-					
+
 					blobElement.animate({
 						left: clientX + "px",
 						top: clientY + "px"
@@ -142,12 +144,31 @@ export default function Index(
 			document.body.addEventListener("mousemove", handleMove);
 			document.body.addEventListener("touchmove", handleMove);
 		}
-
 		return () => {
 			document.body.removeEventListener("mousemove", handleMove);
 			document.body.removeEventListener("touchmove", handleMove);
 		};
 	}, [blob]);
+
+	useEffect(() => {
+		const checkRoute = () => {
+			const currentIsHomePage = router.pathname === '/';
+			
+			if (currentIsHomePage !== isHomePage) {
+				setIsHomePage(currentIsHomePage);
+			}
+		};
+
+		checkRoute();
+		const routeChangeHandler = () => {
+			checkRoute();
+		};
+
+		router.events.on('routeChangeComplete', routeChangeHandler);
+		return () => {
+			router.events.off('routeChangeComplete', routeChangeHandler);
+		};
+	}, [router.pathname, isHomePage]);
 
 	return (
 		<AppProvider publication={publication}>
@@ -205,15 +226,15 @@ export default function Index(
 							fetchedOnce={fetchedOnce}
 							fetching={fetching}
 						/>
+						{isHomePage && (
+							<TawkMessengerReact
+								propertyId="65b4deda0ff6374032c57e76"
+								widgetId="1hl58d1p4"
+							/>
+						)}
 					</>
 				) : null}
-
-
-
 				<div ref={blob} className={styles.blob}></div>
-				<TawkMessengerReact
-                propertyId="65b4deda0ff6374032c57e76"
-                widgetId="1hl58d1p4"/>
 			</Layout>
 		</AppProvider>
 	);
