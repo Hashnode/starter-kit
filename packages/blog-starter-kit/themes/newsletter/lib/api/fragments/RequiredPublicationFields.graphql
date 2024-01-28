@@ -1,0 +1,139 @@
+fragment RequiredPublicationFields on Publication {
+  __typename
+  id
+  url
+  canonicalURL
+  urlPattern
+  title
+  displayTitle
+  hasBadges
+  descriptionSEO
+  about {
+    html
+    text
+  }
+  features {
+    newsletter {
+      isEnabled
+    }
+    viewCount {
+      isEnabled
+    }
+    readTime {
+      isEnabled
+    }
+    audioBlog {
+      isEnabled
+      voiceType
+    }
+    textSelectionSharer {
+      isEnabled
+    }
+    customCSS {
+      isEnabled
+      published {
+        __typename
+        homeMinified
+        postMinified
+        staticMinified
+      }
+      draft {
+        __typename
+        homeMinified
+        postMinified
+        staticMinified
+      }
+    }
+  }
+  metaTags
+  ogMetaData {
+    image
+  }
+  author {
+    __typename
+    id
+    name
+    username
+    profilePicture
+  }
+  preferences {
+    __typename
+    logo
+    darkMode {
+      __typename
+      logo
+      enabled
+    }
+    navbarItems {
+      __typename
+      id
+      label
+      url
+      priority
+      type
+      series {
+        __typename
+        id
+      }
+      page {
+        __typename
+        id
+      }
+    }
+    enabledPages {
+      __typename
+      badges
+      newsletter
+      members
+    }
+    layout
+    disableFooterBranding
+    isSubscriptionModalDisabled
+  }
+  favicon
+  headerColor
+  integrations {
+    fbPixelID
+    fathomSiteID
+    fathomCustomDomainEnabled
+    fathomCustomDomain
+    hotjarSiteID
+    matomoSiteID
+    matomoURL
+    gaTrackingID
+    plausibleAnalyticsEnabled
+    wmPaymentPointer
+    umamiWebsiteUUID
+  }
+  imprint
+  isTeam
+  links {
+    twitter
+    instagram
+    github
+    website
+    hashnode
+    youtube
+    linkedin
+    mastodon
+  }
+  domainInfo {
+    __typename
+    hashnodeSubdomain
+    domain {
+      __typename
+      host
+      ready
+    }
+    wwwPrefixedDomain {
+      __typename
+      host
+      ready
+    }
+  }
+  redirectionRules {
+    source
+    destination
+    type
+  }
+}

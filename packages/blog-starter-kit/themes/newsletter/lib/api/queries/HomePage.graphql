@@ -1,0 +1,39 @@
+query HomePageInitial($host: String!) {
+  publication(host: $host) {
+    ...RequiredPublicationFields
+    about {
+      markdown
+      html
+    }
+    posts (first: 10) {
+      totalDocuments
+    }
+    followersCount
+    author {
+      id
+      followersCount
+    }
+    pinnedPost {
+      ...PostThumbnail
+    }
+  }
+}
+
+query HomePagePosts($host: String!, $after: String, $first: Int!, $filter: PublicationPostConnectionFilter) {
+  publication(host: $host) {
+    id
+    posts(after: $after, first: $first, filter: $filter) {
+      totalDocuments
+      edges {
+        node {
+          ...PostThumbnail
+        }
+        cursor
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+}

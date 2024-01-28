@@ -1,0 +1,24 @@
+query StaticPage($host: String!, $slug: String!) {
+  publication(host: $host) {
+    ...RequiredPublicationFields
+    staticPage(slug: $slug) {
+      ...RequiredStaticPageFields
+    }
+  }
+}
+
+fragment RequiredStaticPageFields on StaticPage {
+  id
+  slug
+  title
+  content {
+    html
+  }
+  seo {
+    title
+    description
+  }
+  ogMetaData {
+    image
+  }
+}
