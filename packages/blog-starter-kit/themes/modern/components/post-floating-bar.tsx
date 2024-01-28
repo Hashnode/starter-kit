@@ -121,7 +121,7 @@ function PostFloatingMenu(props: {
       const paragraphs = Array.from(doc.body.children);
 
       // Retrieve voices asynchronously after checking for speech
-      const voices = await getVoicesAsync();
+      const voices = await getVoicesAsync<Array<{}>>();
 
       const translatedPromises = paragraphs.map((paragraph) => {
         if (paragraph.tagName === 'PRE' || paragraph.tagName === 'CODE') {
@@ -134,7 +134,6 @@ function PostFloatingMenu(props: {
           const options = {
             pitch: 5, // Set the desired pitch
             text: textContent,
-            // @ts-ignore
             voice: voices.find((voice: any) => {
               const matches = (voice.name === 'Microsoft Zira - English (United States)' || voice.name === "Google UK English Female") &&
                 (voice.lang === 'en-US' || voice.lang === 'en-GB') &&
@@ -163,14 +162,22 @@ function PostFloatingMenu(props: {
     }
   }
 
-  async function getVoicesAsync() {
+  async function getVoicesAsync<T>(): Promise<T> {
     return new Promise((resolve) => {
       const voices = window.speechSynthesis.getVoices();
-
+  
       if (voices.length > 0) {
-        resolve(voices);
+        resolve(voices as T);
       } else {
-        window.speechSynthesis.onvoiceschanged = resolve; // Resolve directly with voices when available
+        const eventHandler = () => {
+          // Ensure to remove the event handler after it has been triggered
+          window.speechSynthesis.onvoiceschanged = null;
+  
+          // Now, resolve with the voices as T
+          resolve(window.speechSynthesis.getVoices() as T);
+        };
+  
+        window.speechSynthesis.onvoiceschanged = eventHandler;
       }
     });
   }

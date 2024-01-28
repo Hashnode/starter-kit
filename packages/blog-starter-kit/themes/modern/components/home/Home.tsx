@@ -28,14 +28,6 @@ export default function Home(props: {
   const { publication, posts } = props;
 
   useEffect(() => {
-    new Typewriter('#typingEffect', {
-      strings: ['Python', 'DSA', 'React', 'Prisma', 'Next', "Figma"],
-      autoStart: true,
-      loop: true
-    });
-  })
-
-  useEffect(() => {
     const handleScroll = (event: any) => {
       const scrollDelta = event.deltaY * 1;
       const newSliderPosition = sliderPosition + scrollDelta;
@@ -52,6 +44,14 @@ export default function Home(props: {
     return () => window.removeEventListener('wheel', handleScroll);
   }, [sliderPosition]);
 
+  useEffect(() => {
+    new Typewriter('#typingEffect', {
+      strings: ['Python', 'DSA', 'React', 'Prisma', 'Next', "Figma"],
+      autoStart: true,
+      loop: true
+    });
+  }, [])
+  
   return (
     <div className={styles.landingPage}>
       <h1>
