@@ -151,27 +151,30 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 
 		const appendQuestion = () => {
 			const postContentWrapper = document.getElementById('post-content-wrapper');
-			const paragraphs = postContentWrapper.querySelectorAll('p');
+			if (postContentWrapper) {
+				const paragraphs = postContentWrapper.querySelectorAll('p');
 
-			paragraphs.forEach((paragraph) => {
-				if (paragraph.querySelector("question")) {
-					paragraph.innerHTML = paragraph.innerText
-					const buttons = paragraph.querySelectorAll("button")
-					const buttonsDiv = document.createElement('div');
+				paragraphs.forEach((paragraph) => {
+					const questionTag = paragraph.querySelector("question")
+					if (questionTag) {
+						paragraph.innerHTML = paragraph.innerText
+						const buttons = paragraph.querySelectorAll("button")
+						const buttonsDiv = document.createElement('div');
 
-					buttons.forEach((button) => {
-						button.addEventListener('click', () => {
-							if (button.getAttribute('correct') !== null) {
-								button.classList.add('correct');
-							} else {
-								button.classList.add('wrong');
-							}
+						buttons.forEach((button) => {
+							button.addEventListener('click', () => {
+								if (button.getAttribute('correct') !== null) {
+									button.classList.add('correct');
+								} else {
+									button.classList.add('wrong');
+								}
+							});
+							buttonsDiv.appendChild(button);
 						});
-						buttonsDiv.appendChild(button);
-					});
-					paragraph.querySelector("question").appendChild(buttonsDiv);
-				}
-			});
+						questionTag.appendChild(buttonsDiv);
+					}
+				});
+			}
 		};
 
 
