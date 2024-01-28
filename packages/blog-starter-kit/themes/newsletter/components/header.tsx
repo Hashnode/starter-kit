@@ -47,26 +47,7 @@ export const Header = (props: Props) => {
 					</div>
 				</div>
 
-				{/* Logo for mobile view */}
-				<div className="mx-auto my-5 flex w-2/3 flex-row items-center justify-center md:hidden">
-					<PublicationLogo publication={publication} size="xl" />
-				</div>
-
-				<div className="blog-sub-header" data-testid="blog-sub-header">
-					{/* Desktop */}
-					<div className="justify-betweem mx-0 mb-2 hidden w-full flex-row items-center md:flex">
-						<PublicationSocialLinks
-							links={publication.links}
-						/>
-					</div>
-					{/* Mobile view */}
-					<div className="mb-2 flex w-full flex-col items-center md:hidden">
-						<PublicationSocialLinks
-							links={publication.links}
-						/>
-					</div>
-				</div>
-
+				
 				<div
 					className="relative mt-8 hidden flex-row items-center justify-center overflow-hidden text-base md:flex"
 					data-tom="hidden md:flex relative flex-row items-center justify-center overflow-hidden text-base mt-8"

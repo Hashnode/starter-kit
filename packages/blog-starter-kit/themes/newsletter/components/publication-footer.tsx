@@ -4,7 +4,9 @@ import Image from 'next/legacy/image';
 import { HashnodeLogoIconV2 } from './icons/svgs';
 import { resizeImage } from '../utils/image';
 import Link from 'next/link';
-
+import PublicationSocialLinks from './publication-social-links';
+import { Publication } from '../generated/graphql';
+import { useAppContext } from './contexts/appContext';
 // type PublicationFooterProps = Pick<Publication, 'title' | 'postsCount' | 'imprint' | 'isTeam'> &
 //   Pick<Publication['preferences'], 'disableFooterBranding' | 'logo' | 'darkMode'> & {
 //     authorName: string;
@@ -12,7 +14,7 @@ import Link from 'next/link';
 
 function PublicationFooter(props: any) {
   const { isTeam, authorName, title, imprint, disableFooterBranding, logo } = props;
-
+  const { publication } = useAppContext();
   return (
     <footer className="blog-footer-area -mt-px border-t bg-slate-100 px-5 py-10 text-center text-slate-800 dark:border-slate-800 dark:bg-black dark:text-slate-500 md:px-10 md:py-12 lg:py-20">
       {imprint && (
@@ -28,6 +30,24 @@ function PublicationFooter(props: any) {
           ></div>
         </section>
       )}
+
+<div className="blog-sub-header" data-testid="blog-sub-header">
+					{/* Desktop */}
+					<div className="justify-betweem mx-0 mb-2 hidden w-full flex-row items-center md:flex">
+						<PublicationSocialLinks
+							links={publication.links}
+						/>
+					</div>
+					{/* Mobile view */}
+					<div className="mb-2 flex w-full flex-col items-center md:hidden">
+						<PublicationSocialLinks
+							links={publication.links}
+						/>
+					</div>
+				</div>
+
+
+
       <div className="blog-footer-credits flex flex-col items-center justify-center">
         <div className="mb-12 flex flex-col flex-wrap items-center">
           <p className="mb-2 text-slate-600 dark:text-slate-300">

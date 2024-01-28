@@ -41,7 +41,7 @@ const FeaturedPosts = (props: {
   return (
     <div className="blog-featured-area mx-auto border-b bg-slate-50 dark:border-slate-800 dark:bg-black">
       <div className="blog-featured-container container mx-auto grid grid-cols-1 gap-8 px-4 py-4 md:grid-flow-col md:grid-cols-1 md:grid-rows-1 xl:grid-cols-1 xl:py-6 xl:px-6 2xl:px-12 2xl:py-6">
-        <div key={post.id} className="blog-article-card col-span-1 mx-auto max-w-xl">  
+        <div key={post.id} className="blog-article-card col-span-1 mx-auto max-w-xl ">  
         <div key={post.id} className="blog-article-card col-span-full"> 
         <div key={post.id} className="blog-article-card col-span-full md:col-span-2 xl:col-span-3">      
         <Link
