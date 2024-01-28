@@ -28,6 +28,9 @@ Blog Starter Kit lets you instantly deploy a Next.js and Tailwind powered fronte
 - [Personal theme](https://sandeep.dev/blog)
 - [Enterprise theme](https://demo.hashnode.com/engineering)
 - [Hashnode theme](https://saikrishna.dev/blog)
+- [Modern theme - Akash Srinivasan](https://hashnode-starter-kit-01-9zez.vercel.app/)
+
+https://github.com/Srinivasan-Akash/hashnode-starter-kit-01/assets/108281031/8b3027e0-f947-4375-8e11-987963c2fc3f
 
 # Example company blogs built with Headless
 
