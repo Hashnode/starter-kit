@@ -191,6 +191,7 @@ function PostFloatingMenu(props: {
 
     window.speechSynthesis.speak(utterance);
   }
+  
   function translate(inputLanguage: string, outputLanguage: string) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(postContent, 'text/html');

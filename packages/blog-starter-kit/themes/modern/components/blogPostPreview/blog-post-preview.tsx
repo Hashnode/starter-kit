@@ -28,16 +28,6 @@ function BlogPostPreview(props: {
 
   const postCoverImageURL = post.coverImage?.url ?? getDefaultPostCoverImageUrl();
 
-  const preload = async () => {
-    const nextData = document.getElementById('__NEXT_DATA__');
-    if (nextData) {
-      const { buildId } = JSON.parse(nextData.innerHTML);
-      if (buildId) {
-        fetch(`/_next/data/${buildId}/${post.slug}.json?slug=${post.slug}`);
-      }
-    }
-  };
-
   let postBrief = post.subtitle || '';
   if (postBrief.length < 151 && post.brief) {
     postBrief = `${postBrief}${postBrief ? ' · ' : ''}${post.brief.substring(0, 151 - postBrief.length)}`;
