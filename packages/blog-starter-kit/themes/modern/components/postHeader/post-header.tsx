@@ -151,27 +151,26 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 
 		const appendQuestion = () => {
 			const postContentWrapper = document.getElementById('post-content-wrapper');
-			// @ts-ignore
 			const paragraphs = postContentWrapper.querySelectorAll('p');
 
 			paragraphs.forEach((paragraph) => {
-				paragraph.innerHTML = paragraph.innerText
-				const buttons = paragraph.querySelectorAll("button")
-				const buttonsDiv = document.createElement('div');
+				if (paragraph.querySelector("question")) {
+					paragraph.innerHTML = paragraph.innerText
+					const buttons = paragraph.querySelectorAll("button")
+					const buttonsDiv = document.createElement('div');
 
-				buttons.forEach((button) => {
-					button.addEventListener('click', () => {
-						if (button.getAttribute('correct') !== null) {
-							button.classList.add('correct');
-						} else {
-							button.classList.add('wrong');
-						}
+					buttons.forEach((button) => {
+						button.addEventListener('click', () => {
+							if (button.getAttribute('correct') !== null) {
+								button.classList.add('correct');
+							} else {
+								button.classList.add('wrong');
+							}
+						});
+						buttonsDiv.appendChild(button);
 					});
-					buttonsDiv.appendChild(button);
-				});
-				// @ts-ignore
-				paragraph.querySelector("question").appendChild(buttonsDiv);
-				
+					paragraph.querySelector("question").appendChild(buttonsDiv);
+				}
 			});
 		};
 
