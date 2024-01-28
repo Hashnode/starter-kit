@@ -115,3 +115,55 @@ a {
         background-color: #3d3d3f;
     }
 }
+
+question {
+    font-size: 1.2em;
+    text-align: center !important;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    div {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: .5rem;
+        width: 100%;
+        margin-top: .5em;
+    }
+    button {
+        width: 100%;
+        background: transparent;
+        border: 2px solid #70a5d5;
+        border-radius: 15px;
+        font-size: 1rem;
+        padding: .8em;
+        transition: all .5s ease;
+
+        &:hover {
+            background: #70a5d5;
+            color: #000;
+            font-weight: bolder;
+        }
+    }
+
+    .wrong {
+        background: #d57070;
+        color: #000;
+        font-weight: bolder;
+        border: 2px solid #d57070;
+
+        &:hover {
+            background: #da5151;
+        }
+    }
+
+    .correct {
+        background: #70d583;
+        color: #000;
+        font-weight: bolder;
+        border: 2px solid #70d583;
+        
+        &:hover {
+            background: #23b33d;
+        }
+    }
+}

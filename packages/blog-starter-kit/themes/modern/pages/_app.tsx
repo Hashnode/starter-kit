@@ -35,7 +35,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   };
 
   async function defineWord() {
-    const word = window.getSelection().toString().trim();
+    const word = window.getSelection()?.toString().trim();
     const url = `https://api.datamuse.com/words?rel_syn=${word}`
     fetch(url)
       .then((response) => response.json())
@@ -50,7 +50,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }
 
   function copyText() {
-    
+    // TODO:
   }
 
   return (
@@ -72,13 +72,13 @@ function MyApp({ Component, pageProps }: AppProps) {
             <div className="custom-menu-item" onClick={copyText}>Copy Selected Text</div>
             <div className='definations'>
               <h4>DEFINATIONS:- </h4>
-            {
-              defination.length > 0 ?
-                defination.map((item, index) => {
-                  console.log(item)
-                  return <div key={index} className="tag">{item.word}</div>
-                }) : ""
-            }
+              {
+                defination.length > 0 ?
+                  defination.map((item: {word: string}, index: number) => {
+                    console.log(item)
+                    return <div key={index} className="tag">{item.word}</div>
+                  }) : ""
+              }
             </div>
           </div>
         )}

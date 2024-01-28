@@ -75,8 +75,6 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 		};
 	});
 
-	console.log(memoizedPostContent, "POST")
-
 	const shareText = `${post.title}\r\n{ by ${post.author.socialMediaLinks?.twitter
 		? `@${post.author.socialMediaLinks?.twitter
 			.substring(post.author.socialMediaLinks?.twitter.lastIndexOf('/') + 1)
@@ -127,7 +125,6 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 	}, [post]);
 
 	useEffect(() => {
-		// Function to find and append "Run Code" button
 		const appendRunCodeButton = () => {
 			const postContentWrapper = document.getElementById('post-content-wrapper');
 
@@ -143,7 +140,6 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 					runCodeButton.innerText = 'Run Code';
 					runCodeButton.addEventListener('click', () => {
 						setIsModalOpen(true)
-						console.log(parentPre)
 						// @ts-ignore
 						setCode(parentPre?.querySelector("code")?.innerText)
 					});
@@ -153,9 +149,39 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 			}
 		};
 
-		// Call the function after the component has been rendered
+		const appendQuestion = () => {
+			const postContentWrapper = document.getElementById('post-content-wrapper');
+			// @ts-ignore
+			const paragraphs = postContentWrapper.querySelectorAll('p');
+
+			paragraphs.forEach((paragraph) => {
+				paragraph.innerHTML = paragraph.innerText
+				const buttons = paragraph.querySelectorAll("button")
+				const buttonsDiv = document.createElement('div');
+
+				buttons.forEach((button) => {
+					button.addEventListener('click', () => {
+						if (button.getAttribute('correct') !== null) {
+							button.classList.add('correct');
+						} else {
+							button.classList.add('wrong');
+						}
+					});
+					buttonsDiv.appendChild(button);
+				});
+				// @ts-ignore
+				paragraph.querySelector("question").appendChild(buttonsDiv);
+				
+			});
+		};
+
+
+
+
 		appendRunCodeButton();
+		appendQuestion()
 	}, [memoizedPostContent]);
+
 	const authorsArray = [post.author, ...(post.coAuthors || [])];
 	return (
 		<Fragment>
@@ -365,8 +391,6 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 					</div>
 				</section>
 			</div>
-			{/* More posts from current post's author/publication rendered here */}
-			{/* TODO: Below breaking on failed nw request */}
 			{!post.series && <OtherPostsOfAccount post={post} morePosts={top3FilteredPosts} />}
 			{showCommentsSheet && (
 				<PostCommentsSidebar
