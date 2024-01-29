@@ -1,5 +1,5 @@
 {
-	"name": "@starter-kit/blog-enterprise",
+	"name": "@starter-kit/minimalistic-shadcn",
 	"private": true,
 	"scripts": {
 		"build": "next build",
