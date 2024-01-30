@@ -18,7 +18,7 @@ const PostComments = ({ postId }: { postId: string }) => {
 
 				<div className="flex flex-col gap-3 mt-5">
 					{comments.map((comment: any) => {
-						return <CommentCard comment={comment.node} />;
+						return <CommentCard key={comment.id} comment={comment.node} />;
 					})}
 				</div>
 				<div className="flex justify-center w-full">

@@ -30,7 +30,7 @@ const PostListTag = ({
 							</Link>
 							<p className="space-x-2">
 								{post.node.tags.map((tag: any) => (
-									<Link href={`/tag/${tag.id}`}>
+									<Link key={tag.id} href={`/tag/${tag.id}`}>
 										<Badge variant="secondary">{tag.name}</Badge>
 									</Link>
 								))}

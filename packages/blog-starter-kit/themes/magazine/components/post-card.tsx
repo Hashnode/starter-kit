@@ -8,7 +8,7 @@ export default function PostCard({ post }: any) {
 		<Card className="p-3 overflow-hidden border-none rounded-lg shadow-lg">
 			<div className="flex flex-wrap space-x-3">
 				{post.tags.map((tag: any) => (
-					<Link href={`/tag/${tag.id}`}>
+					<Link key={tag.id} href={`/tag/${tag.id}`}>
 						<Badge variant="secondary">{tag.name}</Badge>
 					</Link>
 				))}

@@ -27,7 +27,7 @@ export default function PostDetails({ slug }: any) {
 					<h2 className="pt-3 pb-2 text-xl">{post.subtitle}</h2>
 					<div className="flex flex-wrap mb-4 space-x-4">
 						{post?.tags?.map((tag: any) => (
-							<Badge variant="secondary" className="m-2 md:m-0">
+							<Badge key={tag.id} variant="secondary" className="m-2 md:m-0">
 								{tag.name}
 							</Badge>
 						))}
