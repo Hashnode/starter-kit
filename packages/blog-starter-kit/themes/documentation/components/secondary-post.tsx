@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { DEFAULT_COVER } from '../utils/const';
 import { CoverImage } from './cover-image';
 import { DateFormatter } from './date-formatter';
+import { redirect } from 'next/navigation';
 
 type Props = {
 	title: string;
@@ -10,13 +11,14 @@ type Props = {
 	date: string;
 	excerpt: string;
 	slug: string;
+	style : object
 };
 
-export const SecondaryPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
+export const SecondaryPost = ({ title, coverImage, date, excerpt, slug , style}: Props) => {
 	const postURL = `/${slug}`;
 
 	return (
-		<section className="grid items-start gap-5 md:grid-cols-2">
+		<div style={style} className="grid items-start gap-5 md:grid-cols-2">
 			<div className="col-span-1">
 				<CoverImage
 					title={title}
@@ -26,24 +28,24 @@ export const SecondaryPost = ({ title, coverImage, date, excerpt, slug }: Props)
 			</div>
 			<div className="col-span-1 flex flex-col gap-2">
 				<h1 className="text-lg font-semibold leading-tight text-slate-800 dark:text-neutral-50">
-					<Link
-						href={postURL}
+					<Link href={postURL}
+					
 						className="hover:text-primary-600 dark:hover:text-primary-500 hover:underline"
 					>
 						{title}
 					</Link>
 				</h1>
-				<Link href={postURL}>
+				<p>
 					<p className="text-md leading-snug text-slate-500 dark:text-neutral-400">
 						{excerpt.length > 100 ? excerpt.substring(0, 100) + '…' : excerpt}
 					</p>
-				</Link>
+				</p>
 				<div className="text-sm font-semibold text-slate-500 dark:text-neutral-300">
-					<Link href={postURL}>
+					<p>
 						<DateFormatter dateString={date} />
-					</Link>
+					</p>
 				</div>
 			</div>
-		</section>
+		</div>
 	);
 };

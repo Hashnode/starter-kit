@@ -46,3 +46,19 @@
     background-color: transparent;
     color: #ddd;
 }
+
+.animate-up {
+    animation: animate-up 750ms ease-in;
+}
+
+@keyframes animate-up {
+    0% {
+        opacity: 0;
+        transform: translateY(25%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

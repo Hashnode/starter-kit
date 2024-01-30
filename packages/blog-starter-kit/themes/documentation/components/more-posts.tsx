@@ -1,5 +1,7 @@
+import { Waypoint } from 'react-waypoint';
 import { PostFragment } from '../generated/graphql';
 import { PostPreview } from './post-preview';
+import { useState } from 'react';
 
 type Props = {
 	posts: PostFragment[];
@@ -7,16 +9,18 @@ type Props = {
 };
 
 export const MorePosts = ({ posts, context }: Props) => {
+	console.log({more : posts.length})
 	return (
 		<section className="mb-10 flex flex-col items-start gap-10">
 			{context === 'home' && (
-				<h2 className="text-xl font-bold leading-tight tracking-tight text-slate-900 dark:text-neutral-50 lg:text-3xl">
+				<h2 className="text-xl font-bold leading-tight text-center mx-auto tracking-tight text-slate-900 dark:text-neutral-50 lg:text-3xl">
 					More Posts
 				</h2>
 			)}
-			<div className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3">
-				{posts.map((post) => (
-					<PostPreview
+			<div className={`grid items-stretch mx-auto gap-5 md:${posts.length > 2 ? 'grid-cols-3' : 'grid-cols-1'}`}>
+				{posts.map((post , i : number) => (
+					
+						<PostPreview
 						key={post.slug}
 						title={post.title}
 						coverImage={post.coverImage?.url}
@@ -28,8 +32,10 @@ export const MorePosts = ({ posts, context }: Props) => {
 						slug={post.slug}
 						excerpt={post.brief}
 					/>
+					
 				))}
 			</div>
+			
 		</section>
 	);
 };

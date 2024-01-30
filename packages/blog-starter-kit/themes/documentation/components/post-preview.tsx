@@ -4,6 +4,7 @@ import { User } from '../generated/graphql';
 import { DEFAULT_COVER } from '../utils/const';
 import { CoverImage } from './cover-image';
 import { DateFormatter } from './date-formatter';
+import { redirect } from 'next/navigation';
 
 type Author = Pick<User, 'name' | 'profilePicture'>;
 
@@ -20,7 +21,8 @@ export const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) =
 	const postURL = `/${slug}`;
 
 	return (
-		<div className="grid grid-cols-1 gap-5">
+		<div className='self-stretch animate-up max-w-[480px] transition-all duration-150  outline rounded-md outline-gray-100'>
+		<div className="grid grid-cols-1 grid-rows-1 s  gap-5 p-4">
 			<div className="col-span-1">
 				<CoverImage
 					slug={slug}
@@ -30,24 +32,25 @@ export const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) =
 			</div>
 			<div className="col-span-1 flex flex-col gap-2">
 				<h1 className="text-lg font-semibold leading-tight text-slate-800 dark:text-neutral-50">
-					<Link
-						href={postURL}
-						className="hover:text-primary-600 dark:hover:text-primary-500 hover:underline"
+					<Link href={postURL}
+					
+						className="hover:text-primary-600 transition-all duration-150 dark:hover:text-primary-500"
 					>
 						{title}
 					</Link>
 				</h1>
-				<Link href={postURL}>
+				<div>
 					<p className="text-md leading-snug text-slate-500 dark:text-neutral-400">
 						{excerpt.length > 140 ? excerpt.substring(0, 140) + '…' : excerpt}
 					</p>
-				</Link>
+				</div>
 				<div className="text-sm font-semibold text-slate-500 dark:text-neutral-300">
-					<Link href={postURL}>
+					<p>
 						<DateFormatter dateString={date} />
-					</Link>
+					</p>
 				</div>
 			</div>
+		</div>
 		</div>
 	);
 };
