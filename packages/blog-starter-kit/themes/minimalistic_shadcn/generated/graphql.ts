@@ -2163,6 +2163,7 @@ export enum Scope {
   CreatePro = 'create_pro',
   ImportSubscribersToPublication = 'import_subscribers_to_publication',
   PublicationAdmin = 'publication_admin',
+  PublicationMember = 'publication_member',
   PublishComment = 'publish_comment',
   PublishDraft = 'publish_draft',
   PublishPost = 'publish_post',

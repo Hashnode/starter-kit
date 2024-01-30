@@ -45,7 +45,7 @@ export const SubscribeForm = () => {
 	return (
 		<>
 			{!status && (
-				<Card className="p-3 mt-3 border">
+				<Card className="mt-3 border p-3">
 					<CardDescription className="ml-5">
 						Stay upto date by subscribing to my newsletter
 					</CardDescription>

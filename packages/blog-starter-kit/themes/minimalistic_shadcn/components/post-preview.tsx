@@ -20,9 +20,9 @@ export const PostPreview = ({ title, date, excerpt, slug }: Props) => {
 		<div className="mt-5">
 			<Link href={postURL}>
 				<Card className="m-2 border-none">
-					<CardHeader className="text-2xl font-satoshiBold md:text-4xl">
+					<CardHeader className="font-satoshiBold text-2xl md:text-4xl">
 						{title}
-						<CardDescription className="mt-2 font-ranadeItalic">
+						<CardDescription className="font-ranadeItalic mt-2">
 							{' '}
 							Published:&nbsp;
 							<DateFormatter dateString={date} />

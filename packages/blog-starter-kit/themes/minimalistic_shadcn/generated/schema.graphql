@@ -2041,6 +2041,7 @@ enum Scope {
   create_pro
   import_subscribers_to_publication
   publication_admin
+  publication_member
   publish_comment
   publish_draft
   publish_post

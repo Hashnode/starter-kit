@@ -17,9 +17,9 @@ export const SecondaryPost = ({ title, coverImage, date, excerpt, slug }: Props)
 		<div className="mt-5">
 			<Link href={postURL}>
 				<Card className="m-2 border-none">
-					<CardHeader className="text-2xl font-satoshiBold text-zinc-800 dark:text-zinc-300 md:text-4xl">
+					<CardHeader className="font-satoshiBold text-2xl text-zinc-800 dark:text-zinc-300 md:text-4xl">
 						{title}
-						<CardDescription className="mt-2 font-ranadeItalic">
+						<CardDescription className="font-ranadeItalic mt-2">
 							{' '}
 							Published:&nbsp;
 							<DateFormatter dateString={date} />

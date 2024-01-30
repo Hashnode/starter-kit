@@ -20,7 +20,7 @@ export const PostHeader = ({ title, coverImage, date, author, readTimeInMinutes 
 	return (
 		<>
 			<PostTitle>{title}</PostTitle>
-			<div className="flex flex-col items-center justify-center w-full gap-5 text-slate-700 dark:text-neutral-300 md:flex-row md:gap-0">
+			<div className="flex w-full flex-col items-center justify-center gap-5 text-slate-700 dark:text-neutral-300 md:flex-row md:gap-0">
 				<Avatar
 					username={author.username}
 					name={author.name}

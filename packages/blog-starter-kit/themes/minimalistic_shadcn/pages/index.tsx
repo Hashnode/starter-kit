@@ -30,7 +30,6 @@ import {
 } from '../generated/graphql';
 import { DEFAULT_COVER } from '../utils/const';
 
-
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 
 type Props = {
@@ -127,7 +126,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 
 					{allPosts.length === 0 && (
 						<div className="grid grid-cols-1 py-20 lg:grid-cols-3">
-							<div className="flex flex-col items-center col-span-1 gap-5 text-center text-slate-700 dark:text-neutral-400 lg:col-start-2">
+							<div className="col-span-1 flex flex-col items-center gap-5 text-center text-slate-700 dark:text-neutral-400 lg:col-start-2">
 								<div className="w-20">
 									<ArticleSVG clasName="stroke-current" />
 								</div>
@@ -138,7 +137,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 						</div>
 					)}
 
-					<div className="items-start gap-6 mt-5">
+					<div className="mt-5 items-start gap-6">
 						{firstPost && (
 							<HeroPost
 								title={firstPost.title}
@@ -156,7 +155,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 						const typedPosts = posts as PostFragment[];
 						return (
 							<div key={monthYear}>
-								<h2 className='text-3xl font-ranadeMedium'>{monthYear}</h2>
+								<h2 className="font-ranadeMedium text-3xl">{monthYear}</h2>
 								<div className="grid grid-cols-1 md:grid-cols-2">
 									{typedPosts.map((post) => (
 										<SecondaryPost
@@ -177,11 +176,11 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 						<>
 							<MorePosts context="home" posts={morePosts} />
 							{!loadedMore && pageInfo.hasNextPage && pageInfo.endCursor && (
-								<div className="flex flex-row items-center justify-center w-full">
+								<div className="flex w-full flex-row items-center justify-center">
 									<Button
 										onClick={loadMore}
 										type="outline"
-										icon={<ChevronDownSVG className="w-5 h-5 stroke-current" />}
+										icon={<ChevronDownSVG className="h-5 w-5 stroke-current" />}
 										label="Load more posts"
 									/>
 								</div>
