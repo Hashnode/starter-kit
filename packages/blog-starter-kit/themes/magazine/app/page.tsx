@@ -1,10 +1,9 @@
-import Publication from "@/components/publication";
-import SearchBlog from "@/components/search-blog";
+import Publication from '@/components/publication';
 
 export default function Home() {
-  return (
-    <div className="">
-    <Publication host={process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST} />
-    </div>
-  );
+	return (
+		<div className="mx-[5vw] mt-10">
+			<Publication host={process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST} />
+		</div>
+	);
 }

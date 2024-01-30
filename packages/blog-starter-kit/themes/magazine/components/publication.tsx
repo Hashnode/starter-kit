@@ -2,7 +2,6 @@
 import { useHashnodePosts } from 'hashnode-client';
 // import PostList from "./PostList";
 // import NoPosts from "../search/NoPosts";
-import Link from 'next/link';
 import PostList from './post-list';
 
 const Publication = ({ host }: any) => {
@@ -20,11 +19,11 @@ const Publication = ({ host }: any) => {
 
 	return (
 		<div>
-			<div className="flex items-end w-full bg-gray-100">
+			{/* <div className="flex items-end w-full bg-gray-100">
 				<Link className="px-3 pt-2 ml-auto text-xl" href={`${host}/about`}>
 					About Page
 				</Link>
-			</div>
+			</div> */}
 			{/* {tagName && (
 				<h1 className="px-8 py-4 text-2xl font-bold bg-gray-100">
 					Results for Tag&nbsp;|&nbsp;{tagName}
@@ -32,27 +31,13 @@ const Publication = ({ host }: any) => {
 			)} */}
 			{posts && posts.length > 0 ? (
 				<PostList
-				  hasNextPage={pageInfo.hasNextPage}
-				  loading={loading}
-				  host={host}
-				  posts={posts}
-				  loadNextPost={loadMorePost}
+					hasNextPage={pageInfo.hasNextPage}
+					loading={loading}
+					host={host}
+					posts={posts}
+					loadNextPost={loadMorePost}
 				/>
-				// <>
-				// 	{posts.map((post: any) => (
-				// 		<>
-				// 		<div key={post.node.id} className="flex flex-col">
-				// 			<h1 className="px-8 py-4 text-2xl font-bold bg-gray-100">{post.node.title}</h1>
-				// 			{post.node.publishedAt}
-				// 			<p className="px-8 py-4 text-xl bg-gray-100">{post.node.brief}</p>
-				// 		</div>
-						
-				// 		</>
-						
-				// 	)}
-				// </>
 			) : (
-				// <NoPosts host={host} />
 				<>
 					<h1>No Post</h1>
 				</>
