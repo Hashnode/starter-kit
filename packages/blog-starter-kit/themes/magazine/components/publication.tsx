@@ -7,7 +7,7 @@ import PostList from './post-list';
 
 const Publication = ({ host }: any) => {
 	const settings = { host: host };
-	const { loading, posts, loadMorePost, pageInfo } = useHashnodePosts(settings, { first: 20 });
+	const { loading, posts, loadMorePost, pageInfo } = useHashnodePosts(settings, { first: 10 });
 
 	// const tagName = tag
 	// 	? posts[0]?.node.tags.filter((tagBox:any) => tagBox.id === tag)[0]?.name

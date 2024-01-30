@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function PostCard({ host, post }) {
 	return (
 		<div className="overflow-hidden bg-white rounded-lg shadow-lg card">
-			<Link href={`/publication/${host}/${post.slug}`}>
+			<Link href={`/${post.slug}`}>
 				{/* <img
           alt="Cover image for A Guide to CSS Flexbox"
           className="object-cover w-full h-auto"

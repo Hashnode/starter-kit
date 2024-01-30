@@ -74,3 +74,139 @@
     @apply bg-background text-foreground;
   }
 }
+
+blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+blockquote p {
+  display: inline;
+}
+
+.post-details {
+  padding: 1rem;
+  width: 100%;
+}
+
+.post-details p {
+  color: rgb(17, 22, 20);
+  margin: 2px;
+}
+
+.post-details h2 {
+  font-size: 25px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.post-details h3 {
+  font-size: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.post-details img {
+  margin: 0 auto;
+  padding: 5px;
+}
+
+.post-details UL {
+  margin: 5px;
+  padding: 15px;
+}
+.post-details li {
+  list-style: square;
+}
+
+.post-details p {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.post-details a {
+  text-decoration: underline;
+}
+
+.post-details pre {
+  border: 1px solid #ebebeb;
+  border-radius: 5px;
+  padding: 2px;
+  margin: 2px;
+  background-color: rgb(246, 244, 244);
+}
+
+.about-content {
+  padding: 1rem;
+  width: 100%;
+}
+
+.about-content h1 {
+  font-size: 25px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.about-content p {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.about-content UL {
+  margin: 5px;
+  padding: 5px;
+}
+
+.about-content UL LI {
+  padding: 5px;
+  margin: 5px;
+}
+
+.about-content UL LI a {
+  margin-right: 2px;
+  text-decoration: underline;
+}
+
+.loginDesign {
+  background-image: repeating-linear-gradient(
+      90deg,
+      hsla(196, 0%, 79%, 0.06) 0px,
+      hsla(196, 0%, 79%, 0.06) 1px,
+      transparent 1px,
+      transparent 96px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      hsla(196, 0%, 79%, 0.06) 0px,
+      hsla(196, 0%, 79%, 0.06) 1px,
+      transparent 1px,
+      transparent 96px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      hsla(196, 0%, 79%, 0.09) 0px,
+      hsla(196, 0%, 79%, 0.09) 1px,
+      transparent 1px,
+      transparent 12px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      hsla(196, 0%, 79%, 0.09) 0px,
+      hsla(196, 0%, 79%, 0.09) 1px,
+      transparent 1px,
+      transparent 12px
+    ),
+    linear-gradient(90deg, rgb(255, 255, 255), rgb(255, 255, 255));
+}

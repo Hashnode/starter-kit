@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.10",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "hashnode-client": "^1.0.2",
@@ -16,6 +17,7 @@
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-markdown": "^9.0.1",
     "tailwind-merge": "^1.13.2",
     "tailwindcss-animate": "^1.0.7"
   },
