@@ -66,6 +66,7 @@ export default function Post({ series, publication, posts }: Props) {
 							/>
 						</div>
 					</div>
+					<h2 className='text-3xl font-bold text-center my-8 text-slate-900'>Posts in Series</h2>
 					{posts.length > 0 ? (
 						<MorePosts context="series" posts={posts} />
 					) : (

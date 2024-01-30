@@ -35,12 +35,11 @@ export const PostHeader = ({ title, coverImage, date, author, readTimeInMinutes 
 	return (
 		<>
 			<PostTitle>{title}</PostTitle>
-			<div className="flex flex-row flex-wrap items-center justify-center w-full gap-2 px-2 text-slate-700 dark:text-neutral-300 md:px-0">
+			<div className="animate-up flex flex-row flex-wrap items-center justify-center w-full gap-2 px-2 text-slate-700 dark:text-neutral-300 md:px-0">
 				<div className="mb-5 flex w-full flex-row items-center justify-center md:mb-0 md:w-auto md:justify-start">
 					{authorsArray.map((coAuthor, index) => (
 						<div
 						key={coAuthor.id?.toString()}
-						style={{ zIndex: index + 1 }}
 						className={twJoin(
 							'overflow-hidden rounded-full  bg-slate-200  dark:bg-white/20 md:mr-3',
 							index > 0 ? 'hidden md:block' : '',
@@ -93,7 +92,7 @@ export const PostHeader = ({ title, coverImage, date, author, readTimeInMinutes 
 				</div>
 			</div>
 			{coverImage && (
-				<div className="w-full px-5 sm:mx-0">
+				<div className="animate-up w-full px-5 sm:mx-0">
 					<CoverImage
 						title={title}
 						src={resizeImage(coverImage, { w: 1600, h: 840, c: 'thumb' })}
