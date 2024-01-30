@@ -18,7 +18,7 @@ const CommentCard = ({ comment }: { comment: any }) => {
 				</div>
 			</div>
 			{allReplies?.length > 0 && (
-				<div className="mt-5 ml-20">
+				<div className="ml-20 mt-5">
 					{allReplies.map((reply: any) => (
 						<CommentCard key={reply.id} comment={reply.node} />
 					))}

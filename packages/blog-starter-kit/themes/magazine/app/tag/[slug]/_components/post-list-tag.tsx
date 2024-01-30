@@ -17,7 +17,7 @@ const PostListTag = ({
 	return (
 		<>
 			{posts.map((post: any, index: number) => (
-				<Card key={index} className="mb-4 border border-none group hover:border-indigo-400">
+				<Card key={index} className="group mb-4 border border-none hover:border-indigo-400">
 					<Link href={`/${post.node.slug}`}>
 						<CardHeader>
 							<CardTitle className="group-hover:text-indigo-400">{post.node.title}</CardTitle>

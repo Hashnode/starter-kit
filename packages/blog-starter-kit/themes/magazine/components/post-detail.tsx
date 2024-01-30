@@ -17,15 +17,15 @@ export default function PostDetails({ slug }: any) {
 	return (
 		<>
 			{!loading && (
-				<div className="flex flex-col items-center justify-center p-3 mt-24 mb-16 ">
+				<div className="mb-16 mt-24 flex flex-col items-center justify-center p-3 ">
 					<img
 						className="max-w-2xl rounded-lg"
 						src={post.coverImage?.url ? post.coverImage.url : 'images/gradient.jpg'}
 						alt={post.title}
 					/>
 					<h1 className="pt-5 text-4xl font-bold">{post?.title}</h1>
-					<h2 className="pt-3 pb-2 text-xl">{post.subtitle}</h2>
-					<div className="flex flex-wrap mb-4 space-x-4">
+					<h2 className="pb-2 pt-3 text-xl">{post.subtitle}</h2>
+					<div className="mb-4 flex flex-wrap space-x-4">
 						{post?.tags?.map((tag: any) => (
 							<Badge key={tag.id} variant="secondary" className="m-2 md:m-0">
 								{tag.name}

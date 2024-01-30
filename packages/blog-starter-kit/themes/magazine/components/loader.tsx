@@ -8,11 +8,11 @@ interface LoaderProps {
 
 export const Loader: FC<LoaderProps> = ({ description }) => {
 	return (
-		<div className="flex flex-col items-center justify-center h-screen p-3 ml-5 overflow-hidden w-fill gap-y-4 md:ml-5">
-			<div className="relative w-10 h-10">
+		<div className="w-fill ml-5 flex h-screen flex-col items-center justify-center gap-y-4 overflow-hidden p-3 md:ml-5">
+			<div className="relative h-10 w-10">
 				<BounceLoader color="#22c55e" size={40} />
 			</div>
-			<p className="text-sm text-muted-foreground">{description}</p>
+			<p className="text-muted-foreground text-sm">{description}</p>
 		</div>
 	);
 };

@@ -17,8 +17,8 @@ export const Navbar = () => {
 					</div>
 				</div>
 			</div> */}
-			<div className="fixed top-0 z-50 flex items-center justify-between w-full px-4 border-b shadow-sm border-muted h-14 backdrop-blur-md">
-				<div className="flex items-center justify-between w-full mx-auto md:max-w-screen-2xl">
+			<div className="border-muted fixed top-0 z-50 flex h-14 w-full items-center justify-between border-b px-4 shadow-sm backdrop-blur-md">
+				<div className="mx-auto flex w-full items-center justify-between md:max-w-screen-2xl">
 					<div>
 						<Link href="/">
 							<h1 className="text-3xl font-semibold">Blog</h1>
