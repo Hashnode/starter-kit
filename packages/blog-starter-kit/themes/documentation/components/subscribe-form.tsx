@@ -42,7 +42,7 @@ export const SubscribeForm = () => {
 	return (
 		<>
 			{!status && (
-				<div className="relative w-full rounded-full bg-white p-2 dark:bg-neutral-950">
+				<div className="relative w-[80%] outline outline-1 outline-primary-100 mx-auto rounded-full bg-white p-2 dark:bg-neutral-950">
 					<input
 						ref={inputRef}
 						type="email"
