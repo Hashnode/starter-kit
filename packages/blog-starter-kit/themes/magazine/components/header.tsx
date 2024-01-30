@@ -7,7 +7,7 @@ import { ModeToggle } from "./mode-toggle";
 export const Navbar = () => {
   return (
     <>
-      <div className="fixed top-0 flex items-center w-full px-4 border-b shadow-sm h-14 border-muted backdrop-blur-md">
+      <div className="fixed top-0 z-50 flex items-center w-full px-4 border-b shadow-sm h-14 border-muted backdrop-blur-md">
         <div className="flex items-center justify-between w-full mx-auto md:max-w-screen-2xl">
           {/* <Logo /> */}
           <h1>Blog</h1>
