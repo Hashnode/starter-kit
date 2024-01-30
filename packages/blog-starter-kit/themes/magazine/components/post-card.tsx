@@ -1,10 +1,11 @@
 import { getFormattedDate } from '@/lib/utils';
 import Link from 'next/link';
 import { Badge } from './ui/badge';
+import { Card, CardDescription, CardTitle } from './ui/card';
 
-export default function PostCard({ host, post }: any) {
+export default function PostCard({ post }: any) {
 	return (
-		<div className="overflow-hidden rounded-lg shadow-lg card">
+		<Card className="p-3 overflow-hidden border-none rounded-lg shadow-lg">
 			<div className="flex flex-wrap space-x-3">
 				{post.tags.map((tag: any) => (
 					<Link href={`/tag/${tag.id}`}>
@@ -13,18 +14,12 @@ export default function PostCard({ host, post }: any) {
 				))}
 			</div>
 			<Link href={`/${post.slug}`}>
-				{/* {post.coverImage && (
-					<img
-						alt="Cover image for A Guide to CSS Flexbox"
-						className="object-cover w-full h-auto max-w-md"
-						src={post.coverImage.url}
-					/>
-				)} */}
-
-				<h3 className="p-4 text-xl font-semibold">{post.title}</h3>
-				<p className="p-4 text-muted-foreground">Posted on {getFormattedDate(post.publishedAt)}</p>
-				<p className="p-4 mt-2 text-secondary-foreground">{post.brief}</p>
+				<CardTitle className="p-4 text-xl font-semibold">{post.title}</CardTitle>
+				<CardDescription className="px-4 mt-2 text-muted-foreground">
+					<h1>{post.brief}</h1>
+					<h2 className="mt-2">Posted: {getFormattedDate(post.publishedAt)}</h2>
+				</CardDescription>
 			</Link>
-		</div>
+		</Card>
 	);
 }

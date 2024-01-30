@@ -82,9 +82,9 @@ export default function PostList({ host, posts, loadNextPost, loading, hasNextPa
 						),
 				)}
 			</div>
-			<h1 className="my-5 ml-2 text-4xl font-semibold">Other Post</h1>
+			<h1 className="mt-16 ml-2 text-4xl font-semibold ">Other Post</h1>
 			{restPosts.length > 0 && (
-				<div className="px-8 py-16">
+				<div className="px-8 pt-8 pb-16">
 					<div className="grid grid-cols-1 gap-4 mt-4 md:grid-cols-2 ">
 						{restPosts.map((post: any) => (
 							<PostCard key={post?.node?.slug} host={host} post={post?.node} />
