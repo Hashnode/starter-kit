@@ -1,36 +1,12 @@
 import { getFormattedDate } from '@/lib/utils';
 import Link from 'next/link';
 import PostCard from './post-card';
+import { Button } from './ui/button';
 
 export default function PostList({ host, posts, loadNextPost, loading, hasNextPage }: any) {
 	const latestPost = posts.slice(0, 5);
 	const restPosts = posts.slice(5);
-
 	return (
-		// <div className="pb-8">
-		// 	<div className="px-8 pt-4 pb-8 bg-gray-100">
-		// 		<LatestPost post={latestPost} host={host} />
-		// 	</div>
-		// {restPosts.length > 0 && (
-		// 	<div className="px-8 py-16">
-		// 		<div className="grid grid-cols-1 gap-4 mt-4 md:grid-cols-2 lg:grid-cols-3">
-		// 			{restPosts.map((post) => (
-		// 				<PostCard key={post?.node?.slug} host={host} post={post?.node} />
-		// 			))}
-		// 		</div>
-
-		// 		<div className="flex justify-center w-full">
-		// 			<button
-		// 				disabled={loading || !hasNextPage}
-		// 				className="p-2 mt-8 text-lg text-white capitalize bg-black w-fit hover:bg-black disabled:bg-gray-600"
-		// 				onClick={loadNextPost}
-		// 			>
-		// 				{!hasNextPage ? 'No More Posts' : loading ? 'Loading More..' : `Show More Posts`}
-		// 			</button>
-		// 		</div>
-		// 	</div>
-		// )}
-		// </div>
 		<>
 			<div className="grid grid-cols-1 gap-6 px-3 mt-10 lg:grid-cols-3">
 				{latestPost.map(
@@ -92,13 +68,14 @@ export default function PostList({ host, posts, loadNextPost, loading, hasNextPa
 					</div>
 
 					<div className="flex justify-center w-full">
-						<button
+						<Button
 							disabled={loading || !hasNextPage}
-							className="p-2 mt-8 text-lg text-white capitalize bg-black w-fit hover:bg-black disabled:bg-gray-600"
+							className="mt-10"
+							variant="ghost"
 							onClick={loadNextPost}
 						>
-							{!hasNextPage ? 'No More Posts' : loading ? 'Loading More..' : `Show More Posts`}
-						</button>
+							{!hasNextPage ? 'The End' : loading ? 'Loading More..' : `Show More Posts`}
+						</Button>
 					</div>
 				</div>
 			)}

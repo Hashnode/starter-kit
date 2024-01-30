@@ -14,29 +14,21 @@ const Publication = ({ host }: any) => {
 	console.log(posts);
 	console.log(loadMorePost);
 	if (posts.length === 0 && loading) {
-		return <p>Loading Posts...</p>;
+		return <Loader description="Post Loading" />;
 	}
 
 	return (
 		<div>
-			{/* <div className="flex items-end w-full bg-gray-100">
-				<Link className="px-3 pt-2 ml-auto text-xl" href={`${host}/about`}>
-					About Page
-				</Link>
-			</div> */}
-			{/* {tagName && (
-				<h1 className="px-8 py-4 text-2xl font-bold bg-gray-100">
-					Results for Tag&nbsp;|&nbsp;{tagName}
-				</h1>
-			)} */}
 			{posts && posts.length > 0 ? (
-				<PostList
-					hasNextPage={pageInfo.hasNextPage}
-					loading={loading}
-					host={host}
-					posts={posts}
-					loadNextPost={loadMorePost}
-				/>
+				<Suspense fallback={<Loader description="Post Loading" />}>
+					<PostList
+						hasNextPage={pageInfo.hasNextPage}
+						loading={loading}
+						host={host}
+						posts={posts}
+						loadNextPost={loadMorePost}
+					/>
+				</Suspense>
 			) : (
 				<>
 					<h1>No Post</h1>
@@ -47,3 +39,19 @@ const Publication = ({ host }: any) => {
 };
 
 export default Publication;
+
+import { Skeleton } from '@/components/ui/skeleton';
+import { Suspense } from 'react';
+import { Loader } from './loader';
+
+export function SkeletonDemo() {
+	return (
+		<div className="flex items-center space-x-4">
+			<Skeleton className="w-12 h-12 rounded-full" />
+			<div className="space-y-2">
+				<Skeleton className="h-4 w-[250px]" />
+				<Skeleton className="h-4 w-[200px]" />
+			</div>
+		</div>
+	);
+}

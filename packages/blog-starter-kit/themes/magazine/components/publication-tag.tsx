@@ -1,6 +1,7 @@
 'use client';
 import PostListTag from '@/app/tag/[slug]/_components/post-list-tag';
 import { useHashnodePosts } from 'hashnode-client';
+import { Loader } from './loader';
 
 const PublicationTag = ({ host, tag }: any) => {
 	const { loading, posts, loadMorePost, pageInfo } = useHashnodePosts({ host: host, tags: tag });
@@ -12,7 +13,7 @@ const PublicationTag = ({ host, tag }: any) => {
 	console.log(tagName, 'TAG NAME');
 	console.log(loadMorePost);
 	if (posts.length === 0 && loading) {
-		return <p>Loading Posts...</p>;
+		return <Loader description="Post Loading" />;
 	}
 
 	return (
