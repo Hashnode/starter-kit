@@ -31,7 +31,7 @@ const Publication = ({ host }: any) => {
 				</Suspense>
 			) : (
 				<>
-					<h1>No Post</h1>
+					<Empty label='This User do not have any post published yet' />
 				</>
 			)}
 		</div>
@@ -43,6 +43,7 @@ export default Publication;
 import { Skeleton } from '@/components/ui/skeleton';
 import { Suspense } from 'react';
 import { Loader } from './loader';
+import { Empty } from './empty';
 
 export function SkeletonDemo() {
 	return (

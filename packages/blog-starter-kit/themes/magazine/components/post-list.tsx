@@ -1,6 +1,7 @@
 import { getFormattedDate } from '@/lib/utils';
 import Link from 'next/link';
 import PostCard from './post-card';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
 
 export default function PostList({ host, posts, loadNextPost, loading, hasNextPage }: any) {
@@ -28,27 +29,27 @@ export default function PostList({ host, posts, loadNextPost, loading, hasNextPa
 										src={post.node.coverImage.url}
 										alt=""
 									/>
-									<div className="absolute bottom-0 flex w-full flex-col justify-start rounded-b-[24px] bg-[rgba(0,0,0,0.5)] p-8">
-										<p className="absolute z-20 ml-2 text-xl font-InterBold bottom-14 text-neutral-50 group-hover:hidden">
+									<div className="absolute bottom-0 flex w-full flex-col justify-start rounded-b-[24px] bg-[rgba(0,0,0,0.5)] p-8 lg:p-0 xl:p-8">
+										<p className="absolute z-20 mb-5 ml-2 text-xl font-InterBold bottom-14 text-neutral-50 group-hover:hidden">
 											{post.node.title}
 										</p>
 
 										<div className="absolute z-20 flex items-center justify-between w-full px-2 text-sm font-bold bottom-3 text-neutral-500 group-hover:hidden">
-											<div className="flex items-center gap-x-2">
-												<img
-													className="object-cover w-6 h-6 rounded-full"
-													src={post.node.author.profilePicture}
-													alt=""
-												/>
+											<div className="flex items-center mt-24 gap-x-2">
+												<Avatar className="w-6 h-6">
+													{' '}
+													<AvatarImage src={post.node.author.profilePicture} />
+													<AvatarFallback>SC</AvatarFallback>
+												</Avatar>
 
-												<p className="text-base">{post.node.author.name}</p>
+												<p className="text-xs md:text-base">{post.node.author.name}</p>
 												<br />
-												<p className="p-4 text-gray-500">
+												<p className="p-4 text-xs text-gray-500 md:text-base">
 													Posted on {getFormattedDate(post.node.publishedAt)}
 												</p>
 											</div>
 										</div>
-										<div className="hidden text-primary bg-zinc-900/20 group-hover:block">
+										<div className="hidden text-white dark:text-primary bg-zinc-900/20 group-hover:block">
 											<p className="">{post.node.brief}</p>
 										</div>
 									</div>

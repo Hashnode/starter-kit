@@ -1,7 +1,9 @@
 'use client';
 
 // import Tag from "../tag/Tag";
+import { getFormattedDate } from '@/lib/utils';
 import { useHashnodePostDetails } from 'hashnode-client';
+import { Badge } from './ui/badge';
 // import PostComments from "./PostComments";
 
 export default function PostDetails({ slug }: any) {
@@ -14,16 +16,16 @@ export default function PostDetails({ slug }: any) {
 	return (
 		<>
 			{!loading && (
-				<article className="flex flex-col items-center justify-center p-3 mt-10 mb-16 bg-white ">
+				<article className="flex flex-col items-center justify-center p-3 mt-24 mb-16 ">
 					<img className="max-w-2xl rounded-lg" src={post.coverImage?.url} alt={post.title} />
 					<h1 className="pt-5 text-4xl font-bold">{post?.title}</h1>
-					<h2 className="pt-3 pb-3 text-xl">{post.subtitle}</h2>
-					{/* <div className="flex mb-4">
-						{post?.tags?.map((tag) => <Tag tag={tag} key={tag.id} host={host} />)}
-					</div> */}
-
+					<h2 className="pt-3 pb-2 text-xl">{post.subtitle}</h2>
+					<div className="flex mb-4 space-x-4">
+						{post?.tags?.map((tag: any) => <Badge variant="secondary">{tag.name}</Badge>)}
+					</div>
+					{/* <p className="mb-3">Published on <span className='text-green-500'>{getFormattedDate(post?.publishedAt)}</span></p> */}
 					<div
-						className="prose lg:prose-xl dark:prose-invert first-line:uppercase"
+						className="prose lg:prose-xl dark:prose-invert"
 						dangerouslySetInnerHTML={{ __html: post?.content?.html }}
 					/>
 

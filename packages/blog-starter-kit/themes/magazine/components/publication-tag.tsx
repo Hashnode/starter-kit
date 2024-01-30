@@ -28,7 +28,6 @@ const PublicationTag = ({ host, tag }: any) => {
 				<PostListTag
 					hasNextPage={pageInfo.hasNextPage}
 					loading={loading}
-					host={host}
 					posts={posts}
 					loadNextPost={loadMorePost}
 				/>

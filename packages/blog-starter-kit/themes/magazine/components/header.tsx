@@ -1,27 +1,34 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-// import { Logo } from "@/components/logo";
-import { Button } from "@/components/ui/button";
-import { ModeToggle } from "./mode-toggle";
+import { ModeToggle } from './mode-toggle';
 
 export const Navbar = () => {
-  return (
-    <>
-      <div className="fixed top-0 z-50 flex items-center w-full px-4 border-b shadow-sm h-14 border-muted backdrop-blur-md">
-        <div className="flex items-center justify-between w-full mx-auto md:max-w-screen-2xl">
-          {/* <Logo /> */}
-          <h1>Blog</h1>
-          <div className="flex items-center justify-between w-full space-x-4 md:block md:w-auto">
-            {/* <Button size="sm" variant="outline" asChild>
-              <Link href="/">Home</Link>
-            </Button> */}
-            <ModeToggle />
-            <Button size="sm" asChild>
-              <Link href="/jobs">All Jobs</Link>
-            </Button>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+	return (
+		<>
+			{/* <div className="fixed top-0 z-50 flex items-center justify-between w-full px-4 border-b shadow-sm border-muted h-14 backdrop-blur-md">
+				<div className="flex items-center justify-between w-full mx-auto md:max-w-screen-2xl">
+					<div>
+						<Link href="/">
+							<h1 className="text-3xl font-semibold">Blog</h1>
+						</Link>
+					</div>
+					<div className="flex items-center justify-between w-full space-x-4 md:block md:w-auto">
+						<ModeToggle />
+					</div>
+				</div>
+			</div> */}
+			<div className="fixed top-0 z-50 flex items-center justify-between w-full px-4 border-b shadow-sm border-muted h-14 backdrop-blur-md">
+				<div className="flex items-center justify-between w-full mx-auto md:max-w-screen-2xl">
+					<div>
+						<Link href="/">
+							<h1 className="text-3xl font-semibold">Blog</h1>
+						</Link>
+					</div>
+					<div className="flex items-center space-x-4">
+						<ModeToggle />
+					</div>
+				</div>
+			</div>
+		</>
+	);
 };
