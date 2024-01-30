@@ -1,6 +1,7 @@
 'use client';
 import PostListTag from '@/app/tag/[slug]/_components/post-list-tag';
 import { useHashnodePosts } from 'hashnode-client';
+import { Empty } from './empty';
 import { Loader } from './loader';
 
 const PublicationTag = ({ host, tag }: any) => {
@@ -13,12 +14,16 @@ const PublicationTag = ({ host, tag }: any) => {
 	console.log(tagName, 'TAG NAME');
 	console.log(loadMorePost);
 	if (posts.length === 0 && loading) {
-		return <Loader description="Post Loading" />;
+		return <Loader description="Searching Post" />;
 	}
 
 	return (
 		<div>
-			{tagName && <h1 className="py-4 text-2xl font-bold ">Results for Tag&nbsp;:&nbsp;<span className='text-indigo-400'>{tagName}</span></h1>}
+			{tagName && (
+				<h1 className="py-4 text-2xl font-bold ">
+					Results for Tag&nbsp;:&nbsp;<span className="text-indigo-400">{tagName}</span>
+				</h1>
+			)}
 			{posts && posts.length > 0 ? (
 				<PostListTag
 					hasNextPage={pageInfo.hasNextPage}
@@ -29,7 +34,7 @@ const PublicationTag = ({ host, tag }: any) => {
 				/>
 			) : (
 				<>
-					<h1>No Post with this Tag found</h1>
+					<Empty label="No Post with this Tag Found" />
 				</>
 			)}
 		</div>

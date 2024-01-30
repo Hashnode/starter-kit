@@ -1,12 +1,11 @@
 import PublicationTag from '@/components/publication-tag';
-import PostListTag from './_components/post-list-tag';
 
-const Page = ({ params: { host, slug } }: any) => {
+const Page = ({ params: { slug } }: any) => {
 	return (
 		<>
-			<div className="mt-24 mx-[5vw]">
+			<div className="mx-[5vw] mt-24">
 				<PublicationTag host={process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST} tag={slug} />
-    	</div>
+			</div>
 		</>
 	);
 };
