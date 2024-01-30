@@ -9,7 +9,6 @@ type Props = {
 };
 
 export const MorePosts = ({ posts, context }: Props) => {
-	console.log({more : posts.length})
 	return (
 		<section className="mb-10 flex flex-col items-start gap-10">
 			{context === 'home' && (

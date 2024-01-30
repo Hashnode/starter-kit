@@ -3,5 +3,3 @@ export const DEFAULT_AVATAR =
 
 export const DEFAULT_COVER =
 	'https://cdn.hashnode.com/res/hashnode/image/upload/v1683525272978/MB5H_kgOC.png?auto=format';
-
-console.log("hello world")

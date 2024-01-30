@@ -59,7 +59,6 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 		if (!data.publication) {
 			return;
 		}
-		console.log(data)
 		const newPosts = data.publication.posts.edges.map((edge) => edge.node);
 		setAllPosts([...allPosts, ...newPosts]);
 		setPageInfo(data.publication.posts.pageInfo);
