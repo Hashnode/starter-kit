@@ -8,4 +8,4 @@ We've used [Hashnode APIs](https://apidocs.hashnode.com) and integrated them wit
 
 Fork it and change the environment variable `NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST` to your host (engineering.hashnode.dev is the host in the example) and deploy it to Vercel. That's it! You now have your own frontend. You can still use Hashnode for writing your Articles.
 
-Demo of this theme: [https://demo.hashnode.com/engineering](https://demo.hashnode.com/engineering).
+Demo of the `enterprise` theme: [https://demo.hashnode.com/engineering](https://demo.hashnode.com/engineering).
