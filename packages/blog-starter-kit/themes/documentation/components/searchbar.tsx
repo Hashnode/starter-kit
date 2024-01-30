@@ -18,14 +18,13 @@ type Post = SearchPostsOfPublicationQuery['searchPostsOfPublication']['edges'][0
 
 export const Search = () => {
 	const { publication } = useAppContext();
-
+	const componentRef = useRef<HTMLDivElement>(null)
 	const searchInputRef = useRef<HTMLInputElement>(null);
 	const timerRef = useRef<NodeJS.Timeout | null>(null);
 
 	const [query, setQuery] = useState('');
 	const [searchResults, setSearchResults] = useState<Post[]>([]);
 	const [isSearching, setIsSearching] = useState(false);
-
 	const resetInput = () => {
 		if (!searchInputRef.current) return;
 		searchInputRef.current.value = '';
@@ -77,7 +76,7 @@ export const Search = () => {
 			<Link
 				key={post.id}
 				href={postURL}
-				className="flex flex-row items-center gap-5 px-4 py-2 hover:bg-slate-50 focus:outline-1 dark:hover:bg-neutral-800"
+				className="flex flex-row items-center border-t-[1px] border-primary-100 gap-5 px-4 py-2 bg-primary-50 transition-all duration-200 hover:bg-primary-100 focus:outline-1 dark:hover:bg-neutral-800"
 			>
 				<div className="flex flex-col gap-1">
 					<strong className="text-base">{post.title}</strong>
@@ -103,15 +102,32 @@ export const Search = () => {
 		);
 	});
 
+	useEffect(() => {
+		const handleClickOutside = (event : any) => {
+		  if (componentRef.current && !componentRef.current.contains(event.target)) {
+			resetInput();
+		  }
+		};
+	
+		document.addEventListener('click', handleClickOutside);
+	
+		return () => {
+		  document.removeEventListener('click', handleClickOutside);
+		};
+	  }, []);
+
 	return (
-		<div className="relative w-full">
+		<div ref = {componentRef} className="animate-up relative w-full max-w-[560px] mx-auto">
+			<h3 className='text-center mb-4 text-3xl font-bold text-primary-950'>Have a specific blog in mind?</h3>
 			<input
+				
 				type="text"
 				ref={searchInputRef}
+				onFocus = {() => setIsSearching(true)}
 				onKeyUp={escapeSearchOnESC}
 				onChange={updateSearchQuery}
 				placeholder="Search blog posts…"
-				className="w-full rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-base focus:bg-transparent dark:border-neutral-800 dark:bg-neutral-800 dark:text-neutral-50 dark:placeholder:text-neutral-400 dark:hover:bg-neutral-950"
+				className="w-full text-lg text-center rounded-md border border-slate-200 bg-slate-50 px-4 py-2 focus:bg-transparent dark:border-neutral-800 dark:bg-neutral-800 dark:text-neutral-50 dark:placeholder:text-neutral-400 dark:hover:bg-neutral-950"
 			/>
 			{query && (
 				<>
@@ -135,7 +151,7 @@ export const Search = () => {
 						</div>
 					)}
 					{searchResults.length > 0 && !isSearching && (
-						<div className="top-100 absolute left-0 z-10 mt-1 flex w-full flex-col items-stretch overflow-hidden rounded-lg border bg-white p-1 text-left text-slate-900 shadow-2xl dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-50">
+						<div className="top-100 max-h-[400px] overflow-y-scroll absolute left-0 z-10 mt-1 flex w-full flex-col items-stretch overflow-hidden rounded-lg border bg-white p-1 text-left text-slate-900 shadow-2xl dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-50">
 							<h3 className="px-4 py-2 font-medium text-slate-500 dark:text-neutral-400">
 								Found {searchResults.length} results
 							</h3>
