@@ -1,7 +1,7 @@
 'use client';
 
 // import Tag from "../tag/Tag";
-import { getFormattedDate } from '@/lib/utils';
+import {} from '@radix-ui/react-avatar';
 import { useHashnodePostDetails } from 'hashnode-client';
 import { Badge } from './ui/badge';
 // import PostComments from "./PostComments";
@@ -23,7 +23,10 @@ export default function PostDetails({ slug }: any) {
 					<div className="flex mb-4 space-x-4">
 						{post?.tags?.map((tag: any) => <Badge variant="secondary">{tag.name}</Badge>)}
 					</div>
-					{/* <p className="mb-3">Published on <span className='text-green-500'>{getFormattedDate(post?.publishedAt)}</span></p> */}
+
+					<p className="mb-3">
+						Published by <span className="text-green-500">{post.author.name}</span>
+					</p>
 					<div
 						className="prose lg:prose-xl dark:prose-invert"
 						dangerouslySetInnerHTML={{ __html: post?.content?.html }}
