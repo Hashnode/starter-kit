@@ -1,21 +1,35 @@
 import { GraphQLClient } from 'graphql-request';
 import {
-    PublicationDocument,
-    type PublicationQuery,
-    type PublicationQueryVariables,
+	PublicationByHostDocument,
+	type PublicationByHostQuery,
+	type PublicationByHostQueryVariables,
+    PostsByPublicationDocument,
+    type PostsByPublicationQuery,
+    type PostsByPublicationQueryVariables
 } from '$lib/graphql/generated/graphql';
 
 const graphQLClient = new GraphQLClient('https://gql.hashnode.com');
 
 export async function load() {
-    const { publication } = await graphQLClient.request<
-        PublicationQuery,
-        PublicationQueryVariables
-    >(PublicationDocument);
+	const { publication } = await graphQLClient.request<
+		PublicationByHostQuery,
+		PublicationByHostQueryVariables
+	>(PublicationByHostDocument, {
+		host: 'engineering.hashnode.com'
+	});
 
-    return {
-        props: {
-            publication
-        }
-    };
+    const posts = await graphQLClient.request<
+        PostsByPublicationQuery,
+        PostsByPublicationQueryVariables
+    >(PostsByPublicationDocument, {
+       first: 10,
+       host: 'engineering.hashnode.com'
+    });
+
+	return {
+		props: {
+			publication,
+            posts
+		}
+	};
 }
