@@ -45,7 +45,7 @@ export const SubscribeForm = () => {
 	return (
 		<>
 			{!status && (
-				<Card className="flex flex-col items-center p-3 mt-3 space-y-4 text-center border border-none">
+				<Card className="flex flex-col items-center p-3 mt-3 space-y-4 text-center border border-none bg-inherit">
 					<CardTitle className="text-4xl font-satoshiBold">Latest Updates</CardTitle>
 					<CardDescription className="text-xl">
 						All the latest article, news directly to your inbox.

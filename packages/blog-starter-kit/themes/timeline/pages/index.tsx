@@ -101,7 +101,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 					/>
 				</Head>
 				<Header />
-				<Container className="flex flex-col items-stretch gap-10 px-5 pb-10">
+				<Container className="flex flex-col items-stretch gap-10 px-5 pb-10 bg-gradient-to-r from-white via-indigo-100 to-white dark:bg-gradient-to-r dark:from-zinc-950 dark:via-zinc-800 dark:to-zinc-950">
 					<Navbar />
 					<SubscribeForm />
 					{allPosts.length === 0 && (
