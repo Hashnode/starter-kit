@@ -28,6 +28,7 @@ export default function Post({ publication, posts, tag }: Props) {
 				<Head>
 					<title>{title}</title>
 				</Head>
+				<div className="absolute bottom-auto left-auto right-0 top-0 h-screen w-screen -translate-x-[30%] translate-y-[20%] rounded-full bg-[rgba(173,109,244,0.5)] opacity-50 blur-[80px]"></div>
 				<Header />
 				<Container className="flex flex-col items-stretch gap-10 px-5 pb-10">
 					<div className="flex flex-col gap-1 pt-5">

@@ -102,7 +102,11 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 				</Head>
 				<Header />
 				<Container className="flex flex-col items-stretch gap-10 px-5 pb-10 bg-gradient-to-r from-white via-indigo-100 to-white dark:bg-gradient-to-r dark:from-zinc-950 dark:via-zinc-800 dark:to-zinc-950">
+				<div className="absolute bottom-auto left-auto right-0 top-0 h-screen w-screen -translate-x-[30%] translate-y-[20%] rounded-full bg-[rgba(173,109,244,0.5)] opacity-50 blur-[80px]"></div>
 					<Navbar />
+					{/* <div className="absolute top-0 w-full h-full bg-black -z-10"> */}
+						
+					{/* </div> */}
 					<SubscribeForm />
 					{allPosts.length === 0 && (
 						<div className="grid grid-cols-1 py-20 lg:grid-cols-3">
