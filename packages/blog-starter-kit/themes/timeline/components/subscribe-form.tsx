@@ -45,12 +45,12 @@ export const SubscribeForm = () => {
 	return (
 		<>
 			{!status && (
-				<Card className="z-50 flex flex-col items-center p-3 mt-3 space-y-4 text-center border border-none bg-inherit">
-					<CardTitle className="text-4xl font-satoshiBold">Latest Updates</CardTitle>
+				<Card className="z-50 mt-3 flex flex-col items-center space-y-4 border border-none bg-inherit p-3 text-center">
+					<CardTitle className="font-satoshiBold text-4xl">Latest Updates</CardTitle>
 					<CardDescription className="text-xl">
 						All the latest article, news directly to your inbox.
 					</CardDescription>
-					<CardContent className="flex mt-3 space-x-4">
+					<CardContent className="mt-3 flex space-x-4">
 						<Input
 							ref={inputRef}
 							className="w-[12rem] md:w-[24rem]"
