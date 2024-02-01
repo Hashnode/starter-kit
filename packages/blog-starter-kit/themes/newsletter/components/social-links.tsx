@@ -21,9 +21,9 @@ export const SocialLinks = ({ isSidebar }: { isSidebar?: boolean }) => {
 								target="_blank"
 								rel="noopener noreferrer"
 								aria-label="Find us on Twitter, external website, opens in new tab"
-								className="flex flex-row items-center justify-center rounded-full border border-slate-800 p-2 hover:bg-primary-100 dark:border-neutral-800 dark:hover:bg-neutral-600"
+								className="flex flex-row items-center justify-center hover:underline p-2  dark:border-neutral-800"
 							>
-								<XSVG className="h-5 w-5 stroke-current" />
+								Twitter
 							</a>
 						)}
 						{publication.links?.github && (
@@ -32,9 +32,9 @@ export const SocialLinks = ({ isSidebar }: { isSidebar?: boolean }) => {
 								target="_blank"
 								rel="noopener noreferrer"
 								aria-label="Find us on Github, external website, opens in new tab"
-								className="flex flex-row items-center justify-center rounded-full border border-slate-800 transition-all duration-150 p-2 hover:bg-primary-100 dark:border-neutral-800 dark:hover:bg-neutral-600"
+								className="flex flex-row items-center justify-center hover:underline transition-all duration-150 p-2  dark:border-neutral-800"
 							>
-								<GithubSVG className="h-5 w-5 stroke-current" />
+								Github
 							</a>
 						)}
 						{publication.links?.linkedin && (
@@ -43,9 +43,9 @@ export const SocialLinks = ({ isSidebar }: { isSidebar?: boolean }) => {
 								target="_blank"
 								rel="noopener noreferrer"
 								aria-label="Find us on Linkedin, external website, opens in new tab"
-								className="flex flex-row items-center justify-center rounded-full border border-slate-800 transition-all duration-150 p-2 hover:bg-primary-100 dark:border-neutral-800 dark:hover:bg-neutral-600"
+								className="flex flex-row items-center justify-center hover:underline transition-all duration-150 p-2  dark:border-neutral-800"
 							>
-								<LinkedinSVG className="h-5 w-5 stroke-current" />
+								Linkedin
 							</a>
 						)}
 						{publication.links?.hashnode && (
@@ -54,9 +54,9 @@ export const SocialLinks = ({ isSidebar }: { isSidebar?: boolean }) => {
 								target="_blank"
 								rel="noopener noreferrer"
 								aria-label="Find us on Hashnode, external website, opens in new tab"
-								className="flex flex-row items-center justify-center rounded-full border border-slate-800 transition-all duration-150 p-2 hover:bg-primary-100 dark:border-neutral-800 dark:hover:bg-neutral-600"
+								className="flex flex-row items-center justify-center hover:underline transition-all duration-150 p-2  dark:border-neutral-800"
 							>
-								<HashnodeSVG className="h-5 w-5 stroke-current" />
+								Hashnode
 							</a>
 						)}
 					</>
