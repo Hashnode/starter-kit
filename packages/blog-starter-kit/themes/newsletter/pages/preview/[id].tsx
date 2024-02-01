@@ -19,6 +19,7 @@ import {
 	PublicationByHostQuery,
 	PublicationByHostQueryVariables,
 } from '../../generated/graphql';
+import { ThemeProvider, useTheme } from '../../components/contexts/themeContext';
 
 type Props = {
 	post: Post;
@@ -43,12 +44,13 @@ export default function Post({ publication, post }: Props) {
 			</Link>
 		</li>
 	));
-
+		const {theme} = useTheme()
 	return (
 		<AppProvider publication={publication}>
+			
 			<Layout>
 				<Header />
-				<Container className="pt-10">
+				<Container className={`pt-10 ${theme}`}>
 					<article className="flex flex-col items-start gap-10 pb-10">
 						<Head>
 							<title>{title}</title>
@@ -70,6 +72,7 @@ export default function Post({ publication, post }: Props) {
 				</Container>
 				<Footer />
 			</Layout>
+			
 		</AppProvider>
 	);
 }

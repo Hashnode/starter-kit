@@ -13,6 +13,7 @@ import {
 	TagPostsByPublicationQuery,
 	TagPostsByPublicationQueryVariables,
 } from '../../generated/graphql';
+import { ThemeProvider, useTheme } from '../../components/contexts/themeContext';
 
 type Props = {
 	posts: Post[];
@@ -22,14 +23,16 @@ type Props = {
 
 export default function Post({ publication, posts, tag }: Props) {
 	const title = `#${tag} - ${publication.title}`;
+	const {theme} = useTheme()
 	return (
 		<AppProvider publication={publication}>
+			
 			<Layout>
 				<Head>
 					<title>{title}</title>
 				</Head>
 				<Header />
-				<Container className="flex flex-col items-stretch gap-10 px-5 pb-10">
+				<Container className={`${theme} flex flex-col items-stretch gap-10 px-5 pb-10`}>
 					<div className="flex flex-col gap-1 pt-5">
 						<p className="font-bold uppercase text-slate-500 dark:text-neutral-400">Tag</p>
 						<h1 className="text-4xl font-bold text-slate-900 dark:text-neutral-50">#{tag}</h1>
@@ -38,6 +41,7 @@ export default function Post({ publication, posts, tag }: Props) {
 				</Container>
 				<Footer />
 			</Layout>
+			
 		</AppProvider>
 	);
 }

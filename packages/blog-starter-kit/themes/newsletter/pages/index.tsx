@@ -28,6 +28,8 @@ import {
 import { DEFAULT_COVER } from '../utils/const';
 import Hero from '../components/hero';
 import { Search } from '../components/searchbar';
+import { ThemeProvider, useTheme } from '../components/contexts/themeContext';
+import SubscribeFormContainer from '../components/subscribe-form-container';
 
 const SubscribeForm = dynamic(() =>
 	import('../components/subscribe-form').then((mod) => mod.SubscribeForm),
@@ -83,7 +85,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 		setPageInfo(data.publication.posts.pageInfo);
 		setLoadedMore(true);
 	};
-	const heroPosts = allPosts.slice(0, 3).map((post , i) => {
+	const heroPosts = allPosts.slice(0, 4).map((post , i) => {
 		return (
 			<HeroPost
 				key={post.id}
@@ -95,9 +97,11 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 			/>
 		);
 	});
-	const morePosts = allPosts.slice(3)
+	const morePosts = allPosts.slice(4)
+	const {theme} = useTheme()
 	return (
 		<AppProvider publication={publication}>
+			
 			<Layout>
 				<Head>
 					<title>
@@ -136,7 +140,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 					/>
 				</Head>
 				<Header/>
-				<Container className="flex flex-col dark:bg-gray-900 items-stretch gap-10 px-5 pb-10">
+				<Container className={`${theme} flex flex-col bg-white dark:bg-black items-stretch gap-10 px-5 pb-10`}>
 				<Hero/>
 					
 					<Waypoint onEnter={() => setEntered(true)} />
@@ -153,23 +157,18 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 						</div>
 					)}
 
-					<div style={{
-							transform : entered ? 'translateY(0)' : 'translateY(50%)',
-							opacity : entered ? '1' : '0',
-							transition : `all 200ms 400ms`
-						}} className="grid grid-cols-1 animate-up items-start gap-6 md:grid-cols-3">
+					<div className="grid grid-cols-1 animate-up items-start gap-6 md:grid-cols-2">
 						
 						{heroPosts}
 					</div>
-
-					<Search/>
-
+					<SubscribeFormContainer/>
 					{morePosts.length > 0 && (
 						<>
 							<MorePosts context="home" posts={morePosts} />
 							
 							{pageInfo.hasNextPage && pageInfo.endCursor ? (
-								<button className='outline mx-auto text-primary-950 transition-all duration-200 hover:bg-primary-100 py-2 rounded-full px-4 w-fit flex items-center gap-2' onClick={loadMore}> <div className='w-8 h-8'><ChevronDownSVG/></div> Load More</button>
+								<button className='outline mx-auto text-primary-950 transition-all duration-200 hover:bg-gray-100 py-1  
+								px-2 w-fit flex items-center gap-2 dark:outline-gray-700 dark:text-white dark:hover:bg-gray-900' onClick={loadMore}> <div className='w-8 h-8'><ChevronDownSVG/></div> Load More</button>
 							) : (
 								<p className='text-center text-2xl font-bold text-slate-700'>That's all Folks! 👋🏼</p>
 							)}
@@ -179,6 +178,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 				</Container>
 				<Footer />
 			</Layout>
+			
 		</AppProvider>
 	);
 }

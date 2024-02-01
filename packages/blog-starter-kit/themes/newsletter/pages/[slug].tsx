@@ -28,6 +28,7 @@ import { loadIframeResizer } from '@starter-kit/utils/renderer/services/embed';
 import { useEffect, useState } from 'react';
 // @ts-ignore
 import { triggerCustomWidgetEmbed } from '@starter-kit/utils/trigger-custom-widget-embed';
+import { ThemeProvider, useTheme } from '../components/contexts/themeContext';
 
 const AboutAuthor = dynamic(() => import('../components/about-author'), { ssr: false });
 const Subscribe = dynamic(() => import('../components/subscribe').then((mod) => mod.Subscribe));
@@ -160,21 +161,25 @@ const Page = ({ page }: PageProps) => {
 };
 
 export default function PostOrPage(props: Props) {
+	const {theme} = useTheme()
 	const maybePost = props.type === 'post' ? props.post : null;
 	const publication = props.publication;
 
 	return (
 		<AppProvider publication={publication} post={maybePost}>
-			<Layout>
-				<Header />
-				<Container className="pt-10 dark:bg-slate-900">
-					<article className="flex flex-col items-start gap-10 pb-10">
-						{props.type === 'post' && <Post {...props} />}
-						{props.type === 'page' && <Page {...props} />}
-					</article>
-				</Container>
-				<Footer />
-			</Layout>
+		
+				<Layout>
+					<Header />
+					<Container className={`pt-10 dark:bg-black `}>
+						<article className="flex flex-col items-start gap-10 pb-10">
+							{props.type === 'post' && <Post {...props} />}
+							{props.type === 'page' && <Page {...props} />}
+						</article>
+					</Container>
+					<Footer />
+				</Layout>
+			
+			
 		</AppProvider>
 	);
 }
