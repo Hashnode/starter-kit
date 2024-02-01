@@ -8,7 +8,7 @@ export const Footer = () => {
 	const { publication } = useAppContext();
 	const PUBLICATION_LOGO = publication.preferences.logo;
 	return (
-		<footer className="border-t py-12 footer dark:bg-gray-900 dark:border-gray-800 ">
+		<footer className="border-t py-12 footer  dark:border-gray-800 dark:bg-neutral-900 ">
 			<Container className="px-5">
 				{PUBLICATION_LOGO ? (
 					<div className="mb-20 flex w-full flex-row justify-center">
@@ -25,8 +25,8 @@ export const Footer = () => {
 						{publication.title}
 					</p>
 				)}
-				<div className=" max-w-[600px] mb-8 bg-primary-50 py-6 px-2 rounded-md mx-auto ">
-					<h2 className="text-primary-600 dark:text-primary-500 mb-5 text-center text-lg font-semibold">
+				<div className=" max-w-[600px] mb-8 bg-primary-50 py-6 px-2 rounded-md mx-auto dark:bg-neutral-800">
+					<h2 className="text-primary-600 dark:text-primary-100 mb-5 text-center text-lg font-semibold">
 						Subscribe to our newsletter for updates and changelog.
 					</h2>
 					<SubscribeForm />

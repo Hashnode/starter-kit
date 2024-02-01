@@ -21,7 +21,7 @@ export const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) =
 	const postURL = `/${slug}`;
 
 	return (
-		<div className='self-stretch animate-up max-w-[480px] transition-all duration-150  outline rounded-md outline-gray-100'>
+		<div className='self-stretch animate-up max-w-[480px] transition-all duration-150  outline rounded-md outline-gray-100 dark:outline-neutral-800'>
 		<div className="grid grid-cols-1 grid-rows-1 s  gap-5 p-4">
 			<div className="col-span-1">
 				<CoverImage

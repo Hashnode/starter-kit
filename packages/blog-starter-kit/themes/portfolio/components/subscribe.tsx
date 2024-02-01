@@ -21,7 +21,7 @@ export const Subscribe = () => {
 						align="end"
 						sideOffset={5}
 					>
-						<h3 className="mb-2 text-base font-semibold text-center text-primary-600">
+						<h3 className="mb-2 text-base font-semibold text-center text-black">
 							Subscribe to our newsletter for updates and changelog.
 						</h3>
 						<SubscribeForm />

@@ -136,7 +136,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 					/>
 				</Head>
 				<Header/>
-				<Container className="flex flex-col dark:bg-gray-900 items-stretch gap-10 px-5 pb-10">
+				<Container className="flex flex-col items-stretch gap-10 px-5 pb-10">
 				<Hero/>
 					
 					<Waypoint onEnter={() => setEntered(true)} />
@@ -169,9 +169,9 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 							<MorePosts context="home" posts={morePosts} />
 							
 							{pageInfo.hasNextPage && pageInfo.endCursor ? (
-								<button className='outline mx-auto text-primary-950 transition-all duration-200 hover:bg-primary-100 py-2 rounded-full px-4 w-fit flex items-center gap-2' onClick={loadMore}> <div className='w-8 h-8'><ChevronDownSVG/></div> Load More</button>
+								<button className='outline mx-auto text-primary-950 dark:text-neutral-200 dark:outline-neutral-700 transition-all duration-200 hover:bg-primary-100 py-2 rounded-full px-4 w-fit flex items-center gap-2' onClick={loadMore}> <div className='w-8 h-8'><ChevronDownSVG/></div> Load More</button>
 							) : (
-								<p className='text-center text-2xl font-bold text-slate-700'>That's all Folks! 👋🏼</p>
+								<p className='text-center text-2xl font-bold text-slate-700 dark:text-white'>That's all Folks! 👋🏼</p>
 							)}
 						</>
 					)}

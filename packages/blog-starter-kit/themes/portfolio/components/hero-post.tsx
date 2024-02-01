@@ -17,7 +17,7 @@ export const HeroPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
 	const postURL = `/${slug}`;
 
 	return (
-		<div className="grid grid-cols-1 self-stretch gap-5 outline outline-1 p-4 rounded-md outline-gray-200 transition-all duration-150">
+		<div className="grid grid-cols-1 self-stretch gap-5 outline outline-1 p-4 rounded-md outline-gray-200 dark:outline-gray-800 transition-all duration-150">
 			<div className="col-span-1">
 				<CoverImage
 					title={title}

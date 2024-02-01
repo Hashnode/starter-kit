@@ -76,7 +76,7 @@ export const Search = () => {
 			<Link
 				key={post.id}
 				href={postURL}
-				className="flex flex-row items-center border-t-[1px] border-primary-100 gap-5 px-4 py-2 bg-primary-50 transition-all duration-200 hover:bg-primary-100 focus:outline-1 dark:hover:bg-neutral-800"
+				className="flex flex-row items-center border-t-[1px] border-primary-100 gap-5 px-4 py-2 bg-primary-50 dark:bg-neutral-900 dark:border-neutral-800 transition-all duration-200 hover:bg-primary-100 focus:outline-1 dark:hover:bg-neutral-800"
 			>
 				<div className="flex flex-col gap-1">
 					<strong className="text-base">{post.title}</strong>
@@ -118,7 +118,7 @@ export const Search = () => {
 
 	return (
 		<div ref = {componentRef} className="animate-up relative w-full max-w-[560px] mx-auto">
-			<h3 className='text-center mb-4 text-3xl font-bold text-primary-950'>Have a specific blog in mind?</h3>
+			<h3 className='text-center mb-4 text-3xl font-bold text-primary-950 dark:text-white'>Have a specific blog in mind?</h3>
 			<input
 				
 				type="text"
@@ -127,7 +127,7 @@ export const Search = () => {
 				onKeyUp={escapeSearchOnESC}
 				onChange={updateSearchQuery}
 				placeholder="Search blog posts…"
-				className="w-full text-lg text-center rounded-md border border-slate-200 bg-slate-50 px-4 py-2 focus:bg-transparent dark:border-neutral-800 dark:bg-neutral-800 dark:text-neutral-50 dark:placeholder:text-neutral-400 dark:hover:bg-neutral-950"
+				className="w-full text-lg text-center rounded-md border border-slate-200 bg-slate-50 dark:bg-white px-4 py-2 focus:bg-transparent dark:border-neutral-800 dark:text-neutral-50 dark:placeholder:text-neutral-400 dark:hover:bg-neutral-950"
 			/>
 			{query && (
 				<>

@@ -133,6 +133,7 @@ const Post = ({ publication, post }: PostProps) => {
 				author={post.author}
 				readTimeInMinutes={post.readTimeInMinutes}
 			/>
+			
 			{post.features.tableOfContents.isEnabled && <PostTOC />}
 			<MarkdownToHtml contentMarkdown={post.content.markdown} />
 			{(post.tags ?? []).length > 0 && (
@@ -140,6 +141,7 @@ const Post = ({ publication, post }: PostProps) => {
 					<ul className="flex flex-row flex-wrap items-center gap-2">{tagsList}</ul>
 				</div>
 			)}
+			hello
 			<AboutAuthor />
 			{!post.preferences.disableComments && post.comments.totalDocuments > 0 && <PostComments />}
 			<Subscribe />
@@ -167,7 +169,7 @@ export default function PostOrPage(props: Props) {
 		<AppProvider publication={publication} post={maybePost}>
 			<Layout>
 				<Header />
-				<Container className="pt-10 dark:bg-slate-900">
+				<Container className="pt-10 dark:bg-neutral-900">
 					<article className="flex flex-col items-start gap-10 pb-10">
 						{props.type === 'post' && <Post {...props} />}
 						{props.type === 'page' && <Page {...props} />}

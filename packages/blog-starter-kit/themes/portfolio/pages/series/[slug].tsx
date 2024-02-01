@@ -18,6 +18,7 @@ import {
 	SeriesPostsByPublicationQueryVariables,
 } from '../../generated/graphql';
 import { DEFAULT_COVER } from '../../utils/const';
+import { ChevronDownSVG } from '../../components/icons';
 
 type Props = {
 	series: SeriesFragment;
@@ -37,21 +38,11 @@ export default function Post({ series, publication, posts }: Props) {
 				<Header />
 				<Container className="flex flex-col items-stretch gap-10 px-5 pb-10">
 					<div
-						className={`${
-							series.coverImage ? 'col-span-full' : 'col-span-3'
-						} grid grid-cols-4 pt-5 md:gap-5`}
-					>
-						<div className="col-span-full flex flex-col gap-1 md:col-span-2 lg:col-span-3">
-							<p className="font-bold uppercase text-slate-500 dark:text-neutral-400">Series</p>
-							<h1 className="text-4xl font-bold text-slate-900 dark:text-neutral-50">
-								{series.name}
-							</h1>
-							<div
-								className="hashnode-content-style"
-								dangerouslySetInnerHTML={{ __html: series.description?.html ?? '' }}
-							></div>
-						</div>
-						<div className="relative col-span-full md:col-span-2 lg:col-span-1">
+						className={`${series.coverImage ? 'col-span-full' : 'col-span-3'
+							} flex flex-col gap-4 pt-5 md:gap-5 text-center`}
+					>	
+						<p className="font-bold uppercase text-slate-500 dark:text-neutral-400">Series</p>
+						<div className="w-[360px] mx-auto">
 							<CoverImage
 								title={series.name}
 								src={resizeImage(
@@ -65,8 +56,19 @@ export default function Post({ series, publication, posts }: Props) {
 								)}
 							/>
 						</div>
+						<div className=" flex flex-col items-center gap-1">
+							
+							<h1 className="text-4xl font-bold text-slate-900 dark:text-neutral-50">
+								{series.name}
+							</h1>
+							<div
+								className="hashnode-content-style"
+								dangerouslySetInnerHTML={{ __html: series.description?.html ?? '' }}
+							></div>
+						</div>
+
 					</div>
-					<h2 className='text-3xl font-bold text-center my-8 text-slate-900'>Posts in Series</h2>
+					<h2 className='text-3xl flex flex-col items-center font-bold text-center my-8 text-slate-900 dark:text-white'>Posts in Series <span className='w-8'><ChevronDownSVG/></span></h2>
 					{posts.length > 0 ? (
 						<MorePosts context="series" posts={posts} />
 					) : (

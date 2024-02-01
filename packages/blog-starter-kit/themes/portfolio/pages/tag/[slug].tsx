@@ -29,7 +29,7 @@ export default function Post({ publication, posts, tag }: Props) {
 					<title>{title}</title>
 				</Head>
 				<Header />
-				<Container className="flex flex-col items-stretch gap-10 px-5 pb-10">
+				<Container className="flex flex-col items-stretch gap-10 px-5 pb-10 dark:bg-neutral-900">
 					<div className="flex flex-col gap-1 pt-5">
 						<p className="font-bold uppercase text-slate-500 dark:text-neutral-400">Tag</p>
 						<h1 className="text-4xl font-bold text-slate-900 dark:text-neutral-50">#{tag}</h1>
