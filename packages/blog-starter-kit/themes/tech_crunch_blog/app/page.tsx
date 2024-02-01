@@ -3,7 +3,6 @@
 import LatestArticle from '@/components/latestArticles';
 import LoadMore from '@/components/loadMore';
 import MainPost from '@/components/mainPost';
-import NewsLetter from '@/components/newsLetter';
 import { useStore } from '@/context';
 import useGetBlogPosts, { BlogData } from '@/hooks/useGetBlogPosts';
 import { useEffect, useState } from 'react';
@@ -51,7 +50,6 @@ const LandingPage = () => {
 			<div className="pt-6">
 				<LatestComponent />
 				<LatestArticle data={blogList} />
-				<NewsLetter />
 				<LoadMore nextPage={nextPage} loading={loading} />
 			</div>
 		</>

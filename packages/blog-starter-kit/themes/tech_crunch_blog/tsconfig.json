@@ -22,9 +22,17 @@
 			"@/*": ["./*"],
 			"@/lib": ["./lib/*"],
 			"@/generated": ["./generated/*"],
-			"@/hooks": ["./hooks/*"]
+			"@/hooks": ["./hooks/*"],
+			"@/lottie": ["./lottie/*"]
 		}
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/[slug]/page.tsx", "index.js"],
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		".next/types/**/*.ts",
+		"app/[slug]/page.tsx",
+		"index.js"
+	],
 	"exclude": ["node_modules"]
 }

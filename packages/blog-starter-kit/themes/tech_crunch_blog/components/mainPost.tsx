@@ -6,11 +6,11 @@ const MainPost = (prop: { data: BlogData | undefined }) => {
 		// TODO handle when the data is empty
 	}
 	return (
-		<div className="flex flex-col p-2">
-			<h2 className="text-3xl font-semibold tracking-tight font-oswald text-balance">
+		<div className="mt-10 flex flex-col gap-3 p-2">
+			<h2 className="font-montserrat text-balance text-3xl font-semibold leading-7">
 				{prop.data?.title}
 			</h2>
-			<span className="pt-2 text-lg font-medium lg:text-lg">{prop.data?.author.name}</span>
+			<span className="pt-2 text-lg font-medium lg:text-base">{prop.data?.author.name}</span>
 			<div className="relative">
 				<Image
 					className="mt-2 h-[314px] w-full"

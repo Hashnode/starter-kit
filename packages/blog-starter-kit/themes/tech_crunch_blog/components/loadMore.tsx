@@ -6,7 +6,7 @@ const LoadMore = ({ nextPage, loading }: { nextPage: () => void; loading: boolea
 		<div className="mt-12 w-full hover:bg-gray-100" onClick={() => nextPage()}>
 			<Button
 				type="submit"
-				className="font-oswald w-full text-xl leading-3 text-green-600 hover:bg-gray-200 md:text-2xl"
+				className="font-montserrat w-full text-xl leading-5 text-green-600 hover:bg-gray-200 md:text-lg"
 			>
 				{loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
 				{loading ? 'Loading...' : 'Load more'}
