@@ -13,7 +13,7 @@ import { Input } from './ui/input';
 
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 
-export const SubscribeForm = () => {
+export const SubscribeForm = ({ title, description }: { title?: string; description?: string }) => {
 	const [status, setStatus] = useState<SubscribeToNewsletterPayload['status']>();
 	const [requestInProgress, setRequestInProgress] = useState(false);
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -45,15 +45,16 @@ export const SubscribeForm = () => {
 	return (
 		<>
 			{!status && (
-				<Card className="z-50 mt-3 flex flex-col items-center space-y-4 border border-none bg-inherit p-3 text-center">
-					<CardTitle className="font-satoshiBold text-4xl">Latest Updates</CardTitle>
+				<Card className="z-50 flex flex-col items-center p-3 mt-3 space-y-4 text-center border border-none bg-inherit">
+					<CardTitle className="text-4xl font-satoshiBold">{title}</CardTitle>
 					<CardDescription className="text-xl">
-						All the latest article, news directly to your inbox.
+						{/* All the latest article, news directly to your inbox. */}
+						{description}
 					</CardDescription>
-					<CardContent className="mt-3 flex space-x-4">
+					<CardContent className="flex mt-3 space-x-4">
 						<Input
 							ref={inputRef}
-							className="w-[12rem] md:w-[24rem]"
+							className="w-[12rem] md:w-[20rem]"
 							type="email"
 							placeholder="john@doe.com"
 						/>

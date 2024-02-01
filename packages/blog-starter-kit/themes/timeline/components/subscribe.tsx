@@ -5,13 +5,13 @@ import { SubscribeForm } from './subscribe-form';
 
 export const Subscribe = () => {
 	return (
-		<div className="fixed bottom-10 right-10 z-50">
+		<div className="fixed z-50 bottom-10 right-10">
 			<Popover.Root>
 				<Popover.Trigger asChild>
 					<Button
 						label="Subscribe"
 						type="outline"
-						icon={<NewsletterPlusSVG className="h-5 w-5 fill-current" />}
+						icon={<NewsletterPlusSVG className="w-5 h-5 fill-current" />}
 						className="bg-white"
 					/>
 				</Popover.Trigger>
@@ -21,8 +21,8 @@ export const Subscribe = () => {
 						align="end"
 						sideOffset={5}
 					>
-						<h3 className="text-primary-600 mb-2 text-center text-base font-semibold">
-							Subscribe to our newsletter for updates and changelog.
+						<h3 className="mb-2 text-base font-semibold text-center text-primary-600">
+							All the latest article, news directly to your inbox.
 						</h3>
 						<SubscribeForm />
 					</Popover.Content>

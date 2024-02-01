@@ -107,7 +107,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 					{/* <div className="absolute top-0 w-full h-full bg-black -z-10"> */}
 
 					{/* </div> */}
-					<SubscribeForm />
+					<SubscribeForm title="Latest Updates" description="All the latest article, news directly to your inbox." />
 					{allPosts.length === 0 && (
 						<div className="grid grid-cols-1 py-20 lg:grid-cols-3">
 							<div className="flex flex-col items-center col-span-1 gap-5 text-center text-slate-700 dark:text-neutral-400 lg:col-start-2">
@@ -134,7 +134,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 										type="outline"
 										icon={<ChevronDownSVG className="w-5 h-5 stroke-current" />}
 										label="Load more posts"
-										className='group-hover:text-indigo-500'
+										className="group-hover:text-indigo-500"
 									/>
 								</div>
 							)}

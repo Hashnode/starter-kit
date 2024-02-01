@@ -9,7 +9,7 @@ export const Footer = () => {
 	return (
 		<footer className="border-t dark:border-neutral-800 ">
 			<Container>
-				<SubscribeForm />
+				<SubscribeForm description='All the latest article, news directly to your inbox.' />
 				<div className="p-2 text-right text-slate-600 dark:text-neutral-300 md:text-left">
 					<SocialLinks />
 					<p>&copy; Shreyas Chaliha aka Trace.</p>
