@@ -3,15 +3,18 @@ import { Container } from './container';
 import { useAppContext } from './contexts/appContext';
 import { SocialLinks } from './social-links';
 import { SubscribeForm } from './subscribe-form';
+import { useTheme } from './contexts/themeContext';
+import SubscribeFormContainer from './subscribe-form-container';
 
 export const Footer = () => {
 	const { publication } = useAppContext();
+	const {theme} = useTheme()
 	const PUBLICATION_LOGO = publication.preferences.logo;
 	return (
-		<footer className="border-t py-12 footer dark:bg-gray-900 dark:border-gray-800 ">
-			<Container className="px-5">
+		<footer className={`${theme} border-t py-12 footer dark:bg-black dark:border-gray-800`}>
+			<Container className="px-5 flex flex-col items-center gap-4">
 				{PUBLICATION_LOGO ? (
-					<div className="mb-20 flex w-full flex-row justify-center">
+					<div className="flex w-full flex-row justify-center">
 						<Link
 							href={'/'}
 							aria-label={`${publication.title} home page`}
@@ -25,12 +28,7 @@ export const Footer = () => {
 						{publication.title}
 					</p>
 				)}
-				<div className=" max-w-[600px] mb-8 bg-primary-50 py-6 px-2 rounded-md mx-auto ">
-					<h2 className="text-primary-600 dark:text-primary-500 mb-5 text-center text-lg font-semibold">
-						Subscribe to our newsletter for updates and changelog.
-					</h2>
-					<SubscribeForm />
-				</div>
+				<SubscribeFormContainer/>
 				<div className="flex flex-col items-center w-full gap-4">
 
 					<div className=" flex flex-col items-center gap-4 text-right text-slate-600 dark:text-neutral-300 md:text-left">
