@@ -21,36 +21,30 @@ export const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) =
 	const postURL = `/${slug}`;
 
 	return (
-		<div className='self-stretch animate-up max-w-[480px] transition-all duration-150  outline rounded-md outline-gray-100'>
-		<div className="grid grid-cols-1 grid-rows-1 s  gap-5 p-4">
-			<div className="col-span-1">
-				<CoverImage
-					slug={slug}
-					title={title}
-					src={resizeImage(coverImage, { w: 400, h: 210, c: 'thumb' }, DEFAULT_COVER)}
-				/>
-			</div>
-			<div className="col-span-1 flex flex-col gap-2">
-				<h1 className="text-lg font-semibold leading-tight text-slate-800 dark:text-neutral-50">
-					<Link href={postURL}
-					
-						className="hover:text-primary-600 transition-all duration-150 dark:hover:text-primary-500"
-					>
-						{title}
-					</Link>
-				</h1>
-				<div>
-					<p className="text-md leading-snug text-slate-500 dark:text-neutral-400">
-						{excerpt.length > 140 ? excerpt.substring(0, 140) + '…' : excerpt}
-					</p>
-				</div>
-				<div className="text-sm font-semibold text-slate-500 dark:text-neutral-300">
-					<p>
-						<DateFormatter dateString={date} />
-					</p>
+		<div className='self-stretch col-span-1 fade-in transition-all duration-150 rounded-md'>
+			<div className="grid grid-cols-1 grid-rows-1 s  gap-5 p-4">
+				
+				<div className="col-span-1 flex flex-col gap-2">
+					<h2 className="text-lg font-semibold cursor-pointer leading-tight text-slate-800 dark:text-neutral-50">
+						<Link href={postURL}
+						
+							className="hover:underline cursor-pointer transition-all duration-150"
+						>
+							{title}
+						</Link>
+					</h2>
+					<div>
+						<p className="text-md leading-snug text-slate-500 dark:text-neutral-400 text-justify">
+							{excerpt.length > 140 ? excerpt.substring(0, 140) + '…' : excerpt}
+						</p>
+					</div>
+					<div className="text-sm font-semibold text-slate-500 dark:text-neutral-300">
+						<p>
+							<DateFormatter dateString={date} />
+						</p>
+					</div>
 				</div>
 			</div>
-		</div>
 		</div>
 	);
 };
