@@ -7,7 +7,7 @@ const VerticalTimeline = ({ posts }: { posts: PostFragment[] }) => {
 	return (
 		<>
 			{posts.map((post, index) => (
-				<article key={index} className="group relative max-w-lg">
+				<article key={index} className="relative max-w-lg group">
 					<div className="absolute -inset-x-4 -inset-y-2.5 group-hover:bg-slate-50/70 dark:group-hover:bg-slate-800/50 sm:rounded-2xl md:-inset-x-6 md:-inset-y-4" />
 					<svg
 						viewBox="0 0 9 9"
@@ -23,11 +23,11 @@ const VerticalTimeline = ({ posts }: { posts: PostFragment[] }) => {
 						/>
 					</svg>
 					<div className="relative">
-						<h3 className="font-ranadeMedium pt-8 text-lg tracking-tight text-slate-900 dark:text-slate-200 lg:pt-0">
+						<h3 className="pt-8 text-lg tracking-tight font-ranadeMedium text-slate-900 dark:text-slate-200 lg:pt-0">
 							{post.title}
 						</h3>
 						<div
-							className="text-muted-foreground font-ranadeLight mb-4 mt-2 line-clamp-2 max-w-lg"
+							className="max-w-lg mt-2 mb-4 text-muted-foreground font-ranadeLight line-clamp-2"
 							// dangerouslySetInnerHTML={{ __html: post.brief }}
 						>
 							{post.brief}

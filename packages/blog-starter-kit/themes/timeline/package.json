@@ -20,6 +20,7 @@
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.0.0",
 		"date-fns": "^2.30.0",
+		"framer-motion": "^11.0.3",
 		"graphql-request": "^6.1.0",
 		"gray-matter": "^4.0.3",
 		"html-react-parser": "^4.2.2",
