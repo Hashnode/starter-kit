@@ -6,6 +6,12 @@ import { Container } from './container';
 import { useAppContext } from './contexts/appContext';
 import { SocialLinks } from './social-links';
 import Link from 'next/link';
+import { Navbar } from './navbar';
+import { useTheme } from './contexts/themeContext';
+import HamburgerSVG from './icons/svgs/HamburgerSVG';
+import MoonSVG from './icons/svgs/moonSVG';
+import SunSVG from './icons/svgs/sunSVG';
+import CroseSVG from './icons/svgs/CrossSVG';
 
 function hasUrl(
 	navbarItem: PublicationNavbarItem,
@@ -17,16 +23,16 @@ export const Header = () => {
 	const [isSidebarVisible, setIsSidebarVisible] = useState<boolean>();
 	const { publication } = useAppContext();
 	const navbarItems = publication.preferences.navbarItems.filter(hasUrl);
-	const visibleItems = navbarItems.slice(0, 3);
-	const hiddenItems = navbarItems.slice(3);
 	
 	const toggleSidebar = () => {
 		setIsSidebarVisible((prevVisibility) => !prevVisibility);
 	};
 
 	const navList = (
-		<ul className="flex flex-row items-center gap-2 text-white">
-			{visibleItems.map((item) => (
+		<div className='fixed top-0 left-0 h-[100vh] w-[100vw] dark:text-white dark:bg-black '>
+		<button onClick={toggleSidebar} className='text-black z-[150] fixed top-4 right-4 dark:text-white'><CroseSVG/></button>
+		<ul className="flex flex-col justify-center  shadow-md h-full w-full py-16 px-6 items-center gap-2 fixed top-0 left-0 fade-in-fast z-[100]">
+			{navbarItems.map((item) => (
 				<li key={item.url}>
 					<a
 						href={item.url}
@@ -39,49 +45,35 @@ export const Header = () => {
 				</li>
 			))}
 
-			{hiddenItems.length > 0 && (
-				<li>
-					<DropdownMenu.Root>
-						<DropdownMenu.Trigger asChild>
-							<button className="transition-200 block rounded-full p-2 transition-colors hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white">
-								More
-							</button>
-						</DropdownMenu.Trigger>
-
-						<DropdownMenu.Portal>
-							<DropdownMenu.Content
-								className="w-48 rounded border border-gray-300 bg-white text-neutral-950 shadow-md dark:border-neutral-800 dark:bg-neutral-900 dark:text-white"
-								align="end"
-								sideOffset={5}
-							>
-								{hiddenItems.map((item) => (
-									<DropdownMenu.Item asChild key={item.url}>
-										<a
-											href={item.url}
-											target="_blank"
-											rel="noopener noreferrer"
-											className="transition-200 block truncate p-2 transition-colors hover:bg-slate-100 hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
-										>
-											{item.label}
-										</a>
-									</DropdownMenu.Item>
-								))}
-							</DropdownMenu.Content>
-						</DropdownMenu.Portal>
-					</DropdownMenu.Root>
-				</li>
-			)}
+			
 		</ul>
+		</div>
 	);
-
+	const {theme , toggleTheme} = useTheme()
 	return (
-		<header className="border-b mb-10 py-4 md:py-10 dark:border-neutral-800 dark:bg-neutral-900">
-			<Container className="flex flex-col md:flex-row items-center justify-between
-			 gap-5 px-8">
-				<Link href='/'><span className='text-2xl font-bold flex items-center gap-2'>{publication.author.profilePicture && <img className='w-8 rounded-full' src = {publication.author.profilePicture} />}{publication.author.username}</span></Link>
+		<header className={`${theme} py-4 md:py-10 dark:border-neutral-800 dark:bg-black`}>
+			<Container className="flex flex-row items-center justify-between
+			 gap-5 px-4 md:px-8 dark:bg-black">
+				<Link href='/'><span className='text-2xl font-bold flex items-center gap-2 dark:text-white'>{publication.author.profilePicture && <img className='w-8 rounded-full ' src = {publication.author.profilePicture} />}{publication.author.username}</span></Link>
 				
-				<SocialLinks/>
+				<Navbar/>
+				<div className='flex items-center gap-4'>
+				<button onClick={toggleSidebar} className='block xl:hidden w-6 dark:text-white'>
+					<HamburgerSVG />
+					
+				</button>
+			
+			
+				<button onClick={toggleTheme} className=' p-2 rounded-full  dark:text-white  '>
+					<span className='block dark:hidden '><MoonSVG/></span>
+					<span className='hidden dark:block'><SunSVG/></span>
+				</button>
+				</div>
+				
 			</Container>
+			{
+				isSidebarVisible && navList
+			}
 		</header>
 	);
 };
