@@ -4,10 +4,13 @@ export default function Document() {
 	return (
 		<Html lang="en">
 			<Head />
-			<body>
-				<Main />
-				<NextScript />
-			</body>
+				
+				<body style={{
+					fontFamily : 'lora'
+				}}>
+					<Main />
+					<NextScript />
+				</body>
 		</Html>
 	);
 }
