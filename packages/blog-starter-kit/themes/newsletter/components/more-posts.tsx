@@ -16,8 +16,8 @@ export const MorePosts = ({ posts, context }: Props) => {
 					More Posts
 				</h2>
 			)}
-			<div className={`grid items-stretch mx-auto gap-5 md:${posts.length > 2 ? 'grid-cols-3' : 'grid-cols-1'}`}>
-				{posts.map((post , i : number) => (
+			<div className='grid items-stretch mx-auto gap-5 grid-cols-1 md:grid-cols-2'>
+				{posts.map((post) => (
 					
 						<PostPreview
 						key={post.slug}
