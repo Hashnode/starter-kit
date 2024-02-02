@@ -14,13 +14,14 @@ type Props = {
 	date: string;
 	author: Author;
 	readTimeInMinutes: number;
+	views: number;
 };
 
-export const PostHeader = ({ title, coverImage, date, author, readTimeInMinutes }: Props) => {
+export const PostHeader = ({ title, coverImage, date, author, readTimeInMinutes, views }: Props) => {
 	return (
 		<>
 			<PostTitle>{title}</PostTitle>
-			<div className="flex w-full flex-col items-center justify-center gap-5 text-slate-700 dark:text-neutral-300 md:flex-row md:gap-0">
+			<div className="flex flex-col items-center justify-center w-full gap-5 text-slate-700 dark:text-neutral-300 md:flex-row md:gap-0">
 				<Avatar
 					username={author.username}
 					name={author.name}
@@ -31,6 +32,7 @@ export const PostHeader = ({ title, coverImage, date, author, readTimeInMinutes 
 					&nbsp;
 					<DateFormatter dateString={date} />
 					<ReadTimeInMinutes readTimeInMinutes={readTimeInMinutes} />
+					{/* <div>{views}</div> */}
 				</section>
 			</div>
 			{coverImage && (

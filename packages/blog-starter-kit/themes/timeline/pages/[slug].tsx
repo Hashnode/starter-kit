@@ -29,6 +29,7 @@ import {
 	SlugPostsByPublicationQueryVariables,
 	StaticPageFragment,
 } from '../generated/graphql';
+import AboutAuthor from '../components/about-author';
 
 const Subscribe = dynamic(() => import('../components/subscribe').then((mod) => mod.Subscribe));
 const PostComments = dynamic(() =>
@@ -55,7 +56,7 @@ const Post = (publication: PublicationFragment, post: PostFullFragment) => {
 		<li key={tag.id}>
 			<Link
 				href={`/tag/${tag.slug}`}
-				className="block rounded-full border px-2 py-1 font-medium hover:bg-slate-50 dark:border-neutral-800 dark:hover:bg-neutral-800 md:px-4"
+				className="block px-2 py-1 font-medium border rounded-full hover:bg-slate-50 dark:border-neutral-800 dark:hover:bg-neutral-800 md:px-4"
 			>
 				#{tag.slug}
 			</Link>
@@ -106,17 +107,19 @@ const Post = (publication: PublicationFragment, post: PostFullFragment) => {
 				date={post.publishedAt}
 				author={post.author}
 				readTimeInMinutes={post.readTimeInMinutes}
+				views={post.views}
 			/>
 			{post.features.tableOfContents.isEnabled && <PostTOC />}
 			<div
-				className="prose prose-p:font-ranadeLight first:prose-p:mt-0 prose-img:max-w-full prose-p:leading-snug prose-a:underline hover:prose-a:bg-primary-50 dark:hover:prose-a:text-primary-500 dark:hover:prose-a:bg-neutral-800 prose-blockquote:leading-snug prose-a:leading-snug prose-figure:leading-snug prose-figcaption:leading-snug prose-pre:leading-snug prose-li:leading-snug prose-ul:leading-snug prose-ol:leading-snug prose-th:leading-snug prose-td:leading-snug lg:prose-xl dark:prose-invert dark:prose-pre:bg-neutral-900 first:prose-h1:mt-0 first:prose-h2:mt-0 first:prose-h3:mt-0 first:prose-h4:mt-0 first:prose-h5:mt-0 prose-h1:font-satoshiBlack prose-h2:font-satoshiBold break-words text-slate-950 dark:text-neutral-50"
+				className="prose break-words prose-p:font-ranadeLight first:prose-p:mt-0 prose-img:max-w-full prose-p:leading-snug prose-a:underline hover:prose-a:bg-primary-50 dark:hover:prose-a:text-primary-500 dark:hover:prose-a:bg-neutral-800 prose-blockquote:leading-snug prose-a:leading-snug prose-figure:leading-snug prose-figcaption:leading-snug prose-pre:leading-snug prose-li:leading-snug prose-ul:leading-snug prose-ol:leading-snug prose-th:leading-snug prose-td:leading-snug lg:prose-xl dark:prose-invert dark:prose-pre:bg-neutral-900 first:prose-h1:mt-0 first:prose-h2:mt-0 first:prose-h3:mt-0 first:prose-h4:mt-0 first:prose-h5:mt-0 prose-h1:font-satoshiBlack prose-h2:font-satoshiBold text-slate-950 dark:text-neutral-50"
 				dangerouslySetInnerHTML={{ __html: post?.content?.html }}
 			/>
 			{(post.tags ?? []).length > 0 && (
-				<div className="mx-auto w-full px-5 text-slate-600 dark:text-neutral-300 md:max-w-screen-md">
+				<div className="w-full px-5 mx-auto text-slate-600 dark:text-neutral-300 md:max-w-screen-md">
 					<ul className="flex flex-row flex-wrap items-center gap-2">{tagsList}</ul>
 				</div>
 			)}
+			<AboutAuthor />
 			{!post.preferences.disableComments && post.comments.totalDocuments > 0 && <PostComments />}
 			<Subscribe />
 		</>
@@ -132,7 +135,7 @@ const Page = (page: StaticPageFragment) => {
 			</Head>
 			<Markdown
 				remarkPlugins={[remarkGfm]}
-				className="prose first:prose-p:mt-0 prose-img:max-w-full prose-p:leading-snug prose-a:underline dark:hover:prose-a:bg-neutral-800 prose-blockquote:leading-snug prose-a:leading-snug prose-figure:leading-snug prose-figcaption:leading-snug prose-pre:leading-snug prose-li:leading-snug prose-ul:leading-snug prose-ol:leading-snug prose-th:leading-snug prose-td:leading-snug lg:prose-xl dark:prose-invert dark:prose-pre:bg-neutral-900 first:prose-h1:mt-0 first:prose-h2:mt-0 first:prose-h3:mt-0 first:prose-h4:mt-0 first:prose-h5:mt-0 break-words text-slate-950 dark:text-neutral-50"
+				className="prose break-words first:prose-p:mt-0 prose-img:max-w-full prose-p:leading-snug prose-a:underline dark:hover:prose-a:bg-neutral-800 prose-blockquote:leading-snug prose-a:leading-snug prose-figure:leading-snug prose-figcaption:leading-snug prose-pre:leading-snug prose-li:leading-snug prose-ul:leading-snug prose-ol:leading-snug prose-th:leading-snug prose-td:leading-snug lg:prose-xl dark:prose-invert dark:prose-pre:bg-neutral-900 first:prose-h1:mt-0 first:prose-h2:mt-0 first:prose-h3:mt-0 first:prose-h4:mt-0 first:prose-h5:mt-0 text-slate-950 dark:text-neutral-50"
 			>
 				{page.content.markdown}
 			</Markdown>
