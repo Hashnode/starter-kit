@@ -11,9 +11,9 @@ export const Navbar = () => {
 				navItems.length > 0 && (
 					<div className=' hidden item-center gap-4 xl:flex ' >
 						{
-							navItems.slice(0,10).map(({ id, label, type, url }) => (
+							navItems.slice(0,10).map(({ id, label, url }) => (
 								url 
-								? (<Link className='hover:outline hover:outline-1 rounded-md px-2 py-1 dark:text-white' href={new URL(url).pathname} key={id}>{label}</Link>) 
+								? (<Link className=' hover:underline rounded-md px-2 py-1 dark:text-white' href={new URL(url).pathname} key={id}>{label}</Link>) 
 								: (<p key={id}>{label}</p>)
 							))
 						}
