@@ -29,7 +29,7 @@ export const Header = () => {
 	};
 
 	const navList = (
-		<div className='fixed top-0 left-0 h-[100vh] w-[100vw] dark:text-white dark:bg-neutral-900 '>
+		<div className='fixed top-0 left-0 h-[100vh] w-[100vw] bg-white dark:text-white dark:bg-neutral-900 '>
 		<button onClick={toggleSidebar} className='text-neutral-900 z-[150] fixed top-4 right-4 dark:text-white'><CroseSVG/></button>
 		<ul className="flex flex-col justify-center  shadow-md h-full w-full py-16 px-6 items-center gap-2 fixed top-0 left-0 fade-in-fast z-[100]">
 			{navbarItems.map((item) => (
@@ -59,10 +59,10 @@ export const Header = () => {
 				
 				<div className='flex items-center gap-4'>
 				<Navbar/>
-				<button onClick={toggleSidebar} className='block xl:hidden w-6 dark:text-white'>
+				{navbarItems.length > 0 && <button onClick={toggleSidebar} className='block xl:hidden w-6 dark:text-white'>
 					<HamburgerSVG />
 					
-				</button>
+				</button>}
 			
 			
 				{theme && <button onClick={toggleTheme} className=' p-2 rounded-full moon-turn dark:text-white  '>
