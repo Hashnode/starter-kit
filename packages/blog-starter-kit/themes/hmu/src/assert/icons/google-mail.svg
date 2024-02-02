@@ -1,0 +1,10 @@
+<svg viewBox="0 0 88 67" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6 67H20V33L0 18V61C0 64.315 2.685 67 6 67Z" fill="#4285F4" />
+    <path d="M68 67H82C85.315 67 88 64.315 88 61V18L68 33V67Z" fill="#34A853" />
+    <path d="M68 6.99999V33L88 18V9.99999C88 2.58499 79.535 -1.65001 73.6 2.79999L68 6.99999Z"
+        fill="#FBBC04" />
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M20 33V7L44 25L68 7V33L44 51L20 33Z"
+        fill="#EA4335" />
+    <path d="M0 9.99999V18L20 33V6.99999L14.4 2.79999C8.465 -1.65001 0 2.58499 0 9.99999Z"
+        fill="#C5221F" />
+</svg>
