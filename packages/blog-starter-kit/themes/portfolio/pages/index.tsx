@@ -29,9 +29,6 @@ import { DEFAULT_COVER } from '../utils/const';
 import Hero from '../components/hero';
 import { Search } from '../components/searchbar';
 
-const SubscribeForm = dynamic(() =>
-	import('../components/subscribe-form').then((mod) => mod.SubscribeForm),
-);
 
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 
@@ -65,24 +62,6 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 		setLoadedMore(true);
 	};
 
-	const getData = async () => {
-		const data = await request<MorePostsByPublicationQuery, MorePostsByPublicationQueryVariables>(
-			GQL_ENDPOINT,
-			MorePostsByPublicationDocument,
-			{
-				first: 10,
-				host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
-				after: pageInfo.endCursor,
-			},
-		);
-		if (!data.publication) {
-			return;
-		}
-		const newPosts = data.publication.posts.edges.map((edge) => edge.node);
-		setAllPosts([...allPosts, ...newPosts]);
-		setPageInfo(data.publication.posts.pageInfo);
-		setLoadedMore(true);
-	};
 	const heroPosts = allPosts.slice(0, 3).map((post , i) => {
 		return (
 			<HeroPost
