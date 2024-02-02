@@ -90,7 +90,6 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 			<HeroPost
 				key={post.id}
 				title={post.title}
-				coverImage={post.coverImage?.url || DEFAULT_COVER}
 				date={post.publishedAt}
 				slug={post.slug}
 				excerpt={post.brief}
@@ -140,7 +139,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 					/>
 				</Head>
 				<Header/>
-				<Container className={`${theme} flex flex-col bg-white dark:bg-black items-stretch gap-10 px-5 pb-10`}>
+				<Container className={`${theme} flex flex-col bg-white dark:bg-neutral-900 items-stretch gap-10 px-5 pb-10`}>
 				<Hero/>
 					
 					<Waypoint onEnter={() => setEntered(true)} />
@@ -167,8 +166,8 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 							<MorePosts context="home" posts={morePosts} />
 							
 							{pageInfo.hasNextPage && pageInfo.endCursor ? (
-								<button className='outline mx-auto text-primary-950 transition-all duration-200 hover:bg-gray-100 py-1  
-								px-2 w-fit flex items-center gap-2 dark:outline-gray-700 dark:text-white dark:hover:bg-gray-900' onClick={loadMore}> <div className='w-8 h-8'><ChevronDownSVG/></div> Load More</button>
+								<button className='outline mx-auto text-primary-950 transition-all duration-200 hover:bg-gray-100 py-2 rounded-md  
+								px-4 w-fit flex items-center gap-2 outline-neutral-300 dark:outline-neutral-700 dark:text-white dark:hover:bg-gray-900' onClick={loadMore}> <div className='w-6 h-6'><ChevronDownSVG/></div> Load More</button>
 							) : (
 								<p className='text-center text-2xl font-bold text-slate-700'>That's all Folks! 👋🏼</p>
 							)}
