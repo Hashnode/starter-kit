@@ -63,12 +63,11 @@ const Post = (publication: PublicationFragment, post: PostFullFragment) => {
 			</Link>
 		</li>
 	));
-	// console.log("Post Author ===>",post.author);
 
 	return (
 		<>
 			<Head>
-				<title>{post.seo?.title || post.title}</title>
+				<title>{`${post.title} - Made using Hashnode Headless`}</title>
 				<link rel="canonical" href={post.url} />
 				<meta name="description" content={post.seo?.description || post.subtitle || post.brief} />
 				<meta property="twitter:card" content="summary_large_image" />
@@ -113,10 +112,12 @@ const Post = (publication: PublicationFragment, post: PostFullFragment) => {
 				badges={post.author.badges}
 			/>
 			{post.features.tableOfContents.isEnabled && <PostTOC />}
+
 			<div
-				className="prose break-words prose-p:font-ranadeLight first:prose-p:mt-0 prose-img:max-w-full prose-p:leading-snug prose-a:underline hover:prose-a:bg-primary-50 dark:hover:prose-a:text-primary-500 dark:hover:prose-a:bg-neutral-800 prose-blockquote:leading-snug prose-a:leading-snug prose-figure:leading-snug prose-figcaption:leading-snug prose-pre:leading-snug prose-li:leading-snug prose-ul:leading-snug prose-ol:leading-snug prose-th:leading-snug prose-td:leading-snug lg:prose-xl dark:prose-invert dark:prose-pre:bg-neutral-900 first:prose-h1:mt-0 first:prose-h2:mt-0 first:prose-h3:mt-0 first:prose-h4:mt-0 first:prose-h5:mt-0 prose-h1:font-satoshiBlack prose-h2:font-satoshiBold text-slate-950 dark:text-neutral-50 mx-[5vw] overflow-hidden"
+				className="w-full px-5 mx-auto prose break-words dark:prose-invert prose-p:font-ranadeLight first:prose-p:mt-0 prose-img:max-w-full prose-p:leading-snug prose-a:underline hover:prose-a:bg-primary-50 dark:hover:prose-a:text-primary-500 dark:hover:prose-a:bg-neutral-800 prose-blockquote:leading-snug prose-a:leading-snug prose-figure:leading-snug prose-figcaption:leading-snug prose-pre:leading-snug prose-li:leading-snug prose-ul:leading-snug prose-ol:leading-snug prose-th:leading-snug prose-td:leading-snug lg:prose-xl dark:prose-pre:bg-neutral-900 first:prose-h1:mt-0 first:prose-h2:mt-0 first:prose-h3:mt-0 first:prose-h4:mt-0 first:prose-h5:mt-0 prose-h1:font-satoshiBlack prose-h2:font-satoshiBold text-slate-950 dark:text-neutral-50 md:max-w-screen-md"
 				dangerouslySetInnerHTML={{ __html: post?.content?.html }}
 			/>
+
 			{(post.tags ?? []).length > 0 && (
 				<div className="w-full px-5 mx-auto text-slate-600 dark:text-neutral-300 md:max-w-screen-md">
 					<ul className="flex flex-row flex-wrap items-center gap-2">{tagsList}</ul>
@@ -198,7 +199,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
 		};
 	}
 	const post = publication.post;
-	// console.log(post);
+
 	if (!post) {
 		const staticPageData = await request<PageByPublicationQuery, PageByPublicationQueryVariables>(
 			process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT,
