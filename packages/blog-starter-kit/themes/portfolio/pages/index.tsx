@@ -150,7 +150,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 							{pageInfo.hasNextPage && pageInfo.endCursor ? (
 								<button className='outline mx-auto text-primary-950 dark:text-neutral-200 dark:outline-neutral-700 transition-all duration-200 hover:bg-primary-100 py-2 rounded-full px-4 w-fit flex items-center gap-2' onClick={loadMore}> <div className='w-8 h-8'><ChevronDownSVG/></div> Load More</button>
 							) : (
-								<p className='text-center text-2xl font-bold text-slate-700 dark:text-white'>That's all Folks! 👋🏼</p>
+								<p className='text-center text-2xl font-bold text-slate-700 dark:text-white'>That&apos;s all Folks! 👋🏼</p>
 							)}
 						</>
 					)}
