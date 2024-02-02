@@ -4,6 +4,14 @@ import PostCard from './post-card';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
 
+const postHeights = [
+	'row-start-1 md:row-span-3',
+	'h-60 lg:h-[260px]',
+	'h-70 lg:h-90',
+	'h-60 lg:-mt-8 lg:h-[320px]',
+	'h-80 mx-auto',
+];
+
 export default function PostList({ host, posts, loadNextPost, loading, hasNextPage }: any) {
 	const latestPost = posts.slice(0, 5);
 	const restPosts = posts.slice(5);
@@ -15,13 +23,7 @@ export default function PostList({ host, posts, loadNextPost, loading, hasNextPa
 						i < 5 && (
 							<div
 								key={i}
-								className={`group relative overflow-hidden rounded-xl border  border-neutral-800  bg-neutral-900 hover:cursor-pointer hover:border-blue-300
-                    ${i === 0 && 'row-start-1 md:row-span-2 '}
-                    ${i === 1 && 'h-64 lg:h-[280px] '}
-                    ${i === 2 && 'h-64 lg:h-80 '}
-                    ${i === 3 && 'h-64 lg:-mt-9 lg:h-[330px] '}
-                    ${i === 4 && 'h-72'}
-                    `}
+								className={`group relative hover:shadow-2xl dark:hover:shadow-blue-500 hover:shadow-slate-700 overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900 hover:cursor-pointer hover:border-blue-300 ${postHeights[i]}`}
 							>
 								<Link href={`/${post.node.slug}`}>
 									<img
@@ -53,13 +55,13 @@ export default function PostList({ host, posts, loadNextPost, loading, hasNextPa
 											<p className="">{post.node.brief}</p>
 										</div>
 									</div>
+									<div className=" absolute  bottom-0 z-10 h-44  w-full bg-gradient-to-t  from-[#000000] via-black/40   to-transparent transition-all duration-200 ease-in" />
 								</Link>
-								<div className=" absolute  bottom-0 z-10 h-44  w-full bg-gradient-to-t  from-[#000000] via-black/80   to-transparent transition-all duration-200 ease-in" />
 							</div>
 						),
 				)}
 			</div>
-			<h1 className="mt-16 ml-2 text-4xl font-semibold ">Other Articles</h1>
+			<h1 className="mt-16 ml-2 text-4xl font-satoshiBold ">Other Articles</h1>
 			{restPosts.length > 0 && (
 				<div className="px-8 pt-8 pb-16">
 					<div className="grid grid-cols-1 gap-4 mt-4 md:grid-cols-2 ">
@@ -71,7 +73,7 @@ export default function PostList({ host, posts, loadNextPost, loading, hasNextPa
 					<div className="flex justify-center w-full">
 						<Button
 							disabled={loading || !hasNextPage}
-							className="mt-10"
+							className="mt-10 hover:text-indigo-500"
 							variant="ghost"
 							onClick={loadNextPost}
 						>

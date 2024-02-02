@@ -1,7 +1,5 @@
 'use client';
 import { useHashnodePosts } from 'hashnode-client';
-// import PostList from "./PostList";
-// import NoPosts from "../search/NoPosts";
 import PostList from './post-list';
 
 const Publication = ({ host }: any) => {
