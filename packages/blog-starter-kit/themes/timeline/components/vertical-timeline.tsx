@@ -43,7 +43,7 @@ const VerticalTimeline = ({ posts }: { posts: PostFragment[] }) => {
 								<time dateTime={post.publishedAt}>
 									<DateFormatter dateString={post.publishedAt} />
 								</time>
-								<time className="flex items-center justify-center">
+								<time className="flex items-center justify-center text-indigo-500">
 									<EyeIcon className="w-4 h-4" />
 									&nbsp;{post.views}
 								</time>

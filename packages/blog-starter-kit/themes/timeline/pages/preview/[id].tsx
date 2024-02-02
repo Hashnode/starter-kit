@@ -37,7 +37,7 @@ export default function Post({ publication, post }: Props) {
 		<li key={tag.id}>
 			<Link
 				href={`/tag/${tag.slug}`}
-				className="block rounded-full border px-2 py-1 font-medium hover:bg-slate-50 dark:border-neutral-800 dark:hover:bg-neutral-800 md:px-4"
+				className="block px-2 py-1 font-medium border rounded-full hover:bg-slate-50 dark:border-neutral-800 dark:hover:bg-neutral-800 md:px-4"
 			>
 				#{tag.slug}
 			</Link>
@@ -61,9 +61,12 @@ export default function Post({ publication, post }: Props) {
 							date={post.publishedAt}
 							author={post.author}
 							readTimeInMinutes={post.readTimeInMinutes}
+							views={post.views}
+							bio={post.author.bio}
+							badges={post.author.badges}
 						/>
 						<MarkdownToHtml contentMarkdown={post.content.markdown} />
-						<div className="mx-auto w-full px-5 text-slate-600 dark:text-neutral-300 md:max-w-screen-md">
+						<div className="w-full px-5 mx-auto text-slate-600 dark:text-neutral-300 md:max-w-screen-md">
 							<ul className="flex flex-row flex-wrap items-center gap-2">{tagsList}</ul>
 						</div>
 					</article>

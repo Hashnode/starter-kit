@@ -1,16 +1,39 @@
 fragment Post on Post {
-  id
-  title
-  url
-  author {
-    name
-    profilePicture
-  }
-  coverImage {
-    url
-  }
-  publishedAt
-  slug
-  brief
-  views
+	id
+	title
+	url
+	author {
+		id
+		name
+		username
+		profilePicture
+		bio {
+			html
+		}
+		badges {
+			id
+			name
+			description
+			image
+			dateAssigned
+			infoURL
+			suppressed
+		}
+	}
+	coAuthors {
+		username
+		id
+		name
+		bio {
+			html
+		}
+		profilePicture
+	}
+	coverImage {
+		url
+	}
+	publishedAt
+	slug
+	brief
+	views
 }
