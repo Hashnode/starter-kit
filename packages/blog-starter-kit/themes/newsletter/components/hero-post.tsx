@@ -7,13 +7,12 @@ import { redirect } from 'next/navigation';
 
 type Props = {
 	title: string;
-	coverImage: string;
 	date: string;
 	excerpt: string;
 	slug: string;
 };
 
-export const HeroPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
+export const HeroPost = ({ title, date, excerpt, slug }: Props) => {
 	const postURL = `/${slug}`;
 
 	return (
