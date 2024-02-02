@@ -22,6 +22,16 @@ fragment PostFull on Post {
 	readTimeInMinutes
 	reactionCount
 	responseCount
+	views
+	publication {
+		id
+		isTeam
+		favicon
+		title
+		about {
+			html
+		}
+	}
 	seo {
 		title
 		description
@@ -30,8 +40,30 @@ fragment PostFull on Post {
 		url
 	}
 	author {
+		id
 		name
 		username
+		profilePicture
+		bio {
+			html
+		}
+		badges {
+			id
+			name
+			description
+			image
+			dateAssigned
+			infoURL
+			suppressed
+		}
+	}
+	coAuthors {
+		username
+		id
+		name
+		bio {
+			html
+		}
 		profilePicture
 	}
 	title

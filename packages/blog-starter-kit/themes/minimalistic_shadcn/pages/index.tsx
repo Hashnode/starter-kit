@@ -145,10 +145,9 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 								date={firstPost.publishedAt}
 								slug={firstPost.slug}
 								excerpt={firstPost.brief}
+								views={firstPost.views}
 							/>
 						)}
-						{/* <div className="grid grid-cols-1 md:grid-cols-2">{secondaryPosts}</div> */}
-						{/* <div className="grid grid-cols-1 md:grid-cols-2"> */}
 					</div>
 
 					{Object.entries(secondaryPosts).map(([monthYear, posts]) => {
@@ -165,6 +164,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 											date={post.publishedAt}
 											slug={post.slug}
 											excerpt={post.brief}
+											views={post.views}
 										/>
 									))}
 								</div>

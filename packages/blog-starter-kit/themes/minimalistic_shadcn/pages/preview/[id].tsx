@@ -61,6 +61,9 @@ export default function Post({ publication, post }: Props) {
 							date={post.publishedAt}
 							author={post.author}
 							readTimeInMinutes={post.readTimeInMinutes}
+							views={post.views}
+							bio={post.author.bio}
+							badges={post.author.badges}
 						/>
 						<MarkdownToHtml contentMarkdown={post.content.markdown} />
 						<div className="mx-auto w-full px-5 text-slate-600 dark:text-neutral-300 md:max-w-screen-md">
