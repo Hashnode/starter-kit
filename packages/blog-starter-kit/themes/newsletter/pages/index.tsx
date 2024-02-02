@@ -27,6 +27,7 @@ import PublicationMeta from '../components/publication-meta';
 import { resizeImage } from '../utils/image';
 import { Subscribe } from '../components/subscribe';
 import { HeaderTitle } from '../components/header-title';
+import AboutAuthor from '../components/about-author';
 
 const REVALIDATION_INTERVAL_POST_VIEWS_ACTIVE = 60 * 60; // 1 hour
 const REVALIDATION_INTERVAL = 60 * 60 * 24 * 30; // 1 month
@@ -136,20 +137,10 @@ export default function Index(
 					/>
 				</Head>
 				<Header isHome={true} />
-				
-						<div className="bg-primary-50 grid grid-cols-4 rounded-lg px-5 py-5 dark:bg-neutral-900 md:py-10">
-							<div className="col-span-full md:col-span-2 md:col-start-2">
-								<h2 className="text-primary-600 dark:text-primary-500 mb-5 text-center text-lg font-semibold">
-								Helping developers, and people in tech connect and share knowledge easily!
- 
-								</h2>
-								<HeaderTitle />
-							</div>
-						</div>
 
-
-				
-
+						<HeaderTitle />
+					
+            
 				<div>
 					{postsToBeRendered.edges.length > 0 ? (
 						<FeaturedPosts
@@ -157,26 +148,6 @@ export default function Index(
 							publication={publication}
 						/>
 					) : null}
-
-					{publication.about?.html ? (
-						<div
-							className="blog-author-container border-b dark:border-slate-800"
-						>
-							<div
-								className={twJoin(
-									'blog-author-area feed-width mx-auto md:w-3/4 lg:w-2/3',
-									preferences.layout === 'grid' ? '' : 'px-4 lg:px-8',
-								)}
-							>
-								<PublicationMeta
-									author={author}
-									aboutHTML={publication.about.html}
-									isTeam={publication.isTeam}
-								/>
-							</div>
-						</div>
-					) : null}
-
 					<div className="blog-content-area feed-width mx-auto md:w-2/3">
 						<div>
 							{postsToBeRendered.edges.length === 0 ? (
@@ -211,8 +182,7 @@ export default function Index(
 							</div>
 						</div>
 
-					<Subscribe />
-					
+					<Subscribe />			
 				</div>
 
 				{publication ? (

@@ -39,7 +39,7 @@ const SearchBar = (props: Props) => {
       >
         <input
 		type="text"
-		placeholder="Search posts,tags"
+		placeholder="               Search posts,tags"
 		className="focus:outline-primary-600 dark:focus:outline-primary-500  top-3 w-full rounded-full p-3 text-base text-black outline-none dark:bg-neutral-950 dark:text-neutral-50"
 		/>
       </CommonHeaderIconBtn>

@@ -22,6 +22,10 @@ const PublicationMeta = (
           {aboutHTML ? (
             <div
               className={twJoin('prose text-center dark:prose-dark', isTeam ? 'max-w-full lg:prose-xl' : '')}
+              style={{
+                
+                fontSize: 'x-large',
+                  }}
               // eslint-disable-next-line react/no-danger
               dangerouslySetInnerHTML={{ __html: aboutHTML }}
             />
