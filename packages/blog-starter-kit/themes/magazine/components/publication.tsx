@@ -8,11 +8,7 @@ const Publication = ({ host }: any) => {
 	const settings = { host: host };
 	const { loading, posts, loadMorePost, pageInfo } = useHashnodePosts(settings, { first: 10 });
 
-	// const tagName = tag
-	// 	? posts[0]?.node.tags.filter((tagBox:any) => tagBox.id === tag)[0]?.name
-	// 	: undefined;
-	console.log(posts);
-	console.log(loadMorePost);
+
 	if (posts.length === 0 && loading) {
 		return <Loader description="Post Loading" />;
 	}
@@ -48,7 +44,7 @@ import { Loader } from './loader';
 export function SkeletonDemo() {
 	return (
 		<div className="flex items-center space-x-4">
-			<Skeleton className="h-12 w-12 rounded-full" />
+			<Skeleton className="w-12 h-12 rounded-full" />
 			<div className="space-y-2">
 				<Skeleton className="h-4 w-[250px]" />
 				<Skeleton className="h-4 w-[200px]" />
