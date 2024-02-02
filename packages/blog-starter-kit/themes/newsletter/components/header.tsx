@@ -56,8 +56,9 @@ export const Header = () => {
 			 gap-5 px-4 md:px-8 dark:bg-neutral-900">
 				<Link href='/'><span className='text-2xl font-bold flex items-center gap-2 dark:text-white'>{publication.author.profilePicture && <img className='w-8 rounded-full ' src = {publication.author.profilePicture} />}{publication.author.username}</span></Link>
 				
-				<Navbar/>
+				
 				<div className='flex items-center gap-4'>
+				<Navbar/>
 				<button onClick={toggleSidebar} className='block xl:hidden w-6 dark:text-white'>
 					<HamburgerSVG />
 					
