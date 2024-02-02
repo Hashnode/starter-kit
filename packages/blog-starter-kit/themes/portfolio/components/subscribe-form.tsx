@@ -1,5 +1,5 @@
 import request from 'graphql-request';
-import { useRef, useState } from 'react';
+import { useRef, useState , useEffect } from 'react';
 import {
 	SubscribeToNewsletterDocument,
 	SubscribeToNewsletterMutation,
@@ -7,6 +7,7 @@ import {
 	SubscribeToNewsletterPayload,
 } from '../generated/graphql';
 import { useAppContext } from './contexts/appContext';
+import GreenTickSVG from './icons/svgs/GreenTickSVG';
 
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 
@@ -39,35 +40,44 @@ export const SubscribeForm = () => {
 			setRequestInProgress(false);
 		}
 	};
+	useEffect(() =>{
+		if(status === 'PENDING'){
+			setTimeout(() => {
+				setStatus(null)
+			} , 8000)
+		}
+	} , [status])
 	return (
 		<>
 			{!status && (
-				<div className="relative w-[80%] outline outline-1 outline-primary-100 mx-auto rounded-full bg-white p-2 dark:bg-neutral-950 dark:outline-none">
+				<div className="relative w-[80%] fade-in   mx-auto rounded-md flex flex-col items-center gap-4 p-4overflow-hidden ">
 					<input
 						ref={inputRef}
 						type="email"
-						placeholder="john@doe.com"
-						className="  left-3 top-3 w-full rounded-full p-3 text-base text-black outline-none dark:bg-neutral-950 dark:text-neutral-50"
+						placeholder="name@email.com"
+						className=" w-full py-2 px-4 text-base text-neutral-900 dark:placeholder:text-neutral-500 dark:text-black focus: placeholder:text-primary-500 dark:white rounded-md bg-primary-200 dark:bg-white"
 					/>
 					<button
 						disabled={requestInProgress}
 						onClick={subscribe}
-						className="bg-primary-600 dark:bg-primary-600 absolute right-3 top-3 rounded-full px-3 py-2 text-white disabled:cursor-not-allowed disabled:opacity-80"
+						className="bg-primary-500 dark:bg-primary-700 h-full  rounded-md px-3 py-2 text-white disabled:cursor-not-allowed disabled:opacity-80"
 					>
 						Subscribe
 					</button>
 				</div>
 			)}
 			{status === 'PENDING' && (
-				<div className="relative w-full p-2 text-center">
-					<p className="font-bold text-primary-600 dark:text-primary-200">Almost there!</p>
-					<p className="font-medium text-slate-600 dark:text-neutral-300">
+				<div className="relative max-w-full flex flex-col fade-in items-center gap-2 w-[80%] p-2 text-center">
+					<span className=' text-green-700'><GreenTickSVG/> </span>
+					<p className="font-bold text-xl text-green-700 dark:text-white">Almost there!</p>
+					<p className="font-medium text-green-700 dark:text-white">
 						Check your inbox for a confirmation email and click{' '}
 						<strong>&quot;Confirm and Subscribe&quot;</strong> to complete your subscription. Thanks
 						for joining us!
 					</p>
+					
 				</div>
 			)}
 		</>
-	);
+	)
 };

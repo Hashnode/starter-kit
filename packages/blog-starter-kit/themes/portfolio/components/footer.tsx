@@ -3,6 +3,7 @@ import { Container } from './container';
 import { useAppContext } from './contexts/appContext';
 import { SocialLinks } from './social-links';
 import { SubscribeForm } from './subscribe-form';
+import SubscribeFormContainer from './subscribe-form-container';
 
 export const Footer = () => {
 	const { publication } = useAppContext();
@@ -25,12 +26,7 @@ export const Footer = () => {
 						{publication.title}
 					</p>
 				)}
-				<div className=" max-w-[600px] mb-8 bg-primary-50 py-6 px-2 rounded-md mx-auto dark:bg-neutral-800">
-					<h2 className="text-primary-600 dark:text-primary-100 mb-5 text-center text-lg font-semibold">
-						Subscribe to our newsletter for updates and changelog.
-					</h2>
-					<SubscribeForm />
-				</div>
+				<SubscribeFormContainer/>
 				<div className="flex flex-col items-center w-full gap-4">
 
 					<div className=" flex flex-col items-center gap-4 text-right text-slate-600 dark:text-neutral-300 md:text-left">
