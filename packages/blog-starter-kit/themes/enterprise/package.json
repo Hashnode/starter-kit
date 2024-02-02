@@ -7,7 +7,7 @@
 		"dev": "concurrently \"next\" \"pnpm codegen --watch\" --names next,codegen",
 		"format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,json}\" --ignore-path ../../../../.prettierignore",
 		"lint": "next lint",
-		"start": "next start",
+		"start": "next start -p 3002"
 		"typecheck": "tsc"
 	},
 	"dependencies": {
