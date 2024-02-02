@@ -8,7 +8,7 @@ import { getBlurHash, resizeImage } from '../utils/image';
 import { kFormatter } from '../utils/image';
 import { PostThumbnailFragment, RequiredPublicationFieldsFragment } from '../generated/graphql';
 
-function BlogPostPreview(props: {
+function BlogPostPreview(props: { 
   post: PostThumbnailFragment;
   publication: Pick<RequiredPublicationFieldsFragment, 'features'>;
 }) {
@@ -61,41 +61,7 @@ function BlogPostPreview(props: {
           
         </Link>
       </h1>
-      <div className="blog-article-card-author-strip mx-4 flex flex-row flex-wrap items-center">
-        <div className="flex flex-col items-start leading-snug">
-          <div className="blog-article-card-article-meta flex flex-row text-sm">
-            {publication.features.readTime.isEnabled && post.readTimeInMinutes ? (
-              <>
-                <p className="text-slate-500 dark:text-slate-400">
-                  <Link
-                    href={postURL}
-                    className="flex flex-row items-center"
-                    onMouseOver={preload}
-                    onFocus={() => undefined}
-                  >
-                    
-                  </Link>
-                </p>
-              </>
-            ) : null}
-            {post.readTimeInMinutes && Number(post.views) > 0 && publication.features.viewCount.isEnabled ? (
-              <p className="mx-2 font-bold text-slate-500 dark:text-slate-400">&middot;</p>
-            ) : null}
-            {Number(post.views) > 0 && publication.features.viewCount.isEnabled ? (
-              <p className="text-slate-500 dark:text-slate-400">
-                <Link
-                  href={postURL}
-                  className="flex flex-row items-center"
-                  onMouseOver={preload}
-                  onFocus={() => undefined}
-                >
-                  
-                </Link>
-              </p>
-            ) : null}
-          </div>
-        </div>
-      </div>
+      
     </div>
   );
 }

@@ -4,11 +4,14 @@ import Button from './hn-button';
 import { ChevronDownSVG, BookOpenSVG, ChartMixedSVG } from './icons/svgs';
 import { PageInfo, RequiredPublicationFieldsFragment, PostThumbnailFragment } from '../generated/graphql';
 import BlogPostPreview from './magazine-blog-post-preview-home';
+import { kFormatter } from '../utils/image';
+import { format } from 'date-fns'; // Import the format function for date formatting
+
 const PublicationPosts = (props: {
   posts: {
     edges: Array<{
       cursor: string;
-      node: PostThumbnailFragment;
+      node: PostThumbnailFragment; 
     }>;
     pageInfo: Pick<PageInfo, 'hasNextPage' | 'endCursor'>;
   };
@@ -19,8 +22,7 @@ const PublicationPosts = (props: {
 }) => {
   const { posts, publication, fetchMore, fetching, fetchedOnce } = props;
   const { edges, pageInfo } = posts;
-  
-  
+
   const slicedPosts = edges.map((edge) => edge.node).slice(1);
 
   return (
@@ -28,35 +30,47 @@ const PublicationPosts = (props: {
       <div className="blog-articles-container container mx-auto flex flex-col px-4 py-4 xl:py-10 xl:px-10 2xl:px-24 2xl:py-5">
         {slicedPosts.map((post) => (
           <div key={post.id} className="flex mb-4">
-            <div className="w-1/4 pr-4">
+            <div className="w-full">
               {/* Adjust the width as needed */}
-              <BlogPostPreview post={post} publication={publication} />
-            </div>
-            <div className="w-3/4">
-              {/* Adjust the width as needed */}
-              <div className="flex flex-col justify-between h-full">
-                <div>
-                  <h2 className="text-xl font-bold">{post.title}</h2>
-                  <div className="flex items-center mt-2">
-                  <BookOpenSVG className="mr-2 h-4 w-4 fill-current" />
-                    <span className="mr-4 h-4 w-4 fill-current">{post.readTimeInMinutes}</span>
-                    <ChartMixedSVG className="mr-2 h-4 w-4 fill-current" />
-                    <span className="h-4 w-4 fill-current">{post.views}</span>
-                  </div>
-                  {/* Add any other post details or components here */}
+              <div className="flex flex-col h-full">
+                <div className="text-left mb-4">
+                  <h2 className="text-4xl font-bold text-center xl:text-left mb-2">{post.title}</h2>
                 </div>
-                <div className="flex justify-between mt-4">
-                  <div>{/* Post Image, Read Time, Analytics - Adjust as needed */}</div>
-                  <div><a
-            className="block font-semibold text-slate-700 dark:text-slate-400"
-            href={`https://hashnode.com/@${post.author.username}`}
-            
-            onFocus={() => undefined}
-          >
-            {post.author.name}
-          </a></div>
+                <div className="flex justify-center mt-4">
+                  {/* Post Image, Read Time, Analytics - Adjust as needed */}
+                </div>
+                <div className="blog-article-card-article-meta flex flex-row text-sm">
+                  {publication.features.readTime.isEnabled && post.readTimeInMinutes ? (
+                    <>
+                      <p className="text-slate-500 dark:text-slate-400">
+                        {/* <BookOpenSVG className="mr-2 h-4 w-4 fill-current" /> */}
+                        <span>{post.readTimeInMinutes} min read</span>
+                      </p>
+                    </>
+                  ) : null}
+                  {post.readTimeInMinutes && Number(post.views) > 0 && publication.features.viewCount.isEnabled ? (
+                    <p className="mx-2 font-bold text-slate-500 dark:text-slate-400">&middot;</p>
+                  ) : null}
+                  {Number(post.views) > 0 && publication.features.viewCount.isEnabled ? (
+                    <p className="text-slate-500 dark:text-slate-400">
+                      {/* <ChartMixedSVG className="mr-2 h-4 w-4 fill-current" /> */}
+                      <span>{kFormatter(post.views)} views</span>
+                    </p>
+                  ) : null}
+                </div>
+                <div className="flex items-center mt-2">
+                  <p className="text-slate-500 dark:text-slate-400">Written by</p>
+                  <span className="ml-2">{post.author.name}</span>
+                </div>
+                <div className="text-right">
+                  
                 </div>
               </div>
+            </div>
+            <div className="w-full pl-4">
+              {/* Adjust the width as needed */}
+              <BlogPostPreview post={post} publication={publication} />
+              
             </div>
           </div>
         ))}
