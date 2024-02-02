@@ -27,6 +27,7 @@ type Props = {
 };
 
 export default function Post({ publication, post }: Props) {
+	const {theme} = useTheme()
 	if (!post) {
 		return <ErrorPage statusCode={404} />;
 	}
@@ -44,7 +45,6 @@ export default function Post({ publication, post }: Props) {
 			</Link>
 		</li>
 	));
-		const {theme} = useTheme()
 	return (
 		<AppProvider publication={publication}>
 			
