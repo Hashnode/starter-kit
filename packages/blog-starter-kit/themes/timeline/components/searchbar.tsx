@@ -1,5 +1,6 @@
 import { resizeImage } from '@starter-kit/utils/image';
 import request from 'graphql-request';
+import { SearchIcon } from 'lucide-react';
 import Link from 'next/link';
 import { KeyboardEventHandler, useEffect, useRef, useState } from 'react';
 import {
@@ -10,7 +11,7 @@ import {
 import { DEFAULT_COVER } from '../utils/const';
 import { useAppContext } from './contexts/appContext';
 import { CoverImage } from './cover-image';
-import { Sheet, SheetContent, SheetDescription, SheetTrigger } from './ui/sheet';
+import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 const NO_OF_SEARCH_RESULTS = 5;
@@ -106,9 +107,12 @@ export const Search = () => {
 
 	return (
 		<Sheet>
-			<SheetTrigger>Search</SheetTrigger>
-			<SheetContent className='flex flex-col'>
-				<h1 className='text-xl font-satoshiMedium'>Search Blog by Title</h1>
+			<SheetTrigger className="flex items-center space-x-3 font-satoshiMedium hover:text-indigo-400GG">
+				Search&nbsp;
+				<SearchIcon className="w-4 h-4" />
+			</SheetTrigger>
+			<SheetContent className="flex flex-col overflow-y-auto">
+				<h1 className="text-xl font-satoshiMedium">Search Blog by Title</h1>
 				<div className="relative col-span-1">
 					<input
 						type="text"
