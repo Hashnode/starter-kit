@@ -50,21 +50,21 @@ export const SubscribeForm = () => {
 	return (
 		<>
 			{!status && (
-				<div className="relative w-[80%] fade-in   mx-auto rounded-md flex flex-col items-center gap-4 p-4overflow-hidden ">
-					<input
-						ref={inputRef}
-						type="email"
-						placeholder="name@email.com"
-						className=" w-full py-2 px-4 text-base text-neutral-900 dark:placeholder:text-neutral-500 dark:text-black focus: placeholder:text-primary-500 dark:white rounded-md bg-primary-200 dark:bg-white"
-					/>
-					<button
-						disabled={requestInProgress}
-						onClick={subscribe}
-						className="bg-primary-500 dark:bg-primary-700 h-full  rounded-md px-3 py-2 text-white disabled:cursor-not-allowed disabled:opacity-80"
-					>
-						Subscribe
-					</button>
-				</div>
+				<div className="relative w-[80%] fade-in  outline outline-1 dark:outline-none  mx-auto rounded-md flex items-center   bg-white dark:bg-gray-700 overflow-hidden">
+				<input
+					ref={inputRef}
+					type="email"
+					placeholder="name@email.com"
+					className=" w-full py-2 px-4 text-base text-neutral-900 outline-none dark:placeholder:text-neutral-400 dark:text-black focus: placeholder:text-gray-400 md:outline-none outline outline-1 outline-black "
+				/>
+				<button
+					disabled={requestInProgress}
+					onClick={subscribe}
+					className="bg-black dark:bg-primary-300 h-full   rounded-tr-md rounded-br-md px-3 py-2 text-white dark:text-primary-950 disabled:cursor-not-allowed disabled:opacity-80"
+				>
+					Subscribe
+				</button>
+			</div>
 			)}
 			{status === 'PENDING' && (
 				<div className="relative max-w-full flex flex-col fade-in items-center gap-2 w-[80%] p-2 text-center">

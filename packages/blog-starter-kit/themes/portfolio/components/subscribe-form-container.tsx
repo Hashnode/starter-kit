@@ -5,7 +5,7 @@ const SubscribeFormContainer = () => {
 	const {publication} = useAppContext()
 	return (
         
-		<div className="outline outline-1 mb-8 outline-neutral-300 dark:outline-neutral-800 mx-auto bg-primary-50 dark:bg-primary-400 shadow-sm rounded-md py-12 p-4 flex flex-col  gap-4 items-center max-w-[640px]">
+		<div className="outline outline-1 mb-8 outline-neutral-300 dark:outline-neutral-800 mx-auto dark:bg-neutral-800 shadow-sm rounded-xl py-12 p-4 flex flex-col  gap-4 items-center max-w-[640px]">
 			<div className="flex flex-col md:flex-row items-center gap-4 md:gap-8dark:text-white mb-4 w-[80%]">
 				{publication.author.profilePicture && <img className="w-32 rounded-md" src={publication.author.profilePicture} />}
 				<div className="text-center md:text-left">
