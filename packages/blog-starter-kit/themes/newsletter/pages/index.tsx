@@ -157,7 +157,7 @@ export default function Index(
 					{postsToBeRendered.edges.length > 0 ? (
 						<div>
 							<FeaturedPosts
-								posts={postsToBeRendered.edges.map((p: any) => p.node).slice(0, 2)}
+								posts={postsToBeRendered.edges.map((p: any) => p.node).slice(0, 1)}
 								publication={publication}
 								
 							/>

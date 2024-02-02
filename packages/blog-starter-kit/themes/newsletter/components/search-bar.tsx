@@ -28,7 +28,7 @@ const SearchBar = (props: Props) => {
   };
 
   return (
-    <>
+    <div className=" p-4 "> {/* Add "rounded-full" class for rounded corners */}
       {isSearchUIVisible ? (
         <PublicationSearch publication={publication} toggleSearchUI={toggleSearchUI} triggerRef={triggerRef} />
       ) : null}
@@ -36,15 +36,21 @@ const SearchBar = (props: Props) => {
         handleClick={toggleSearchUI}
         variant="search"
         btnRef={triggerRef}
-      >
+      >  
+        <div className="relative flex items-center">
+          
         <input
-		type="text"
-		placeholder="               Search posts,tags"
-		className="focus:outline-primary-600 dark:focus:outline-primary-500  top-3 w-full rounded-full p-3 text-base text-black outline-none dark:bg-neutral-950 dark:text-neutral-50"
-		/>
+          type="text"
+          placeholder="Search posts, tags"
+          className="focus:outline-primary-800 dark:focus:outline-primary-500 top-3 w-full rounded-full p-4 text-base text-black outline-none bg-gray-100 dark:bg-gray-950 dark:text-neutral-50" 
+          
+        />
+        <button className="bg-primary-600 dark:bg-primary-600 absolute right-3 top-3 rounded-full px-3 py-2 text-white disabled:cursor-not-allowed disabled:opacity-80">
+          Search
+				</button>
+        </div>
       </CommonHeaderIconBtn>
-    </>
+    </div>
   );
-};
-
+      };  
 export default SearchBar;
