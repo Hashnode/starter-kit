@@ -26,6 +26,7 @@ import PublicationFooter from '../components/publication-footer';
 import PublicationMeta from '../components/publication-meta';
 import { resizeImage } from '../utils/image';
 import { Subscribe } from '../components/subscribe';
+import { HeaderTitle } from '../components/header-title';
 
 const REVALIDATION_INTERVAL_POST_VIEWS_ACTIVE = 60 * 60; // 1 hour
 const REVALIDATION_INTERVAL = 60 * 60 * 24 * 30; // 1 month
@@ -135,14 +136,19 @@ export default function Index(
 					/>
 				</Head>
 				<Header isHome={true} />
-				<div className="bg-primary-50 grid grid-cols-4 rounded-lg px-5 py-5 dark:bg-neutral-900 md:py-10">
+				
+						<div className="bg-primary-50 grid grid-cols-4 rounded-lg px-5 py-5 dark:bg-neutral-900 md:py-10">
 							<div className="col-span-full md:col-span-2 md:col-start-2">
 								<h2 className="text-primary-600 dark:text-primary-500 mb-5 text-center text-lg font-semibold">
-									Subscribe to our newsletter !
+								Helping developers, and people in tech connect and share knowledge easily!
+ 
 								</h2>
-								<SubscribeForm />
+								<HeaderTitle />
 							</div>
 						</div>
+
+
+				
 
 				<div>
 					{postsToBeRendered.edges.length > 0 ? (

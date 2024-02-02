@@ -30,6 +30,7 @@ interface ICommonHeaderIconBtn {
   children: React.ReactNode;
   variant: keyof typeof variants;
   btnRef?: RefObject<HTMLButtonElement>;
+  customContent?: React.ReactNode;
 }
 
 export const getCommonBtnStyles = () =>
