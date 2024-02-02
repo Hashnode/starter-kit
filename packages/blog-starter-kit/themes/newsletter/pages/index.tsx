@@ -27,7 +27,6 @@ import PublicationMeta from '../components/publication-meta';
 import { resizeImage } from '../utils/image';
 import { Subscribe } from '../components/subscribe';
 import { HeaderTitle } from '../components/header-title';
-import AboutAuthor from '../components/about-author';
 
 const REVALIDATION_INTERVAL_POST_VIEWS_ACTIVE = 60 * 60; // 1 hour
 const REVALIDATION_INTERVAL = 60 * 60 * 24 * 30; // 1 month
@@ -137,17 +136,38 @@ export default function Index(
 					/>
 				</Head>
 				<Header isHome={true} />
+				{publication.about?.html ? (
+						<div
+							className="blog-author-container border-b dark:border-slate-800"
+						>
+							<div
+								className={twJoin(
+									'blog-author-area feed-width mx-auto md:w-3/4 lg:w-2/3',
+									preferences.layout === 'grid' ? '' : 'px-4 lg:px-8',
+								)}
+							>
+								
+								<HeaderTitle />
+							</div>
+						</div>
+					) : null}
 
-						<HeaderTitle />
-					
-            
+
 				<div>
 					{postsToBeRendered.edges.length > 0 ? (
-						<FeaturedPosts
-							posts={postsToBeRendered.edges.map((p: any) => p.node).slice(0, 3)}
-							publication={publication}
-						/>
+						<div>
+							<FeaturedPosts
+								posts={postsToBeRendered.edges.map((p: any) => p.node).slice(0, 2)}
+								publication={publication}
+								
+							/>
+							
+							
+						</div>
 					) : null}
+
+					
+
 					<div className="blog-content-area feed-width mx-auto md:w-2/3">
 						<div>
 							{postsToBeRendered.edges.length === 0 ? (
@@ -182,7 +202,8 @@ export default function Index(
 							</div>
 						</div>
 
-					<Subscribe />			
+						<Subscribe />
+					
 				</div>
 
 				{publication ? (
@@ -281,7 +302,3 @@ export const getStaticProps = async () => {
 		revalidate: 1,
 	};
 };
-
-
-
-
