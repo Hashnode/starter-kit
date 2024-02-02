@@ -1,13 +1,71 @@
-<script>
+<script lang="ts">
+	import { formatDate } from '$lib/utils/formatDate';
 	import Header from '$lib/components/Header.svelte';
 	import Hero from '$lib/components/Hero.svelte';
 	import Footer from '$lib/components/Footer.svelte';
-	import { formatDate } from '$lib/utils/formatDate';
+	import { morePosts } from './loadMorePosts';
+	import { onMount } from 'svelte';
 
 	export let data;
+	let hasMorePosts: boolean = true;
 
-	const posts = data.props.posts.publication?.posts.edges;
-	const firstPost = posts?.slice(0, 1)[0];
+	let posts = data.props.posts.publication?.posts.edges;
+	let firstPost = posts ? posts[0] : null;
+	let initialPosts = posts
+		? posts.map((post) => {
+				return {
+					node: {
+						...post.node
+					}
+				};
+			})
+		: [];
+
+	let allPosts = [...initialPosts];
+
+	let isLoading = false;
+
+	async function loadMorePosts() {
+		isLoading = true;
+		try {
+			const data = await morePosts();
+
+			if (!data || !data.newPosts) {
+				console.error('Failed to load more posts: data is', data);
+				return;
+			}
+
+			const newPosts = data.newPosts;
+
+			newPosts.forEach((post) => {
+				if (!post || !post.node) {
+					console.error('Invalid post:', post);
+					return;
+				}
+
+				if (!data.pageInfo.hasNextPage) {
+					hasMorePosts = false;
+				}
+
+				if (!allPosts.some((existingPost) => existingPost.node.id === post.node.id)) {
+					allPosts = [
+						...allPosts,
+						{
+							node: {
+								...post.node
+							}
+						}
+					];
+				}
+			});
+		} catch (error) {
+			console.error('An error occurred while loading more posts:', error);
+		} finally {
+			isLoading = false;
+		}
+	}
+
+	onMount(loadMorePosts);
 </script>
 
 <Header />
@@ -15,24 +73,28 @@
 
 <section class="grid justify-center max-w-5xl mx-auto">
 	{#if firstPost}
-		<div class="w-full flex rounded-2xl bg-zinc-900/30 p-6">
+		<div class="w-full flex rounded-2xl bg-zinc-900/30">
 			<img
 				src={firstPost.node.coverImage?.url}
 				alt="Post"
 				class="rounded-2xl w-[326px] h-[234px] object-cover"
 			/>
-			<div class="ml-10">
-				<div class="gap-5">
-					<a class="text-white text-3xl" href={`${firstPost.node.slug}`}>{firstPost.node.title}</a>
+			<div class="p-4 flex flex-col justify-between">
+				<div>
+					<div class="gap-5">
+						<a class="text-white text-3xl line-clamp-3" href={`${firstPost.node.slug}`}
+							>{firstPost.node.title}</a
+						>
+					</div>
+					<div class="text-orange-400 text-sm py-2">{formatDate(firstPost.node.publishedAt)}</div>
 				</div>
-				<div class="text-orange-400 text-sm py-2">{formatDate(firstPost.node.publishedAt)}</div>
-				<div class="text-zinc-400 text-sm py-2">{firstPost.node.brief}</div>
 				<a href={`${firstPost.node.slug}`} class="text-white pt-4">Read the article</a>
 			</div>
 		</div>
 	{/if}
+
 	<section class="grid grid-cols-3 gap-10 my-20">
-		{#each posts?.slice(1) || [] as { node }}
+		{#each allPosts?.slice(1) || [] as { node }}
 			<div class="flex flex-col mb-10">
 				<img src={node.coverImage?.url} alt="Post" class="rounded-2xl h-[200px] object-cover" />
 				<div class="text-orange-400 text-sm py-2">{formatDate(node.publishedAt)}</div>
@@ -42,6 +104,15 @@
 			</div>
 		{/each}
 	</section>
+
+	{#if hasMorePosts}
+		<button
+			class="bg-orange-500 rounded-full w-60 m-auto px-6 py-3 text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 hover:bg-orange-600 hover:shadow-lg"
+			on:click={loadMorePosts}
+		>
+			{isLoading ? 'Loading...' : 'Load more'}
+		</button>
+	{/if}
 </section>
 
 <Footer />

@@ -29,7 +29,7 @@ export async function load() {
 	return {
 		props: {
 			publication,
-            posts
+            posts,
 		}
 	};
 }
