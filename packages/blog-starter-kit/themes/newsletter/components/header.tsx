@@ -17,12 +17,16 @@ export const Header = (props: Props) => {
 	const { currentMenuId, isHome } = props;
 	const { publication } = useAppContext();
 
-	return (
-		<header
-			className="blog-header relative z-50 w-full border-b border-black/10 bg-white bg-opacity-70 dark:border-white/10 dark:bg-slate-900 dark:bg-opacity-70"
-		>
-			<div className="container mx-auto px-2 md:px-4 2xl:px-10">
-				<div className="relative z-40 flex flex-row items-center justify-between pb-2 pt-8 md:mb-4">
+		return (
+			<header className="blog-header relative z-50 w-full border-b border-black/10 bg-white bg-opacity-70 dark:border-white/10 dark:bg-slate-900 dark:bg-opacity-70"
+            style={{
+            paddingLeft: '20px',
+            paddingRight: '20px',
+	        paddingTop: '10px',
+	        paddingBottom: '13px',
+            }}
+            >	
+				<div className="relative z-40 flex flex-row items-center justify-between md:mb-4">
 					<div className="flex flex-row items-center py-1">
 						{/* Navigation for mobile view */}
 						<div
@@ -33,10 +37,25 @@ export const Header = (props: Props) => {
 							<HeaderLeftSidebar publication={publication} />
 						</div>
 						<div className="hidden md:block">
-							<PublicationLogo publication={publication} size="lg" withProfileImage />
-						</div>
-					</div>
+							<PublicationLogo publication={publication} size="xs" withProfileImage />
 
+							
+						</div>
+						<div
+					className="relative mt-8 hidden flex-row items-center justify-center overflow-hidden text-base md:flex"
+					data-tom="hidden md:flex relative flex-row items-center justify-center overflow-hidden text-base "
+					style={{
+						marginTop: '8px',
+						
+					  }}>
+					<PublicationNavLinks
+						isHome={isHome}
+						currentActiveMenuItemId={currentMenuId}
+						enabledPages={publication.preferences?.enabledPages}
+						navbarItems={publication.preferences?.navbarItems || []}
+					/>
+				    </div>
+					</div>
 					<div
 						className={twJoin(
 							'flex flex-row items-center','dark:text-white',
@@ -47,19 +66,10 @@ export const Header = (props: Props) => {
 					</div>
 				</div>
 
-				
-				<div
-					className="relative mt-8 hidden flex-row items-center justify-center overflow-hidden text-base md:flex"
-					data-tom="hidden md:flex relative flex-row items-center justify-center overflow-hidden text-base mt-8"
-				>
-					<PublicationNavLinks
-						isHome={isHome}
-						currentActiveMenuItemId={currentMenuId}
-						enabledPages={publication.preferences?.enabledPages}
-						navbarItems={publication.preferences?.navbarItems || []}
-					/>
+				{/* Logo for mobile view */}
+				<div className="mx-auto my-5 flex w-2/3 flex-row items-center justify-center md:hidden">
+					<PublicationLogo publication={publication} size="xs" />
 				</div>
-			</div>
 		</header>
 	);
 };
