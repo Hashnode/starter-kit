@@ -11,7 +11,7 @@ export const Footer = () => {
 	const {theme} = useTheme()
 	const PUBLICATION_LOGO = publication.preferences.logo;
 	return (
-		<footer className={`${theme} border-t py-12 footer dark:bg-black dark:border-gray-800`}>
+		<footer className={`${theme} border-t py-12 footer dark:bg-neutral-900 dark:border-gray-800`}>
 			<Container className="px-5 flex flex-col items-center gap-4">
 				{PUBLICATION_LOGO ? (
 					<div className="flex w-full flex-row justify-center">

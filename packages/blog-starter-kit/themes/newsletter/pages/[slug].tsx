@@ -170,7 +170,7 @@ export default function PostOrPage(props: Props) {
 		
 				<Layout>
 					<Header />
-					<Container className={`pt-10 dark:bg-black `}>
+					<Container className={`pt-10 dark:bg-neutral-900 `}>
 						<article className="flex flex-col items-start gap-10 pb-10">
 							{props.type === 'post' && <Post {...props} />}
 							{props.type === 'page' && <Page {...props} />}

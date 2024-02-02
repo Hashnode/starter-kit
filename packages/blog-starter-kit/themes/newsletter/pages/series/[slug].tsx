@@ -37,7 +37,7 @@ export default function Post({ series, publication, posts }: Props) {
 					<title>{title}</title>
 				</Head>
 				<Header />
-				<Container className={`${theme} flex flex-col items-stretch gap-10 px-5 pb-10 dark:bg-black`}>
+				<Container className={`${theme} flex flex-col items-stretch gap-10 px-5 pb-10 dark:bg-neutral-900`}>
 					<div
 						className={`col-span-full grid grid-cols-1 text-center pt-5 md:gap-5`}
 					>

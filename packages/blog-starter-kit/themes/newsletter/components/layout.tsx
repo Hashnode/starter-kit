@@ -15,7 +15,7 @@ export const Layout = ({ children }: Props) => {
 			<Meta />
 			<Scripts />
 			
-				<div className={`min-h-screen ${theme} dark:bg-black`}>
+				<div className={`min-h-screen ${theme} !text-neutral-900 dark:bg-neutral-900`}>
 					<main className='shadow-sm shadow-primary-100 rounded-md'>{children}</main>
 				</div>
 			
