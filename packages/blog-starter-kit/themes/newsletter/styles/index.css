@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -85,5 +84,33 @@
 
     100% {
         opacity: 1;
+    }
+}
+
+.moon-turn {
+    animation: moon-turn 200ms ease-in;
+}
+
+@keyframes moon-turn {
+    0% {
+        transform: rotate(0.33turn);
+    }
+
+    100% {
+        transform: rotate(0);
+    }
+}
+
+.sun-turn {
+    animation: sun-turn 200ms ease-in;
+}
+
+@keyframes sun-turn {
+    0% {
+        transform: rotate(-0.33turn);
+    }
+
+    100% {
+        transform: rotate(0);
     }
 }
