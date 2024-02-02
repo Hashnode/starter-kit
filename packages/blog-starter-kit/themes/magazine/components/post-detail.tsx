@@ -32,10 +32,6 @@ export default function PostDetails({ slug }: any) {
 							</Badge>
 						))}
 					</div>
-					{/* <div
-						className="prose lg:prose-xl dark:prose-invert"
-						dangerouslySetInnerHTML={{ __html: post?.content?.html }}
-					/> */}
 					<div
 						className="w-full px-5 mx-auto prose break-words dark:prose-invert prose-p:font-ranadeLight first:prose-p:mt-0 prose-img:max-w-full prose-p:leading-snug prose-a:underline hover:prose-a:bg-primary-50 dark:hover:prose-a:text-primary-500 dark:hover:prose-a:bg-neutral-800 prose-blockquote:leading-snug prose-a:leading-snug prose-figure:leading-snug prose-figcaption:leading-snug prose-pre:leading-snug prose-li:leading-snug prose-ul:leading-snug prose-ol:leading-snug prose-th:leading-snug prose-td:leading-snug lg:prose-xl dark:prose-pre:bg-neutral-900 first:prose-h1:mt-0 first:prose-h2:mt-0 first:prose-h3:mt-0 first:prose-h4:mt-0 first:prose-h5:mt-0 prose-h1:font-satoshiBlack prose-h2:font-satoshiBold text-slate-950 dark:text-neutral-50 md:max-w-screen-md"
 						dangerouslySetInnerHTML={{ __html: post?.content?.html }}
