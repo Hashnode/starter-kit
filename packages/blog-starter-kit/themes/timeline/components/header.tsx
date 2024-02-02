@@ -70,10 +70,10 @@ export const Header = () => {
 	);
 
 	return (
-		<header className="mx-[5vw] flex flex-row items-center justify-between p-5 md:mx-[10vw] shadow-sm border-muted backdrop-blur-md">
+		<header className="border-muted mx-[5vw] flex flex-row items-center justify-between p-5 shadow-sm backdrop-blur-md md:mx-[10vw]">
 			<div>
 				<Link href="/">
-					<h1 className="font-satoshiBold w-[250px] text-2xl md:w-[350px] md:text-4xl lg:w-fit">
+					<h1 className="font-satoshiBold w-[200px] text-2xl md:w-[350px] md:text-4xl lg:w-fit">
 						{publication.title}
 					</h1>
 					<h2 className="text-base capitalize font-ranadeLight md:text-lg">
@@ -81,10 +81,8 @@ export const Header = () => {
 					</h2>
 				</Link>
 			</div>
-			<div className="flex w-[500px] flex-row justify-evenly">
-				<div className="hidden w-[400px] lg:block">
-					<Search />
-				</div>
+			<div className="flex flex-row max-w-lg space-x-5 justify-evenly md:space-x-10">
+				<Search />
 				<ModeToggle />
 			</div>
 		</header>

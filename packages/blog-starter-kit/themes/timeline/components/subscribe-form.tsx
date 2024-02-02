@@ -45,7 +45,7 @@ export const SubscribeForm = ({ title, description }: { title?: string; descript
 	return (
 		<>
 			{!status && (
-				<Card className="z-50 flex flex-col items-center p-3 mt-3 space-y-4 text-center border border-none bg-inherit">
+				<Card className="z-0 flex flex-col items-center p-3 mt-3 space-y-4 text-center border border-none bg-inherit">
 					<CardTitle className="text-4xl font-satoshiBold">{title}</CardTitle>
 					<CardDescription className="text-xl">
 						{/* All the latest article, news directly to your inbox. */}
