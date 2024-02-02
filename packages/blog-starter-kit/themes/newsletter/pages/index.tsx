@@ -169,7 +169,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 								<button className='outline mx-auto text-primary-950 transition-all duration-200 hover:bg-gray-100 py-2 rounded-md  
 								px-4 w-fit flex items-center gap-2 outline-neutral-300 dark:outline-neutral-700 dark:text-white dark:hover:bg-gray-900' onClick={loadMore}> <div className='w-6 h-6'><ChevronDownSVG/></div> Load More</button>
 							) : (
-								<p className='text-center text-2xl font-bold text-slate-700'>That's all Folks! 👋🏼</p>
+								<p className='text-center text-2xl font-bold text-slate-700'>That&apos;s all Folks! 👋🏼</p>
 							)}
 						</>
 					)}

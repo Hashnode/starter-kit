@@ -9,7 +9,7 @@ const SubscribeFormContainer = () => {
 			<div className="flex flex-col items-center gap-4 dark:text-white mb-4">
 				{publication.author.profilePicture && <img className="w-32 rounded-md" src={publication.author.profilePicture} />}
 				<h2 className=" text-2xl text-center font-bold">
-					Subscribe to {publication.author.name}'s newsletter
+					Subscribe to {publication.author.name}&apos;s newsletter
 				</h2>
 				{publication.descriptionSEO && <h4 className="text-center w-[80%] text-neutral-700 dark:text-neutral-200">{publication.descriptionSEO}</h4>}
 			</div>
