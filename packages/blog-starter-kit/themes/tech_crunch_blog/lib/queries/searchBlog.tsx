@@ -1,5 +1,4 @@
-import { gql } from 'graphql-request';
-import { getClient } from '../graphQLClient';
+import { gql, request } from 'graphql-request';
 
 interface SearchBlogParams {
 	first: number;
@@ -9,47 +8,98 @@ interface SearchBlogParams {
 	};
 }
 
-export const searchBlog = async ({ first, filter: { query, publicationId } }: SearchBlogParams) => {
-	const client = getClient();
+type searchPostsOfPublication = {
+	searchPostsOfPublication: {
+		edges: Node[];
+	};
+};
 
-	const data = await client.request(
+type Node = {
+	node: {
+		id: string;
+		slug: string;
+		title: string;
+		author: {
+			name: string;
+			profilePicture: string;
+		};
+		seo: {
+			title: string;
+			description: string;
+		};
+		content: {
+			markdown: string;
+			text: string;
+			html: string;
+		};
+		brief: string;
+		coverImage: {
+			url: string;
+		};
+		tags: {
+			id: string;
+			name: string;
+		}[];
+		updatedAt: null;
+		publishedAt: string;
+		readTimeInMinutes: number;
+	};
+};
+
+const searchBlog = async ({ first, filter: { query, publicationId } }: SearchBlogParams) => {
+	let hashNodeUrl = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
+
+	const data = (await request(
+		hashNodeUrl,
 		gql`
-			query getBlogSearch($first, $query, $publicationId) {
-                searchPostsOfPublication(
+			query searchBlogPublication($first: Int!, $query: String!, $publicationId: ObjectId!) {
+				searchPostsOfPublication(
 					first: $first
 					filter: { query: $query, publicationId: $publicationId }
 				) {
 					edges {
 						node {
+							id
+							slug
+							title
 							author {
 								name
 								profilePicture
 							}
-							title
-							subtitle
+							seo {
+								title
+								description
+							}
 							brief
 							slug
 							coverImage {
 								url
 							}
-							tags {
-								name
-								slug
-								id
+							content {
+								markdown
+								text
+								html
 							}
+							tags {
+								id
+								name
+							}
+							updatedAt
 							publishedAt
 							readTimeInMinutes
 						}
 					}
 				}
-            }
+			}
 		`,
 		{
 			first,
 			query,
 			publicationId,
 		},
-	);
+	)) as searchPostsOfPublication;
 
-	return data;
+	return data.searchPostsOfPublication;
 };
+
+export default searchBlog;

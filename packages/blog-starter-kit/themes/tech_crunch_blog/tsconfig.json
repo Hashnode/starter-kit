@@ -23,7 +23,9 @@
 			"@/lib": ["./lib/*"],
 			"@/generated": ["./generated/*"],
 			"@/hooks": ["./hooks/*"],
-			"@/lottie": ["./lottie/*"]
+			"@/lottie": ["./lottie/*"],
+			"@/context": ["./context/*"],
+			"@/util": ["./util/*"]
 		}
 	},
 	"include": [

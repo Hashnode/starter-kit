@@ -1,3 +1,5 @@
+'use client';
+
 import { PageInfo } from '@/generated/graphql';
 import { getBlogPosts } from '@/lib/queries/getBlogPosts';
 import { useEffect, useState } from 'react';
@@ -21,6 +23,8 @@ export interface BlogData {
 	};
 	content: {
 		markdown: string;
+		text: string;
+		html: string;
 	};
 	tags: {
 		name: string;
@@ -52,9 +56,8 @@ const useGetBlogPosts = ({ limit }: { limit: number }) => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				let host = process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST;
 				setLoading(true);
-				const response = await getBlogPosts({ host, limit, nextPage });
+				const response = await getBlogPosts({ limit, nextPage });
 
 				let { totalDocuments, pageInfo, edges } = response.publication.posts;
 

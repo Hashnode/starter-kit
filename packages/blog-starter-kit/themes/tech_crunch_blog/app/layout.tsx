@@ -1,18 +1,24 @@
-import { Inter as FontSans } from 'next/font/google';
-import { BiSearch } from 'react-icons/bi';
+import { Inter as FontSans, Montserrat } from 'next/font/google';
 import './globals.css';
 
 import Footer from '@/components/footer';
+import NavBar from '@/components/navBar';
 import NewsLetter from '@/components/newsLetter';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import Image from 'next/image';
+import { Metadata } from 'next';
+import Head from 'next/head';
 import Link from 'next/link';
+import { config } from './config';
 
-export const metadata = {
-	applicationName: 'TechCrunch_X_Hashnode',
-	referrer: 'origin-when-cross-origin',
+const montserrat = Montserrat({
+	subsets: ['latin'],
+	weight: ['400', '500', '600', '700'], // if single weight, otherwise you use array like [400, 500, 700],
+	style: 'normal', // if single style, otherwise you use array like ['normal', 'italic']
+});
+
+export const metadata: Metadata = {
+	title: config.title,
+	description: config.description,
 	keywords: ['Next.js', 'emee', 'Hashnode', 'Hackathon'],
 	authors: [{ name: 'Emmanuel', url: 'https://github.com/emee-dev' }],
 	creator: 'Emmanuel Ajike',
@@ -41,67 +47,60 @@ export const fontSans = FontSans({
 const RootLayout = async ({ children }: any) => {
 	return (
 		<html lang="en" suppressHydrationWarning>
-			<head>
+			<Head>
 				<link rel="preconnect" href="https://fonts.googleapis.com" />
 				<link rel="preconnect" href="https://fonts.gstatic.com" />
 				<link
 					href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@400;500&display=swap"
 					rel="stylesheet"
 				/>
-			</head>
-			<body className={cn('bg-background min-h-screen font-sans antialiased', fontSans.variable)}>
-				<main className="flex flex-row">
-					<aside className="hidden w-[20%] p-3 lg:block">
-						<div className="fixed flex flex-col justify-center gap-2">
-							<Image
-								className="h-auto max-h-16 w-32"
-								width={40}
-								height={40}
-								src={'/hashnode.svg'}
-								alt="Blog logo"
-								priority
-								unoptimized
-							/>
-							<Link href="/">Join Techcrunch++</Link>
+			</Head>
+			<body
+				className={cn(
+					'bg-background min-h-screen font-sans antialiased',
+					fontSans.variable,
 
-							<div className="mt-14 flex flex-col">
-								<div className="relative flex items-center gap-2">
-									<span>Search</span>
-									<BiSearch />
-									<div className="relative w-56 ">
-										<SearchComponent />
+					// montserrat.className,
+				)}
+			>
+				<main className="flex flex-col bg-gray-200">
+					<NavBar />
+
+					<section className="mt-16 flex px-3 lg:w-full">
+						<aside className="hidden w-[20%] p-3 lg:block">
+							<div className="relative flex flex-col justify-center gap-2">
+								<Link href="/">Join TechPro++</Link>
+
+								<div className="mt-14 flex flex-col gap-2">
+									<div className="relative flex items-center">
+										<span>Technology</span>
+									</div>
+									<div className="relative flex items-center">
+										<span>Startups</span>
+									</div>
+									<div className="relative flex items-center">
+										<span>Venture</span>
 									</div>
 								</div>
 							</div>
-						</div>
-					</aside>
-					<section className="lg:w-[80%]">
-						<div className="gap-x-3 p-2 lg:flex">
-							<div className="lg:w-[70%]">
+						</aside>
+						<div className="gap-x-3 p-2 md:flex lg:flex lg:w-[80%]">
+							<div className="md:w-[75%]">
 								{children}
 								<NewsLetter />
 							</div>
 
-							<div className="h-52 flex-col items-center p-4 lg:w-[30%]">
+							<div className="flex-col items-center md:w-[25%]">
 								<p>Ads Space</p>
 							</div>
 						</div>
-						<footer className="sm:grid-cols-2">
-							<Footer />
-						</footer>
 					</section>
 				</main>
+				<footer className="bg-gray-200 px-5">
+					<Footer />
+				</footer>
 			</body>
 		</html>
-	);
-};
-
-const SearchComponent = () => {
-	return (
-		<div className="absolute z-[999] flex w-[300px] items-center space-x-2">
-			<Input type="text" placeholder="Enter your search" />
-			<Button type="submit">Search</Button>
-		</div>
 	);
 };
 

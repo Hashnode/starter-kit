@@ -1,6 +1,6 @@
 'use client';
 
-import { useStore } from '@/context';
+import useContext from '@/context/index';
 import useSubscribeNewsLetter from '@/hooks/useSubscribeNewsLetter';
 import { Loader2 } from 'lucide-react';
 import { useState } from 'react';
@@ -8,21 +8,22 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 
 const NewsLetter = () => {
+	
+	let context = useContext();
 	const [email, setEmail] = useState('');
 	let { error, loading, setArgs, subscriptionStatus } = useSubscribeNewsLetter();
-	let store = useStore();
 
 	return (
 		<>
 			{subscriptionStatus === 'PENDING' ? (
 				<SubcriptionMessage />
 			) : (
-				<div className="mt-5 grid h-48 items-center gap-5 bg-green-50 p-4 sm:grid-cols-6">
+				<div className="mt-5 flex h-48 w-[360px] flex-col items-center justify-center gap-5 rounded-md bg-green-50 p-4 md:w-full">
 					<h3 className="font-oswald text-wrap col-span-2 text-2xl font-semibold leading-6 tracking-wider">
 						Sign up for Newsletters
 					</h3>
 
-					<div className="col-span-4 flex w-full max-w-md items-center gap-2 border-r-2">
+					<div className="flex max-w-md items-center gap-2 border-r-2 ">
 						<Input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
 						<Button
 							type="submit"
@@ -33,7 +34,7 @@ const NewsLetter = () => {
 									return {
 										...prev,
 										email: email,
-										publicationId: store.publicationId,
+										publicationId: context.publicationId,
 									};
 								});
 							}}
@@ -54,11 +55,11 @@ const NewsLetter = () => {
 
 const SubcriptionMessage = () => {
 	return (
-		<div className="col-span-6 mt-5 flex h-48 w-full flex-col items-center justify-center gap-2 bg-green-50 p-4 ">
+		<div className="col-span-6 mt-5 flex h-48 flex-col items-center justify-center gap-2 bg-green-50 p-4 ">
 			<span className="font-montserrat font-bold text-blue-500">Almost there!</span>
 			<span className="w-full text-center">
 				Check your inbox for a confirmation email and click{' '}
-				<span className="font-bold">"Confirm and Subscribe" </span>
+				<span className="font-bold">{'Confirm and Subscribe '}</span>
 				to complete your subscription. Thanks for joining us!
 			</span>
 		</div>

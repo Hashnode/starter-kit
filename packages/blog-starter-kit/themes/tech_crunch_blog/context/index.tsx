@@ -1,11 +1,18 @@
+import { BlogData } from '@/hooks/useGetBlogPosts';
 import { create } from 'zustand';
 
 interface StoreState {
 	publicationId: string;
+	blog: BlogData | null;
 	updatePublicationId: (args: string) => void;
+	updateBlogData: (args: BlogData) => void;
 }
 
-export const useStore = create<StoreState>((set) => ({
+const useContext = create<StoreState>((set) => ({
 	publicationId: '',
-	updatePublicationId: (args: string) => set({ publicationId: args }),
+	blog: null,
+	updatePublicationId: (args) => set({ publicationId: args }),
+	updateBlogData: (args) => set({ blog: args }),
 }));
+
+export default useContext;

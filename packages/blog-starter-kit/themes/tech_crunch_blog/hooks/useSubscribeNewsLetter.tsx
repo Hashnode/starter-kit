@@ -1,3 +1,5 @@
+'use client';
+
 import { subscribeNewsletter } from '@/lib/mutation/subscribeNewsletter';
 import { useEffect, useState } from 'react';
 

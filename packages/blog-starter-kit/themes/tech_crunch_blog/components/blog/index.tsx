@@ -1,81 +1,125 @@
 'use client';
 
-import useGetBlogById from '@/hooks/useGetBlogById';
+import useContext from '@/context/index';
+import { BlogData } from '@/hooks/useGetBlogPosts';
+import { getBlogPostById } from '@/lib/queries/getBlogPostById';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
+import TimeAgo from 'javascript-time-ago';
+
+// English.
+
+import { getPublicationId } from '@/lib/queries/getPublicationId';
+import en from 'javascript-time-ago/locale/en';
 import Image from 'next/image';
-import { useEffect } from 'react';
+import WaveLoader from '../loaders';
 import BlogMarkdown from './blogMarkdown';
 
-const BlogPost = (prop: { id: string }) => {
-	let { data, error, loading, setPostId } = useGetBlogById();
+TimeAgo.addDefaultLocale(en);
 
-	if (!prop.id) {
-		throw new Error('Invalid blog check your URL');
-	}
+const timeAgo = new TimeAgo('en-US');
 
-	if (error) {
-		throw new Error('useGetBlogById: ' + error.message);
-	}
+const BlogPost = () => {
+	let context = useContext();
+	let host = process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST;
+	const [data, setData] = useState<BlogData | null>(null); // TODO refactor later
+	const searchParams = useSearchParams();
 
 	useEffect(() => {
-		if (prop.id) {
-			setPostId(prop.id);
+		let isMounted = true;
+
+		async function data() {
+			const controller = new AbortController();
+			try {
+				if (!context.publicationId) {
+					const data = await getPublicationId(host, isMounted);
+
+					if (isMounted) {
+						context.updatePublicationId(data.id);
+					}
+				}
+			} catch (e) {
+				let error = e as Error;
+				if (error.name === 'AbortError') {
+					// Ignore abort errors, as they are expected when the component unmounts
+					console.log('Fetch operation aborted due to component unmount');
+				} else {
+					console.error('Error fetching data:', error);
+				}
+			}
 		}
-	}, [prop.id]);
 
-	// return (
-	// 	<>
-	// 		{!data ? (
-	// 			<NotFoundLottie />
-	// 		) : (
-	// 			<div>
-	// 				<div className="flex flex-col">
-	// 					<span className="text-xl font-medium tracking-wider font-montserrat">
-	// 						{data?.title}
-	// 					</span>
-	// 					<span>{data?.author.name}</span>
-	// 				</div>
+		data();
 
-	// 				<div className="relative w-full p-4 mb-6 h-72 rounded-xl">
-	// 					<Image
-	// 						src={(data?.coverImage?.url as string) || ''}
-	// 						alt={`Cover Image for ${data?.slug}`}
-	// 						sizes="(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw"
-	// 						fill
-	// 						priority
-	// 					/>
-	// 				</div>
-	// 				<div className="p-2">
-	// 					<BlogMarkdown src={data?.content?.markdown as string} />
-	// 				</div>
-	// 			</div>
-	// 		)}
-	// 	</>
-	// );
+		return () => {
+			isMounted = false;
+		};
+	}, [context.publicationId]);
+
+	const blogId = searchParams.get('id');
+
+	useEffect(() => {
+		async function fetchData() {
+			if (context.blog) {
+				setData(context.blog);
+			} else if (blogId) {
+				let blog = await getBlogPostById(blogId);
+				setData(blog as unknown as BlogData);
+			}
+		}
+
+		fetchData();
+	}, [context.blog, blogId]);
+
 	return (
 		<>
-			<div>
-				<div className="flex flex-col">
-					<span className="font-montserrat text-xl font-medium tracking-wider">{data?.title}</span>
+			{!data ? (
+				<div className="mt-10 flex w-[360px] items-center justify-center md:w-full">
+					<WaveLoader />
 				</div>
-
-				<div className="z-0 flex w-full flex-col justify-center">
-					<div className="relative mb-6 h-72 w-[95%] items-start justify-center rounded-xl p-4">
-						<Image
-							src={(data?.coverImage?.url as string) || ''}
-							alt={`Cover Image for ${data?.slug}`}
-							sizes="(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw"
-							fill
-							priority
-						/>
+			) : (
+				<div className="mt-10 w-[360px] md:w-full">
+					<div className="flex h-56 w-full flex-col items-center font-bold">
+						<div>
+							<span className="font-montserrat text-2xl font-bold tracking-wider">
+								{data.title}
+							</span>
+						</div>
+						<div className="mt-5">
+							<span className="font-montserrat text-base font-medium tracking-wider">
+								{timeAgo.format(new Date(data.publishedAt))}
+							</span>
+						</div>
 					</div>
-				</div>
 
-				<div className="p-2">
-					<BlogMarkdown src={data?.content?.markdown as string} />
+					<div className="z-0 flex w-full flex-col justify-center">
+						<div className="relative mb-6 h-72 w-[95%] items-start justify-center rounded-xl p-4">
+							<Image
+								src={data.coverImage?.url}
+								alt={`Cover Image for ${data.title}`}
+								sizes="(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw"
+								fill
+								priority
+							/>
+						</div>
+					</div>
+
+					<BlogMarkdown src={data.content?.markdown as string} />
 				</div>
-			</div>
+			)}
 		</>
 	);
 };
+
+/* <div className="relative mb-6 h-72 w-[95%] items-start justify-center rounded-xl p-4">
+					<Image
+						src={data.coverImage?.url}
+						alt={`Cover Image for ${data.title}`}
+						sizes="(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw"
+						fill
+						priority
+					/>
+				</div> */
 
 export default BlogPost;

@@ -1,5 +1,5 @@
 import BlogPost from '@/components/blog';
-import { Post } from '@/generated/graphql';
+import { type Post } from '@/generated/graphql';
 import { Metadata, ResolvingMetadata } from 'next';
 
 type Props = {
@@ -21,6 +21,10 @@ export async function generateMetadata(
 
 	if (!id) {
 		throw new Error('No blog id');
+		// return {
+		// 	title: '',
+		// 	description: '',
+		// };
 	}
 
 	const graphqlEndpoint = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
@@ -73,18 +77,17 @@ export async function generateMetadata(
 		},
 	});
 
-	let res: Response = await req.json();
-
-	if (!res) {
+	if (!req.ok) {
 		return {
 			title: '',
 			description: '',
 		};
 	}
 
+	let res: Response = await req.json();
+
 	let seo = res?.data?.post?.seo;
 
-	// fetch data
 	const product = {
 		title: seo?.title,
 		description: seo?.description,
@@ -93,16 +96,8 @@ export async function generateMetadata(
 	return product;
 }
 
-const ViewBlogPost = ({ searchParams }: Props) => {
-	return <div>{<BlogPost id={searchParams.id} />}</div>;
+const ViewBlogPost = () => {
+	return <BlogPost />;
 };
-
-// const NoData = () => {
-// 	return (
-// 		<div className="flex items-center justify-center w-full col-span-6 h-96">
-// 			<WaveLoader />
-// 		</div>
-// 	);
-// };
 
 export default ViewBlogPost;

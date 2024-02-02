@@ -1,48 +1,72 @@
 import { Post } from '@/generated/graphql';
-import { gql, request } from 'graphql-request';
 
 interface Data {
-	post: Post;
+	data: {
+		post: Post;
+	};
 }
 
-export const getBlogPostById = async (id: string) => {
+export const getBlogPostById = async (id: string | null) => {
+	if (!id) {
+		throw new Error('No id argument passed');
+	}
 	let hashNodeUrl = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 
-	const data = (await request(
-		hashNodeUrl,
-		gql`
-			query getBlogPostById($id: ID!) {
-				post(id: $id) {
-					id
-					slug
-					title
-					seo {
-						title
-						description
-					}
-					author {
-						name
-						profilePicture
-					}
-					coverImage {
-						url
-					}
-					content {
-						markdown
-					}
-					tags {
-						id
-						name
-					}
-					publishedAt
-					readTimeInMinutes
-				}
-			}
-		`,
-		{
-			id,
-		},
-	)) as Data;
+	const query = `
+query getBlogPostById($id: ID!) {
+	post(id: $id) {
+		id
+		slug
+		title
+		seo {
+			title
+			description
+		}
+		author {
+			name
+			profilePicture
+		}
+		coverImage {
+			url
+		}
+		content {
+			markdown
+			html
+			text
+		}
+		tags {
+			id
+			name
+		}
+		publishedAt
+		readTimeInMinutes
+	}
+}
+	`;
 
-	return data.post;
+	const variables = {
+		id,
+	};
+
+	let req = await fetch(hashNodeUrl, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			query,
+			variables,
+		}),
+		next: {
+			revalidate: 2,
+		},
+	});
+
+	if (!req.ok) {
+		throw new Error('Fetch request error: getBlogPostById');
+	}
+
+	let res: Data = await req.json();
+
+	return res?.data?.post;
 };

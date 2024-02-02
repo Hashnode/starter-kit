@@ -45,8 +45,8 @@ let links: Links = [
 
 const Footer = () => {
 	return (
-		<div className="grid grid-cols-1 justify-center p-4 text-base sm:text-lg md:text-base">
-			<ul className="grid px-4 sm:grid-cols-8">
+		<div className="grid grid-cols-4 items-center justify-center p-4 text-base sm:text-lg md:text-base">
+			<ul className="col-span-3 flex px-4">
 				<FooterLinks data={links} />
 			</ul>
 			<div className="mt-4 flex h-full w-full flex-col px-4">
@@ -59,7 +59,7 @@ const Footer = () => {
 const FooterLinks = (prop: { data: Links }) => {
 	return prop.data.map(({ header, items }) => {
 		return (
-			<li key={crypto.randomUUID()} className="col-span-3 mt-3 flex flex-col gap-3 sm:col-span-4">
+			<li key={crypto.randomUUID()} className="mt-3 flex w-[50%] flex-col gap-3 sm:col-span-4">
 				<a className="font-semibold">{header}</a>
 				<ul className="mt-2 items-center justify-center">
 					{items.map(({ label, url }) => (

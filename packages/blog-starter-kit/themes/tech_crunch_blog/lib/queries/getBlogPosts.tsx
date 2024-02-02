@@ -1,15 +1,8 @@
 import { Publication } from '@/generated/graphql';
 import { gql, request } from 'graphql-request';
 
-export const getBlogPosts = async ({
-	host,
-	limit,
-	nextPage,
-}: {
-	host: string;
-	limit: number;
-	nextPage: string;
-}) => {
+export const getBlogPosts = async ({ limit, nextPage }: { limit: number; nextPage: string }) => {
+	let host = process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST;
 	let hashNodeUrl = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 
 	const data = (await request(
@@ -44,11 +37,14 @@ export const getBlogPosts = async ({
 								}
 								content {
 									markdown
+									text
+									html
 								}
 								tags {
 									id
 									name
 								}
+								updatedAt
 								publishedAt
 								readTimeInMinutes
 							}

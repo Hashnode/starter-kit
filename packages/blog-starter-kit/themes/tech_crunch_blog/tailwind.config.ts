@@ -1,4 +1,5 @@
 const { fontFamily } = require('tailwindcss/defaultTheme');
+const plugin = require('tailwindcss/plugin');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -13,4 +14,19 @@ module.exports = {
 			},
 		},
 	},
+	// plugins: [
+	// 	plugin(function ({ addUtilities }: any) {
+	// 		const newUtilities = {
+	// 			'.no-scrollbar::-webkit-scrollbar': {
+	// 				display: 'none',
+	// 			},
+	// 			'.no-scrollbar': {
+	// 				'-ms-overflow-style': 'none',
+	// 				'scrollbar-width': 'none',
+	// 			},
+	// 		};
+
+	// 		addUtilities(newUtilities, ['responsive', 'hover']);
+	// 	}),
+	// ],
 };

@@ -1,3 +1,5 @@
+'use client';
+
 import { Post } from '@/generated/graphql';
 import { getBlogPostById } from '@/lib/queries/getBlogPostById';
 import { useEffect, useState } from 'react';
@@ -11,9 +13,6 @@ const useGetBlogById = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				if (!postId) {
-					return;
-				}
 				setLoading(true);
 
 				const data = await getBlogPostById(postId);
