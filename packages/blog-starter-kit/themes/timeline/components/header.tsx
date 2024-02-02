@@ -38,14 +38,14 @@ export const Header = () => {
 				<li>
 					<DropdownMenu.Root>
 						<DropdownMenu.Trigger asChild>
-							<button className="transition-200 block rounded-full p-2 transition-colors hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white">
+							<button className="block p-2 transition-colors rounded-full transition-200 hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white">
 								More
 							</button>
 						</DropdownMenu.Trigger>
 
 						<DropdownMenu.Portal>
 							<DropdownMenu.Content
-								className="w-48 rounded border border-gray-300 bg-white text-neutral-950 shadow-md dark:border-neutral-800 dark:bg-neutral-900 dark:text-white"
+								className="w-48 bg-white border border-gray-300 rounded shadow-md text-neutral-950 dark:border-neutral-800 dark:bg-neutral-900 dark:text-white"
 								align="end"
 								sideOffset={5}
 							>
@@ -55,7 +55,7 @@ export const Header = () => {
 											href={item.url}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="transition-200 block truncate p-2 transition-colors hover:bg-slate-100 hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
+											className="block p-2 truncate transition-colors transition-200 hover:bg-slate-100 hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
 										>
 											{item.label}
 										</a>
@@ -70,13 +70,13 @@ export const Header = () => {
 	);
 
 	return (
-		<header className="mx-[5vw] flex flex-row items-center justify-between p-5 md:mx-[10vw]">
+		<header className="mx-[5vw] flex flex-row items-center justify-between p-5 md:mx-[10vw] shadow-sm border-muted backdrop-blur-md">
 			<div>
 				<Link href="/">
 					<h1 className="font-satoshiBold w-[250px] text-2xl md:w-[350px] md:text-4xl lg:w-fit">
 						{publication.title}
 					</h1>
-					<h2 className="font-ranadeLight text-base capitalize md:text-lg">
+					<h2 className="text-base capitalize font-ranadeLight md:text-lg">
 						By {publication.author.username}
 					</h2>
 				</Link>
