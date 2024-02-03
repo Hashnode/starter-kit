@@ -26,18 +26,14 @@ pre {
             /* First stripe */
             #111625 10px, #111625 20px
             /* Second stripe */
-        );
+        ) !important;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background-color: #70a5d5;
-}
 
 * {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    scrollbar-color: #f2f0f0 #DD8919;
     user-drag: none !important;
     -webkit-user-drag: none !important;
 }
