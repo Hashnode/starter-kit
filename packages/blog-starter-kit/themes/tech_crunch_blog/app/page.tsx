@@ -9,19 +9,19 @@ import { useEffect, useState } from 'react';
 const LandingPage = () => {
 	let context = useContext();
 
-	const { error, blogs, pageData, loading, publicationId, setNextPage } = useGetBlogPosts({
+	const { error, blogs, pageData, loading, setNextPage } = useGetBlogPosts({
 		limit: 2,
 	});
 
 	let [blogList, setBlogData] = useState<BlogData[]>([]);
 
 	useEffect(() => {
-		context.updatePublicationId(publicationId);
+		// context.updatePublicationId(publicationId);
 
 		if (blogs.length > 0) {
 			setBlogData((...prev) => [...prev[0], ...blogs]);
 		}
-	}, [blogs, publicationId]);
+	}, [blogs]);
 
 	const nextPage = () => {
 		if (pageData.pageInfo.endCursor) {

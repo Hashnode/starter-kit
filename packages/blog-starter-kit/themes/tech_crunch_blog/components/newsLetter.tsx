@@ -8,7 +8,6 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 
 const NewsLetter = () => {
-	
 	let context = useContext();
 	const [email, setEmail] = useState('');
 	let { error, loading, setArgs, subscriptionStatus } = useSubscribeNewsLetter();
@@ -34,7 +33,7 @@ const NewsLetter = () => {
 									return {
 										...prev,
 										email: email,
-										publicationId: context.publicationId,
+										publicationId: context.publicationId!,
 									};
 								});
 							}}

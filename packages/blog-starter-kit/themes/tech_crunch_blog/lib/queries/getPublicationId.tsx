@@ -1,13 +1,13 @@
 import { Publication } from '@/generated/graphql';
 import { gql, request } from 'graphql-request';
 
-export const getPublicationId = async (host: string, isMounted: boolean) => {
+export const getPublicationId = async (host: string) => {
 	let hashNodeUrl = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 
 	const data = (await request(
 		hashNodeUrl,
 		gql`
-			query getPublicationId($host: String = "emmanuel-ajike.hashnode.dev") {
+			query getPublicationId($host: String!) {
 				publication(host: $host) {
 					id
 				}

@@ -2,74 +2,52 @@
 
 import useContext from '@/context/index';
 import { BlogData } from '@/hooks/useGetBlogPosts';
-import { getBlogPostById } from '@/lib/queries/getBlogPostById';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import TimeAgo from 'javascript-time-ago';
-
-// English.
-
-import { getPublicationId } from '@/lib/queries/getPublicationId';
-import en from 'javascript-time-ago/locale/en';
+import { getBlogPostById } from '@/lib/queries/getBlogPostById';
+import { relativeTime } from '@/lib/utils';
 import Image from 'next/image';
 import WaveLoader from '../loaders';
 import BlogMarkdown from './blogMarkdown';
 
-TimeAgo.addDefaultLocale(en);
-
-const timeAgo = new TimeAgo('en-US');
-
 const BlogPost = () => {
 	let context = useContext();
-	let host = process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST;
 	const [data, setData] = useState<BlogData | null>(null); // TODO refactor later
 	const searchParams = useSearchParams();
-
-	useEffect(() => {
-		let isMounted = true;
-
-		async function data() {
-			const controller = new AbortController();
-			try {
-				if (!context.publicationId) {
-					const data = await getPublicationId(host, isMounted);
-
-					if (isMounted) {
-						context.updatePublicationId(data.id);
-					}
-				}
-			} catch (e) {
-				let error = e as Error;
-				if (error.name === 'AbortError') {
-					// Ignore abort errors, as they are expected when the component unmounts
-					console.log('Fetch operation aborted due to component unmount');
-				} else {
-					console.error('Error fetching data:', error);
-				}
-			}
-		}
-
-		data();
-
-		return () => {
-			isMounted = false;
-		};
-	}, [context.publicationId]);
 
 	const blogId = searchParams.get('id');
 
 	useEffect(() => {
+		let isMounted = true;
+
 		async function fetchData() {
-			if (context.blog) {
-				setData(context.blog);
-			} else if (blogId) {
-				let blog = await getBlogPostById(blogId);
-				setData(blog as unknown as BlogData);
+			try {
+				if (context.blog) {
+					setData(context.blog);
+				} else if (blogId) {
+					if (!isMounted) {
+						return;
+					}
+
+					let blog = await getBlogPostById(blogId);
+
+					if (!blog) {
+						throw new Error('Could not fetch blog data');
+					}
+
+					setData(blog as unknown as BlogData);
+				}
+			} catch (e) {
+				console.error('Error fetching data: ', e);
 			}
 		}
 
 		fetchData();
+
+		return () => {
+			isMounted = false;
+		};
 	}, [context.blog, blogId]);
 
 	return (
@@ -88,7 +66,7 @@ const BlogPost = () => {
 						</div>
 						<div className="mt-5">
 							<span className="font-montserrat text-base font-medium tracking-wider">
-								{timeAgo.format(new Date(data.publishedAt))}
+								{relativeTime(data.publishedAt)}
 							</span>
 						</div>
 					</div>
@@ -111,15 +89,5 @@ const BlogPost = () => {
 		</>
 	);
 };
-
-/* <div className="relative mb-6 h-72 w-[95%] items-start justify-center rounded-xl p-4">
-					<Image
-						src={data.coverImage?.url}
-						alt={`Cover Image for ${data.title}`}
-						sizes="(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw"
-						fill
-						priority
-					/>
-				</div> */
 
 export default BlogPost;

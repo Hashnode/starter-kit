@@ -45,7 +45,7 @@ let links: Links = [
 
 const Footer = () => {
 	return (
-		<div className="grid grid-cols-4 items-center justify-center p-4 text-base sm:text-lg md:text-base">
+		<div className="grid grid-cols-3 items-center justify-center text-base sm:text-lg md:grid-cols-4 md:text-base">
 			<ul className="col-span-3 flex px-4">
 				<FooterLinks data={links} />
 			</ul>

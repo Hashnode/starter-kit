@@ -1,25 +1,23 @@
 'use client';
 
-import useContext from '@/context/index';
 import useDebouncedInput from '@/hooks/useDebouncedInput';
 import { useEffect, useState } from 'react';
 import CommandPalette, { useHandleOpenCommandPalette } from 'react-cmdk';
 import 'react-cmdk/dist/cmdk.css';
 
 const CommandMenu = (prop: { isOpen: boolean; setIsOpen: () => void }) => {
-	const context = useContext();
 	const [page, _] = useState<'root'>('root');
 	const { value, blogs, onChange, setIsMounted } = useDebouncedInput('');
 
 	useHandleOpenCommandPalette(prop.setIsOpen);
 
 	useEffect(() => {
-		setIsMounted(false);
+		setIsMounted(true);
 
 		return () => {
 			setIsMounted(false);
 		};
-	}, [value, context.publicationId]);
+	}, [value]);
 
 	return (
 		<CommandPalette
