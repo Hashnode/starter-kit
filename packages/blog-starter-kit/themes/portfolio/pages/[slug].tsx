@@ -141,7 +141,6 @@ const Post = ({ publication, post }: PostProps) => {
 					<ul className="flex flex-row flex-wrap items-center gap-2">{tagsList}</ul>
 				</div>
 			)}
-			hello
 			<AboutAuthor />
 			{!post.preferences.disableComments && post.comments.totalDocuments > 0 && <PostComments />}
 			<Subscribe />
