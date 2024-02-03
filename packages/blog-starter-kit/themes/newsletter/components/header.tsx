@@ -34,14 +34,13 @@ export const Header = () => {
 		<ul className="flex flex-col justify-center  shadow-md h-full w-full py-16 px-6 items-center gap-2 fixed top-0 left-0 fade-in-fast z-[100]">
 			{navbarItems.map((item) => (
 				<li key={item.url}>
-					<a
-						href={item.url}
-						target="_blank"
-						rel="noopener noreferrer"
+					<Link
+						href={new URL(item.url).pathname}
+						
 						className="transition-200 block max-w-[200px] truncate text-ellipsis whitespace-nowrap rounded-full p-2 transition-colors hover:bg-white hover:text-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-white"
 					>
 						{item.label}
-					</a>
+					</Link>
 				</li>
 			))}
 
