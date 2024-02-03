@@ -49,6 +49,9 @@
 		</h2>
 		<div class="flex flex-col sm:flex-row md:flex gap-4 w-full">
 			<input
+				type="email"
+				name="email"
+				autocomplete="email"
 				class="bg-zinc-900/60 py-4 px-4 w-full sm:w-96 rounded-2xl text-white"
 				bind:value={email}
 				placeholder="Enter your email"

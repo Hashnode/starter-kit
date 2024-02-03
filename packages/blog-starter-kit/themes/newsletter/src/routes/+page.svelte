@@ -89,13 +89,11 @@
 			<div class="p-4 flex flex-col justify-between">
 				<div>
 					<div class="gap-5">
-						<a class="text-white text-3xl sm:line-clamp-3" href={`${firstPost.node.slug}`}
-							>{firstPost.node.title}</a
-						>
+						<span class="text-white text-3xl sm:line-clamp-3">{firstPost.node.title}</span>
 					</div>
 					<div class="text-orange-400 text-sm py-2">{formatDate(firstPost.node.publishedAt)}</div>
 				</div>
-				<a href={`${firstPost.node.slug}`} class="text-white pt-4">Read the article</a>
+				<div class="text-white pt-4">Read the article</div>
 			</div>
 		</a>
 	{/if}
@@ -105,16 +103,16 @@
 			<a href={`${node.slug}`} class="flex flex-col mb-10">
 				<img src={node.coverImage?.url} alt="Post" class="rounded-2xl h-[200px] object-cover" />
 				<div class="text-orange-400 text-sm py-2">{formatDate(node.publishedAt)}</div>
-				<a href={`${node.slug}`} class="text-white text-xl">
+				<div class="text-white text-xl">
 					{node.title}
-				</a>
+				</div>
 			</a>
 		{/each}
 	</section>
 
 	{#if hasMorePosts}
 		<button
-			class="bg-orange-500 rounded-full w-60 m-auto px-6 py-3 text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 hover:bg-orange-600 hover:shadow-lg"
+			class="bg-orange-700 rounded-full w-60 m-auto px-6 py-3 text-orange-100 font-bold transition duration-300 ease-in-out transform hover:scale-105 hover:bg-orange-600 hover:shadow-lg"
 			on:click={loadMorePosts}
 		>
 			{isLoading ? 'Loading...' : 'Load more'}
