@@ -89,7 +89,7 @@
 			<div class="p-4 flex flex-col justify-between">
 				<div>
 					<div class="gap-5">
-						<span class="text-white text-3xl sm:line-clamp-3">{firstPost.node.title}</span>
+						<h2 class="text-white text-3xl sm:line-clamp-3">{firstPost.node.title}</h2>
 					</div>
 					<div class="text-orange-400 text-sm py-2">{formatDate(firstPost.node.publishedAt)}</div>
 				</div>
@@ -103,9 +103,9 @@
 			<a href={`${node.slug}`} class="flex flex-col mb-10">
 				<img src={node.coverImage?.url} alt="Post" class="rounded-2xl h-[200px] object-cover" />
 				<div class="text-orange-400 text-sm py-2">{formatDate(node.publishedAt)}</div>
-				<div class="text-white text-xl">
+				<h2 class="text-white text-xl">
 					{node.title}
-				</div>
+				</h2>
 			</a>
 		{/each}
 	</section>
