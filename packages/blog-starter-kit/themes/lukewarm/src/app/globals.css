@@ -1,0 +1,243 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Eczar&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cabin:wght@500;600;700&display=swap");
+@layer base {
+  :root {
+    --background: 53, 24%, 93%;
+    --foreground: 229, 46%, 34%;
+
+    --card: 37, 52%, 86%;
+    --card-foreground: 0, 1%, 36%;
+
+    --popover: 37, 52%, 86%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 229, 46%, 34%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 0, 1%, 36%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 11, 100%, 60%;
+    --accent-foreground: 60, 100%, 100%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 210, 100%, 13%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+:root {
+  --primary-color: #3498db;
+  --secondary-color: #2ecc71;
+}
+
+.blog-content {
+  line-height: 1.9;
+}
+
+.blog-content h1,
+.blog-content h2 {
+  margin: 1.414em 0 0.5em;
+  font-weight: inherit;
+  font-family: "Cabin", sans-serif;
+}
+
+.blog-content h1 {
+  margin-top: 0;
+  font-size: 1.998em;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.blog-content h2 {
+  font-size: 1.827em;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.blog-content p {
+  /* margin: 2px 0; */
+  font-size: 1em;
+  font-family: "Eczar", serif;
+}
+
+.blog-content a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.blog-content a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Styles */
+@media only screen and (max-width: 600px) {
+  .blog-content h1 {
+    font-size: 2.5em;
+  }
+
+  .blog-content h2 {
+    font-size: 1.8em;
+  }
+
+  .blog-content p {
+    font-size: 0.9em;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .blog-content h1 {
+    font-size: 2em;
+  }
+
+  .blog-content h2 {
+    font-size: 1.5em;
+  }
+
+  .blog-content p {
+    font-size: 0.8em;
+  }
+}
+
+.text-stroke {
+  -webkit-text-stroke: 1px #2f3d7f; /* For WebKit browsers (Chrome, Safari) */
+  text-stroke: 1px #2f3d7f; /* For non-WebKit browsers */
+  color: white; /* Set the text color */
+}
+
+.blog-card,
+.blog-card .subst,
+.blog-card .tag {
+  color: #f8f8f2;
+}
+
+.blog-card .emphasis,
+.blog-card .strong {
+  color: #a8a8a2;
+}
+
+.blog-card .bullet,
+.blog-card .link,
+.blog-card .literal,
+.blog-card .number,
+.blog-card .quote,
+.blog-card .regexp {
+  color: #ae81ff;
+}
+pre code {
+  display: block;
+  background-color: rgb(43, 43, 43);
+  white-space: pre;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: scroll;
+  max-width: 100%;
+  min-width: 100px;
+  padding: 2;
+  scrollbar-width: thin;
+  scrollbar-color: #0f7cf0 #444;
+}
+pre code::-webkit-scrollbar {
+  width: 8px;
+}
+pre code::-webkit-scrollbar-thumb {
+  background-color: #0f7cf0;
+}
+
+pre code::-webkit-scrollbar-track {
+  background-color: #444;
+}
+.blog-card .code,
+.blog-card .section,
+.blog-card .selector-class,
+.blog-card .title {
+  color: #a6e22e;
+}
+.blog-card pre {
+  overflow: scroll;
+  background-color: green;
+}
+.blog-card .strong {
+  font-weight: 700;
+}
+
+.blog-card .emphasis {
+  font-style: italic;
+}
+
+.blog-card .attr,
+.blog-card .keyword,
+.blog-card .name,
+.blog-card .selector-tag {
+  color: #f92672;
+}
+
+.blog-card .attribute,
+.blog-card .symbol {
+  color: #66d9ef;
+}
+
+.blog-card .class .title,
+.blog-card .params {
+  color: #f8f8f2;
+}
+
+.blog-card .addition,
+.blog-card .built_in,
+.blog-card .builtin-name,
+.blog-card .selector-attr,
+.blog-card .selector-id,
+.blog-card .selector-pseudo,
+.blog-card .string,
+.blog-card .template-variable,
+.blog-card .type,
+.blog-card .variable {
+  color: #e6db74;
+}
+
+.blog-card .comment,
+.blog-card .deletion,
+.blog-card .meta {
+  color: #75715e;
+}
