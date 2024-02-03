@@ -5,6 +5,7 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import { morePosts } from './loadMorePosts';
 	import { onMount } from 'svelte';
+	import Subscribe from '$lib/components/Subscribe.svelte';
 
 	export let data;
 	let hasMorePosts: boolean = true;
@@ -118,6 +119,10 @@
 		>
 			{isLoading ? 'Loading...' : 'Load more'}
 		</button>
+	{/if}
+
+	{#if publication}
+		<Subscribe {publication} />
 	{/if}
 </section>
 
