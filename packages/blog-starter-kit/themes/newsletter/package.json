@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "date-fns": "^2.30.0",
+    "dotenv": "^16.4.1",
     "graphql": "^16.8.1",
     "graphql-request": "^6.1.0"
   },

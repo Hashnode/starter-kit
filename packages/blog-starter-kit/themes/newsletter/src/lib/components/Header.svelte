@@ -1,12 +1,10 @@
-<header class="container mx-auto">
+<header class="container mx-auto px-6 sm:px-0">
 	<nav class="flex my-10 justify-between">
 		<div>
 			<a href="/" class="text-center py-2 m-2 text-white font-bold">Home</a>
 		</div>
 		<div>
-			<a href="/tags" class="text-center py-2 m-2 text-white font-bold">Tags</a>
-			<a href="/about" class="text-center py-2 m-2 text-white font-bold">About</a>
-			<a href="/contact" class="text-center py-2 m-2 text-white font-bold">Contact</a>
+			<a href="http://rogix.dev" class="text-center py-2 m-2 text-white font-bold">Portfolio</a>
 		</div>
 	</nav>
 </header>

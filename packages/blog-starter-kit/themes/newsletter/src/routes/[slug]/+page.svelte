@@ -1,4 +1,5 @@
 <script>
+	import Footer from '$lib/components/Footer.svelte';
 	import Header from '$lib/components/Header.svelte';
 
 	export let data;
@@ -10,10 +11,12 @@
 
 <Header />
 
-<main class="max-w-5xl mx-auto">
+<main class="max-w-5xl mx-auto px-6">
 	<article class="prose dark:prose-invert mx-auto">
 		<h1 class="font-semibold font-sans">{postTitle}</h1>
 		<img src={postCoverImage} alt="Post" class="rounded-2xl w-full h-[400px] object-cover" />
 		{@html post}
 	</article>
 </main>
+
+<Footer />

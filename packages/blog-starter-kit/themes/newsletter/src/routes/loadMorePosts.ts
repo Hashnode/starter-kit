@@ -1,4 +1,3 @@
-// src/routes/loadMorePosts.ts
 import { GraphQLClient } from 'graphql-request';
 import {
     MorePostsByPublicationDocument,
@@ -7,7 +6,10 @@ import {
     type PageInfo
 } from '$lib/graphql/generated/graphql';
 
-const graphQLClient = new GraphQLClient('https://gql.hashnode.com');
+const GQL_ENDPOINT = import.meta.env.VITE_PUBLIC_HASHNODE_GQL_ENDPOINT as string;
+const PUBLICATION_HOST = import.meta.env.VITE_PUBLIC_HASHNODE_PUBLICATION_HOST as string;
+
+const graphQLClient = new GraphQLClient(GQL_ENDPOINT);
 
 const pageInfo: PageInfo = {
     endCursor: '',
@@ -15,13 +17,12 @@ const pageInfo: PageInfo = {
 };
 
 export async function morePosts() {
-    console.log('pageInfo', pageInfo.endCursor);
     const data = await graphQLClient.request<
         MorePostsByPublicationQuery,
         MorePostsByPublicationQueryVariables
     >(MorePostsByPublicationDocument, {
         first: 10,
-        host: 'engineering.hashnode.com',
+        host: PUBLICATION_HOST,
         after: pageInfo.endCursor
     });
 

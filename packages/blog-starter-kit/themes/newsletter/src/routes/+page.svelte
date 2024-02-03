@@ -9,6 +9,8 @@
 	export let data;
 	let hasMorePosts: boolean = true;
 
+	let publication = data.props.publication;
+
 	let posts = data.props.posts.publication?.posts.edges;
 	let firstPost = posts ? posts[0] : null;
 	let initialPosts = posts
@@ -69,20 +71,24 @@
 </script>
 
 <Header />
-<Hero />
 
-<section class="grid justify-center max-w-5xl mx-auto">
+<Hero name={publication?.author.name} />
+
+<section class="grid justify-center max-w-5xl mx-auto p-6 lg:p-0">
 	{#if firstPost}
-		<div class="w-full flex rounded-2xl bg-zinc-900/30">
+		<a
+			href={`${firstPost.node.slug}`}
+			class="w-full flex flex-col sm:flex-row rounded-2xl bg-zinc-900/30"
+		>
 			<img
 				src={firstPost.node.coverImage?.url}
 				alt="Post"
-				class="rounded-2xl w-[326px] h-[234px] object-cover"
+				class="rounded-2xl sm:w-[326px] h-[234px] object-cover"
 			/>
 			<div class="p-4 flex flex-col justify-between">
 				<div>
 					<div class="gap-5">
-						<a class="text-white text-3xl line-clamp-3" href={`${firstPost.node.slug}`}
+						<a class="text-white text-3xl sm:line-clamp-3" href={`${firstPost.node.slug}`}
 							>{firstPost.node.title}</a
 						>
 					</div>
@@ -90,18 +96,18 @@
 				</div>
 				<a href={`${firstPost.node.slug}`} class="text-white pt-4">Read the article</a>
 			</div>
-		</div>
+		</a>
 	{/if}
 
-	<section class="grid grid-cols-3 gap-10 my-20">
+	<section class="grid grid-cols-1 sm:grid-cols-3 gap-10 my-20">
 		{#each allPosts?.slice(1) || [] as { node }}
-			<div class="flex flex-col mb-10">
+			<a href={`${node.slug}`} class="flex flex-col mb-10">
 				<img src={node.coverImage?.url} alt="Post" class="rounded-2xl h-[200px] object-cover" />
 				<div class="text-orange-400 text-sm py-2">{formatDate(node.publishedAt)}</div>
 				<a href={`${node.slug}`} class="text-white text-xl">
 					{node.title}
 				</a>
-			</div>
+			</a>
 		{/each}
 	</section>
 

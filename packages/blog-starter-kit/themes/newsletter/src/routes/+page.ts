@@ -8,14 +8,17 @@ import {
     type PostsByPublicationQueryVariables
 } from '$lib/graphql/generated/graphql';
 
-const graphQLClient = new GraphQLClient('https://gql.hashnode.com');
+const GQL_ENDPOINT = import.meta.env.VITE_PUBLIC_HASHNODE_GQL_ENDPOINT as string;
+const PUBLICATION_HOST = import.meta.env.VITE_PUBLIC_HASHNODE_PUBLICATION_HOST as string;
+
+const graphQLClient = new GraphQLClient(GQL_ENDPOINT);
 
 export async function load() {
 	const { publication } = await graphQLClient.request<
 		PublicationByHostQuery,
 		PublicationByHostQueryVariables
 	>(PublicationByHostDocument, {
-		host: 'engineering.hashnode.com'
+		host: PUBLICATION_HOST
 	});
 
     const posts = await graphQLClient.request<
@@ -23,7 +26,7 @@ export async function load() {
         PostsByPublicationQueryVariables
     >(PostsByPublicationDocument, {
        first: 10,
-       host: 'engineering.hashnode.com'
+       host: PUBLICATION_HOST
     });
 
 	return {
