@@ -69,10 +69,15 @@ const BlogPost = () => {
 								{relativeTime(data.publishedAt)}
 							</span>
 						</div>
+						<div className="mt-2 border-b-2 underline">
+							<span className="font-montserrat text-base font-medium tracking-wider">
+								{data.author.name}
+							</span>
+						</div>
 					</div>
 
 					<div className="z-0 flex w-full flex-col justify-center">
-						<div className="relative mb-6 h-72 w-[95%] items-start justify-center rounded-xl p-4">
+						<div className="relative mb-6 h-72 items-start justify-center rounded-xl p-4">
 							<Image
 								src={data.coverImage?.url}
 								alt={`Cover Image for ${data.title}`}

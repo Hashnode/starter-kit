@@ -66,7 +66,7 @@ const RootLayout = async ({ children }: any) => {
 								<div className="relative flex flex-col justify-center gap-2">
 									<Link href="/">Join TechPro++</Link>
 
-									<div className="mt-14 flex flex-col gap-2">
+									{/* <div className="flex flex-col gap-2 mt-14">
 										<div className="relative flex items-center">
 											<span>Technology</span>
 										</div>
@@ -76,7 +76,8 @@ const RootLayout = async ({ children }: any) => {
 										<div className="relative flex items-center">
 											<span>Venture</span>
 										</div>
-									</div>
+									</div> */}
+									<div className="mt-14 flex flex-col gap-2">Ads space</div>
 								</div>
 							</aside>
 							<div className="gap-x-3 p-2 md:flex lg:flex lg:w-[80%]">
@@ -85,13 +86,13 @@ const RootLayout = async ({ children }: any) => {
 									<NewsLetter />
 								</div>
 
-								<div className="flex-col items-center md:w-[25%]">
+								<div className="h-11 flex-col items-center p-3 md:w-[25%]">
 									<p>Ads Space</p>
 								</div>
 							</div>
 						</section>
 					</main>
-					<footer className="bg-gray-200 ">
+					<footer className="bg-gray-200 px-4">
 						<Footer />
 					</footer>
 				</ContextProvider>

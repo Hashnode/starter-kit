@@ -26,7 +26,7 @@ const LatestArticle = ({ data }: { data: BlogData[] }) => {
 										<Link
 											href={{
 												pathname: `/${item.slug}`,
-												query: `id=${item.id}`, // TODO refactor later to accomodate dynamic metadata
+												query: `id=${item.id}`,
 											}}
 										>
 											<span
