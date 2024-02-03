@@ -72,7 +72,7 @@
 
 <Header />
 
-<Hero name={publication?.author.name} />
+<Hero />
 
 <section class="grid justify-center max-w-5xl mx-auto p-6 lg:p-0">
 	{#if firstPost}

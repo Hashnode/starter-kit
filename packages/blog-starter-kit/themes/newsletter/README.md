@@ -1,7 +1,1 @@
-# To Do
-
-[x] - More posts
-[] - Tags page
-[] - Newsletter form
-[] - Mobile UI
-[] - Dark and White mode
+# A statically generated blog example using Svelte Kit, Markdown, and TypeScript with Hashnode 💫
