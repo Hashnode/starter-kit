@@ -50,7 +50,7 @@ export const SubscribeForm = () => {
 	return (
 		<>
 			{!status && (
-				<div className="relative w-[80%] fade-in  outline outline-1 dark:outline-none  mx-auto rounded-md flex items-center   bg-white dark:bg-gray-700 overflow-hidden">
+				<div className="relative w-[80%] fade-in  outline outline-1 dark:outline-none  mx-auto rounded-md flex items-center   bg-white dark:bg-gray-700 overflow-hidden flex-col md:flex-row">
 				<input
 					ref={inputRef}
 					type="email"
@@ -60,7 +60,7 @@ export const SubscribeForm = () => {
 				<button
 					disabled={requestInProgress}
 					onClick={subscribe}
-					className="bg-black dark:bg-primary-300 h-full   rounded-tr-md rounded-br-md px-3 py-2 text-white dark:text-primary-950 disabled:cursor-not-allowed disabled:opacity-80"
+					className="bg-black dark:bg-primary-300 h-full w-full md:w-fit  md:rounded-tr-md md:rounded-br-md px-3 py-2 text-white dark:text-primary-950 disabled:cursor-not-allowed disabled:opacity-80"
 				>
 					Subscribe
 				</button>

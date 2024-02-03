@@ -10,7 +10,7 @@ export const Footer = () => {
 	const PUBLICATION_LOGO = publication.preferences.logo;
 	return (
 		<footer className="border-t py-12 footer  dark:border-gray-800 dark:bg-neutral-900 ">
-			<Container className="px-5">
+			<Container className="">
 				{PUBLICATION_LOGO ? (
 					<div className="mb-20 flex w-full flex-row justify-center">
 						<Link

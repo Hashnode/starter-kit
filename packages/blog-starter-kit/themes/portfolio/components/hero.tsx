@@ -7,7 +7,7 @@ const Hero = () => {
     const {author} = publication
   return (
     <div className='min-h-[20vh] animate-up w-[90%] mx-auto flex flex-col items-center justify-center'>
-        <h1 className='text-5xl text-center  dark:text-white font-bold'>Welcome👋🏼 to <span className='text-primary-700 dark:text-primary-200'>{author.name}&apos;s</span> blog posts!</h1>
+        <h1 className=' text-4xl md:text-5xl  text-center  dark:text-white font-bold'>Welcome👋🏼 to <span className='text-primary-700 dark:text-primary-200'>{author.name}&apos;s</span> blog posts!</h1>
         <Navbar/>
     </div>
   )

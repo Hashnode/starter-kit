@@ -8,7 +8,7 @@ export const Navbar = () => {
 	const navItems = publication.preferences.navbarItems
 	return (
 		<div className="w-full flex flex-col justify-center items-center gap-8 pt-4">
-			<p className='text-xl text-center text-gray-700 dark:text-gray-400'>{publication.descriptionSEO ? publication.descriptionSEO : "Welcome to My Blog Space: Dive into a world of thoughts and ideas."}</p>
+			<p className='text-lg md:text-xl text-center text-gray-700 dark:text-gray-400'>{publication.descriptionSEO ? publication.descriptionSEO : "Welcome to My Blog Space: Dive into a world of thoughts and ideas."}</p>
 			{
 				navItems.length > 0 && (
 					<div className='flex justify-center w-[80%] md:w-[60%] gap-4 flex-wrap' >
