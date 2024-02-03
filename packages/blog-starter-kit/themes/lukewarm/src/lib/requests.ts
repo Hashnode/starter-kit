@@ -16,7 +16,6 @@ import {
 
 const endpoint = env.NEXT_PUBLIC_HASHNODE_ENDPOINT;
 const publicationId = env.NEXT_PUBLIC_HASHNODE_PUBLICATION_ID;
-const userName = env.NEXT_PUBLIC_HASHNODE_USERNAME;
 const host = env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST;
 
 export async function getAuthor(username: string) {
