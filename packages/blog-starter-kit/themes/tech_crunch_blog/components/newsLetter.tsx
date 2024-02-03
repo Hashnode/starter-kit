@@ -58,7 +58,7 @@ const SubcriptionMessage = () => {
 			<span className="font-montserrat font-bold text-blue-500">Almost there!</span>
 			<span className="w-full text-center">
 				Check your inbox for a confirmation email and click{' '}
-				<span className="font-bold">{'Confirm and Subscribe '}</span>
+				<span className="font-bold">&quot; Confirm and Subscribe &quot;</span>
 				to complete your subscription. Thanks for joining us!
 			</span>
 		</div>

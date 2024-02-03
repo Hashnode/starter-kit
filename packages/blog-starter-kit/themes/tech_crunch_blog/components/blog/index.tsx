@@ -79,7 +79,7 @@ const BlogPost = () => {
 					<div className="z-0 flex w-full flex-col justify-center">
 						<div className="relative mb-6 h-72 items-start justify-center rounded-xl p-4">
 							<Image
-								src={data.coverImage?.url}
+								src={data.coverImage?.url ?? '/cover.jpg'}
 								alt={`Cover Image for ${data.title}`}
 								sizes="(max-width: 768px) 40vw, (max-width: 1200px) 50vw, 33vw"
 								fill

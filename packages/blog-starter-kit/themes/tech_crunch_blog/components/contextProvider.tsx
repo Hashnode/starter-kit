@@ -34,7 +34,7 @@ const ContextProvider = ({ children }: any) => {
 		return () => {
 			isMounted = false;
 		};
-	}, [context.publicationId]);
+	}, [context.publicationId, host]);
 
 	return <div>{children}</div>;
 };

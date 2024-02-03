@@ -49,7 +49,7 @@ const LatestArticle = ({ data }: { data: BlogData[] }) => {
 										<Image
 											width={470}
 											height={300}
-											src={item.coverImage.url}
+											src={item.coverImage?.url ?? '/cover.jpg'}
 											alt={item.slug}
 											style={{ zIndex: 0 }}
 										/>
