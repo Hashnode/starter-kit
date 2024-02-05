@@ -130,7 +130,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 								<div className="w-20">
 									<ArticleSVG clasName="stroke-current" />
 								</div>
-								<p className="text-xl font-semibold ">
+								<p className="text-lg ">
 									Hang tight! We&apos;re drafting the first article.
 								</p>
 							</div>
