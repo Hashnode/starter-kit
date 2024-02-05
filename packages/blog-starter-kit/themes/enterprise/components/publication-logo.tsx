@@ -17,7 +17,7 @@ export const PublicationLogo = ({ isSidebar }: { isSidebar?: boolean }) => {
 	return (
 		<h1 className="relative w-full">
 			<Link
-				href={'https://nomikai.com'}
+				href={'/'}
 				aria-label={`${publication.title} blog home page`}
 				className="flex flex-row items-center justify-center gap-3"
 			>

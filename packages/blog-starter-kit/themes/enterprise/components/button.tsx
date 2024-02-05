@@ -25,7 +25,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
 
 			case 'primary':
 				buttonClassName =
-					'text-black bg-primary-600 bg-primary-600-hover border-primary-600 dark:bg-primary-600 dark:text-white';
+					'text-nk-dark-blue hover:text-nk-black bg-nk-cream hover:bg-nk-blue border-nk-dark-blue dark:bg-nk-dark-blue dark:text-white';
 				break;
 
 			case 'outline-dark':
@@ -44,7 +44,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
 					href={href}
 					rel={rel}
 					target={target}
-					className={`flex flex-row items-center justify-start gap-2 rounded-lg border px-2 py-2 text-sm transition-colors duration-200 md:px-5 md:py-3 md:text-base ${buttonClassName} ${
+					className={`flex flex-row items-center justify-start gap-2 rounded-lg border px-2 py-2 text-sm transition-colors duration-200 md:px-5 md:py-2 md:text-sm ${buttonClassName} ${
 						secondaryIcon ? `md:justify-between` : `md:justify-center`
 					}  ${className}`}
 				>

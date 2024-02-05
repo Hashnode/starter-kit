@@ -8,22 +8,4 @@
 
 html {
     font-family: "Droid Serif", serif;
-}
-
-.nomikai-bg-light-yellow {
-    background-color: #ffffff;
-}
-
-.bg-primary-600, .border-primary-600 {
-    background-color: #FFFCF3;
-    border-color: #025B59;
-    color: #025B59;
-
-} 
-
-.bg-primary-600-hover:hover{
-    background-color: #83C2B8;
-    border-color: #025B59;
-    color: #010A0E;
-
 } 
