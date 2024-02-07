@@ -60,17 +60,18 @@ export const PersonalHeader = () => {
 	);
 
 	return (
-		<header className="grid grid-cols-2 items-center gap-5 ">
+
+		<header className="flex flex-col items-center justify-center mt-16 ">
 			<div className="col-span-full md:col-span-1">
 				<h1>
 					<Link
-						className="flex flex-row items-center gap-2 text-lg font-bold leading-tight tracking-tight text-black dark:text-white"
+						className="flex flex-col items-center gap-4 text-2xl font-bold leading-tight tracking-tight text-zinc-300 dark:text-white"
 						href="/"
 						aria-label={`${publication.author.name}'s blog home page`}
 					>
 						{publication.author.profilePicture && (
 							<img
-								className="block h-8 w-8 rounded-full fill-current"
+								className="block h-20 w-20 rounded-full fill-current"
 								alt={publication.author.name}
 								src={resizeImage(publication.author.profilePicture, {
 									w: 400,
@@ -79,10 +80,26 @@ export const PersonalHeader = () => {
 								})}
 							/>
 						)}
-						{publication.title}
+						<span className=''>{publication.title}</span>
 					</Link>
 				</h1>
 			</div>
+			<div className="col-span-full md:col-span-10 text-zinc-400 mt-2">
+				<div className="flex flex-col justify-between font-medium lg:flex-row">
+					<div className="flex space-x-4 ml-2">
+						<div><a className="hover:underline hover:decoration-rose-300/30 hover:underline-offset-2 hover:text-rose-200/90 focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/70" href="https://www.linkedin.com/feed/">LinkedIn</a>
+						</div>
+						<div><a className="hover:underline hover:decoration-rose-300/30 hover:underline-offset-2 hover:text-rose-200/90 focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/70" href="https://twitter.com/home">Twitter</a>
+						</div>
+						<a href="https://github.com/" className="hover:underline hover:decoration-rose-300/30 hover:underline-offset-2 hover:text-rose-200/90 focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/70">GitHub</a>
+						<a href="https://www.youtube.com" className="hover:underline hover:decoration-rose-300/30 hover:underline-offset-2 hover:text-rose-200/90 focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/70">YouTube</a>
+
+					</div>
+				</div>
+			</div>
+			<div className="col-span-full md:col-span-10">
+				<p className="mt-7 text-lg text-zinc-300 sm:mt-9 text-center leading-normal">I am an open source content developer with multiple years of experience in tech industry. Follow me on my social media profiles to get most recent updates.</p>
+				</div>
 			<div className="col-span-full flex flex-row items-center justify-between gap-4 md:col-span-1 md:justify-end">
 				<nav>{navList}</nav>
 				{/* <Button
