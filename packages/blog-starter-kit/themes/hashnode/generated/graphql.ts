@@ -368,8 +368,12 @@ export type Draft = Node & {
   slug: Scalars['String']['output'];
   /** The subtitle of the draft. It would become the subtitle of the post when published. */
   subtitle?: Maybe<Scalars['String']['output']>;
-  /** Returns list of tags added to the draft. Contains tag id, name, slug, etc. */
+  /**
+   * Returns list of tags added to the draft. Contains tag id, name, slug, etc.
+   * @deprecated Use tagsV2 instead. Will be removed on 26/02/2024.
+   */
   tags: Array<Tag>;
+  tagsV2: Array<DraftTag>;
   /** The title of the draft. It would become the title of the post when published. */
   title?: Maybe<Scalars['String']['output']>;
   updatedAt: Scalars['DateTime']['output'];
@@ -381,6 +385,18 @@ export type DraftBackup = {
   at?: Maybe<Scalars['DateTime']['output']>;
   /** The status of the backup i.e., success or failure. */
   status?: Maybe<BackupStatus>;
+};
+
+/**
+ * Contains basic information about a Tag within a Draft.
+ * A tag in a draft is a tag that is not published yet.
+ */
+export type DraftBaseTag = {
+  __typename?: 'DraftBaseTag';
+  /** The name of the tag. Shown in tag page. */
+  name: Scalars['String']['output'];
+  /** The slug of the tag. Used to access tags feed.  Example https://hashnode.com/n/graphql */
+  slug: Scalars['String']['output'];
 };
 
 /**
@@ -433,6 +449,8 @@ export type DraftSettings = {
   /** A flag to indicate if the cover image is shown below title of the post. Default position of cover is top of title. */
   stickCoverToBottom: Scalars['Boolean']['output'];
 };
+
+export type DraftTag = DraftBaseTag | Tag;
 
 /**
  * An edge that contains a node and cursor to the node.
@@ -879,8 +897,6 @@ export type MyUser = IUser & Node & {
   dateJoined?: Maybe<Scalars['DateTime']['output']>;
   /** Whether or not the user is deactivated. */
   deactivated: Scalars['Boolean']['output'];
-  /** Email address of the user. Only available to the authenticated user. */
-  email?: Maybe<Scalars['String']['output']>;
   /** The users who are following this user */
   followers: UserConnection;
   /** The number of users that follow the requested user. Visible in the user's profile. */
@@ -908,8 +924,6 @@ export type MyUser = IUser & Node & {
   tagline?: Maybe<Scalars['String']['output']>;
   /** Returns a list of tags that the user follows. */
   tagsFollowing: Array<Tag>;
-  /** Hashnode users are subscribed to a newsletter by default. This field can be used to unsubscribe from the newsletter. Only available to the authenticated user. */
-  unsubscribeCode?: Maybe<Scalars['String']['output']>;
   /** The username of the user. It is unique and tied with user's profile URL. Example - https://hashnode.com/@username */
   username: Scalars['String']['output'];
 };
@@ -2145,6 +2159,7 @@ export enum Scope {
   CreatePro = 'create_pro',
   ImportSubscribersToPublication = 'import_subscribers_to_publication',
   PublicationAdmin = 'publication_admin',
+  PublicationMember = 'publication_member',
   PublishComment = 'publish_comment',
   PublishDraft = 'publish_draft',
   PublishPost = 'publish_post',
@@ -2158,8 +2173,10 @@ export enum Scope {
   UpdatePost = 'update_post',
   UpdateReply = 'update_reply',
   WebhookAdmin = 'webhook_admin',
+  WriteDraft = 'write_draft',
   WritePost = 'write_post',
-  WriteSeries = 'write_series'
+  WriteSeries = 'write_series',
+  WriteStaticPage = 'write_static_page'
 }
 
 /**
