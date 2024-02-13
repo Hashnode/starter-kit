@@ -11,6 +11,15 @@ directive @private on FIELD_DEFINITION | OBJECT
 
 directive @requireAuth(scopes: [Scope!]) on FIELD_DEFINITION | OBJECT
 
+input AddCommentInput {
+  contentMarkdown: String!
+  postId: ID!
+}
+
+type AddCommentPayload {
+  comment: Comment
+}
+
 input AddPostToSeriesInput {
   """The ID of the post to be added to the series."""
   postId: ObjectId!
@@ -21,6 +30,15 @@ input AddPostToSeriesInput {
 type AddPostToSeriesPayload {
   """The series to which the post was added."""
   series: Series
+}
+
+input AddReplyInput {
+  commentId: ID!
+  contentMarkdown: String!
+}
+
+type AddReplyPayload {
+  reply: Reply
 }
 
 """
@@ -96,6 +114,16 @@ type BetaFeature implements Node {
   title: String
   """The url of the beta feature."""
   url: String
+}
+
+input CancelScheduledDraftInput {
+  """The Draft ID of the scheduled draft."""
+  draftId: ID!
+}
+
+type CancelScheduledDraftPayload {
+  """Payload returned in response of cancel scheduled post mutation."""
+  scheduledPost: ScheduledPost!
 }
 
 """
@@ -211,6 +239,17 @@ input CoverImageOptionsInput {
   stickCoverToBottom: Boolean
 }
 
+input CreateWebhookInput {
+  events: [WebhookEvent!]!
+  publicationId: ID!
+  secret: String!
+  url: String!
+}
+
+type CreateWebhookPayload {
+  webhook: Webhook
+}
+
 type CustomCSS {
   """Custom CSS that will be applied on the publication homepage."""
   home: String
@@ -249,6 +288,10 @@ type DarkModePreferences {
 A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 """
 scalar DateTime
+
+type DeleteWebhookPayload {
+  webhook: Webhook
+}
 
 """Contains the publication's domain information."""
 type DomainInfo {
@@ -326,7 +369,8 @@ type Draft implements Node {
   """
   Returns list of tags added to the draft. Contains tag id, name, slug, etc.
   """
-  tags: [Tag!]!
+  tags: [Tag!]! @deprecated(reason: "Use tagsV2 instead. Will be removed on 26/02/2024.")
+  tagsV2: [DraftTag!]!
   """
   The title of the draft. It would become the title of the post when published.
   """
@@ -339,6 +383,19 @@ type DraftBackup {
   at: DateTime
   """The status of the backup i.e., success or failure."""
   status: BackupStatus
+}
+
+"""
+Contains basic information about a Tag within a Draft.
+A tag in a draft is a tag that is not published yet.
+"""
+type DraftBaseTag {
+  """The name of the tag. Shown in tag page."""
+  name: String!
+  """
+  The slug of the tag. Used to access tags feed.  Example https://hashnode.com/n/graphql
+  """
+  slug: String!
 }
 
 """
@@ -388,6 +445,8 @@ type DraftSettings {
   """
   stickCoverToBottom: Boolean!
 }
+
+union DraftTag = DraftBaseTag | Tag
 
 """
 An edge that contains a node and cursor to the node.
@@ -619,6 +678,24 @@ interface IUser {
   username: String!
 }
 
+input LikeCommentInput {
+  commentId: ID!
+  likesCount: Int = 1
+}
+
+type LikeCommentPayload {
+  comment: Comment
+}
+
+input LikePostInput {
+  likesCount: Int = 1
+  postId: ID!
+}
+
+type LikePostPayload {
+  post: Post
+}
+
 """
 Contains information about meta tags of the post. Used for SEO purpose.
 """
@@ -632,15 +709,46 @@ input MetaTagsInput {
 }
 
 type Mutation {
+  """Adds a comment to a post."""
+  addComment(input: AddCommentInput!): AddCommentPayload!
   """Adds a post to a series."""
   addPostToSeries(input: AddPostToSeriesInput!): AddPostToSeriesPayload!
+  """Adds a reply to a comment."""
+  addReply(input: AddReplyInput!): AddReplyPayload!
+  cancelScheduledDraft(input: CancelScheduledDraftInput!): CancelScheduledDraftPayload!
+  createWebhook(input: CreateWebhookInput!): CreateWebhookPayload!
+  deleteWebhook(id: ID!): DeleteWebhookPayload!
+  """Likes a comment."""
+  likeComment(input: LikeCommentInput!): LikeCommentPayload!
+  """Likes a post."""
+  likePost(input: LikePostInput!): LikePostPayload!
+  """Publishes an existing draft as a post."""
+  publishDraft(
+    """Information about the draft to be published."""
+    input: PublishDraftInput!
+  ): PublishDraftPayload!
   """Creates a new post."""
   publishPost(
     """Information about the post to be published."""
     input: PublishPostInput!
   ): PublishPostPayload!
-  """Reschedule a post."""
-  reschedulePost(input: ReschedulePostInput!): ScheduledPostPayload
+  recommendPublications(input: RecommendPublicationsInput!): RecommendPublicationsPayload!
+  """Removes a comment from a post."""
+  removeComment(input: RemoveCommentInput!): RemoveCommentPayload!
+  """Removes a post."""
+  removePost(input: RemovePostInput!): RemovePostPayload!
+  removeRecommendation(input: RemoveRecommendationInput!): RemoveRecommendationPayload!
+  """Removes a reply from a comment."""
+  removeReply(input: RemoveReplyInput!): RemoveReplyPayload!
+  """Reschedule a draft."""
+  rescheduleDraft(input: RescheduleDraftInput!): RescheduleDraftPayload!
+  resendWebhookRequest(input: ResendWebhookRequestInput!): ResendWebhookRequestPayload!
+  """Restores a deleted post."""
+  restorePost(input: RestorePostInput!): RestorePostPayload!
+  scheduleDraft(
+    """Information about the draft to be published."""
+    input: ScheduleDraftInput!
+  ): ScheduleDraftPayload!
   subscribeToNewsletter(input: SubscribeToNewsletterInput!): SubscribeToNewsletterPayload!
   """
   Update the follow state for the user that is provided via id or username.
@@ -649,8 +757,14 @@ type Mutation {
   Only available to the authenticated user.
   """
   toggleFollowUser(id: ID, username: String): ToggleFollowUserPayload!
+  triggerWebhookTest(input: TriggerWebhookTestInput!): TriggerWebhookTestPayload!
   unsubscribeFromNewsletter(input: UnsubscribeFromNewsletterInput!): UnsubscribeFromNewsletterPayload!
+  """Updates a comment on a post."""
+  updateComment(input: UpdateCommentInput!): UpdateCommentPayload!
   updatePost(input: UpdatePostInput!): UpdatePostPayload!
+  """Updates a reply"""
+  updateReply(input: UpdateReplyInput!): UpdateReplyPayload!
+  updateWebhook(input: UpdateWebhookInput!): UpdateWebhookPayload!
 }
 
 """
@@ -680,8 +794,6 @@ type MyUser implements IUser & Node {
   dateJoined: DateTime
   """Whether or not the user is deactivated."""
   deactivated: Boolean!
-  """Email address of the user. Only available to the authenticated user."""
-  email: String
   """The users who are following this user"""
   followers(
     """The page number that should be returned."""
@@ -741,10 +853,6 @@ type MyUser implements IUser & Node {
   tagline: String
   """Returns a list of tags that the user follows."""
   tagsFollowing: [Tag!]!
-  """
-  Hashnode users are subscribed to a newsletter by default. This field can be used to unsubscribe from the newsletter. Only available to the authenticated user.
-  """
-  unsubscribeCode: String
   """
   The username of the user. It is unique and tied with user's profile URL. Example - https://hashnode.com/@username
   """
@@ -1430,6 +1538,8 @@ type PublicationIntegrations {
   fathomSiteID: String
   """FB Pixel ID for integration with Facebook Pixel."""
   fbPixelID: String
+  """Google Tag Manager ID for integration with Google Tag Manager."""
+  gTagManagerID: String
   """Google Analytics Tracking ID for integration with Google Analytics."""
   gaTrackingID: String
   """Hotjar Site ID for integration with Hotjar."""
@@ -1532,6 +1642,10 @@ Connection to get list of posts in publications.
 Returns a list of edges which contains the posts in publication and cursor to the last item of the previous page.
 """
 input PublicationPostConnectionFilter {
+  """
+  Only return posts that are deleted. Query returns active posts by default, set this to true to return deleted posts.
+  """
+  deletedOnly: Boolean
   """Remove pinned post from the result set."""
   excludePinnedPost: Boolean
   """
@@ -1571,6 +1685,16 @@ type PublicationUserRecommendingPublicationConnection implements PageConnection 
   pageInfo: OffsetPageInfo!
   """The total number of documents in the connection."""
   totalDocuments: Int!
+}
+
+input PublishDraftInput {
+  """The id of the draft that should be published"""
+  draftId: ObjectId!
+}
+
+type PublishDraftPayload {
+  """The newly created post based on the draft"""
+  post: Post
 }
 
 """Contains information about the post to be published."""
@@ -1682,6 +1806,11 @@ type Query {
   Returns the current authenticated user. Only available to the authenticated user.
   """
   me: MyUser!
+  """Returns post by ID. Can be used to render post page on blog."""
+  post(
+    """The ID of the post to be returned."""
+    id: ID!
+  ): Post
   """
   Returns the publication with the given ID or host.
   User can pass anyone of them.
@@ -1745,6 +1874,15 @@ type ReadTimeFeature implements Feature {
   isEnabled: Boolean!
 }
 
+input RecommendPublicationsInput {
+  recommendedPublicationIds: [ID!]!
+  recommendingPublicationId: ID!
+}
+
+type RecommendPublicationsPayload {
+  recommendedPublications: [UserRecommendedPublicationEdge!]
+}
+
 """Contains a publication and a cursor for pagination."""
 type RecommendedPublicationEdge implements Edge {
   """A cursor for use in pagination."""
@@ -1760,6 +1898,42 @@ type RedirectionRule {
   source: String!
   """The type of the redirection rule."""
   type: HttpRedirectionType!
+}
+
+input RemoveCommentInput {
+  id: ID!
+}
+
+type RemoveCommentPayload {
+  comment: Comment
+}
+
+input RemovePostInput {
+  """The ID of the post to remove."""
+  id: ID!
+}
+
+type RemovePostPayload {
+  """The deleted post."""
+  post: Post
+}
+
+input RemoveRecommendationInput {
+  recommendedPublicationId: ID!
+  recommendingPublicationId: ID!
+}
+
+type RemoveRecommendationPayload {
+  recommendedPublication: Publication!
+}
+
+input RemoveReplyInput {
+  commentId: ID!
+  replyId: ID!
+}
+
+type RemoveReplyPayload {
+  reply: Reply
 }
 
 """
@@ -1790,11 +1964,33 @@ type Reply implements Node {
   totalReactions: Int!
 }
 
-input ReschedulePostInput {
-  """The Draft ID of the scheduled post."""
-  draftId: ObjectId!
-  """New scheduled date for the post to be rescheduled."""
-  scheduledDate: DateTime!
+input RescheduleDraftInput {
+  """The Draft ID of the scheduled draft."""
+  draftId: ID!
+  """New scheduled date for the draft to be rescheduled."""
+  publishAt: DateTime!
+}
+
+type RescheduleDraftPayload {
+  """Payload returned in response of reschedulePost mutation."""
+  scheduledPost: ScheduledPost!
+}
+
+input ResendWebhookRequestInput {
+  webhookId: ID!
+  webhookMessageId: ID!
+}
+
+type ResendWebhookRequestPayload {
+  webhookMessage: WebhookMessage
+}
+
+input RestorePostInput {
+  id: ID!
+}
+
+type RestorePostPayload {
+  post: Post
 }
 
 """Information to help in seo related meta tags."""
@@ -1803,6 +1999,20 @@ type SEO {
   description: String
   """The title used in og:title tag for SEO purposes."""
   title: String
+}
+
+input ScheduleDraftInput {
+  """The Author ID of the draft that should be published"""
+  authorId: ID!
+  """The id of the draft that should be published"""
+  draftId: ID!
+  """The date the draft should be published"""
+  publishAt: DateTime!
+}
+
+type ScheduleDraftPayload {
+  """Payload returned in response of reschedulePost mutation."""
+  scheduledPost: ScheduledPost!
 }
 
 """
@@ -1828,11 +2038,6 @@ type ScheduledPost implements Node {
   scheduledDate: DateTime!
 }
 
-type ScheduledPostPayload {
-  """Payload returned in response of reschedulePost mutation."""
-  payload: ScheduledPost!
-}
-
 """
 Enum of all the scopes that can be used with the @requireAuth directive.
 """
@@ -1844,6 +2049,7 @@ enum Scope {
   create_pro
   import_subscribers_to_publication
   publication_admin
+  publication_member
   publish_comment
   publish_draft
   publish_post
@@ -1851,13 +2057,17 @@ enum Scope {
   recommend_publications
   remove_comment
   remove_reply
+  restore_post
   signup
+  team_hashnode
   update_comment
   update_post
   update_reply
   webhook_admin
+  write_draft
   write_post
   write_series
+  write_static_page
 }
 
 """
@@ -1873,6 +2083,10 @@ type SearchPostConnection implements Connection {
 }
 
 input SearchPostsOfPublicationFilter {
+  """
+  Only return posts that are deleted. Query returns active posts by default, set this to true to return deleted posts.
+  """
+  deletedOnly: Boolean
   """The ID of publications to search from."""
   publicationId: ObjectId!
   """The query to be searched in post."""
@@ -2151,6 +2365,14 @@ type ToggleFollowUserPayload {
   user: User
 }
 
+input TriggerWebhookTestInput {
+  webhookId: ID!
+}
+
+type TriggerWebhookTestPayload {
+  webhook: Webhook
+}
+
 input UnsubscribeFromNewsletterInput {
   """The email that is currently subscribed."""
   email: String!
@@ -2160,6 +2382,15 @@ input UnsubscribeFromNewsletterInput {
 
 type UnsubscribeFromNewsletterPayload {
   status: NewsletterUnsubscribeStatus
+}
+
+input UpdateCommentInput {
+  contentMarkdown: String!
+  id: ID!
+}
+
+type UpdateCommentPayload {
+  comment: Comment
 }
 
 input UpdatePostInput {
@@ -2225,6 +2456,27 @@ input UpdatePostSettingsInput {
   isTableOfContentEnabled: Boolean
   """Pin the post to the blog homepage."""
   pinToBlog: Boolean
+}
+
+input UpdateReplyInput {
+  commentId: ID!
+  contentMarkdown: String!
+  replyId: ID!
+}
+
+type UpdateReplyPayload {
+  reply: Reply
+}
+
+input UpdateWebhookInput {
+  events: [WebhookEvent!]
+  id: ID!
+  secret: String
+  url: String
+}
+
+type UpdateWebhookPayload {
+  webhook: Webhook
 }
 
 enum UrlPattern {
@@ -2585,4 +2837,32 @@ type WebhookMessageResponse {
   The time it took from the moment the request has been send until the first byte of the response has been received.
   """
   timeToFirstByteMilliseconds: Int
+}
+
+type Widget implements Node {
+  """Content of the widget, can be a simple string or HTML"""
+  content: String!
+  """The date and time the widget was created."""
+  createdAt: DateTime!
+  """The unique identifier of the widget"""
+  id: ID!
+  pinSettings: WidgetPinSettings
+  """WidgetId, can be embedded as %%[widgetId] in the article"""
+  widgetId: String!
+}
+
+enum WidgetPinLocation {
+  BOTTOM
+  TOP
+}
+
+type WidgetPinSettings {
+  """
+  Signifies if pinning of widget on all the articles of publication is enabled or not
+  """
+  isPinned: Boolean!
+  """
+  Describes the location of the widget on the article, can be TOP or BOTTOM
+  """
+  location: WidgetPinLocation!
 }
