@@ -9,26 +9,34 @@ import { PublicationNavbarItem } from '../generated/graphql';
 import { Button } from './button';
 import { useAppContext } from './contexts/appContext';
 import {
+	AIAgentsSVG,
 	AboutUsNavSVG,
 	BlogNavSGV,
 	CareersSVG,
 	CaseStudiesSVG,
 	CommunitySVG,
 	ContactSVG,
+	CustomChatbotsSVG,
 	DocsNavSVG,
 	EnterpriseSVG,
 	EventsSVG,
+	FeaturesSVG,
+	FineTuningSVG,
+	ForecastingSVG,
 	GithubSVG,
-	HashnodeBlueSVG,
+	IntegrationsSVG,
 	MindsdbLogoSVG,
 	NewsroomSVG,
 	ProductUpdatesSVG,
+	SemanticSearchSVG,
 	SlackNavSGV,
 	SlackWhiteNavSGV,
 	SupportSVG,
+	TextProcessingSVG,
 	UpTimeNavSVG,
 	UseCasesSVG,
 } from './icons';
+import ContributeSVG from './icons/svgs/NavbarIcons/ContributeSVG';
 function hasUrl(
 	navbarItem: PublicationNavbarItem,
 ): navbarItem is PublicationNavbarItem & { url: string } {
@@ -43,14 +51,26 @@ const product1 = [
 	// 	Icon: <CloudNavBarSVG />,
 	// },
 	{
-		name: 'Github',
-		description: 'Visit our Repo',
-		href: 'https://github.com/mindsdb/mindsdb/',
-		Icon: <GithubSVG />,
+		name: 'Features',
+		description: 'Building blocks & concepts',
+		href: 'https://docs.mindsdb.com/what-is-mindsdb',
+		Icon: <FeaturesSVG />,
 	},
 	{
-		name: 'MindsDB Enterprise',
-		description: 'Contact sales',
+		name: 'Integrations',
+		description: 'AI engines, data sources, and apps',
+		href: 'https://docs.mindsdb.com/integrations/integrations',
+		Icon: <IntegrationsSVG />,
+	},
+	{
+		name: 'Product Updates',
+		description: 'New features and improvements',
+		href: 'https://github.com/mindsdb/mindsdb/releases',
+		Icon: <ProductUpdatesSVG />,
+	},
+	{
+		name: 'Enterprise',
+		description: 'Get it on your terms',
 		href: 'https://mindsdb.com/book-a-demo',
 		Icon: <EnterpriseSVG />,
 	},
@@ -67,6 +87,46 @@ const product2 = [
 		description: ' Join our Slack',
 		href: 'https://mindsdb.com/community',
 		Icon: <CommunitySVG />,
+	},
+];
+const sol1 = [
+	{
+		name: 'Continuous Fine-Tuning',
+		description: 'Improve AI models in real time',
+		href: 'https://docs.mindsdb.com/finetune/openai',
+		Icon: <FineTuningSVG />,
+	},
+	{
+		name: 'AI Agents',
+		description: 'Enhance versatility with customizable “skills”',
+		href: 'https://docs.mindsdb.com/mindsdb_sql/agents/agent',
+		Icon: <AIAgentsSVG />,
+	},
+	{
+		name: 'Semantic Search',
+		description: 'RAG and embeddings sync',
+		href: 'https://docs.mindsdb.com/sql/tutorials/rag',
+		Icon: <SemanticSearchSVG />,
+	},
+];
+const sol2 = [
+	{
+		name: 'Custom Chatbots',
+		description: 'Connect agents with chat interfaces',
+		href: 'https://docs.mindsdb.com/mindsdb_sql/agents/chatbot',
+		Icon: <CustomChatbotsSVG />,
+	},
+	{
+		name: 'Forecasting',
+		description: 'Forecast trends in your data with enhanced SQL',
+		href: 'https://docs.mindsdb.com/sql/tutorials/house-sales-forecasting',
+		Icon: <ForecastingSVG />,
+	},
+	{
+		name: 'In-database Text Processing',
+		description: 'Sentiment analysis, summarization, and more',
+		href: 'https://docs.mindsdb.com/nlp/sentiment-analysis-inside-mysql-with-openai',
+		Icon: <TextProcessingSVG />,
 	},
 ];
 const res1 = [
@@ -94,6 +154,12 @@ const res1 = [
 		href: 'https://mindsdb.com/blog',
 		Icon: <BlogNavSGV />,
 	},
+	{
+		name: 'Slack',
+		description: 'Join our channels for helpful discussions',
+		href: 'https://mindsdb.com/joincommunity',
+		Icon: <SlackNavSGV />,
+	},
 ];
 const res2 = [
 	{
@@ -108,12 +174,7 @@ const res2 = [
 		href: 'https://mindsdb.com/blog-categories/product-updates',
 		Icon: <ProductUpdatesSVG />,
 	},
-	{
-		name: 'Slack',
-		description: 'Join our channels for helpful discussions',
-		href: 'https://mindsdb.com/joincommunity',
-		Icon: <SlackNavSGV />,
-	},
+
 	{
 		name: 'Uptime Status',
 		description: 'All systems operational',
@@ -156,10 +217,10 @@ const company2 = [
 		Icon: <ContactSVG />,
 	},
 	{
-		name: 'Contests',
-		description: 'Build Your Own AI Agent Online Hackathon',
-		href: 'https://hashnode.com/hackathons/mindsdb',
-		Icon: <HashnodeBlueSVG />,
+		name: 'Contribute',
+		description: 'Check guidelines and first-time issues',
+		href: 'https://docs.mindsdb.com/contribute/contribute',
+		Icon: <ContributeSVG />,
 	},
 ];
 
@@ -217,11 +278,33 @@ const ProductPopover = () => {
 								/>
 							))}
 						</div>
+					</div>
+				</Popover.Panel>
+			</Transition>
+		</Popover>
+	);
+};
+const SolutionsPopover = () => {
+	return (
+		<Popover className="relative">
+			<Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-white">
+				Solutions
+				<ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
+			</Popover.Button>
 
-						{/* <div className="w-full">
-							<p className="mb-4 border-b px-4 pb-3 text-black">OPEN-SOURCE</p>
-
-							{product2.map((item) => (
+			<Transition
+				as={Fragment}
+				enter="transition ease-out duration-200"
+				enterFrom="opacity-0 translate-y-1"
+				enterTo="opacity-100 translate-y-0"
+				leave="transition ease-in duration-150"
+				leaveFrom="opacity-100 translate-y-0"
+				leaveTo="opacity-0 translate-y-1"
+			>
+				<Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-2xl overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
+					<div className="flex flex-row p-4 text-black ">
+						<div className="w-full">
+							{sol1.map((item) => (
 								<NavItem
 									key={item.name}
 									title={item.name}
@@ -230,7 +313,18 @@ const ProductPopover = () => {
 									url={item.href}
 								/>
 							))}
-						</div> */}
+						</div>
+						<div className="w-full">
+							{sol2.map((item) => (
+								<NavItem
+									key={item.name}
+									title={item.name}
+									description={item.description}
+									icon={item.Icon}
+									url={item.href}
+								/>
+							))}
+						</div>
 					</div>
 				</Popover.Panel>
 			</Transition>
@@ -254,7 +348,7 @@ const ResourcesPopover = () => {
 				leaveFrom="opacity-100 translate-y-0"
 				leaveTo="opacity-0 translate-y-1"
 			>
-				<Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-2xl overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
+				<Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-96 max-w-2xl overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
 					<div className="flex flex-row p-4 text-black ">
 						<div className="w-full">
 							{res1.map((item) => (
@@ -267,7 +361,7 @@ const ResourcesPopover = () => {
 								/>
 							))}
 						</div>
-						<div className="w-full">
+						{/* <div className="w-full">
 							{res2.map((item) => (
 								<NavItem
 									key={item.name}
@@ -277,7 +371,7 @@ const ResourcesPopover = () => {
 									url={item.href}
 								/>
 							))}
-						</div>
+						</div> */}
 					</div>
 				</Popover.Panel>
 			</Transition>
@@ -386,6 +480,7 @@ export const Header = () => {
 						</div>
 						<Popover.Group className="hidden lg:flex lg:gap-x-7">
 							<ProductPopover />
+							<SolutionsPopover />
 							<ResourcesPopover />
 							<CompanyPopover />
 						</Popover.Group>
