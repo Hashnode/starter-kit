@@ -9,6 +9,7 @@ export default class SemanticSearchSVG extends React.Component {
 				height="24"
 				viewBox="0 0 24 24"
 				fill="none"
+				className={this.props.className}
 			>
 				<path d="M14.4121 14.4121L20 20" stroke="#4F4D55" stroke-linecap="round" />
 				<path

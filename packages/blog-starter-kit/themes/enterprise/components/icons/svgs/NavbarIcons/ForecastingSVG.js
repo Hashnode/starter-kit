@@ -9,6 +9,7 @@ export default class ForecastingSVG extends React.Component {
 				viewBox="0 0 29 29"
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"
+				className={this.props.className}
 			>
 				<path
 					d="M26 8.20001H21.5C21 8.20001 20.6 8.60001 20.6 9.10001V26.1C20.6 26.6 21 27 21.5 27H26C26.5 27 26.9 26.6 26.9 26.1V9.00001C26.9 8.60001 26.5 8.20001 26 8.20001Z"

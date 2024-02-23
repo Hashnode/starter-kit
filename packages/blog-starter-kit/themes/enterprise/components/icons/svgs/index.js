@@ -16,7 +16,7 @@ import CloudNavBarSVG from './NavbarIcons/CloudNavBar';
 import CommunitySVG from './NavbarIcons/CommunitySVG';
 import ContactSVG from './NavbarIcons/ContactSVG';
 import ContributeSVG from './NavbarIcons/ContributeSVG';
-import CustomChatbotsSVG from './NavbarIcons/CustomChatbotsSVG';
+import CustomChatbotSVG from './NavbarIcons/CustomChatbotSVG';
 import DocsNavSVG from './NavbarIcons/DocsNavSVG';
 import EnterpriseSVG from './NavbarIcons/EnterpriseSVG';
 import EventsSVG from './NavbarIcons/EventsSVG';
@@ -52,7 +52,7 @@ export {
 	CommunitySVG,
 	ContactSVG,
 	ContributeSVG,
-	CustomChatbotsSVG,
+	CustomChatbotSVG,
 	DocsNavSVG,
 	EnterpriseSVG,
 	EventsSVG,

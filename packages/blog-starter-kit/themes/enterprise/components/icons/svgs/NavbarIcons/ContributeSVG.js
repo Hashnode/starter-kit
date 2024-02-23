@@ -9,6 +9,7 @@ export default class ContributeSVG extends React.Component {
 				height="24"
 				viewBox="0 0 24 24"
 				fill="none"
+				className={this.props.className}
 			>
 				<path
 					fill-rule="evenodd"
