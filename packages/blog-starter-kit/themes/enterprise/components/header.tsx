@@ -16,6 +16,7 @@ import {
 	CaseStudiesSVG,
 	CommunitySVG,
 	ContactSVG,
+  ContributeSVG,
 	CustomChatbotsSVG,
 	DocsNavSVG,
 	EnterpriseSVG,
@@ -36,7 +37,6 @@ import {
 	UpTimeNavSVG,
 	UseCasesSVG,
 } from './icons';
-import ContributeSVG from './icons/svgs/NavbarIcons/ContributeSVG';
 function hasUrl(
 	navbarItem: PublicationNavbarItem,
 ): navbarItem is PublicationNavbarItem & { url: string } {
