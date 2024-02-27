@@ -127,6 +127,13 @@ Be sure to replace the values of `subpath` and `blogBaseUrl` in the above code s
 
 If your main domain is hosted elsewhere, you need to involve engineers from your team to create above rewrites.
 
+After the above step is done, follow these steps to add the worker route:
+- Go to `Websites` then click on your website and select `Worker Routes` from the left pane. 
+- Click on `Add route` and add `https://yourdomain/*` , then select the worker you just added above and click `Save`.
+- Go to `https://yourdomain/yoursubpath` and now you should be able to see your blogs.
+
+Note: If you are updating your environment variables in Vercel, make sure to manually redeploy to see the changes.
+
 ### Step 3
 
 Now that you have deployed the starter kit on your own domain, you need to tell Hashnode not to generate a UI for your blog. You can do that by visiting your blog dashboard -> advanced tab. Scroll down and locate the section "use Hashnode as a headless CMS". Enable it and enter your blog base URL.
