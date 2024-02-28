@@ -68,14 +68,6 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 				<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(addPublicationJsonLd(publication)) }} />
 				</Head>
 
-				<header className="bg-black text-white p-2">
-					<nav className="max-w-xl mx-auto flex justify-between items-center space-x-8">
-						<a href="https://haimantika.dev/#home" className="hover:opacity-90">home</a>
-						<a href="https://haimantika.dev/blog" className="hover:opacity-90">blog</a>
-						<a href="https://haimantika.dev/#projects" className="hover:opacity-90">projects</a>
-						</nav>
-    </header>
-
 				<Container className="mx-auto flex max-w-3xl flex-col items-stretch gap-10 px-5 py-10">
 					<PersonalHeader />
 					

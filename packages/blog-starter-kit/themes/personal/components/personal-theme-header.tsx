@@ -61,28 +61,14 @@ export const PersonalHeader = () => {
 
 	return (
 		<header className="grid grid-cols-2 items-center gap-5 ">
-			<div className="col-span-full md:col-span-1">
-				<h1>
-					<Link
-						className="flex flex-row items-center gap-2 text-lg font-bold leading-tight tracking-tight text-black dark:text-white"
-						href="/"
-						aria-label={`${publication.author.name}'s blog home page`}
-					>
-						{publication.author.profilePicture && (
-							<img
-								className="block h-8 w-8 rounded-full fill-current"
-								alt={publication.author.name}
-								src={resizeImage(publication.author.profilePicture, {
-									w: 400,
-									h: 400,
-									c: 'face',
-								})}
-							/>
-						)}
-						{publication.title}
-					</Link>
-				</h1>
-			</div>
+			<header className="bg-black text-white p-2">
+					<nav className="max-w-xl mx-auto flex justify-between items-center space-x-8">
+						<a href="https://haimantika.dev/#home" className="hover:opacity-90">home</a>
+						<a href="https://haimantika.dev/blog" className="hover:opacity-90">blog</a>
+						<a href="https://haimantika.dev/#projects" className="hover:opacity-90">projects</a>
+						</nav>
+    </header>
+			
 			<div className="col-span-full flex flex-row items-center justify-between gap-4 md:col-span-1 md:justify-end">
 				<nav>{navList}</nav>
 				{/* <Button
