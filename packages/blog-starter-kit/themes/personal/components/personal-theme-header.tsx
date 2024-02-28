@@ -61,7 +61,7 @@ export const PersonalHeader = () => {
 
 	return (
 		<header className="grid grid-cols-2 items-center gap-5 ">
-			<header className="bg-black text-white p-2">
+			<header className="bg-dark text-white p-2">
 					<nav className="max-w-xl mx-auto flex justify-between items-center space-x-8">
 						<a href="https://haimantika.dev/#home" className="hover:opacity-90">home</a>
 						<a href="https://haimantika.dev/blog" className="hover:opacity-90">blog</a>

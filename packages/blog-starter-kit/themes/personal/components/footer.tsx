@@ -5,7 +5,7 @@ export const Footer = () => {
 
 	return (
 		<footer className="border-t pt-10 text-sm text-neutral-500 dark:border-neutral-800 dark:text-neutral-400">
-			<footer id="footer" className="bg-black text-s text-white">
+			<footer id="footer" className="bg-dark text-s text-white">
 			
 			<section
 			  className="mx-auto flex max-w-4xl flex-col p-4 sm:flex-row sm:justify-between"
