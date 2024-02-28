@@ -4,6 +4,7 @@ const colors = require('tailwindcss/colors');
 module.exports = {
 	content: ['./components/**/*.tsx', './pages/**/*.tsx'],
 	theme: {
+		darkMode: `class`,
 		extend: {
 			colors: {
 				'accent-1': '#FAFAFA',
