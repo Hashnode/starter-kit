@@ -1,0 +1,19 @@
+query Newsletter($host: String!, $slug: String!) {
+  publication(host: $host) {
+    ...RequiredPublicationFields
+    author {
+      id
+      followersCount
+    }
+    staticPage(slug: $slug) {
+      id
+    }
+    recentPosts: posts(first: 3) {
+      edges {
+        node {
+          ...PostThumbnail
+        }
+      }
+    }
+  }
+}

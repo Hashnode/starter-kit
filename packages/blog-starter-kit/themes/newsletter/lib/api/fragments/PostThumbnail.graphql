@@ -1,0 +1,27 @@
+fragment PostThumbnail on Post {
+  __typename
+  id
+  title
+  slug
+  publishedAt
+  cuid
+  url
+  subtitle
+  brief
+  readTimeInMinutes
+  views
+  author {
+    __typename
+    id
+    username
+    name
+    profilePicture
+    followersCount
+  }
+  coverImage {
+    __typename
+    url
+    isPortrait
+    isAttributionHidden
+  }
+}

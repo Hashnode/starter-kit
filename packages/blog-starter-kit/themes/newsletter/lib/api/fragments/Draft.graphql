@@ -1,0 +1,36 @@
+fragment Draft on Draft {
+    id
+    title
+    canonicalUrl
+    subtitle
+    features {
+      tableOfContents {
+        isEnabled
+        items {
+          id
+          level
+          parentId
+          slug
+          title
+        }
+      }
+    }
+    content {
+      markdown
+    }
+    coverImage {
+        url
+    }
+    author {
+      id
+      name
+      username
+      profilePicture
+    }
+    updatedAt
+    tags {
+      id
+      name
+      slug
+    }
+}

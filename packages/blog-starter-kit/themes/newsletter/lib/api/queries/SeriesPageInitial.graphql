@@ -1,0 +1,42 @@
+query SeriesPageInitial($host: String!, $slug: String!, $first: Int!, $after: String) {
+  publication(host: $host) {
+    ...RequiredPublicationFields
+
+    series(slug: $slug) {
+      id
+      name
+      coverImage
+      slug
+      description {
+        html
+        # We don't need these field. But because of our legacy mapper we need to have it present.
+        markdown
+        text
+      }
+      cuid
+      author {
+        id
+        name
+        username
+        __typename
+      }
+
+      posts(first: $first, after: $after) {
+        edges {
+          node {
+            ...PostThumbnail
+          }
+          cursor
+          __typename
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+}
