@@ -1,0 +1,108 @@
+query SinglePostByPublication($slug: String!, $host: String!) {
+	publication(host: $host) {
+		...Publication
+		posts(first: 0) {
+			totalDocuments
+		}
+		post(slug: $slug) {
+			...PostFull
+		}
+	}
+}
+
+fragment PostFull on Post {
+	id
+	slug
+	url
+	brief
+	title
+	subtitle
+	publishedAt
+	updatedAt
+	readTimeInMinutes
+	reactionCount
+	responseCount
+	hasLatexInPost
+	publication {
+		id
+		isTeam
+		favicon
+		title
+		about {
+			html
+		}
+	}
+	seo {
+		title
+		description
+	}
+	coverImage {
+		url
+	}
+	author {
+		id
+		name
+		username
+		profilePicture
+		socialMediaLinks {
+          twitter
+        }
+		bio {
+			html
+		}
+	}
+	coAuthors {
+		username
+		id
+		name
+		bio {
+			html
+		}
+		profilePicture
+  	}
+	title
+	content {
+		markdown
+		html
+	}
+	ogMetaData {
+		image
+	}
+	tags {
+		id
+		name
+		slug
+	}
+	features {
+		tableOfContents {
+			isEnabled
+			items {
+				id
+				level
+				parentId
+				slug
+				title
+			}
+		}
+	}
+	preferences {
+		disableComments
+	}
+	comments(first: 25) {
+		totalDocuments
+		edges {
+			node {
+				id
+				totalReactions
+				content {
+					markdown
+				}
+				author {
+					name
+					username
+					profilePicture
+				}
+			}
+		}
+	}
+}
