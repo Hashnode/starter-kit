@@ -1,0 +1,28 @@
+query SearchPostsOfPublication($first: Int!, $filter: SearchPostsOfPublicationFilter!) {
+	searchPostsOfPublication(first: $first, filter: $filter) {
+		edges {
+			cursor
+			node {
+				id
+				brief
+				title
+				cuid
+				slug
+				coverImage {
+					url
+				}
+				author {
+					id
+					name
+				}
+				publication {
+					title
+					url
+				}
+			}
+		}
+		pageInfo {
+			...PageInfo
+		}
+	}
+}
