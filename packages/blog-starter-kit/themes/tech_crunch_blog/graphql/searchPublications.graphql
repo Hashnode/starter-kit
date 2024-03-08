@@ -1,0 +1,41 @@
+query getBlogPosts($host: String, $limit: Int!, $nextPage: String) {
+	publication(host: $host) {
+		id
+		posts(first: $limit, after: $nextPage) {
+			totalDocuments
+			pageInfo {
+				hasNextPage
+				endCursor
+			}
+			edges {
+				node {
+					id
+					seo {
+						title
+						description
+					}
+					author {
+						name
+						profilePicture
+					}
+					title
+					subtitle
+					brief
+					slug
+					coverImage {
+						url
+					}
+					content {
+						markdown
+					}
+					tags {
+						id
+						name
+					}
+					publishedAt
+					readTimeInMinutes
+				}
+			}
+		}
+	}
+}
