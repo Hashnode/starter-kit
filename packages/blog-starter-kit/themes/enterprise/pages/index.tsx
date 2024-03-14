@@ -203,7 +203,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 						<div className="lg:w-1/2 md:w-full h-full p-8 bg-white border-neutral-200">
 							<div className="text-neutral-500 text-xs font-light font-['Outfit'] uppercase leading-[18px] tracking-[4.80px]">PAPAN IKLAN</div>
 							<div className="text-neutral-800 lg:text-3xl text-2xl font-medium font-['Outfit'] leading-9">Nak promote business korang di artikel Kawenlah?</div>
-							<Link href="https://www.kawenlah.com" target="_blank" rel="noreferrer noopener">
+							<Link href="https://forms.gle/esYMzAg4iKNSwsqCA" target="_blank" rel="noreferrer noopener">
 								<div className="w-fit mt-8 rounded-full px-8 py-4 bg-primary-500 cursor-pointer">
 									<div className="text-center text-white text-base font-medium font-['Outfit'] leading-normal">Daftar Sekarang</div>
 								</div>
