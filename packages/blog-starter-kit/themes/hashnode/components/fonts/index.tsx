@@ -1,26 +1,27 @@
-import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
+import { Pacifico, Outfit } from 'next/font/google';
 
-const inter = Inter({
+const pacifico = Pacifico({
   subsets: ['latin'],
-  variable: '--font-inter',
+  weight: '400',
+  variable: '--font-pacifico',
   display: 'swap',
 });
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const outfit = Outfit({
   subsets: ['latin'],
-  variable: '--font-plus-jakarta-sans',
+  weight: ['400', '500', '700'], // Specify the weights you want to use for Outfit
+  variable: '--font-outfit',
   display: 'swap',
 });
 
-const variableConstant = 'variable';
-const fontInterVar = inter.variable.replace(variableConstant, 'Inter');
-const fontPlusJakartaSansVar = plusJakartaSans.variable.replace(variableConstant, 'Plus_Jakarta_Sans');
+const fontPacificoVar = pacifico.variable.replace('variable', 'Pacifico');
+const fontOutfitVar = outfit.variable.replace('variable', 'Outfit');
 
 export const GlobalFontVariables = () => (
   <style jsx global>{`
     html {
-      --font-inter: ${fontInterVar};
-      --font-plus-jakarta-sans: ${fontPlusJakartaSansVar};
+      --font-pacifico: ${fontPacificoVar};
+      --font-outfit: ${fontOutfitVar};
     }
   `}</style>
 );

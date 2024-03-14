@@ -12,7 +12,19 @@ module.exports = {
 				'accent-7': '#333',
 				success: '#0070f3',
 				cyan: '#79FFE1',
-				primary: colors.blue,
+				primary: {
+					50: '#FFE9F3',
+					100: '#FFE9F3',
+					200: '#FFE9F3',
+					300: '#FFA9D0',
+					400: '#FFA9D0',
+					500: '#AF1057',
+					600: '#AF1057',
+					700: '#87033E',
+					800: '#87033E',
+					900: '#60002B',
+					950: '#60002B'
+				},
 			},
 			typography: () => ({
 				DEFAULT: {
@@ -66,6 +78,9 @@ module.exports = {
 			boxShadow: {
 				sm: '0 5px 10px rgba(0, 0, 0, 0.12)',
 				md: '0 8px 30px rgba(0, 0, 0, 0.12)',
+			},
+			fontFamily: {
+				pacifico: ['Pacifico', 'Outfit'], // Add this line
 			},
 		},
 	},

@@ -35,7 +35,7 @@ export const PostHeader = ({ title, coverImage, date, author, readTimeInMinutes 
 	return (
 		<>
 			<PostTitle>{title}</PostTitle>
-			<div className="flex flex-row flex-wrap items-center justify-center w-full gap-2 px-2 text-slate-700 dark:text-neutral-300 md:px-0">
+			<div className="flex flex-row flex-wrap items-center justify-center w-full gap-2 py-2 text-slate-700 dark:text-neutral-300 md:px-0 font-['Outfit']">
 				<div className="mb-5 flex w-full flex-row items-center justify-center md:mb-0 md:w-auto md:justify-start">
 					{authorsArray.map((coAuthor, index) => (
 						<div
@@ -64,7 +64,7 @@ export const PostHeader = ({ title, coverImage, date, author, readTimeInMinutes 
 					{!post.coAuthors?.length && (
 						<a
 						href={`https://hashnode.com/@${post.author.username}`}
-						className="ml-2 font-semibold text-slate-600 dark:text-white md:ml-0"
+						className="ml-2 font-semibold text-slate-600 dark:text-white md:ml-0 font-['Outfit']"
 						>
 						<span>{post.author.name}</span>
 						</a>
@@ -72,11 +72,11 @@ export const PostHeader = ({ title, coverImage, date, author, readTimeInMinutes 
 					{post.coAuthors && post.coAuthors.length > 0 && (
 						<button
 						onClick={openCoAuthorModal}
-						className="ml-2 text-left font-semibold text-slate-600 hover:underline dark:text-white"
+						className="ml-2 text-left font-semibold text-slate-600 hover:underline dark:text-white font-['Outfit']"
 						>
 						<span>{post.author.name}</span>
 						{post.coAuthors && (
-							<span className="font-normal">
+							<span className="font-normal font-['Outfit']">
 							{' '}
 							<br className="block sm:hidden" />
 							with {post.coAuthors.length} co-author{post.coAuthors.length === 1 ? '' : 's'}
@@ -85,15 +85,15 @@ export const PostHeader = ({ title, coverImage, date, author, readTimeInMinutes 
 						</button>
 					)}
 				</div>
-				<div className="mb-5 flex w-full flex-row items-center justify-center md:mb-0 md:w-auto md:justify-start">
+				<div className="mb-5 flex w-full flex-row items-center justify-center lg:gap-2 gap-8 md:mb-0 md:w-auto md:justify-start">
 					<span className="mx-3 hidden font-bold text-slate-500 md:block">&middot;</span>
 					<DateFormatter dateString={date} />
-					{readTimeInMinutes && <span className="mx-3 hidden font-bold text-slate-500 md:block">&middot;</span>}
+					{readTimeInMinutes && <span className="mx-3 hidden font-bold text-slate-500 md:block font-['Outfit']">&middot;</span>}
 					<ReadTimeInMinutes readTimeInMinutes={readTimeInMinutes} />
 				</div>
 			</div>
 			{coverImage && (
-				<div className="w-full px-5 sm:mx-0">
+				<div className="w-full sm:mx-0">
 					<CoverImage
 						title={title}
 						src={resizeImage(coverImage, { w: 1600, h: 840, c: 'thumb' })}

@@ -77,34 +77,29 @@ export const Header = () => {
 	);
 
 	return (
-		<header className="border-b bg-slate-950 py-10 dark:border-neutral-800 dark:bg-neutral-900">
-			<Container className="grid grid-cols-4 gap-5 px-5">
-				<div className="col-span-2 flex flex-1 flex-row items-center gap-2 lg:col-span-1">
-					<div className="lg:hidden">
-						<Button
-							type="outline"
-							label=""
-							icon={<HamburgerSVG className="h-5 w-5 stroke-current" />}
-							className="rounded-xl border-transparent !px-3 !py-2 text-white hover:bg-slate-900 dark:hover:bg-neutral-800"
-							onClick={toggleSidebar}
-						/>
-
-						{isSidebarVisible && (
-							<PublicationSidebar navbarItems={navbarItems} toggleSidebar={toggleSidebar} />
-						)}
-					</div>
-					<div className="hidden lg:block">
-						<PublicationLogo />
-					</div>
+		<header className="border-b bg-white py-10 dark:border-neutral-800 dark:bg-neutral-900">
+			<Container className="flex justify-between items-center px-5">
+				<div className="flex items-center">
+				<div className="hidden">
+					<Button
+					type="outline"
+					label=""
+					icon={<HamburgerSVG className="h-5 w-5 stroke-current" />}
+					className="rounded-xl border-transparent !px-3 !py-2 text-white hover:bg-slate-900 dark:hover:bg-neutral-800"
+					onClick={toggleSidebar}
+					/>
+					{isSidebarVisible && (
+					<PublicationSidebar navbarItems={navbarItems} toggleSidebar={toggleSidebar} />
+					)}
 				</div>
-				<div className="col-span-2 flex flex-row items-center justify-end gap-5 text-slate-300 lg:col-span-3">
-					<nav className="hidden lg:block">{navList}</nav>
-					<Button href={baseUrl} as="a" type="primary" label="Book a demo" />
+				<div className="flex gap-2">
+					<PublicationLogo />
 				</div>
+				</div>
+				<nav className="block">{navList}</nav>
+				<Button href="https://www.kawenlah.com/login" as="a" type="primary" label="Login/Register" />
 			</Container>
-			<div className="mt-5 flex justify-center lg:hidden">
-				<PublicationLogo />
-			</div>
 		</header>
+
 	);
 };

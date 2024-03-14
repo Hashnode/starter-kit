@@ -17,11 +17,11 @@ export const Subscribe = () => {
 				</Popover.Trigger>
 				<Popover.Portal>
 					<Popover.Content
-						className="w-[350px] rounded-xl border bg-white p-5 shadow-xl dark:border-neutral-800 dark:bg-neutral-900 md:w-[500px]"
+						className="w-[350px] border bg-white p-8 shadow-xl dark:border-neutral-800 dark:bg-neutral-900 md:w-[500px]"
 						align="end"
 						sideOffset={5}
 					>
-						<h3 className="mb-2 text-base font-semibold text-center text-primary-600">
+						<h3 className="mb-8 text-base font-semibold text-center text-primary-600">
 							Subscribe to our newsletter for updates and changelog.
 						</h3>
 						<SubscribeForm />

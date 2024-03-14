@@ -37,7 +37,7 @@ export default function Post({ publication, post }: Props) {
 		<li key={tag.id}>
 			<Link
 				href={`/tag/${tag.slug}`}
-				className="block rounded-full border px-2 py-1 font-medium hover:bg-slate-50 dark:border-neutral-800 dark:hover:bg-neutral-800 md:px-4"
+				className="block rounded-full border px-2 py-1 font-medium font-['Outfit'] hover:bg-slate-50 dark:border-neutral-800 dark:hover:bg-neutral-800 md:px-4"
 			>
 				#{tag.slug}
 			</Link>

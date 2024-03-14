@@ -8,13 +8,13 @@ type Props = {
 
 export const MorePosts = ({ posts, context }: Props) => {
 	return (
-		<section className="mb-10 flex flex-col items-start gap-10">
+		<section className="mb-10 flex flex-col items-start border border-neutral-200">
 			{context === 'home' && (
-				<h2 className="text-xl font-bold leading-tight tracking-tight text-slate-900 dark:text-neutral-50 lg:text-3xl">
+				<h2 className="w-full text-xl font-['Outfit'] font-bold leading-tight tracking-tight text-slate-900 dark:text-neutral-50 lg:text-3xl border-b border-neutral-200 p-8">
 					More Posts
 				</h2>
 			)}
-			<div className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3">
+			<div className="w-full grid items-start md:grid-cols-2 xl:grid-cols-3">
 				{posts.map((post) => (
 					<PostPreview
 						key={post.slug}

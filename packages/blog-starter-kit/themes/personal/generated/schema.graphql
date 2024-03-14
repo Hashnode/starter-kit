@@ -239,6 +239,92 @@ input CoverImageOptionsInput {
   stickCoverToBottom: Boolean
 }
 
+input CreateDraftInput {
+  """Ids of the co-authors of the resulting draft."""
+  coAuthors: [ObjectId!]
+  """Content of the resulting draft in markdown format."""
+  contentMarkdown: String
+  """Options for the cover image of the resulting draft."""
+  coverImageOptions: CoverImageOptionsInput
+  """
+  A flag to indicate if the comments are disabled for the resulting draft.
+  """
+  disableComments: Boolean
+  """
+  Information about the meta tags added to the resulting draft, used for SEO purpose.
+  """
+  metaTags: MetaTagsInput
+  """
+  The URL of the original article if the draft is imported from an external source.
+  """
+  originalArticleURL: String
+  """The ID of publication the draft and resulting post belongs to."""
+  publicationId: ID!
+  """
+  Publish the draft on behalf of another user who is a member of the publication.
+  
+  Only applicable for team publications.
+  """
+  publishAs: ObjectId
+  """Date when the resulting draft is published."""
+  publishedAt: DateTime
+  """Providing a seriesId will add the resulting draft to that series."""
+  seriesId: ObjectId
+  """
+  Settings for the resulting draft like table of contents and newsletter activation.
+  """
+  settings: CreateDraftSettingsInput
+  """Slug of the resulting draft."""
+  slug: String
+  """The subtitle of the resulting draft."""
+  subtitle: String
+  """A list of tags added to the resulting draft."""
+  tags: [CreateDraftTagInput!]
+  """The title of the resulting draft."""
+  title: String
+}
+
+type CreateDraftPayload {
+  """The newly created draft"""
+  draft: Draft
+}
+
+input CreateDraftSettingsInput {
+  """Whether to send a newsletter for the resulting draft's post."""
+  activateNewsletter: Boolean
+  """
+  A flag to indicate if the resulting draft should be delisted, used to hide the post created from the draft from public feed.
+  """
+  delist: Boolean
+  """
+  A flag to indicate if the resulting draft'S post should contain a table of content
+  """
+  enableTableOfContent: Boolean
+  """Flag to indicate if the slug is overridden by the user."""
+  slugOverridden: Boolean
+}
+
+input CreateDraftTagInput {
+  """
+  A tag id that is referencing an existing tag.
+  
+  Either this or name and slug should be provided. If both are provided, the id will be used.
+  """
+  id: ObjectId
+  """
+  A name of a new tag to create.
+  
+  Either this and slug or id should be provided. If both are provided, the id will be used.
+  """
+  name: String
+  """
+  A slug of a new tag to create.
+  
+  Either this and name or id should be provided. If both are provided, the id will be used.
+  """
+  slug: String
+}
+
 input CreateWebhookInput {
   events: [WebhookEvent!]!
   publicationId: ID!
@@ -354,6 +440,8 @@ type Draft implements Node {
   """
   ogMetaData: OpenGraphMetaData
   readTimeInMinutes: Int!
+  """The date the draft is scheduled to be published."""
+  scheduledDate: DateTime
   """
   SEO information of the draft. Contains title and description used in meta tags.
   """
@@ -369,7 +457,8 @@ type Draft implements Node {
   """
   Returns list of tags added to the draft. Contains tag id, name, slug, etc.
   """
-  tags: [Tag!]!
+  tags: [Tag!]! @deprecated(reason: "Use tagsV2 instead. Will be removed on 26/02/2024.")
+  tagsV2: [DraftTag!]!
   """
   The title of the draft. It would become the title of the post when published.
   """
@@ -382,6 +471,19 @@ type DraftBackup {
   at: DateTime
   """The status of the backup i.e., success or failure."""
   status: BackupStatus
+}
+
+"""
+Contains basic information about a Tag within a Draft.
+A tag in a draft is a tag that is not published yet.
+"""
+type DraftBaseTag {
+  """The name of the tag. Shown in tag page."""
+  name: String!
+  """
+  The slug of the tag. Used to access tags feed.  Example https://hashnode.com/n/graphql
+  """
+  slug: String!
 }
 
 """
@@ -424,13 +526,15 @@ type DraftFeatures {
 type DraftSettings {
   """A flag to indicate if the comments are disabled for the post."""
   disableComments: Boolean!
-  """Wether or not the post is hidden from the Hashnode community."""
+  """Whether or not the post is hidden from the Hashnode community."""
   isDelisted: Boolean!
   """
   A flag to indicate if the cover image is shown below title of the post. Default position of cover is top of title.
   """
   stickCoverToBottom: Boolean!
 }
+
+union DraftTag = DraftBaseTag | Tag
 
 """
 An edge that contains a node and cursor to the node.
@@ -544,10 +648,40 @@ enum FeedType {
   RELEVANT
 }
 
+"""Views implementation that will be returned if grouping by page."""
+type GroupedByPageViews implements Node & Views {
+  """The start of the time range that these views belong to."""
+  from: DateTime!
+  id: ID!
+  """The page that these views belong to."""
+  page: StaticPage!
+  """The end of the time range that these views belong to."""
+  to: DateTime!
+  """
+  The aggregated views for a static page in the time range indicated by `from` and `to`.
+  """
+  total: Int!
+}
+
+"""Views implementation that will be returned if grouping by post."""
+type GroupedByPostViews implements Node & Views {
+  """The start of the time range that these views belong to."""
+  from: DateTime!
+  id: ID!
+  """The post that these views belong to."""
+  post: Post!
+  """The end of the time range that these views belong to."""
+  to: DateTime!
+  """
+  The aggregated views for a post in the time range indicated by `from` and `to`.
+  """
+  total: Int!
+}
+
 enum HttpRedirectionType {
-  """A permanent redirect that corresponds to the 308 HTTP status code."""
+  """A permanent redirect that corresponds to the 302 HTTP status code."""
   PERMANENT
-  """A temporary redirect that corresponds to the 307 HTTP status code."""
+  """A temporary redirect that corresponds to the 301 HTTP status code."""
   TEMPORARY
 }
 
@@ -680,9 +814,7 @@ type LikePostPayload {
   post: Post
 }
 
-"""
-Contains information about meta tags of the post. Used for SEO purpose.
-"""
+"""Contains information about meta tags. Used for SEO purpose."""
 input MetaTagsInput {
   """The description of the post used in og:description for SEO."""
   description: String
@@ -700,6 +832,11 @@ type Mutation {
   """Adds a reply to a comment."""
   addReply(input: AddReplyInput!): AddReplyPayload!
   cancelScheduledDraft(input: CancelScheduledDraftInput!): CancelScheduledDraftPayload!
+  """Creates a new draft for a post."""
+  createDraft(
+    """Information about the draft to be created."""
+    input: CreateDraftInput!
+  ): CreateDraftPayload!
   createWebhook(input: CreateWebhookInput!): CreateWebhookPayload!
   deleteWebhook(id: ID!): DeleteWebhookPayload!
   """Likes a comment."""
@@ -727,6 +864,8 @@ type Mutation {
   """Reschedule a draft."""
   rescheduleDraft(input: RescheduleDraftInput!): RescheduleDraftPayload!
   resendWebhookRequest(input: ResendWebhookRequestInput!): ResendWebhookRequestPayload!
+  """Restores a deleted post."""
+  restorePost(input: RestorePostInput!): RestorePostPayload!
   scheduleDraft(
     """Information about the draft to be published."""
     input: ScheduleDraftInput!
@@ -776,8 +915,6 @@ type MyUser implements IUser & Node {
   dateJoined: DateTime
   """Whether or not the user is deactivated."""
   deactivated: Boolean!
-  """Email address of the user. Only available to the authenticated user."""
-  email: String
   """The users who are following this user"""
   followers(
     """The page number that should be returned."""
@@ -838,10 +975,6 @@ type MyUser implements IUser & Node {
   """Returns a list of tags that the user follows."""
   tagsFollowing: [Tag!]!
   """
-  Hashnode users are subscribed to a newsletter by default. This field can be used to unsubscribe from the newsletter. Only available to the authenticated user.
-  """
-  unsubscribeCode: String
-  """
   The username of the user. It is unique and tied with user's profile URL. Example - https://hashnode.com/@username
   """
   username: String!
@@ -864,7 +997,18 @@ enum NewsletterFrequency {
 }
 
 enum NewsletterSubscribeStatus {
+  CONFIRMED
   PENDING
+}
+
+type NewsletterSubscriber implements Node {
+  """The date the subscriber was added."""
+  createdAt: DateTime!
+  """The email of the subscriber."""
+  email: String!
+  id: ID!
+  """The status of the subscriber."""
+  status: NewsletterSubscribeStatus!
 }
 
 enum NewsletterUnsubscribeStatus {
@@ -1059,10 +1203,10 @@ type Post implements Node {
   hasLatexInPost: Boolean!
   """The ID of the post. Used to uniquely identify the post."""
   id: ID!
-  """Wether or not the post has automatically been published via RSS feed."""
+  """Whether or not the post has automatically been published via RSS feed."""
   isAutoPublishedFromRSS: Boolean!
   """
-  Wether or not the authenticated user is following this post.
+  Whether or not the authenticated user is following this post.
   
   Returns `null` if the user is not authenticated.
   """
@@ -1106,6 +1250,10 @@ type Post implements Node {
   """
   slug: String!
   """
+  Boolean flag to identify whether or not the post is sourced from GitHub.
+  """
+  sourcedFromGithub: Boolean!
+  """
   The subtitle of the post. Subtitle is a short description of the post which is also used in SEO if meta tags are not provided.
   """
   subtitle: String
@@ -1148,7 +1296,7 @@ enum PostBadgeType {
 }
 
 type PostBadgesFeature implements Feature {
-  """Wether or not the user has chosen to show badges on the post."""
+  """Whether or not the user has chosen to show badges on the post."""
   isEnabled: Boolean!
   items: [PostBadge!]!
 }
@@ -1288,7 +1436,7 @@ Contains Post preferences. Used to determine if the post is pinned to blog, comm
 type PostPreferences {
   """A flag to indicate if the comments are disabled for the post."""
   disableComments: Boolean!
-  """Wether or not the post is hidden from the Hashnode community."""
+  """Whether or not the post is hidden from the Hashnode community."""
   isDelisted: Boolean!
   """
   A flag to indicate if the post is pinned to blog. Pinned post is shown on top of the blog.
@@ -1333,6 +1481,10 @@ A publication is a blog that can be created for a user or a team.
 type Publication implements Node {
   """The about section of the publication."""
   about: Content
+  """
+  Boolean flag indicating if the publication allows edits by contributors
+  """
+  allowContributorEdits: Boolean!
   """The author who owns the publication."""
   author: User!
   """The canonical URL of the publication."""
@@ -1540,6 +1692,8 @@ type PublicationIntegrations {
   A flag indicating if the custom domain is enabled for integration with Plausible Analytics.
   """
   plausibleAnalyticsEnabled: Boolean
+  """The share ID for the Hashnode-provided Umami analytics instance."""
+  umamiShareId: String
   """The ID for the Hashnode-provided Umami analytics instance."""
   umamiWebsiteUUID: String
   """
@@ -1583,6 +1737,26 @@ type PublicationLinks {
   youtube: String
 }
 
+"""Contains the publication member information."""
+type PublicationMember implements Node {
+  """The ID of the publication member."""
+  id: ID!
+  """The role of the user in the publication."""
+  role: PublicationMemberRole!
+  """The user who is a member of the publication."""
+  user: User
+}
+
+"""The role of the user in the publication."""
+enum PublicationMemberRole {
+  """The user is an admin of the publication."""
+  ADMIN
+  """The user is a owner of the publication."""
+  AUTHOR
+  """The user is a member of the publication."""
+  CONTRIBUTOR
+}
+
 """Contains the publication's navbar items."""
 type PublicationNavbarItem {
   """The unique identifier of the navbar item."""
@@ -1592,7 +1766,7 @@ type PublicationNavbarItem {
   """The static page added to the navbar item."""
   page: StaticPage
   """The order of the navbar item."""
-  priority: Int
+  priority: Int @deprecated(reason: "Navbar items are already returned in the correct order. Priority value is not needed and might be 0 in most cases.")
   """The series added to the navbar item."""
   series: Series
   """The type of the navbar item, can be series, link or page."""
@@ -1630,6 +1804,10 @@ Connection to get list of posts in publications.
 Returns a list of edges which contains the posts in publication and cursor to the last item of the previous page.
 """
 input PublicationPostConnectionFilter {
+  """
+  Only return posts that are deleted. Query returns active posts by default, set this to true to return deleted posts.
+  """
+  deletedOnly: Boolean
   """Remove pinned post from the result set."""
   excludePinnedPost: Boolean
   """
@@ -1669,6 +1847,11 @@ type PublicationUserRecommendingPublicationConnection implements PageConnection 
   pageInfo: OffsetPageInfo!
   """The total number of documents in the connection."""
   totalDocuments: Int!
+}
+
+type PublicationViewEdge implements Edge {
+  cursor: String!
+  node: Views!
 }
 
 input PublishDraftInput {
@@ -1719,8 +1902,11 @@ input PublishPostInput {
   slug: String
   """The subtitle of the post."""
   subtitle: String
-  """A list of tags added to the post."""
-  tags: [PublishPostTagInput!]!
+  """
+  A list of tags to add to the post. You can get a list of popular tags available on Hashnode here.
+  https://github.com/Hashnode/support/blob/main/misc/tags.json
+  """
+  tags: [PublishPostTagInput!]
   """The title of the post."""
   title: String!
 }
@@ -1736,7 +1922,7 @@ input PublishPostSettingsInput {
   delisted: Boolean
   """A flag to indicate if the post contains table of content"""
   enableTableOfContent: Boolean
-  """Wether to send a newsletter for this post."""
+  """Whether to send a newsletter for this post."""
   isNewsletterActivated: Boolean
   """A flag to indicate if the post is scheduled."""
   scheduled: Boolean
@@ -1875,9 +2061,10 @@ type RecommendedPublicationEdge implements Edge {
   node: Publication!
 }
 
-type RedirectionRule {
+type RedirectionRule implements Node {
   """The destination URL of the redirection rule."""
-  destination: String!
+  destination: URL!
+  id: ID!
   """The source URL of the redirection rule."""
   source: String!
   """The type of the redirection rule."""
@@ -1969,6 +2156,14 @@ type ResendWebhookRequestPayload {
   webhookMessage: WebhookMessage
 }
 
+input RestorePostInput {
+  id: ID!
+}
+
+type RestorePostPayload {
+  post: Post
+}
+
 """Information to help in seo related meta tags."""
 type SEO {
   """The description used in og:description tag for SEO purposes."""
@@ -2025,6 +2220,7 @@ enum Scope {
   create_pro
   import_subscribers_to_publication
   publication_admin
+  publication_member
   publish_comment
   publish_draft
   publish_post
@@ -2032,14 +2228,18 @@ enum Scope {
   recommend_publications
   remove_comment
   remove_reply
+  restore_post
   signup
   team_hashnode
   update_comment
   update_post
   update_reply
   webhook_admin
+  write_draft
   write_post
   write_series
+  write_static_page
+  write_widget
 }
 
 """
@@ -2055,6 +2255,10 @@ type SearchPostConnection implements Connection {
 }
 
 input SearchPostsOfPublicationFilter {
+  """
+  Only return posts that are deleted. Query returns active posts by default, set this to true to return deleted posts.
+  """
+  deletedOnly: Boolean
   """The ID of publications to search from."""
   publicationId: ObjectId!
   """The query to be searched in post."""
@@ -2235,7 +2439,9 @@ type SubscribeToNewsletterPayload {
 }
 
 type TableOfContentsFeature implements Feature {
-  """Wether or not ser has chosen to show a table of contents on the post."""
+  """
+  Whether or not the user has chosen to show a table of contents on the post.
+  """
   isEnabled: Boolean!
   """The content of the table of contents."""
   items: [TableOfContentsItem!]!
@@ -2339,6 +2545,19 @@ input TriggerWebhookTestInput {
 
 type TriggerWebhookTestPayload {
   webhook: Webhook
+}
+
+scalar URL
+
+"""Views implementation that will be returned if no grouping is applied."""
+type UngroupedViews implements Node & Views {
+  """The start of the time range that these views belong to."""
+  from: DateTime!
+  id: ID!
+  """The end of the time range that these views belong to."""
+  to: DateTime!
+  """The aggregated views in the time range indicated by `from` and `to`."""
+  total: Int!
 }
 
 input UnsubscribeFromNewsletterInput {
@@ -2492,7 +2711,7 @@ type User implements IUser & Node {
   """
   followersCount: Int!
   """
-  Wether or not the authenticated user follows this user.
+  Whether or not the authenticated user follows this user.
   Returns false if the authenticated user this user.
   """
   following: Boolean!
@@ -2508,13 +2727,13 @@ type User implements IUser & Node {
     pageSize: Int!
   ): UserConnection!
   """
-  Wether or not this user follows the authenticated user.
+  Whether or not this user follows the authenticated user.
   Returns false if the authenticated user this user.
   """
   followsBack: Boolean!
   """The ID of the user. It can be used to identify the user."""
   id: ID!
-  """Wether or not this is a pro user."""
+  """Whether or not this is a pro user."""
   isPro: Boolean!
   """The location of the user."""
   location: String
@@ -2725,6 +2944,16 @@ Shows total views on blogs if enabled.
 type ViewCountFeature implements Feature {
   """A flag indicating if the view count feature is enabled or not."""
   isEnabled: Boolean!
+}
+
+interface Views implements Node {
+  """The start of the time range that these views belong to."""
+  from: DateTime!
+  id: ID!
+  """The end of the time range that these views belong to."""
+  to: DateTime!
+  """The aggregated views in the time range indicated by `from` and `to`."""
+  total: Int!
 }
 
 type Webhook implements Node {

@@ -29,5 +29,10 @@
 	"engines": {
 		"node": ">=18.0.0",
 		"pnpm": ">=8.0.0"
-	}
+	},
+	"scripts": {
+		"dev": "next dev",
+		"start": "some-command",
+		"build": "some-other-command"
+	  }
 }

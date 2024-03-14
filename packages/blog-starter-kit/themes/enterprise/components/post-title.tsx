@@ -6,8 +6,8 @@ type Props = {
 
 export const PostTitle = ({ children }: Props) => {
 	return (
-		<div className="prose md:prose-xl dark:prose-invert prose-h1:text-center mx-auto max-w-screen-lg px-5">
-			<h1 className="">{children}</h1>
+		<div className="w-full md:prose-xl dark:prose-invert prose-h1:text-center mx-auto pb-8 font-['Outfit'] font-bold border-b border-neutral-200">
+		  <h1 className="text-3xl md:text-5xl">{children}</h1>
 		</div>
-	);
+	  );	  
 };

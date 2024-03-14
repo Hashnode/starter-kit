@@ -111,31 +111,31 @@ export const Search = () => {
 				onKeyUp={escapeSearchOnESC}
 				onChange={updateSearchQuery}
 				placeholder="Search blog posts…"
-				className="w-full rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-base focus:bg-transparent dark:border-neutral-800 dark:bg-neutral-800 dark:text-neutral-50 dark:placeholder:text-neutral-400 dark:hover:bg-neutral-950"
+				className="w-full outline outline-1 outline-neutral-200 marker:border border-slate-200 bg-white px-4 py-6 text-base focus:bg-transparent focus:outline-primary-500 dark:border-neutral-800 dark:bg-neutral-800 dark:text-neutral-50 dark:placeholder:text-neutral-400 dark:hover:bg-neutral-950"
 			/>
 			{query && (
 				<>
 					{isSearching && (
-						<div className="top-100 absolute left-0 z-10 mt-1 flex w-full flex-col items-stretch overflow-hidden rounded-lg border bg-white p-1 text-left text-slate-900 shadow-2xl dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-50">
+						<div className="top-100 absolute left-0 z-10 mt-1 flex w-full flex-col items-stretch overflow-hidden border bg-white p-1 text-left text-slate-900 shadow-2xl dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-50">
 							<div className="flex animate-pulse flex-col gap-1 p-4">
-								<div className="h-8 w-full rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
-								<div className="h-4 w-full rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
-								<div className="h-4 w-2/3 rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
+								<div className="h-8 w-full bg-slate-100 dark:bg-neutral-800"></div>
+								<div className="h-4 w-full bg-slate-100 dark:bg-neutral-800"></div>
+								<div className="h-4 w-2/3 bg-slate-100 dark:bg-neutral-800"></div>
 							</div>
 							<div className="flex animate-pulse flex-col gap-1 p-4">
-								<div className="h-8 w-full rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
-								<div className="h-4 w-full rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
-								<div className="h-4 w-2/3 rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
+								<div className="h-8 w-full bg-slate-100 dark:bg-neutral-800"></div>
+								<div className="h-4 w-full bg-slate-100 dark:bg-neutral-800"></div>
+								<div className="h-4 w-2/3 bg-slate-100 dark:bg-neutral-800"></div>
 							</div>
 							<div className="flex animate-pulse flex-col gap-1 p-4">
-								<div className="h-8 w-full rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
-								<div className="h-4 w-full rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
-								<div className="h-4 w-2/3 rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
+								<div className="h-8 w-full bg-slate-100 dark:bg-neutral-800"></div>
+								<div className="h-4 w-full bg-slate-100 dark:bg-neutral-800"></div>
+								<div className="h-4 w-2/3 bg-slate-100 dark:bg-neutral-800"></div>
 							</div>
 						</div>
 					)}
 					{searchResults.length > 0 && !isSearching && (
-						<div className="top-100 absolute left-0 z-10 mt-1 flex w-full flex-col items-stretch overflow-hidden rounded-lg border bg-white p-1 text-left text-slate-900 shadow-2xl dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-50">
+						<div className="top-100 absolute left-0 z-10 mt-1 flex w-full flex-col items-stretch overflow-hidden border bg-white p-1 text-left text-slate-900 shadow-2xl dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-50">
 							<h3 className="px-4 py-2 font-medium text-slate-500 dark:text-neutral-400">
 								Found {searchResults.length} results
 							</h3>

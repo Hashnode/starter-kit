@@ -67,7 +67,7 @@ export default async function handler(req: NextRequest) {
 		(
 			<div
 				style={{
-					fontFamily: '"Plus Jakarta Sans"',
+					fontFamily: '"Pacifico"',
 					backgroundColor: bannerBackground,
 				}}
 				tw="relative flex h-full w-full flex-col p-8 subpixel-antialiased"

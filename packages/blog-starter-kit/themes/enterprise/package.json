@@ -11,6 +11,10 @@
 		"typecheck": "tsc"
 	},
 	"dependencies": {
+		"@fortawesome/free-brands-svg-icons": "^6.5.1",
+		"@fortawesome/free-regular-svg-icons": "^6.1.1",
+		"@fortawesome/free-solid-svg-icons": "^6.5.1",
+		"@fortawesome/react-fontawesome": "^0.2.0",
 		"@graphql-typed-document-node/core": "^3.2.0",
 		"@radix-ui/react-dialog": "^1.0.5",
 		"@radix-ui/react-dropdown-menu": "^2.0.6",

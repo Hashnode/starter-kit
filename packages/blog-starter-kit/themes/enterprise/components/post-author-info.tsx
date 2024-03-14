@@ -45,14 +45,14 @@ function PostAuthorInfo(props: any) {
           )}
         >
           <div className="flex flex-row items-center md:mb-1">
-            <h1 className="font-sans text-lg font-semibold text-slate-800 dark:text-slate-100">
+            <h1 className="font-['Outfit'] text-lg font-semibold text-slate-800 dark:text-slate-100">
               <a href={`https://hashnode.com/@${author.username}`}>{author.name}</a>
             </h1>
           </div>
           {author.bio?.html && (
             <div className="hidden pr-2 md:block">
               <div
-                className="prose text-slate-600 dark:prose-dark dark:text-slate-300"
+                className="prose text-slate-600 dark:prose-dark dark:text-slate-300 font-['Outfit']" 
                 dangerouslySetInnerHTML={{ __html: author.bio?.html }}
               />
             </div>
@@ -61,7 +61,7 @@ function PostAuthorInfo(props: any) {
       </div>
       {author.bio?.html && (
         <div className="mb-4 block md:hidden">
-          <div className="prose text-slate-600 dark:prose-dark " dangerouslySetInnerHTML={{ __html: author.bio?.html }} />
+          <div className="prose text-slate-600 dark:prose-dark font-['Outfit'] " dangerouslySetInnerHTML={{ __html: author.bio?.html }} />
         </div>
       )}
     </div>
