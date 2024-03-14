@@ -153,63 +153,62 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 						<div className="col-span-1 flex flex-col">{secondaryPosts}</div>
 					</div>
 
-					<div className="w-full h-full lg:flex lg:justify-start lg:items-start border border-neutral-200 lg:flex-row-reverse">
-						{/* Image Section */}
-						<div className="lg:w-1/2 md:w-full lg:h-fit md:h-auto relative bg-white md:border-b lg:border-l border-neutral-200">
-							{/* Example image link */}
-							<img className="object-cover w-full h-full" src="/assets/blog/gambar/pakejkahwin.png" alt="Image" />
-						</div>
+					<Link href="https://www.pakejkahwin.com" target="_blank" rel="noreferrer noopener">
+						<div className="w-full h-full lg:flex lg:justify-start lg:items-start border border-neutral-200 lg:flex-row-reverse">
+							{/* Image Section */}
+							<div className="lg:w-1/2 md:w-full lg:h-fit md:h-auto relative bg-white md:border-b lg:border-l border-neutral-200">
+								{/* Example image link */}
+								<img className="object-cover w-full h-full" src="/assets/blog/gambar/pakejkahwin.png" alt="Image" />
+							</div>
 
-						{/* Content Section */}
-						<div className="lg:w-1/2 md:w-full h-full p-8 bg-white border-neutral-200">
-							<div className="text-neutral-500 text-xs font-light font-['Outfit'] uppercase leading-[18px] tracking-[4.80px]">PROMOSI</div>
-							<div className="text-neutral-800 lg:text-3xl text-2xl font-medium font-['Outfit'] leading-9">Promosi PERCUMA Dewan Kahwin oleh pakejkahwin.com</div>
-							<Link href="https://www.pakejkahwin.com" target="_blank" rel="noreferrer noopener">
-								<div className="w-fit mt-8 rounded-full px-8 py-4 bg-primary-500 cursor-pointer">
-									<div className="text-center text-white text-base font-medium font-['Outfit'] leading-normal">Lihat Website</div>
+							{/* Content Section */}
+								<div className="lg:w-1/2 md:w-full h-full p-8 bg-white border-neutral-200">
+									<div className="text-neutral-500 text-xs font-light font-['Outfit'] uppercase leading-[18px] tracking-[4.80px]">PROMOSI</div>
+									<div className="text-neutral-800 lg:text-3xl text-2xl font-medium font-['Outfit'] leading-9">Promosi PERCUMA Dewan Kahwin oleh pakejkahwin.com</div>
+										<div className="w-fit mt-8 rounded-full px-8 py-4 bg-primary-500 cursor-pointer">
+											<div className="text-center text-white text-base font-medium font-['Outfit'] leading-normal">Lihat Website</div>
+										</div>
 								</div>
-							</Link>
 						</div>
-					</div>
+					</Link>
 
+					<Link href="https://www.kawenlah.com" target="_blank" rel="noreferrer noopener">
+						<div className="w-full h-full lg:flex lg:justify-start lg:items-start border border-neutral-200 lg:flex-row-reverse">
+							{/* Image Section */}
+							<div className="lg:w-1/2 md:w-full lg:h-fit md:h-auto relative bg-white md:border-b lg:border-l border-neutral-200">
+								{/* Example image link */}
+								<img className="object-cover w-full h-full" src="/assets/blog/gambar/Kad Kawen.png" alt="Image" />
+							</div>
 
-					<div className="w-full h-full lg:flex lg:justify-start lg:items-start border border-neutral-200 lg:flex-row-reverse">
-						{/* Image Section */}
-						<div className="lg:w-1/2 md:w-full lg:h-fit md:h-auto relative bg-white md:border-b lg:border-l border-neutral-200">
-							{/* Example image link */}
-							<img className="object-cover w-full h-full" src="/assets/blog/gambar/Kad Kawen.png" alt="Image" />
+							{/* Content Section */}
+							<div className="lg:w-1/2 md:w-full h-full p-8 bg-white border-neutral-200">
+								<div className="text-neutral-500 text-xs font-light font-['Outfit'] uppercase leading-[18px] tracking-[4.80px]">KAWENLAH</div>
+								<div className="text-neutral-800 lg:text-3xl text-2xl font-medium font-['Outfit'] leading-9">Jom buat Kad Kawen Percuma di website kami!</div>
+									<div className="w-fit mt-8 rounded-full px-8 py-4 bg-primary-500 cursor-pointer">
+										<div className="text-center text-white text-base font-medium font-['Outfit'] leading-normal">Lihat Website</div>
+									</div>
+							</div>
 						</div>
+					</Link>
 
-						{/* Content Section */}
-						<div className="lg:w-1/2 md:w-full h-full p-8 bg-white border-neutral-200">
-							<div className="text-neutral-500 text-xs font-light font-['Outfit'] uppercase leading-[18px] tracking-[4.80px]">KAWENLAH</div>
-							<div className="text-neutral-800 lg:text-3xl text-2xl font-medium font-['Outfit'] leading-9">Jom buat Kad Kawen Percuma di website kami!</div>
-							<Link href="https://www.kawenlah.com" target="_blank" rel="noreferrer noopener">
-								<div className="w-fit mt-8 rounded-full px-8 py-4 bg-primary-500 cursor-pointer">
-									<div className="text-center text-white text-base font-medium font-['Outfit'] leading-normal">Lihat Website</div>
-								</div>
-							</Link>
-						</div>
-					</div>
+					<Link href="https://forms.gle/esYMzAg4iKNSwsqCA" target="_blank" rel="noreferrer noopener">
+						<div className="w-full h-full lg:flex lg:justify-start lg:items-start border border-neutral-200 lg:flex-row-reverse">
+							{/* Image Section */}
+							<div className="lg:w-1/2 md:w-full lg:h-fit md:h-auto relative bg-white md:border-b lg:border-l border-neutral-200">
+								{/* Example image link */}
+								<img className="object-cover w-full h-full" src="/assets/blog/gambar/promo.png" alt="Image" />
+							</div>
 
-					<div className="w-full h-full lg:flex lg:justify-start lg:items-start border border-neutral-200 lg:flex-row-reverse">
-						{/* Image Section */}
-						<div className="lg:w-1/2 md:w-full lg:h-fit md:h-auto relative bg-white md:border-b lg:border-l border-neutral-200">
-							{/* Example image link */}
-							<img className="object-cover w-full h-full" src="/assets/blog/gambar/promo.png" alt="Image" />
+							{/* Content Section */}
+							<div className="lg:w-1/2 md:w-full h-full p-8 bg-white border-neutral-200">
+								<div className="text-neutral-500 text-xs font-light font-['Outfit'] uppercase leading-[18px] tracking-[4.80px]">PAPAN IKLAN</div>
+								<div className="text-neutral-800 lg:text-3xl text-2xl font-medium font-['Outfit'] leading-9">Nak promote business korang di artikel Kawenlah?</div>
+									<div className="w-fit mt-8 rounded-full px-8 py-4 bg-primary-500 cursor-pointer">
+										<div className="text-center text-white text-base font-medium font-['Outfit'] leading-normal">Daftar Sekarang</div>
+									</div>
+							</div>
 						</div>
-
-						{/* Content Section */}
-						<div className="lg:w-1/2 md:w-full h-full p-8 bg-white border-neutral-200">
-							<div className="text-neutral-500 text-xs font-light font-['Outfit'] uppercase leading-[18px] tracking-[4.80px]">PAPAN IKLAN</div>
-							<div className="text-neutral-800 lg:text-3xl text-2xl font-medium font-['Outfit'] leading-9">Nak promote business korang di artikel Kawenlah?</div>
-							<Link href="https://forms.gle/esYMzAg4iKNSwsqCA" target="_blank" rel="noreferrer noopener">
-								<div className="w-fit mt-8 rounded-full px-8 py-4 bg-primary-500 cursor-pointer">
-									<div className="text-center text-white text-base font-medium font-['Outfit'] leading-normal">Daftar Sekarang</div>
-								</div>
-							</Link>
-						</div>
-					</div>
+					</Link>
 
 
 					{allPosts.length > 0 && (
