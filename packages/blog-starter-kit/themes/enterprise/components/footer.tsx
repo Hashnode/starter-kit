@@ -10,8 +10,8 @@ import { faInstagram, faTiktok, faWhatsapp } from '@fortawesome/free-brands-svg-
 import { Button } from './button';
 
 type ModalDesignGalleryProps = {
-	onClose: () => void;
-  };
+  onClose: () => void;
+};
 
 // Modal Component with proper TypeScript typing
 const ModalDesignGallery: FC<ModalDesignGalleryProps> = ({ onClose }) => {
@@ -52,9 +52,9 @@ const ModalDesignGallery: FC<ModalDesignGalleryProps> = ({ onClose }) => {
             </div>
           </div>
           <div className="text-sm font-light text-neutral-700 font-['Outfit'] leading-5 tracking-tight text-justify">
-            We're in full throttle, racing ahead with the product development.
-            If you're eager to learn more about Kawenlah, don't hesitate to get
-            in touch with us. We're here to answer all your questions!
+            We&apos;re in full throttle, racing ahead with the product development.
+            If you&apos;re eager to learn more about Kawenlah, don&apos;t hesitate to get
+            in touch with us. We&apos;re here to answer all your questions!
           </div>
         </div>
       </div>
@@ -95,8 +95,6 @@ const ModalDesignGallery: FC<ModalDesignGalleryProps> = ({ onClose }) => {
   );
 };
 
-
-
 export const Footer = () => {
   const { publication } = useAppContext();
   const PUBLICATION_LOGO = publication.preferences.logo;
@@ -116,14 +114,14 @@ export const Footer = () => {
             So...... jomlah kawen!
           </div>
           <div className="w-full">
-		  	<div className="flex flex-col sm:flex-row justify-left sm:justify-start items-left sm:items-start">
-				{/* Button */}
-        <a href="https://www.kawenlah.com/login" target="_blank" rel="noopener noreferrer">
-          <div className="inline-block rounded-full px-6 py-4 font-['Outfit'] font-medium text-lg bg-white text-primary-500 pointer-events-none">
-            Buat Kad Kawen
-          </div>
-        </a>
-			</div>
+            <div className="flex flex-col sm:flex-row justify-left sm:justify-start items-left sm:items-start">
+              {/* Button */}
+              <a href="https://www.kawenlah.com/login" target="_blank" rel="noopener noreferrer">
+                <div className="inline-block rounded-full px-6 py-4 font-['Outfit'] font-medium text-lg bg-white text-primary-500 pointer-events-none">
+                  Buat Kad Kawen
+                </div>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -142,26 +140,26 @@ export const Footer = () => {
               Kawenlah
             </div>
             <div className="flex flex-col gap-1 w-full">
-				<a
-					href="https://www.kawenlah.com/about"
-					className="text-xs md:text-sm lg:text-md font-medium text-neutral-100 font-['Outfit'] cursor-pointer"
-					target="_blank" rel="noopener noreferrer"
-					>
-					Home
-			  	</a>
-				<a
-					href="https://www.kawenlah.com/about"
-					className="text-xs md:text-sm lg:text-md font-medium text-neutral-100 font-['Outfit'] cursor-pointer"
-					target="_blank" rel="noopener noreferrer"
-					>
-					About Us
-				</a>
-				<div
-					className="text-xs md:text-sm lg:text-md font-medium text-neutral-100 font-['Outfit'] cursor-pointer"
-					onClick={() => setActiveModal('contactUsModal')}
-				>
-					Contact Us
-				</div>
+              <a
+                href="https://www.kawenlah.com/about"
+                className="text-xs md:text-sm lg:text-md font-medium text-neutral-100 font-['Outfit'] cursor-pointer"
+                target="_blank" rel="noopener noreferrer"
+              >
+                Home
+              </a>
+              <a
+                href="https://www.kawenlah.com/about"
+                className="text-xs md:text-sm lg:text-md font-medium text-neutral-100 font-['Outfit'] cursor-pointer"
+                target="_blank" rel="noopener noreferrer"
+              >
+                About Us
+              </a>
+              <div
+                className="text-xs md:text-sm lg:text-md font-medium text-neutral-100 font-['Outfit'] cursor-pointer"
+                onClick={() => setActiveModal('contactUsModal')}
+              >
+                Contact Us
+              </div>
             </div>
           </div>
           {/* Link Column 2 */}
