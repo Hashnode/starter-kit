@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { Container } from './container';
 import { useAppContext } from './contexts/appContext';
@@ -171,13 +172,13 @@ export const Footer = () => {
             </div>
             <div className="flex flex-col gap-1 w-full">
               <a
-                href="/privacy"
+                href="https://www.kawenlah.com/privacy"
                 className="text-xs md:text-sm lg:text-md font-medium text-neutral-100 font-['Outfit'] cursor-pointer"
               >
                 Privacy Policy
               </a>
               <a
-                href="/tnc"
+                href="https://www.kawenlah.com/terms"
                 className="text-xs md:text-sm lg:text-md font-medium text-neutral-100 font-['Outfit'] cursor-pointer"
               >
                 Terms and Conditions
