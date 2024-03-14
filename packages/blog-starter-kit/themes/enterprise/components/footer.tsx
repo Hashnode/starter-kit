@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faXmark, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faInstagram, faTiktok, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { Button } from './button';
-import { useRouter } from 'next/router';
 
 type ModalDesignGalleryProps = {
 	onClose: () => void;
@@ -35,7 +34,7 @@ const ModalDesignGallery: FC<ModalDesignGalleryProps> = ({ onClose }) => {
 
       {/* Image Section */}
       <div className="w-full h-[275px] md:h-[450px] overflow-hidden">
-        <img
+        <Image
           src="/assets/blog/gambar/Gambar-Contact.png"
           alt="Description"
           className="w-full h-full object-cover"
