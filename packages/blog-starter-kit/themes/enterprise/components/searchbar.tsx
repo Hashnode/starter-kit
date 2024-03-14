@@ -111,7 +111,7 @@ export const Search = () => {
 				onKeyUp={escapeSearchOnESC}
 				onChange={updateSearchQuery}
 				placeholder="Search blog posts…"
-				className="w-full outline outline-1 outline-neutral-200 marker:border border-slate-200 bg-white px-4 py-6 text-base focus:bg-transparent focus:outline-primary-500 dark:border-neutral-800 dark:bg-neutral-800 dark:text-neutral-50 dark:placeholder:text-neutral-400 dark:hover:bg-neutral-950"
+				className="w-full outline outline-1 outline-neutral-200 bg-white px-4 py-6 text-base focus:bg-transparent focus:outline-primary-500 dark:border-neutral-800 dark:bg-neutral-800 dark:text-neutral-50 dark:placeholder:text-neutral-400 dark:hover:bg-neutral-950 rounded-none"
 			/>
 			{query && (
 				<>
