@@ -35,15 +35,15 @@ export default function Post({ series, publication, posts }: Props) {
 					<title>{title}</title>
 				</Head>
 				<Header />
-				<Container className="flex flex-col items-stretch gap-10 px-5 pb-10">
+				<Container className="flex flex-col items-stretch px-5 pb-10">
 					<div
 						className={`${
 							series.coverImage ? 'col-span-full' : 'col-span-3'
-						} grid grid-cols-4 pt-5 md:gap-5`}
+						} grid grid-cols-4`}
 					>
-						<div className="col-span-full flex flex-col gap-1 md:col-span-2 lg:col-span-3">
-							<p className="font-bold uppercase text-slate-500 dark:text-neutral-400">Series</p>
-							<h1 className="text-4xl font-bold text-slate-900 dark:text-neutral-50">
+						<div className="col-span-full flex flex-col md:col-span-2 lg:col-span-3">
+							<p className="font-['Outfit'] font-bold uppercase text-slate-500 dark:text-neutral-400 border-x border-b border-neutral-200 py-4 pl-4">Series</p>
+							<h1 className="font-['Outfit'] text-4xl font-bold text-slate-900 dark:text-neutral-50 border-x border-b border-neutral-200 py-4 pl-4">
 								{series.name}
 							</h1>
 							<div
@@ -51,7 +51,7 @@ export default function Post({ series, publication, posts }: Props) {
 								dangerouslySetInnerHTML={{ __html: series.description?.html ?? '' }}
 							></div>
 						</div>
-						<div className="relative col-span-full md:col-span-2 lg:col-span-1">
+						<div className="relative col-span-full md:col-span-2 lg:col-span-1 border-x border-b border-neutral-200">
 							<CoverImage
 								title={series.name}
 								src={resizeImage(

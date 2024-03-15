@@ -8,7 +8,7 @@ type Props = {
 
 export const MorePosts = ({ posts, context }: Props) => {
 	return (
-		<section className="mb-10 flex flex-col items-start">
+		<section className="mb-24 flex flex-col items-start">
 			{context === 'home' && (
 				<h2 className="w-full text-xl font-['Outfit'] font-bold leading-tight tracking-tight text-slate-900 dark:text-neutral-50 lg:text-3xl border border-neutral-200 p-8">
 					More Posts

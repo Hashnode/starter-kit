@@ -25,7 +25,7 @@ export const PostPreview: React.FC<Props> = ({ title, coverImage, date, excerpt,
     const postURL = `/${slug}`;
 
     return (
-        <div className={`grid grid-cols-3 gap-5 border-r border-b border-neutral-200 ${className || ''}`}>
+        <div className={`grid grid-cols-3 border-r border-b border-neutral-200 ${className || ''}`}>
             <div className="col-span-1">
                 <div className="w-full h-full overflow-hidden">
                     <CoverImage
