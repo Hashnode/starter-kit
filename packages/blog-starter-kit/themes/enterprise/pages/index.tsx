@@ -156,7 +156,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 					<Link href="https://www.pakejkahwin.com" target="_blank" rel="noreferrer noopener">
 						<div className="w-full h-full lg:flex lg:justify-start lg:items-start border border-neutral-200 lg:flex-row-reverse">
 							{/* Image Section */}
-							<div className="lg:w-1/2 md:w-full lg:h-fit md:h-auto relative bg-white md:border-b lg:border-l border-neutral-200">
+							<div className="lg:w-1/2 md:w-full lg:h-fit md:h-auto relative bg-white border-b lg:border-l border-neutral-200">
 								{/* Example image link */}
 								<img className="object-cover w-full h-full" src="/assets/blog/gambar/pakejkahwin.png" alt="Image" />
 							</div>
@@ -175,7 +175,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 					<Link href="https://www.kawenlah.com" target="_blank" rel="noreferrer noopener">
 						<div className="w-full h-full lg:flex lg:justify-start lg:items-start border border-neutral-200 lg:flex-row-reverse">
 							{/* Image Section */}
-							<div className="lg:w-1/2 md:w-full lg:h-fit md:h-auto relative bg-white md:border-b lg:border-l border-neutral-200">
+							<div className="lg:w-1/2 md:w-full lg:h-fit md:h-auto relative bg-white border-b lg:border-l border-neutral-200">
 								{/* Example image link */}
 								<img className="object-cover w-full h-full" src="/assets/blog/gambar/Kad Kawen.png" alt="Image" />
 							</div>
@@ -194,7 +194,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 					<Link href="https://forms.gle/esYMzAg4iKNSwsqCA" target="_blank" rel="noreferrer noopener">
 						<div className="w-full h-full lg:flex lg:justify-start lg:items-start border border-neutral-200 lg:flex-row-reverse">
 							{/* Image Section */}
-							<div className="lg:w-1/2 md:w-full lg:h-fit md:h-auto relative bg-white md:border-b lg:border-l border-neutral-200">
+							<div className="lg:w-1/2 md:w-full lg:h-fit md:h-auto relative bg-white border-b lg:border-l border-neutral-200">
 								{/* Example image link */}
 								<img className="object-cover w-full h-full" src="/assets/blog/gambar/promo.png" alt="Image" />
 							</div>
