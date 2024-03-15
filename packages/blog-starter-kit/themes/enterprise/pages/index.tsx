@@ -212,7 +212,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 
 
 					{allPosts.length > 0 && (
-						<div className="bg-white grid grid-cols-4 px-10 py-10 border border-neutral-200 dark:bg-neutral-900 md:p-10">
+						<div className="bg-primary-100 grid grid-cols-4 px-10 py-10 border border-neutral-200 dark:bg-neutral-900 md:p-10">
 							<div className="col-span-full md:col-span-2 md:col-start-2">
 								<h2 className="text-primary-500 dark:text-primary-500 mb-10 font-['Outfit'] text-center text-lg font-semibold">
 									Subscribe to our newsletter for updates and changelog.
