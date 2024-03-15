@@ -19,7 +19,8 @@ export const Subscribe = () => {
 					<Popover.Content
 						className="w-[350px] border bg-white p-8 shadow-xl dark:border-neutral-800 dark:bg-neutral-900 md:w-[500px]"
 						align="end"
-						sideOffset={5}
+						sideOffset={20}
+						avoidCollisions
 					>
 						<h3 className="mb-8 text-base font-semibold text-center text-primary-600">
 							Subscribe to our newsletter for updates and changelog.

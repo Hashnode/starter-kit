@@ -138,7 +138,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 						</div>
 					)}
 
-					<div className="grid items-start xl:grid-cols-2 border border-neutral-200">
+					<div className="grid items-start xl:grid-cols-2 border-b border-x border-neutral-200">
 						<div className="col-span-1">
 							{firstPost && (
 								<HeroPost

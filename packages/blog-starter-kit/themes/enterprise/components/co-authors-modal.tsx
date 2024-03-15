@@ -54,7 +54,7 @@ export default function CoAuthorsModal({ closeModal }: CoAuthorsModalProps) {
         />
         <DialogPrimitive.Content
           onEscapeKeyDown={closeModal}
-          className="fixed bottom-0 left-0 right-0 z-50 flex w-full max-w-[1200px] flex-col items-center overflow-hidden rounded-b-none rounded-t-lg border-slate-200 bg-white text-slate-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-50 md:bottom-50 md:left-50 md:w-96 md:-translate-x-1/2 md:translate-y-1/2 md:rounded-xl lg:w-108 xl:w-116"
+          className="fixed bottom-0 left-0 right-0 z-50 flex w-full max-w-[1200px] flex-col items-center overflow-hidden rounded-b- roundednone-t-lg border-slate-200 bg-white text-slate-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-50 md:bottom-50 md:left-50 md:w-96 md:-translate-x-1/2 md:translate-y-1/2 md:rounded-xl lg:w-108 xl:w-116"
         >
           <DialogPrimitive.DialogTitle className="w-full px-6 py-4 text-lg font-semibold">
             Authors in this article

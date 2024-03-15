@@ -74,34 +74,31 @@ export const Search = () => {
 	const searchResultsList = searchResults.map((post) => {
 		const postURL = `/${post.slug}`;
 		return (
-			<Link
-				key={post.id}
-				href={postURL}
-				className="flex flex-row items-center gap-5 px-4 py-2 hover:bg-slate-50 focus:outline-1 dark:hover:bg-neutral-800"
-			>
-				<div className="flex flex-col gap-1">
-					<strong className="text-base">{post.title}</strong>
-					<span className="text-slate-600 dark:text-neutral-300">
-						{post.brief.length > 140 ? post.brief.substring(0, 140) + '…' : post.brief}
-					</span>
-				</div>
-				<div className="w-56">
-					<CoverImage
-						title={post.title}
-						src={resizeImage(
-							post.coverImage?.url,
-							{
-								w: 400,
-								h: 210,
-								c: 'thumb',
-							},
-							DEFAULT_COVER,
-						)}
-					/>
-				</div>
-			</Link>
+		  <Link
+			key={post.id}
+			href={postURL}
+			className="flex flex-row justify-between items-center px-4 py-2 hover:bg-slate-50 focus:outline-1 dark:hover:bg-neutral-800"
+		  >
+			<div className="flex flex-col gap-1 w-full">
+			  <strong className="text-base md:text-lg">{post.title}</strong>
+			  <span className="text-slate-600 dark:text-neutral-300">
+				{post.brief.length > 140 ? post.brief.substring(0, 140) + '…' : post.brief}
+			  </span>
+			</div>
+			<div className="w-24 md:w-56">
+			  <CoverImage
+				title={post.title}
+				src={resizeImage(
+				  post.coverImage?.url,
+				  { w: 400, h: 210, c: 'thumb' },
+				  DEFAULT_COVER
+				)}
+			  />
+			</div>
+		  </Link>
 		);
-	});
+	  });
+	  
 
 	return (
 		<div className="relative col-span-1">

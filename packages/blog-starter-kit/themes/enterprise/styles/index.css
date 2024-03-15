@@ -10,6 +10,7 @@
 
     /* Set font family for body copy */
     --font-body: 'Outfit', sans-serif;
+    --font-heading: 'Outfit', sans-serif;
 }
 
 /* Apply the font families */

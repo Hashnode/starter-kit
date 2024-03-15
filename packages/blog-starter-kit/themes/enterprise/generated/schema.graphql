@@ -1163,14 +1163,8 @@ enum FeedType {
 type GroupedByBrowserViews implements Node & Views {
   """The browser that these views belong to."""
   browser: String!
-  """The start of the time range that these views belong to."""
-  from: DateTime!
   id: ID!
-  """The end of the time range that these views belong to."""
-  to: DateTime!
-  """
-  The aggregated views for a static page in the time range indicated by `from` and `to`.
-  """
+  """The aggregated views."""
   total: Int!
 }
 
@@ -1178,14 +1172,8 @@ type GroupedByBrowserViews implements Node & Views {
 type GroupedByBrowserVisitors implements Node & Visitors {
   """The browser that these views belong to."""
   browser: String!
-  """The start of the time range that these visitors visited the page."""
-  from: DateTime!
   id: ID!
-  """The end of the time range that these visitors visited the page."""
-  to: DateTime!
-  """
-  The aggregated views for a static page in the time range indicated by `from` and `to`.
-  """
+  """The aggregated number of visitors."""
   total: Int!
 }
 
@@ -1193,14 +1181,8 @@ type GroupedByBrowserVisitors implements Node & Visitors {
 type GroupedByCountryViews implements Node & Views {
   """The country that these views belong to."""
   country: CountryCodeAlpha2!
-  """The start of the time range that these views belong to."""
-  from: DateTime!
   id: ID!
-  """The end of the time range that these views belong to."""
-  to: DateTime!
-  """
-  The aggregated views for a static page in the time range indicated by `from` and `to`.
-  """
+  """The aggregated views."""
   total: Int!
 }
 
@@ -1208,14 +1190,8 @@ type GroupedByCountryViews implements Node & Views {
 type GroupedByCountryVisitors implements Node & Visitors {
   """The country that these views belong to."""
   country: CountryCodeAlpha2!
-  """The start of the time range that these visitors visited the page."""
-  from: DateTime!
   id: ID!
-  """The end of the time range that these visitors visited the page."""
-  to: DateTime!
-  """
-  The aggregated views for a static page in the time range indicated by `from` and `to`.
-  """
+  """The aggregated number of visitors."""
   total: Int!
 }
 
@@ -1223,14 +1199,8 @@ type GroupedByCountryVisitors implements Node & Visitors {
 type GroupedByDeviceTypeViews implements Node & Views {
   """The type of device that these views belong to."""
   deviceType: DeviceType!
-  """The start of the time range that these views belong to."""
-  from: DateTime!
   id: ID!
-  """The end of the time range that these views belong to."""
-  to: DateTime!
-  """
-  The aggregated views for a static page in the time range indicated by `from` and `to`.
-  """
+  """The aggregated views."""
   total: Int!
 }
 
@@ -1240,14 +1210,8 @@ Visitors implementation that will be returned if grouping by device type.
 type GroupedByDeviceTypeVisitors implements Node & Visitors {
   """The type of device that these views belong to."""
   deviceType: DeviceType!
-  """The start of the time range that these visitors visited the page."""
-  from: DateTime!
   id: ID!
-  """The end of the time range that these visitors visited the page."""
-  to: DateTime!
-  """
-  The aggregated views for a static page in the time range indicated by `from` and `to`.
-  """
+  """The aggregated number of visitors."""
   total: Int!
 }
 
@@ -1255,16 +1219,10 @@ type GroupedByDeviceTypeVisitors implements Node & Visitors {
 Views implementation that will be returned if grouping by operating system.
 """
 type GroupedByOperatingSystemViews implements Node & Views {
-  """The start of the time range that these views belong to."""
-  from: DateTime!
   id: ID!
   """The operating system that these views belong to."""
   operatingSystem: String!
-  """The end of the time range that these views belong to."""
-  to: DateTime!
-  """
-  The aggregated views for a static page in the time range indicated by `from` and `to`.
-  """
+  """The aggregated views."""
   total: Int!
 }
 
@@ -1272,106 +1230,64 @@ type GroupedByOperatingSystemViews implements Node & Views {
 Visitors implementation that will be returned if grouping by operating system.
 """
 type GroupedByOperatingSystemVisitors implements Node & Visitors {
-  """The start of the time range that these visitors visited the page."""
-  from: DateTime!
   id: ID!
   """The operating system that these views belong to."""
   operatingSystem: String!
-  """The end of the time range that these visitors visited the page."""
-  to: DateTime!
-  """
-  The aggregated views for a static page in the time range indicated by `from` and `to`.
-  """
+  """The aggregated number of visitors."""
   total: Int!
 }
 
 """Views implementation that will be returned if grouping by page."""
 type GroupedByPageViews implements Node & Views {
-  """The start of the time range that these views belong to."""
-  from: DateTime!
   id: ID!
   """The page that these views belong to."""
   page: StaticPage!
-  """The end of the time range that these views belong to."""
-  to: DateTime!
-  """
-  The aggregated views for a static page in the time range indicated by `from` and `to`.
-  """
+  """The aggregated views."""
   total: Int!
 }
 
 """Visitors implementation that will be returned if grouping by page."""
 type GroupedByPageVisitors implements Node & Visitors {
-  """The start of the time range that these visitors visited the page."""
-  from: DateTime!
   id: ID!
   """The page that these views belong to."""
   page: StaticPage!
-  """The end of the time range that these visitors visited the page."""
-  to: DateTime!
-  """
-  The aggregated views for a static page in the time range indicated by `from` and `to`.
-  """
+  """The aggregated number of visitors."""
   total: Int!
 }
 
 """Views implementation that will be returned if grouping by path."""
 type GroupedByPathViews implements Node & Views {
-  """The start of the time range that these views belong to."""
-  from: DateTime!
   id: ID!
   """The path that these views belong to."""
   path: String!
-  """The end of the time range that these views belong to."""
-  to: DateTime!
-  """
-  The aggregated views for a static page in the time range indicated by `from` and `to`.
-  """
+  """The aggregated views."""
   total: Int!
 }
 
 """Visitors implementation that will be returned if grouping by path."""
 type GroupedByPathVisitors implements Node & Visitors {
-  """The start of the time range that these visitors visited the page."""
-  from: DateTime!
   id: ID!
   """The path that these views belong to."""
   path: String!
-  """The end of the time range that these visitors visited the page."""
-  to: DateTime!
-  """
-  The aggregated views for a static page in the time range indicated by `from` and `to`.
-  """
+  """The aggregated number of visitors."""
   total: Int!
 }
 
 """Views implementation that will be returned if grouping by post."""
 type GroupedByPostViews implements Node & Views {
-  """The start of the time range that these views belong to."""
-  from: DateTime!
   id: ID!
   """The post that these views belong to."""
   post: Post!
-  """The end of the time range that these views belong to."""
-  to: DateTime!
-  """
-  The aggregated views for a post in the time range indicated by `from` and `to`.
-  """
+  """The aggregated views."""
   total: Int!
 }
 
 """Visitors implementation that will be returned if grouping by post."""
 type GroupedByPostVisitors implements Node & Visitors {
-  """The start of the time range that these visitors visited the page."""
-  from: DateTime!
   id: ID!
   """The post that these views belong to."""
   post: Post!
-  """The end of the time range that these visitors visited the page."""
-  to: DateTime!
-  """
-  The aggregated views for a post in the time range indicated by `from` and `to`.
-  """
+  """The aggregated number of visitors."""
   total: Int!
 }
 
@@ -1379,16 +1295,10 @@ type GroupedByPostVisitors implements Node & Visitors {
 Views implementation that will be returned if grouping by `REFERRER_HOST` dimension.
 """
 type GroupedByReferrerHostViews implements Node & Views {
-  """The start of the time range that these views belong to."""
-  from: DateTime!
   id: ID!
   """The referrer host that these views belong to."""
   referrerHost: String!
-  """The end of the time range that these views belong to."""
-  to: DateTime!
-  """
-  The aggregated views for a static page in the time range indicated by `from` and `to`.
-  """
+  """The aggregated views."""
   total: Int!
 }
 
@@ -1396,16 +1306,33 @@ type GroupedByReferrerHostViews implements Node & Views {
 Visitors implementation that will be returned if grouping by `REFERRER_HOST` dimension.
 """
 type GroupedByReferrerHostVisitors implements Node & Visitors {
-  """The start of the time range that these visitors visited the page."""
-  from: DateTime!
   id: ID!
   """The referrer host that these views belong to."""
   referrerHost: String!
+  """The aggregated number of visitors."""
+  total: Int!
+}
+
+type GroupedByTimeViews implements Node & Views {
+  """The start of the time range that these views belong to."""
+  from: DateTime!
+  id: ID!
+  """The end of the time range that these views belong to."""
+  to: DateTime!
+  """The aggregated views."""
+  total: Int!
+}
+
+"""
+Visitors implementation that will be returned if a grouping by time is provided.
+"""
+type GroupedByTimeVisitors implements Node & Visitors {
+  """The start of the time range that these visitors visited the page."""
+  from: DateTime!
+  id: ID!
   """The end of the time range that these visitors visited the page."""
   to: DateTime!
-  """
-  The aggregated views for a static page in the time range indicated by `from` and `to`.
-  """
+  """The aggregated number of visitors."""
   total: Int!
 }
 
@@ -3303,12 +3230,8 @@ scalar URL
 
 """Views implementation that will be returned if no grouping is applied."""
 type UngroupedViews implements Node & Views {
-  """The start of the time range that these views belong to."""
-  from: DateTime!
   id: ID!
-  """The end of the time range that these views belong to."""
-  to: DateTime!
-  """The aggregated views in the time range indicated by `from` and `to`."""
+  """The aggregated views."""
   total: Int!
 }
 
@@ -3316,14 +3239,8 @@ type UngroupedViews implements Node & Views {
 Visitors implementation that will be returned if no grouping is applied.
 """
 type UngroupedVisitors implements Node & Visitors {
-  """The start of the time range that these visitors visited the page."""
-  from: DateTime!
   id: ID!
-  """The end of the time range that these visitors visited the page."""
-  to: DateTime!
-  """
-  The aggregated number of visitors in the time range indicated by `from` and `to`.
-  """
+  """The aggregated number of visitors."""
   total: Int!
 }
 
@@ -3648,7 +3565,7 @@ enum UserPublicationRole {
 
 """
 Connection to get list of publications.
-Returns a list of edges which contains the publications and cursor to the last item of the previous page.
+Returns a list of edges which contains the documentation project and cursor to the last item of the previous page.
 """
 type UserPublicationsConnection implements Connection {
   """A list of edges of publications connection."""
@@ -3714,24 +3631,14 @@ type ViewCountFeature implements Feature {
 }
 
 interface Views implements Node {
-  """The start of the time range that these views belong to."""
-  from: DateTime!
   id: ID!
-  """The end of the time range that these views belong to."""
-  to: DateTime!
-  """The aggregated views in the time range indicated by `from` and `to`."""
+  """The aggregated views."""
   total: Int!
 }
 
 interface Visitors implements Node {
-  """The start of the time range that these visitors visited the page."""
-  from: DateTime!
   id: ID!
-  """The end of the time range that these visitors visited the page."""
-  to: DateTime!
-  """
-  The aggregated number of visitors in the time range indicated by `from` and `to`.
-  """
+  """The aggregated number of visitors."""
   total: Int!
 }
 

@@ -1153,12 +1153,8 @@ export type GroupedByBrowserViews = Node & Views & {
   __typename?: 'GroupedByBrowserViews';
   /** The browser that these views belong to. */
   browser: Scalars['String']['output'];
-  /** The start of the time range that these views belong to. */
-  from: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
-  /** The end of the time range that these views belong to. */
-  to: Scalars['DateTime']['output'];
-  /** The aggregated views for a static page in the time range indicated by `from` and `to`. */
+  /** The aggregated views. */
   total: Scalars['Int']['output'];
 };
 
@@ -1167,12 +1163,8 @@ export type GroupedByBrowserVisitors = Node & Visitors & {
   __typename?: 'GroupedByBrowserVisitors';
   /** The browser that these views belong to. */
   browser: Scalars['String']['output'];
-  /** The start of the time range that these visitors visited the page. */
-  from: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
-  /** The end of the time range that these visitors visited the page. */
-  to: Scalars['DateTime']['output'];
-  /** The aggregated views for a static page in the time range indicated by `from` and `to`. */
+  /** The aggregated number of visitors. */
   total: Scalars['Int']['output'];
 };
 
@@ -1181,12 +1173,8 @@ export type GroupedByCountryViews = Node & Views & {
   __typename?: 'GroupedByCountryViews';
   /** The country that these views belong to. */
   country: CountryCodeAlpha2;
-  /** The start of the time range that these views belong to. */
-  from: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
-  /** The end of the time range that these views belong to. */
-  to: Scalars['DateTime']['output'];
-  /** The aggregated views for a static page in the time range indicated by `from` and `to`. */
+  /** The aggregated views. */
   total: Scalars['Int']['output'];
 };
 
@@ -1195,12 +1183,8 @@ export type GroupedByCountryVisitors = Node & Visitors & {
   __typename?: 'GroupedByCountryVisitors';
   /** The country that these views belong to. */
   country: CountryCodeAlpha2;
-  /** The start of the time range that these visitors visited the page. */
-  from: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
-  /** The end of the time range that these visitors visited the page. */
-  to: Scalars['DateTime']['output'];
-  /** The aggregated views for a static page in the time range indicated by `from` and `to`. */
+  /** The aggregated number of visitors. */
   total: Scalars['Int']['output'];
 };
 
@@ -1209,12 +1193,8 @@ export type GroupedByDeviceTypeViews = Node & Views & {
   __typename?: 'GroupedByDeviceTypeViews';
   /** The type of device that these views belong to. */
   deviceType: DeviceType;
-  /** The start of the time range that these views belong to. */
-  from: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
-  /** The end of the time range that these views belong to. */
-  to: Scalars['DateTime']['output'];
-  /** The aggregated views for a static page in the time range indicated by `from` and `to`. */
+  /** The aggregated views. */
   total: Scalars['Int']['output'];
 };
 
@@ -1223,152 +1203,131 @@ export type GroupedByDeviceTypeVisitors = Node & Visitors & {
   __typename?: 'GroupedByDeviceTypeVisitors';
   /** The type of device that these views belong to. */
   deviceType: DeviceType;
-  /** The start of the time range that these visitors visited the page. */
-  from: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
-  /** The end of the time range that these visitors visited the page. */
-  to: Scalars['DateTime']['output'];
-  /** The aggregated views for a static page in the time range indicated by `from` and `to`. */
+  /** The aggregated number of visitors. */
   total: Scalars['Int']['output'];
 };
 
 /** Views implementation that will be returned if grouping by operating system. */
 export type GroupedByOperatingSystemViews = Node & Views & {
   __typename?: 'GroupedByOperatingSystemViews';
-  /** The start of the time range that these views belong to. */
-  from: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
   /** The operating system that these views belong to. */
   operatingSystem: Scalars['String']['output'];
-  /** The end of the time range that these views belong to. */
-  to: Scalars['DateTime']['output'];
-  /** The aggregated views for a static page in the time range indicated by `from` and `to`. */
+  /** The aggregated views. */
   total: Scalars['Int']['output'];
 };
 
 /** Visitors implementation that will be returned if grouping by operating system. */
 export type GroupedByOperatingSystemVisitors = Node & Visitors & {
   __typename?: 'GroupedByOperatingSystemVisitors';
-  /** The start of the time range that these visitors visited the page. */
-  from: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
   /** The operating system that these views belong to. */
   operatingSystem: Scalars['String']['output'];
-  /** The end of the time range that these visitors visited the page. */
-  to: Scalars['DateTime']['output'];
-  /** The aggregated views for a static page in the time range indicated by `from` and `to`. */
+  /** The aggregated number of visitors. */
   total: Scalars['Int']['output'];
 };
 
 /** Views implementation that will be returned if grouping by page. */
 export type GroupedByPageViews = Node & Views & {
   __typename?: 'GroupedByPageViews';
-  /** The start of the time range that these views belong to. */
-  from: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
   /** The page that these views belong to. */
   page: StaticPage;
-  /** The end of the time range that these views belong to. */
-  to: Scalars['DateTime']['output'];
-  /** The aggregated views for a static page in the time range indicated by `from` and `to`. */
+  /** The aggregated views. */
   total: Scalars['Int']['output'];
 };
 
 /** Visitors implementation that will be returned if grouping by page. */
 export type GroupedByPageVisitors = Node & Visitors & {
   __typename?: 'GroupedByPageVisitors';
-  /** The start of the time range that these visitors visited the page. */
-  from: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
   /** The page that these views belong to. */
   page: StaticPage;
-  /** The end of the time range that these visitors visited the page. */
-  to: Scalars['DateTime']['output'];
-  /** The aggregated views for a static page in the time range indicated by `from` and `to`. */
+  /** The aggregated number of visitors. */
   total: Scalars['Int']['output'];
 };
 
 /** Views implementation that will be returned if grouping by path. */
 export type GroupedByPathViews = Node & Views & {
   __typename?: 'GroupedByPathViews';
-  /** The start of the time range that these views belong to. */
-  from: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
   /** The path that these views belong to. */
   path: Scalars['String']['output'];
-  /** The end of the time range that these views belong to. */
-  to: Scalars['DateTime']['output'];
-  /** The aggregated views for a static page in the time range indicated by `from` and `to`. */
+  /** The aggregated views. */
   total: Scalars['Int']['output'];
 };
 
 /** Visitors implementation that will be returned if grouping by path. */
 export type GroupedByPathVisitors = Node & Visitors & {
   __typename?: 'GroupedByPathVisitors';
-  /** The start of the time range that these visitors visited the page. */
-  from: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
   /** The path that these views belong to. */
   path: Scalars['String']['output'];
-  /** The end of the time range that these visitors visited the page. */
-  to: Scalars['DateTime']['output'];
-  /** The aggregated views for a static page in the time range indicated by `from` and `to`. */
+  /** The aggregated number of visitors. */
   total: Scalars['Int']['output'];
 };
 
 /** Views implementation that will be returned if grouping by post. */
 export type GroupedByPostViews = Node & Views & {
   __typename?: 'GroupedByPostViews';
-  /** The start of the time range that these views belong to. */
-  from: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
   /** The post that these views belong to. */
   post: Post;
-  /** The end of the time range that these views belong to. */
-  to: Scalars['DateTime']['output'];
-  /** The aggregated views for a post in the time range indicated by `from` and `to`. */
+  /** The aggregated views. */
   total: Scalars['Int']['output'];
 };
 
 /** Visitors implementation that will be returned if grouping by post. */
 export type GroupedByPostVisitors = Node & Visitors & {
   __typename?: 'GroupedByPostVisitors';
-  /** The start of the time range that these visitors visited the page. */
-  from: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
   /** The post that these views belong to. */
   post: Post;
-  /** The end of the time range that these visitors visited the page. */
-  to: Scalars['DateTime']['output'];
-  /** The aggregated views for a post in the time range indicated by `from` and `to`. */
+  /** The aggregated number of visitors. */
   total: Scalars['Int']['output'];
 };
 
 /** Views implementation that will be returned if grouping by `REFERRER_HOST` dimension. */
 export type GroupedByReferrerHostViews = Node & Views & {
   __typename?: 'GroupedByReferrerHostViews';
-  /** The start of the time range that these views belong to. */
-  from: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
   /** The referrer host that these views belong to. */
   referrerHost: Scalars['String']['output'];
-  /** The end of the time range that these views belong to. */
-  to: Scalars['DateTime']['output'];
-  /** The aggregated views for a static page in the time range indicated by `from` and `to`. */
+  /** The aggregated views. */
   total: Scalars['Int']['output'];
 };
 
 /** Visitors implementation that will be returned if grouping by `REFERRER_HOST` dimension. */
 export type GroupedByReferrerHostVisitors = Node & Visitors & {
   __typename?: 'GroupedByReferrerHostVisitors';
-  /** The start of the time range that these visitors visited the page. */
-  from: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
   /** The referrer host that these views belong to. */
   referrerHost: Scalars['String']['output'];
+  /** The aggregated number of visitors. */
+  total: Scalars['Int']['output'];
+};
+
+export type GroupedByTimeViews = Node & Views & {
+  __typename?: 'GroupedByTimeViews';
+  /** The start of the time range that these views belong to. */
+  from: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  /** The end of the time range that these views belong to. */
+  to: Scalars['DateTime']['output'];
+  /** The aggregated views. */
+  total: Scalars['Int']['output'];
+};
+
+/** Visitors implementation that will be returned if a grouping by time is provided. */
+export type GroupedByTimeVisitors = Node & Visitors & {
+  __typename?: 'GroupedByTimeVisitors';
+  /** The start of the time range that these visitors visited the page. */
+  from: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
   /** The end of the time range that these visitors visited the page. */
   to: Scalars['DateTime']['output'];
-  /** The aggregated views for a static page in the time range indicated by `from` and `to`. */
+  /** The aggregated number of visitors. */
   total: Scalars['Int']['output'];
 };
 
@@ -3396,24 +3355,16 @@ export type TriggerWebhookTestPayload = {
 /** Views implementation that will be returned if no grouping is applied. */
 export type UngroupedViews = Node & Views & {
   __typename?: 'UngroupedViews';
-  /** The start of the time range that these views belong to. */
-  from: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
-  /** The end of the time range that these views belong to. */
-  to: Scalars['DateTime']['output'];
-  /** The aggregated views in the time range indicated by `from` and `to`. */
+  /** The aggregated views. */
   total: Scalars['Int']['output'];
 };
 
 /** Visitors implementation that will be returned if no grouping is applied. */
 export type UngroupedVisitors = Node & Visitors & {
   __typename?: 'UngroupedVisitors';
-  /** The start of the time range that these visitors visited the page. */
-  from: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
-  /** The end of the time range that these visitors visited the page. */
-  to: Scalars['DateTime']['output'];
-  /** The aggregated number of visitors in the time range indicated by `from` and `to`. */
+  /** The aggregated number of visitors. */
   total: Scalars['Int']['output'];
 };
 
@@ -3725,7 +3676,7 @@ export enum UserPublicationRole {
 
 /**
  * Connection to get list of publications.
- * Returns a list of edges which contains the publications and cursor to the last item of the previous page.
+ * Returns a list of edges which contains the documentation project and cursor to the last item of the previous page.
  */
 export type UserPublicationsConnection = Connection & {
   __typename?: 'UserPublicationsConnection';
@@ -3784,22 +3735,14 @@ export type ViewCountFeature = Feature & {
 };
 
 export type Views = {
-  /** The start of the time range that these views belong to. */
-  from: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
-  /** The end of the time range that these views belong to. */
-  to: Scalars['DateTime']['output'];
-  /** The aggregated views in the time range indicated by `from` and `to`. */
+  /** The aggregated views. */
   total: Scalars['Int']['output'];
 };
 
 export type Visitors = {
-  /** The start of the time range that these visitors visited the page. */
-  from: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
-  /** The end of the time range that these visitors visited the page. */
-  to: Scalars['DateTime']['output'];
-  /** The aggregated number of visitors in the time range indicated by `from` and `to`. */
+  /** The aggregated number of visitors. */
   total: Scalars['Int']['output'];
 };
 

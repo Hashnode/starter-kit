@@ -47,12 +47,12 @@ export const SubscribeForm = () => {
 						ref={inputRef}
 						type="email"
 						placeholder="kawenlah@gmail.com"
-						className="focus:outline-primary-500 dark:focus:outline-primary-500 outline-1 outline-neutral-200 left-3 top-3 w-full p-6 font-['Outfit'] text-base text-black outline-none dark:bg-neutral-950 dark:text-neutral-50"
+						className="focus:outline-primary-500 dark:focus:outline-primary-500 outline-1 outline-neutral-200 left-3 top-3 w-full pl-3 py-6 font-['Outfit'] text-base text-black outline-none dark:bg-neutral-950 dark:text-neutral-50 rounded-none"
 					/>
 					<button
 						disabled={requestInProgress}
 						onClick={subscribe}
-						className="bg-primary-600 dark:bg-primary-500 absolute right-0 top-0 px-10 py-6 font-['Outfit'] text-white disabled:cursor-not-allowed disabled:opacity-80"
+						className="bg-primary-600 dark:bg-primary-500 absolute right-0 top-0 lg:px-10 lg:py-6 px-4 py-6 font-['Outfit'] text-white disabled:cursor-not-allowed disabled:opacity-80"
 					>
 						Subscribe
 					</button>
