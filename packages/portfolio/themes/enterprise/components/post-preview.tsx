@@ -1,6 +1,7 @@
 import { resizeImage } from '@starter-kit/utils/image';
 import Link from 'next/link';
 import { User } from '../generated/graphql';
+import { getURLWithPathName } from '../utils';
 import { DEFAULT_COVER } from '../utils/const';
 import { CoverImage } from './cover-image';
 import { DateFormatter } from './date-formatter';
@@ -17,7 +18,7 @@ type Props = {
 };
 
 export const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) => {
-	const postURL = `/${slug}`;
+	const postURL = getURLWithPathName('blogs', slug);
 
 	return (
 		<div className="grid grid-cols-1 gap-5">

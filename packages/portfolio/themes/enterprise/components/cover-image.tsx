@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { getURLWithPathName } from '../utils';
 
 type Props = {
 	title: string;
@@ -9,7 +10,7 @@ type Props = {
 };
 
 export const CoverImage = ({ title, src, slug, priority = false }: Props) => {
-	const postURL = `/${slug}`;
+	const postURL = getURLWithPathName('blogs', slug);
 
 	const image = (
 		<div className="relative pt-[52.5%]">

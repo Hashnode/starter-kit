@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import getURLWithPathName from '../../enterprise/utils/getURLWithPathName';
 import { User } from '../generated/graphql';
 import { DateFormatter } from './date-formatter';
 
@@ -13,7 +14,7 @@ type Props = {
 };
 
 export const MinimalPostPreview = ({ title, date, slug, commentCount }: Props) => {
-	const postURL = `/${slug}`;
+	const postURL = getURLWithPathName('blogs', slug);
 
 	return (
 		<section className="flex flex-col items-start gap-1">

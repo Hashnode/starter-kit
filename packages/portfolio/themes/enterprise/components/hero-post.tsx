@@ -1,5 +1,6 @@
 import { resizeImage } from '@starter-kit/utils/image';
 import Link from 'next/link';
+import { getURLWithPathName } from '../utils';
 import { DEFAULT_COVER } from '../utils/const';
 import { CoverImage } from './cover-image';
 import { DateFormatter } from './date-formatter';
@@ -12,8 +13,9 @@ type Props = {
 	slug: string;
 };
 
-export const HeroPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
-	const postURL = `/${slug}`;
+export const HeroPost = (props: Props) => {
+	const { title, coverImage, date, excerpt, slug } = props;
+	const postURL = getURLWithPathName('blogs', slug);
 
 	return (
 		<section className="grid grid-cols-1 gap-5">
