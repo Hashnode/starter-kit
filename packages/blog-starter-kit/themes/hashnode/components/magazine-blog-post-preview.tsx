@@ -56,7 +56,7 @@ function BlogPostPreview(props: {
           alt={post.title}
         />
       </Link>
-      <h1 className="blog-article-card-title mx-4 mb-2 block break-words font-heading text-2xl font-extrabold leading-snug text-slate-900 hover:opacity-75 dark:text-slate-100">
+      <h1 className="blog-article-card-title mx-4 mb-2 block break-words font-heading text-2xl font-semibold leading-snug text-slate-900 hover:opacity-75 dark:text-slate-100">
         <Link href={postURL} onMouseOver={preload} onFocus={() => undefined}>
           {post.title}
         </Link>

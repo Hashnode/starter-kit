@@ -30,7 +30,7 @@ const AuthorCard = ({ author }: { author: PostFullFragment['author']; }) => {
             <a
               href={`https://hashnode.com/@${author.username}`}
               title={author.name}
-              className="truncate font-sans text-sm font-medium text-slate-700 dark:text-slate-200"
+              className="truncate font-sans text-sm font-semibold text-slate-700 dark:text-slate-200"
             >
               {author.name}
             </a>

@@ -164,9 +164,9 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 							{/* Content Section */}
 								<div className="lg:w-1/2 md:w-full h-full p-8 bg-white border-neutral-200">
 									<div className="text-neutral-500 text-xs font-light font-['Outfit'] uppercase leading-[18px] tracking-[4.80px]">PROMOSI</div>
-									<div className="text-neutral-800 lg:text-3xl text-2xl font-medium font-['Outfit'] leading-9">Jom cari Dewan Kahwin korang di pakejkahwin.com</div>
+									<div className="text-neutral-800 lg:text-3xl text-2xl font-semibold font-['Outfit'] leading-9">Jom cari Dewan Kahwin korang di pakejkahwin.com</div>
 										<div className="w-fit mt-8 rounded-full px-8 py-4 bg-primary-500 cursor-pointer">
-											<div className="text-center text-white text-base font-medium font-['Outfit'] leading-normal">Lihat Website</div>
+											<div className="text-center text-white text-base font-semibold font-['Outfit'] leading-normal">Lihat Website</div>
 										</div>
 								</div>
 						</div>
@@ -183,9 +183,9 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 							{/* Content Section */}
 							<div className="lg:w-1/2 md:w-full h-full p-8 bg-white border-neutral-200">
 								<div className="text-neutral-500 text-xs font-light font-['Outfit'] uppercase leading-[18px] tracking-[4.80px]">KAWENLAH</div>
-								<div className="text-neutral-800 lg:text-3xl text-2xl font-medium font-['Outfit'] leading-9">Jom buat Kad Kawen Percuma di website kami!</div>
+								<div className="text-neutral-800 lg:text-3xl text-2xl font-semibold font-['Outfit'] leading-9">Jom buat Kad Kawen Percuma di website kami!</div>
 									<div className="w-fit mt-8 rounded-full px-8 py-4 bg-primary-500 cursor-pointer">
-										<div className="text-center text-white text-base font-medium font-['Outfit'] leading-normal">Lihat Website</div>
+										<div className="text-center text-white text-base font-semibold font-['Outfit'] leading-normal">Lihat Website</div>
 									</div>
 							</div>
 						</div>
@@ -202,9 +202,9 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 							{/* Content Section */}
 							<div className="lg:w-1/2 md:w-full h-full p-8 bg-white border-neutral-200">
 								<div className="text-neutral-500 text-xs font-light font-['Outfit'] uppercase leading-[18px] tracking-[4.80px]">PAPAN IKLAN</div>
-								<div className="text-neutral-800 lg:text-3xl text-2xl font-medium font-['Outfit'] leading-9">Nak promote business korang di artikel Kawenlah?</div>
+								<div className="text-neutral-800 lg:text-3xl text-2xl font-semibold font-['Outfit'] leading-9">Nak promote business korang di artikel Kawenlah?</div>
 									<div className="w-fit mt-8 rounded-full px-8 py-4 bg-primary-500 cursor-pointer">
-										<div className="text-center text-white text-base font-medium font-['Outfit'] leading-normal">Daftar Sekarang</div>
+										<div className="text-center text-white text-base font-semibold font-['Outfit'] leading-normal">Daftar Sekarang</div>
 									</div>
 							</div>
 						</div>

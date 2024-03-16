@@ -8,24 +8,25 @@ export const config = {
 };
 
 const fontRegular = fetch(
-	new URL('../../../assets/Outfit-Regular.ttf', import.meta.url),
+	new URL('../../../assets/Outfit-Light.ttf', import.meta.url),
 ).then((res) => res.arrayBuffer());
 
 const fontMedium = fetch(
-	new URL('../../../assets/Outfit-Medium.ttf', import.meta.url),
+	new URL('../../../assets/Outfit-Regular.ttf', import.meta.url),
 ).then((res) => res.arrayBuffer());
 
 const fontSemiBold = fetch(
-	new URL('../../../assets/Outfit-SemiBold.ttf', import.meta.url),
+	new URL('../../../assets/Outfit-Medium.ttf', import.meta.url),
 ).then((res) => res.arrayBuffer());
 
-const fontBold = fetch(new URL('../../../assets/Outfit-Bold.ttf', import.meta.url)).then(
+const fontBold = fetch(new URL('../../../assets/Outfit-SemiBold.ttf', import.meta.url)).then(
 	(res) => res.arrayBuffer(),
 );
 
 const fontExtraBold = fetch(
-	new URL('../../../assets/Outfit-ExtraBold.ttf', import.meta.url),
+	new URL('../../../assets/Pacifico-Regular.ttf', import.meta.url),
 ).then((res) => res.arrayBuffer());
+
 
 const kFormatter = (num: number) => {
 	return num > 999 ? `${(num / 1000).toFixed(1)}K` : num;
@@ -64,7 +65,7 @@ export default async function handler(req: NextRequest) {
 		(
 			<div
 				style={{
-					fontFamily: '"Pacifico"',
+					fontFamily: '"Outfit"',
 				}}
 				tw={`relative flex h-full w-full p-8 bg-white`}
 			>

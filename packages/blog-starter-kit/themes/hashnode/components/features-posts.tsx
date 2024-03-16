@@ -77,7 +77,7 @@ const FeaturedPosts = (props: {
               </Link>
               <h1
                 className={twJoin(
-                  'blog-article-card-title mx-4 mb-3 block font-heading font-extrabold text-slate-900 hover:opacity-75 dark:text-slate-100',
+                  'blog-article-card-title mx-4 mb-3 block font-heading font-semibold text-slate-900 hover:opacity-75 dark:text-slate-100',
                   isFirstPost ? 'text-xl md:text-3xl lg:text-4xl' : 'text-xl',
                 )}
               >
