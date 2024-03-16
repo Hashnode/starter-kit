@@ -9,10 +9,6 @@ import { faArrowRight, faXmark, faEnvelope } from '@fortawesome/free-solid-svg-i
 import { faInstagram, faTiktok, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { Button } from './button';
 
-const fontExtraBold = fetch(
-	new URL('../../../assets/Pacifico-Regular.ttf', import.meta.url),
-).then((res) => res.arrayBuffer());
-
 type ModalDesignGalleryProps = {
   onClose: () => void;
 };
