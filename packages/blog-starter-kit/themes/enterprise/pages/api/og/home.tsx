@@ -65,7 +65,7 @@ export default async function handler(req: NextRequest) {
 		(
 			<div
 				style={{
-					fontFamily: '"Outfit"',
+					fontFamily: 'Outfit',
 				}}
 				tw={`relative flex h-full w-full p-8 bg-white`}
 			>
@@ -192,31 +192,31 @@ export default async function handler(req: NextRequest) {
 			height: 630,
 			fonts: [
 				{
-					name: 'Typewriter',
+					name: 'Outfit',
 					data: fontDataRegular,
 					style: 'normal',
 					weight: 400,
 				},
 				{
-					name: 'Typewriter',
+					name: 'Outfit',
 					data: fontDataMedium,
 					style: 'normal',
 					weight: 500,
 				},
 				{
-					name: 'Typewriter',
+					name: 'Outfit',
 					data: fontDataSemiBold,
 					style: 'normal',
 					weight: 600,
 				},
 				{
-					name: 'Typewriter',
+					name: 'Outfit',
 					data: fontDataBold,
 					style: 'normal',
 					weight: 700,
 				},
 				{
-					name: 'Typewriter',
+					name: 'Outfit',
 					data: fontDataExtraBold,
 					style: 'normal',
 					weight: 800,
