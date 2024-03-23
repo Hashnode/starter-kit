@@ -146,7 +146,6 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 									coverImage={firstPost.coverImage?.url || DEFAULT_COVER}
 									date={firstPost.publishedAt}
 									slug={firstPost.slug}
-									excerpt={firstPost.brief}
 								/>
 							)}
 						</div>

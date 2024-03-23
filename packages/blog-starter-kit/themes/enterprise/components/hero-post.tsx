@@ -8,11 +8,10 @@ type Props = {
 	title: string;
 	coverImage: string;
 	date: string;
-	excerpt: string;
 	slug: string;
 };
 
-export const HeroPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
+export const HeroPost = ({ title, coverImage, date, slug }: Props) => {
 	const postURL = `/${slug}`;
 
 	return (
@@ -34,9 +33,6 @@ export const HeroPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
 						{title}
 					</Link>
 				</h1>
-				<Link href={postURL}>
-					<p className="text-md leading-snug text-slate-500 dark:text-neutral-400 font-['Outfit']">{excerpt}</p>
-				</Link>
 				<div className="text-sm font-semibold text-slate-500 dark:text-neutral-300 font-['Outfit']">
 					<Link href={postURL}>
 						<DateFormatter dateString={date} />
