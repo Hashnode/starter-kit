@@ -76,7 +76,6 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 				coverImage={post.coverImage?.url || DEFAULT_COVER}
 				date={post.publishedAt}
 				slug={post.slug}
-				excerpt={post.brief}
 			/>
 		);
 	});

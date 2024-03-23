@@ -15,13 +15,12 @@ type Props = {
     title: string;
     coverImage: string | null | undefined;
     date: string;
-    excerpt: string;
     author: Author;
     slug: string;
     className?: string; // Make className prop optional
 };
 
-export const PostPreview: React.FC<Props> = ({ title, coverImage, date, excerpt, slug, className }: Props) => {
+export const PostPreview: React.FC<Props> = ({ title, coverImage, date, slug, className }: Props) => {
     const postURL = `/${slug}`;
 
     return (
@@ -45,11 +44,6 @@ export const PostPreview: React.FC<Props> = ({ title, coverImage, date, excerpt,
                         {title}
                     </Link>
                 </h1>
-                <Link href={postURL}>
-                    <p className="text-md font-['Outfit'] leading-snug text-slate-500 dark:text-neutral-400 px-8">
-                        {excerpt.length > 140 ? excerpt.substring(0, 140) + '…' : excerpt}
-                    </p>
-                </Link>
                 <div className="text-sm font-['Outfit'] font-semibold text-slate-500 dark:text-neutral-300 px-8">
                     <Link href={postURL}>
                         <DateFormatter dateString={date} />

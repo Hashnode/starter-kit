@@ -8,11 +8,10 @@ type Props = {
 	title: string;
 	coverImage: string;
 	date: string;
-	excerpt: string;
 	slug: string;
 };
 
-export const SecondaryPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
+export const SecondaryPost = ({ title, coverImage, date, slug }: Props) => {
 	const postURL = `/${slug}`;
   
 	return (
@@ -35,11 +34,6 @@ export const SecondaryPost = ({ title, coverImage, date, excerpt, slug }: Props)
 			  {title}
 			</Link>
 		  </h1>
-		  <Link href={postURL}>
-			<p className="font-['Outfit'] text-md leading-snug text-slate-500 dark:text-neutral-400">
-			  {excerpt.length > 100 ? excerpt.substring(0, 100) + '…' : excerpt}
-			</p>
-		  </Link>
 		  <div className="font-['Outfit'] text-sm font-semibold text-slate-500 dark:text-neutral-300">
 			<Link href={postURL}>
 			  <DateFormatter dateString={date} />
