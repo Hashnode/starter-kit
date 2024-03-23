@@ -189,7 +189,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 						</div>
 					</Link>
 
-					<Link href="https://forms.gle/esYMzAg4iKNSwsqCA" target="_blank" rel="noreferrer noopener">
+					<Link href="https://wa.me/message/PRSIF2KSLL6PG1" target="_blank" rel="noreferrer noopener">
 						<div className="w-full h-full lg:flex lg:justify-start lg:items-start border border-neutral-200 lg:flex-row-reverse">
 							{/* Image Section */}
 							<div className="lg:w-1/2 md:w-full lg:h-fit md:h-auto relative bg-white border-b lg:border-l border-neutral-200">
