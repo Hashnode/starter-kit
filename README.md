@@ -86,6 +86,8 @@ async rewrites() {
 
 Once you deploy your project, the subpath installation should work successfully.
 
+Note: If you are updating your environment variables in Vercel, make sure to manually redeploy to see the changes.
+
 #### Cloudflare
 
 In case you are using Cloudflare in proxy mode (orange cloud on), you can deploy the following worker script and map it to `yourdomain.com/*`:
@@ -124,6 +126,10 @@ async function proxyBlog(request) {
 }
 ```
 
+After the above step is done, follow these steps to add the worker route:
+- Go to `Websites` then click on your website and select `Worker Routes` from the left pane. 
+- Click on `Add route` and add `https://yourdomain/*` , then select the worker you just added above and click `Save`.
+- Go to `https://yourdomain/yoursubpath` and now you should be able to see your blogs.
 
 Be sure to replace the values of `subpath` and `blogBaseUrl` in the above code snippet. This way cloudflare will proxy all the requests starting with `yourdomain.com/blog` to your headless blog, and other requests will hit your origin as usual.
 
@@ -156,6 +162,13 @@ If you prefer to build your frontend from scratch, you can use our public GraphQ
 
 - [Docs](https://apidocs.hashnode.com)
 - [GraphQL Playground](https://gql.hashnode.com)
+
+## Pricing
+
+**For individual devs:** Hashnode's Headless CMS is free for individual bloggers! Grab our starter kit and start building your blog – no license is needed. 
+
+**For teams and enterprises:** Access to headless mode, multiple team members, real-time collaboration, AI, and enterprise reliability. [Request access and get a quote.](https://forms.hashnode.com/headless-hashnode-teams) We will be in touch within the next 24hrs to get you onboarded.
+
 
 ## Demo Videos
 
