@@ -3,9 +3,7 @@
   "waitFor": "onCreateCommand",
   "updateContentCommand": "pnpm install",
   "postCreateCommand": "",
-  "postAttachCommand": {
-    "server": "pnpm dev"
-  },
+  "postAttachCommand": "",
   "customizations": {
     "codespaces": {
       "openFiles": [
