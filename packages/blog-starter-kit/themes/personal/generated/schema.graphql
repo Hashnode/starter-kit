@@ -369,7 +369,8 @@ type Draft implements Node {
   """
   Returns list of tags added to the draft. Contains tag id, name, slug, etc.
   """
-  tags: [Tag!]!
+  tags: [Tag!]! @deprecated(reason: "Use tagsV2 instead. Will be removed on 26/02/2024.")
+  tagsV2: [DraftTag!]!
   """
   The title of the draft. It would become the title of the post when published.
   """
@@ -382,6 +383,19 @@ type DraftBackup {
   at: DateTime
   """The status of the backup i.e., success or failure."""
   status: BackupStatus
+}
+
+"""
+Contains basic information about a Tag within a Draft.
+A tag in a draft is a tag that is not published yet.
+"""
+type DraftBaseTag {
+  """The name of the tag. Shown in tag page."""
+  name: String!
+  """
+  The slug of the tag. Used to access tags feed.  Example https://hashnode.com/n/graphql
+  """
+  slug: String!
 }
 
 """
@@ -431,6 +445,8 @@ type DraftSettings {
   """
   stickCoverToBottom: Boolean!
 }
+
+union DraftTag = DraftBaseTag | Tag
 
 """
 An edge that contains a node and cursor to the node.
@@ -2025,6 +2041,7 @@ enum Scope {
   create_pro
   import_subscribers_to_publication
   publication_admin
+  publication_member
   publish_comment
   publish_draft
   publish_post
@@ -2038,6 +2055,7 @@ enum Scope {
   update_post
   update_reply
   webhook_admin
+  write_draft
   write_post
   write_series
 }
