@@ -1884,6 +1884,18 @@ export type PagesPreferences = {
   newsletter?: Maybe<Scalars['Boolean']['output']>;
 };
 
+export type PendingInvite = Node & {
+  __typename?: 'PendingInvite';
+  /** The email of the user that was invited. */
+  email?: Maybe<Scalars['String']['output']>;
+  /** The ID of the pending invite. */
+  id: Scalars['ID']['output'];
+  /** The role assigned to the user in the publication. */
+  role: UserPublicationRole;
+  /** Invited Hashnode user, returns null if the user is not a Hashnode user. */
+  user?: Maybe<User>;
+};
+
 /** Contains basic information about the tag returned by popularTags query. */
 export type PopularTag = ITag & Node & {
   __typename?: 'PopularTag';
@@ -1922,7 +1934,10 @@ export type PopularTagEdge = Edge & {
  */
 export type Post = Node & {
   __typename?: 'Post';
-  /** Returns male and female audio url of the post. Available in case the Audioblog is enabled. */
+  /**
+   * Returns male and female audio url of the post. Available in case the Audioblog is enabled.
+   * @deprecated Audio Blogs are not supported anymore. This field will be removed 18/04/23
+   */
   audioUrls?: Maybe<AudioUrls>;
   /** Returns the user details of the author of the post. */
   author: User;
@@ -2447,7 +2462,10 @@ export type PublicationDraftConnectionFilter = {
 /** Contains the publication's beta features. */
 export type PublicationFeatures = {
   __typename?: 'PublicationFeatures';
-  /** Audio player for blog posts. */
+  /**
+   * Audio player for blog posts.
+   * @deprecated Audio Blogs are not supported anymore. This field will be removed 18/04/23
+   */
   audioBlog: AudioBlogFeature;
   /** Individual styling for the publication. */
   customCSS: CustomCssFeature;
@@ -2537,20 +2555,10 @@ export type PublicationMember = Node & {
   /** The ID of the publication member. */
   id: Scalars['ID']['output'];
   /** The role of the user in the publication. */
-  role: PublicationMemberRole;
+  role: UserPublicationRole;
   /** The user who is a member of the publication. */
   user?: Maybe<User>;
 };
-
-/** The role of the user in the publication. */
-export enum PublicationMemberRole {
-  /** The user is an admin of the publication. */
-  Admin = 'ADMIN',
-  /** The user is a owner of the publication. */
-  Author = 'AUTHOR',
-  /** The user is a member of the publication. */
-  Contributor = 'CONTRIBUTOR'
-}
 
 /** Contains the publication's navbar items. */
 export type PublicationNavbarItem = {
@@ -2839,8 +2847,14 @@ export type QueryUserArgs = {
 export type RssImport = Node & {
   __typename?: 'RSSImport';
   id: Scalars['ID']['output'];
+  /** Indicates whether posts should be imported as drafts or not */
+  importAsDrafts: Scalars['Boolean']['output'];
+  /** RSS Tag name to be considered as the post content for automatic import. */
+  rssTagName?: Maybe<Scalars['String']['output']>;
   /** The URL pointing to the RSS feed. */
   rssURL: Scalars['String']['output'];
+  /** Indicates whether the posts should be scraped or not */
+  scrapePosts: Scalars['Boolean']['output'];
 };
 
 /**

@@ -219,6 +219,510 @@ type Content {
   text: String!
 }
 
+"""Two letter ISO 3166-1 alpha-2 country code."""
+enum CountryCodeAlpha2 {
+  """Andorra"""
+  AD
+  """United Arab Emirates"""
+  AE
+  """Afghanistan"""
+  AF
+  """Antigua and Barbuda"""
+  AG
+  """Anguilla"""
+  AI
+  """Albania"""
+  AL
+  """Armenia"""
+  AM
+  """Angola"""
+  AO
+  """Antarctica"""
+  AQ
+  """Argentina"""
+  AR
+  """American Samoa"""
+  AS
+  """Austria"""
+  AT
+  """Australia"""
+  AU
+  """Aruba"""
+  AW
+  """Åland Islands"""
+  AX
+  """Azerbaijan"""
+  AZ
+  """Bosnia and Herzegovina"""
+  BA
+  """Barbados"""
+  BB
+  """Bangladesh"""
+  BD
+  """Belgium"""
+  BE
+  """Burkina Faso"""
+  BF
+  """Bulgaria"""
+  BG
+  """Bahrain"""
+  BH
+  """Burundi"""
+  BI
+  """Benin"""
+  BJ
+  """Saint Barthélemy"""
+  BL
+  """Bermuda"""
+  BM
+  """Brunei Darussalam"""
+  BN
+  """Bolivia (Plurinational State of)"""
+  BO
+  """Bonaire, Sint Eustatius and Saba"""
+  BQ
+  """Brazil"""
+  BR
+  """Bahamas"""
+  BS
+  """Bhutan"""
+  BT
+  """Bouvet Island"""
+  BV
+  """Botswana"""
+  BW
+  """Belarus"""
+  BY
+  """Belize"""
+  BZ
+  """Canada"""
+  CA
+  """Cocos (Keeling) Islands"""
+  CC
+  """Congo, Democratic Republic of the"""
+  CD
+  """Central African Republic"""
+  CF
+  """Congo"""
+  CG
+  """Switzerland"""
+  CH
+  """Côte d'Ivoire"""
+  CI
+  """Cook Islands"""
+  CK
+  """Chile"""
+  CL
+  """Cameroon"""
+  CM
+  """China"""
+  CN
+  """Colombia"""
+  CO
+  """Costa Rica"""
+  CR
+  """Cuba"""
+  CU
+  """Cabo Verde"""
+  CV
+  """Curaçao"""
+  CW
+  """Christmas Island"""
+  CX
+  """Cyprus"""
+  CY
+  """Czechia"""
+  CZ
+  """Germany"""
+  DE
+  """Djibouti"""
+  DJ
+  """Denmark"""
+  DK
+  """Dominica"""
+  DM
+  """Dominican Republic"""
+  DO
+  """Algeria"""
+  DZ
+  """Ecuador"""
+  EC
+  """Estonia"""
+  EE
+  """Egypt"""
+  EG
+  """Western Sahara"""
+  EH
+  """Eritrea"""
+  ER
+  """Spain"""
+  ES
+  """Ethiopia"""
+  ET
+  """Finland"""
+  FI
+  """Fiji"""
+  FJ
+  """Falkland Islands (Malvinas)"""
+  FK
+  """Micronesia (Federated States of)"""
+  FM
+  """Faroe Islands"""
+  FO
+  """France"""
+  FR
+  """Gabon"""
+  GA
+  """United Kingdom of Great Britain and Northern Ireland"""
+  GB
+  """Grenada"""
+  GD
+  """Georgia"""
+  GE
+  """French Guiana"""
+  GF
+  """Guernsey"""
+  GG
+  """Ghana"""
+  GH
+  """Gibraltar"""
+  GI
+  """Greenland"""
+  GL
+  """Gambia"""
+  GM
+  """Guinea"""
+  GN
+  """Guadeloupe"""
+  GP
+  """Equatorial Guinea"""
+  GQ
+  """Greece"""
+  GR
+  """South Georgia and the South Sandwich Islands"""
+  GS
+  """Guatemala"""
+  GT
+  """Guam"""
+  GU
+  """Guinea-Bissau"""
+  GW
+  """Guyana"""
+  GY
+  """Hong Kong"""
+  HK
+  """Heard Island and McDonald Islands"""
+  HM
+  """Honduras"""
+  HN
+  """Croatia"""
+  HR
+  """Haiti"""
+  HT
+  """Hungary"""
+  HU
+  """Indonesia"""
+  ID
+  """Ireland"""
+  IE
+  """Israel"""
+  IL
+  """Isle of Man"""
+  IM
+  """India"""
+  IN
+  """British Indian Ocean Territory"""
+  IO
+  """Iraq"""
+  IQ
+  """Iran (Islamic Republic of)"""
+  IR
+  """Iceland"""
+  IS
+  """Italy"""
+  IT
+  """Jersey"""
+  JE
+  """Jamaica"""
+  JM
+  """Jordan"""
+  JO
+  """Japan"""
+  JP
+  """Kenya"""
+  KE
+  """Kyrgyzstan"""
+  KG
+  """Cambodia"""
+  KH
+  """Kiribati"""
+  KI
+  """Comoros"""
+  KM
+  """Saint Kitts and Nevis"""
+  KN
+  """Korea (Democratic People's Republic of)"""
+  KP
+  """Korea, Republic of"""
+  KR
+  """Kuwait"""
+  KW
+  """Cayman Islands"""
+  KY
+  """Kazakhstan"""
+  KZ
+  """Lao People's Democratic Republic"""
+  LA
+  """Lebanon"""
+  LB
+  """Saint Lucia"""
+  LC
+  """Liechtenstein"""
+  LI
+  """Sri Lanka"""
+  LK
+  """Liberia"""
+  LR
+  """Lesotho"""
+  LS
+  """Lithuania"""
+  LT
+  """Luxembourg"""
+  LU
+  """Latvia"""
+  LV
+  """Libya"""
+  LY
+  """Morocco"""
+  MA
+  """Monaco"""
+  MC
+  """Moldova, Republic of"""
+  MD
+  """Montenegro"""
+  ME
+  """Saint Martin (French part)"""
+  MF
+  """Madagascar"""
+  MG
+  """Marshall Islands"""
+  MH
+  """North Macedonia"""
+  MK
+  """Mali"""
+  ML
+  """Myanmar"""
+  MM
+  """Mongolia"""
+  MN
+  """Macao"""
+  MO
+  """Northern Mariana Islands"""
+  MP
+  """Martinique"""
+  MQ
+  """Mauritania"""
+  MR
+  """Montserrat"""
+  MS
+  """Malta"""
+  MT
+  """Mauritius"""
+  MU
+  """Maldives"""
+  MV
+  """Malawi"""
+  MW
+  """Mexico"""
+  MX
+  """Malaysia"""
+  MY
+  """Mozambique"""
+  MZ
+  """Namibia"""
+  NA
+  """New Caledonia"""
+  NC
+  """Niger"""
+  NE
+  """Norfolk Island"""
+  NF
+  """Nigeria"""
+  NG
+  """Nicaragua"""
+  NI
+  """Netherlands"""
+  NL
+  """Norway"""
+  NO
+  """Nepal"""
+  NP
+  """Nauru"""
+  NR
+  """Niue"""
+  NU
+  """New Zealand"""
+  NZ
+  """Oman"""
+  OM
+  """Panama"""
+  PA
+  """Peru"""
+  PE
+  """French Polynesia"""
+  PF
+  """Papua New Guinea"""
+  PG
+  """Philippines"""
+  PH
+  """Pakistan"""
+  PK
+  """Poland"""
+  PL
+  """Saint Pierre and Miquelon"""
+  PM
+  """Pitcairn"""
+  PN
+  """Puerto Rico"""
+  PR
+  """Palestine, State of"""
+  PS
+  """Portugal"""
+  PT
+  """Palau"""
+  PW
+  """Paraguay"""
+  PY
+  """Qatar"""
+  QA
+  """Réunion"""
+  RE
+  """Romania"""
+  RO
+  """Serbia"""
+  RS
+  """Russian Federation"""
+  RU
+  """Rwanda"""
+  RW
+  """Saudi Arabia"""
+  SA
+  """Solomon Islands"""
+  SB
+  """Seychelles"""
+  SC
+  """Sudan"""
+  SD
+  """Sweden"""
+  SE
+  """Singapore"""
+  SG
+  """Saint Helena, Ascension and Tristan da Cunha"""
+  SH
+  """Slovenia"""
+  SI
+  """Svalbard and Jan Mayen"""
+  SJ
+  """Slovakia"""
+  SK
+  """Sierra Leone"""
+  SL
+  """San Marino"""
+  SM
+  """Senegal"""
+  SN
+  """Somalia"""
+  SO
+  """Suriname"""
+  SR
+  """South Sudan"""
+  SS
+  """Sao Tome and Principe"""
+  ST
+  """El Salvador"""
+  SV
+  """Sint Maarten (Dutch part)"""
+  SX
+  """Syrian Arab Republic"""
+  SY
+  """Eswatini"""
+  SZ
+  """Turks and Caicos Islands"""
+  TC
+  """Chad"""
+  TD
+  """French Southern Territories"""
+  TF
+  """Togo"""
+  TG
+  """Thailand"""
+  TH
+  """Tajikistan"""
+  TJ
+  """Tokelau"""
+  TK
+  """Timor-Leste"""
+  TL
+  """Turkmenistan"""
+  TM
+  """Tunisia"""
+  TN
+  """Tonga"""
+  TO
+  """Turkey"""
+  TR
+  """Trinidad and Tobago"""
+  TT
+  """Tuvalu"""
+  TV
+  """Taiwan, Province of China"""
+  TW
+  """Tanzania, United Republic of"""
+  TZ
+  """Ukraine"""
+  UA
+  """Uganda"""
+  UG
+  """United States Minor Outlying Islands"""
+  UM
+  """United States of America"""
+  US
+  """Uruguay"""
+  UY
+  """Uzbekistan"""
+  UZ
+  """Holy See"""
+  VA
+  """Saint Vincent and the Grenadines"""
+  VC
+  """Venezuela (Bolivarian Republic of)"""
+  VE
+  """Virgin Islands (British)"""
+  VG
+  """Virgin Islands (U.S.)"""
+  VI
+  """Viet Nam"""
+  VN
+  """Vanuatu"""
+  VU
+  """Wallis and Futuna"""
+  WF
+  """Samoa"""
+  WS
+  """Yemen"""
+  YE
+  """Mayotte"""
+  YT
+  """South Africa"""
+  ZA
+  """Zambia"""
+  ZM
+  """Zimbabwe"""
+  ZW
+  """Unknown"""
+  ZZ
+}
+
 """
 Contains information about cover image options of the post. Like URL of the cover image, attribution, etc.
 """
@@ -237,6 +741,92 @@ input CoverImageOptionsInput {
   isCoverAttributionHidden: Boolean
   """A flag to indicate if the cover image is sticked to bottom."""
   stickCoverToBottom: Boolean
+}
+
+input CreateDraftInput {
+  """Ids of the co-authors of the resulting draft."""
+  coAuthors: [ObjectId!]
+  """Content of the resulting draft in markdown format."""
+  contentMarkdown: String
+  """Options for the cover image of the resulting draft."""
+  coverImageOptions: CoverImageOptionsInput
+  """
+  A flag to indicate if the comments are disabled for the resulting draft.
+  """
+  disableComments: Boolean
+  """
+  Information about the meta tags added to the resulting draft, used for SEO purpose.
+  """
+  metaTags: MetaTagsInput
+  """
+  The URL of the original article if the draft is imported from an external source.
+  """
+  originalArticleURL: String
+  """The ID of publication the draft and resulting post belongs to."""
+  publicationId: ID!
+  """
+  Publish the draft on behalf of another user who is a member of the publication.
+  
+  Only applicable for team publications.
+  """
+  publishAs: ObjectId
+  """Date when the resulting draft is published."""
+  publishedAt: DateTime
+  """Providing a seriesId will add the resulting draft to that series."""
+  seriesId: ObjectId
+  """
+  Settings for the resulting draft like table of contents and newsletter activation.
+  """
+  settings: CreateDraftSettingsInput
+  """Slug of the resulting draft."""
+  slug: String
+  """The subtitle of the resulting draft."""
+  subtitle: String
+  """A list of tags added to the resulting draft."""
+  tags: [CreateDraftTagInput!]
+  """The title of the resulting draft."""
+  title: String
+}
+
+type CreateDraftPayload {
+  """The newly created draft"""
+  draft: Draft
+}
+
+input CreateDraftSettingsInput {
+  """Whether to send a newsletter for the resulting draft's post."""
+  activateNewsletter: Boolean
+  """
+  A flag to indicate if the resulting draft should be delisted, used to hide the post created from the draft from public feed.
+  """
+  delist: Boolean
+  """
+  A flag to indicate if the resulting draft'S post should contain a table of content
+  """
+  enableTableOfContent: Boolean
+  """Flag to indicate if the slug is overridden by the user."""
+  slugOverridden: Boolean
+}
+
+input CreateDraftTagInput {
+  """
+  A tag id that is referencing an existing tag.
+  
+  Either this or name and slug should be provided. If both are provided, the id will be used.
+  """
+  id: ObjectId
+  """
+  A name of a new tag to create.
+  
+  Either this and slug or id should be provided. If both are provided, the id will be used.
+  """
+  name: String
+  """
+  A slug of a new tag to create.
+  
+  Either this and name or id should be provided. If both are provided, the id will be used.
+  """
+  slug: String
 }
 
 input CreateWebhookInput {
@@ -291,6 +881,13 @@ scalar DateTime
 
 type DeleteWebhookPayload {
   webhook: Webhook
+}
+
+enum DeviceType {
+  DESKTOP
+  LAPTOP
+  MOBILE
+  TABLET
 }
 
 """Contains the publication's domain information."""
@@ -354,6 +951,8 @@ type Draft implements Node {
   """
   ogMetaData: OpenGraphMetaData
   readTimeInMinutes: Int!
+  """The date the draft is scheduled to be published."""
+  scheduledDate: DateTime
   """
   SEO information of the draft. Contains title and description used in meta tags.
   """
@@ -369,7 +968,8 @@ type Draft implements Node {
   """
   Returns list of tags added to the draft. Contains tag id, name, slug, etc.
   """
-  tags: [Tag!]!
+  tags: [Tag!]! @deprecated(reason: "Use tagsV2 instead. Will be removed on 26/02/2024.")
+  tagsV2: [DraftTag!]!
   """
   The title of the draft. It would become the title of the post when published.
   """
@@ -382,6 +982,19 @@ type DraftBackup {
   at: DateTime
   """The status of the backup i.e., success or failure."""
   status: BackupStatus
+}
+
+"""
+Contains basic information about a Tag within a Draft.
+A tag in a draft is a tag that is not published yet.
+"""
+type DraftBaseTag {
+  """The name of the tag. Shown in tag page."""
+  name: String!
+  """
+  The slug of the tag. Used to access tags feed.  Example https://hashnode.com/n/graphql
+  """
+  slug: String!
 }
 
 """
@@ -424,13 +1037,15 @@ type DraftFeatures {
 type DraftSettings {
   """A flag to indicate if the comments are disabled for the post."""
   disableComments: Boolean!
-  """Wether or not the post is hidden from the Hashnode community."""
+  """Whether or not the post is hidden from the Hashnode community."""
   isDelisted: Boolean!
   """
   A flag to indicate if the cover image is shown below title of the post. Default position of cover is top of title.
   """
   stickCoverToBottom: Boolean!
 }
+
+union DraftTag = DraftBaseTag | Tag
 
 """
 An edge that contains a node and cursor to the node.
@@ -544,10 +1159,187 @@ enum FeedType {
   RELEVANT
 }
 
+"""Views implementation that will be returned if grouping by browser."""
+type GroupedByBrowserViews implements Node & Views {
+  """The browser that these views belong to."""
+  browser: String!
+  id: ID!
+  """The aggregated views."""
+  total: Int!
+}
+
+"""Visitors implementation that will be returned if grouping by browser."""
+type GroupedByBrowserVisitors implements Node & Visitors {
+  """The browser that these views belong to."""
+  browser: String!
+  id: ID!
+  """The aggregated number of visitors."""
+  total: Int!
+}
+
+"""Views implementation that will be returned if grouping by country."""
+type GroupedByCountryViews implements Node & Views {
+  """The country that these views belong to."""
+  country: CountryCodeAlpha2!
+  id: ID!
+  """The aggregated views."""
+  total: Int!
+}
+
+"""Visitors implementation that will be returned if grouping by country."""
+type GroupedByCountryVisitors implements Node & Visitors {
+  """The country that these views belong to."""
+  country: CountryCodeAlpha2!
+  id: ID!
+  """The aggregated number of visitors."""
+  total: Int!
+}
+
+"""Views implementation that will be returned if grouping by device type."""
+type GroupedByDeviceTypeViews implements Node & Views {
+  """The type of device that these views belong to."""
+  deviceType: DeviceType!
+  id: ID!
+  """The aggregated views."""
+  total: Int!
+}
+
+"""
+Visitors implementation that will be returned if grouping by device type.
+"""
+type GroupedByDeviceTypeVisitors implements Node & Visitors {
+  """The type of device that these views belong to."""
+  deviceType: DeviceType!
+  id: ID!
+  """The aggregated number of visitors."""
+  total: Int!
+}
+
+"""
+Views implementation that will be returned if grouping by operating system.
+"""
+type GroupedByOperatingSystemViews implements Node & Views {
+  id: ID!
+  """The operating system that these views belong to."""
+  operatingSystem: String!
+  """The aggregated views."""
+  total: Int!
+}
+
+"""
+Visitors implementation that will be returned if grouping by operating system.
+"""
+type GroupedByOperatingSystemVisitors implements Node & Visitors {
+  id: ID!
+  """The operating system that these views belong to."""
+  operatingSystem: String!
+  """The aggregated number of visitors."""
+  total: Int!
+}
+
+"""Views implementation that will be returned if grouping by page."""
+type GroupedByPageViews implements Node & Views {
+  id: ID!
+  """The page that these views belong to."""
+  page: StaticPage!
+  """The aggregated views."""
+  total: Int!
+}
+
+"""Visitors implementation that will be returned if grouping by page."""
+type GroupedByPageVisitors implements Node & Visitors {
+  id: ID!
+  """The page that these views belong to."""
+  page: StaticPage!
+  """The aggregated number of visitors."""
+  total: Int!
+}
+
+"""Views implementation that will be returned if grouping by path."""
+type GroupedByPathViews implements Node & Views {
+  id: ID!
+  """The path that these views belong to."""
+  path: String!
+  """The aggregated views."""
+  total: Int!
+}
+
+"""Visitors implementation that will be returned if grouping by path."""
+type GroupedByPathVisitors implements Node & Visitors {
+  id: ID!
+  """The path that these views belong to."""
+  path: String!
+  """The aggregated number of visitors."""
+  total: Int!
+}
+
+"""Views implementation that will be returned if grouping by post."""
+type GroupedByPostViews implements Node & Views {
+  id: ID!
+  """The post that these views belong to."""
+  post: Post!
+  """The aggregated views."""
+  total: Int!
+}
+
+"""Visitors implementation that will be returned if grouping by post."""
+type GroupedByPostVisitors implements Node & Visitors {
+  id: ID!
+  """The post that these views belong to."""
+  post: Post!
+  """The aggregated number of visitors."""
+  total: Int!
+}
+
+"""
+Views implementation that will be returned if grouping by `REFERRER_HOST` dimension.
+"""
+type GroupedByReferrerHostViews implements Node & Views {
+  id: ID!
+  """The referrer host that these views belong to."""
+  referrerHost: String!
+  """The aggregated views."""
+  total: Int!
+}
+
+"""
+Visitors implementation that will be returned if grouping by `REFERRER_HOST` dimension.
+"""
+type GroupedByReferrerHostVisitors implements Node & Visitors {
+  id: ID!
+  """The referrer host that these views belong to."""
+  referrerHost: String!
+  """The aggregated number of visitors."""
+  total: Int!
+}
+
+type GroupedByTimeViews implements Node & Views {
+  """The start of the time range that these views belong to."""
+  from: DateTime!
+  id: ID!
+  """The end of the time range that these views belong to."""
+  to: DateTime!
+  """The aggregated views."""
+  total: Int!
+}
+
+"""
+Visitors implementation that will be returned if a grouping by time is provided.
+"""
+type GroupedByTimeVisitors implements Node & Visitors {
+  """The start of the time range that these visitors visited the page."""
+  from: DateTime!
+  id: ID!
+  """The end of the time range that these visitors visited the page."""
+  to: DateTime!
+  """The aggregated number of visitors."""
+  total: Int!
+}
+
 enum HttpRedirectionType {
-  """A permanent redirect that corresponds to the 308 HTTP status code."""
+  """A permanent redirect that corresponds to the 302 HTTP status code."""
   PERMANENT
-  """A temporary redirect that corresponds to the 307 HTTP status code."""
+  """A temporary redirect that corresponds to the 301 HTTP status code."""
   TEMPORARY
 }
 
@@ -680,9 +1472,7 @@ type LikePostPayload {
   post: Post
 }
 
-"""
-Contains information about meta tags of the post. Used for SEO purpose.
-"""
+"""Contains information about meta tags. Used for SEO purpose."""
 input MetaTagsInput {
   """The description of the post used in og:description for SEO."""
   description: String
@@ -700,6 +1490,11 @@ type Mutation {
   """Adds a reply to a comment."""
   addReply(input: AddReplyInput!): AddReplyPayload!
   cancelScheduledDraft(input: CancelScheduledDraftInput!): CancelScheduledDraftPayload!
+  """Creates a new draft for a post."""
+  createDraft(
+    """Information about the draft to be created."""
+    input: CreateDraftInput!
+  ): CreateDraftPayload!
   createWebhook(input: CreateWebhookInput!): CreateWebhookPayload!
   deleteWebhook(id: ID!): DeleteWebhookPayload!
   """Likes a comment."""
@@ -727,6 +1522,8 @@ type Mutation {
   """Reschedule a draft."""
   rescheduleDraft(input: RescheduleDraftInput!): RescheduleDraftPayload!
   resendWebhookRequest(input: ResendWebhookRequestInput!): ResendWebhookRequestPayload!
+  """Restores a deleted post."""
+  restorePost(input: RestorePostInput!): RestorePostPayload!
   scheduleDraft(
     """Information about the draft to be published."""
     input: ScheduleDraftInput!
@@ -776,8 +1573,6 @@ type MyUser implements IUser & Node {
   dateJoined: DateTime
   """Whether or not the user is deactivated."""
   deactivated: Boolean!
-  """Email address of the user. Only available to the authenticated user."""
-  email: String
   """The users who are following this user"""
   followers(
     """The page number that should be returned."""
@@ -838,10 +1633,6 @@ type MyUser implements IUser & Node {
   """Returns a list of tags that the user follows."""
   tagsFollowing: [Tag!]!
   """
-  Hashnode users are subscribed to a newsletter by default. This field can be used to unsubscribe from the newsletter. Only available to the authenticated user.
-  """
-  unsubscribeCode: String
-  """
   The username of the user. It is unique and tied with user's profile URL. Example - https://hashnode.com/@username
   """
   username: String!
@@ -863,8 +1654,35 @@ enum NewsletterFrequency {
   weekly
 }
 
+type NewsletterRecord implements Node {
+  """The number of subscribers the newsletter was clicked by."""
+  clickCount: Int!
+  """Delivery ID of the sent newsletter"""
+  id: ID!
+  """The number of subscribers the newsletter was opened by."""
+  openCount: Int!
+  """Associated post it was sent with"""
+  post: Post!
+  """The date the newsletter was sent."""
+  sentAt: DateTime!
+  """The number of subscribers the newsletter was sent to."""
+  sentCount: Int!
+}
+
 enum NewsletterSubscribeStatus {
+  CONFIRMED
   PENDING
+}
+
+type NewsletterSubscriber implements Node {
+  """The date the subscriber was added."""
+  createdAt: DateTime! @deprecated(reason: "Use `subscribedAt` instead. Will be removed after 12/4/2024")
+  """The email of the subscriber."""
+  email: String!
+  id: ID!
+  """The status of the subscriber."""
+  status: NewsletterSubscribeStatus!
+  subscribedAt: DateTime!
 }
 
 enum NewsletterUnsubscribeStatus {
@@ -988,7 +1806,7 @@ type Post implements Node {
   """
   Returns male and female audio url of the post. Available in case the Audioblog is enabled.
   """
-  audioUrls: AudioUrls
+  audioUrls: AudioUrls @deprecated(reason: "Audio Blogs are not supported anymore. This field will be removed 18/04/23")
   """Returns the user details of the author of the post."""
   author: User!
   """
@@ -1059,10 +1877,10 @@ type Post implements Node {
   hasLatexInPost: Boolean!
   """The ID of the post. Used to uniquely identify the post."""
   id: ID!
-  """Wether or not the post has automatically been published via RSS feed."""
+  """Whether or not the post has automatically been published via RSS feed."""
   isAutoPublishedFromRSS: Boolean!
   """
-  Wether or not the authenticated user is following this post.
+  Whether or not the authenticated user is following this post.
   
   Returns `null` if the user is not authenticated.
   """
@@ -1106,6 +1924,10 @@ type Post implements Node {
   """
   slug: String!
   """
+  Boolean flag to identify whether or not the post is sourced from GitHub.
+  """
+  sourcedFromGithub: Boolean!
+  """
   The subtitle of the post. Subtitle is a short description of the post which is also used in SEO if meta tags are not provided.
   """
   subtitle: String
@@ -1148,7 +1970,7 @@ enum PostBadgeType {
 }
 
 type PostBadgesFeature implements Feature {
-  """Wether or not the user has chosen to show badges on the post."""
+  """Whether or not the user has chosen to show badges on the post."""
   isEnabled: Boolean!
   items: [PostBadge!]!
 }
@@ -1288,7 +2110,7 @@ Contains Post preferences. Used to determine if the post is pinned to blog, comm
 type PostPreferences {
   """A flag to indicate if the comments are disabled for the post."""
   disableComments: Boolean!
-  """Wether or not the post is hidden from the Hashnode community."""
+  """Whether or not the post is hidden from the Hashnode community."""
   isDelisted: Boolean!
   """
   A flag to indicate if the post is pinned to blog. Pinned post is shown on top of the blog.
@@ -1333,6 +2155,10 @@ A publication is a blog that can be created for a user or a team.
 type Publication implements Node {
   """The about section of the publication."""
   about: Content
+  """
+  Boolean flag indicating if the publication allows edits by contributors
+  """
+  allowContributorEdits: Boolean!
   """The author who owns the publication."""
   author: User!
   """The canonical URL of the publication."""
@@ -1494,7 +2320,7 @@ input PublicationDraftConnectionFilter {
 """Contains the publication's beta features."""
 type PublicationFeatures {
   """Audio player for blog posts."""
-  audioBlog: AudioBlogFeature!
+  audioBlog: AudioBlogFeature! @deprecated(reason: "Audio Blogs are not supported anymore. This field will be removed 18/04/23")
   """Individual styling for the publication."""
   customCSS: CustomCSSFeature!
   """
@@ -1540,6 +2366,8 @@ type PublicationIntegrations {
   A flag indicating if the custom domain is enabled for integration with Plausible Analytics.
   """
   plausibleAnalyticsEnabled: Boolean
+  """The share ID for the Hashnode-provided Umami analytics instance."""
+  umamiShareId: String
   """The ID for the Hashnode-provided Umami analytics instance."""
   umamiWebsiteUUID: String
   """
@@ -1583,6 +2411,16 @@ type PublicationLinks {
   youtube: String
 }
 
+"""Contains the publication member information."""
+type PublicationMember implements Node {
+  """The ID of the publication member."""
+  id: ID!
+  """The role of the user in the publication."""
+  role: UserPublicationRole!
+  """The user who is a member of the publication."""
+  user: User
+}
+
 """Contains the publication's navbar items."""
 type PublicationNavbarItem {
   """The unique identifier of the navbar item."""
@@ -1592,7 +2430,7 @@ type PublicationNavbarItem {
   """The static page added to the navbar item."""
   page: StaticPage
   """The order of the navbar item."""
-  priority: Int
+  priority: Int @deprecated(reason: "Navbar items are already returned in the correct order. Priority value is not needed and might be 0 in most cases.")
   """The series added to the navbar item."""
   series: Series
   """The type of the navbar item, can be series, link or page."""
@@ -1630,6 +2468,10 @@ Connection to get list of posts in publications.
 Returns a list of edges which contains the posts in publication and cursor to the last item of the previous page.
 """
 input PublicationPostConnectionFilter {
+  """
+  Only return posts that are deleted. Query returns active posts by default, set this to true to return deleted posts.
+  """
+  deletedOnly: Boolean
   """Remove pinned post from the result set."""
   excludePinnedPost: Boolean
   """
@@ -1669,6 +2511,16 @@ type PublicationUserRecommendingPublicationConnection implements PageConnection 
   pageInfo: OffsetPageInfo!
   """The total number of documents in the connection."""
   totalDocuments: Int!
+}
+
+type PublicationViewEdge implements Edge {
+  cursor: String!
+  node: Views!
+}
+
+type PublicationVisitorsEdge implements Edge {
+  cursor: String!
+  node: Visitors!
 }
 
 input PublishDraftInput {
@@ -1719,8 +2571,11 @@ input PublishPostInput {
   slug: String
   """The subtitle of the post."""
   subtitle: String
-  """A list of tags added to the post."""
-  tags: [PublishPostTagInput!]!
+  """
+  A list of tags to add to the post. You can get a list of popular tags available on Hashnode here.
+  https://github.com/Hashnode/support/blob/main/misc/tags.json
+  """
+  tags: [PublishPostTagInput!]
   """The title of the post."""
   title: String!
 }
@@ -1736,7 +2591,7 @@ input PublishPostSettingsInput {
   delisted: Boolean
   """A flag to indicate if the post contains table of content"""
   enableTableOfContent: Boolean
-  """Wether to send a newsletter for this post."""
+  """Whether to send a newsletter for this post."""
   isNewsletterActivated: Boolean
   """A flag to indicate if the post is scheduled."""
   scheduled: Boolean
@@ -1875,9 +2730,10 @@ type RecommendedPublicationEdge implements Edge {
   node: Publication!
 }
 
-type RedirectionRule {
+type RedirectionRule implements Node {
   """The destination URL of the redirection rule."""
-  destination: String!
+  destination: URL!
+  id: ID!
   """The source URL of the redirection rule."""
   source: String!
   """The type of the redirection rule."""
@@ -1969,6 +2825,14 @@ type ResendWebhookRequestPayload {
   webhookMessage: WebhookMessage
 }
 
+input RestorePostInput {
+  id: ID!
+}
+
+type RestorePostPayload {
+  post: Post
+}
+
 """Information to help in seo related meta tags."""
 type SEO {
   """The description used in og:description tag for SEO purposes."""
@@ -2025,6 +2889,7 @@ enum Scope {
   create_pro
   import_subscribers_to_publication
   publication_admin
+  publication_member
   publish_comment
   publish_draft
   publish_post
@@ -2032,14 +2897,18 @@ enum Scope {
   recommend_publications
   remove_comment
   remove_reply
+  restore_post
   signup
   team_hashnode
   update_comment
   update_post
   update_reply
   webhook_admin
+  write_draft
   write_post
   write_series
+  write_static_page
+  write_widget
 }
 
 """
@@ -2055,6 +2924,10 @@ type SearchPostConnection implements Connection {
 }
 
 input SearchPostsOfPublicationFilter {
+  """
+  Only return posts that are deleted. Query returns active posts by default, set this to true to return deleted posts.
+  """
+  deletedOnly: Boolean
   """The ID of publications to search from."""
   publicationId: ObjectId!
   """The query to be searched in post."""
@@ -2235,7 +3108,9 @@ type SubscribeToNewsletterPayload {
 }
 
 type TableOfContentsFeature implements Feature {
-  """Wether or not ser has chosen to show a table of contents on the post."""
+  """
+  Whether or not the user has chosen to show a table of contents on the post.
+  """
   isEnabled: Boolean!
   """The content of the table of contents."""
   items: [TableOfContentsItem!]!
@@ -2339,6 +3214,24 @@ input TriggerWebhookTestInput {
 
 type TriggerWebhookTestPayload {
   webhook: Webhook
+}
+
+scalar URL
+
+"""Views implementation that will be returned if no grouping is applied."""
+type UngroupedViews implements Node & Views {
+  id: ID!
+  """The aggregated views."""
+  total: Int!
+}
+
+"""
+Visitors implementation that will be returned if no grouping is applied.
+"""
+type UngroupedVisitors implements Node & Visitors {
+  id: ID!
+  """The aggregated number of visitors."""
+  total: Int!
 }
 
 input UnsubscribeFromNewsletterInput {
@@ -2492,7 +3385,7 @@ type User implements IUser & Node {
   """
   followersCount: Int!
   """
-  Wether or not the authenticated user follows this user.
+  Whether or not the authenticated user follows this user.
   Returns false if the authenticated user this user.
   """
   following: Boolean!
@@ -2508,13 +3401,13 @@ type User implements IUser & Node {
     pageSize: Int!
   ): UserConnection!
   """
-  Wether or not this user follows the authenticated user.
+  Whether or not this user follows the authenticated user.
   Returns false if the authenticated user this user.
   """
   followsBack: Boolean!
   """The ID of the user. It can be used to identify the user."""
   id: ID!
-  """Wether or not this is a pro user."""
+  """Whether or not this is a pro user."""
   isPro: Boolean!
   """The location of the user."""
   location: String
@@ -2662,7 +3555,7 @@ enum UserPublicationRole {
 
 """
 Connection to get list of publications.
-Returns a list of edges which contains the publications and cursor to the last item of the previous page.
+Returns a list of edges which contains the documentation project and cursor to the last item of the previous page.
 """
 type UserPublicationsConnection implements Connection {
   """A list of edges of publications connection."""
@@ -2725,6 +3618,18 @@ Shows total views on blogs if enabled.
 type ViewCountFeature implements Feature {
   """A flag indicating if the view count feature is enabled or not."""
   isEnabled: Boolean!
+}
+
+interface Views implements Node {
+  id: ID!
+  """The aggregated views."""
+  total: Int!
+}
+
+interface Visitors implements Node {
+  id: ID!
+  """The aggregated number of visitors."""
+  total: Int!
 }
 
 type Webhook implements Node {

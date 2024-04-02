@@ -192,6 +192,25 @@ export default function PostOrPage(props: Props) {
 							</div>
 						</Link>
 
+						<Link href="https://l.instagram.com/?u=https%3A%2F%2Fwa.me%2Fmessage%2FO3E7J6SODFRVM1&e=AT3CVWhVFcT84AyADTo1F2ROwWPz2cTVngtaHfBRCuyBTOwjd4TAbDpOZeHlvRG39NqbZ4rP2URVuU1-jhGu-vPEYjz7nU1vtMBtOGc577e77dbHsKx2VA" target="_blank" rel="noreferrer noopener">
+							<div className="w-full h-full lg:flex lg:justify-start lg:items-start border border-neutral-200 lg:flex-row-reverse">
+								{/* Image Section */}
+								<div className="lg:w-1/2 md:w-full lg:h-fit md:h-auto relative bg-white border-b lg:border-l border-neutral-200">
+									{/* Example image link */}
+									<img className="object-cover w-full h-full" src="/assets/blog/gambar/jejak.png" alt="Image" />
+								</div>
+
+								{/* Content Section */}
+									<div className="lg:w-1/2 md:w-full h-full p-8 bg-white border-neutral-200">
+										<div className="text-neutral-500 text-xs font-light font-['Outfit'] uppercase leading-[18px] tracking-[4.80px]">IKLAN</div>
+										<div className="text-neutral-800 lg:text-3xl text-2xl font-semibold font-['Outfit'] leading-9">Korang nak kasut kahwin handcrafted yang slay atas pelamin nanti?</div>
+											<div className="w-fit mt-8 rounded-full px-8 py-4 bg-primary-500 cursor-pointer">
+												<div className="text-center text-white text-base font-semibold font-['Outfit'] leading-normal">Order Sekarang</div>
+											</div>
+									</div>
+							</div>
+						</Link>
+
 						<Link href="https://www.kawenlah.com" target="_blank" rel="noreferrer noopener">
 							<div className="w-full h-full lg:flex lg:justify-start lg:items-start border border-neutral-200 lg:flex-row-reverse">
 								{/* Image Section */}

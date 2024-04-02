@@ -15,6 +15,7 @@ export type Scalars = {
   Float: { input: number; output: number; }
   DateTime: { input: string; output: string; }
   ObjectId: { input: string; output: string; }
+  URL: { input: any; output: any; }
 };
 
 export type AddCommentInput = {
@@ -233,6 +234,510 @@ export type Content = {
   text: Scalars['String']['output'];
 };
 
+/** Two letter ISO 3166-1 alpha-2 country code. */
+export enum CountryCodeAlpha2 {
+  /** Andorra */
+  Ad = 'AD',
+  /** United Arab Emirates */
+  Ae = 'AE',
+  /** Afghanistan */
+  Af = 'AF',
+  /** Antigua and Barbuda */
+  Ag = 'AG',
+  /** Anguilla */
+  Ai = 'AI',
+  /** Albania */
+  Al = 'AL',
+  /** Armenia */
+  Am = 'AM',
+  /** Angola */
+  Ao = 'AO',
+  /** Antarctica */
+  Aq = 'AQ',
+  /** Argentina */
+  Ar = 'AR',
+  /** American Samoa */
+  As = 'AS',
+  /** Austria */
+  At = 'AT',
+  /** Australia */
+  Au = 'AU',
+  /** Aruba */
+  Aw = 'AW',
+  /** Åland Islands */
+  Ax = 'AX',
+  /** Azerbaijan */
+  Az = 'AZ',
+  /** Bosnia and Herzegovina */
+  Ba = 'BA',
+  /** Barbados */
+  Bb = 'BB',
+  /** Bangladesh */
+  Bd = 'BD',
+  /** Belgium */
+  Be = 'BE',
+  /** Burkina Faso */
+  Bf = 'BF',
+  /** Bulgaria */
+  Bg = 'BG',
+  /** Bahrain */
+  Bh = 'BH',
+  /** Burundi */
+  Bi = 'BI',
+  /** Benin */
+  Bj = 'BJ',
+  /** Saint Barthélemy */
+  Bl = 'BL',
+  /** Bermuda */
+  Bm = 'BM',
+  /** Brunei Darussalam */
+  Bn = 'BN',
+  /** Bolivia (Plurinational State of) */
+  Bo = 'BO',
+  /** Bonaire, Sint Eustatius and Saba */
+  Bq = 'BQ',
+  /** Brazil */
+  Br = 'BR',
+  /** Bahamas */
+  Bs = 'BS',
+  /** Bhutan */
+  Bt = 'BT',
+  /** Bouvet Island */
+  Bv = 'BV',
+  /** Botswana */
+  Bw = 'BW',
+  /** Belarus */
+  By = 'BY',
+  /** Belize */
+  Bz = 'BZ',
+  /** Canada */
+  Ca = 'CA',
+  /** Cocos (Keeling) Islands */
+  Cc = 'CC',
+  /** Congo, Democratic Republic of the */
+  Cd = 'CD',
+  /** Central African Republic */
+  Cf = 'CF',
+  /** Congo */
+  Cg = 'CG',
+  /** Switzerland */
+  Ch = 'CH',
+  /** Côte d'Ivoire */
+  Ci = 'CI',
+  /** Cook Islands */
+  Ck = 'CK',
+  /** Chile */
+  Cl = 'CL',
+  /** Cameroon */
+  Cm = 'CM',
+  /** China */
+  Cn = 'CN',
+  /** Colombia */
+  Co = 'CO',
+  /** Costa Rica */
+  Cr = 'CR',
+  /** Cuba */
+  Cu = 'CU',
+  /** Cabo Verde */
+  Cv = 'CV',
+  /** Curaçao */
+  Cw = 'CW',
+  /** Christmas Island */
+  Cx = 'CX',
+  /** Cyprus */
+  Cy = 'CY',
+  /** Czechia */
+  Cz = 'CZ',
+  /** Germany */
+  De = 'DE',
+  /** Djibouti */
+  Dj = 'DJ',
+  /** Denmark */
+  Dk = 'DK',
+  /** Dominica */
+  Dm = 'DM',
+  /** Dominican Republic */
+  Do = 'DO',
+  /** Algeria */
+  Dz = 'DZ',
+  /** Ecuador */
+  Ec = 'EC',
+  /** Estonia */
+  Ee = 'EE',
+  /** Egypt */
+  Eg = 'EG',
+  /** Western Sahara */
+  Eh = 'EH',
+  /** Eritrea */
+  Er = 'ER',
+  /** Spain */
+  Es = 'ES',
+  /** Ethiopia */
+  Et = 'ET',
+  /** Finland */
+  Fi = 'FI',
+  /** Fiji */
+  Fj = 'FJ',
+  /** Falkland Islands (Malvinas) */
+  Fk = 'FK',
+  /** Micronesia (Federated States of) */
+  Fm = 'FM',
+  /** Faroe Islands */
+  Fo = 'FO',
+  /** France */
+  Fr = 'FR',
+  /** Gabon */
+  Ga = 'GA',
+  /** United Kingdom of Great Britain and Northern Ireland */
+  Gb = 'GB',
+  /** Grenada */
+  Gd = 'GD',
+  /** Georgia */
+  Ge = 'GE',
+  /** French Guiana */
+  Gf = 'GF',
+  /** Guernsey */
+  Gg = 'GG',
+  /** Ghana */
+  Gh = 'GH',
+  /** Gibraltar */
+  Gi = 'GI',
+  /** Greenland */
+  Gl = 'GL',
+  /** Gambia */
+  Gm = 'GM',
+  /** Guinea */
+  Gn = 'GN',
+  /** Guadeloupe */
+  Gp = 'GP',
+  /** Equatorial Guinea */
+  Gq = 'GQ',
+  /** Greece */
+  Gr = 'GR',
+  /** South Georgia and the South Sandwich Islands */
+  Gs = 'GS',
+  /** Guatemala */
+  Gt = 'GT',
+  /** Guam */
+  Gu = 'GU',
+  /** Guinea-Bissau */
+  Gw = 'GW',
+  /** Guyana */
+  Gy = 'GY',
+  /** Hong Kong */
+  Hk = 'HK',
+  /** Heard Island and McDonald Islands */
+  Hm = 'HM',
+  /** Honduras */
+  Hn = 'HN',
+  /** Croatia */
+  Hr = 'HR',
+  /** Haiti */
+  Ht = 'HT',
+  /** Hungary */
+  Hu = 'HU',
+  /** Indonesia */
+  Id = 'ID',
+  /** Ireland */
+  Ie = 'IE',
+  /** Israel */
+  Il = 'IL',
+  /** Isle of Man */
+  Im = 'IM',
+  /** India */
+  In = 'IN',
+  /** British Indian Ocean Territory */
+  Io = 'IO',
+  /** Iraq */
+  Iq = 'IQ',
+  /** Iran (Islamic Republic of) */
+  Ir = 'IR',
+  /** Iceland */
+  Is = 'IS',
+  /** Italy */
+  It = 'IT',
+  /** Jersey */
+  Je = 'JE',
+  /** Jamaica */
+  Jm = 'JM',
+  /** Jordan */
+  Jo = 'JO',
+  /** Japan */
+  Jp = 'JP',
+  /** Kenya */
+  Ke = 'KE',
+  /** Kyrgyzstan */
+  Kg = 'KG',
+  /** Cambodia */
+  Kh = 'KH',
+  /** Kiribati */
+  Ki = 'KI',
+  /** Comoros */
+  Km = 'KM',
+  /** Saint Kitts and Nevis */
+  Kn = 'KN',
+  /** Korea (Democratic People's Republic of) */
+  Kp = 'KP',
+  /** Korea, Republic of */
+  Kr = 'KR',
+  /** Kuwait */
+  Kw = 'KW',
+  /** Cayman Islands */
+  Ky = 'KY',
+  /** Kazakhstan */
+  Kz = 'KZ',
+  /** Lao People's Democratic Republic */
+  La = 'LA',
+  /** Lebanon */
+  Lb = 'LB',
+  /** Saint Lucia */
+  Lc = 'LC',
+  /** Liechtenstein */
+  Li = 'LI',
+  /** Sri Lanka */
+  Lk = 'LK',
+  /** Liberia */
+  Lr = 'LR',
+  /** Lesotho */
+  Ls = 'LS',
+  /** Lithuania */
+  Lt = 'LT',
+  /** Luxembourg */
+  Lu = 'LU',
+  /** Latvia */
+  Lv = 'LV',
+  /** Libya */
+  Ly = 'LY',
+  /** Morocco */
+  Ma = 'MA',
+  /** Monaco */
+  Mc = 'MC',
+  /** Moldova, Republic of */
+  Md = 'MD',
+  /** Montenegro */
+  Me = 'ME',
+  /** Saint Martin (French part) */
+  Mf = 'MF',
+  /** Madagascar */
+  Mg = 'MG',
+  /** Marshall Islands */
+  Mh = 'MH',
+  /** North Macedonia */
+  Mk = 'MK',
+  /** Mali */
+  Ml = 'ML',
+  /** Myanmar */
+  Mm = 'MM',
+  /** Mongolia */
+  Mn = 'MN',
+  /** Macao */
+  Mo = 'MO',
+  /** Northern Mariana Islands */
+  Mp = 'MP',
+  /** Martinique */
+  Mq = 'MQ',
+  /** Mauritania */
+  Mr = 'MR',
+  /** Montserrat */
+  Ms = 'MS',
+  /** Malta */
+  Mt = 'MT',
+  /** Mauritius */
+  Mu = 'MU',
+  /** Maldives */
+  Mv = 'MV',
+  /** Malawi */
+  Mw = 'MW',
+  /** Mexico */
+  Mx = 'MX',
+  /** Malaysia */
+  My = 'MY',
+  /** Mozambique */
+  Mz = 'MZ',
+  /** Namibia */
+  Na = 'NA',
+  /** New Caledonia */
+  Nc = 'NC',
+  /** Niger */
+  Ne = 'NE',
+  /** Norfolk Island */
+  Nf = 'NF',
+  /** Nigeria */
+  Ng = 'NG',
+  /** Nicaragua */
+  Ni = 'NI',
+  /** Netherlands */
+  Nl = 'NL',
+  /** Norway */
+  No = 'NO',
+  /** Nepal */
+  Np = 'NP',
+  /** Nauru */
+  Nr = 'NR',
+  /** Niue */
+  Nu = 'NU',
+  /** New Zealand */
+  Nz = 'NZ',
+  /** Oman */
+  Om = 'OM',
+  /** Panama */
+  Pa = 'PA',
+  /** Peru */
+  Pe = 'PE',
+  /** French Polynesia */
+  Pf = 'PF',
+  /** Papua New Guinea */
+  Pg = 'PG',
+  /** Philippines */
+  Ph = 'PH',
+  /** Pakistan */
+  Pk = 'PK',
+  /** Poland */
+  Pl = 'PL',
+  /** Saint Pierre and Miquelon */
+  Pm = 'PM',
+  /** Pitcairn */
+  Pn = 'PN',
+  /** Puerto Rico */
+  Pr = 'PR',
+  /** Palestine, State of */
+  Ps = 'PS',
+  /** Portugal */
+  Pt = 'PT',
+  /** Palau */
+  Pw = 'PW',
+  /** Paraguay */
+  Py = 'PY',
+  /** Qatar */
+  Qa = 'QA',
+  /** Réunion */
+  Re = 'RE',
+  /** Romania */
+  Ro = 'RO',
+  /** Serbia */
+  Rs = 'RS',
+  /** Russian Federation */
+  Ru = 'RU',
+  /** Rwanda */
+  Rw = 'RW',
+  /** Saudi Arabia */
+  Sa = 'SA',
+  /** Solomon Islands */
+  Sb = 'SB',
+  /** Seychelles */
+  Sc = 'SC',
+  /** Sudan */
+  Sd = 'SD',
+  /** Sweden */
+  Se = 'SE',
+  /** Singapore */
+  Sg = 'SG',
+  /** Saint Helena, Ascension and Tristan da Cunha */
+  Sh = 'SH',
+  /** Slovenia */
+  Si = 'SI',
+  /** Svalbard and Jan Mayen */
+  Sj = 'SJ',
+  /** Slovakia */
+  Sk = 'SK',
+  /** Sierra Leone */
+  Sl = 'SL',
+  /** San Marino */
+  Sm = 'SM',
+  /** Senegal */
+  Sn = 'SN',
+  /** Somalia */
+  So = 'SO',
+  /** Suriname */
+  Sr = 'SR',
+  /** South Sudan */
+  Ss = 'SS',
+  /** Sao Tome and Principe */
+  St = 'ST',
+  /** El Salvador */
+  Sv = 'SV',
+  /** Sint Maarten (Dutch part) */
+  Sx = 'SX',
+  /** Syrian Arab Republic */
+  Sy = 'SY',
+  /** Eswatini */
+  Sz = 'SZ',
+  /** Turks and Caicos Islands */
+  Tc = 'TC',
+  /** Chad */
+  Td = 'TD',
+  /** French Southern Territories */
+  Tf = 'TF',
+  /** Togo */
+  Tg = 'TG',
+  /** Thailand */
+  Th = 'TH',
+  /** Tajikistan */
+  Tj = 'TJ',
+  /** Tokelau */
+  Tk = 'TK',
+  /** Timor-Leste */
+  Tl = 'TL',
+  /** Turkmenistan */
+  Tm = 'TM',
+  /** Tunisia */
+  Tn = 'TN',
+  /** Tonga */
+  To = 'TO',
+  /** Turkey */
+  Tr = 'TR',
+  /** Trinidad and Tobago */
+  Tt = 'TT',
+  /** Tuvalu */
+  Tv = 'TV',
+  /** Taiwan, Province of China */
+  Tw = 'TW',
+  /** Tanzania, United Republic of */
+  Tz = 'TZ',
+  /** Ukraine */
+  Ua = 'UA',
+  /** Uganda */
+  Ug = 'UG',
+  /** United States Minor Outlying Islands */
+  Um = 'UM',
+  /** United States of America */
+  Us = 'US',
+  /** Uruguay */
+  Uy = 'UY',
+  /** Uzbekistan */
+  Uz = 'UZ',
+  /** Holy See */
+  Va = 'VA',
+  /** Saint Vincent and the Grenadines */
+  Vc = 'VC',
+  /** Venezuela (Bolivarian Republic of) */
+  Ve = 'VE',
+  /** Virgin Islands (British) */
+  Vg = 'VG',
+  /** Virgin Islands (U.S.) */
+  Vi = 'VI',
+  /** Viet Nam */
+  Vn = 'VN',
+  /** Vanuatu */
+  Vu = 'VU',
+  /** Wallis and Futuna */
+  Wf = 'WF',
+  /** Samoa */
+  Ws = 'WS',
+  /** Yemen */
+  Ye = 'YE',
+  /** Mayotte */
+  Yt = 'YT',
+  /** South Africa */
+  Za = 'ZA',
+  /** Zambia */
+  Zm = 'ZM',
+  /** Zimbabwe */
+  Zw = 'ZW',
+  /** Unknown */
+  Zz = 'ZZ'
+}
+
 /** Contains information about cover image options of the post. Like URL of the cover image, attribution, etc. */
 export type CoverImageOptionsInput = {
   /** Information about the cover image attribution. */
@@ -245,6 +750,81 @@ export type CoverImageOptionsInput = {
   isCoverAttributionHidden?: InputMaybe<Scalars['Boolean']['input']>;
   /** A flag to indicate if the cover image is sticked to bottom. */
   stickCoverToBottom?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type CreateDraftInput = {
+  /** Ids of the co-authors of the resulting draft. */
+  coAuthors?: InputMaybe<Array<Scalars['ObjectId']['input']>>;
+  /** Content of the resulting draft in markdown format. */
+  contentMarkdown?: InputMaybe<Scalars['String']['input']>;
+  /** Options for the cover image of the resulting draft. */
+  coverImageOptions?: InputMaybe<CoverImageOptionsInput>;
+  /** A flag to indicate if the comments are disabled for the resulting draft. */
+  disableComments?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Information about the meta tags added to the resulting draft, used for SEO purpose. */
+  metaTags?: InputMaybe<MetaTagsInput>;
+  /** The URL of the original article if the draft is imported from an external source. */
+  originalArticleURL?: InputMaybe<Scalars['String']['input']>;
+  /** The ID of publication the draft and resulting post belongs to. */
+  publicationId: Scalars['ID']['input'];
+  /**
+   * Publish the draft on behalf of another user who is a member of the publication.
+   *
+   * Only applicable for team publications.
+   */
+  publishAs?: InputMaybe<Scalars['ObjectId']['input']>;
+  /** Date when the resulting draft is published. */
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Providing a seriesId will add the resulting draft to that series. */
+  seriesId?: InputMaybe<Scalars['ObjectId']['input']>;
+  /** Settings for the resulting draft like table of contents and newsletter activation. */
+  settings?: InputMaybe<CreateDraftSettingsInput>;
+  /** Slug of the resulting draft. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** The subtitle of the resulting draft. */
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  /** A list of tags added to the resulting draft. */
+  tags?: InputMaybe<Array<CreateDraftTagInput>>;
+  /** The title of the resulting draft. */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CreateDraftPayload = {
+  __typename?: 'CreateDraftPayload';
+  /** The newly created draft */
+  draft?: Maybe<Draft>;
+};
+
+export type CreateDraftSettingsInput = {
+  /** Whether to send a newsletter for the resulting draft's post. */
+  activateNewsletter?: InputMaybe<Scalars['Boolean']['input']>;
+  /** A flag to indicate if the resulting draft should be delisted, used to hide the post created from the draft from public feed. */
+  delist?: InputMaybe<Scalars['Boolean']['input']>;
+  /** A flag to indicate if the resulting draft'S post should contain a table of content */
+  enableTableOfContent?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Flag to indicate if the slug is overridden by the user. */
+  slugOverridden?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type CreateDraftTagInput = {
+  /**
+   * A tag id that is referencing an existing tag.
+   *
+   * Either this or name and slug should be provided. If both are provided, the id will be used.
+   */
+  id?: InputMaybe<Scalars['ObjectId']['input']>;
+  /**
+   * A name of a new tag to create.
+   *
+   * Either this and slug or id should be provided. If both are provided, the id will be used.
+   */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * A slug of a new tag to create.
+   *
+   * Either this and name or id should be provided. If both are provided, the id will be used.
+   */
+  slug?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type CreateWebhookInput = {
@@ -298,6 +878,13 @@ export type DeleteWebhookPayload = {
   __typename?: 'DeleteWebhookPayload';
   webhook?: Maybe<Webhook>;
 };
+
+export enum DeviceType {
+  Desktop = 'DESKTOP',
+  Laptop = 'LAPTOP',
+  Mobile = 'MOBILE',
+  Tablet = 'TABLET'
+}
 
 /** Contains the publication's domain information. */
 export type DomainInfo = {
@@ -360,6 +947,8 @@ export type Draft = Node & {
   /** OG meta-data of the draft. Contains image url used in open graph meta tags. */
   ogMetaData?: Maybe<OpenGraphMetaData>;
   readTimeInMinutes: Scalars['Int']['output'];
+  /** The date the draft is scheduled to be published. */
+  scheduledDate?: Maybe<Scalars['DateTime']['output']>;
   /** SEO information of the draft. Contains title and description used in meta tags. */
   seo?: Maybe<Seo>;
   /** Information of the series the draft belongs to. */
@@ -368,8 +957,12 @@ export type Draft = Node & {
   slug: Scalars['String']['output'];
   /** The subtitle of the draft. It would become the subtitle of the post when published. */
   subtitle?: Maybe<Scalars['String']['output']>;
-  /** Returns list of tags added to the draft. Contains tag id, name, slug, etc. */
+  /**
+   * Returns list of tags added to the draft. Contains tag id, name, slug, etc.
+   * @deprecated Use tagsV2 instead. Will be removed on 26/02/2024.
+   */
   tags: Array<Tag>;
+  tagsV2: Array<DraftTag>;
   /** The title of the draft. It would become the title of the post when published. */
   title?: Maybe<Scalars['String']['output']>;
   updatedAt: Scalars['DateTime']['output'];
@@ -381,6 +974,18 @@ export type DraftBackup = {
   at?: Maybe<Scalars['DateTime']['output']>;
   /** The status of the backup i.e., success or failure. */
   status?: Maybe<BackupStatus>;
+};
+
+/**
+ * Contains basic information about a Tag within a Draft.
+ * A tag in a draft is a tag that is not published yet.
+ */
+export type DraftBaseTag = {
+  __typename?: 'DraftBaseTag';
+  /** The name of the tag. Shown in tag page. */
+  name: Scalars['String']['output'];
+  /** The slug of the tag. Used to access tags feed.  Example https://hashnode.com/n/graphql */
+  slug: Scalars['String']['output'];
 };
 
 /**
@@ -428,11 +1033,13 @@ export type DraftSettings = {
   __typename?: 'DraftSettings';
   /** A flag to indicate if the comments are disabled for the post. */
   disableComments: Scalars['Boolean']['output'];
-  /** Wether or not the post is hidden from the Hashnode community. */
+  /** Whether or not the post is hidden from the Hashnode community. */
   isDelisted: Scalars['Boolean']['output'];
   /** A flag to indicate if the cover image is shown below title of the post. Default position of cover is top of title. */
   stickCoverToBottom: Scalars['Boolean']['output'];
 };
+
+export type DraftTag = DraftBaseTag | Tag;
 
 /**
  * An edge that contains a node and cursor to the node.
@@ -541,10 +1148,193 @@ export enum FeedType {
   Relevant = 'RELEVANT'
 }
 
+/** Views implementation that will be returned if grouping by browser. */
+export type GroupedByBrowserViews = Node & Views & {
+  __typename?: 'GroupedByBrowserViews';
+  /** The browser that these views belong to. */
+  browser: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  /** The aggregated views. */
+  total: Scalars['Int']['output'];
+};
+
+/** Visitors implementation that will be returned if grouping by browser. */
+export type GroupedByBrowserVisitors = Node & Visitors & {
+  __typename?: 'GroupedByBrowserVisitors';
+  /** The browser that these views belong to. */
+  browser: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  /** The aggregated number of visitors. */
+  total: Scalars['Int']['output'];
+};
+
+/** Views implementation that will be returned if grouping by country. */
+export type GroupedByCountryViews = Node & Views & {
+  __typename?: 'GroupedByCountryViews';
+  /** The country that these views belong to. */
+  country: CountryCodeAlpha2;
+  id: Scalars['ID']['output'];
+  /** The aggregated views. */
+  total: Scalars['Int']['output'];
+};
+
+/** Visitors implementation that will be returned if grouping by country. */
+export type GroupedByCountryVisitors = Node & Visitors & {
+  __typename?: 'GroupedByCountryVisitors';
+  /** The country that these views belong to. */
+  country: CountryCodeAlpha2;
+  id: Scalars['ID']['output'];
+  /** The aggregated number of visitors. */
+  total: Scalars['Int']['output'];
+};
+
+/** Views implementation that will be returned if grouping by device type. */
+export type GroupedByDeviceTypeViews = Node & Views & {
+  __typename?: 'GroupedByDeviceTypeViews';
+  /** The type of device that these views belong to. */
+  deviceType: DeviceType;
+  id: Scalars['ID']['output'];
+  /** The aggregated views. */
+  total: Scalars['Int']['output'];
+};
+
+/** Visitors implementation that will be returned if grouping by device type. */
+export type GroupedByDeviceTypeVisitors = Node & Visitors & {
+  __typename?: 'GroupedByDeviceTypeVisitors';
+  /** The type of device that these views belong to. */
+  deviceType: DeviceType;
+  id: Scalars['ID']['output'];
+  /** The aggregated number of visitors. */
+  total: Scalars['Int']['output'];
+};
+
+/** Views implementation that will be returned if grouping by operating system. */
+export type GroupedByOperatingSystemViews = Node & Views & {
+  __typename?: 'GroupedByOperatingSystemViews';
+  id: Scalars['ID']['output'];
+  /** The operating system that these views belong to. */
+  operatingSystem: Scalars['String']['output'];
+  /** The aggregated views. */
+  total: Scalars['Int']['output'];
+};
+
+/** Visitors implementation that will be returned if grouping by operating system. */
+export type GroupedByOperatingSystemVisitors = Node & Visitors & {
+  __typename?: 'GroupedByOperatingSystemVisitors';
+  id: Scalars['ID']['output'];
+  /** The operating system that these views belong to. */
+  operatingSystem: Scalars['String']['output'];
+  /** The aggregated number of visitors. */
+  total: Scalars['Int']['output'];
+};
+
+/** Views implementation that will be returned if grouping by page. */
+export type GroupedByPageViews = Node & Views & {
+  __typename?: 'GroupedByPageViews';
+  id: Scalars['ID']['output'];
+  /** The page that these views belong to. */
+  page: StaticPage;
+  /** The aggregated views. */
+  total: Scalars['Int']['output'];
+};
+
+/** Visitors implementation that will be returned if grouping by page. */
+export type GroupedByPageVisitors = Node & Visitors & {
+  __typename?: 'GroupedByPageVisitors';
+  id: Scalars['ID']['output'];
+  /** The page that these views belong to. */
+  page: StaticPage;
+  /** The aggregated number of visitors. */
+  total: Scalars['Int']['output'];
+};
+
+/** Views implementation that will be returned if grouping by path. */
+export type GroupedByPathViews = Node & Views & {
+  __typename?: 'GroupedByPathViews';
+  id: Scalars['ID']['output'];
+  /** The path that these views belong to. */
+  path: Scalars['String']['output'];
+  /** The aggregated views. */
+  total: Scalars['Int']['output'];
+};
+
+/** Visitors implementation that will be returned if grouping by path. */
+export type GroupedByPathVisitors = Node & Visitors & {
+  __typename?: 'GroupedByPathVisitors';
+  id: Scalars['ID']['output'];
+  /** The path that these views belong to. */
+  path: Scalars['String']['output'];
+  /** The aggregated number of visitors. */
+  total: Scalars['Int']['output'];
+};
+
+/** Views implementation that will be returned if grouping by post. */
+export type GroupedByPostViews = Node & Views & {
+  __typename?: 'GroupedByPostViews';
+  id: Scalars['ID']['output'];
+  /** The post that these views belong to. */
+  post: Post;
+  /** The aggregated views. */
+  total: Scalars['Int']['output'];
+};
+
+/** Visitors implementation that will be returned if grouping by post. */
+export type GroupedByPostVisitors = Node & Visitors & {
+  __typename?: 'GroupedByPostVisitors';
+  id: Scalars['ID']['output'];
+  /** The post that these views belong to. */
+  post: Post;
+  /** The aggregated number of visitors. */
+  total: Scalars['Int']['output'];
+};
+
+/** Views implementation that will be returned if grouping by `REFERRER_HOST` dimension. */
+export type GroupedByReferrerHostViews = Node & Views & {
+  __typename?: 'GroupedByReferrerHostViews';
+  id: Scalars['ID']['output'];
+  /** The referrer host that these views belong to. */
+  referrerHost: Scalars['String']['output'];
+  /** The aggregated views. */
+  total: Scalars['Int']['output'];
+};
+
+/** Visitors implementation that will be returned if grouping by `REFERRER_HOST` dimension. */
+export type GroupedByReferrerHostVisitors = Node & Visitors & {
+  __typename?: 'GroupedByReferrerHostVisitors';
+  id: Scalars['ID']['output'];
+  /** The referrer host that these views belong to. */
+  referrerHost: Scalars['String']['output'];
+  /** The aggregated number of visitors. */
+  total: Scalars['Int']['output'];
+};
+
+export type GroupedByTimeViews = Node & Views & {
+  __typename?: 'GroupedByTimeViews';
+  /** The start of the time range that these views belong to. */
+  from: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  /** The end of the time range that these views belong to. */
+  to: Scalars['DateTime']['output'];
+  /** The aggregated views. */
+  total: Scalars['Int']['output'];
+};
+
+/** Visitors implementation that will be returned if a grouping by time is provided. */
+export type GroupedByTimeVisitors = Node & Visitors & {
+  __typename?: 'GroupedByTimeVisitors';
+  /** The start of the time range that these visitors visited the page. */
+  from: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  /** The end of the time range that these visitors visited the page. */
+  to: Scalars['DateTime']['output'];
+  /** The aggregated number of visitors. */
+  total: Scalars['Int']['output'];
+};
+
 export enum HttpRedirectionType {
-  /** A permanent redirect that corresponds to the 308 HTTP status code. */
+  /** A permanent redirect that corresponds to the 302 HTTP status code. */
   Permanent = 'PERMANENT',
-  /** A temporary redirect that corresponds to the 307 HTTP status code. */
+  /** A temporary redirect that corresponds to the 301 HTTP status code. */
   Temporary = 'TEMPORARY'
 }
 
@@ -666,7 +1456,7 @@ export type LikePostPayload = {
   post?: Maybe<Post>;
 };
 
-/** Contains information about meta tags of the post. Used for SEO purpose. */
+/** Contains information about meta tags. Used for SEO purpose. */
 export type MetaTagsInput = {
   /** The description of the post used in og:description for SEO. */
   description?: InputMaybe<Scalars['String']['input']>;
@@ -685,6 +1475,8 @@ export type Mutation = {
   /** Adds a reply to a comment. */
   addReply: AddReplyPayload;
   cancelScheduledDraft: CancelScheduledDraftPayload;
+  /** Creates a new draft for a post. */
+  createDraft: CreateDraftPayload;
   createWebhook: CreateWebhookPayload;
   deleteWebhook: DeleteWebhookPayload;
   /** Likes a comment. */
@@ -706,6 +1498,8 @@ export type Mutation = {
   /** Reschedule a draft. */
   rescheduleDraft: RescheduleDraftPayload;
   resendWebhookRequest: ResendWebhookRequestPayload;
+  /** Restores a deleted post. */
+  restorePost: RestorePostPayload;
   scheduleDraft: ScheduleDraftPayload;
   subscribeToNewsletter: SubscribeToNewsletterPayload;
   /**
@@ -743,6 +1537,11 @@ export type MutationAddReplyArgs = {
 
 export type MutationCancelScheduledDraftArgs = {
   input: CancelScheduledDraftInput;
+};
+
+
+export type MutationCreateDraftArgs = {
+  input: CreateDraftInput;
 };
 
 
@@ -808,6 +1607,11 @@ export type MutationRescheduleDraftArgs = {
 
 export type MutationResendWebhookRequestArgs = {
   input: ResendWebhookRequestInput;
+};
+
+
+export type MutationRestorePostArgs = {
+  input: RestorePostInput;
 };
 
 
@@ -879,8 +1683,6 @@ export type MyUser = IUser & Node & {
   dateJoined?: Maybe<Scalars['DateTime']['output']>;
   /** Whether or not the user is deactivated. */
   deactivated: Scalars['Boolean']['output'];
-  /** Email address of the user. Only available to the authenticated user. */
-  email?: Maybe<Scalars['String']['output']>;
   /** The users who are following this user */
   followers: UserConnection;
   /** The number of users that follow the requested user. Visible in the user's profile. */
@@ -908,8 +1710,6 @@ export type MyUser = IUser & Node & {
   tagline?: Maybe<Scalars['String']['output']>;
   /** Returns a list of tags that the user follows. */
   tagsFollowing: Array<Tag>;
-  /** Hashnode users are subscribed to a newsletter by default. This field can be used to unsubscribe from the newsletter. Only available to the authenticated user. */
-  unsubscribeCode?: Maybe<Scalars['String']['output']>;
   /** The username of the user. It is unique and tied with user's profile URL. Example - https://hashnode.com/@username */
   username: Scalars['String']['output'];
 };
@@ -974,9 +1774,41 @@ export enum NewsletterFrequency {
   Weekly = 'weekly'
 }
 
+export type NewsletterRecord = Node & {
+  __typename?: 'NewsletterRecord';
+  /** The number of subscribers the newsletter was clicked by. */
+  clickCount: Scalars['Int']['output'];
+  /** Delivery ID of the sent newsletter */
+  id: Scalars['ID']['output'];
+  /** The number of subscribers the newsletter was opened by. */
+  openCount: Scalars['Int']['output'];
+  /** Associated post it was sent with */
+  post: Post;
+  /** The date the newsletter was sent. */
+  sentAt: Scalars['DateTime']['output'];
+  /** The number of subscribers the newsletter was sent to. */
+  sentCount: Scalars['Int']['output'];
+};
+
 export enum NewsletterSubscribeStatus {
+  Confirmed = 'CONFIRMED',
   Pending = 'PENDING'
 }
+
+export type NewsletterSubscriber = Node & {
+  __typename?: 'NewsletterSubscriber';
+  /**
+   * The date the subscriber was added.
+   * @deprecated Use `subscribedAt` instead. Will be removed after 12/4/2024
+   */
+  createdAt: Scalars['DateTime']['output'];
+  /** The email of the subscriber. */
+  email: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  /** The status of the subscriber. */
+  status: NewsletterSubscribeStatus;
+  subscribedAt: Scalars['DateTime']['output'];
+};
 
 export enum NewsletterUnsubscribeStatus {
   Unsubscribed = 'UNSUBSCRIBED'
@@ -1090,7 +1922,10 @@ export type PopularTagEdge = Edge & {
  */
 export type Post = Node & {
   __typename?: 'Post';
-  /** Returns male and female audio url of the post. Available in case the Audioblog is enabled. */
+  /**
+   * Returns male and female audio url of the post. Available in case the Audioblog is enabled.
+   * @deprecated Audio Blogs are not supported anymore. This field will be removed 18/04/23
+   */
   audioUrls?: Maybe<AudioUrls>;
   /** Returns the user details of the author of the post. */
   author: User;
@@ -1135,10 +1970,10 @@ export type Post = Node & {
   hasLatexInPost: Scalars['Boolean']['output'];
   /** The ID of the post. Used to uniquely identify the post. */
   id: Scalars['ID']['output'];
-  /** Wether or not the post has automatically been published via RSS feed. */
+  /** Whether or not the post has automatically been published via RSS feed. */
   isAutoPublishedFromRSS: Scalars['Boolean']['output'];
   /**
-   * Wether or not the authenticated user is following this post.
+   * Whether or not the authenticated user is following this post.
    *
    * Returns `null` if the user is not authenticated.
    */
@@ -1167,6 +2002,8 @@ export type Post = Node & {
   series?: Maybe<Series>;
   /** The slug of the post. Used as address of the post on blog. Example - https://johndoe.com/my-post-slug */
   slug: Scalars['String']['output'];
+  /** Boolean flag to identify whether or not the post is sourced from GitHub. */
+  sourcedFromGithub: Scalars['Boolean']['output'];
   /** The subtitle of the post. Subtitle is a short description of the post which is also used in SEO if meta tags are not provided. */
   subtitle?: Maybe<Scalars['String']['output']>;
   /** Returns list of tags added to the post. Contains tag id, name, slug, etc. */
@@ -1237,7 +2074,7 @@ export enum PostBadgeType {
 
 export type PostBadgesFeature = Feature & {
   __typename?: 'PostBadgesFeature';
-  /** Wether or not the user has chosen to show badges on the post. */
+  /** Whether or not the user has chosen to show badges on the post. */
   isEnabled: Scalars['Boolean']['output'];
   items: Array<PostBadge>;
 };
@@ -1375,7 +2212,7 @@ export type PostPreferences = {
   __typename?: 'PostPreferences';
   /** A flag to indicate if the comments are disabled for the post. */
   disableComments: Scalars['Boolean']['output'];
-  /** Wether or not the post is hidden from the Hashnode community. */
+  /** Whether or not the post is hidden from the Hashnode community. */
   isDelisted: Scalars['Boolean']['output'];
   /** A flag to indicate if the post is pinned to blog. Pinned post is shown on top of the blog. */
   pinnedToBlog: Scalars['Boolean']['output'];
@@ -1410,6 +2247,8 @@ export type Publication = Node & {
   __typename?: 'Publication';
   /** The about section of the publication. */
   about?: Maybe<Content>;
+  /** Boolean flag indicating if the publication allows edits by contributors */
+  allowContributorEdits: Scalars['Boolean']['output'];
   /** The author who owns the publication. */
   author: User;
   /** The canonical URL of the publication. */
@@ -1611,7 +2450,10 @@ export type PublicationDraftConnectionFilter = {
 /** Contains the publication's beta features. */
 export type PublicationFeatures = {
   __typename?: 'PublicationFeatures';
-  /** Audio player for blog posts. */
+  /**
+   * Audio player for blog posts.
+   * @deprecated Audio Blogs are not supported anymore. This field will be removed 18/04/23
+   */
   audioBlog: AudioBlogFeature;
   /** Individual styling for the publication. */
   customCSS: CustomCssFeature;
@@ -1651,6 +2493,8 @@ export type PublicationIntegrations = {
   matomoURL?: Maybe<Scalars['String']['output']>;
   /** A flag indicating if the custom domain is enabled for integration with Plausible Analytics. */
   plausibleAnalyticsEnabled?: Maybe<Scalars['Boolean']['output']>;
+  /** The share ID for the Hashnode-provided Umami analytics instance. */
+  umamiShareId?: Maybe<Scalars['String']['output']>;
   /** The ID for the Hashnode-provided Umami analytics instance. */
   umamiWebsiteUUID?: Maybe<Scalars['String']['output']>;
   /** Web Monetization Payment Pointer for integration with Web Monetization. */
@@ -1693,6 +2537,17 @@ export type PublicationLinks = {
   youtube?: Maybe<Scalars['String']['output']>;
 };
 
+/** Contains the publication member information. */
+export type PublicationMember = Node & {
+  __typename?: 'PublicationMember';
+  /** The ID of the publication member. */
+  id: Scalars['ID']['output'];
+  /** The role of the user in the publication. */
+  role: UserPublicationRole;
+  /** The user who is a member of the publication. */
+  user?: Maybe<User>;
+};
+
 /** Contains the publication's navbar items. */
 export type PublicationNavbarItem = {
   __typename?: 'PublicationNavbarItem';
@@ -1702,7 +2557,10 @@ export type PublicationNavbarItem = {
   label?: Maybe<Scalars['String']['output']>;
   /** The static page added to the navbar item. */
   page?: Maybe<StaticPage>;
-  /** The order of the navbar item. */
+  /**
+   * The order of the navbar item.
+   * @deprecated Navbar items are already returned in the correct order. Priority value is not needed and might be 0 in most cases.
+   */
   priority?: Maybe<Scalars['Int']['output']>;
   /** The series added to the navbar item. */
   series?: Maybe<Series>;
@@ -1742,6 +2600,8 @@ export type PublicationPostConnection = Connection & {
  * Returns a list of edges which contains the posts in publication and cursor to the last item of the previous page.
  */
 export type PublicationPostConnectionFilter = {
+  /** Only return posts that are deleted. Query returns active posts by default, set this to true to return deleted posts. */
+  deletedOnly?: InputMaybe<Scalars['Boolean']['input']>;
   /** Remove pinned post from the result set. */
   excludePinnedPost?: InputMaybe<Scalars['Boolean']['input']>;
   /**
@@ -1783,6 +2643,18 @@ export type PublicationUserRecommendingPublicationConnection = PageConnection & 
   pageInfo: OffsetPageInfo;
   /** The total number of documents in the connection. */
   totalDocuments: Scalars['Int']['output'];
+};
+
+export type PublicationViewEdge = Edge & {
+  __typename?: 'PublicationViewEdge';
+  cursor: Scalars['String']['output'];
+  node: Views;
+};
+
+export type PublicationVisitorsEdge = Edge & {
+  __typename?: 'PublicationVisitorsEdge';
+  cursor: Scalars['String']['output'];
+  node: Visitors;
 };
 
 export type PublishDraftInput = {
@@ -1828,8 +2700,11 @@ export type PublishPostInput = {
   slug?: InputMaybe<Scalars['String']['input']>;
   /** The subtitle of the post. */
   subtitle?: InputMaybe<Scalars['String']['input']>;
-  /** A list of tags added to the post. */
-  tags: Array<PublishPostTagInput>;
+  /**
+   * A list of tags to add to the post. You can get a list of popular tags available on Hashnode here.
+   * https://github.com/Hashnode/support/blob/main/misc/tags.json
+   */
+  tags?: InputMaybe<Array<PublishPostTagInput>>;
   /** The title of the post. */
   title: Scalars['String']['input'];
 };
@@ -1844,7 +2719,7 @@ export type PublishPostSettingsInput = {
   delisted?: InputMaybe<Scalars['Boolean']['input']>;
   /** A flag to indicate if the post contains table of content */
   enableTableOfContent?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Wether to send a newsletter for this post. */
+  /** Whether to send a newsletter for this post. */
   isNewsletterActivated?: InputMaybe<Scalars['Boolean']['input']>;
   /** A flag to indicate if the post is scheduled. */
   scheduled?: InputMaybe<Scalars['Boolean']['input']>;
@@ -1994,10 +2869,11 @@ export type RecommendedPublicationEdge = Edge & {
   node: Publication;
 };
 
-export type RedirectionRule = {
+export type RedirectionRule = Node & {
   __typename?: 'RedirectionRule';
   /** The destination URL of the redirection rule. */
-  destination: Scalars['String']['output'];
+  destination: Scalars['URL']['output'];
+  id: Scalars['ID']['output'];
   /** The source URL of the redirection rule. */
   source: Scalars['String']['output'];
   /** The type of the redirection rule. */
@@ -2092,6 +2968,15 @@ export type ResendWebhookRequestPayload = {
   webhookMessage?: Maybe<WebhookMessage>;
 };
 
+export type RestorePostInput = {
+  id: Scalars['ID']['input'];
+};
+
+export type RestorePostPayload = {
+  __typename?: 'RestorePostPayload';
+  post?: Maybe<Post>;
+};
+
 /** Information to help in seo related meta tags. */
 export type Seo = {
   __typename?: 'SEO';
@@ -2145,6 +3030,7 @@ export enum Scope {
   CreatePro = 'create_pro',
   ImportSubscribersToPublication = 'import_subscribers_to_publication',
   PublicationAdmin = 'publication_admin',
+  PublicationMember = 'publication_member',
   PublishComment = 'publish_comment',
   PublishDraft = 'publish_draft',
   PublishPost = 'publish_post',
@@ -2152,14 +3038,18 @@ export enum Scope {
   RecommendPublications = 'recommend_publications',
   RemoveComment = 'remove_comment',
   RemoveReply = 'remove_reply',
+  RestorePost = 'restore_post',
   Signup = 'signup',
   TeamHashnode = 'team_hashnode',
   UpdateComment = 'update_comment',
   UpdatePost = 'update_post',
   UpdateReply = 'update_reply',
   WebhookAdmin = 'webhook_admin',
+  WriteDraft = 'write_draft',
   WritePost = 'write_post',
-  WriteSeries = 'write_series'
+  WriteSeries = 'write_series',
+  WriteStaticPage = 'write_static_page',
+  WriteWidget = 'write_widget'
 }
 
 /**
@@ -2176,6 +3066,8 @@ export type SearchPostConnection = Connection & {
 };
 
 export type SearchPostsOfPublicationFilter = {
+  /** Only return posts that are deleted. Query returns active posts by default, set this to true to return deleted posts. */
+  deletedOnly?: InputMaybe<Scalars['Boolean']['input']>;
   /** The ID of publications to search from. */
   publicationId: Scalars['ObjectId']['input'];
   /** The query to be searched in post. */
@@ -2356,7 +3248,7 @@ export type SubscribeToNewsletterPayload = {
 
 export type TableOfContentsFeature = Feature & {
   __typename?: 'TableOfContentsFeature';
-  /** Wether or not ser has chosen to show a table of contents on the post. */
+  /** Whether or not the user has chosen to show a table of contents on the post. */
   isEnabled: Scalars['Boolean']['output'];
   /** The content of the table of contents. */
   items: Array<TableOfContentsItem>;
@@ -2454,6 +3346,22 @@ export type TriggerWebhookTestInput = {
 export type TriggerWebhookTestPayload = {
   __typename?: 'TriggerWebhookTestPayload';
   webhook?: Maybe<Webhook>;
+};
+
+/** Views implementation that will be returned if no grouping is applied. */
+export type UngroupedViews = Node & Views & {
+  __typename?: 'UngroupedViews';
+  id: Scalars['ID']['output'];
+  /** The aggregated views. */
+  total: Scalars['Int']['output'];
+};
+
+/** Visitors implementation that will be returned if no grouping is applied. */
+export type UngroupedVisitors = Node & Visitors & {
+  __typename?: 'UngroupedVisitors';
+  id: Scalars['ID']['output'];
+  /** The aggregated number of visitors. */
+  total: Scalars['Int']['output'];
 };
 
 export type UnsubscribeFromNewsletterInput = {
@@ -2594,7 +3502,7 @@ export type User = IUser & Node & {
   /** The number of users that follow the requested user. Visible in the user's profile. */
   followersCount: Scalars['Int']['output'];
   /**
-   * Wether or not the authenticated user follows this user.
+   * Whether or not the authenticated user follows this user.
    * Returns false if the authenticated user this user.
    */
   following: Scalars['Boolean']['output'];
@@ -2603,13 +3511,13 @@ export type User = IUser & Node & {
   /** The users which this user is following */
   follows: UserConnection;
   /**
-   * Wether or not this user follows the authenticated user.
+   * Whether or not this user follows the authenticated user.
    * Returns false if the authenticated user this user.
    */
   followsBack: Scalars['Boolean']['output'];
   /** The ID of the user. It can be used to identify the user. */
   id: Scalars['ID']['output'];
-  /** Wether or not this is a pro user. */
+  /** Whether or not this is a pro user. */
   isPro: Scalars['Boolean']['output'];
   /** The location of the user. */
   location?: Maybe<Scalars['String']['output']>;
@@ -2764,7 +3672,7 @@ export enum UserPublicationRole {
 
 /**
  * Connection to get list of publications.
- * Returns a list of edges which contains the publications and cursor to the last item of the previous page.
+ * Returns a list of edges which contains the documentation project and cursor to the last item of the previous page.
  */
 export type UserPublicationsConnection = Connection & {
   __typename?: 'UserPublicationsConnection';
@@ -2820,6 +3728,18 @@ export type ViewCountFeature = Feature & {
   __typename?: 'ViewCountFeature';
   /** A flag indicating if the view count feature is enabled or not. */
   isEnabled: Scalars['Boolean']['output'];
+};
+
+export type Views = {
+  id: Scalars['ID']['output'];
+  /** The aggregated views. */
+  total: Scalars['Int']['output'];
+};
+
+export type Visitors = {
+  id: Scalars['ID']['output'];
+  /** The aggregated number of visitors. */
+  total: Scalars['Int']['output'];
 };
 
 export type Webhook = Node & {
@@ -2942,7 +3862,7 @@ export type PostThumbnailFragment = { __typename: 'Post', id: string, title: str
 
 export type PublicationFragment = { __typename?: 'Publication', id: string, imprint?: string | null, title: string, displayTitle?: string | null, url: string, urlPattern: UrlPattern, metaTags?: string | null, favicon?: string | null, isTeam: boolean, headerColor?: string | null, followersCount?: number | null, descriptionSEO?: string | null, features: { __typename?: 'PublicationFeatures', customCSS: { __typename?: 'CustomCSSFeature', isEnabled: boolean, published?: { __typename: 'CustomCSS', home?: string | null, post?: string | null, static?: string | null, homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null, draft?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null }, newsletter: { __typename?: 'NewsletterFeature', isEnabled: boolean }, viewCount: { __typename?: 'ViewCountFeature', isEnabled: boolean }, readTime: { __typename?: 'ReadTimeFeature', isEnabled: boolean }, audioBlog: { __typename?: 'AudioBlogFeature', isEnabled: boolean, voiceType: AudioBlogVoiceType }, textSelectionSharer: { __typename?: 'TextSelectionSharerFeature', isEnabled: boolean } }, about?: { __typename?: 'Content', html: string } | null, author: { __typename?: 'User', id: string, name: string, username: string, profilePicture?: string | null, followersCount: number }, ogMetaData: { __typename?: 'OpenGraphMetaData', image?: string | null }, preferences: { __typename?: 'Preferences', layout?: PublicationLayout | null, logo?: string | null, disableFooterBranding?: boolean | null, enabledPages?: { __typename?: 'PagesPreferences', badges?: boolean | null, newsletter?: boolean | null, members?: boolean | null } | null, darkMode?: { __typename?: 'DarkModePreferences', logo?: string | null } | null, navbarItems: Array<{ __typename?: 'PublicationNavbarItem', id: string, type: PublicationNavigationType, label?: string | null, url?: string | null }> }, links?: { __typename?: 'PublicationLinks', twitter?: string | null, instagram?: string | null, github?: string | null, website?: string | null, hashnode?: string | null, youtube?: string | null, linkedin?: string | null, mastodon?: string | null } | null, integrations?: { __typename?: 'PublicationIntegrations', umamiWebsiteUUID?: string | null, gaTrackingID?: string | null, fbPixelID?: string | null, hotjarSiteID?: string | null, matomoURL?: string | null, matomoSiteID?: string | null, fathomSiteID?: string | null, fathomCustomDomain?: string | null, fathomCustomDomainEnabled?: boolean | null, plausibleAnalyticsEnabled?: boolean | null } | null };
 
-export type RequiredPublicationFieldsFragment = { __typename: 'Publication', id: string, url: string, canonicalURL: string, urlPattern: UrlPattern, title: string, displayTitle?: string | null, hasBadges: boolean, descriptionSEO?: string | null, metaTags?: string | null, favicon?: string | null, headerColor?: string | null, imprint?: string | null, isTeam: boolean, about?: { __typename?: 'Content', html: string, text: string } | null, features: { __typename?: 'PublicationFeatures', newsletter: { __typename?: 'NewsletterFeature', isEnabled: boolean }, viewCount: { __typename?: 'ViewCountFeature', isEnabled: boolean }, readTime: { __typename?: 'ReadTimeFeature', isEnabled: boolean }, audioBlog: { __typename?: 'AudioBlogFeature', isEnabled: boolean, voiceType: AudioBlogVoiceType }, textSelectionSharer: { __typename?: 'TextSelectionSharerFeature', isEnabled: boolean }, customCSS: { __typename?: 'CustomCSSFeature', isEnabled: boolean, published?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null, draft?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null } }, ogMetaData: { __typename?: 'OpenGraphMetaData', image?: string | null }, author: { __typename: 'User', id: string, name: string, username: string, profilePicture?: string | null }, preferences: { __typename: 'Preferences', logo?: string | null, layout?: PublicationLayout | null, disableFooterBranding?: boolean | null, isSubscriptionModalDisabled?: boolean | null, darkMode?: { __typename: 'DarkModePreferences', logo?: string | null, enabled?: boolean | null } | null, navbarItems: Array<{ __typename: 'PublicationNavbarItem', id: string, label?: string | null, url?: string | null, priority?: number | null, type: PublicationNavigationType, series?: { __typename: 'Series', id: string } | null, page?: { __typename: 'StaticPage', id: string } | null }>, enabledPages?: { __typename: 'PagesPreferences', badges?: boolean | null, newsletter?: boolean | null, members?: boolean | null } | null }, integrations?: { __typename?: 'PublicationIntegrations', fbPixelID?: string | null, fathomSiteID?: string | null, fathomCustomDomainEnabled?: boolean | null, fathomCustomDomain?: string | null, hotjarSiteID?: string | null, matomoSiteID?: string | null, matomoURL?: string | null, gaTrackingID?: string | null, plausibleAnalyticsEnabled?: boolean | null, wmPaymentPointer?: string | null, umamiWebsiteUUID?: string | null } | null, links?: { __typename?: 'PublicationLinks', twitter?: string | null, instagram?: string | null, github?: string | null, website?: string | null, hashnode?: string | null, youtube?: string | null, linkedin?: string | null, mastodon?: string | null } | null, domainInfo: { __typename: 'DomainInfo', hashnodeSubdomain?: string | null, domain?: { __typename: 'DomainStatus', host: string, ready: boolean } | null, wwwPrefixedDomain?: { __typename: 'DomainStatus', host: string, ready: boolean } | null }, redirectionRules: Array<{ __typename?: 'RedirectionRule', source: string, destination: string, type: HttpRedirectionType }> };
+export type RequiredPublicationFieldsFragment = { __typename: 'Publication', id: string, url: string, canonicalURL: string, urlPattern: UrlPattern, title: string, displayTitle?: string | null, hasBadges: boolean, descriptionSEO?: string | null, metaTags?: string | null, favicon?: string | null, headerColor?: string | null, imprint?: string | null, isTeam: boolean, about?: { __typename?: 'Content', html: string, text: string } | null, features: { __typename?: 'PublicationFeatures', newsletter: { __typename?: 'NewsletterFeature', isEnabled: boolean }, viewCount: { __typename?: 'ViewCountFeature', isEnabled: boolean }, readTime: { __typename?: 'ReadTimeFeature', isEnabled: boolean }, audioBlog: { __typename?: 'AudioBlogFeature', isEnabled: boolean, voiceType: AudioBlogVoiceType }, textSelectionSharer: { __typename?: 'TextSelectionSharerFeature', isEnabled: boolean }, customCSS: { __typename?: 'CustomCSSFeature', isEnabled: boolean, published?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null, draft?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null } }, ogMetaData: { __typename?: 'OpenGraphMetaData', image?: string | null }, author: { __typename: 'User', id: string, name: string, username: string, profilePicture?: string | null }, preferences: { __typename: 'Preferences', logo?: string | null, layout?: PublicationLayout | null, disableFooterBranding?: boolean | null, isSubscriptionModalDisabled?: boolean | null, darkMode?: { __typename: 'DarkModePreferences', logo?: string | null, enabled?: boolean | null } | null, navbarItems: Array<{ __typename: 'PublicationNavbarItem', id: string, label?: string | null, url?: string | null, priority?: number | null, type: PublicationNavigationType, series?: { __typename: 'Series', id: string } | null, page?: { __typename: 'StaticPage', id: string } | null }>, enabledPages?: { __typename: 'PagesPreferences', badges?: boolean | null, newsletter?: boolean | null, members?: boolean | null } | null }, integrations?: { __typename?: 'PublicationIntegrations', fbPixelID?: string | null, fathomSiteID?: string | null, fathomCustomDomainEnabled?: boolean | null, fathomCustomDomain?: string | null, hotjarSiteID?: string | null, matomoSiteID?: string | null, matomoURL?: string | null, gaTrackingID?: string | null, plausibleAnalyticsEnabled?: boolean | null, wmPaymentPointer?: string | null, umamiWebsiteUUID?: string | null } | null, links?: { __typename?: 'PublicationLinks', twitter?: string | null, instagram?: string | null, github?: string | null, website?: string | null, hashnode?: string | null, youtube?: string | null, linkedin?: string | null, mastodon?: string | null } | null, domainInfo: { __typename: 'DomainInfo', hashnodeSubdomain?: string | null, domain?: { __typename: 'DomainStatus', host: string, ready: boolean } | null, wwwPrefixedDomain?: { __typename: 'DomainStatus', host: string, ready: boolean } | null }, redirectionRules: Array<{ __typename?: 'RedirectionRule', source: string, destination: any, type: HttpRedirectionType }> };
 
 export type StaticPageQueryVariables = Exact<{
   host: Scalars['String']['input'];
@@ -2950,7 +3870,7 @@ export type StaticPageQueryVariables = Exact<{
 }>;
 
 
-export type StaticPageQuery = { __typename?: 'Query', publication?: { __typename: 'Publication', id: string, url: string, canonicalURL: string, urlPattern: UrlPattern, title: string, displayTitle?: string | null, hasBadges: boolean, descriptionSEO?: string | null, metaTags?: string | null, favicon?: string | null, headerColor?: string | null, imprint?: string | null, isTeam: boolean, staticPage?: { __typename?: 'StaticPage', id: string, slug: string, title: string, content: { __typename?: 'Content', html: string }, seo?: { __typename?: 'SEO', title?: string | null, description?: string | null } | null, ogMetaData?: { __typename?: 'OpenGraphMetaData', image?: string | null } | null } | null, about?: { __typename?: 'Content', html: string, text: string } | null, features: { __typename?: 'PublicationFeatures', newsletter: { __typename?: 'NewsletterFeature', isEnabled: boolean }, viewCount: { __typename?: 'ViewCountFeature', isEnabled: boolean }, readTime: { __typename?: 'ReadTimeFeature', isEnabled: boolean }, audioBlog: { __typename?: 'AudioBlogFeature', isEnabled: boolean, voiceType: AudioBlogVoiceType }, textSelectionSharer: { __typename?: 'TextSelectionSharerFeature', isEnabled: boolean }, customCSS: { __typename?: 'CustomCSSFeature', isEnabled: boolean, published?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null, draft?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null } }, ogMetaData: { __typename?: 'OpenGraphMetaData', image?: string | null }, author: { __typename: 'User', id: string, name: string, username: string, profilePicture?: string | null }, preferences: { __typename: 'Preferences', logo?: string | null, layout?: PublicationLayout | null, disableFooterBranding?: boolean | null, isSubscriptionModalDisabled?: boolean | null, darkMode?: { __typename: 'DarkModePreferences', logo?: string | null, enabled?: boolean | null } | null, navbarItems: Array<{ __typename: 'PublicationNavbarItem', id: string, label?: string | null, url?: string | null, priority?: number | null, type: PublicationNavigationType, series?: { __typename: 'Series', id: string } | null, page?: { __typename: 'StaticPage', id: string } | null }>, enabledPages?: { __typename: 'PagesPreferences', badges?: boolean | null, newsletter?: boolean | null, members?: boolean | null } | null }, integrations?: { __typename?: 'PublicationIntegrations', fbPixelID?: string | null, fathomSiteID?: string | null, fathomCustomDomainEnabled?: boolean | null, fathomCustomDomain?: string | null, hotjarSiteID?: string | null, matomoSiteID?: string | null, matomoURL?: string | null, gaTrackingID?: string | null, plausibleAnalyticsEnabled?: boolean | null, wmPaymentPointer?: string | null, umamiWebsiteUUID?: string | null } | null, links?: { __typename?: 'PublicationLinks', twitter?: string | null, instagram?: string | null, github?: string | null, website?: string | null, hashnode?: string | null, youtube?: string | null, linkedin?: string | null, mastodon?: string | null } | null, domainInfo: { __typename: 'DomainInfo', hashnodeSubdomain?: string | null, domain?: { __typename: 'DomainStatus', host: string, ready: boolean } | null, wwwPrefixedDomain?: { __typename: 'DomainStatus', host: string, ready: boolean } | null }, redirectionRules: Array<{ __typename?: 'RedirectionRule', source: string, destination: string, type: HttpRedirectionType }> } | null };
+export type StaticPageQuery = { __typename?: 'Query', publication?: { __typename: 'Publication', id: string, url: string, canonicalURL: string, urlPattern: UrlPattern, title: string, displayTitle?: string | null, hasBadges: boolean, descriptionSEO?: string | null, metaTags?: string | null, favicon?: string | null, headerColor?: string | null, imprint?: string | null, isTeam: boolean, staticPage?: { __typename?: 'StaticPage', id: string, slug: string, title: string, content: { __typename?: 'Content', html: string }, seo?: { __typename?: 'SEO', title?: string | null, description?: string | null } | null, ogMetaData?: { __typename?: 'OpenGraphMetaData', image?: string | null } | null } | null, about?: { __typename?: 'Content', html: string, text: string } | null, features: { __typename?: 'PublicationFeatures', newsletter: { __typename?: 'NewsletterFeature', isEnabled: boolean }, viewCount: { __typename?: 'ViewCountFeature', isEnabled: boolean }, readTime: { __typename?: 'ReadTimeFeature', isEnabled: boolean }, audioBlog: { __typename?: 'AudioBlogFeature', isEnabled: boolean, voiceType: AudioBlogVoiceType }, textSelectionSharer: { __typename?: 'TextSelectionSharerFeature', isEnabled: boolean }, customCSS: { __typename?: 'CustomCSSFeature', isEnabled: boolean, published?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null, draft?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null } }, ogMetaData: { __typename?: 'OpenGraphMetaData', image?: string | null }, author: { __typename: 'User', id: string, name: string, username: string, profilePicture?: string | null }, preferences: { __typename: 'Preferences', logo?: string | null, layout?: PublicationLayout | null, disableFooterBranding?: boolean | null, isSubscriptionModalDisabled?: boolean | null, darkMode?: { __typename: 'DarkModePreferences', logo?: string | null, enabled?: boolean | null } | null, navbarItems: Array<{ __typename: 'PublicationNavbarItem', id: string, label?: string | null, url?: string | null, priority?: number | null, type: PublicationNavigationType, series?: { __typename: 'Series', id: string } | null, page?: { __typename: 'StaticPage', id: string } | null }>, enabledPages?: { __typename: 'PagesPreferences', badges?: boolean | null, newsletter?: boolean | null, members?: boolean | null } | null }, integrations?: { __typename?: 'PublicationIntegrations', fbPixelID?: string | null, fathomSiteID?: string | null, fathomCustomDomainEnabled?: boolean | null, fathomCustomDomain?: string | null, hotjarSiteID?: string | null, matomoSiteID?: string | null, matomoURL?: string | null, gaTrackingID?: string | null, plausibleAnalyticsEnabled?: boolean | null, wmPaymentPointer?: string | null, umamiWebsiteUUID?: string | null } | null, links?: { __typename?: 'PublicationLinks', twitter?: string | null, instagram?: string | null, github?: string | null, website?: string | null, hashnode?: string | null, youtube?: string | null, linkedin?: string | null, mastodon?: string | null } | null, domainInfo: { __typename: 'DomainInfo', hashnodeSubdomain?: string | null, domain?: { __typename: 'DomainStatus', host: string, ready: boolean } | null, wwwPrefixedDomain?: { __typename: 'DomainStatus', host: string, ready: boolean } | null }, redirectionRules: Array<{ __typename?: 'RedirectionRule', source: string, destination: any, type: HttpRedirectionType }> } | null };
 
 export type RequiredStaticPageFieldsFragment = { __typename?: 'StaticPage', id: string, slug: string, title: string, content: { __typename?: 'Content', html: string }, seo?: { __typename?: 'SEO', title?: string | null, description?: string | null } | null, ogMetaData?: { __typename?: 'OpenGraphMetaData', image?: string | null } | null };
 
@@ -2973,7 +3893,7 @@ export type HomePageInitialQueryVariables = Exact<{
 }>;
 
 
-export type HomePageInitialQuery = { __typename?: 'Query', publication?: { __typename: 'Publication', followersCount?: number | null, id: string, url: string, canonicalURL: string, urlPattern: UrlPattern, title: string, displayTitle?: string | null, hasBadges: boolean, descriptionSEO?: string | null, metaTags?: string | null, favicon?: string | null, headerColor?: string | null, imprint?: string | null, isTeam: boolean, about?: { __typename?: 'Content', markdown: string, html: string, text: string } | null, posts: { __typename?: 'PublicationPostConnection', totalDocuments: number }, author: { __typename: 'User', id: string, followersCount: number, name: string, username: string, profilePicture?: string | null }, pinnedPost?: { __typename: 'Post', id: string, title: string, slug: string, publishedAt: string, cuid?: string | null, url: string, subtitle?: string | null, brief: string, readTimeInMinutes: number, views: number, author: { __typename: 'User', id: string, username: string, name: string, profilePicture?: string | null, followersCount: number }, coverImage?: { __typename: 'PostCoverImage', url: string, isPortrait: boolean, isAttributionHidden: boolean } | null } | null, features: { __typename?: 'PublicationFeatures', newsletter: { __typename?: 'NewsletterFeature', isEnabled: boolean }, viewCount: { __typename?: 'ViewCountFeature', isEnabled: boolean }, readTime: { __typename?: 'ReadTimeFeature', isEnabled: boolean }, audioBlog: { __typename?: 'AudioBlogFeature', isEnabled: boolean, voiceType: AudioBlogVoiceType }, textSelectionSharer: { __typename?: 'TextSelectionSharerFeature', isEnabled: boolean }, customCSS: { __typename?: 'CustomCSSFeature', isEnabled: boolean, published?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null, draft?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null } }, ogMetaData: { __typename?: 'OpenGraphMetaData', image?: string | null }, preferences: { __typename: 'Preferences', logo?: string | null, layout?: PublicationLayout | null, disableFooterBranding?: boolean | null, isSubscriptionModalDisabled?: boolean | null, darkMode?: { __typename: 'DarkModePreferences', logo?: string | null, enabled?: boolean | null } | null, navbarItems: Array<{ __typename: 'PublicationNavbarItem', id: string, label?: string | null, url?: string | null, priority?: number | null, type: PublicationNavigationType, series?: { __typename: 'Series', id: string } | null, page?: { __typename: 'StaticPage', id: string } | null }>, enabledPages?: { __typename: 'PagesPreferences', badges?: boolean | null, newsletter?: boolean | null, members?: boolean | null } | null }, integrations?: { __typename?: 'PublicationIntegrations', fbPixelID?: string | null, fathomSiteID?: string | null, fathomCustomDomainEnabled?: boolean | null, fathomCustomDomain?: string | null, hotjarSiteID?: string | null, matomoSiteID?: string | null, matomoURL?: string | null, gaTrackingID?: string | null, plausibleAnalyticsEnabled?: boolean | null, wmPaymentPointer?: string | null, umamiWebsiteUUID?: string | null } | null, links?: { __typename?: 'PublicationLinks', twitter?: string | null, instagram?: string | null, github?: string | null, website?: string | null, hashnode?: string | null, youtube?: string | null, linkedin?: string | null, mastodon?: string | null } | null, domainInfo: { __typename: 'DomainInfo', hashnodeSubdomain?: string | null, domain?: { __typename: 'DomainStatus', host: string, ready: boolean } | null, wwwPrefixedDomain?: { __typename: 'DomainStatus', host: string, ready: boolean } | null }, redirectionRules: Array<{ __typename?: 'RedirectionRule', source: string, destination: string, type: HttpRedirectionType }> } | null };
+export type HomePageInitialQuery = { __typename?: 'Query', publication?: { __typename: 'Publication', followersCount?: number | null, id: string, url: string, canonicalURL: string, urlPattern: UrlPattern, title: string, displayTitle?: string | null, hasBadges: boolean, descriptionSEO?: string | null, metaTags?: string | null, favicon?: string | null, headerColor?: string | null, imprint?: string | null, isTeam: boolean, about?: { __typename?: 'Content', markdown: string, html: string, text: string } | null, posts: { __typename?: 'PublicationPostConnection', totalDocuments: number }, author: { __typename: 'User', id: string, followersCount: number, name: string, username: string, profilePicture?: string | null }, pinnedPost?: { __typename: 'Post', id: string, title: string, slug: string, publishedAt: string, cuid?: string | null, url: string, subtitle?: string | null, brief: string, readTimeInMinutes: number, views: number, author: { __typename: 'User', id: string, username: string, name: string, profilePicture?: string | null, followersCount: number }, coverImage?: { __typename: 'PostCoverImage', url: string, isPortrait: boolean, isAttributionHidden: boolean } | null } | null, features: { __typename?: 'PublicationFeatures', newsletter: { __typename?: 'NewsletterFeature', isEnabled: boolean }, viewCount: { __typename?: 'ViewCountFeature', isEnabled: boolean }, readTime: { __typename?: 'ReadTimeFeature', isEnabled: boolean }, audioBlog: { __typename?: 'AudioBlogFeature', isEnabled: boolean, voiceType: AudioBlogVoiceType }, textSelectionSharer: { __typename?: 'TextSelectionSharerFeature', isEnabled: boolean }, customCSS: { __typename?: 'CustomCSSFeature', isEnabled: boolean, published?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null, draft?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null } }, ogMetaData: { __typename?: 'OpenGraphMetaData', image?: string | null }, preferences: { __typename: 'Preferences', logo?: string | null, layout?: PublicationLayout | null, disableFooterBranding?: boolean | null, isSubscriptionModalDisabled?: boolean | null, darkMode?: { __typename: 'DarkModePreferences', logo?: string | null, enabled?: boolean | null } | null, navbarItems: Array<{ __typename: 'PublicationNavbarItem', id: string, label?: string | null, url?: string | null, priority?: number | null, type: PublicationNavigationType, series?: { __typename: 'Series', id: string } | null, page?: { __typename: 'StaticPage', id: string } | null }>, enabledPages?: { __typename: 'PagesPreferences', badges?: boolean | null, newsletter?: boolean | null, members?: boolean | null } | null }, integrations?: { __typename?: 'PublicationIntegrations', fbPixelID?: string | null, fathomSiteID?: string | null, fathomCustomDomainEnabled?: boolean | null, fathomCustomDomain?: string | null, hotjarSiteID?: string | null, matomoSiteID?: string | null, matomoURL?: string | null, gaTrackingID?: string | null, plausibleAnalyticsEnabled?: boolean | null, wmPaymentPointer?: string | null, umamiWebsiteUUID?: string | null } | null, links?: { __typename?: 'PublicationLinks', twitter?: string | null, instagram?: string | null, github?: string | null, website?: string | null, hashnode?: string | null, youtube?: string | null, linkedin?: string | null, mastodon?: string | null } | null, domainInfo: { __typename: 'DomainInfo', hashnodeSubdomain?: string | null, domain?: { __typename: 'DomainStatus', host: string, ready: boolean } | null, wwwPrefixedDomain?: { __typename: 'DomainStatus', host: string, ready: boolean } | null }, redirectionRules: Array<{ __typename?: 'RedirectionRule', source: string, destination: any, type: HttpRedirectionType }> } | null };
 
 export type HomePagePostsQueryVariables = Exact<{
   host: Scalars['String']['input'];
@@ -2991,7 +3911,7 @@ export type NewsletterQueryVariables = Exact<{
 }>;
 
 
-export type NewsletterQuery = { __typename?: 'Query', publication?: { __typename: 'Publication', id: string, url: string, canonicalURL: string, urlPattern: UrlPattern, title: string, displayTitle?: string | null, hasBadges: boolean, descriptionSEO?: string | null, metaTags?: string | null, favicon?: string | null, headerColor?: string | null, imprint?: string | null, isTeam: boolean, author: { __typename: 'User', id: string, followersCount: number, name: string, username: string, profilePicture?: string | null }, staticPage?: { __typename?: 'StaticPage', id: string } | null, recentPosts: { __typename?: 'PublicationPostConnection', edges: Array<{ __typename?: 'PostEdge', node: { __typename: 'Post', id: string, title: string, slug: string, publishedAt: string, cuid?: string | null, url: string, subtitle?: string | null, brief: string, readTimeInMinutes: number, views: number, author: { __typename: 'User', id: string, username: string, name: string, profilePicture?: string | null, followersCount: number }, coverImage?: { __typename: 'PostCoverImage', url: string, isPortrait: boolean, isAttributionHidden: boolean } | null } }> }, about?: { __typename?: 'Content', html: string, text: string } | null, features: { __typename?: 'PublicationFeatures', newsletter: { __typename?: 'NewsletterFeature', isEnabled: boolean }, viewCount: { __typename?: 'ViewCountFeature', isEnabled: boolean }, readTime: { __typename?: 'ReadTimeFeature', isEnabled: boolean }, audioBlog: { __typename?: 'AudioBlogFeature', isEnabled: boolean, voiceType: AudioBlogVoiceType }, textSelectionSharer: { __typename?: 'TextSelectionSharerFeature', isEnabled: boolean }, customCSS: { __typename?: 'CustomCSSFeature', isEnabled: boolean, published?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null, draft?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null } }, ogMetaData: { __typename?: 'OpenGraphMetaData', image?: string | null }, preferences: { __typename: 'Preferences', logo?: string | null, layout?: PublicationLayout | null, disableFooterBranding?: boolean | null, isSubscriptionModalDisabled?: boolean | null, darkMode?: { __typename: 'DarkModePreferences', logo?: string | null, enabled?: boolean | null } | null, navbarItems: Array<{ __typename: 'PublicationNavbarItem', id: string, label?: string | null, url?: string | null, priority?: number | null, type: PublicationNavigationType, series?: { __typename: 'Series', id: string } | null, page?: { __typename: 'StaticPage', id: string } | null }>, enabledPages?: { __typename: 'PagesPreferences', badges?: boolean | null, newsletter?: boolean | null, members?: boolean | null } | null }, integrations?: { __typename?: 'PublicationIntegrations', fbPixelID?: string | null, fathomSiteID?: string | null, fathomCustomDomainEnabled?: boolean | null, fathomCustomDomain?: string | null, hotjarSiteID?: string | null, matomoSiteID?: string | null, matomoURL?: string | null, gaTrackingID?: string | null, plausibleAnalyticsEnabled?: boolean | null, wmPaymentPointer?: string | null, umamiWebsiteUUID?: string | null } | null, links?: { __typename?: 'PublicationLinks', twitter?: string | null, instagram?: string | null, github?: string | null, website?: string | null, hashnode?: string | null, youtube?: string | null, linkedin?: string | null, mastodon?: string | null } | null, domainInfo: { __typename: 'DomainInfo', hashnodeSubdomain?: string | null, domain?: { __typename: 'DomainStatus', host: string, ready: boolean } | null, wwwPrefixedDomain?: { __typename: 'DomainStatus', host: string, ready: boolean } | null }, redirectionRules: Array<{ __typename?: 'RedirectionRule', source: string, destination: string, type: HttpRedirectionType }> } | null };
+export type NewsletterQuery = { __typename?: 'Query', publication?: { __typename: 'Publication', id: string, url: string, canonicalURL: string, urlPattern: UrlPattern, title: string, displayTitle?: string | null, hasBadges: boolean, descriptionSEO?: string | null, metaTags?: string | null, favicon?: string | null, headerColor?: string | null, imprint?: string | null, isTeam: boolean, author: { __typename: 'User', id: string, followersCount: number, name: string, username: string, profilePicture?: string | null }, staticPage?: { __typename?: 'StaticPage', id: string } | null, recentPosts: { __typename?: 'PublicationPostConnection', edges: Array<{ __typename?: 'PostEdge', node: { __typename: 'Post', id: string, title: string, slug: string, publishedAt: string, cuid?: string | null, url: string, subtitle?: string | null, brief: string, readTimeInMinutes: number, views: number, author: { __typename: 'User', id: string, username: string, name: string, profilePicture?: string | null, followersCount: number }, coverImage?: { __typename: 'PostCoverImage', url: string, isPortrait: boolean, isAttributionHidden: boolean } | null } }> }, about?: { __typename?: 'Content', html: string, text: string } | null, features: { __typename?: 'PublicationFeatures', newsletter: { __typename?: 'NewsletterFeature', isEnabled: boolean }, viewCount: { __typename?: 'ViewCountFeature', isEnabled: boolean }, readTime: { __typename?: 'ReadTimeFeature', isEnabled: boolean }, audioBlog: { __typename?: 'AudioBlogFeature', isEnabled: boolean, voiceType: AudioBlogVoiceType }, textSelectionSharer: { __typename?: 'TextSelectionSharerFeature', isEnabled: boolean }, customCSS: { __typename?: 'CustomCSSFeature', isEnabled: boolean, published?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null, draft?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null } }, ogMetaData: { __typename?: 'OpenGraphMetaData', image?: string | null }, preferences: { __typename: 'Preferences', logo?: string | null, layout?: PublicationLayout | null, disableFooterBranding?: boolean | null, isSubscriptionModalDisabled?: boolean | null, darkMode?: { __typename: 'DarkModePreferences', logo?: string | null, enabled?: boolean | null } | null, navbarItems: Array<{ __typename: 'PublicationNavbarItem', id: string, label?: string | null, url?: string | null, priority?: number | null, type: PublicationNavigationType, series?: { __typename: 'Series', id: string } | null, page?: { __typename: 'StaticPage', id: string } | null }>, enabledPages?: { __typename: 'PagesPreferences', badges?: boolean | null, newsletter?: boolean | null, members?: boolean | null } | null }, integrations?: { __typename?: 'PublicationIntegrations', fbPixelID?: string | null, fathomSiteID?: string | null, fathomCustomDomainEnabled?: boolean | null, fathomCustomDomain?: string | null, hotjarSiteID?: string | null, matomoSiteID?: string | null, matomoURL?: string | null, gaTrackingID?: string | null, plausibleAnalyticsEnabled?: boolean | null, wmPaymentPointer?: string | null, umamiWebsiteUUID?: string | null } | null, links?: { __typename?: 'PublicationLinks', twitter?: string | null, instagram?: string | null, github?: string | null, website?: string | null, hashnode?: string | null, youtube?: string | null, linkedin?: string | null, mastodon?: string | null } | null, domainInfo: { __typename: 'DomainInfo', hashnodeSubdomain?: string | null, domain?: { __typename: 'DomainStatus', host: string, ready: boolean } | null, wwwPrefixedDomain?: { __typename: 'DomainStatus', host: string, ready: boolean } | null }, redirectionRules: Array<{ __typename?: 'RedirectionRule', source: string, destination: any, type: HttpRedirectionType }> } | null };
 
 export type PageByPublicationQueryVariables = Exact<{
   slug: Scalars['String']['input'];
@@ -3055,7 +3975,7 @@ export type SeriesPageInitialQueryVariables = Exact<{
 }>;
 
 
-export type SeriesPageInitialQuery = { __typename?: 'Query', publication?: { __typename: 'Publication', id: string, url: string, canonicalURL: string, urlPattern: UrlPattern, title: string, displayTitle?: string | null, hasBadges: boolean, descriptionSEO?: string | null, metaTags?: string | null, favicon?: string | null, headerColor?: string | null, imprint?: string | null, isTeam: boolean, series?: { __typename: 'Series', id: string, name: string, coverImage?: string | null, slug: string, cuid?: string | null, description?: { __typename?: 'Content', html: string, markdown: string, text: string } | null, author: { __typename: 'User', id: string, name: string, username: string }, posts: { __typename: 'SeriesPostConnection', edges: Array<{ __typename: 'PostEdge', cursor: string, node: { __typename: 'Post', id: string, title: string, slug: string, publishedAt: string, cuid?: string | null, url: string, subtitle?: string | null, brief: string, readTimeInMinutes: number, views: number, author: { __typename: 'User', id: string, username: string, name: string, profilePicture?: string | null, followersCount: number }, coverImage?: { __typename: 'PostCoverImage', url: string, isPortrait: boolean, isAttributionHidden: boolean } | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage?: boolean | null } } } | null, about?: { __typename?: 'Content', html: string, text: string } | null, features: { __typename?: 'PublicationFeatures', newsletter: { __typename?: 'NewsletterFeature', isEnabled: boolean }, viewCount: { __typename?: 'ViewCountFeature', isEnabled: boolean }, readTime: { __typename?: 'ReadTimeFeature', isEnabled: boolean }, audioBlog: { __typename?: 'AudioBlogFeature', isEnabled: boolean, voiceType: AudioBlogVoiceType }, textSelectionSharer: { __typename?: 'TextSelectionSharerFeature', isEnabled: boolean }, customCSS: { __typename?: 'CustomCSSFeature', isEnabled: boolean, published?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null, draft?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null } }, ogMetaData: { __typename?: 'OpenGraphMetaData', image?: string | null }, author: { __typename: 'User', id: string, name: string, username: string, profilePicture?: string | null }, preferences: { __typename: 'Preferences', logo?: string | null, layout?: PublicationLayout | null, disableFooterBranding?: boolean | null, isSubscriptionModalDisabled?: boolean | null, darkMode?: { __typename: 'DarkModePreferences', logo?: string | null, enabled?: boolean | null } | null, navbarItems: Array<{ __typename: 'PublicationNavbarItem', id: string, label?: string | null, url?: string | null, priority?: number | null, type: PublicationNavigationType, series?: { __typename: 'Series', id: string } | null, page?: { __typename: 'StaticPage', id: string } | null }>, enabledPages?: { __typename: 'PagesPreferences', badges?: boolean | null, newsletter?: boolean | null, members?: boolean | null } | null }, integrations?: { __typename?: 'PublicationIntegrations', fbPixelID?: string | null, fathomSiteID?: string | null, fathomCustomDomainEnabled?: boolean | null, fathomCustomDomain?: string | null, hotjarSiteID?: string | null, matomoSiteID?: string | null, matomoURL?: string | null, gaTrackingID?: string | null, plausibleAnalyticsEnabled?: boolean | null, wmPaymentPointer?: string | null, umamiWebsiteUUID?: string | null } | null, links?: { __typename?: 'PublicationLinks', twitter?: string | null, instagram?: string | null, github?: string | null, website?: string | null, hashnode?: string | null, youtube?: string | null, linkedin?: string | null, mastodon?: string | null } | null, domainInfo: { __typename: 'DomainInfo', hashnodeSubdomain?: string | null, domain?: { __typename: 'DomainStatus', host: string, ready: boolean } | null, wwwPrefixedDomain?: { __typename: 'DomainStatus', host: string, ready: boolean } | null }, redirectionRules: Array<{ __typename?: 'RedirectionRule', source: string, destination: string, type: HttpRedirectionType }> } | null };
+export type SeriesPageInitialQuery = { __typename?: 'Query', publication?: { __typename: 'Publication', id: string, url: string, canonicalURL: string, urlPattern: UrlPattern, title: string, displayTitle?: string | null, hasBadges: boolean, descriptionSEO?: string | null, metaTags?: string | null, favicon?: string | null, headerColor?: string | null, imprint?: string | null, isTeam: boolean, series?: { __typename: 'Series', id: string, name: string, coverImage?: string | null, slug: string, cuid?: string | null, description?: { __typename?: 'Content', html: string, markdown: string, text: string } | null, author: { __typename: 'User', id: string, name: string, username: string }, posts: { __typename: 'SeriesPostConnection', edges: Array<{ __typename: 'PostEdge', cursor: string, node: { __typename: 'Post', id: string, title: string, slug: string, publishedAt: string, cuid?: string | null, url: string, subtitle?: string | null, brief: string, readTimeInMinutes: number, views: number, author: { __typename: 'User', id: string, username: string, name: string, profilePicture?: string | null, followersCount: number }, coverImage?: { __typename: 'PostCoverImage', url: string, isPortrait: boolean, isAttributionHidden: boolean } | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage?: boolean | null } } } | null, about?: { __typename?: 'Content', html: string, text: string } | null, features: { __typename?: 'PublicationFeatures', newsletter: { __typename?: 'NewsletterFeature', isEnabled: boolean }, viewCount: { __typename?: 'ViewCountFeature', isEnabled: boolean }, readTime: { __typename?: 'ReadTimeFeature', isEnabled: boolean }, audioBlog: { __typename?: 'AudioBlogFeature', isEnabled: boolean, voiceType: AudioBlogVoiceType }, textSelectionSharer: { __typename?: 'TextSelectionSharerFeature', isEnabled: boolean }, customCSS: { __typename?: 'CustomCSSFeature', isEnabled: boolean, published?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null, draft?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null } }, ogMetaData: { __typename?: 'OpenGraphMetaData', image?: string | null }, author: { __typename: 'User', id: string, name: string, username: string, profilePicture?: string | null }, preferences: { __typename: 'Preferences', logo?: string | null, layout?: PublicationLayout | null, disableFooterBranding?: boolean | null, isSubscriptionModalDisabled?: boolean | null, darkMode?: { __typename: 'DarkModePreferences', logo?: string | null, enabled?: boolean | null } | null, navbarItems: Array<{ __typename: 'PublicationNavbarItem', id: string, label?: string | null, url?: string | null, priority?: number | null, type: PublicationNavigationType, series?: { __typename: 'Series', id: string } | null, page?: { __typename: 'StaticPage', id: string } | null }>, enabledPages?: { __typename: 'PagesPreferences', badges?: boolean | null, newsletter?: boolean | null, members?: boolean | null } | null }, integrations?: { __typename?: 'PublicationIntegrations', fbPixelID?: string | null, fathomSiteID?: string | null, fathomCustomDomainEnabled?: boolean | null, fathomCustomDomain?: string | null, hotjarSiteID?: string | null, matomoSiteID?: string | null, matomoURL?: string | null, gaTrackingID?: string | null, plausibleAnalyticsEnabled?: boolean | null, wmPaymentPointer?: string | null, umamiWebsiteUUID?: string | null } | null, links?: { __typename?: 'PublicationLinks', twitter?: string | null, instagram?: string | null, github?: string | null, website?: string | null, hashnode?: string | null, youtube?: string | null, linkedin?: string | null, mastodon?: string | null } | null, domainInfo: { __typename: 'DomainInfo', hashnodeSubdomain?: string | null, domain?: { __typename: 'DomainStatus', host: string, ready: boolean } | null, wwwPrefixedDomain?: { __typename: 'DomainStatus', host: string, ready: boolean } | null }, redirectionRules: Array<{ __typename?: 'RedirectionRule', source: string, destination: any, type: HttpRedirectionType }> } | null };
 
 export type SeriesPostsByPublicationQueryVariables = Exact<{
   host: Scalars['String']['input'];
@@ -3117,7 +4037,7 @@ export type TagInitialQueryVariables = Exact<{
 }>;
 
 
-export type TagInitialQuery = { __typename?: 'Query', tag?: { __typename?: 'Tag', id: string, name: string, logo?: string | null, slug: string, tagline?: string | null } | null, publication?: { __typename: 'Publication', id: string, url: string, canonicalURL: string, urlPattern: UrlPattern, title: string, displayTitle?: string | null, hasBadges: boolean, descriptionSEO?: string | null, metaTags?: string | null, favicon?: string | null, headerColor?: string | null, imprint?: string | null, isTeam: boolean, posts: { __typename: 'PublicationPostConnection', edges: Array<{ __typename: 'PostEdge', cursor: string, node: { __typename: 'Post', id: string, title: string, slug: string, publishedAt: string, cuid?: string | null, url: string, subtitle?: string | null, brief: string, readTimeInMinutes: number, views: number, author: { __typename: 'User', id: string, username: string, name: string, profilePicture?: string | null, followersCount: number }, coverImage?: { __typename: 'PostCoverImage', url: string, isPortrait: boolean, isAttributionHidden: boolean } | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage?: boolean | null } }, about?: { __typename?: 'Content', html: string, text: string } | null, features: { __typename?: 'PublicationFeatures', newsletter: { __typename?: 'NewsletterFeature', isEnabled: boolean }, viewCount: { __typename?: 'ViewCountFeature', isEnabled: boolean }, readTime: { __typename?: 'ReadTimeFeature', isEnabled: boolean }, audioBlog: { __typename?: 'AudioBlogFeature', isEnabled: boolean, voiceType: AudioBlogVoiceType }, textSelectionSharer: { __typename?: 'TextSelectionSharerFeature', isEnabled: boolean }, customCSS: { __typename?: 'CustomCSSFeature', isEnabled: boolean, published?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null, draft?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null } }, ogMetaData: { __typename?: 'OpenGraphMetaData', image?: string | null }, author: { __typename: 'User', id: string, name: string, username: string, profilePicture?: string | null }, preferences: { __typename: 'Preferences', logo?: string | null, layout?: PublicationLayout | null, disableFooterBranding?: boolean | null, isSubscriptionModalDisabled?: boolean | null, darkMode?: { __typename: 'DarkModePreferences', logo?: string | null, enabled?: boolean | null } | null, navbarItems: Array<{ __typename: 'PublicationNavbarItem', id: string, label?: string | null, url?: string | null, priority?: number | null, type: PublicationNavigationType, series?: { __typename: 'Series', id: string } | null, page?: { __typename: 'StaticPage', id: string } | null }>, enabledPages?: { __typename: 'PagesPreferences', badges?: boolean | null, newsletter?: boolean | null, members?: boolean | null } | null }, integrations?: { __typename?: 'PublicationIntegrations', fbPixelID?: string | null, fathomSiteID?: string | null, fathomCustomDomainEnabled?: boolean | null, fathomCustomDomain?: string | null, hotjarSiteID?: string | null, matomoSiteID?: string | null, matomoURL?: string | null, gaTrackingID?: string | null, plausibleAnalyticsEnabled?: boolean | null, wmPaymentPointer?: string | null, umamiWebsiteUUID?: string | null } | null, links?: { __typename?: 'PublicationLinks', twitter?: string | null, instagram?: string | null, github?: string | null, website?: string | null, hashnode?: string | null, youtube?: string | null, linkedin?: string | null, mastodon?: string | null } | null, domainInfo: { __typename: 'DomainInfo', hashnodeSubdomain?: string | null, domain?: { __typename: 'DomainStatus', host: string, ready: boolean } | null, wwwPrefixedDomain?: { __typename: 'DomainStatus', host: string, ready: boolean } | null }, redirectionRules: Array<{ __typename?: 'RedirectionRule', source: string, destination: string, type: HttpRedirectionType }> } | null };
+export type TagInitialQuery = { __typename?: 'Query', tag?: { __typename?: 'Tag', id: string, name: string, logo?: string | null, slug: string, tagline?: string | null } | null, publication?: { __typename: 'Publication', id: string, url: string, canonicalURL: string, urlPattern: UrlPattern, title: string, displayTitle?: string | null, hasBadges: boolean, descriptionSEO?: string | null, metaTags?: string | null, favicon?: string | null, headerColor?: string | null, imprint?: string | null, isTeam: boolean, posts: { __typename: 'PublicationPostConnection', edges: Array<{ __typename: 'PostEdge', cursor: string, node: { __typename: 'Post', id: string, title: string, slug: string, publishedAt: string, cuid?: string | null, url: string, subtitle?: string | null, brief: string, readTimeInMinutes: number, views: number, author: { __typename: 'User', id: string, username: string, name: string, profilePicture?: string | null, followersCount: number }, coverImage?: { __typename: 'PostCoverImage', url: string, isPortrait: boolean, isAttributionHidden: boolean } | null } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage?: boolean | null } }, about?: { __typename?: 'Content', html: string, text: string } | null, features: { __typename?: 'PublicationFeatures', newsletter: { __typename?: 'NewsletterFeature', isEnabled: boolean }, viewCount: { __typename?: 'ViewCountFeature', isEnabled: boolean }, readTime: { __typename?: 'ReadTimeFeature', isEnabled: boolean }, audioBlog: { __typename?: 'AudioBlogFeature', isEnabled: boolean, voiceType: AudioBlogVoiceType }, textSelectionSharer: { __typename?: 'TextSelectionSharerFeature', isEnabled: boolean }, customCSS: { __typename?: 'CustomCSSFeature', isEnabled: boolean, published?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null, draft?: { __typename: 'CustomCSS', homeMinified?: string | null, postMinified?: string | null, staticMinified?: string | null } | null } }, ogMetaData: { __typename?: 'OpenGraphMetaData', image?: string | null }, author: { __typename: 'User', id: string, name: string, username: string, profilePicture?: string | null }, preferences: { __typename: 'Preferences', logo?: string | null, layout?: PublicationLayout | null, disableFooterBranding?: boolean | null, isSubscriptionModalDisabled?: boolean | null, darkMode?: { __typename: 'DarkModePreferences', logo?: string | null, enabled?: boolean | null } | null, navbarItems: Array<{ __typename: 'PublicationNavbarItem', id: string, label?: string | null, url?: string | null, priority?: number | null, type: PublicationNavigationType, series?: { __typename: 'Series', id: string } | null, page?: { __typename: 'StaticPage', id: string } | null }>, enabledPages?: { __typename: 'PagesPreferences', badges?: boolean | null, newsletter?: boolean | null, members?: boolean | null } | null }, integrations?: { __typename?: 'PublicationIntegrations', fbPixelID?: string | null, fathomSiteID?: string | null, fathomCustomDomainEnabled?: boolean | null, fathomCustomDomain?: string | null, hotjarSiteID?: string | null, matomoSiteID?: string | null, matomoURL?: string | null, gaTrackingID?: string | null, plausibleAnalyticsEnabled?: boolean | null, wmPaymentPointer?: string | null, umamiWebsiteUUID?: string | null } | null, links?: { __typename?: 'PublicationLinks', twitter?: string | null, instagram?: string | null, github?: string | null, website?: string | null, hashnode?: string | null, youtube?: string | null, linkedin?: string | null, mastodon?: string | null } | null, domainInfo: { __typename: 'DomainInfo', hashnodeSubdomain?: string | null, domain?: { __typename: 'DomainStatus', host: string, ready: boolean } | null, wwwPrefixedDomain?: { __typename: 'DomainStatus', host: string, ready: boolean } | null }, redirectionRules: Array<{ __typename?: 'RedirectionRule', source: string, destination: any, type: HttpRedirectionType }> } | null };
 
 export type TagPostsByPublicationQueryVariables = Exact<{
   host: Scalars['String']['input'];

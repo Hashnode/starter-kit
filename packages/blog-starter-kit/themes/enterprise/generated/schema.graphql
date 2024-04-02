@@ -1762,6 +1762,19 @@ type PagesPreferences {
   newsletter: Boolean
 }
 
+type PendingInvite implements Node {
+  """The email of the user that was invited."""
+  email: String
+  """The ID of the pending invite."""
+  id: ID!
+  """The role assigned to the user in the publication."""
+  role: UserPublicationRole!
+  """
+  Invited Hashnode user, returns null if the user is not a Hashnode user.
+  """
+  user: User
+}
+
 """
 Contains basic information about the tag returned by popularTags query.
 """
@@ -1806,7 +1819,7 @@ type Post implements Node {
   """
   Returns male and female audio url of the post. Available in case the Audioblog is enabled.
   """
-  audioUrls: AudioUrls
+  audioUrls: AudioUrls @deprecated(reason: "Audio Blogs are not supported anymore. This field will be removed 18/04/23")
   """Returns the user details of the author of the post."""
   author: User!
   """
@@ -2320,7 +2333,7 @@ input PublicationDraftConnectionFilter {
 """Contains the publication's beta features."""
 type PublicationFeatures {
   """Audio player for blog posts."""
-  audioBlog: AudioBlogFeature!
+  audioBlog: AudioBlogFeature! @deprecated(reason: "Audio Blogs are not supported anymore. This field will be removed 18/04/23")
   """Individual styling for the publication."""
   customCSS: CustomCSSFeature!
   """
@@ -2416,19 +2429,9 @@ type PublicationMember implements Node {
   """The ID of the publication member."""
   id: ID!
   """The role of the user in the publication."""
-  role: PublicationMemberRole!
+  role: UserPublicationRole!
   """The user who is a member of the publication."""
   user: User
-}
-
-"""The role of the user in the publication."""
-enum PublicationMemberRole {
-  """The user is an admin of the publication."""
-  ADMIN
-  """The user is a owner of the publication."""
-  AUTHOR
-  """The user is a member of the publication."""
-  CONTRIBUTOR
 }
 
 """Contains the publication's navbar items."""
@@ -2709,8 +2712,16 @@ type Query {
 
 type RSSImport implements Node {
   id: ID!
+  """Indicates whether posts should be imported as drafts or not"""
+  importAsDrafts: Boolean!
+  """
+  RSS Tag name to be considered as the post content for automatic import.
+  """
+  rssTagName: String
   """The URL pointing to the RSS feed."""
   rssURL: String!
+  """Indicates whether the posts should be scraped or not"""
+  scrapePosts: Boolean!
 }
 
 """
