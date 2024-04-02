@@ -203,7 +203,7 @@ export default function PostOrPage(props: Props) {
 								{/* Content Section */}
 									<div className="lg:w-1/2 md:w-full h-full p-8 bg-white border-neutral-200">
 										<div className="text-neutral-500 text-xs font-light font-['Outfit'] uppercase leading-[18px] tracking-[4.80px]">IKLAN</div>
-										<div className="text-neutral-800 lg:text-3xl text-2xl font-semibold font-['Outfit'] leading-9">Korang nak kasut kahwin handcrafted yang slay atas pelamin nanti?</div>
+										<div className="text-neutral-800 lg:text-3xl text-2xl font-semibold font-['Outfit'] leading-9">In love with detailing? Slay yourself dengan kasut kahwin unik atas pelamin nanti!</div>
 											<div className="w-fit mt-8 rounded-full px-8 py-4 bg-primary-500 cursor-pointer">
 												<div className="text-center text-white text-base font-semibold font-['Outfit'] leading-normal">Order Sekarang</div>
 											</div>
