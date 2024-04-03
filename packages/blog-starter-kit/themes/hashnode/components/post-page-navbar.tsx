@@ -11,26 +11,12 @@ import { ChevronLeftSVG } from './icons/svgs/';
 import PublicationSocialLinks from './publication-social-links';
 import useStickyNavScroll from './use-sticky-nav-scroll';
 
-import {
-	Preferences,
-	PublicationNavbarItem,
-	RequiredPublicationFieldsFragment,
-	User,
-} from '../generated/graphql';
+import { PublicationFragment } from '../generated/graphql';
 import { Button } from './custom-button';
 import PublicationLogo from './publication-logo';
 
 type Props = {
-	publication: Pick<
-		RequiredPublicationFieldsFragment,
-		'id' | 'title' | 'url' | 'links' | 'features' | 'isTeam'
-	> & {
-		author: Pick<User, 'id' | 'username' | 'name' | 'profilePicture'>;
-	} & {
-		preferences: Omit<Preferences, 'navbarItems'> & {
-			navbarItems: Array<Omit<PublicationNavbarItem, 'series' | 'page'>>;
-		};
-	};
+	publication: Pick<PublicationFragment, 'id' | 'title' | 'links' | 'url' | 'features' | 'isTeam' | 'author' | 'preferences'>;
 };
 
 const PostPageNavbar = forwardRef<HTMLElement, Props>((props, ref) => {

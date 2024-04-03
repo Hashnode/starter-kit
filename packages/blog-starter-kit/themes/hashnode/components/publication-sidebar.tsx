@@ -1,25 +1,18 @@
 import { useEffect, useState, useRef, MutableRefObject } from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 
-import { useAppContext } from './contexts/appContext';
 import PublicationSidebarNavLinks from './publication-sidebar-nav-links';
 import PublicationSocialLinks from './publication-social-links';
 import PublicationLogo from './publication-logo';
 import { CloseSVG } from './icons/svgs';
 import CustomScrollArea from './scroll-area';
 
-import { Preferences, Publication, PublicationNavbarItem, User } from '../generated/graphql';
+import { PublicationFragment } from '../generated/graphql';
 import { twJoin } from 'tailwind-merge';
 import { returnFocusToElement, blurActiveFocus, doesPublicationHaveSocialLinks } from '../utils/commonUtils';
 
 type Props = {
-  publication: Pick<Publication, 'id' | 'title' | 'isTeam' | 'links'> & {
-    author: Pick<User, 'username' | 'name' | 'profilePicture'>;
-  } & {
-    preferences: Pick<Preferences, 'navbarItems' | 'enabledPages' | 'logo' | 'darkMode'> & {
-      navbarItems: Array<Omit<PublicationNavbarItem, 'series' | 'page'>>;
-    };
-  };
+  publication: Pick<PublicationFragment, 'id' | 'title' | 'isTeam' | 'links' | 'author' | 'preferences'>;
   toggleSidebar: () => void;
   isHome?: boolean | null;
   isBadge?: boolean | null;
