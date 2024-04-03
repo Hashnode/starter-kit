@@ -71,11 +71,11 @@ fragment Publication on Publication {
 		logo
 		disableFooterBranding
 		enabledPages {
-			badges
 			newsletter
 			members
 		}
 		darkMode {
+			enabled
 			logo
 		}
 		navbarItems {

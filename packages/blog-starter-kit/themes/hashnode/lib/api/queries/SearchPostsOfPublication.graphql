@@ -1,5 +1,9 @@
-query SearchPostsOfPublication($first: Int!, $filter: SearchPostsOfPublicationFilter!) {
-	searchPostsOfPublication(first: $first, filter: $filter) {
+query SearchPostsOfPublication(
+	$first: Int!
+	$filter: SearchPostsOfPublicationFilter!
+	$after: String
+) {
+	searchPostsOfPublication(first: $first, after: $after, filter: $filter) {
 		edges {
 			cursor
 			node {
