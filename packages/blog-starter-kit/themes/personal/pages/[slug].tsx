@@ -163,10 +163,11 @@ const Page = ({ page }: PageProps) => {
 
 export default function PostOrPage(props: Props) {
 	const maybePost = props.type === 'post' ? props.post : null;
+	const maybePage = props.type === 'page' ? props.page : null;
 	const publication = props.publication;
 
 	return (
-		<AppProvider publication={publication} post={maybePost}>
+		<AppProvider publication={publication} post={maybePost} page={maybePage}>
 			<Layout>
 				<Container className="mx-auto flex max-w-3xl flex-col items-stretch gap-10 px-5 py-10">
 					<PersonalHeader />

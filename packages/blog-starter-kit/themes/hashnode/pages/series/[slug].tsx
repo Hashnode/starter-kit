@@ -60,7 +60,7 @@ export default function Series({
 	};
 
 	return (
-		<AppProvider publication={publication}>
+		<AppProvider publication={publication} series={series}>
 			<Layout>
 				<Head>
 					<title>{title}</title>
