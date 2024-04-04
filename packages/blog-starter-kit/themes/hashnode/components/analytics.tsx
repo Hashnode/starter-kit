@@ -4,23 +4,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { useAppContext } from './contexts/appContext';
 const GA_TRACKING_ID = 'G-72XG3F8LNJ'; // This is Hashnode's GA tracking ID
-const HASHNODE_ANALYTICS_URL = 'https://user-analytics.hashnode.com/api/analytics'; // This is Hashnode's internal analytics URL
 const isProd = process.env.NEXT_PUBLIC_MODE === 'production';
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_URL || '';
 
 export const Analytics = () => {
 	const { publication, post, series, page } = useAppContext();
-
-	useEffect(() => {
-		if (!isProd) return;
-
-		_sendPageViewsToHashnodeGoogleAnalytics();
-		_sendViewsToHashnodeInternalAnalytics();
-		_sendViewsToHashnodeAnalyticsDashboard();
-		_sendViewsToAdvancedAnalyticsDashboard();
-	}, []);
-
-	if (!isProd) return null;
 
 	const _sendPageViewsToHashnodeGoogleAnalytics = () => {
 		// @ts-ignore
@@ -122,7 +110,7 @@ export const Analytics = () => {
 	function _sendViewsToAdvancedAnalyticsDashboard() {
 		const publicationId = publication.id;
 		const postId = post && post.id;
-		const seriesId = series && series.id;
+		const seriesId = series?.id || post?.series?.id;
 		const staticPageId = page && page.id;
 
 		const data = {
@@ -180,14 +168,14 @@ export const Analytics = () => {
 		let hasSentBeacon = false;
 		try {
 			if (navigator.sendBeacon) {
-				hasSentBeacon = navigator.sendBeacon(HASHNODE_ANALYTICS_URL, blob);
+				hasSentBeacon = navigator.sendBeacon(`${BASE_PATH}/api/analytics`, blob);
 			}
 		} catch (error) {
 			// do nothing; in case there is an error we fall back to fetch
 		}
 
 		if (!hasSentBeacon) {
-			fetch(HASHNODE_ANALYTICS_URL, {
+			fetch(`${BASE_PATH}/api/analytics`, {
 				method: 'POST',
 				body: blob,
 				credentials: 'omit',
@@ -195,6 +183,15 @@ export const Analytics = () => {
 			});
 		}
 	}
+
+	useEffect(() => {
+		if (!isProd) return;
+
+		_sendPageViewsToHashnodeGoogleAnalytics();
+		_sendViewsToHashnodeInternalAnalytics();
+		_sendViewsToHashnodeAnalyticsDashboard();
+		_sendViewsToAdvancedAnalyticsDashboard();
+	}, []);
 
 	return null;
 };
