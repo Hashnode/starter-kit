@@ -5,6 +5,7 @@ fragment Post on Post {
   author {
     name
     profilePicture
+    username
   }
   coverImage {
     url
