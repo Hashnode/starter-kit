@@ -1,5 +1,5 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { PublicationNavbarItem } from '../generated/graphql';
 import { Button } from './button';
 import { Container } from './container';
@@ -7,6 +7,7 @@ import { useAppContext } from './contexts/appContext';
 import HamburgerSVG from './icons/svgs/HamburgerSVG';
 import { PublicationLogo } from './publication-logo';
 import PublicationSidebar from './sidebar';
+import { AnimatePresence, motion } from 'framer-motion'
 
 function hasUrl(
 	navbarItem: PublicationNavbarItem,
@@ -22,21 +23,58 @@ export const Header = () => {
 	const visibleItems = navbarItems.slice(0, 3);
 	const hiddenItems = navbarItems.slice(3);
 
+	let [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+	let timeoutRef = useRef<number | null>(null)
+
 	const toggleSidebar = () => {
 		setIsSidebarVisible((prevVisibility) => !prevVisibility);
 	};
 
+	const headerLinks = [
+		{id: 1, url: '/#how-it-works', label: 'How It Works'},
+		{id: 2, url: '/#features', label: 'Features'},
+		{id: 3, url: '/#reviews', label: 'Reviews'},
+		{id: 4, url: '/#pricing', label: 'Pricing'},
+		{id: 5, url: '/#faqs', label: 'FAQs'},
+		{id: 6, url: '/blog', label: 'Blog'},
+	]
+
 	const navList = (
-		<ul className="flex flex-row items-center gap-2 text-white">
-			{visibleItems.map((item) => (
-				<li key={item.url}>
+		<ul className="flex flex-row items-center gap-4 text-gray-700">
+			{headerLinks.map((item, index) => (
+				<li key={item.url} className='relative px-3 py-2'>
 					<a
 						href={item.url}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="transition-200 block max-w-[200px] truncate text-ellipsis whitespace-nowrap rounded-full p-2 transition-colors hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
+						className="-mx-3 -my-2 rounded-lg px-3 py-2 text-sm text-gray-700 transition-colors delay-150 hover:text-gray-900 hover:delay-0"
+						onMouseEnter={() => {
+							if (timeoutRef.current) {
+								window.clearTimeout(timeoutRef.current)
+							}
+							setHoveredIndex(index)
+						}}
+						onMouseLeave={() => {
+							timeoutRef.current = window.setTimeout(() => {
+								setHoveredIndex(null)
+							}, 200)
+						}}
 					>
-						{item.label}
+					<AnimatePresence>
+						{hoveredIndex === index && (
+							<motion.span
+								className="absolute inset-0 rounded-lg bg-gray-100"
+								layoutId="hoverBackground"
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1, transition: { duration: 0.15 } }}
+								exit={{
+									opacity: 0,
+									transition: { duration: 0.15 },
+								}}
+							/>
+						)}
+      		</AnimatePresence>
+					<span className="relative z-10">{item.label}</span>
 					</a>
 				</li>
 			))}
@@ -45,7 +83,7 @@ export const Header = () => {
 				<li>
 					<DropdownMenu.Root>
 						<DropdownMenu.Trigger asChild>
-							<button className="transition-200 block rounded-full p-2 transition-colors hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white">
+							<button className="transition-200 block rounded-lg p-2 transition-colors hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white">
 								More
 							</button>
 						</DropdownMenu.Trigger>
@@ -56,7 +94,7 @@ export const Header = () => {
 								align="end"
 								sideOffset={5}
 							>
-								{hiddenItems.map((item) => (
+								{headerLinks.map((item) => (
 									<DropdownMenu.Item asChild key={item.url}>
 										<a
 											href={item.url}
@@ -77,15 +115,18 @@ export const Header = () => {
 	);
 
 	return (
-		<header className="border-b bg-slate-950 py-10 dark:border-neutral-800 dark:bg-neutral-900">
-			<Container className="grid grid-cols-4 gap-5 px-5">
-				<div className="col-span-2 flex flex-1 flex-row items-center gap-2 lg:col-span-1">
+		<header className="bg-white py-6 dark:border-neutral-800 dark:bg-neutral-900">
+			<Container className="grid grid-cols-4 py-2 px-5">
+				<div className="col-span-4 flex flex-row justify-between items-center lg:col-span-1">
+					<div >
+						<PublicationLogo />
+					</div>
 					<div className="lg:hidden">
 						<Button
 							type="outline"
 							label=""
 							icon={<HamburgerSVG className="h-5 w-5 stroke-current" />}
-							className="rounded-xl border-transparent !px-3 !py-2 text-white hover:bg-slate-900 dark:hover:bg-neutral-800"
+							className="rounded-lg border-transparent !px-3 !py-2 dark:text-white hover:bg-slate-900 hover:text-white dark:hover:bg-neutral-800"
 							onClick={toggleSidebar}
 						/>
 
@@ -93,18 +134,13 @@ export const Header = () => {
 							<PublicationSidebar navbarItems={navbarItems} toggleSidebar={toggleSidebar} />
 						)}
 					</div>
-					<div className="hidden lg:block">
-						<PublicationLogo />
-					</div>
 				</div>
-				<div className="col-span-2 flex flex-row items-center justify-end gap-5 text-slate-300 lg:col-span-3">
+
+				<div className="col-span-2 flex flex-row items-center justify-center lg:justify-between gap-5 text-slate-300 lg:col-span-3">
 					<nav className="hidden lg:block">{navList}</nav>
-					<Button href={baseUrl} as="a" type="primary" label="Book a demo" />
+					<Button href={baseUrl} as="a" type="secondary" label="Get Started" className="hidden lg:block" />
 				</div>
 			</Container>
-			<div className="mt-5 flex justify-center lg:hidden">
-				<PublicationLogo />
-			</div>
 		</header>
 	);
 };

@@ -23,6 +23,15 @@ function PublicationSidebar(props: Props) {
 		setIsMounted(true);
 	}, []);
 
+	const headerLinks = [
+		{id: 1, url: '/#how-it-works', label: 'How It Works'},
+		{id: 2, url: '/#features', label: 'Features'},
+		{id: 3, url: '/#reviews', label: 'Reviews'},
+		{id: 4, url: '/#pricing', label: 'Pricing'},
+		{id: 5, url: '/#faqs', label: 'FAQs'},
+		{id: 6, url: '/blog', label: 'Blog'},
+	]
+
 	return (
 		<DialogPrimitive.Root open>
 			<DialogPrimitive.Portal>
@@ -77,7 +86,7 @@ function PublicationSidebar(props: Props) {
 										Home
 									</Link>
 								</li>
-								{navbarItems.map((item) => (
+								{headerLinks.map((item) => (
 									<li key={item.url}>
 										<Link
 											href={item.url}

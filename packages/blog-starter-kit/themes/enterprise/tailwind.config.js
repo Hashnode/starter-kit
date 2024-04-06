@@ -10,9 +10,9 @@ module.exports = {
 				'accent-1': '#FAFAFA',
 				'accent-2': '#EAEAEA',
 				'accent-7': '#333',
-				success: '#0070f3',
+				success: '#A053E9',
 				cyan: '#79FFE1',
-				primary: colors.blue,
+				primary: colors.purple,
 			},
 			typography: () => ({
 				DEFAULT: {
@@ -28,6 +28,9 @@ module.exports = {
 					  'border-radius': '0.5rem',
 					  margin: '1rem 0',
 					  'word-break': 'break-word',
+						fontFamily: {
+							sans: 'var(--font-inter)',
+						},
 					},
 					'div[data-node-type="callout-emoji"]': {
 					  background: '#E2E8F0',
