@@ -40,7 +40,7 @@ export const Header = () => {
 	]
 
 	const navList = (
-		<ul className="flex flex-row items-center gap-4 text-gray-700">
+		<ul className="flex flex-row items-center gap-4 text-gray-700 lg:gap-4 xl:gap-6">
 			{headerLinks.map((item, index) => (
 				<li key={item.url} className='relative px-3 py-2'>
 					<a
@@ -116,8 +116,8 @@ export const Header = () => {
 
 	return (
 		<header className="bg-white py-6 dark:border-neutral-800 dark:bg-neutral-900">
-			<Container className="grid grid-cols-4 py-2 px-5">
-				<div className="col-span-4 flex flex-row justify-between items-center lg:col-span-1">
+			<Container className="grid grid-cols-4 py-4 max-w-7xl px-4">
+				<div className="col-span-4 flex flex-row justify-between items-center lg:col-span-1 xl:justify-center">
 					<div >
 						<PublicationLogo />
 					</div>
@@ -136,9 +136,9 @@ export const Header = () => {
 					</div>
 				</div>
 
-				<div className="col-span-2 flex flex-row items-center justify-center lg:justify-between gap-5 text-slate-300 lg:col-span-3">
-					<nav className="hidden lg:block">{navList}</nav>
-					<Button href={baseUrl} as="a" type="secondary" label="Get Started" className="hidden lg:block" />
+				<div className="col-span-2 flex flex-row items-center justify-center lg:justify-between text-slate-300 lg:col-span-3">
+					<nav className="hidden lg:flex flex-col">{navList}</nav>
+					<Button href={baseUrl} as="a" type="secondary" label="Get Started" className="hidden lg:block text-sm my-2 mx-3" />
 				</div>
 			</Container>
 		</header>

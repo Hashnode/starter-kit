@@ -63,7 +63,7 @@ export const PostHeader = ({ title, coverImage, date, author, readTimeInMinutes 
 					)}
 					{!post.coAuthors?.length && (
 						<a
-						href={`https://hashnode.com/@${post.author.username}`}
+						href={"https://www.linkedin.com/in/mackeyvazquez"}
 						className="ml-2 font-semibold text-slate-600 dark:text-white md:ml-0"
 						>
 						<span>{post.author.name}</span>

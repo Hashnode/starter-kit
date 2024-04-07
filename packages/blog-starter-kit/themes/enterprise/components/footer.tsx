@@ -19,25 +19,33 @@ function QrCodeBorder(props: React.ComponentPropsWithoutRef<'svg'>) {
 
 export const Footer = () => {
 	const { publication } = useAppContext();
-	const PUBLICATION_LOGO = publication.preferences.logo;
+	const LOGO_FAVICON = publication.favicon
+
 	return (
-		<footer className="border-t  dark:border-neutral-800">
-			<Container >
-				<div className="grid grid-cols-1 gap-x-8 gap-y-16 pb-6 pt-16 lg:grid-cols-2 lg:py-16">
+		<footer className="border-t dark:border-neutral-800">
+			<Container className='max-w-7xl '>
+				<div className="px-4 sm:px-6 grid grid-cols-1 gap-x-8 gap-y-16 pb-6 pt-16 lg:grid-cols-2 lg:py-16 lg:px-8">
 					<div>
-						{PUBLICATION_LOGO ? (
-							<div className="flex flex-col text-gray-900 px-5">
-								<Link
-									href={'/'}
-									aria-label={`${publication.title} home page`}
-									className="flex flex-row items-center gap-5"
-								>
-									<Image className="block w-40" src={PUBLICATION_LOGO} alt={publication.title} width={140} height={20} />
-								</Link>
-								<p className="my-2 text-sm">
-									The AI-powered platform for vetting any position at scale.
-								</p>
-							</div>
+						{LOGO_FAVICON ? (
+							<div className="flex items-center text-gray-900">
+							<Link
+								href={'/'}
+								aria-label={`${publication.title} home page`}
+							>
+								<Image
+									src={LOGO_FAVICON}
+									alt={publication.title}
+									width={70} height={70} 
+									className="w-22 h-22 flex-none"
+								/>
+							</Link>
+              <div>
+                <p className="text-base font-semibold">Aplicable AI</p>
+                <p className="mt-1 text-sm">
+                  The AI-powered platform for vetting any position at scale.
+                </p>
+              </div>
+            </div>
 						) : (
 							<>
 								<p className="ml-4 text-center text-xl font-semibold text-slate-900 dark:text-slate-50 md:text-4xl">

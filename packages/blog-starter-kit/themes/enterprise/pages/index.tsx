@@ -121,7 +121,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 					/>
 				</Head>
 				<Header />
-				<Container className="flex flex-col items-stretch gap-10 px-5 pb-10">
+				<Container className="flex flex-col items-stretch gap-10 pb-10">
 					<Navbar />
 
 					{allPosts.length === 0 && (
@@ -137,7 +137,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 						</div>
 					)}
 
-					<div className="grid items-start gap-6 xl:grid-cols-2">
+					<div className="grid items-start gap-6 xl:grid-cols-2 max-w-7xl  w-full mx-auto px-4 sm:px-6 lg:px-8">
 						<div className="col-span-1">
 							{firstPost && (
 								<HeroPost
@@ -153,7 +153,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 					</div>
 
 					{allPosts.length > 0 && (
-						<div className="bg-[#171717] grid grid-cols-4 rounded-lg px-5 py-5 dark:bg-neutral-900 md:py-10">
+						<div className="bg-[#171717] grid grid-cols-4 rounded-lg px-4 py-5 dark:bg-neutral-900 md:py-10">
 							<div className="col-span-full md:col-span-2 md:col-start-2">
 								<h2 className="text-white dark:text-primary-500 mb-5 text-center text-lg font-semibold">
 									Subscribe to our newsletter for updates and changelog.
