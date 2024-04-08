@@ -115,11 +115,16 @@ export const Header = () => {
 	);
 
 	return (
-		<header className="bg-white py-6 dark:border-neutral-800 dark:bg-neutral-900">
-			<Container className="grid grid-cols-4 py-4 max-w-7xl px-4">
-				<div className="col-span-4 flex flex-row justify-between items-center lg:col-span-1 xl:justify-center">
-					<div >
-						<PublicationLogo />
+		<header className="py-8 dark:border-neutral-800 dark:bg-neutral-900">
+			<Container className="flex justify-center md:justify-between max-w-7xl px-4 lg:px-8">
+				<div className="flex justify-between mx-auto w-full lg:mx-0 lg:w-3/4 lg:justify-start">
+					<div className='flex items-center gap-10'>
+						<div>
+							<PublicationLogo />
+						</div>
+						<div>
+							<nav className="hidden lg:flex flex-col gap-4">{navList}</nav>
+						</div>
 					</div>
 					<div className="lg:hidden">
 						<Button
@@ -136,9 +141,8 @@ export const Header = () => {
 					</div>
 				</div>
 
-				<div className="col-span-2 flex flex-row items-center justify-center lg:justify-between text-slate-300 lg:col-span-3">
-					<nav className="hidden lg:flex flex-col">{navList}</nav>
-					<Button href={baseUrl} as="a" type="secondary" label="Get Started" className="hidden lg:block text-sm my-2 mx-3" />
+				<div className="flex items-center gap-6">
+					<Button href={baseUrl} as="a" type="secondary" label="Get Started" className="hidden lg:block" />
 				</div>
 			</Container>
 		</header>

@@ -53,7 +53,7 @@ export function FooterLinks() {
 
   return (
     <nav>
-      <ul role="list" className="grid grid-cols-2 gap-8 sm:grid-cols-3">
+      <ul role="list" className="grid grid-cols-2 gap-8 px-2 sm:grid-cols-3">
         {data.map((section, index) => (
           <li key={index}>
             <div className="font-display text-sm font-semibold tracking-wider text-neutral-950">

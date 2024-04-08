@@ -19,7 +19,7 @@ export const Layout = ({ children }: Props) => {
 		<>
 			<Meta />
 			<Scripts />
-			<div className={`min-h-screen bg-white dark:bg-neutral-950 ${inter.className}`}>
+			<div className={`min-h-screen bg-white dark:bg-neutral-950 ${inter?.className ?? ''}`}>
 				<main>{children}</main>
 			</div>
 			<Analytics />
