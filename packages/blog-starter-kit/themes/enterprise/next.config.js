@@ -64,6 +64,9 @@ const config = {
 	experimental: {
 		scrollRestoration: true,
 	},
+	compiler: {
+		styledComponents: true,
+	},
 	images: {
 		remotePatterns: [
 			{
