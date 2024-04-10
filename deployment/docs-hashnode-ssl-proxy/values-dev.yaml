@@ -1,0 +1,10 @@
+---
+# Default values for dev
+deployment:
+
+  # This is setup to route from the nginx-ingress controller which is the actual public interface
+  ingress:
+    hosts:
+      - host: 'docs.dev.mindsdb.com'
+        paths:
+          - /

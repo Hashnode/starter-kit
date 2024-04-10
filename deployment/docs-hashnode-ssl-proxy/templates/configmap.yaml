@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: docs-hashnode-ssl-proxy
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    meta.helm.sh/release-name: docs-hashnode-ssl-proxy
+data:
+  kubernetes.conf: |
+    Options FollowSymLinks ExecCGI
+    ProxyPreserveHost off
+
+    <VirtualHost *:80>
+        ServerName docs-hashnode-ssl-proxy-80
+        ServerAlias *
+
+        # Add X-Forwarded-Proto header
+        # RequestHeader set X-Forwarded-Proto "https"
+
+        SSLProxyEngine On
+        SSLProxyCheckPeerCN off
+        SSLProxyCheckPeerExpire off
+        SSLVerifyClient none
+        SSLVerifyDepth 0
+
+        # Proxy requests to backend server, but "fake" a different hostname (mindsdb.com) needed because of how webflow works
+        # ProxyRemote "*" "https://mindsdb-docs.hashnode.space"
+        ProxyPass / "https://mindsdb-docs.hashnode.space/"
+        ProxyPassReverse / "https://mindsdb-docs.hashnode.space/"
+    </VirtualHost>
+  # IMPLEMENTATION NOTE: Uncomment below to debug raw any requests sent to proxies and such
+  # zz-debug.conf: |
+  #   LoadModule dumpio_module modules/mod_dumpio.so
+  #   LogLevel dumpio:trace7
+  #   DumpIOInput On
+  #   DumpIOOutput On
