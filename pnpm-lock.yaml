@@ -43,8 +43,8 @@ importers:
         specifier: ^0.5.5
         version: 0.5.6(prettier-plugin-organize-imports@3.2.3)(prettier@3.0.3)
       tailwindcss:
-        specifier: ^3.3.3
-        version: 3.3.3
+        specifier: ^3.4.1
+        version: 3.4.1
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
