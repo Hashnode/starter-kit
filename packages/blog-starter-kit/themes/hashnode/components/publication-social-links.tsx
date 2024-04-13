@@ -39,10 +39,6 @@ function PublicationSocialLinks(props: Props) {
       icon: <YoutubeSVG className="h-5 w-5 fill-current" />,
       labelText: 'Subscribe to my channel on YouTube, external website, opens in new tab',
     },
-    hashnode: {
-      icon: <HashnodeLogoIconV2 className="h-5 w-5 fill-current" />,
-      labelText: 'Find me on Hashnode, external website, opens in new tab',
-    },
     website: {
       icon: <EarthSVG className="h-5 w-5 fill-current" />,
       labelText: 'Check out my website, external website, opens in new tab',
