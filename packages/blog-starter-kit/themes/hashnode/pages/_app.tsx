@@ -7,7 +7,6 @@ import { GlobalFontVariables } from '../components/fonts';
 import { getUrqlClientConfig } from '../lib/api/client';
 
 import { Fragment } from 'react';
-import { ThemeProvider } from 'next-themes'
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
@@ -15,9 +14,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 			 <GlobalFontVariables />
 			 <Component {...pageProps} />
 		</Fragment>
-    <ThemeProvider attribute="class">
-            <Component {...pageProps} />
-        </ThemeProvider>
 	);
 }
 
