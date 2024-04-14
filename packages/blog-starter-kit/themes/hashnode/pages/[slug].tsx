@@ -120,7 +120,7 @@ export default function PostOrPage(props: Props) {
 							'blog-header',
 							'z-50 w-full border-b',
 							navPositionStyles,
-							'border-black/10 bg-white bg-opacity-70 dark:border-white/10 dark:bg-slate-900 dark:bg-opacity-70',
+							'border-black/10 bg-white bg-opacity-70 dark:border-white/10 dark:bg-black dark:bg-opacity-70',
 						)}
 					>
 						<PostPageNavbar publication={publication} ref={headerRef} />
