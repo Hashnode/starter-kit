@@ -17,9 +17,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 	);
 }
 
-import { AppProps } from 'next/app';
-import '../styles/index.css';
-
 // `withUrqlClient` HOC provides the `urqlClient` prop and takes care of restoring cache from urqlState
 // this will provide ssr cache to the provider and enable to use `useQuery` hook on the client side
 export default withUrqlClient(getUrqlClientConfig, { neverSuspend: true })(MyApp);
