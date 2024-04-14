@@ -19,7 +19,7 @@ export const Header = (props: Props) => {
 
 	return (
 		<header
-			className="blog-header relative z-50 w-full border-b border-black/10 bg-white bg-opacity-70 dark:border-white/10 dark:bg-slate-950 dark:bg-opacity-70"
+			className="blog-header relative z-50 w-full border-b border-black/10 bg-white bg-opacity-70 dark:border-white/10 dark:bg-black dark:bg-opacity-70"
 		>
 			<div className="container mx-auto px-2 md:px-4 2xl:px-10">
 				<div className="relative z-40 flex flex-row items-center justify-between pb-2 pt-8 md:mb-4">
@@ -43,7 +43,6 @@ export const Header = (props: Props) => {
 						)}
 					>
 						<HeaderBlogSearch publication={publication} />
-						<Button as="a" href="#" type="primary" label="Sign up" />
 					</div>
 				</div>
 
