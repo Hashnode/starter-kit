@@ -41,7 +41,7 @@ const Newsletter = (props: Props) => {
   return (
     <AppProvider publication={publication}>
       <Header currentMenuId={currentMenuId} isHome={false}/>
-      <div className="blog-page-area mx-auto min-h-screen px-4 pb-8 pt-20 md:px-10 md:pt-20 bg-white bg-opacity-70 dark:border-white/10 dark:bg-black dark:bg-opacity-70">
+      <div className="blog-page-area mx-auto min-h-screen px-4 pb-8 pt-20 md:px-10 md:pt-20 bg-white dark:border-white/10 dark:bg-black">
         <div className="blog-page-card container relative z-30 mx-auto grid grid-flow-row grid-cols-8 pb-0 2xl:grid-cols-10">
           <div className="col-span-full">
             <span className="mx-auto -mb-10 block h-32 w-32 overflow-hidden rounded-full">
