@@ -8,7 +8,7 @@ const fontPlusJakartaVar = 'var(--font-plus-jakarta-sans)';
 
 module.exports = {
 	content: ['./components/**/*.tsx', './pages/**/*.tsx', './components/*.js'],
-	darkMode: 'class',
+	darkMode: 'media',
 	theme: {
 		extend: {
 			fontFamily: {
@@ -21,7 +21,7 @@ module.exports = {
 				'accent-7': '#333',
 				success: '#0070f3',
 				cyan: '#79FFE1',
-				primary: colors.gray,
+				primary: colors.blue,
 			},
 			typography: () => ({
 				DEFAULT: {
