@@ -43,7 +43,6 @@ export const Header = (props: Props) => {
 						)}
 					>
 						<HeaderBlogSearch publication={publication} />
-            <ThemeSwitch/>
 					</div>
 				</div>
 
