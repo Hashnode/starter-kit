@@ -223,6 +223,9 @@ importers:
       next-axiom:
         specifier: 0.18.0
         version: 0.18.0(next@13.5.5)
+      next-themes:
+        specifier: 0.3.0
+        version: 0.3.0
       next-urql:
         specifier: 5.0.2
         version: 5.0.2(react@18.2.0)(urql@4.0.4)
