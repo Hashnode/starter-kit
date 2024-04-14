@@ -362,9 +362,6 @@ importers:
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
-      next-themes:
-        specifier: 0.3.0
-        version: 0.3.0
       react-waypoint:
         specifier: ^10.3.0
         version: 10.3.0(react@18.2.0)
