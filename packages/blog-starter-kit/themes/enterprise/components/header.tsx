@@ -501,13 +501,13 @@ export const Header = () => {
 								Join our Slack
 							</a>
 
-							<Button
+							{/* <Button
 								href="https://cloud.mindsdb.com/login"
 								as="a"
 								type="outline"
 								label="LOG IN"
 								className="h-10 !text-sm"
-							/>
+							/> */}
 							<Button
 								href="https://github.com/mindsdb/mindsdb"
 								as="a"
@@ -613,12 +613,12 @@ export const Header = () => {
 									</Disclosure>
 								</div>
 								<div className="py-6">
-									<a
+									{/* <a
 										href="https://cloud.mindsdb.com/login"
 										className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
 									>
 										Log in
-									</a>
+									</a> */}
 									<a
 										href="https://github.com/mindsdb/mindsdb"
 										className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
