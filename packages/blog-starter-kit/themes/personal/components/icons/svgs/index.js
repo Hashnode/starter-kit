@@ -4,9 +4,11 @@ import ExternalArrowSVG from './ExternalArrowSVG';
 import GithubSVG from './GithubSVG';
 import HashnodeSVG from './HashnodeSVG';
 import LinkedinSVG from './LinkedinSVG';
+import Moon from './Moon';
 import NewsletterPlusSVG from './NewsletterPlusSVG';
 import PlusCircleSVG from './PlusCircleSVG';
 import RssSVG from './RssSVG';
+import Sun from './Sun';
 import XSVG from './XSVG';
 
 export {
@@ -16,8 +18,10 @@ export {
 	GithubSVG,
 	HashnodeSVG,
 	LinkedinSVG,
+	Moon,
 	NewsletterPlusSVG,
 	PlusCircleSVG,
 	RssSVG,
+	Sun,
 	XSVG,
 };

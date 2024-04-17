@@ -22,6 +22,7 @@
 		"gray-matter": "^4.0.3",
 		"html-react-parser": "^4.2.2",
 		"js-cookie": "^3.0.5",
+		"next-themes": "^0.3.0",
 		"react-waypoint": "^10.3.0",
 		"remark": "^14.0.2",
 		"remark-html": "^15.0.1",
