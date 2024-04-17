@@ -17,7 +17,7 @@ export const MinimalPostPreview = ({ title, date, slug, commentCount }: Props) =
 
 	return (
 		<section className="flex flex-col items-start gap-1">
-			<h2 className="text-lg leading-tight tracking-tight text-black dark:text-white">
+			<h2 className="text-lg font-medium leading-tight tracking-tight text-black underline dark:text-white">
 				<Link href={postURL}>{title}</Link>
 			</h2>
 			<p className="flex flex-row items-center gap-2">
