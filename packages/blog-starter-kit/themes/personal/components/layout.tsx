@@ -12,9 +12,7 @@ export const Layout = ({ children }: Props) => {
 		<>
 			<Meta />
 			<Scripts />
-			<div className="min-h-screen bg-white dark:bg-neutral-950">
-				<main>{children}</main>
-			</div>
+			<main className="flex flex-col min-h-screen bg-white dark:bg-neutral-950">{children}</main>
 			<Analytics />
 			<Integrations />
 		</>
