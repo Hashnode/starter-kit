@@ -3,7 +3,7 @@ deployment:
   # This is the name of the deployment, this is used in a _lot_ of places in the helm charts so lets just specify it
   name: docs-hashnode-ssl-proxy
 
-  replicaCount: 1
+  replicaCount: 2
 
   # This runs on Linux only
   nodeSelector:
