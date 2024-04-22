@@ -3214,6 +3214,16 @@ export type SearchPostsOfPublicationFilter = {
   query: Scalars['String']['input'];
 };
 
+export type SearchUser = Node & {
+  __typename?: 'SearchUser';
+  /** ID of the user. */
+  id: Scalars['ID']['output'];
+  /** Signifies if the user has a pending invite to the publication. Returned when the filter has pendingInviteStatus set to true. */
+  pendingInviteStatus?: Maybe<Scalars['Boolean']['output']>;
+  /** User node containing the user information. */
+  user: User;
+};
+
 /**
  * Contains basic information about the series.
  * A series is a collection of posts that are related to each other.

@@ -18,6 +18,7 @@ import {
 	ContactSVG,
 	ContributeSVG,
 	CustomChatbotSVG,
+	DataEnrichmentSVG,
 	DocsNavSVG,
 	EnterpriseSVG,
 	EventsSVG,
@@ -91,41 +92,47 @@ const product2 = [
 ];
 const sol1 = [
 	{
-		name: 'Continuous Fine-Tuning',
-		description: 'Improve AI models in real time',
-		href: 'https://docs.mindsdb.com/finetune/openai',
+		name: 'Automated Fine-Tuning',
+		description: 'Keep models up-to-date with your real-time enterprise data',
+		href: 'https://docs.mindsdb.com/use-cases/automated_finetuning',
 		Icon: <FineTuningSVG />,
 	},
 	{
 		name: 'AI Agents',
 		description: 'Enhance versatility with customizable “skills”',
-		href: 'https://docs.mindsdb.com/mindsdb_sql/agents/agent',
+		href: 'https://docs.mindsdb.com/use-cases/ai_agents',
 		Icon: <AIAgentsSVG />,
 	},
 	{
-		name: 'Semantic Search',
-		description: 'RAG and embeddings sync',
-		href: 'https://docs.mindsdb.com/sql/tutorials/rag',
+		name: 'AI-powered Data Retrieval',
+		description: 'Embeddings sync, RAG, semantic search and more',
+		href: 'https://docs.mindsdb.com/use-cases/ai-powered_data_retrieval',
 		Icon: <SemanticSearchSVG />,
+	},
+	{
+		name: 'Data Enrichment',
+		description: 'Automatically enhance your data using AI',
+		href: 'https://docs.mindsdb.com/use-cases/data_enrichment',
+		Icon: <DataEnrichmentSVG />,
 	},
 ];
 const sol2 = [
 	{
-		name: 'Custom Chatbots',
-		description: 'Connect agents with chat interfaces',
-		href: 'https://docs.mindsdb.com/mindsdb_sql/agents/chatbot',
+		name: 'Predictive Analytics',
+		description: 'Detect anomalies and build time-series forecasts using just SQL',
+		href: 'https://docs.mindsdb.com/use-cases/predictive_analytics',
 		Icon: <CustomChatbotSVG />,
 	},
 	{
-		name: 'Forecasting',
-		description: 'Forecast trends in your data with enhanced SQL',
-		href: 'https://docs.mindsdb.com/sql/tutorials/house-sales-forecasting',
+		name: 'In-Database Machine Learning',
+		description: 'Deploy AI models at the data layer and inference with SQL',
+		href: 'https://docs.mindsdb.com/use-cases/in-database_ml',
 		Icon: <ForecastingSVG />,
 	},
 	{
-		name: 'In-database Text Processing',
-		description: 'Sentiment analysis, summarization, and more',
-		href: 'https://docs.mindsdb.com/nlp/sentiment-analysis-inside-mysql-with-openai',
+		name: 'AI Workflow Automation',
+		description: 'Automate AI pipelines with Jobs and Triggers',
+		href: 'https://docs.mindsdb.com/use-cases/ai_workflow_automation',
 		Icon: <TextProcessingSVG />,
 	},
 ];
@@ -237,7 +244,7 @@ const NavItem = ({
 }) => {
 	return (
 		<a href={url} className=" flex flex-row gap-3 rounded-md  px-4 py-3 hover:bg-green-50 ">
-			{Icon}
+			<div>{Icon}</div>
 			<span>
 				<p>{title}</p>
 				<p className=" text-sm text-gray-500">{description}</p>
