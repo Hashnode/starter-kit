@@ -3,40 +3,67 @@ name: Dev - Build and Deploy on main
 on:
   push:
     branches:
-      - master
       - main
 
 defaults:
   run:
     shell: bash
 
-jobs:
 
-  build-hashnode-starter-kit:
-    runs-on: [self-hosted, dev]
+jobs:
+  build:
+    runs-on: mdb-dev
+    env:
+      AWS_REGION: us-east-2
     steps:
-      - uses: actions/checkout@v2
+      - name: Generate token
+        # Use the Github App private key to request an installation
+        # token with read-only access to the organization's private
+        # repositories. This token is then used in the checkout step
+        # (but not in subsequent steps that create releases and upload
+        # assets, those still use the default token that has write
+        # access to the current repository).
+        id: generate_token
+        uses: tibdex/github-app-token@v1
         with:
-          submodules: 'true'
-      - uses: ./.github/actions/setup-env
-      - uses: ./.github/actions/build-push-ecr
+          app_id: ${{ secrets.ACTION_APP_ID }}
+          private_key: ${{ secrets.ACTION_APP_KEY }}
+      - name: Checkout tag
+        uses: actions/checkout@v4
         with:
-          module-name: ${{ env.CI_REPOSITORY_NAME_SLUG }}
-          build-for-environment: dev
-          # extra-build-args: "-f docker/mindsdb.Dockerfile"
+          submodules: recursive
+          token: ${{ steps.generate_token.outputs.token }}
+      - name: Pull MindsDB Github Actions
+        uses: actions/checkout@v4
+        with:
+          repository: mindsdb/github-actions
+          path: github-actions
+          ssh-key: ${{ secrets.GH_ACTIONS_PULL_SSH }}
+      - uses: ./github-actions/setup-env
+      - uses: ./github-actions/build-push-ecr
+        with:
+          module-name: ${{ env.CI_REPOSITORY_SLUG }}
+          build-for-environment: development
+          # extra-build-args: -f docker/Dockerfile
 
   deploy:
-    runs-on: [self-hosted, dev]
-    needs: [build-hashnode-starter-kit]
+    runs-on: mdb-dev
+    needs: build
     environment:
       name: dev
       url: https://hashnode.dev.mindsdb.com/blog
     steps:
-      - uses: actions/checkout@v2
-      - uses: ./.github/actions/setup-env
+      - uses: actions/checkout@v4
+      - name: Pull MindsDB Github Actions
+        uses: actions/checkout@v4
+        with:
+          repository: mindsdb/github-actions
+          path: github-actions
+          ssh-key: ${{ secrets.GH_ACTIONS_PULL_SSH }}
+      - uses: ./github-actions/setup-env
       - uses: DevOps-Nirvana/aws-helm-multi-deploy-nodocker@v2
         with:
           environment-slug: dev
           k8s-namespace: dev
-          image-tag: dev-${{ env.SLUG }}
+          image-tag: development-${{ env.SLUG }}
           timeout: 600s

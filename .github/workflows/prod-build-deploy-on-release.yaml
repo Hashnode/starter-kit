@@ -3,38 +3,69 @@ name: Prod - Build and Deploy on release
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 defaults:
   run:
     shell: bash
 
+
 jobs:
 
-  build-hashnode-starter-kit:
-    runs-on: [self-hosted, dev]
+  build:
+    runs-on: mdb-dev
+    env:
+      AWS_REGION: us-east-2
     steps:
-      - uses: actions/checkout@v2
+      - name: Generate token
+        # Use the Github App private key to request an installation
+        # token with read-only access to the organization's private
+        # repositories. This token is then used in the checkout step
+        # (but not in subsequent steps that create releases and upload
+        # assets, those still use the default token that has write
+        # access to the current repository).
+        id: generate_token
+        uses: tibdex/github-app-token@v1
         with:
-          submodules: 'true'
-      - uses: ./.github/actions/setup-env
-      - uses: ./.github/actions/build-push-ecr
+          app_id: ${{ secrets.ACTION_APP_ID }}
+          private_key: ${{ secrets.ACTION_APP_KEY }}
+      - name: Checkout tag
+        uses: actions/checkout@v4
         with:
-          module-name: ${{ env.CI_REPOSITORY_NAME_SLUG }}
-          build-for-environment: prod
-          # extra-build-args: "-f docker/mindsdb.Dockerfile"
+          submodules: recursive
+          token: ${{ steps.generate_token.outputs.token }}
+      - name: Pull MindsDB Github Actions
+        uses: actions/checkout@v4
+        with:
+          repository: mindsdb/github-actions
+          path: github-actions
+          ssh-key: ${{ secrets.GH_ACTIONS_PULL_SSH }}
+      - uses: ./github-actions/setup-env
+      - uses: ./github-actions/build-push-ecr
+        with:
+          module-name: ${{ env.CI_REPOSITORY_SLUG }}
+          build-for-environment: production
+          extra-build-args: -f docker/Dockerfile
+          image-ref: ${{ env.CI_REF_SLUG }}
 
-  deploy:
-    runs-on: [self-hosted, prod]
-    needs: [build-hashnode-starter-kit]
+  deploy-prod:
+    runs-on: mdb-prod
+    needs: [build]
     environment:
       name: prod
       url: https://mindsdb.com/blog
     steps:
-      - uses: actions/checkout@v2
-      - uses: ./.github/actions/setup-env
+      - uses: actions/checkout@v4
+      - name: Pull MindsDB Github Actions
+        uses: actions/checkout@v4
+        with:
+          repository: mindsdb/github-actions
+          path: github-actions
+          ssh-key: ${{ secrets.GH_ACTIONS_PULL_SSH }}
+      - uses: ./github-actions/setup-env
       - uses: DevOps-Nirvana/aws-helm-multi-deploy-nodocker@v2
         with:
           environment-slug: prod
           k8s-namespace: prod
-          image-tag: prod-${{ env.SLUG }}
+          image-tag: production-${{ env.CI_REF_SLUG }}
           timeout: 600s

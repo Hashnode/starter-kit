@@ -8,7 +8,7 @@ deployment:
 
   # Where the image comes from.  This should be the ECR Repo / Gitlab Group / Repo Name
   image:
-    repository: 454861456664.dkr.ecr.us-east-2.amazonaws.com/hashnode-starter-kit
+    repository: 454861456664.dkr.ecr.us-east-2.amazonaws.com/mindsdb-hashnode-starter-kit
     # Uncomment these two temporarily (and disable probes below) to debug manually in Kubernetes
     # command: ["/bin/sh"]
     # args: ["-c", "while true; do echo hello; sleep 10;done"]
