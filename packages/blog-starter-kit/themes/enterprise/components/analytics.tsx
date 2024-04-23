@@ -1,24 +1,14 @@
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { useAppContext } from './contexts/appContext';
 
+import { useAppContext } from './contexts/appContext';
 const GA_TRACKING_ID = 'G-72XG3F8LNJ'; // This is Hashnode's GA tracking ID
 const isProd = process.env.NEXT_PUBLIC_MODE === 'production';
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_URL || '';
 
 export const Analytics = () => {
-	const { publication, post } = useAppContext();
-
-	useEffect(() => {
-		if (!isProd) return;
-
-		_sendPageViewsToHashnodeGoogleAnalytics();
-		_sendViewsToHashnodeInternalAnalytics();
-		_sendViewsToHashnodeAnalyticsDashboard();
-	}, []);
-
-	if (!isProd) return null;
+	const { publication, post, series, page } = useAppContext();
 
 	const _sendPageViewsToHashnodeGoogleAnalytics = () => {
 		// @ts-ignore
@@ -27,7 +17,6 @@ export const Analytics = () => {
 			first_party_collection: true,
 		});
 	};
-
 	const _sendViewsToHashnodeInternalAnalytics = async () => {
 		// Send to Hashnode's own internal analytics
 		const event: Record<string, string | number | object> = {
@@ -42,7 +31,6 @@ export const Analytics = () => {
 				referrer: window.document.referrer,
 			},
 		};
-
 		let deviceId = Cookies.get('__amplitudeDeviceID');
 		if (!deviceId) {
 			deviceId = uuidv4();
@@ -50,9 +38,7 @@ export const Analytics = () => {
 				expires: 365 * 2,
 			}); // expire after two years
 		}
-
 		event['device_id'] = deviceId;
-
 		await fetch(`${BASE_PATH}/ping/data-event`, {
 			method: 'POST',
 			headers: {
@@ -61,7 +47,6 @@ export const Analytics = () => {
 			body: JSON.stringify({ events: [event] }),
 		});
 	};
-
 	const _sendViewsToHashnodeAnalyticsDashboard = async () => {
 		const LOCATION = window.location;
 		const NAVIGATOR = window.navigator;
@@ -72,21 +57,17 @@ export const Analytics = () => {
 			LOCATION.pathname +
 			LOCATION.search +
 			LOCATION.hash;
-
 		const query = new URL(currentFullURL).searchParams;
-
 		const utm_id = query.get('utm_id');
 		const utm_campaign = query.get('utm_campaign');
 		const utm_source = query.get('utm_source');
 		const utm_medium = query.get('utm_medium');
 		const utm_term = query.get('utm_term');
 		const utm_content = query.get('utm_content');
-
 		let referrer = document.referrer || '';
 		if (referrer.indexOf(window.location.hostname) !== -1) {
 			referrer = '';
 		}
-
 		const data = {
 			publicationId: publication.id,
 			postId: post && post.id,
