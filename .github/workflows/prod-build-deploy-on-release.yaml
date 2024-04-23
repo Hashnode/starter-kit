@@ -11,7 +11,6 @@ defaults:
 
 
 jobs:
-
   build:
     runs-on: mdb-dev
     env:
@@ -32,7 +31,6 @@ jobs:
       - name: Checkout tag
         uses: actions/checkout@v4
         with:
-          submodules: recursive
           token: ${{ steps.generate_token.outputs.token }}
       - name: Pull MindsDB Github Actions
         uses: actions/checkout@v4
@@ -45,7 +43,6 @@ jobs:
         with:
           module-name: ${{ env.CI_REPOSITORY_SLUG }}
           build-for-environment: production
-          extra-build-args: -f docker/Dockerfile
           image-ref: ${{ env.CI_REF_SLUG }}
 
   deploy-prod:
