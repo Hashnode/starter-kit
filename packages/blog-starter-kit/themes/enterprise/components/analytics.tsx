@@ -159,14 +159,14 @@ export const Analytics = () => {
 		let hasSentBeacon = false;
 		try {
 			if (navigator.sendBeacon) {
-				hasSentBeacon = navigator.sendBeacon(`${BASE_PATH}/api/analytics`, blob);
+				hasSentBeacon = navigator.sendBeacon(`/api/analytics`, blob);
 			}
 		} catch (error) {
 			// do nothing; in case there is an error we fall back to fetch
 		}
 
 		if (!hasSentBeacon) {
-			fetch(`${BASE_PATH}/api/analytics`, {
+			fetch(`/api/analytics`, {
 				method: 'POST',
 				body: blob,
 				credentials: 'omit',

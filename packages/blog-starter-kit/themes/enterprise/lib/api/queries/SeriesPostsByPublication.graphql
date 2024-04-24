@@ -11,6 +11,7 @@ query SeriesPostsByPublication($host: String!, $seriesSlug: String!, $first: Int
 }
 
 fragment Series on Series {
+	id
 	name
 	slug
 	description {

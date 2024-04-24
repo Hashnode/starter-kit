@@ -3051,6 +3051,17 @@ input SearchPostsOfPublicationFilter {
   query: String!
 }
 
+type SearchUser implements Node {
+  """ID of the user."""
+  id: ID!
+  """
+  Signifies if the user has a pending invite to the publication. Returned when the filter has pendingInviteStatus set to true.
+  """
+  pendingInviteStatus: Boolean
+  """User node containing the user information."""
+  user: User!
+}
+
 """
 Contains basic information about the series.
 A series is a collection of posts that are related to each other.
