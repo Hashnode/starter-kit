@@ -137,7 +137,7 @@ export default function PostOrPage({ publication, post, page }: Props) {
 	}
 
 	return (
-		<AppProvider publication={publication} post={post}>
+		<AppProvider publication={publication} post={post} page={page}>
 			<Layout>
 				<Header />
 				<Container className="pt-10">

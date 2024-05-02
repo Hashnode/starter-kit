@@ -31,7 +31,7 @@ export default function Post({ series, publication, posts }: Props) {
 	const title = `${series.name} - ${publication.title}`;
 
 	return (
-		<AppProvider publication={publication}>
+		<AppProvider publication={publication} series={series}>
 			<Layout>
 				<Head>
 					<title>{title}</title>

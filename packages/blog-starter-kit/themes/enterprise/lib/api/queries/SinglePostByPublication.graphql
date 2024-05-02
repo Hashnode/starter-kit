@@ -32,6 +32,9 @@ fragment PostFull on Post {
 			html
 		}
 	}
+	series {
+		id
+	}
 	seo {
 		title
 		description

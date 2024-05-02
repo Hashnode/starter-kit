@@ -1,5 +1,5 @@
 const ANALYTICS_BASE_URL = 'https://hn-ping2.hashnode.com';
-const ADVANCED_ANALYTICS_BASE_URL = 'https://stats.hashnode.com';
+const ADVANCED_ANALYTICS_BASE_URL = 'https://user-analytics.hashnode.com';
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 const getBasePath = () => {
@@ -37,8 +37,8 @@ const config = {
 				destination: `${ANALYTICS_BASE_URL}/api/view`,
 			},
 			{
-				source: '/api/collect',
-				destination: `${ADVANCED_ANALYTICS_BASE_URL}/api/collect`,
+				source: '/api/analytics',
+				destination: `${ADVANCED_ANALYTICS_BASE_URL}/api/analytics`,
 			},
 		];
 	},
