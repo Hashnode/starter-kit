@@ -1,7 +1,7 @@
 const { request, gql } = require('graphql-request');
 
 const ANALYTICS_BASE_URL = 'https://hn-ping2.hashnode.com';
-const HASHNODE_ADVANCED_ANALYTICS_URL = "https://user-analytics.hashnode.com"
+const HASHNODE_ADVANCED_ANALYTICS_URL = 'https://user-analytics.hashnode.com';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
@@ -77,10 +77,6 @@ const config = {
 			{
 				source: '/ping/data-event',
 				destination: `${ANALYTICS_BASE_URL}/api/data-event`,
-			},
-			{
-				source: '/ping/view',
-				destination: `${ANALYTICS_BASE_URL}/api/view`,
 			},
 			{
 				source: '/api/analytics',
