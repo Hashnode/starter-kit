@@ -886,6 +886,12 @@ export type CustomCssFeature = Feature & {
   published?: Maybe<CustomCss>;
 };
 
+export enum CustomDomainStatus {
+  Invalid = 'INVALID',
+  Valid = 'VALID',
+  Verifying = 'VERIFYING'
+}
+
 /** Contains the publication's dark mode preferences. */
 export type DarkModePreferences = {
   __typename?: 'DarkModePreferences';
@@ -893,6 +899,19 @@ export type DarkModePreferences = {
   enabled?: Maybe<Scalars['Boolean']['output']>;
   /** The custom dark mode logo of the publication. */
   logo?: Maybe<Scalars['String']['output']>;
+};
+
+export type DeleteRoleBasedInviteInput = {
+  /** The ID of the role based invite. */
+  inviteId: Scalars['ID']['input'];
+  publicationId: Scalars['ID']['input'];
+};
+
+/** Response to deleting a role based invite. */
+export type DeleteRoleBasedInvitePayload = {
+  __typename?: 'DeleteRoleBasedInvitePayload';
+  /** Deleted invite. */
+  invite: RoleBasedInvite;
 };
 
 export type DeleteWebhookPayload = {
@@ -929,6 +948,13 @@ export type DomainStatus = {
   host: Scalars['String']['output'];
   /** A flag indicating if the publication domain is ready. */
   ready: Scalars['Boolean']['output'];
+  /** A flag indicating the status of a publication domain */
+  status: CustomDomainStatus;
+  /**
+   * A timestamp indicating when the domain was verified.
+   * It is only present if the domain is verified.
+   */
+  verifiedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
 /**
@@ -1512,6 +1538,8 @@ export type Mutation = {
   /** Creates a new series. */
   createSeries: CreateSeriesPayload;
   createWebhook: CreateWebhookPayload;
+  /** Deletes a role based invite. */
+  deleteRoleBasedInvite: DeleteRoleBasedInvitePayload;
   deleteWebhook: DeleteWebhookPayload;
   /** Likes a comment. */
   likeComment: LikeCommentPayload;
@@ -1592,6 +1620,11 @@ export type MutationCreateSeriesArgs = {
 
 export type MutationCreateWebhookArgs = {
   input: CreateWebhookInput;
+};
+
+
+export type MutationDeleteRoleBasedInviteArgs = {
+  input: DeleteRoleBasedInviteInput;
 };
 
 
@@ -2374,6 +2407,7 @@ export type Publication = Node & {
   post?: Maybe<Post>;
   /** Returns the list of posts in the publication. */
   posts: PublicationPostConnection;
+  postsViaPage: PublicationPostPageConnection;
   /** The publication preferences around layout, theme and other personalisations. */
   preferences: Preferences;
   /** Publications that are recommended by this publication. */
@@ -2438,6 +2472,16 @@ export type PublicationPostsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   filter?: InputMaybe<PublicationPostConnectionFilter>;
   first: Scalars['Int']['input'];
+};
+
+
+/**
+ * Contains basic information about the publication.
+ * A publication is a blog that can be created for a user or a team.
+ */
+export type PublicationPostsViaPageArgs = {
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
 };
 
 
@@ -2614,11 +2658,23 @@ export type PublicationMember = Node & {
   __typename?: 'PublicationMember';
   /** The ID of the publication member. */
   id: Scalars['ID']['output'];
+  /**
+   * Denotes if the member is public or private
+   * A private member is not visible on members page
+   */
+  privacyState?: Maybe<PublicationMemberPrivacyState>;
   /** The role of the user in the publication. */
   role: UserPublicationRole;
   /** The user who is a member of the publication. */
   user?: Maybe<User>;
 };
+
+export enum PublicationMemberPrivacyState {
+  /** The member is private and not visible on the members page. */
+  Private = 'PRIVATE',
+  /** The member is public and visible on the members page. */
+  Public = 'PUBLIC'
+}
 
 /** Contains the publication's navbar items. */
 export type PublicationNavbarItem = {
@@ -2688,6 +2744,16 @@ export type PublicationPostConnectionFilter = {
    * It is an "OR" filter and not an "AND" filter.
    */
   tags?: InputMaybe<Array<Scalars['ObjectId']['input']>>;
+};
+
+export type PublicationPostPageConnection = PageConnection & {
+  __typename?: 'PublicationPostPageConnection';
+  /** The posts belonging to the publication. */
+  nodes: Array<Post>;
+  /** Information to aid in pagination. */
+  pageInfo: OffsetPageInfo;
+  /** The total number of posts. */
+  totalDocuments: Scalars['Int']['output'];
 };
 
 /**
@@ -3066,6 +3132,22 @@ export type RestorePostPayload = {
   post?: Maybe<Post>;
 };
 
+export type RoleBasedInvite = Node & {
+  __typename?: 'RoleBasedInvite';
+  /** The capacity of how many members to be invited by the link. */
+  capacity?: Maybe<Scalars['Int']['output']>;
+  /** The expiry date of the invite. */
+  expiryDate?: Maybe<Scalars['DateTime']['output']>;
+  /** The ID of the role based invite. */
+  id: Scalars['ID']['output'];
+  /** Invite link of the role based invite. */
+  inviteLink?: Maybe<Scalars['String']['output']>;
+  /** Boolean that signifies if the invite has unlimited capacity. */
+  isUnlimitedCapacity?: Maybe<Scalars['Boolean']['output']>;
+  /** The role assigned to the user in the publication. */
+  role: UserPublicationRole;
+};
+
 /** Information to help in seo related meta tags. */
 export type Seo = {
   __typename?: 'SEO';
@@ -3120,6 +3202,7 @@ export enum Scope {
   DocsEditorOrOwner = 'docs_editor_or_owner',
   DocsOwner = 'docs_owner',
   ImportSubscribersToPublication = 'import_subscribers_to_publication',
+  InvitedTeamUser = 'invited_team_user',
   PublicationAdmin = 'publication_admin',
   PublicationMember = 'publication_member',
   PublishComment = 'publish_comment',
@@ -3163,6 +3246,16 @@ export type SearchPostsOfPublicationFilter = {
   publicationId: Scalars['ObjectId']['input'];
   /** The query to be searched in post. */
   query: Scalars['String']['input'];
+};
+
+export type SearchUser = Node & {
+  __typename?: 'SearchUser';
+  /** ID of the user. */
+  id: Scalars['ID']['output'];
+  /** Signifies if the user has a pending invite to the publication. Returned when the filter has pendingInviteStatus set to true. */
+  pendingInviteStatus?: Maybe<Scalars['Boolean']['output']>;
+  /** User node containing the user information. */
+  user: User;
 };
 
 /**
@@ -3784,7 +3877,7 @@ export enum UserPublicationRole {
 
 /**
  * Connection to get list of publications.
- * Returns a list of edges which contains the documentation project and cursor to the last item of the previous page.
+ * Returns a list of edges which contains the publications and cursor to the last item of the previous page.
  */
 export type UserPublicationsConnection = Connection & {
   __typename?: 'UserPublicationsConnection';
