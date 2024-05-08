@@ -890,6 +890,12 @@ type CustomCSSFeature implements Feature {
   published: CustomCSS
 }
 
+enum CustomDomainStatus {
+  INVALID
+  VALID
+  VERIFYING
+}
+
 """Contains the publication's dark mode preferences."""
 type DarkModePreferences {
   """A flag indicating if the dark mode is enabled for the publication."""
@@ -902,6 +908,18 @@ type DarkModePreferences {
 A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 """
 scalar DateTime
+
+input DeleteRoleBasedInviteInput {
+  """The ID of the role based invite."""
+  inviteId: ID!
+  publicationId: ID!
+}
+
+"""Response to deleting a role based invite."""
+type DeleteRoleBasedInvitePayload {
+  """Deleted invite."""
+  invite: RoleBasedInvite!
+}
 
 type DeleteWebhookPayload {
   webhook: Webhook
@@ -936,6 +954,13 @@ type DomainStatus {
   host: String!
   """A flag indicating if the publication domain is ready."""
   ready: Boolean!
+  """A flag indicating the status of a publication domain"""
+  status: CustomDomainStatus!
+  """
+  A timestamp indicating when the domain was verified. 
+  It is only present if the domain is verified.
+  """
+  verifiedAt: DateTime
 }
 
 """
@@ -1532,6 +1557,8 @@ type Mutation {
   """Creates a new series."""
   createSeries(input: CreateSeriesInput!): CreateSeriesPayload!
   createWebhook(input: CreateWebhookInput!): CreateWebhookPayload!
+  """Deletes a role based invite."""
+  deleteRoleBasedInvite(input: DeleteRoleBasedInviteInput!): DeleteRoleBasedInvitePayload!
   deleteWebhook(id: ID!): DeleteWebhookPayload!
   """Likes a comment."""
   likeComment(input: LikeCommentInput!): LikeCommentPayload!
@@ -2292,6 +2319,12 @@ type Publication implements Node {
     """The number of posts to return."""
     first: Int!
   ): PublicationPostConnection!
+  postsViaPage(
+    """The page number that should be returned."""
+    page: Int!
+    """The number of posts to return on a single page."""
+    pageSize: Int!
+  ): PublicationPostPageConnection!
   """
   The publication preferences around layout, theme and other personalisations.
   """
@@ -2470,10 +2503,22 @@ type PublicationLinks {
 type PublicationMember implements Node {
   """The ID of the publication member."""
   id: ID!
+  """
+  Denotes if the member is public or private
+  A private member is not visible on members page
+  """
+  privacyState: PublicationMemberPrivacyState
   """The role of the user in the publication."""
   role: UserPublicationRole!
   """The user who is a member of the publication."""
   user: User
+}
+
+enum PublicationMemberPrivacyState {
+  """The member is private and not visible on the members page."""
+  PRIVATE
+  """The member is public and visible on the members page."""
+  PUBLIC
 }
 
 """Contains the publication's navbar items."""
@@ -2541,6 +2586,15 @@ input PublicationPostConnectionFilter {
   It is an "OR" filter and not an "AND" filter.
   """
   tags: [ObjectId!]
+}
+
+type PublicationPostPageConnection implements PageConnection {
+  """The posts belonging to the publication."""
+  nodes: [Post!]!
+  """Information to aid in pagination."""
+  pageInfo: OffsetPageInfo!
+  """The total number of posts."""
+  totalDocuments: Int!
 }
 
 """
@@ -2906,6 +2960,21 @@ type RestorePostPayload {
   post: Post
 }
 
+type RoleBasedInvite implements Node {
+  """The capacity of how many members to be invited by the link."""
+  capacity: Int
+  """The expiry date of the invite."""
+  expiryDate: DateTime
+  """The ID of the role based invite."""
+  id: ID!
+  """Invite link of the role based invite."""
+  inviteLink: String
+  """Boolean that signifies if the invite has unlimited capacity."""
+  isUnlimitedCapacity: Boolean
+  """The role assigned to the user in the publication."""
+  role: UserPublicationRole!
+}
+
 """Information to help in seo related meta tags."""
 type SEO {
   """The description used in og:description tag for SEO purposes."""
@@ -2963,6 +3032,7 @@ enum Scope {
   docs_editor_or_owner
   docs_owner
   import_subscribers_to_publication
+  invited_team_user
   publication_admin
   publication_member
   publish_comment
@@ -3007,6 +3077,17 @@ input SearchPostsOfPublicationFilter {
   publicationId: ObjectId!
   """The query to be searched in post."""
   query: String!
+}
+
+type SearchUser implements Node {
+  """ID of the user."""
+  id: ID!
+  """
+  Signifies if the user has a pending invite to the publication. Returned when the filter has pendingInviteStatus set to true.
+  """
+  pendingInviteStatus: Boolean
+  """User node containing the user information."""
+  user: User!
 }
 
 """
@@ -3654,7 +3735,7 @@ enum UserPublicationRole {
 
 """
 Connection to get list of publications.
-Returns a list of edges which contains the documentation project and cursor to the last item of the previous page.
+Returns a list of edges which contains the publications and cursor to the last item of the previous page.
 """
 type UserPublicationsConnection implements Connection {
   """A list of edges of publications connection."""
