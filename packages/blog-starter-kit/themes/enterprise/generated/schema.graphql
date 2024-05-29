@@ -755,6 +755,11 @@ input CreateDraftInput {
   """
   disableComments: Boolean
   """
+  The id of the user who owns the draft. When this field is supplied, the draft is created directly under that user's account.
+  Only applicable for team publications.
+  """
+  draftOwner: ID
+  """
   Information about the meta tags added to the resulting draft, used for SEO purpose.
   """
   metaTags: MetaTagsInput
@@ -957,7 +962,7 @@ type DomainStatus {
   """A flag indicating the status of a publication domain"""
   status: CustomDomainStatus!
   """
-  A timestamp indicating when the domain was verified. 
+  A timestamp indicating when the domain was verified.
   It is only present if the domain is verified.
   """
   verifiedAt: DateTime
@@ -1081,6 +1086,24 @@ type DraftEdge implements Edge {
 
 type DraftFeatures {
   tableOfContents: TableOfContentsFeature!
+}
+
+type DraftRevision implements Node {
+  """The name of the user who created the revision."""
+  authorName: String!
+  """The content of the draft revision."""
+  content: Content!
+  """The time the revision has been created."""
+  createdAt: DateTime!
+  """The ID of the draft revision."""
+  id: ID!
+}
+
+type DraftRevisionEdge implements Edge {
+  """A cursor for use in pagination."""
+  cursor: String!
+  """A node in the connection containing a draft revision."""
+  node: DraftRevision!
 }
 
 type DraftSettings {
@@ -1385,6 +1408,11 @@ type GroupedByTimeVisitors implements Node & Visitors {
   total: Int!
 }
 
+type HeadlessCMSFeature implements Feature {
+  """A flag indicating if the Headless CMS feature is enabled or not."""
+  isEnabled: Boolean!
+}
+
 enum HttpRedirectionType {
   """A permanent redirect that corresponds to the 302 HTTP status code."""
   PERMANENT
@@ -1597,6 +1625,10 @@ type Mutation {
   ): ScheduleDraftPayload!
   subscribeToNewsletter(input: SubscribeToNewsletterInput!): SubscribeToNewsletterPayload!
   """
+  Toggle allowContributorEdits flag to allow or restrict external contributors to further edit published articles.
+  """
+  toggleAllowContributorEdits(input: ToggleAllowContributorEditsInput!): ToggleAllowContributorEditsPayload!
+  """
   Update the follow state for the user that is provided via id or username.
   If the authenticated user does not follow the user, the mutation will follow the user.
   If the authenticated user already follows the user, the mutation will un-follow the user.
@@ -1642,6 +1674,12 @@ type MyUser implements IUser & Node {
   dateJoined: DateTime
   """Whether or not the user is deactivated."""
   deactivated: Boolean!
+  drafts(
+    """A cursor to the last item in the previous page."""
+    after: String
+    """The number of posts to return."""
+    first: Int!
+  ): UserDraftConnection!
   """The users who are following this user"""
   followers(
     """The page number that should be returned."""
@@ -2411,6 +2449,8 @@ type PublicationFeatures {
   audioBlog: AudioBlogFeature! @deprecated(reason: "Audio Blogs are not supported anymore. This field will be removed 18/04/23")
   """Individual styling for the publication."""
   customCSS: CustomCSSFeature!
+  """Headless CMS for the publication."""
+  headlessCMS: HeadlessCMSFeature!
   """
   Newsletter feature for the publication which adds a `/newsletter` route for collecting subscribers and allows sending out newsletters.
   """
@@ -3050,6 +3090,7 @@ enum Scope {
   update_reply
   webhook_admin
   write_draft
+  write_draft_revision
   write_post
   write_series
   write_static_page
@@ -3358,6 +3399,14 @@ type TextSelectionSharerFeature implements Feature {
   isEnabled: Boolean!
 }
 
+input ToggleAllowContributorEditsInput {
+  publicationId: ID!
+}
+
+type ToggleAllowContributorEditsPayload {
+  publication: Publication
+}
+
 """Payload for the toggleFollowingUser mutation."""
 type ToggleFollowUserPayload {
   """The user that was followed/unfollowed."""
@@ -3641,6 +3690,24 @@ type UserConnection implements PageConnection {
   pageInfo: OffsetPageInfo!
   """The total number of documents in the connection."""
   totalDocuments: Int!
+}
+
+"""Drafts that belong to a user."""
+type UserDraftConnection implements Connection {
+  """A list of edges."""
+  edges: [UserDraftEdge!]!
+  """Generic information to aid in pagination."""
+  pageInfo: PageInfo!
+  """The total number of documents in the connection."""
+  totalDocuments: Int!
+}
+
+"""A generic type which holds a draft during pagination."""
+type UserDraftEdge implements Edge {
+  """A cursor for use in pagination."""
+  cursor: String!
+  """The item at the end of UserDraftEdge."""
+  node: Draft!
 }
 
 """Contains a node of type user and cursor for pagination."""
