@@ -16,7 +16,7 @@ export const MinimalPostPreview = ({ title, date, slug, commentCount }: Props) =
 	const postURL = `/${slug}`;
 
 	return (
-		<section className="flex flex-col items-start gap-1">
+		<section className="flex flex-col items-start gap-1 shadow-lg">
 			<h2 className="text-lg leading-tight tracking-tight text-black dark:text-white">
 				<Link href={postURL}>{title}</Link>
 			</h2>
