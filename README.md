@@ -86,7 +86,9 @@ async rewrites() {
 
 Once you deploy your project, the subpath installation should work successfully.
 
-Note: If you are updating your environment variables in Vercel, make sure to manually redeploy to see the changes.
+> Note: <br>
+> - If you are updating your environment variables in Vercel, make sure to manually redeploy to see the changes.
+> - Your main project refers to the project you'll have to have your blog subpath on; for example, if you'd like your blog subpath to be `https://portfolio.com/blog`, then your main project would be `https://portfolio.com`. This means that the rewrites function should be added to the codebase of the main project, not the starter kit codebase.
 
 #### Cloudflare
 
