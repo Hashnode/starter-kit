@@ -33,9 +33,6 @@ function PublicationNavLinks(props: Props) {
       }),
       enabledPages?.newsletter
         ? { label: 'newsletter', url: '/newsletter', isActive: currentActiveMenuItemId === 'newsletter' }
-        : null,
-      enabledPages?.badges
-        ? { label: 'badges', url: '/badges', isActive: currentActiveMenuItemId === 'badges' }
         : null
     ].filter((item: any) => item),
   );
