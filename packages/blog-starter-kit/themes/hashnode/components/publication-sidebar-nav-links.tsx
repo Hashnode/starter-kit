@@ -2,14 +2,14 @@ import Link from 'next/link';
 import { twJoin } from 'tailwind-merge';
 
 import { CheckSVG } from './icons/svgs';
-import { Publication } from '../generated/graphql';
+import { PublicationFragment } from '../generated/graphql';
 
 
 type IPublicationSidebarNavLinks = {
   currentActiveMenuItemId?: string | null;
   isHome?: boolean | null;
   isBadge?: boolean | null;
-} & Pick<NonNullable<Publication['preferences']>, 'enabledPages' | 'navbarItems'>;
+} & Pick<NonNullable<PublicationFragment['preferences']>, 'enabledPages' | 'navbarItems'>;
 
 type IPublicationSidebarNavLinkItem = {
   href: string;
@@ -40,9 +40,7 @@ const PublicationSidebarNavLinkItem = ({
 function PublicationSidebarNavLinks(props: IPublicationSidebarNavLinks) {
   const { currentActiveMenuItemId, isHome, isBadge, enabledPages, navbarItems } = props;
   const isHomePage = !currentActiveMenuItemId && isHome;
-  const isBadgePage = !currentActiveMenuItemId && isBadge;
   const isNewsletterPage = currentActiveMenuItemId && currentActiveMenuItemId === 'newsletter';
-
   return (
     <nav className="pb-8">
       <PublicationSidebarNavLinkItem
@@ -66,13 +64,6 @@ function PublicationSidebarNavLinks(props: IPublicationSidebarNavLinks) {
             );
           })
         : null}
-      {enabledPages?.badges ? (
-        <PublicationSidebarNavLinkItem
-          href="/badges"
-          label="Badges"
-          isActive={!!isBadgePage}
-        />
-      ) : null}
       {enabledPages?.newsletter ? (
         <PublicationSidebarNavLinkItem
           href="/newsletter"

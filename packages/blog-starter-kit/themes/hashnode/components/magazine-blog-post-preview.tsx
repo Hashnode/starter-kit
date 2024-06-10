@@ -6,11 +6,11 @@ import { getDefaultPostCoverImageUrl } from '../utils/commonUtils';
 import { blurImageDimensions } from '../utils/const/images';
 import { getBlurHash, resizeImage } from '../utils/image';
 import { kFormatter } from '../utils/image';
-import { PostThumbnailFragment, RequiredPublicationFieldsFragment } from '../generated/graphql';
+import { PostThumbnailFragment, PublicationFragment } from '../generated/graphql';
 
 function BlogPostPreview(props: {
   post: PostThumbnailFragment;
-  publication: Pick<RequiredPublicationFieldsFragment, 'features'>;
+  publication: Pick<PublicationFragment, 'features'>;
 }) {
   const { post, publication } = props;
   const postURL = `/${post.slug}`;

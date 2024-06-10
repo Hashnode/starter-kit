@@ -302,7 +302,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 									<a
 										className="mb-2 mr-3 rounded-lg border bg-slate-100 px-2 py-1 text-base font-medium text-slate-700 hover:bg-slate-200 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700"
 										key={tag._id}
-										href={`/tag/${tag.slug}?source=tags_bottom_blogs`}
+										href={`tag/${tag.slug}?source=tags_bottom_blogs`}
 									>
 										<span>{tag.name}</span>
 									</a>
