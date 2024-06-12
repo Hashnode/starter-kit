@@ -81,9 +81,6 @@ export const Footer = () => {
           <div className="col-span-2 flex flex-col items-end gap-5 text-right text-slate-600 dark:text-neutral-300 md:text-left">
             <SocialLinks />
             <p>&copy; 2023 Company Inc.</p>
-            <div className="text-uppercase">
-              Server time: {localTime}
-            </div>
             <p>
               <a href="#" className="hover:underline">
                 Privacy Policy
