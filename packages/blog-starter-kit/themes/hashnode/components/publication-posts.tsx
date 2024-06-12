@@ -5,12 +5,12 @@ import { ChevronDownSVG } from './icons/svgs';
 import Button from './hn-button';
 import PubLoaderComponent from './pub-loader-component';
 
-import { PageInfo, Preferences, RequiredPublicationFieldsFragment, PostThumbnailFragment } from '../generated/graphql';
+import { PageInfo, Preferences, PublicationFragment, PostThumbnailFragment } from '../generated/graphql';
 
 
 import BlogPostPreview from './blog-post-preview';
 
-export type RequiredPublicationProps = Pick<RequiredPublicationFieldsFragment, 'features' | 'isTeam'> & {
+export type RequiredPublicationProps = Pick<PublicationFragment, 'features' | 'isTeam'> & {
   preferences: Pick<Preferences, 'layout'>;
 };
 

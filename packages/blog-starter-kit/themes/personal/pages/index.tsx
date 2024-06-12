@@ -87,7 +87,7 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 					<PersonalHeader />
 					{posts.length > 0 && <MinimalPosts context="home" posts={posts} />}
 					{!loadedMore && pageInfo.hasNextPage && pageInfo.endCursor && (
-						<button className="bg-white" onClick={loadMore}>
+						<button onClick={loadMore}>
 							Load more
 						</button>
 					)}

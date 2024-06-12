@@ -12,50 +12,50 @@ fragment Publication on Publication {
 	followersCount
 	descriptionSEO
 	features {
-      	customCSS {
-        	published {
+		customCSS {
+			published {
 				home
 				post
 				static
-        }
-      }
-    }
+			}
+		}
+	}
 	about {
 		html
 	}
 	features {
 		newsletter {
-		isEnabled
+			isEnabled
 		}
 		viewCount {
-		isEnabled
+			isEnabled
 		}
 		readTime {
-		isEnabled
+			isEnabled
 		}
 		audioBlog {
-		isEnabled
-		voiceType
+			isEnabled
+			voiceType
 		}
 		textSelectionSharer {
-		isEnabled
+			isEnabled
 		}
 		customCSS {
-		isEnabled
-		published {
-			__typename
-			homeMinified
-			postMinified
-			staticMinified
+			isEnabled
+			published {
+				__typename
+				homeMinified
+				postMinified
+				staticMinified
+			}
+			draft {
+				__typename
+				homeMinified
+				postMinified
+				staticMinified
+			}
 		}
-		draft {
-			__typename
-			homeMinified
-			postMinified
-			staticMinified
-		}
-		}
-  	}
+	}
 	author {
 		id
 		name
@@ -71,18 +71,28 @@ fragment Publication on Publication {
 		logo
 		disableFooterBranding
 		enabledPages {
-			badges
 			newsletter
 			members
 		}
 		darkMode {
+			enabled
 			logo
 		}
 		navbarItems {
+			__typename
 			id
-			type
 			label
 			url
+			priority
+			type
+			series {
+				__typename
+				id
+			}
+			page {
+				__typename
+				id
+			}
 		}
 	}
 	links {
