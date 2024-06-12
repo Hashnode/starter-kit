@@ -135,8 +135,6 @@ const Post = ({ publication, post }: PostProps) => {
 				<DateFormatter dateString={post.publishedAt} />
 				{'•'}
 				<span>{post.readTimeInMinutes} min read</span>
-				{'•'}
-        <span>{post.reactionCount} likes</span>
 			</div>
 			{!!coverImageSrc && (
 				<div className="w-full">
