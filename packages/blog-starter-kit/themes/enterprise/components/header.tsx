@@ -32,7 +32,6 @@ export const Header = () => {
 				<li key={item.url}>
 					<a
 						href={item.url}
-						target="_blank"
 						rel="noopener noreferrer"
 						className="transition-200 block max-w-[200px] truncate text-ellipsis whitespace-nowrap rounded-full p-2 transition-colors hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
 					>
@@ -99,7 +98,6 @@ export const Header = () => {
 				</div>
 				<div className="col-span-2 flex flex-row items-center justify-end gap-5 text-slate-300 lg:col-span-3">
 					<nav className="hidden lg:block">{navList}</nav>
-					<Button href={baseUrl} as="a" type="primary" label="Book a demo" />
 				</div>
 			</Container>
 			<div className="mt-5 flex justify-center lg:hidden">
