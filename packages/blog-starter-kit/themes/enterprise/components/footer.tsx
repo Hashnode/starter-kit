@@ -31,22 +31,22 @@ export const Footer = () => {
               </p>
               <ul className="flex flex-col gap-1 text-slate-700 dark:text-neutral-300">
                 <li>
-                  <a href="/iletisim" className="hover:underline">
+                  <a href="https://temizmama.com/iletisim" className="hover:underline">
                     İletişim
                   </a>
                 </li>
                 <li>
-                  <a href="/hakkimizda" className="hover:underline">
+                  <a href="https://temizmama.com/hakkimizda" className="hover:underline">
                     Hakkımızda
                   </a>
                 </li>
                 <li>
-                  <a href="/sirket-bilgileri" className="hover:underline">
+                  <a href="https://temizmama.com/sirket-bilgileri" className="hover:underline">
                     Şirket Bilgileri
                   </a>
                 </li>
                 <li>
-                  <a href="/uretim-teknolojimiz" className="hover:underline">
+                  <a href="https://temizmama.com/uretim-teknolojimiz" className="hover:underline">
                     Üretim Teknolojilerimiz
                   </a>
                 </li>
