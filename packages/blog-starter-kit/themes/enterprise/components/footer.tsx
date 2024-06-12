@@ -95,7 +95,7 @@ export const Footer = () => {
 			</Container>
       <div class="flex flex-col justify-center items-center gap-1">
         <p class="text-sm text-default-400">© <!-- -->2008 - 2024<!-- --> Çağatay Inc.</p>
-          <a class="relative tap-highlight-transparent outline-none data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-medium no-underline hover:opacity-80 active:opacity-disabled transition-opacity flex justify-end items-center gap-2 text-foreground" href="https://temizmama.com" target="_blank" rel="noopener noreferrer" tabindex="0" role="link">
+          <a class="" href="https://temizmama.com" target="_blank" rel="noopener noreferrer" tabindex="0" role="link">
             <p class="font-normal">Deployed on</p>
           </a>
         </div>
