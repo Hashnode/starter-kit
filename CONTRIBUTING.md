@@ -2,6 +2,18 @@
 
 We would ❤️ you to contribute to Headless Hashnode Starter kit and help make it better! We want contributing to Hashnode to be fun, enjoyable, and educational for anyone and everyone. All contributions are welcome, including issues, integrations, updates and tweaks.
 
+## Contribution Guidelines
+While we welcome a wide range of contributions, it's important to align with the project's goals. Here are the types of contributions we value the most:
+
+- **New Features**: Adding new capabilities or tools that enhance the functionality of the starter kit.
+- **Bug Fixes**: Resolving existing issues to improve stability and performance.
+- **Integrations**: Building connectors or tools that integrate with other services or platforms.
+- **Improvements**: Enhancements that add value without altering the core look and feel in a subjective manner.
+
+**Note: We generally do not accept pull requests that solely make cosmetic changes, such as altering font weight, padding, or text decoration, unless they solve an existing issue or add a new generic feature. This is because we believe that cosmetic changes are subjective and users might have different preferences.**
+
+If your contribution falls into the above categories, we encourage you to submit a pull request!
+
 ## How to Start?
 
 If you are worried or don’t know where to start, you can checkout open issues or add new issues and comment your interest and a maintainer can guide you. Alternatively, you can send your questions to anyone from the [Hashnode team on Discord](https://hshno.de/discord).
