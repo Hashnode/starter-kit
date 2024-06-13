@@ -25,7 +25,7 @@ While we appreciate the creativity in creating new themes, we want to keep the s
 2. **Deploy your theme to a live demo site**.
 3. **Open an issue on our GitHub repository and provide the links in the description.**.
 
-We will showcase these themes in our README file, allowing others to discover and use them.
+We will showcase these themes under the `Community Themes` section in our README, allowing others to discover and use them.
 
 ## How to Start?
 
