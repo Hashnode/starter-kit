@@ -28,7 +28,7 @@ export const SecondaryPost = ({ title, coverImage, date, excerpt, slug }: Props)
 				<h1 className="text-lg font-semibold leading-tight text-slate-800 dark:text-neutral-50">
 					<Link
 						href={postURL}
-						className="hover:text-primary-600 dark:hover:text-primary-500 hover:underline"
+						className="dark:hover:text-primary-500"
 					>
 						{title}
 					</Link>
