@@ -25,27 +25,27 @@ return (
       </div>
       <ul className="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://blog.temizmama.com"> Anasayfa </a>
+          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://blog.temizmama.com" target="_self" > Anasayfa </a>
         </li>
 
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com"> Mağaza </a>
+          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com" target="_blank" > Mağaza </a>
         </li>
 
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/hakkimizda"> Hakkımızda </a>
+          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/hakkimizda" target="_blank" > Hakkımızda </a>
         </li>
 
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/barinaklara-bagis"> Barınak Bağışı </a>
+          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/barinaklara-bagis" target="_blank" > Barınak Bağışı </a>
         </li>
 
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/aydinlatma-metni"> Aydınlatma Metni </a>
+          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/aydinlatma-metni" target="_blank" > Aydınlatma Metni </a>
         </li>
 
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/iletisim"> İletişim </a>
+          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/iletisim" target="_blank" > İletişim </a>
         </li>
       </ul>
 
