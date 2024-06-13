@@ -49,7 +49,6 @@ export const PostHeader = ({ title, coverImage, date, author, readTimeInMinutes 
 							: 'h-8 w-8 border-2 border-slate-100 dark:border-slate-800 md:h-9 md:w-9 [&:not(:first-of-type)]:-ml-3 md:[&:not(:first-of-type)]:-ml-6 ',
 						)}
 						>
-						<ProfileImage user={coAuthor} width="200" height="200" hoverDisabled={true} />
 						</div>
 					))}
 					{post.coAuthors && post.coAuthors.length > 0 && (
@@ -63,10 +62,9 @@ export const PostHeader = ({ title, coverImage, date, author, readTimeInMinutes 
 					)}
 					{!post.coAuthors?.length && (
 						<a
-						href={`https://blog.temizmama.com`}
+						href={`https://hashnode.com/@${post.author.username}`}
 						className="ml-2 font-semibold text-slate-600 dark:text-white md:ml-0"
 						>
-						<span>{post.author.name}</span>
 						</a>
 					)}
 					{post.coAuthors && post.coAuthors.length > 0 && (
@@ -84,12 +82,6 @@ export const PostHeader = ({ title, coverImage, date, author, readTimeInMinutes 
 						)}
 						</button>
 					)}
-				</div>
-				<div className="mb-5 flex w-full flex-row items-center justify-center md:mb-0 md:w-auto md:justify-start">
-					<span className="mx-3 hidden font-bold text-slate-500 md:block">&middot;</span>
-					<DateFormatter dateString={date} />
-					{readTimeInMinutes && <span className="mx-3 hidden font-bold text-slate-500 md:block">&middot;</span>}
-					<ReadTimeInMinutes readTimeInMinutes={readTimeInMinutes} />
 				</div>
 			</div>
 			{coverImage && (
