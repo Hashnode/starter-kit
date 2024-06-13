@@ -25,33 +25,33 @@ return (
       </div>
       <ul className="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="#"> Anasayfa </a>
+          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://blog.temizmama.com"> Anasayfa </a>
         </li>
 
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="#"> Mağaza </a>
+          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com"> Mağaza </a>
         </li>
 
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="#"> Hakkımızda </a>
+          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/hakkimizda"> Hakkımızda </a>
         </li>
 
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="#"> Barınak Bağışı </a>
+          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/barinaklara-bagis"> Barınak Bağışı </a>
         </li>
 
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="#"> Aydınlatma Metni </a>
+          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/aydinlatma-metni"> Aydınlatma Metni </a>
         </li>
 
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="#"> İletişim </a>
+          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/iletisim"> İletişim </a>
         </li>
       </ul>
 
       <ul className="mt-12 flex justify-center gap-6 md:gap-8 items-center">
         <li>
-          <a href="#" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75">
+          <a href="https://www.facebook.com/temizmama/" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75">
             <span className="sr-only">Facebook</span>
             <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path fill-rule="evenodd"
@@ -62,7 +62,7 @@ return (
         </li>
 
         <li>
-          <a href="#" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75">
+          <a href="https://www.instagram.com/temizmamacom" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75">
             <span className="sr-only">Instagram</span>
             <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path fill-rule="evenodd"
@@ -73,17 +73,17 @@ return (
         </li>
 
         <li>
-          <a href="#" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75">
-            <span className="sr-only">Twitter</span>
+          <a href="https://x.com/temizmamacom" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75">
+            <span className="sr-only">X</span>
             <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path fill-rule="evenodd"
-                d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+                d="M86.8918 28.25H99.0219L72.5243 58.5334L103.698 99.75H79.285L60.1647 74.7536L38.2929 99.75H26.1627L54.5069 67.3565L24.5938 28.25H49.6199L66.9004 51.0974L86.8918 28.25ZM82.6337 92.4904H89.3555L45.9716 35.1301H38.7584L82.6337 92.4904Z" />
             </svg>
           </a>
         </li>
 
         <li>
-          <a href="#" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75">
+          <a href="https://www.youtube.com/@temizmama" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75">
             <span className="sr-only">Youtube</span>
             <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path fill-rule="evenodd" 
