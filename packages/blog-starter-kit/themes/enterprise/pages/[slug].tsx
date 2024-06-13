@@ -30,6 +30,7 @@ import { useEffect, useState } from 'react';
 import { triggerCustomWidgetEmbed } from '@starter-kit/utils/trigger-custom-widget-embed';
 
 const AboutAuthor = dynamic(() => import('../components/about-author'), { ssr: false });
+const Subscribe = dynamic(() => import('../components/subscribe').then((mod) => mod.Subscribe));
 const PostComments = dynamic(() =>
 	import('../components/post-comments').then((mod) => mod.PostComments),
 );
@@ -128,9 +129,6 @@ const Post = ({ publication, post }: PostProps) => {
 			<PostHeader
 				title={post.title}
 				coverImage={post.coverImage?.url}
-				date={post.publishedAt}
-				author={post.author}
-				readTimeInMinutes={post.readTimeInMinutes}
 			/>
 			{post.features.tableOfContents.isEnabled && <PostTOC />}
 			<MarkdownToHtml contentMarkdown={post.content.markdown} />
@@ -139,9 +137,7 @@ const Post = ({ publication, post }: PostProps) => {
 					<ul className="flex flex-row flex-wrap items-center gap-2">{tagsList}</ul>
 				</div>
 			)}
-			<AboutAuthor />
-			{!post.preferences.disableComments && post.comments.totalDocuments > 0 && <PostComments />}
-		</>
+			</>
 	);
 };
 
