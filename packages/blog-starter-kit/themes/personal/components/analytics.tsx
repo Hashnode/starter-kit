@@ -1,24 +1,14 @@
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { useAppContext } from './contexts/appContext';
 
+import { useAppContext } from './contexts/appContext';
 const GA_TRACKING_ID = 'G-72XG3F8LNJ'; // This is Hashnode's GA tracking ID
 const isProd = process.env.NEXT_PUBLIC_MODE === 'production';
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_URL || '';
 
 export const Analytics = () => {
-	const { publication, post } = useAppContext();
-
-	useEffect(() => {
-		if (!isProd) return;
-
-		_sendPageViewsToHashnodeGoogleAnalytics();
-		_sendViewsToHashnodeInternalAnalytics();
-		_sendViewsToHashnodeAnalyticsDashboard();
-	}, []);
-
-	if (!isProd) return null;
+	const { publication, post, page } = useAppContext();
 
 	const _sendPageViewsToHashnodeGoogleAnalytics = () => {
 		// @ts-ignore
@@ -62,81 +52,88 @@ export const Analytics = () => {
 		});
 	};
 
-	const _sendViewsToHashnodeAnalyticsDashboard = async () => {
-		const LOCATION = window.location;
-		const NAVIGATOR = window.navigator;
-		const currentFullURL =
-			LOCATION.protocol +
-			'//' +
-			LOCATION.hostname +
-			LOCATION.pathname +
-			LOCATION.search +
-			LOCATION.hash;
-
-		const query = new URL(currentFullURL).searchParams;
-
-		const utm_id = query.get('utm_id');
-		const utm_campaign = query.get('utm_campaign');
-		const utm_source = query.get('utm_source');
-		const utm_medium = query.get('utm_medium');
-		const utm_term = query.get('utm_term');
-		const utm_content = query.get('utm_content');
-
-		let referrer = document.referrer || '';
-		if (referrer.indexOf(window.location.hostname) !== -1) {
-			referrer = '';
-		}
+	function _sendViewsToAdvancedAnalyticsDashboard() {
+		const publicationId = publication.id;
+		const postId = post && post.id;
+		const staticPageId = page && page.id;
 
 		const data = {
-			publicationId: publication.id,
-			postId: post && post.id,
-			timestamp: Date.now(),
-			url: currentFullURL,
-			referrer: referrer,
-			title: document.title,
-			charset: document.characterSet || document.charset,
-			lang: NAVIGATOR.language,
-			userAgent: NAVIGATOR.userAgent,
-			historyLength: window.history.length,
-			timezoneOffset: new Date().getTimezoneOffset(),
-			utm_id,
-			utm_campaign,
-			utm_source,
-			utm_medium,
-			utm_term,
-			utm_content,
+			publicationId,
+			postId,
+			staticPageId,
 		};
 
-		// send to Umami powered advanced Hashnode analytics
-		if (publication.integrations?.umamiWebsiteUUID) {
-			await fetch(`${BASE_PATH}/api/collect`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({
-					payload: {
-						website: publication.integrations.umamiWebsiteUUID,
-						url: window.location.pathname,
-						referrer: referrer,
-						hostname: window.location.hostname,
-						language: NAVIGATOR.language,
-						screen: `${window.screen.width}x${window.screen.height}`,
-					},
-					type: 'pageview',
-				}),
-			});
+		if (!publicationId) {
+			console.warn('Publication ID is missing; could not send analytics.');
+			return;
 		}
 
-		// For Hashnode Blog Dashboard Analytics
-		fetch(`${BASE_PATH}/ping/view`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
+		const isBrowser = typeof window !== 'undefined';
+		if (!isBrowser) {
+			return;
+		}
+
+		const isLocalhost = window.location.hostname === 'localhost';
+		if (isLocalhost) {
+			console.warn(
+				'Analytics API call is skipped because you are running on localhost; data:',
+				data,
+			);
+			return;
+		}
+
+		const event = {
+			// timestamp will be added in API
+			payload: {
+				publicationId,
+				postId: postId || null,
+				seriesId: null,
+				pageId: staticPageId || null,
+				url: window.location.href,
+				referrer: document.referrer || null,
+				language: navigator.language || null,
+				screen: `${window.screen.width}x${window.screen.height}`,
 			},
-			body: JSON.stringify({ data }),
-		});
-	};
+			type: 'pageview',
+		};
+
+		const blob = new Blob(
+			[
+				JSON.stringify({
+					events: [event],
+				}),
+			],
+			{
+				type: 'application/json; charset=UTF-8',
+			},
+		);
+
+		let hasSentBeacon = false;
+		try {
+			if (navigator.sendBeacon) {
+				hasSentBeacon = navigator.sendBeacon(`${BASE_PATH}/api/analytics`, blob);
+			}
+		} catch (error) {
+			// do nothing; in case there is an error we fall back to fetch
+		}
+
+		if (!hasSentBeacon) {
+			fetch(`${BASE_PATH}/api/analytics`, {
+				method: 'POST',
+				body: blob,
+				credentials: 'omit',
+				keepalive: true,
+			});
+		}
+	}
+
+	useEffect(() => {
+		if (!isProd) return;
+
+		_sendPageViewsToHashnodeGoogleAnalytics();
+		_sendViewsToHashnodeInternalAnalytics();
+		_sendViewsToAdvancedAnalyticsDashboard();
+	}, []);
 
 	return null;
 };

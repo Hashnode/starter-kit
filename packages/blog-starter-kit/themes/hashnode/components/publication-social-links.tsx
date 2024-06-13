@@ -96,7 +96,7 @@ function PublicationSocialLinks(props: Props) {
             })}
           <PublicationSocialLinkItem
             key="rss"
-            href="/rss.xml"
+            href="rss.xml"
             labelText="Open blog XML Feed, opens in new tab"
             isSidebar={!!isSidebar}
           >

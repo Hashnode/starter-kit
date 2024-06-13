@@ -25,6 +25,15 @@ fragment PostFull on Post {
 	hasLatexInPost
 	publication {
 		id
+		isTeam
+		favicon
+		title
+		about {
+			html
+		}
+	}
+	series {
+		id
 	}
 	seo {
 		title
@@ -34,8 +43,24 @@ fragment PostFull on Post {
 		url
 	}
 	author {
+		id
 		name
 		username
+		profilePicture
+		socialMediaLinks {
+			twitter
+		}
+		bio {
+			html
+		}
+	}
+	coAuthors {
+		username
+		id
+		name
+		bio {
+			html
+		}
 		profilePicture
 	}
 	title

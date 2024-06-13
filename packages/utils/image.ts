@@ -8,6 +8,15 @@ type ResizeImageResizeOptions = {
 	q?: string;
 };
 
+const _getBlurHash = (src: string) => {
+	if (src && src.indexOf('?') === -1) {
+	  return `${src}?fm=blurhash`;
+	}
+	return `${src}&fm=blurhash`;
+};
+  
+export const getBlurHash = _getBlurHash;
+
 export function resizeImage(
 	src: string,
 	resize: ResizeImageResizeOptions,
