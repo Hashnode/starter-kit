@@ -30,6 +30,8 @@ import {
 } from '../generated/graphql';
 import { DEFAULT_COVER } from '../utils/const';
 
+
+
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 
 type Props = {
@@ -148,8 +150,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 						<div className="col-span-1 flex flex-col gap-6">{secondaryPosts}</div>
 					</div>
 
-					{allPosts.length > 0 && (
-					)}
+
 
 					{morePosts.length > 0 && (
 						<>
