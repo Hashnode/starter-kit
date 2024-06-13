@@ -87,6 +87,7 @@ async rewrites() {
 Once you deploy your project, the subpath installation should work successfully.
 
 > Note: <br>
+>
 > - If you are updating your environment variables in Vercel, make sure to manually redeploy to see the changes.
 > - Your main project refers to the project you'll have to have your blog subpath on; for example, if you'd like your blog subpath to be `https://portfolio.com/blog`, then your main project would be `https://portfolio.com`. This means that the rewrites function should be added to the codebase of the main project, not the starter kit codebase.
 
@@ -111,7 +112,7 @@ async function handleRequest(request) {
 
   if (url.pathname.startsWith(subpath)) {
     // Proxy blog requests
-    return proxyBlog(request) 
+    return proxyBlog(request)
   } else {
     // Passthrough everything else
     return fetch(request)
@@ -129,7 +130,8 @@ async function proxyBlog(request) {
 ```
 
 After the above step is done, follow these steps to add the worker route:
-- Go to `Websites` then click on your website and select `Worker Routes` from the left pane. 
+
+- Go to `Websites` then click on your website and select `Worker Routes` from the left pane.
 - Click on `Add route` and add `https://yourdomain/*` , then select the worker you just added above and click `Save`.
 - Go to `https://yourdomain/yoursubpath` and now you should be able to see your blogs.
 
@@ -167,16 +169,25 @@ If you prefer to build your frontend from scratch, you can use our public GraphQ
 
 ## Pricing
 
-**For individual devs:** Hashnode's Headless CMS is free for individual bloggers! Grab our starter kit and start building your blog – no license is needed. 
+**For individual devs:** Hashnode's Headless CMS is free for individual bloggers! Grab our starter kit and start building your blog – no license is needed.
 
 **For teams and enterprises:** Access to headless mode, multiple team members, real-time collaboration, AI, and enterprise reliability. [Request access and get a quote.](https://forms.hashnode.com/headless-hashnode-teams) We will be in touch within the next 24hrs to get you onboarded.
-
 
 ## Demo Videos
 
 [![Headless Hashnode Demo — With Blog Starter Kit (Deployed to Vercel)](https://cdn.hashnode.com/res/hashnode/image/upload/v1697541065189/5ct0eFWIu.png?auto=format&w=500)](https://youtu.be/5Yuxoqohvrk)
 
 [![Customizing Hashnode Blog Starter Kit using TailwindCSS — Headless Hashnode Demo](https://cdn.hashnode.com/res/hashnode/image/upload/v1697540919799/MWVa0aD78.png?auto=format&w=500)](https://youtu.be/oH8QG8E0Txk)
+
+## Community Themes
+
+In addition to our core themes, the community has developed a variety of themes to customize your blog. Check out these themes and explore their unique designs:
+
+- **Newsletter Theme**  
+  [Demo](https://starter-kit1-6yte.vercel.app/)  
+  [Codebase](https://github.com/masterismail/starter-kit1/tree/main)
+
+> Note: These themes are maintained by the community and are not part of the official starter kit.
 
 ## Found an issue?
 
