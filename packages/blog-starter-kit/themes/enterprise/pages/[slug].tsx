@@ -30,7 +30,6 @@ import { useEffect, useState } from 'react';
 import { triggerCustomWidgetEmbed } from '@starter-kit/utils/trigger-custom-widget-embed';
 
 const AboutAuthor = dynamic(() => import('../components/about-author'), { ssr: false });
-const Subscribe = dynamic(() => import('../components/subscribe').then((mod) => mod.Subscribe));
 const PostComments = dynamic(() =>
 	import('../components/post-comments').then((mod) => mod.PostComments),
 );
@@ -142,7 +141,6 @@ const Post = ({ publication, post }: PostProps) => {
 			)}
 			<AboutAuthor />
 			{!post.preferences.disableComments && post.comments.totalDocuments > 0 && <PostComments />}
-			<Subscribe />
 		</>
 	);
 };

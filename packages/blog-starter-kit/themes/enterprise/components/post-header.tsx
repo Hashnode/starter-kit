@@ -11,7 +11,7 @@ import { twJoin } from 'tailwind-merge';
 import { useState } from 'react';
 import ProfileImage from './profile-image';
 
-type Author = Pick<User, 'username' | 'name' | 'profilePicture'>;
+type Author = Pick<User, 'username' | 'name'>;
 
 type Props = {
 	title: string;
@@ -21,7 +21,7 @@ type Props = {
 	readTimeInMinutes: number;
 };
 
-export const PostHeader = ({ title, coverImage, date, author, readTimeInMinutes }: Props) => {
+export const PostHeader = ({ title, coverImage}: Props) => {
 	const { post: _post } = useAppContext();
   	const post = _post as unknown as PostFullFragment;
 	const authorsArray = [post.author, ...(post.coAuthors || [])];
