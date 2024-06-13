@@ -32,7 +32,7 @@ export const PostHeader = ({ title, coverImage}: Props) => {
 
 			</div>
 			{coverImage && (
-				<div className="w-full px-5 sm:mx-0">
+				<div className="flex justify-center items-center relative w-1/2 h-1/2 w-full px-5 sm:mx-0">
 					<CoverImage
 						title={title}
 						src={resizeImage(coverImage, { w: 1600, h: 840, c: 'thumb' })}
