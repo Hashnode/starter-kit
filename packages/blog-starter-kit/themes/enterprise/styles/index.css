@@ -9,7 +9,12 @@
 .hashnode-content-style :where(code):not(:where([class~="not-prose"],[class~="not-prose"] *))::before, .hashnode-content-style :where(code):not(:where([class~="not-prose"],[class~="not-prose"] *))::after  {
     content: none;
 }
-
+.bg-slate-950 {
+    background-image: url(https://i.ibb.co/2NHGvWT/image.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 .prose code {
     border-radius: 0.25rem;
     font-weight: 400 !important;
