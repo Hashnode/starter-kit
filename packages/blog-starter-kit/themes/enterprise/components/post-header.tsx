@@ -83,7 +83,7 @@ export const PostHeader = ({ title, coverImage, date, author, readTimeInMinutes 
 						</button>
 					)}
 				</div>
-			</div>
+			</div> 
 			{coverImage && (
 				<div className="w-full px-5 sm:mx-0">
 					<CoverImage
