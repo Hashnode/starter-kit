@@ -127,7 +127,7 @@ const Post = ({ publication, post }: PostProps) => {
 				/>
 				<style dangerouslySetInnerHTML={{ __html: highlightJsMonokaiTheme }}></style>
 			</Head>
-			<CircularProgressBar />
+			
 			<PostHeader
 				title={post.title}
 				coverImage={post.coverImage?.url}
@@ -170,6 +170,7 @@ export default function PostOrPage(props: Props) {
 						{props.type === 'page' && <Page {...props} />}
 					</article>
 				</Container>
+				<CircularProgressBar />
 				<Footer />
 			</Layout>
 		</AppProvider>
