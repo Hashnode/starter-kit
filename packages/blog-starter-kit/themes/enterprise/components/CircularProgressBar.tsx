@@ -66,7 +66,7 @@ const CircularProgressBar = () => {
             d="m4.5 15.75 7.5-7.5 7.5 7.5"
           />
         </svg>
-        <div className="absolute top-1/2 transform -translate-y-1/2 text-sm text-black font-bold">
+        <div className="absolute top-1/2 transform -translate-y-1/2 text-sm text-black font-bold" id="circusll">
           {Math.round(scrollPercentage)}%
         </div>
       </a>
