@@ -51,6 +51,26 @@
     color: #ddd;
 }
 
+
+/*   Custom header title css  */
+
+.text-5xl {
+    font-size: 3rem;
+    line-height: 1;
+}
+.mt-2 {
+    margin-top: .5rem;
+}
+.text-purple-500 {
+    --tw-text-opacity: 1;
+    color: rgba(139, 92, 246, var(--tw-text-opacity));
+}
+.max-w-xl {
+    max-width: 36rem;
+}
+h1, h2 {
+    font-family: "Source Serif Pro", serif;
+}
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
 	display: none;
