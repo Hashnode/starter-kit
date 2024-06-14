@@ -16,9 +16,10 @@
 .hashnode-content-style :is(:where(a):not(:where([class~=not-prose],[class~=not-prose] *))) {
     text-decoration-line: none;
 }
-circusll {
-    --tw-translate-y: 100%;
-    --tw-translate-x: 10%;
+div#circusll {
+    --tw-translate-y: 7%;
+    --tw-translate-x: 2%;
+    font-family: monospace;
 }
 .bg-slate-950 {
     background-image: url(https://i.ibb.co/2NHGvWT/image.png);
@@ -134,7 +135,7 @@ html {
 	border-radius: 100px;
 	background: var(--accent);
 	text-decoration: none;
-	border: 1px solid canvasText;
+	/*border: 1px solid canvasText;*/
 	color: canvasText;
 	width: 40px;
 	height: 40px;
