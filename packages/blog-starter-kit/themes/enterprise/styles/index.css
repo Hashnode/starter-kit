@@ -10,7 +10,7 @@
     content: none;
 }
 .hashnode-content-style :is(:where(a):not(:where([class~=not-prose],[class~=not-prose] *))):hover {
-    background-color: none;
+    background-color: transparent;
     color: hsl(28, 100%, 50%);
 }
 .hashnode-content-style :is(:where(a):not(:where([class~=not-prose],[class~=not-prose] *))) {
