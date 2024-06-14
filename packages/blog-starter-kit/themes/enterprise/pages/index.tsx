@@ -143,7 +143,7 @@ export default function Index({
             <h1 className="text-5xl text-gray-900 font-semibold mt-2 mb-5">
               Temizmama Blog
             </h1>
-            <p className="text-purple-500 text-lg max-w-xl mx-auto">
+            <p className="text-md leading-snug text-slate-500 dark:text-neutral-400 text-lg max-w-xl mx-auto">
               Sevimli dostlarımız için en taze mamayı sunan Temizmama
               aracılığıyla kedi &amp; köpek bakımı ile ilgili bilinmesi
               gerekenlerin hepsi bu sayfada!
