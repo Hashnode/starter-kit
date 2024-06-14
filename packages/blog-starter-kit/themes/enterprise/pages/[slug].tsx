@@ -4,7 +4,7 @@ import request from 'graphql-request';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import ProgressBar from '../components/ProgressBar';
+import CircularProgressBar from '../components/CircularProgressBar';
 import Link from 'next/link';
 import { Container } from '../components/container';
 import { AppProvider } from '../components/contexts/appContext';
