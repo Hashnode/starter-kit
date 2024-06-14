@@ -19,10 +19,11 @@ const CircularProgressBar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToTop = (e) => {
+  const scrollToTop = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
   return (
     <div className="fixed right-4 bottom-4 flex items-center justify-center">
       <svg className="absolute w-16 h-16" viewBox="0 0 36 36">
