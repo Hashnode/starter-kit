@@ -15,6 +15,9 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+a.text-gray-700.transition.hover\:text-gray-700\/75 {
+    font-family: ui-monospace;
+}
 .prose code {
     border-radius: 0.25rem;
     font-weight: 400 !important;
