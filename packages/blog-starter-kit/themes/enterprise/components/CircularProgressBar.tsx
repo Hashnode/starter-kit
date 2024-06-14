@@ -26,7 +26,7 @@ const CircularProgressBar = () => {
 
   return (
     <div className="fixed right-4 bottom-4 flex items-center justify-center">
-      <svg className="w-16 h-16" viewBox="0 0 36 36">
+      <svg className="absolute w-16 h-16" viewBox="0 0 36 36">
         <path
           className="text-gray-200"
           d="M18 2.0845
@@ -49,7 +49,7 @@ const CircularProgressBar = () => {
         href="#head"
         id="cta"
         onClick={scrollToTop}
-        className="absolute flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-lg"
+        className="relative flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-lg"
       >
         <span className="sr-only">Yukarı</span>
         <svg
@@ -66,10 +66,10 @@ const CircularProgressBar = () => {
             d="m4.5 15.75 7.5-7.5 7.5 7.5"
           />
         </svg>
+        <div className="absolute top-1/2 transform -translate-y-1/2 text-sm text-black font-bold">
+          {Math.round(scrollPercentage)}%
+        </div>
       </a>
-      <div className="absolute top-1/2 transform -translate-y-1/2 text-sm text-black font-bold">
-        {Math.round(scrollPercentage)}%
-      </div>
     </div>
   );
 };
