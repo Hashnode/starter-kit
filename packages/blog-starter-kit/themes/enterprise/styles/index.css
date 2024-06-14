@@ -132,8 +132,8 @@ html {
 	display: grid;
 	white-space: nowrap;
 	place-self: end;
-	border-radius: 100px;
-	background: var(--accent);
+	/*border-radius: 100px;*/
+	/*background: var(--accent);*/
 	text-decoration: none;
 	/*border: 1px solid canvasText;*/
 	color: canvasText;
