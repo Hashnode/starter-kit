@@ -127,7 +127,7 @@ const Post = ({ publication, post }: PostProps) => {
 				/>
 				<style dangerouslySetInnerHTML={{ __html: highlightJsMonokaiTheme }}></style>
 			</Head>
-			<ProgressBar />
+			<CircularProgressBar />
 			<PostHeader
 				title={post.title}
 				coverImage={post.coverImage?.url}
