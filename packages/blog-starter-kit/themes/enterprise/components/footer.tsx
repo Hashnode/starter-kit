@@ -33,15 +33,15 @@ return (
         </li>
 
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/hakkimizda" target="_blank" > Hakkımızda </a>
-        </li>
-
-        <li>
           <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/barinaklara-bagis" target="_blank" > Barınak Bağışı </a>
         </li>
 
         <li>
           <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/aydinlatma-metni" target="_blank" > Aydınlatma Metni </a>
+        </li>
+
+        <li>
+          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/hakkimizda" target="_blank" > Hakkımızda </a>
         </li>
 
         <li>
