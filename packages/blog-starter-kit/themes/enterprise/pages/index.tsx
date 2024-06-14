@@ -156,7 +156,6 @@ export default function Index({
                   <ArticleSVG clasName="stroke-current" />
                 </div>
                 <p className="text-xl font-semibold ">
-                  Hang tight! We&apos;re drafting the first article.
                 </p>
               </div>
             </div>
