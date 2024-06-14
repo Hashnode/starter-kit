@@ -4,6 +4,7 @@ import request from "graphql-request";
 import { GetStaticProps } from "next";
 import dynamic from "next/dynamic";
 import Head from "next/head";
+import ScrollProvider from '../components/ScrollProvider';
 import { useState } from "react";
 import { Waypoint } from "react-waypoint";
 import { Button } from "../components/button";
@@ -82,6 +83,7 @@ export default function Index({
   const morePosts = allPosts.slice(4);
 
   return (
+    <ScrollProvider>
     <AppProvider publication={publication}>
       <Layout>
         <Head>
@@ -200,6 +202,7 @@ export default function Index({
         <Footer />
       </Layout>
     </AppProvider>
+    </ScrollProvider>
   );
 }
 
