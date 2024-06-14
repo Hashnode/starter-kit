@@ -19,6 +19,11 @@ const CircularProgressBar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToTop = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="fixed right-4 bottom-4 flex items-center justify-center">
       <svg className="w-16 h-16" viewBox="0 0 36 36">
@@ -39,7 +44,7 @@ const CircularProgressBar = () => {
           strokeDasharray={`${scrollPercentage}, 100`}
         />
       </svg>
-      <a href="#head" id="cta" className="absolute flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-lg">
+      <a href="#head" id="cta" onClick={scrollToTop} className="absolute flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-lg">
         <span className="sr-only">Yukarı</span>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
           <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
