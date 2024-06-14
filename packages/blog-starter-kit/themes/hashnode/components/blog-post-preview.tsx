@@ -79,7 +79,24 @@ function BlogPostPreview(props: {
           >
             {publication.isTeam && (
               <div className="mb-4 flex w-full flex-row items-center">
-
+                <a
+                  href={`https://hashnode.com/@${post.author.username}`}
+                  className="blog-post-card-author-pic mr-2 block h-8 w-8 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800"
+                >
+                  <Image
+                    alt={post.author.name}
+                    className="block w-full"
+                    width={72}
+                    height={72}
+                    src={resizeImage(post.author.profilePicture || DEFAULT_AVATAR, { w: 72, h: 72, c: 'face' })}
+                  />
+                </a>
+                <a
+                  href={`https://hashnode.com/@${post.author.username}`}
+                  className="blog-post-card-author-name text-lg font-medium text-slate-800 dark:text-slate-200"
+                >
+                  {post.author.name}
+                </a>
               </div>
             )}
             {layout === 'grid' && post.id === pinnedPostId && (
