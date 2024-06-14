@@ -19,7 +19,7 @@ const CircularProgressBar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToTop = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+  const scrollToTop = (e) => {
     e.preventDefault();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -49,7 +49,7 @@ const CircularProgressBar = () => {
         href="#head"
         id="cta"
         onClick={scrollToTop}
-        className="relative flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-lg"
+        className="relative flex items-center justify-center w-12 h-12 bg-white rounded-full mt-2"
       >
         <span className="sr-only">Yukarı</span>
         <svg
