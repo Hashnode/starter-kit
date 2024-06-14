@@ -23,7 +23,6 @@ const CircularProgressBar = () => {
     e.preventDefault();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
   return (
     <div className="fixed right-4 bottom-4 flex items-center justify-center">
       <svg className="absolute w-16 h-16" viewBox="0 0 36 36">
@@ -49,7 +48,7 @@ const CircularProgressBar = () => {
         href="#head"
         id="cta"
         onClick={scrollToTop}
-        className="relative flex items-center justify-center w-12 h-12 bg-white rounded-full mt-2"
+        className="relative flex items-center justify-center w-12 h-12 bg-white rounded-full"
       >
         <span className="sr-only">Yukarı</span>
         <svg
