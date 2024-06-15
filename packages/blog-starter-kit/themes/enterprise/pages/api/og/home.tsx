@@ -139,7 +139,7 @@ export default async function handler(req: NextRequest) {
 							{/* Show the following if the team doesn't have a logo and has a thumbnail/favicon */}
 							{!logo && favicon && (
 								<div tw="mr-20 flex h-56 w-56 overflow-hidden rounded-full">
-									<Image
+									<img
 										tw="w-full"
 										alt="name"
 										src={`${favicon}?w=400&h=400&fit=crop&crop=faces&auto=compress`}
@@ -153,7 +153,7 @@ export default async function handler(req: NextRequest) {
 								{!logo && title && <p tw="m-0 text-5xl font-bold">{title}</p>}
 
 								{/* Site Logo */}
-								{logo ? <Image tw="mb-10 block w-1/2" alt="name" src={logo} /> : null}
+								{logo ? <img tw="mb-10 block w-1/2" alt="name" src={logo} /> : null}
 
 								{/* Show domain name */}
 								<p tw="m-0 my-5 text-2xl font-semibold opacity-75">{domain}</p>

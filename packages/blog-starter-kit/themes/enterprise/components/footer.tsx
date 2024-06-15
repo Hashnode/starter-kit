@@ -13,8 +13,8 @@ return (
     {PUBLICATION_LOGO ? (
     <div className="flex w-full flex-row justify-center">
       <Link href={'/'} aria-label={`${publication.title} home page`} className="flex flex-row items-center gap-5">
-      <Image className="block w-40" src={PUBLICATION_LOGO} alt={publication.title} />
-        <Image className="block w-40" src="https://www.temizmama.biz/dist/media/img/markalar/bg-cgty.webp" alt={publication.title} />
+      <img className="block w-40" src={PUBLICATION_LOGO} alt={publication.title} />
+        <img className="block w-40" src="https://www.temizmama.biz/dist/media/img/markalar/bg-cgty.webp" alt={publication.title} />
       </Link>
     </div>
     ) : (
