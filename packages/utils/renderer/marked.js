@@ -1008,7 +1008,7 @@ const { default: isURL } = require('validator/lib/isURL');
 			default:
 				alignmentStyles = '';
 		}
-		let out = `<img src="${href}" alt="${text}" class="${alignmentStyles}"`;
+		let out = `<Image src="${href}" alt="${text}" class="${alignmentStyles}"`;
 		if (title) {
 			out += ' title="' + title + '"';
 		}
