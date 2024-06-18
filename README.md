@@ -183,9 +183,10 @@ If you prefer to build your frontend from scratch, you can use our public GraphQ
 
 In addition to our core themes, the community has developed a variety of themes to customize your blog. Check out these themes and explore their unique designs:
 
-| Theme Name           | Demo Link                                          | Codebase Link                                                               |
-| -------------------- | -------------------------------------------------- | --------------------------------------------------------------------------- |
-| **Newsletter Theme** | [View Demo](https://starter-kit1-6yte.vercel.app/) | [GitHub Repository](https://github.com/masterismail/starter-kit1/tree/main) |
+| Theme Name                    | Demo Link                                          | Codebase Link                                                                 |
+| ----------------------------- | -------------------------------------------------- | ----------------------------------------------------------------------------- |
+| **Newsletter Theme**          | [View Demo](https://starter-kit1-6yte.vercel.app/) | [GitHub Repository](https://github.com/masterismail/starter-kit1/tree/main)   |
+| **Minimalist (Ikigai) Theme** | [View Demo](https://pravinreacts.vercel.app/)      | [GitHub Repository](https://github.com/pravintargaryen/starter-kit/tree/main) |
 
 > Note: These themes are maintained by the community and are not part of the official starter kit.
 
