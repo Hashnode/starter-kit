@@ -12,7 +12,18 @@ module.exports = {
 				'accent-7': '#333',
 				success: '#0070f3',
 				cyan: '#79FFE1',
-				primary: colors.blue,
+				primary: {
+					'50': '#8c8c8d',
+					'100': '#08bbd7',
+					'200': '#08bbd7',
+					'300': '#08bbd7',
+					'400': '#08bbd7',
+					'500': '#00d1b2',
+					'600': '#08bbd7',
+					'700': '#08bbd7',
+					'800': '#08bbd7',
+					'900': '#08bbd7',
+				},
 			},
 			typography: () => ({
 				DEFAULT: {

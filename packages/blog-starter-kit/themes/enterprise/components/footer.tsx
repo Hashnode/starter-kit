@@ -86,7 +86,7 @@ export const Footer = () => {
 							<p className="mb-2 font-semibold text-slate-600 dark:text-neutral-200">Product</p>
 							<ul className="flex flex-col gap-1 text-slate-700 dark:text-neutral-300">
 								<li>
-									<a href="#" className="hover:underline">
+									<a href="/courses" className="hover:underline">
 										Courses
 									</a>
 								</li>
@@ -113,7 +113,7 @@ export const Footer = () => {
 							<p className="mb-2 font-semibold text-slate-600 dark:text-neutral-200">Other links</p>
 							<ul className="flex flex-col gap-1 text-slate-700 dark:text-neutral-300">
 								<li>
-									<a href="#" className="hover:underline">
+									<a href="about-me" className="hover:underline">
 										About
 									</a>
 								</li>
