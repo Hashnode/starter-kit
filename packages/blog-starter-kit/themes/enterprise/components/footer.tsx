@@ -36,6 +36,7 @@ export const Footer = () => {
 										Contact us
 									</a>
 								</li>
+								{/*
 								<li>
 									<a href="#" className="hover:underline">
 										Book a demo
@@ -51,6 +52,7 @@ export const Footer = () => {
 										Slack
 									</a>
 								</li>
+								*/}
 							</ul>
 						</div>
 						<div className="col-span-full md:col-span-2 lg:col-span-1">
@@ -58,9 +60,10 @@ export const Footer = () => {
 							<ul className="flex flex-col gap-1 text-slate-700 dark:text-neutral-300">
 								<li>
 									<a href="#" className="hover:underline">
-										Community
+										Blog
 									</a>
 								</li>
+								{/*
 								<li>
 									<a href="#" className="hover:underline">
 										Use Cases
@@ -73,9 +76,10 @@ export const Footer = () => {
 								</li>
 								<li>
 									<a href="#" className="hover:underline">
-										Blog
+										Community
 									</a>
 								</li>
+								*/}
 							</ul>
 						</div>
 						<div className="col-span-full md:col-span-2 lg:col-span-1">
@@ -83,9 +87,10 @@ export const Footer = () => {
 							<ul className="flex flex-col gap-1 text-slate-700 dark:text-neutral-300">
 								<li>
 									<a href="#" className="hover:underline">
-										Pricing
+										Courses
 									</a>
 								</li>
+								{/*
 								<li>
 									<a href="#" className="hover:underline">
 										Documentation
@@ -101,6 +106,7 @@ export const Footer = () => {
 										Support
 									</a>
 								</li>
+								*/}
 							</ul>
 						</div>
 						<div className="col-span-1">
@@ -108,9 +114,10 @@ export const Footer = () => {
 							<ul className="flex flex-col gap-1 text-slate-700 dark:text-neutral-300">
 								<li>
 									<a href="#" className="hover:underline">
-										Events
+										About
 									</a>
 								</li>
+								{/*
 								<li>
 									<a href="#" className="hover:underline">
 										Careers
@@ -123,9 +130,10 @@ export const Footer = () => {
 								</li>
 								<li>
 									<a href="#" className="hover:underline">
-										About us
+										Event
 									</a>
 								</li>
+								*/}
 							</ul>
 						</div>
 					</div>
