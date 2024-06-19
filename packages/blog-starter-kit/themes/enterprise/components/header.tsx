@@ -32,7 +32,6 @@ export const Header = () => {
 				<li key={item.url}>
 					<a
 						href={item.url}
-						target=""
 						rel="noopener noreferrer"
 						className="transition-200 block max-w-[200px] truncate text-ellipsis whitespace-nowrap rounded-full p-2 transition-colors hover:bg-white hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
 					>
@@ -60,7 +59,6 @@ export const Header = () => {
 									<DropdownMenu.Item asChild key={item.url}>
 										<a
 											href={item.url}
-											target=""
 											rel="noopener noreferrer"
 											className="transition-200 block truncate p-2 transition-colors hover:bg-slate-100 hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
 										>
