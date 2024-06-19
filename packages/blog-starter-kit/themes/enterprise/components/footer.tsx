@@ -59,9 +59,9 @@ export const Footer = () => {
 							<p className="mb-2 font-semibold text-slate-600 dark:text-neutral-200">Resources</p>
 							<ul className="flex flex-col gap-1 text-slate-700 dark:text-neutral-300">
 								<li>
-									<a href="#" className="hover:underline">
+									<Link href="#" className="hover:underline">
 										Blog
-									</a>
+									</Link>
 								</li>
 								{/*
 								<li>
@@ -86,9 +86,9 @@ export const Footer = () => {
 							<p className="mb-2 font-semibold text-slate-600 dark:text-neutral-200">Product</p>
 							<ul className="flex flex-col gap-1 text-slate-700 dark:text-neutral-300">
 								<li>
-									<a href="/courses" className="hover:underline">
+									<Link href="/courses" className="hover:underline">
 										Courses
-									</a>
+									</Link>
 								</li>
 								{/*
 								<li>
@@ -113,9 +113,9 @@ export const Footer = () => {
 							<p className="mb-2 font-semibold text-slate-600 dark:text-neutral-200">Other links</p>
 							<ul className="flex flex-col gap-1 text-slate-700 dark:text-neutral-300">
 								<li>
-									<a href="about-me" className="hover:underline">
+									<Link href="about-me" className="hover:underline">
 										About
-									</a>
+									</Link>
 								</li>
 								{/*
 								<li>
@@ -141,13 +141,13 @@ export const Footer = () => {
 						<SocialLinks />
 						<p>&copy; 2023 Company Inc.</p>
 						<p>
-							<a href="#" className="hover:underline">
+							<Link href="#" className="hover:underline">
 								Privacy Policy
-							</a>{' '}
+							</Link>{' '}
 							·{' '}
-							<a href="#" className="hover:underline">
+							<Link href="#" className="hover:underline">
 								Terms
-							</a>
+							</Link>
 						</p>
 					</div>
 				</div>
