@@ -23,7 +23,7 @@
   
 .dark .prose code {
     --tw-bg-opacity: 1;
-    background-color: rgba(36, 41, 46, var(--tw-bg-opacity));
+    background-color: rgba(0, 31, 160, var(--tw-bg-opacity));
     --tw-text-opacity: 1;
     color: rgba(238, 238, 238, var(--tw-text-opacity));
 }
