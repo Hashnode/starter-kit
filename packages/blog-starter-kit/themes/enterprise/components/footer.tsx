@@ -11,15 +11,19 @@ return (
      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
       <div className="flex justify-center text-teal-600">
     {PUBLICATION_LOGO ? (
-    <><div className="flex w-full flex-row justify-center">
-              <Link href={'/'} aria-label={`${publication.title}`} className="flex flex-row items-center gap-5">
-                <img className="block w-40" src={PUBLICATION_LOGO} alt={publication.title} />
-              </Link>
-            </div><div className="flex w-full flex-row justify-center">
-                <Link href={'https://www.cagatay.com'} aria-label={`Çağatay`} className="flex flex-row items-center gap-5">
-                  <img className="block w-40" src="https://www.temizmama.biz/dist/media/img/markalar/bg-cgty.webp" alt="Çağatay" />
-                </Link>
-              </div></>
+    <>
+    <div className="flex w-full flex-row justify-center">
+        <a href="/" aria-label={publication.title} className="flex flex-row items-center gap-5" target="_blank" rel="noopener noreferrer">
+          <img className="block w-40" src={PUBLICATION_LOGO} alt={publication.title} />
+        </a>
+    </div>
+    <div className="flex w-full flex-row justify-center">
+        <a href="https://www.cagatay.com" aria-label="Çağatay" className="flex flex-row items-center gap-5" target="_blank" rel="noopener noreferrer">
+          <img className="block w-40" src="https://www.temizmama.biz/dist/media/img/markalar/bg-cgty.webp" alt="Çağatay" />
+        </a>
+    </div>
+
+    </>
     ) : (
     <p className="text-center text-xl font-semibold text-slate-900 dark:text-slate-50 md:text-4xl">
       {publication.title}
