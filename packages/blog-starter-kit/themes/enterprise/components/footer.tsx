@@ -13,7 +13,7 @@ return (
     {PUBLICATION_LOGO ? (
     <>
     <div className="flex w-full flex-row justify-center">
-        <a href="/" aria-label={publication.title} className="flex flex-row items-center gap-5" target="_blank" rel="noopener noreferrer">
+        <a href="https://temizmama.com" aria-label={publication.title} className="flex flex-row items-center gap-5" target="_blank" rel="noopener noreferrer">
           <img className="block w-40" src={PUBLICATION_LOGO} alt={publication.title} />
         </a>
     </div>
