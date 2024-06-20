@@ -39,7 +39,7 @@ const Toc = ({
 			{children.map((item) => (
 				<li key={item.id}>
 					<a
-						href={`#${item.slug}`}
+						href={`#heading-${item.slug}`}
 						className="hover:text-primary-650 hover:bg-primary-50 dark:hover:text-primary-650 dark:hover:bg-neutral-800"
 					>
 						{item.title}
