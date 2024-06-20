@@ -25,6 +25,9 @@ div#circusll {
     --tw-text-opacity: 1;
     color: rgb(226 121 0);
 }
+p.text-md.leading-snug.text-slate-500.dark\:text-neutral-400 {
+    font-family: "Source Serif Pro", serif;
+}
 .bg-slate-950 {
     background-image: url(https://i.ibb.co/2NHGvWT/image.png);
     background-position: center;
