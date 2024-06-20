@@ -1,6 +1,8 @@
 import { Container } from './container';
 import { useAppContext } from './contexts/appContext';
 import { SocialLinks } from './social-links';
+import Link from 'next/link';
+
 export const Footer = () => {
 const { publication } = useAppContext();
 const PUBLICATION_LOGO = publication.preferences.logo;
@@ -31,7 +33,17 @@ return (
       </div>
       <ul className="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://blog.temizmama.com" target="_self" > Ana Sayfa </a>
+          <Link
+				href={'./'}
+        aria-label={`Ana Sayfa`}
+				className="flex flex-row items-center justify-center gap-3"
+			>
+					<span
+						className={`text-gray-700 transition hover:text-gray-700/75`}
+					>
+						Ana Sayfa
+					</span>
+			</Link>
         </li>
 
         <li>
