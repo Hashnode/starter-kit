@@ -11,12 +11,15 @@ return (
      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
       <div className="flex justify-center text-teal-600">
     {PUBLICATION_LOGO ? (
-    <div className="flex w-full flex-row justify-center">
-      <Link href={'/'} aria-label={`${publication.title} home page`} className="flex flex-row items-center gap-5">
-      <img className="block w-40" src={PUBLICATION_LOGO} alt={publication.title} />
-        <img className="block w-40" src="https://www.temizmama.biz/dist/media/img/markalar/bg-cgty.webp" alt={publication.title} />
-      </Link>
-    </div>
+    <><div className="flex w-full flex-row justify-center">
+              <Link href={'/'} aria-label={`${publication.title} home page`} className="flex flex-row items-center gap-5">
+                <img className="block w-40" src={PUBLICATION_LOGO} alt={publication.title} />
+              </Link>
+            </div><div className="flex w-full flex-row justify-center">
+                <Link href={'https://www.cagatay.com'} aria-label={`${publication.title} home page`} className="flex flex-row items-center gap-5">
+                  <img className="block w-40" src="https://www.temizmama.biz/dist/media/img/markalar/bg-cgty.webp" alt={publication.title} />
+                </Link>
+              </div></>
     ) : (
     <p className="text-center text-xl font-semibold text-slate-900 dark:text-slate-50 md:text-4xl">
       {publication.title}
@@ -25,33 +28,33 @@ return (
       </div>
       <ul className="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://blog.temizmama.com" target="_self" > Anasayfa </a>
+          <a className="text-gray-700 transition hover:text-gray-700/75" href="#"> Anasayfa </a>
         </li>
 
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com" target="_blank" > Online Satış </a>
+          <a className="text-gray-700 transition hover:text-gray-700/75" href="#"> Mağaza </a>
         </li>
 
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/barinaklara-bagis" target="_blank" > Barınak Bağışı </a>
+          <a className="text-gray-700 transition hover:text-gray-700/75" href="#"> Hakkımızda </a>
         </li>
 
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/aydinlatma-metni" target="_blank" > Aydınlatma Metni </a>
+          <a className="text-gray-700 transition hover:text-gray-700/75" href="#"> Barınak Bağışı </a>
         </li>
 
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/hakkimizda" target="_blank" > Hakkımızda </a>
+          <a className="text-gray-700 transition hover:text-gray-700/75" href="#"> Aydınlatma Metni </a>
         </li>
 
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/iletisim" target="_blank" > İletişim </a>
+          <a className="text-gray-700 transition hover:text-gray-700/75" href="#"> İletişim </a>
         </li>
       </ul>
 
-      <ul className="mt-12 flex justify-center gap-6 md:gap-8 items-center">
+      <ul className="mt-12 flex justify-center gap-6 md:gap-8">
         <li>
-          <a href="https://www.facebook.com/temizmama/" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75">
+          <a href="#" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75">
             <span className="sr-only">Facebook</span>
             <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path fill-rule="evenodd"
@@ -62,7 +65,7 @@ return (
         </li>
 
         <li>
-          <a href="https://www.instagram.com/temizmamacom" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75">
+          <a href="#" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75">
             <span className="sr-only">Instagram</span>
             <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path fill-rule="evenodd"
@@ -73,17 +76,17 @@ return (
         </li>
 
         <li>
-          <a href="https://x.com/temizmamacom" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75">
-            <span className="sr-only">X</span>
+          <a href="#" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75">
+            <span className="sr-only">Twitter</span>
             <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill-rule="evenodd"
+              <path
                 d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
             </svg>
           </a>
         </li>
 
         <li>
-          <a href="https://www.youtube.com/@temizmama" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75">
+          <a href="#" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75">
             <span className="sr-only">Youtube</span>
             <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path fill-rule="evenodd" 
@@ -91,9 +94,6 @@ return (
                 clip-rule="evenodd" />
             </svg>
           </a>
-        </li>
-        <li>
-        <SocialLinks />
         </li>
       </ul>
     </div>
@@ -105,6 +105,12 @@ Temizmama.com, bir Çağatay Markasıdır.
       </p>
     </div>
   </Container>
+  <a href="#head" id="cta">
+  <span className="sr-only">Yukarı</span>
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
+    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+  </svg>
+</a>
 </footer>
 );
 };
