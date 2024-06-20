@@ -12,12 +12,12 @@ return (
       <div className="flex justify-center text-teal-600">
     {PUBLICATION_LOGO ? (
     <><div className="flex w-full flex-row justify-center">
-              <Link href={'/'} aria-label={`${publication.title} home page`} className="flex flex-row items-center gap-5">
+              <Link href={'/'} aria-label={`${publication.title}`} className="flex flex-row items-center gap-5">
                 <img className="block w-40" src={PUBLICATION_LOGO} alt={publication.title} />
               </Link>
             </div><div className="flex w-full flex-row justify-center">
-                <Link href={'https://www.cagatay.com'} aria-label={`${publication.title} home page`} className="flex flex-row items-center gap-5">
-                  <img className="block w-40" src="https://www.temizmama.biz/dist/media/img/markalar/bg-cgty.webp" alt={publication.title} />
+                <Link href={'https://www.cagatay.com'} aria-label={`Çağatay`} className="flex flex-row items-center gap-5">
+                  <img className="block w-40" src="https://www.temizmama.biz/dist/media/img/markalar/bg-cgty.webp" alt="Çağatay" />
                 </Link>
               </div></>
     ) : (
