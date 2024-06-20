@@ -1071,8 +1071,8 @@ export type Draft = Node & {
   canonicalUrl?: Maybe<Scalars['String']['output']>;
   /**
    * Returns the user details of the co-authors of the post.
-   * Hashnode users can add up to 4 co-authors as collaborators to their posts.
-   * This functionality is limited to teams publication.
+   *
+   * Only available for team publications.
    */
   coAuthors?: Maybe<Array<User>>;
   /** Content of the draft in HTML and markdown */
@@ -1088,6 +1088,12 @@ export type Draft = Node & {
   features: DraftFeatures;
   /** The ID of the draft. */
   id: Scalars['ID']['output'];
+  /**
+   * Whether or not the draft has been submitted for review.
+   *
+   * Only applicable to drafts in team publications.
+   */
+  isSubmittedForReview?: Maybe<Scalars['Boolean']['output']>;
   /** Information about the last backup of the draft. */
   lastBackup?: Maybe<DraftBackup>;
   /** The date the draft last failed to back up. */
@@ -1096,6 +1102,8 @@ export type Draft = Node & {
   lastSuccessfulBackupAt?: Maybe<Scalars['DateTime']['output']>;
   /** OG meta-data of the draft. Contains image url used in open graph meta tags. */
   ogMetaData?: Maybe<OpenGraphMetaData>;
+  /** The publication the draft belongs to. */
+  publication?: Maybe<Publication>;
   readTimeInMinutes: Scalars['Int']['output'];
   /** The date the draft is scheduled to be published. */
   scheduledDate?: Maybe<Scalars['DateTime']['output']>;
@@ -2648,6 +2656,8 @@ export type Publication = Node & {
   __typename?: 'Publication';
   /** The about section of the publication. */
   about?: Maybe<Content>;
+  /** Returns the list of drafts in the publication */
+  allDrafts: DraftConnection;
   /** Boolean flag indicating if the publication allows edits by contributors */
   allowContributorEdits: Scalars['Boolean']['output'];
   /** The author who owns the publication. */
@@ -2660,7 +2670,7 @@ export type Publication = Node & {
   displayTitle?: Maybe<Scalars['String']['output']>;
   /** Domain information of the publication. */
   domainInfo: DomainInfo;
-  /** Returns the list of drafts in the publication. */
+  /** Returns the list of drafts of the authenticated user in the publication. */
   drafts: DraftConnection;
   /** Returns the publication's email imports, used with newsletter feature. */
   emailImport?: Maybe<EmailImport>;
@@ -2739,6 +2749,16 @@ export type Publication = Node & {
   url: Scalars['String']['output'];
   /** Determines the structure of the post URLs. */
   urlPattern: UrlPattern;
+};
+
+
+/**
+ * Contains basic information about the publication.
+ * A publication is a blog that can be created for a user or a team.
+ */
+export type PublicationAllDraftsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  first: Scalars['Int']['input'];
 };
 
 
@@ -3630,10 +3650,12 @@ export enum Scope {
   PublishPost = 'publish_post',
   PublishReply = 'publish_reply',
   RecommendPublications = 'recommend_publications',
+  RejectDraftSubmission = 'reject_draft_submission',
   RemoveComment = 'remove_comment',
   RemoveReply = 'remove_reply',
   RestorePost = 'restore_post',
   Signup = 'signup',
+  SubmitDraft = 'submit_draft',
   TeamHashnode = 'team_hashnode',
   UpdateComment = 'update_comment',
   UpdateDraft = 'update_draft',

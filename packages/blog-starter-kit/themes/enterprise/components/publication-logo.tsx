@@ -28,12 +28,12 @@ export const PublicationLogo = ({ isSidebar }: { isSidebar?: boolean }) => {
 							alt={publication.title}
 							src={resizeImage(PUBLICATION_LOGO, { w: 320, h: 80 })}
 						/>
-						{/*<span className="text-2xl font-semibold text-white md:text-3xl">Blog</span>*/}
+						{/*<span className="text-xl font-semibold font-mono text-stone-400	 md:text-3xl">AUTONETOPS</span>*/}
 					</>
 				) : (
 					<span
 						className={`block text-2xl font-semibold ${
-							isSidebar ? 'text-black dark:text-white' : 'text-white md:text-4xl'
+							isSidebar ? 'text-black dark:text-stone-400	' : 'text-stone-400	 md:text-4xl'
 						}`}
 					>
 						{publication.title}

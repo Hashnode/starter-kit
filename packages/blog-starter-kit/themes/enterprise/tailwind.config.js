@@ -51,6 +51,11 @@ module.exports = {
 					  'justify-content': 'center',
 					  'align-items': 'center',
 					  'font-size': '1rem',
+					  'fontFamily': {
+						'sans': ['ui-sans', 'system-ui'],
+						'serif': ['ui-serif', 'Georgia'],
+						'mono': ['ui-monospace', 'SFMono-Regular'],
+					  }
 					}
 				  },
 				}
