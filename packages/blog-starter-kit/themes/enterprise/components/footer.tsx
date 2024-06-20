@@ -95,6 +95,9 @@ return (
             </svg>
           </a>
         </li>
+        <li>
+        <SocialLinks />
+        </li>
       </ul>
     </div>
         <div className="border-gray-100 pt-8">
