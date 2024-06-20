@@ -28,6 +28,9 @@ div#circusll {
 p.text-md.leading-snug.text-slate-500.dark\:text-neutral-400 {
     font-family: "Source Serif Pro", serif;
 }
+time {
+    font-family: "Source Serif Pro", serif;
+}
 .bg-slate-950 {
     background-image: url(https://i.ibb.co/2NHGvWT/image.png);
     background-position: center;
@@ -94,21 +97,24 @@ h1, h2 {
     font-family: "Source Serif Pro", serif;
 }
 /* Custom Scrollbar */
+/*
 ::-webkit-scrollbar {
-	display: none;
+    display: none;
 }
 
 ::-webkit-scrollbar-track {
-	display: none;
+    display: none;
 }
 
 ::-webkit-scrollbar-thumb {
-	display: none;
+    display: none;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	display: none;
+    display: none;
 }
+*/
+
 
 
 /*   scroll-up   */
