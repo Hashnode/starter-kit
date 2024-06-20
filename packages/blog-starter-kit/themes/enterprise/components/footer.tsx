@@ -36,11 +36,9 @@ return (
           <Link
 				href={'./'}
         aria-label={`Ana Sayfa`}
-				className="flex flex-row items-center justify-center gap-3"
+				className="text-gray-700 transition hover:text-gray-700/75"
 			>
-					<span
-						className={`text-gray-700 transition hover:text-gray-700/75`}
-					>
+					<span>
 						Ana Sayfa
 					</span>
 			</Link>
