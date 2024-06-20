@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { Container } from './container';
 import { useAppContext } from './contexts/appContext';
 import { SocialLinks } from './social-links';
@@ -19,7 +18,7 @@ return (
     </div>
     <div className="flex w-full flex-row justify-center">
         <a href="https://www.cagatay.com" aria-label="Çağatay" className="flex flex-row items-center gap-5" target="_blank" rel="noopener noreferrer">
-          <img className="block w-40" src="https://www.temizmama.biz/dist/media/img/markalar/bg-cgty.webp" alt="Çağatay" />
+          <img className="block w-40" src="https://www.temizmama.com/assets/img/anasayfa/cagatay-Logo.webp" alt="Çağatay" />
         </a>
     </div>
 
