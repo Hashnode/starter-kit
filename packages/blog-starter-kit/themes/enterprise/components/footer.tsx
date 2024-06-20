@@ -106,9 +106,9 @@ return (
     </div>
         <div className="border-gray-100 pt-8">
       <p className="text-center text-xs/relaxed text-gray-500">
-Temizmama.com, bir Çağatay Markasıdır.
+<a href="https://temizmama.com" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75"> Temizmama.com </a>, bir <a href="https://www.cagatay.com" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75">Çağatay</a> Markasıdır.
         <br/>
-© 2008 - 2024 Temizmama.com her hakkı saklıdır.
+© 2008 - 2024<a href="https://temizmama.com" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75"> Temizmama.com </a> her hakkı saklıdır.
       </p>
     </div>
   </Container>
