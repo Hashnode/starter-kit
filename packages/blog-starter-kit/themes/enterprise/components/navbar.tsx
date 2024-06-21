@@ -18,10 +18,10 @@ export const Navbar = () => {
             <div className="flex items-center">
               <Link href="./">
               <Image
-                src=".././assets/file.png"
+                src="https://9kelt5xnesj2nkgz.public.blob.vercel-storage.com/file-eYpF3jWI7j8924LUC1AR51hcMjnVNp.png"
                 width={500}
                 height={500}
-                alt="Picture of the author"
+                alt="Ana Sayfa"
               />
               </Link>
             </div>
