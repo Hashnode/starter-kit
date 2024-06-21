@@ -40,12 +40,12 @@ const Toc = ({
 	const children = data.filter((item) => item.parentId === parentId);
 	if (children.length === 0) return null;
 	return (
-		<ul className="mt-5 flex flex-col gap-5 pl-5 font-medium text-slate-800 dark:text-neutral-200">
+		<ul className="mt-3 flex flex-col gap-2 pl-5 font-semibold text-slate-800 dark:text-neutral-200">
 			{children.map((item) => (
 				<li key={item.id}>
 					<a
 						href={`#heading-${item.slug}`}
-						className="hover:text-primary-600 hover:bg-primary-50 dark:hover:text-primary-500 underline dark:hover:bg-neutral-800"
+						className="hover:text-primary-600 hover:bg-primary-50 dark:hover:text-primary-500 dark:hover:bg-neutral-800"
 					>
 						{item.title}
 					</a>
@@ -69,20 +69,36 @@ export const PostTOC = () => {
 	};
 
 	return (
-		<div className="fixed top-1/4 right-0 w-64 px-5 z-50">
-			<div className="mx-auto w-full bg-primary-50 max-w-screen-md rounded-lg border border-b-4 border-r-4 p-5 text-base leading-snug dark:border-neutral-800 dark:text-neutral-50 md:p-8 md:text-lg">
-				<Button
-					type="outline"
-					label="Table of Contents"
-					onClick={toggleVisibility}
-					className="mb-5 p-2 bg-primary-600 font-bold rounded-md hover:bg-primary-700"
-				
-					icon={<HamburgerSVG className="h-5 w-5 stroke-current" />}
-				/>
-				{isVisible && (
-					<Toc parentId={null} data={mapTableOfContentItems(post.features.tableOfContents.items)} />
-				)}
+		<>
+			<div className="hidden xl:fixed xl:top-1/4 xl:right-0 xl:w-80 xl:px-5 xl:z-50 xl:block">
+				<div className="mx-auto w-full bg-primary-50 max-w-screen-md rounded-lg border border-b-4 border-r-4 p-5 text-base leading-snug dark:border-neutral-800 dark:text-neutral-50 md:p-8 md:text-lg">
+					<Button
+						type="outline"
+						label="Table of Contents"
+						onClick={toggleVisibility}
+						className="mb-5 p-2 bg-primary-600 font-bold rounded-md hover:bg-primary-700"
+					
+						icon={<HamburgerSVG className="h-5 w-5 stroke-current" />}
+					/>
+					{isVisible && (
+						<Toc parentId={null} data={mapTableOfContentItems(post.features.tableOfContents.items)} />
+					)}
+				</div>
 			</div>
-		</div>
+
+			<div className="block xl:hidden w-5/6 mx-auto px-5">
+				<div className="mx-auto w-full max-w-screen-md rounded-lg border border-b-4 border-r-4 p-5 bg-white text-base leading-snug dark:border-neutral-800 dark:text-neutral-50 md:p-8 md:text-lg">
+					<Button
+						type="outline"
+						label="Table of Contents"
+						onClick={toggleVisibility}
+						className="mb-5 p-2 bg-primary-600 rounded-md hover:bg-primary-700 flex items-center justify-center"
+					/>
+					{isVisible && (
+						<Toc parentId={null} data={mapTableOfContentItems(post.features.tableOfContents.items)} />
+					)}
+				</div>
+			</div>
+		</>
 	);
 };
