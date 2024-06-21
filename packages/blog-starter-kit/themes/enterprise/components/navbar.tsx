@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image'
-
-
+import { PublicationLogo } from './publication-logo';
 
 export const Navbar = () => {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
@@ -17,12 +15,12 @@ export const Navbar = () => {
           <div className="flex items-center justify-between h-10">
             <div className="flex items-center">
               <Link href="./">
-              <img className="max-h-10 max-w-full object-contain" src="https://9kelt5xnesj2nkgz.public.blob.vercel-storage.com/file-eYpF3jWI7j8924LUC1AR51hcMjnVNp.png" alt="Ana Sayfa"/>
+                <PublicationLogo />
               </Link>
             </div>
             <div className="hidden md:flex justify-end w-full">
               <ul className="flex items-center space-x-8">
-                <li style={{ opacity: 1, transform: "none" }}>
+                {/* <li style={{ opacity: 1, transform: "none" }}>
                   <a className="text-gray-800 hover:text-gray-700/75 cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="navigation-search__icon">
                       <circle cx="11" cy="11" r="8"></circle>
@@ -30,6 +28,7 @@ export const Navbar = () => {
                     </svg>
                   </a>
                 </li>
+                */}
                 <li style={{ opacity: 1, transform: "none" }}>
                   <Link
                     href={'./'}
@@ -65,6 +64,6 @@ export const Navbar = () => {
           </div>
         </div>
       </nav>
-      </>
+    </>
   );
 };
