@@ -46,7 +46,7 @@ const CircularProgressBar = () => {
         />
       </svg>
       <a
-        href="#head"
+        href="__next"
         id="cta"
         onClick={scrollToTop}
         className="relative flex items-center justify-center w-12 h-12 bg-white rounded-full"
