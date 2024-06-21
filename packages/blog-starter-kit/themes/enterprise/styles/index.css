@@ -19,11 +19,10 @@
   }
 
 
-@media (min-width: 1024px) {
-    .pt-101 {
-        padding-top: 7rem;
-    }
+.pt-101 {
+    padding-top: 7rem;
 }
+
 @media (min-width: 640px) {
     .pt-101 {
         padding-top: 3rem;
