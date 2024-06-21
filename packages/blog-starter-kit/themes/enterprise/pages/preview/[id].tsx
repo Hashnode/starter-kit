@@ -48,7 +48,7 @@ export default function Post({ publication, post }: Props) {
 		<AppProvider publication={publication}>
 			<Layout>
 				<Header />
-				<Container className="pt-10">
+				<Container className="pt-101">
 					<article className="flex flex-col items-start gap-10 pb-10">
 						<Head>
 							<title>{title}</title>

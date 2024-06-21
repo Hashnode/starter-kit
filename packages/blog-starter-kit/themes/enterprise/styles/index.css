@@ -20,9 +20,19 @@
 
 
   @media screen and (min-width: 1024px) {
-	.pt-10 {
+	.pt-101 {
 		padding-top: 2.5rem;
 	}
+}
+@media (min-width: 640px) {
+    .pt-101 {
+        padding-top: 3rem;
+    }
+}
+@media (min-width: 240px) {
+    .pt-101 {
+        padding-top: 3rem;
+    }
 }
 	
 
