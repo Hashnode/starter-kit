@@ -10,6 +10,7 @@ import { Button } from "../components/button";
 import { Container } from "../components/container";
 import { AppProvider } from "../components/contexts/appContext";
 import { Footer } from "../components/footer";
+import { CookieBanner } from "../components/CookieBanner";
 import { HeroPost } from "../components/hero-post";
 import { ArticleSVG, ChevronDownSVG } from "../components/icons";
 import { Layout } from "../components/layout";
@@ -197,6 +198,7 @@ export default function Index({
           )}
         </Container>
         <Footer />
+        <CookieBanner />
       </Layout>
     </AppProvider>
   );
