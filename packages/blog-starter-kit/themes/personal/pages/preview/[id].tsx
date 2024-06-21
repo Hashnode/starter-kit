@@ -71,8 +71,6 @@ export default function Post({ publication, post }: Props) {
 							</div>
 						)}
 						<MarkdownToHtml contentMarkdown={post.content.markdown} />
-						{(post.tags ?? []).length > 0 && (
-						)}
 					</article>
 					<Footer />
 				</Container>
