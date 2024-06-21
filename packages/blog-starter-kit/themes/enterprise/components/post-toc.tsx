@@ -1,6 +1,11 @@
 import { PostFullFragment } from '../generated/graphql';
 import { useAppContext } from './contexts/appContext';
 
+import { useState } from 'react';
+import { Button } from './button';
+import HamburgerSVG from './icons/svgs/HamburgerSVG';
+
+
 type TableOfContentsItem = PostFullFragment['features']['tableOfContents']['items'][number];
 
 const mapTableOfContentItems = (toc: TableOfContentsItem[]) => {
@@ -55,13 +60,28 @@ const Toc = ({
 export const PostTOC = () => {
 	const { post } = useAppContext();
 
+	const [isVisible, setIsVisible] = useState(false);
+
 	if (!post) return null;
 
+	const toggleVisibility = () => {
+		setIsVisible(!isVisible);
+	};
+
 	return (
-		<div className="w-full px-5">
-			<div className="mx-auto w-full max-w-screen-md rounded-lg border border-b-4 border-r-4 p-5 text-base leading-snug dark:border-neutral-800 dark:text-neutral-50 md:p-8 md:text-lg">
-				<h2 className="mb-5 text-lg font-bold md:text-xl">Table of contents</h2>
-				<Toc parentId={null} data={mapTableOfContentItems(post.features.tableOfContents.items)} />
+		<div className="fixed top-1/4 right-0 w-64 px-5 z-50">
+			<div className="mx-auto w-full bg-primary-50 max-w-screen-md rounded-lg border border-b-4 border-r-4 p-5 text-base leading-snug dark:border-neutral-800 dark:text-neutral-50 md:p-8 md:text-lg">
+				<Button
+					type="outline"
+					label="Table of Contents"
+					onClick={toggleVisibility}
+					className="mb-5 p-2 bg-primary-600 font-bold rounded-md hover:bg-primary-700"
+				
+					icon={<HamburgerSVG className="h-5 w-5 stroke-current" />}
+				/>
+				{isVisible && (
+					<Toc parentId={null} data={mapTableOfContentItems(post.features.tableOfContents.items)} />
+				)}
 			</div>
 		</div>
 	);
