@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Search } from './searchbar';
 
 interface OverlaySearchProps {
@@ -8,6 +8,7 @@ interface OverlaySearchProps {
 
 export const OverlaySearch: React.FC<OverlaySearchProps> = ({ isVisible, onClose }) => {
   const [wHeight, setWHeight] = useState(0);
+  const searchRef = useRef<{ reset: () => void }>(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -34,11 +35,19 @@ export const OverlaySearch: React.FC<OverlaySearchProps> = ({ isVisible, onClose
     }
   }, [wHeight, isVisible]);
 
+  const handleClose = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (searchRef.current) {
+      searchRef.current.reset();
+    }
+    onClose();
+  };
+
   return (
     <div className={`mk-fullscreen-search-overlay ${isVisible ? 'mk-fullscreen-search-overlay-show' : ''}`}>
-      <a href="#" className="mk-fullscreen-close" onClick={onClose}><i className="fa fa-times"></i></a>
+      <a href="#" className="mk-fullscreen-close" onClick={handleClose}>x<i className="fa fa-times"></i></a>
       <div id="mk-fullscreen-search-wrapper">
-        <Search />
+        <Search ref={searchRef} onClose={onClose} />
       </div>
     </div>
   );
