@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './OverlaySearch.css';
 
 interface OverlaySearchProps {
   isVisible: boolean;
