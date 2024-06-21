@@ -35,7 +35,7 @@ export const Navbar = () => {
                   <Link
                     href={'./'}
                     aria-label={`Ana Sayfa`}
-                    className="text-gray-800 transition hover:text-gray-700/75 cursor-pointer"
+                    className="text-gray-800 transition hover:text-gray-700/75 cursor-pointer font-bold"
                   >
                     <span>
                       Ana Sayfa
@@ -44,9 +44,20 @@ export const Navbar = () => {
                 </li>
                 <li style={{ opacity: 1, transform: "none" }}>
                   <Link
+                    href={'./kurumsal'}
+                    aria-label={`kurumsal`}
+                    className="text-gray-800 transition hover:text-gray-700/75 cursor-pointer font-bold"
+                  >
+                    <span>
+                      Kurumsal
+                    </span>
+                  </Link>
+                </li>
+                <li style={{ opacity: 1, transform: "none" }}>
+                  <Link
                     href={'./iletisim'}
                     aria-label={`İletişim`}
-                    className="text-gray-800 transition hover:text-gray-700/75 cursor-pointer"
+                    className="text-gray-800 transition hover:text-gray-700/75 cursor-pointer font-bold"
                   >
                     <span>
                       İletişim
