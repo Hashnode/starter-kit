@@ -28,9 +28,6 @@ export const PostHeader = ({ title, coverImage}: Props) => {
 	return (
 		<>
 			<PostTitle>{title}</PostTitle>
-			<div className="flex flex-row flex-wrap items-center justify-center w-full gap-2 px-2 text-slate-700 dark:text-neutral-300 md:px-0">
-
-			</div>
 			{coverImage && (
 				<div className="flex justify-center items-center relative w-1/2 h-1/2 w-full px-5 sm:mx-0">
 					<CoverImage
