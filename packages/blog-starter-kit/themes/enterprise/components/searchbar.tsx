@@ -121,7 +121,7 @@ export const Search = () => {
 			{query && (
 				<>
 					{isSearching && (
-						<div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 mt-0 flex w-full flex-col items-stretch overflow-hidden rounded-lg border bg-white p-1 text-left text-slate-900 shadow-2xl dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-50">
+						<div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 mt-0 flex w-full max-w-4xl flex-col items-stretch overflow-hidden rounded-lg border bg-white p-1 text-left text-slate-900 shadow-2xl dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-50" style={{ top: '50%', transform: 'translate(-50%, -160%)' }} >
 							<div className="flex animate-pulse flex-col gap-1 p-4">
 								<div className="h-8 w-full rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
 								<div className="h-4 w-full rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
@@ -140,7 +140,7 @@ export const Search = () => {
 						</div>
 					)}
 					{searchResults.length > 0 && !isSearching && (
-						<div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 mt-0 flex w-full flex-col items-stretch overflow-hidden rounded-lg border bg-white p-1 text-left text-slate-900 shadow-2xl dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-50">
+						<div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 mt-0 flex w-full max-w-4xl flex-col items-stretch overflow-hidden rounded-lg border bg-white p-1 text-left text-slate-900 shadow-2xl dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-50" style={{ top: '50%', transform: 'translate(-50%, -160%)' }}>
 							<h3 className="px-4 py-2 font-medium text-slate-500 dark:text-neutral-400">
 								{searchResults.length} sonuç bulundu
 							</h3>
