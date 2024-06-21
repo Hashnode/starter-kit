@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { PublicationLogo } from './publication-logo';
-import { OverlaySearch } from './OverlaySearch';
 
 export const Navbar = () => {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
