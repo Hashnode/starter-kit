@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/OverlaySearch.css';
+import './OverlaySearch.css';
 
+interface OverlaySearchProps {
+  isVisible: boolean;
+  onClose: () => void;
+}
 
-export const OverlaySearch = ({ isVisible, onClose }) => {
+export const OverlaySearch: React.FC<OverlaySearchProps> = ({ isVisible, onClose }) => {
   const [wHeight, setWHeight] = useState(window.innerHeight);
 
   useEffect(() => {
