@@ -72,9 +72,6 @@ export default function Post({ publication, post }: Props) {
 						)}
 						<MarkdownToHtml contentMarkdown={post.content.markdown} />
 						{(post.tags ?? []).length > 0 && (
-							<div className="mx-auto w-full text-slate-600 dark:text-neutral-300 md:max-w-screen-md">
-								<ul className="flex flex-row flex-wrap items-center gap-2">{tagsList}</ul>
-							</div>
 						)}
 					</article>
 					<Footer />

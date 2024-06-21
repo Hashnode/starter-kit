@@ -9,7 +9,7 @@ const PUBLICATION_LOGO = publication.preferences.logo;
 return (
 <footer className="dark:border-neutral-800 ">
   <Container className="px-5 py-15">
-     <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+     <div className="mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex justify-center text-teal-600">
     {PUBLICATION_LOGO ? (
     <>
