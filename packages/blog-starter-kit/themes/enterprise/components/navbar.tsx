@@ -63,8 +63,8 @@ export const Navbar = () => {
             </div>
           </div>
         </div>
+        <OverlaySearch isVisible={isSearchVisible} onClose={handleSearchClose} />
       </nav>
-      <OverlaySearch isVisible={isSearchVisible} onClose={handleSearchClose} />
-    </>
+      </>
   );
 };

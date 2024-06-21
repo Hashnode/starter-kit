@@ -20,7 +20,7 @@ interface SearchProps {
   onClose: () => void;
 }
 
-export const Search = forwardRef(({ onClose }: SearchProps, ref: any) => {
+export const Search = forwardRef(({ onClose }: SearchProps, ref) => {
   const { publication } = useAppContext();
 
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -43,7 +43,7 @@ export const Search = forwardRef(({ onClose }: SearchProps, ref: any) => {
     setSearchResults([]);
   };
 
-  const escapeSearchOnESC: KeyboardEventHandler<HTMLInputElement> = (e: { key: string; }) => {
+  const escapeSearchOnESC: KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === 'Escape') {
       resetInput();
       onClose();
@@ -73,7 +73,7 @@ export const Search = forwardRef(({ onClose }: SearchProps, ref: any) => {
         first: NO_OF_SEARCH_RESULTS,
         filter: { query, publicationId: publication.id },
       });
-      const posts = data.searchPostsOfPublication.edges.map((edge: { node: any; }) => edge.node);
+      const posts = data.searchPostsOfPublication.edges.map((edge) => edge.node);
       setSearchResults(posts);
       setIsSearching(false);
     }, 500);
@@ -83,14 +83,7 @@ export const Search = forwardRef(({ onClose }: SearchProps, ref: any) => {
     search(query);
   }, [query]);
 
-  // Odaklanma işlemi için useEffect ekliyoruz
-  useEffect(() => {
-    if (searchInputRef.current) {
-      searchInputRef.current.focus();
-    }
-  }, []);
-
-  const searchResultsList = searchResults.map((post: { slug: any; id: any; title: string; brief: string; coverImage: { url: any; }; }) => {
+  const searchResultsList = searchResults.map((post) => {
     const postURL = `/${post.slug}`;
     return (
       <Link
@@ -128,23 +121,7 @@ export const Search = forwardRef(({ onClose }: SearchProps, ref: any) => {
 
   return (
     <div className="relative col-span-1">
-      <form method="get" id="mk-fullscreen-searchform" className="absolute left-1/2 transform -translate-x-1/2" style={{ transform: 'translate(-50%, 10%)',
-				width: 'auto',
-				height: 'max-content',
-				position: 'relative',
-				top: '5%',
-				zIndex: '10',
-				marginTop: '0',
-				display: 'flex',
-				flexDirection: 'column',
-				alignItems: 'stretch',
-				overflow: 'hidden',
-				borderRadius: '0.5rem',
-				border: '1px solid',
-				padding: '1rem',
-				textAlign: 'left',
-				backgroundColor: 'white',
-				boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)' }} action="">
+      <form method="get" id="mk-fullscreen-searchform" className="absolute left-1/2 transform -translate-x-1/2" style={{ position: 'sticky', transform: 'translate(0, 300%)' }} action="">
         <input
           type="text"
           ref={searchInputRef}
@@ -159,11 +136,11 @@ export const Search = forwardRef(({ onClose }: SearchProps, ref: any) => {
       {query && (
         <>
           {isSearching && (
-            <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 mt-0 flex w-full max-w-4xl flex-col items-stretch overflow-hidden rounded-lg border bg-white p-1 text-left text-slate-900 shadow-2xl dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-50"style={{ 
+            <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 mt-0 flex w-full max-w-4xl flex-col items-stretch overflow-hidden rounded-lg border bg-white p-1 text-left text-slate-900 shadow-2xl dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-50" style={{ 
 				transform: 'translate(-50%, 10%)',
-				width: 'auto',
+				width: 'max-content',
 				height: 'max-content',
-				position: 'relative',
+				position: 'fixed',
 				top: '10rem',
 				zIndex: '10',
 				marginTop: '0',
@@ -196,25 +173,25 @@ export const Search = forwardRef(({ onClose }: SearchProps, ref: any) => {
             </div>
           )}
           {searchResults.length > 0 && !isSearching && (
-            <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 mt-0 flex w-full max-w-4xl flex-col items-stretch overflow-hidden rounded-lg border bg-white p-1 text-left text-slate-900 shadow-2xl dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-50"style={{ 
-				transform: 'translate(-50%, 10%)',
-				width: 'auto',
-				height: 'max-content',
-				position: 'relative',
-				top: '10rem',
-				zIndex: '10',
-				marginTop: '0',
-				display: 'flex',
-				flexDirection: 'column',
-				alignItems: 'stretch',
-				overflow: 'hidden',
-				borderRadius: '0.5rem',
-				border: '1px solid',
-				padding: '1rem',
-				textAlign: 'left',
-				backgroundColor: 'white',
-				boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)'
-				}}>
+            <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 mt-0 flex w-full max-w-4xl flex-col items-stretch overflow-hidden rounded-lg border bg-white p-1 text-left text-slate-900 shadow-2xl dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-50" style={{ 
+							transform: 'translate(-50%, 10%)',
+							width: 'max-content',
+							height: 'max-content',
+							position: 'fixed',
+							top: '10rem',
+							zIndex: '10',
+							marginTop: '0',
+							display: 'flex',
+							flexDirection: 'column',
+							alignItems: 'stretch',
+							overflow: 'hidden',
+							borderRadius: '0.5rem',
+							border: '1px solid',
+							padding: '1rem',
+							textAlign: 'left',
+							backgroundColor: 'white',
+							boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)'
+							}}>
               <h3 className="px-4 py-2 font-medium text-slate-500 dark:text-neutral-400">
                 {searchResults.length} sonuç bulundu
               </h3>
