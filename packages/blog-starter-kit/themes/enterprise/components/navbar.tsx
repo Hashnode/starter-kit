@@ -22,7 +22,7 @@ export const Navbar = () => {
             <div className="hidden md:flex justify-end w-full">
               <ul className="flex items-center space-x-8">
                 <li style={{ opacity: 1, transform: "none" }}>
-                  <a className="text-gray-800 hover:text-gray-700/75 cursor-pointer" onClick={}>
+                  <a className="text-gray-800 hover:text-gray-700/75 cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="navigation-search__icon">
                       <circle cx="11" cy="11" r="8"></circle>
                       <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -55,7 +55,7 @@ export const Navbar = () => {
             </div>
             <div className="hidden md:block" style={{ opacity: 1, transform: "none" }}></div>
             <div className="md:hidden flex items-center">
-              <button className="text-white" onClick={}>
+              <button className="text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
                 </svg>
