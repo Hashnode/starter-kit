@@ -106,14 +106,14 @@ export const Search = () => {
 	return (
 		<div className="relative col-span-1">
 
-<form className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-1/2 mt-0" action="">
+<form className="absolute left-1/2 transform -translate-x-1/2" style={{ top: '50%', transform: 'translate(-50%, -160%)' }} action="">
   			<input
 				type="text"
 				ref={searchInputRef}
 				onKeyUp={escapeSearchOnESC}
 				onChange={updateSearchQuery}
 				placeholder="Ara…"
-				className="w-full rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-base focus:bg-transparent dark:border-neutral-800 dark:bg-neutral-800 dark:text-neutral-50 dark:placeholder:text-neutral-400 dark:hover:bg-neutral-950"
+				className="w-full rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-base dark:border-neutral-800 dark:bg-neutral-800 dark:text-neutral-50 dark:placeholder:text-neutral-400 dark:hover:bg-neutral-950"
 				required
 			/>
 			<i className="fa fa-search"></i>
