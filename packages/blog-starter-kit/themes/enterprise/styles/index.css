@@ -211,7 +211,7 @@ html {
 		position: fixed;
 		bottom: var(--padding);
 		right: var(--padding);
-		translate: 0 calc(20vh - (var(--show, 0) * 30vh));
+		translate: 0 calc(20vh - (var(--show, 0) * 20vh));
 		transition: translate 0.875s linear(
 	    0, 0.5007 7.21%, 0.7803 12.29%,
 	    0.8883 14.93%, 0.9724 17.63%,
