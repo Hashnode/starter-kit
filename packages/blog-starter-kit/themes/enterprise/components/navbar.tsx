@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Search } from "./searchbar";
 import Link from 'next/link';
 import { PublicationLogo } from './publication-logo';
 import { OverlaySearch } from './OverlaySearch';
@@ -63,7 +62,6 @@ export const Navbar = () => {
               </button>
             </div>
           </div>
-          <Search />
         </div>
       </nav>
       <OverlaySearch isVisible={isSearchVisible} onClose={handleSearchClose} />

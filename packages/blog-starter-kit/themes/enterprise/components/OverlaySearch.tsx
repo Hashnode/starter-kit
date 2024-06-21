@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Search } from './searchbar';
 
 interface OverlaySearchProps {
   isVisible: boolean;
@@ -6,12 +7,24 @@ interface OverlaySearchProps {
 }
 
 export const OverlaySearch: React.FC<OverlaySearchProps> = ({ isVisible, onClose }) => {
-  const [wHeight, setWHeight] = useState(window.innerHeight);
+  const [wHeight, setWHeight] = useState(0);
 
   useEffect(() => {
-    const handleResize = () => setWHeight(window.innerHeight);
+    if (typeof window !== 'undefined') {
+      setWHeight(window.innerHeight);
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (typeof window !== 'undefined') {
+        setWHeight(window.innerHeight);
+      }
+    };
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   useEffect(() => {
@@ -25,12 +38,7 @@ export const OverlaySearch: React.FC<OverlaySearchProps> = ({ isVisible, onClose
     <div className={`mk-fullscreen-search-overlay ${isVisible ? 'mk-fullscreen-search-overlay-show' : ''}`}>
       <a href="#" className="mk-fullscreen-close" onClick={onClose}><i className="fa fa-times"></i></a>
       <div id="mk-fullscreen-search-wrapper">
-        <form method="get" id="mk-fullscreen-searchform" action="">
-          <input type="text" value="" placeholder="Search..." id="mk-fullscreen-search-input" />
-          <i className="fa fa-search fullscreen-search-icon">
-            <input value="" type="submit" />
-          </i>
-        </form>
+        <Search />
       </div>
     </div>
   );
