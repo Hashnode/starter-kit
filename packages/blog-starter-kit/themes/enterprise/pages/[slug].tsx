@@ -10,6 +10,7 @@ import { Container } from '../components/container';
 import { AppProvider } from '../components/contexts/appContext';
 import { Footer } from '../components/footer';
 import { Header } from '../components/header';
+import { Navbar } from "../components/navbar";
 import { Layout } from '../components/layout';
 import { MarkdownToHtml } from '../components/markdown-to-html';
 import { PostHeader } from '../components/post-header';
@@ -164,6 +165,7 @@ export default function PostOrPage(props: Props) {
 		<AppProvider publication={publication} post={maybePost} page={maybePage}>
 			<Layout>
 				<Header />
+				<Navbar />
 				<Container className="pt-101">
 					<article className="flex flex-col items-start gap-10 pb-10">
 						{props.type === 'post' && <Post {...props} />}
