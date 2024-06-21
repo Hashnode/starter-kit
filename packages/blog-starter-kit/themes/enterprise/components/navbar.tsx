@@ -17,12 +17,7 @@ export const Navbar = () => {
           <div className="flex items-center justify-between h-10">
             <div className="flex items-center">
               <Link href="./">
-              <Image
-                src="https://9kelt5xnesj2nkgz.public.blob.vercel-storage.com/file-eYpF3jWI7j8924LUC1AR51hcMjnVNp.png"
-                width={500}
-                height={500}
-                alt="Ana Sayfa"
-              />
+              <img className="" src="https://9kelt5xnesj2nkgz.public.blob.vercel-storage.com/file-eYpF3jWI7j8924LUC1AR51hcMjnVNp.png" alt="Ana Sayfa"/>
               </Link>
             </div>
             <div className="hidden md:flex justify-end w-full">
