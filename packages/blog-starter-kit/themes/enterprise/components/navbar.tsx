@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { PublicationLogo } from './publication-logo';
+import myImage from 'https://9kelt5xnesj2nkgz.public.blob.vercel-storage.com/file-GM5uv8IbIqwkBuZ4Gb6IgVakz47Dq9.png';
+
 
 export const Navbar = () => {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
@@ -15,7 +16,7 @@ export const Navbar = () => {
           <div className="flex items-center justify-between h-10">
             <div className="flex items-center">
               <Link href="./">
-                <PublicationLogo />
+              <img src={myImage} alt="Ana Sayfa" />
               </Link>
             </div>
             <div className="hidden md:flex justify-end w-full">
