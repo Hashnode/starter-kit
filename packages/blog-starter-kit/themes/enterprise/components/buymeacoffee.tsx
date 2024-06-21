@@ -1,6 +1,5 @@
 import * as Popover from '@radix-ui/react-popover';
 import { Button } from './button';
-import { SubscribeForm } from './subscribe-form';
 import BuyMeACoffeeSVG from './icons/svgs/BuyMeACoffeeSVG';
 
 
@@ -25,7 +24,15 @@ export const BuyMeACoffee = () => {
 						<h3 className="mb-2 text-base font-semibold text-center text-primary-600">
                             Like what you read? A small monthly contribution helps me share more awesome content
 						</h3>
-						<SubscribeForm />
+                        <div className="w-full flex justify-center">
+							<iframe
+								src="https://www.buymeacoffee.com/widget/page/pdamasceno"
+								width="300"
+								height="500"
+								className="w-full"
+							></iframe>
+						</div>
+						
 					</Popover.Content>
 				</Popover.Portal>
 			</Popover.Root>
