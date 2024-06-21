@@ -47,7 +47,7 @@ export const OverlaySearch: React.FC<OverlaySearchProps> = ({ isVisible, onClose
     <div className={`mk-fullscreen-search-overlay ${isVisible ? 'mk-fullscreen-search-overlay-show' : ''}`}>
       <a href="#" className="mk-fullscreen-close" onClick={handleClose}>x<i className="fa fa-times"></i></a>
       <div id="mk-fullscreen-search-wrapper">
-        <Search ref={searchRef} onClose={onClose} />
+        <Search />
       </div>
     </div>
   );
