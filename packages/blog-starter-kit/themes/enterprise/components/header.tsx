@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { PublicationNavbarItem } from '../generated/graphql';
 import { Button } from './button';
 import { Container } from './container';
-import { Navbar } from "../components/navbar";
 import { useAppContext } from './contexts/appContext';
 import HamburgerSVG from './icons/svgs/HamburgerSVG';
 import PublicationSidebar from './sidebar';

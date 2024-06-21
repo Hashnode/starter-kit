@@ -4,6 +4,7 @@ import request from "graphql-request";
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import { useState } from "react";
+import { Navbar } from "../components/navbar";
 import { Waypoint } from "react-waypoint";
 import { Button } from "../components/button";
 import { Container } from "../components/container";
