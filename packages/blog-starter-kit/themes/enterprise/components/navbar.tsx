@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import myImage from 'https://9kelt5xnesj2nkgz.public.blob.vercel-storage.com/file-GM5uv8IbIqwkBuZ4Gb6IgVakz47Dq9.png';
+import myImage from '.././assets/file.png';
 
 
 export const Navbar = () => {
