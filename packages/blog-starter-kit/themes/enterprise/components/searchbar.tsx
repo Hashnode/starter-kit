@@ -20,7 +20,7 @@ interface SearchProps {
   onClose: () => void;
 }
 
-export const Search = forwardRef(({ onClose }: SearchProps, ref) => {
+export const Search = forwardRef(({ onClose }: SearchProps, ref: any) => {
   const { publication } = useAppContext();
 
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -43,7 +43,7 @@ export const Search = forwardRef(({ onClose }: SearchProps, ref) => {
     setSearchResults([]);
   };
 
-  const escapeSearchOnESC: KeyboardEventHandler<HTMLInputElement> = (e) => {
+  const escapeSearchOnESC: KeyboardEventHandler<HTMLInputElement> = (e: { key: string; }) => {
     if (e.key === 'Escape') {
       resetInput();
       onClose();
@@ -73,7 +73,7 @@ export const Search = forwardRef(({ onClose }: SearchProps, ref) => {
         first: NO_OF_SEARCH_RESULTS,
         filter: { query, publicationId: publication.id },
       });
-      const posts = data.searchPostsOfPublication.edges.map((edge) => edge.node);
+      const posts = data.searchPostsOfPublication.edges.map((edge: { node: any; }) => edge.node);
       setSearchResults(posts);
       setIsSearching(false);
     }, 500);
@@ -90,7 +90,7 @@ export const Search = forwardRef(({ onClose }: SearchProps, ref) => {
     }
   }, []);
 
-  const searchResultsList = searchResults.map((post) => {
+  const searchResultsList = searchResults.map((post: { slug: any; id: any; title: string; brief: string; coverImage: { url: any; }; }) => {
     const postURL = `/${post.slug}`;
     return (
       <Link
