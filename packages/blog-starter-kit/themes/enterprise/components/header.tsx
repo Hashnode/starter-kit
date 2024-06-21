@@ -76,7 +76,7 @@ export const Header = () => {
 
 	return (
 		<header className="dark:border-neutral-800 dark:bg-neutral-900" id="head">
-			<div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-[1px] bg-black w-[25%] dark:bg-neutral-800"></div>
+			
 			<Container className="grid grid-cols-4 gap-5 px-5">
 				<div className="col-span-2 flex flex-1 flex-row items-center gap-2 lg:col-span-1">
 					<div className="lg:hidden">
