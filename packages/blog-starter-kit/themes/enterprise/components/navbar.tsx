@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image'
-
-
 
 export const Navbar = () => {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
