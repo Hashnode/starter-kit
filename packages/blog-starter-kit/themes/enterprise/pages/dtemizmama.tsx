@@ -7,7 +7,7 @@ import {
 } from '../generated/graphql';
 
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
-const Dashboard = () => null;
+const dtemizmama = () => null;
 
 export const getServerSideProps: GetServerSideProps = async () => {
 	const data = await request<PublicationByHostQuery, PublicationByHostQueryVariables>(
@@ -33,4 +33,4 @@ export const getServerSideProps: GetServerSideProps = async () => {
 	};
 };
 
-export default Dashboard;
+export default dtemizmama;
