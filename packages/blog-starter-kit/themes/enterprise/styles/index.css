@@ -19,10 +19,10 @@
   }
 
 
-  @media screen and (min-width: 1024px) {
-	.pt-101 {
-		padding-top: 2.5rem;
-	}
+@media (min-width: 1024px) {
+    .pt-101 {
+        padding-top: 7rem;
+    }
 }
 @media (min-width: 640px) {
     .pt-101 {
@@ -31,7 +31,7 @@
 }
 @media (min-width: 240px) {
     .pt-101 {
-        padding-top: 3rem;
+        padding-top: 2rem;
     }
 }
 	
