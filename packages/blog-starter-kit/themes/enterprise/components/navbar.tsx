@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import myImage from '.././assets/file.png';
+import Image from 'next/image'
+
 
 
 export const Navbar = () => {
@@ -16,7 +17,12 @@ export const Navbar = () => {
           <div className="flex items-center justify-between h-10">
             <div className="flex items-center">
               <Link href="./">
-              <img src={myImage} alt="Ana Sayfa" />
+              <Image
+                src=".././assets/file.png"
+                width={500}
+                height={500}
+                alt="Picture of the author"
+              />
               </Link>
             </div>
             <div className="hidden md:flex justify-end w-full">
