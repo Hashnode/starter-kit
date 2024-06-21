@@ -135,6 +135,7 @@ export default function Index({
           />
         </Head>
         <Header />
+        <Navbar />
 
         <Container className="flex flex-col items-stretch gap-10 px-5 pb-10">
           
