@@ -1,6 +1,7 @@
 import { Container } from './container';
 import { useAppContext } from './contexts/appContext';
 import { SocialLinks } from './social-links';
+import { Navbar } from "../components/navbar";
 import Link from 'next/link';
 
 export const Footer = () => {
@@ -127,6 +128,7 @@ return (
     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
   </svg>
 </a>
+<Navbar />
 </footer>
 );
 };

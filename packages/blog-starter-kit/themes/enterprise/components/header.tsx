@@ -5,7 +5,6 @@ import { Button } from './button';
 import { Container } from './container';
 import { useAppContext } from './contexts/appContext';
 import HamburgerSVG from './icons/svgs/HamburgerSVG';
-import { PublicationLogo } from './publication-logo';
 import PublicationSidebar from './sidebar';
 
 function hasUrl(
@@ -76,7 +75,8 @@ export const Header = () => {
 	);
 
 	return (
-		<header className="border-b bg-slate-950 py-10 dark:border-neutral-800 dark:bg-neutral-900" id="head">
+		<header className="dark:border-neutral-800 dark:bg-neutral-900" id="head">
+			<div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-[1px] bg-black w-[25%] dark:bg-neutral-800"></div>
 			<Container className="grid grid-cols-4 gap-5 px-5">
 				<div className="col-span-2 flex flex-1 flex-row items-center gap-2 lg:col-span-1">
 					<div className="lg:hidden">
@@ -93,7 +93,6 @@ export const Header = () => {
 						)}
 					</div>
 					<div className="hidden lg:block">
-						<PublicationLogo />
 					</div>
 				</div>
 				<div className="col-span-2 flex flex-row items-center justify-end gap-5 text-slate-300 lg:col-span-3">
@@ -101,7 +100,6 @@ export const Header = () => {
 				</div>
 			</Container>
 			<div className="mt-5 flex justify-center lg:hidden">
-				<PublicationLogo />
 			</div>
 		</header>
 	);

@@ -33,12 +33,6 @@ div#circusll {
     color: rgb(226 121 0);
 }
 
-.bg-slate-950 {
-    background-image: url(https://i.ibb.co/2NHGvWT/image.png);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
 a.text-gray-700.transition.hover\:text-gray-700\/75 {
     font-family: ui-monospace;
 }
@@ -78,6 +72,9 @@ a.text-gray-700.transition.hover\:text-gray-700\/75 {
     color: #ddd;
 }
 
+.py-15 {
+	padding-bottom: 1.75rem;
+}
 
 /*   Custom header title css  */
 

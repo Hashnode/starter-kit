@@ -105,18 +105,23 @@ export const Search = () => {
 
 	return (
 		<div className="relative col-span-1">
-			<input
+
+<form className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-1/2 mt-0" action="">
+  			<input
 				type="text"
 				ref={searchInputRef}
 				onKeyUp={escapeSearchOnESC}
 				onChange={updateSearchQuery}
 				placeholder="Ara…"
 				className="w-full rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-base focus:bg-transparent dark:border-neutral-800 dark:bg-neutral-800 dark:text-neutral-50 dark:placeholder:text-neutral-400 dark:hover:bg-neutral-950"
+				required
 			/>
+			<i className="fa fa-search"></i>
+			</form>
 			{query && (
 				<>
 					{isSearching && (
-						<div className="top-100 absolute left-0 z-10 mt-1 flex w-full flex-col items-stretch overflow-hidden rounded-lg border bg-white p-1 text-left text-slate-900 shadow-2xl dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-50">
+						<div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 mt-0 flex w-full flex-col items-stretch overflow-hidden rounded-lg border bg-white p-1 text-left text-slate-900 shadow-2xl dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-50">
 							<div className="flex animate-pulse flex-col gap-1 p-4">
 								<div className="h-8 w-full rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
 								<div className="h-4 w-full rounded-lg bg-slate-100 dark:bg-neutral-800"></div>
@@ -135,7 +140,7 @@ export const Search = () => {
 						</div>
 					)}
 					{searchResults.length > 0 && !isSearching && (
-						<div className="top-100 absolute left-0 z-10 mt-1 flex w-full flex-col items-stretch overflow-hidden rounded-lg border bg-white p-1 text-left text-slate-900 shadow-2xl dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-50">
+						<div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 mt-0 flex w-full flex-col items-stretch overflow-hidden rounded-lg border bg-white p-1 text-left text-slate-900 shadow-2xl dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-50">
 							<h3 className="px-4 py-2 font-medium text-slate-500 dark:text-neutral-400">
 								{searchResults.length} sonuç bulundu
 							</h3>
