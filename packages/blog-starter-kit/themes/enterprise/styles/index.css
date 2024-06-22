@@ -149,17 +149,9 @@ html {
 }
 
 #cta {
-	position: sticky;
-	bottom: var(--padding);
-	margin-top: calc(100vh + var(--distance, 0));
-	translate: calc(-100% - var(--padding)) 0;
 	display: grid;
 	white-space: nowrap;
-	place-self: end;
-	/*border-radius: 100px;*/
-	/*background: var(--accent);*/
 	text-decoration: none;
-	/*border: 1px solid canvasText;*/
 	color: canvasText;
 	width: 40px;
 	height: 40px;
@@ -194,8 +186,8 @@ html {
 	}
 	#cta {
 		position: fixed;
-		bottom: var(--padding);
-		right: var(--padding);
+		bottom: 0;
+		right: 0;
 		translate: 0 calc(20vh - (var(--show, 0) * 20vh));
 		transition: translate 0.875s linear(
 	    0, 0.5007 7.21%, 0.7803 12.29%,
