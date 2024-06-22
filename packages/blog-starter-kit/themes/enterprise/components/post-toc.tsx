@@ -4,7 +4,6 @@ import { useState } from 'react';
 import ListSVG from './icons/svgs/ListSVG';
 import CloseSVG from './icons/svgs/CloseSVG';
 
-
 type TableOfContentsItem = PostFullFragment['features']['tableOfContents']['items'][number];
 
 const mapTableOfContentItems = (toc: TableOfContentsItem[]) => {
@@ -25,7 +24,15 @@ const mapTableOfContentItems = (toc: TableOfContentsItem[]) => {
   }
 };
 
-const Toc = ({ data, parentId, onClose }: { data: TableOfContentsItem[]; parentId: TableOfContentsItem['parentId']; onClose: () => void; }) => {
+const Toc = ({
+  data,
+  parentId,
+  onClose,
+}: {
+  data: TableOfContentsItem[];
+  parentId: TableOfContentsItem['parentId'];
+  onClose: () => void;
+}) => {
   const children = data.filter((item) => item.parentId === parentId);
   if (children.length === 0) return null;
   return (
@@ -34,7 +41,7 @@ const Toc = ({ data, parentId, onClose }: { data: TableOfContentsItem[]; parentI
         <li key={item.id}>
           <a
             href={`#heading-${item.slug}`}
-            className="hover:text-primary-600 hover:bg-primary-50 dark:hover:text-primary-500 dark:hover:bg-neutral-800"
+            className="hover:text-primary-600 hover:bg-primary-50 dark:hover:text-primary-500 dark:hover:bg-neutral-800 relative pl-5 before:absolute before:left-0 before:top-1/2 before:w-2 before:h-2 before:bg-primary-500 before:rounded-full before:transform before:-translate-y-1/2"
             onClick={onClose}
           >
             {item.title}
@@ -70,7 +77,7 @@ export const PostTOC = () => {
           <ListSVG className="w-6 h-6 fill-current text-primary-800" />
         </button>
       </div>
-      
+
       {isVisible && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="relative w-full max-w-screen-md bg-white dark:bg-neutral-900 p-5 rounded-lg shadow-lg overflow-y-auto max-h-full">
