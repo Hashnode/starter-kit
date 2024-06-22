@@ -70,6 +70,10 @@ const config = {
 				protocol: 'https',
 				hostname: 'cdn.hashnode.com',
 			},
+			{
+				protocol: 'https',
+				hostname: '9kelt5xnesj2nkgz.public.blob.vercel-storage.com',
+			},
 		],
 	},
 	async rewrites() {

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+
 
 export const Navbar = () => {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
@@ -13,9 +15,17 @@ export const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white/10 backdrop-blur-md shadow-md py-4 rounded-xl select-none" style={{ opacity: 1, transform: "none", background: "hsl(30.98deg 100% 39.84% / 22%)" }}>
           <div className="flex items-center justify-between h-10">
             <div className="flex items-center">
-              <Link href="./">
-              <img className="max-h-10 max-w-full object-contain" src="https://9kelt5xnesj2nkgz.public.blob.vercel-storage.com/file-eYpF3jWI7j8924LUC1AR51hcMjnVNp.png" alt="Ana Sayfa"/>
-              </Link>
+            <Link href="./">
+    <div style={{ position: 'relative', width: '100px', height: '53px', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', zoom: '1.6'}}>
+      <Image
+        src="https://9kelt5xnesj2nkgz.public.blob.vercel-storage.com/file-eYpF3jWI7j8924LUC1AR51hcMjnVNp.png"
+        alt="Ana Sayfa"
+        fill 
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" 
+        style={{ objectFit: 'contain' }} 
+      />
+    </div>
+  </Link>
             </div>
             <div className="hidden md:flex justify-end w-full">
               <ul className="flex items-center space-x-8">
