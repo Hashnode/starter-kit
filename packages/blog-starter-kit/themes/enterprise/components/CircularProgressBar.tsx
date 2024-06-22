@@ -25,31 +25,12 @@ const CircularProgressBar = () => {
   };
 
   return (
-    <div className="fixed right-4 bottom-4 flex items-center justify-center">
-      <svg className="absolute w-16 h-16" viewBox="0 0 36 36">
-        <path
-          className="text-gray-200"
-          d="M18 2.0845
-            a 15.9155 15.9155 0 0 1 0 31.831
-            a 15.9155 15.9155 0 0 1 0 -31.831"
-          fill="none"
-          strokeWidth="2"
-        />
-        <path
-          className="text-blue-500"
-          d="M18 2.0845
-            a 15.9155 15.9155 0 0 1 0 31.831"
-          fill="none"
-          strokeWidth="2"
-          strokeDasharray={`${scrollPercentage}, 100`}
-          strokeDashoffset="25"
-        />
-      </svg>
+    <div className="fixed right-4 bottom-4 flex items-center justify-center select-none">
       <a
         href="__next"
         id="cta"
         onClick={scrollToTop}
-        className="relative flex items-center justify-center w-12 h-12 bg-white rounded-full"
+        className="justify-center bg-white rounded-full"
       >
         <span className="sr-only">Yukarı</span>
         <svg

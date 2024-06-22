@@ -1000,19 +1000,24 @@ const { default: isURL } = require('validator/lib/isURL');
 				alignmentStyles = '';
 				break;
 			case ImageAlignment.Center:
-				alignmentStyles = 'image--center mx-auto';
+				alignmentStyles = 'image--center mx-auto rounded-md select-none';
 				break;
 			case ImageAlignment.Right:
-				alignmentStyles = 'image--right mx-auto mr-0';
+				alignmentStyles = 'image--right mx-auto mr-0 select-none';
 				break;
 			default:
 				alignmentStyles = '';
 		}
-		let out = `<img src="${href}" alt="${text}" class="${alignmentStyles}"`;
+		// Wrap the image in a figure and add figcaption
+		let out = `<figure">`;
+		out += `<img src="${href}" alt="${text}" class="${alignmentStyles}"`;
 		if (title) {
 			out += ' title="' + title + '"';
 		}
 		out += this.options.xhtml ? '/>' : '>';
+		out += `<figcaption>`;
+		out += `<b>ⓘ </b>${text}</figcaption>`;
+		out += `</figure>`;
 		return out;
 	};
 

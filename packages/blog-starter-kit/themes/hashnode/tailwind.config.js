@@ -50,6 +50,7 @@ module.exports = {
 					  background: '#E2E8F0',
 					  'border-radius': '0.5rem',
 					  minWidth: '1.75rem',
+					  userSelect: 'none',
 					  width: '1.75rem',
 					  height: '1.5rem',
 					  display: 'flex',
