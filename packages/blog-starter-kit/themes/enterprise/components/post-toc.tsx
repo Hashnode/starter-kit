@@ -62,12 +62,12 @@ export const PostTOC = () => {
 
   return (
     <>
-      <div className="fixed top-10 right-10 z-50">
+      <div className="fixed bottom-10 left-1/2 transform -translate-x-1/2 z-50">
         <button
           onClick={toggleVisibility}
           className="rounded-full p-3 bg-white dark:bg-neutral-950 shadow-lg hover:bg-gray-100 dark:hover:bg-gray-800"
         >
-          <ListSVG className="w-6 h-6 fill-current text-primary-600" />
+          <ListSVG className="w-6 h-6 fill-current text-primary-800" />
         </button>
       </div>
       
@@ -78,7 +78,7 @@ export const PostTOC = () => {
             <Toc parentId={null} data={mapTableOfContentItems(post.features.tableOfContents.items)} onClose={closeTOC} />
             <button
               onClick={closeTOC}
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              className="absolute top-4 right-4 text-primary-900 hover:text-primary-800 dark:hover:text-gray-300"
             >
               <CloseSVG className="w-6 h-6 fill-current" />
             </button>
