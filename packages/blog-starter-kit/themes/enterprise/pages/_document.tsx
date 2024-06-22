@@ -4,7 +4,7 @@ export default function Document() {
 	return (
 		<Html lang="tr">
 			<Head />
-			<body   style={{ minHeight: "250px" }} >
+			<body>
 				<Main />
 				<NextScript />
 			</body>
