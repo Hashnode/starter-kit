@@ -234,6 +234,5 @@ h1::selection {
 img {
 	-webkit-user-drag: none; /* Chrome, Safari, Opera */
 	user-drag: none; /* Standard */
-	user-select: none; /* Text selection */
 	pointer-events: none; /* Prevent interactions */
 }
