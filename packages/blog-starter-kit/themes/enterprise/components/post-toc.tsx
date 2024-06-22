@@ -1,104 +1,90 @@
 import { PostFullFragment } from '../generated/graphql';
 import { useAppContext } from './contexts/appContext';
-
 import { useState } from 'react';
-import { Button } from './button';
-import HamburgerSVG from './icons/svgs/HamburgerSVG';
+import ListSVG from './icons/svgs/ListSVG';
+import CloseSVG from './icons/svgs/CloseSVG';
 
 
 type TableOfContentsItem = PostFullFragment['features']['tableOfContents']['items'][number];
 
 const mapTableOfContentItems = (toc: TableOfContentsItem[]) => {
-	try {
-		// `toc` is sometimes an array of arrays or an array of objects. Hashnode is trying to investigate this issue.
-		// Meanwhile, we can use the following code to map the table of content items to handle both cases.
-		return (toc ?? []).map((tocItem) => {
-			const item = Array.isArray(tocItem) ? tocItem[0] : tocItem;
-			return {
-				id: item.id,
-				level: item.level,
-				slug: item.slug,
-				title: item.title,
-				parentId: item.parentId ?? null,
-			};
-		});
-	} catch (error) {
-		console.error('Error while mapping table of content items', {
-			error,
-		});
-		return [];
-	}
+  try {
+    return (toc ?? []).map((tocItem) => {
+      const item = Array.isArray(tocItem) ? tocItem[0] : tocItem;
+      return {
+        id: item.id,
+        level: item.level,
+        slug: item.slug,
+        title: item.title,
+        parentId: item.parentId ?? null,
+      };
+    });
+  } catch (error) {
+    console.error('Error while mapping table of content items', { error });
+    return [];
+  }
 };
 
-const Toc = ({
-	data,
-	parentId,
-}: {
-	data: TableOfContentsItem[];
-	parentId: TableOfContentsItem['parentId'];
-}) => {
-	const children = data.filter((item) => item.parentId === parentId);
-	if (children.length === 0) return null;
-	return (
-		<ul className="mt-3 flex flex-col gap-2 pl-5 font-semibold text-slate-800 dark:text-neutral-200">
-			{children.map((item) => (
-				<li key={item.id}>
-					<a
-						href={`#heading-${item.slug}`}
-						className="hover:text-primary-600 hover:bg-primary-50 dark:hover:text-primary-500 dark:hover:bg-neutral-800"
-					>
-						{item.title}
-					</a>
-
-					<Toc data={data} parentId={item.id} />
-				</li>
-			))}
-		</ul>
-	);
+const Toc = ({ data, parentId, onClose }: { data: TableOfContentsItem[]; parentId: TableOfContentsItem['parentId']; onClose: () => void; }) => {
+  const children = data.filter((item) => item.parentId === parentId);
+  if (children.length === 0) return null;
+  return (
+    <ul className="mt-3 flex flex-col gap-2 pl-5 font-semibold text-slate-800 dark:text-neutral-200">
+      {children.map((item) => (
+        <li key={item.id}>
+          <a
+            href={`#heading-${item.slug}`}
+            className="hover:text-primary-600 hover:bg-primary-50 dark:hover:text-primary-500 dark:hover:bg-neutral-800"
+            onClick={onClose}
+          >
+            {item.title}
+          </a>
+          <Toc data={data} parentId={item.id} onClose={onClose} />
+        </li>
+      ))}
+    </ul>
+  );
 };
 
 export const PostTOC = () => {
-	const { post } = useAppContext();
+  const { post } = useAppContext();
+  const [isVisible, setIsVisible] = useState(false);
 
-	const [isVisible, setIsVisible] = useState(false);
+  if (!post) return null;
 
-	if (!post) return null;
+  const toggleVisibility = () => {
+    setIsVisible(!isVisible);
+  };
 
-	const toggleVisibility = () => {
-		setIsVisible(!isVisible);
-	};
+  const closeTOC = () => {
+    setIsVisible(false);
+  };
 
-	return (
-		<>
-			<div className="hidden xl:fixed xl:top-1/4 xl:right-0 xl:w-80 xl:px-5 xl:z-50 xl:block">
-				<div className="mx-auto w-full bg-primary-50 max-w-screen-md rounded-lg border border-b-4 border-r-4 p-5 text-base leading-snug dark:border-neutral-800 dark:text-neutral-50 md:p-8 md:text-lg">
-					<Button
-						type="outline"
-						label="Table of Contents"
-						onClick={toggleVisibility}
-						className="mb-5 p-2 bg-primary-600 font-bold rounded-md hover:bg-primary-700"
-					
-						icon={<HamburgerSVG className="h-5 w-5 stroke-current" />}
-					/>
-					{isVisible && (
-						<Toc parentId={null} data={mapTableOfContentItems(post.features.tableOfContents.items)} />
-					)}
-				</div>
-			</div>
-
-			<div className="block xl:hidden w-5/6 mx-auto px-5">
-				<div className="mx-auto w-full max-w-screen-md rounded-lg border border-b-4 border-r-4 p-5 bg-white text-base leading-snug dark:border-neutral-800 dark:text-neutral-50 md:p-8 md:text-lg">
-					<Button
-						type="outline"
-						label="Table of Contents"
-						onClick={toggleVisibility}
-						className="mb-5 p-2 bg-primary-600 rounded-md hover:bg-primary-700 flex items-center justify-center"
-					/>
-					{isVisible && (
-						<Toc parentId={null} data={mapTableOfContentItems(post.features.tableOfContents.items)} />
-					)}
-				</div>
-			</div>
-		</>
-	);
+  return (
+    <>
+      <div className="fixed top-10 right-10 z-50">
+        <button
+          onClick={toggleVisibility}
+          className="rounded-full p-3 bg-white dark:bg-neutral-950 shadow-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+        >
+          <ListSVG className="w-6 h-6 fill-current text-primary-600" />
+        </button>
+      </div>
+      
+      {isVisible && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="relative w-full max-w-screen-md bg-white dark:bg-neutral-900 p-5 rounded-lg shadow-lg overflow-y-auto max-h-full">
+            <h2 className="mb-5 text-lg font-bold md:text-xl text-center">Table of Contents</h2>
+            <Toc parentId={null} data={mapTableOfContentItems(post.features.tableOfContents.items)} onClose={closeTOC} />
+            <button
+              onClick={closeTOC}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+            >
+              <CloseSVG className="w-6 h-6 fill-current" />
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  );
 };
