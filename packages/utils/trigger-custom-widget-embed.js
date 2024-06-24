@@ -12,7 +12,7 @@ export const triggerCustomWidgetEmbed = async (pubId) => {
       iframe.src =
         host.indexOf('.hashnode.net') !== -1 || host.indexOf('.app.localhost') !== -1
           ? `${baseUrl}/api/pub/${pubId}/embed/${frame.id}`
-          : `https://embeds.hashnode.com?p=${pubId}&w=${frame.id}`;
+          : `https://podcasters.spotify.com/pod/show/temizmama-blog/embed/episodes/Kedilerde-Pht-Atmas-Emboli-e2l80vv/a-abcp5b2`;
       iframe.width = '100%';
       iframe.style.border = 'none'; // Opsiyonel: iframe etrafında border olmaması için
 
