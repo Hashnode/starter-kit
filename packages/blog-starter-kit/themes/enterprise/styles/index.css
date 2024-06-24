@@ -130,7 +130,10 @@ h1, h2, h3 {
 }
 */
 
-
+.embed-wrapper {
+    padding-bottom: 2rem;
+    padding-top: 1rem;
+}
 iframe {
     width: -webkit-fill-available;
 }
