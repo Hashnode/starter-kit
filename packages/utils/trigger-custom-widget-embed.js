@@ -43,6 +43,11 @@ export const triggerCustomWidgetEmbed = async (pubId) => {
       };
 
       setTimeout(() => {
+        const innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+        let innerIframe = innerDoc.querySelector('iframe');
+          if (innerIframe) {
+            innerIframe.style.width = '500px';
+          }
         // TODO:
         // eslint-disable-next-line no-undef
         iFrameResize({ log: false, autoResize: true }, `#${iframe.id}`);
