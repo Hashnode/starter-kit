@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { resizeImage } from '@starter-kit/utils/image';
 import Link from 'next/link';
 import { DEFAULT_COVER } from '../utils/const';
@@ -20,6 +21,28 @@ export const HeroPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
 		const urlRegex = /(https?:\/\/[^\s]+)/g;
 		return text.replace(urlRegex, '');
 	};
+
+	useEffect(() => {
+		// Excerpt içeriğini temizlemek için işlev
+		const cleanAllExcerpts = () => {
+			const excerpts = document.querySelectorAll('p.text-md');
+			excerpts.forEach((paragraph) => {
+				paragraph.innerHTML = cleanExcerpt(paragraph.innerHTML);
+			});
+		};
+
+		// DOM değişikliklerini izlemek için MutationObserver kullan
+		const observer = new MutationObserver(cleanAllExcerpts);
+
+		// Tüm sayfa üzerinde gözlem başlat
+		observer.observe(document.body, { childList: true, subtree: true });
+
+		// Başlangıçta mevcut excerpt'leri temizle
+		cleanAllExcerpts();
+
+		// Bileşen temizlendiğinde observer'ı durdur
+		return () => observer.disconnect();
+	}, []);
 
 	return (
 		<section className="grid grid-cols-1 gap-5">
