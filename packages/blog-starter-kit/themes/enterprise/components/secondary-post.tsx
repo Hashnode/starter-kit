@@ -15,6 +15,12 @@ type Props = {
 export const SecondaryPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
 	const postURL = `/${slug}`;
 
+	// URL'leri excerpt'ten temizlemek için bir fonksiyon oluşturuyoruz
+	const cleanExcerpt = (text: string) => {
+		const urlRegex = /(https?:\/\/[^\s]+)/g;
+		return text.replace(urlRegex, '');
+	};
+
 	return (
 		<section className="grid items-start gap-5 md:grid-cols-2">
 			<div className="col-span-1">
@@ -35,7 +41,7 @@ export const SecondaryPost = ({ title, coverImage, date, excerpt, slug }: Props)
 				</h1>
 				<Link href={postURL}>
 					<p className="text-md leading-snug text-slate-500 dark:text-neutral-400">
-						{excerpt.length > 100 ? excerpt.substring(0, 100) + '…' : excerpt}
+						{cleanExcerpt(excerpt.length > 100 ? excerpt.substring(0, 100) + '…' : excerpt)}
 					</p>
 				</Link>
 				<div className="text-sm font-semibold text-slate-500 dark:text-neutral-300">

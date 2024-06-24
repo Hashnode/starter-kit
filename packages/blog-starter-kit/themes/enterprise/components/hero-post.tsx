@@ -15,6 +15,12 @@ type Props = {
 export const HeroPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
 	const postURL = `/${slug}`;
 
+	// URL'leri excerpt'ten temizlemek için bir fonksiyon oluşturuyoruz
+	const cleanExcerpt = (text: string) => {
+		const urlRegex = /(https?:\/\/[^\s]+)/g;
+		return text.replace(urlRegex, '');
+	};
+
 	return (
 		<section className="grid grid-cols-1 gap-5">
 			<div className="col-span-1">
@@ -35,7 +41,7 @@ export const HeroPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
 					</Link>
 				</h1>
 				<Link href={postURL}>
-					<p className="text-md leading-snug text-slate-500 dark:text-neutral-400">{excerpt}</p>
+					<p className="text-md leading-snug text-slate-500 dark:text-neutral-400">{cleanExcerpt(excerpt)}</p>
 				</Link>
 				<div className="text-sm font-semibold text-slate-500 dark:text-neutral-300">
 					<Link href={postURL}>
