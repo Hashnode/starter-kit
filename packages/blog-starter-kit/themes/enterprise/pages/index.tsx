@@ -186,7 +186,7 @@ export default function Index({
                     onClick={loadMore}
                     type="outline"
                     icon={<ChevronDownSVG className="h-5 w-5 stroke-current" />}
-                    label="Load more posts"
+                    label="Daha fazla"
                   />
                 </div>
               )}
