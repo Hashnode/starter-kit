@@ -1015,8 +1015,8 @@ const { default: isURL } = require('validator/lib/isURL');
 			out += ' title="' + title + '"';
 		}
 		out += this.options.xhtml ? '/>' : '>';
-		out += `<figcaption>`;
-		out += `<b>ⓘ </b>${text}</figcaption>`;
+		//out += `<figcaption>`;
+		//out += `<b>ⓘ </b>${text}</figcaption>`;
 		out += `</figure>`;
 		return out;
 	};
