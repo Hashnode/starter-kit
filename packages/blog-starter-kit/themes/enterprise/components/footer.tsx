@@ -33,15 +33,16 @@ return (
       </div>
       <ul className="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
         <li>
-          <Link
-				href={'./'}
-        aria-label={`Ana Sayfa`}
-				className="text-gray-700 transition hover:text-gray-700/75"
-       >
-					<span style="font-family: 'PinkChicken'">
+        <Link
+          href={'./'}
+          aria-label={`Ana Sayfa`}
+          className="text-gray-700 transition hover:text-gray-700/75"
+          style={{ fontFamily: 'PinkChicken' }}
+        >
+					<span>
 						Ana Sayfa
 					</span>
-			</Link>
+			  </Link>
         </li>
 
         <li>
