@@ -187,6 +187,7 @@ In addition to our core themes, the community has developed a variety of themes 
 | ----------------------------- | -------------------------------------------------- | ----------------------------------------------------------------------------- |
 | **Newsletter Theme**          | [View Demo](https://starter-kit1-6yte.vercel.app/) | [GitHub Repository](https://github.com/masterismail/starter-kit1/tree/main)   |
 | **Minimalist (Ikigai) Theme** | [View Demo](https://pravinreacts.vercel.app/)      | [GitHub Repository](https://github.com/pravintargaryen/starter-kit/tree/main) |
+| **Floaty Portfolio/Blog Theme** | [View Demo](https://floaty-hashnode-headless.vercel.app/)      | [GitHub Repository](https://github.com/iammarmirza/floaty-hashnode-headless/tree/main) |
 
 > Note: These themes are maintained by the community and are not part of the official starter kit.
 
