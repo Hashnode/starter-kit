@@ -19,9 +19,25 @@ export const triggerCustomWidgetEmbed = async (pubId) => {
       frame.innerHTML = '';
       frame.appendChild(iframe);
 
-      // İç iframe'in genişliğini ayarlamak için mesaj gönder
       iframe.onload = () => {
-        iframe.contentWindow.postMessage({ action: 'setWidth', width: '100%' }, '*');
+        const innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+        const observer = new MutationObserver(() => {
+          const innerIframe = innerDoc.querySelector('iframe');
+          if (innerIframe) {
+            innerIframe.style.width = '100%';
+          }
+        });
+
+        observer.observe(innerDoc, {
+          childList: true,
+          subtree: true,
+        });
+
+        // İlk yükleme sırasında mevcut iframe'i ayarlayın
+        const innerIframe = innerDoc.querySelector('iframe');
+        if (innerIframe) {
+          innerIframe.style.width = '100%';
+        }
       };
 
       setTimeout(() => {
