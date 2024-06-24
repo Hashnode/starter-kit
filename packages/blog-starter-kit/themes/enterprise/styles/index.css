@@ -108,7 +108,7 @@ a.text-gray-700.transition.hover\:text-gray-700\/75 {
 .max-w-xl {
     max-width: 36rem;
 }
-h1 {
+h1, h2, h3 {
     font-family: 'PinkChicken', sans-serif;
 }
 /* Custom Scrollbar */
