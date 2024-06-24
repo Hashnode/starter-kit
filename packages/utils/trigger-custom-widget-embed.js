@@ -22,7 +22,7 @@ export const triggerCustomWidgetEmbed = async (pubId) => {
       iframe.onload = () => {
         const innerDoc = iframe.contentDocument || iframe.contentWindow.document;
         const observer = new MutationObserver(() => {
-          const innerIframe = innerDoc.querySelector('iframe');
+          let innerIframe = innerDoc.querySelector('iframe');
           if (innerIframe) {
             innerIframe.style.width = '500px';
           }
@@ -34,7 +34,7 @@ export const triggerCustomWidgetEmbed = async (pubId) => {
         });
 
         // İlk yükleme sırasında mevcut iframe'i ayarlayın
-        const innerIframe = innerDoc.querySelector('iframe');
+        let innerIframe = innerDoc.querySelector('iframe');
         if (innerIframe) {
           innerIframe.style.width = '500px';
         }
