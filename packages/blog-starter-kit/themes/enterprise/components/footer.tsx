@@ -37,31 +37,31 @@ return (
 				href={'./'}
         aria-label={`Ana Sayfa`}
 				className="text-gray-700 transition hover:text-gray-700/75"
-			>
-					<span>
+       >
+					<span style="font-family: 'PinkChicken'">
 						Ana Sayfa
 					</span>
 			</Link>
         </li>
 
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com" target="_blank" > Online Satış </a>
+          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com" target="_blank" style={{ fontFamily: 'PinkChicken'}}> Online Satış </a>
         </li>
 
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/barinaklara-bagis" target="_blank" > Barınak Bağışı </a>
+          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/barinaklara-bagis" target="_blank" style={{ fontFamily: 'PinkChicken'}}> Barınak Bağışı </a>
         </li>
 
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/aydinlatma-metni" target="_blank" > Aydınlatma Metni </a>
+          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/aydinlatma-metni" target="_blank" style={{ fontFamily: 'PinkChicken'}}> Aydınlatma Metni </a>
         </li>
 
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/hakkimizda" target="_blank" > Hakkımızda </a>
+          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/hakkimizda" target="_blank" style={{ fontFamily: 'PinkChicken'}}> Hakkımızda </a>
         </li>
 
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/iletisim" target="_blank" > İletişim </a>
+          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/iletisim" target="_blank" style={{ fontFamily: 'PinkChicken'}}> İletişim </a>
         </li>
       </ul>
 

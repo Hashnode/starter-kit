@@ -9,9 +9,6 @@
 	font-style: normal;
   }
   
-  .mt-12 .flex .flex-wrap .justify-center .gap-6 .md:gap-8 .lg:gap-12 > li > * {
-    font-family: 'PinkChicken';
-}
   nav {
 	transition: transform 0.3s ease-in-out;
   }
