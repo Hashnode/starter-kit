@@ -24,7 +24,7 @@ export const triggerCustomWidgetEmbed = async (pubId) => {
         const observer = new MutationObserver(() => {
           const innerIframe = innerDoc.querySelector('iframe');
           if (innerIframe) {
-            innerIframe.style.width = '100%';
+            innerIframe.style.width = '500px';
           }
         });
 
@@ -36,7 +36,7 @@ export const triggerCustomWidgetEmbed = async (pubId) => {
         // İlk yükleme sırasında mevcut iframe'i ayarlayın
         const innerIframe = innerDoc.querySelector('iframe');
         if (innerIframe) {
-          innerIframe.style.width = '100%';
+          innerIframe.style.width = '500px';
         }
       };
 
