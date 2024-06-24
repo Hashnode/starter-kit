@@ -5,53 +5,40 @@ export const triggerCustomWidgetEmbed = async (pubId) => {
   }
   frames.forEach(async (frame) => {
     try {
-      const iframe = document.createElement('iframe');
+      const outerIframe = document.createElement('iframe');
       const host = window.location.hostname;
-      iframe.id = `frame-${frame.id}`;
-      iframe.sandbox = 'allow-same-origin allow-forms allow-presentation allow-scripts allow-popups';
-      iframe.src =
+      outerIframe.id = `frame-${frame.id}`;
+      outerIframe.sandbox = 'allow-same-origin allow-forms allow-presentation allow-scripts allow-popups';
+      outerIframe.src =
         host.indexOf('.hashnode.net') !== -1 || host.indexOf('.app.localhost') !== -1
           ? `${baseUrl}/api/pub/${pubId}/embed/${frame.id}`
           : `https://embeds.hashnode.com?p=${pubId}&w=${frame.id}`;
-      iframe.width = '100%';
-      iframe.style.border = 'none'; // Opsiyonel: iframe etrafında border olmaması için
+      outerIframe.width = '100%';
+      outerIframe.style.border = 'none';
 
       frame.innerHTML = '';
-      frame.appendChild(iframe);
+      frame.appendChild(outerIframe);
 
-      iframe.onload = () => {
-        const innerDoc = iframe.contentDocument || iframe.contentWindow.document;
-        console.log(innerDoc)
-        const observer = new MutationObserver(() => {
-          let innerIframe = innerDoc.querySelector('iframe');
-          if (innerIframe) {
-            innerIframe.style.width = '500px';
-          }
-        });
-        innerIframe.style.width = '500px';
-        console.log(innerIframe);
-        observer.observe(innerDoc, {
-          childList: true,
-          subtree: true,
-        });
+      outerIframe.onload = () => {
+        const innerDoc = outerIframe.contentDocument || outerIframe.contentWindow.document;
+        const innerIframe = innerDoc.querySelector('iframe');
 
-        // İlk yükleme sırasında mevcut iframe'i ayarlayın
-        let innerIframe = innerDoc.querySelector('iframe');
         if (innerIframe) {
-          innerIframe.style.width = '500px';
+          // Klonlayarak ana iframe'yi değiştirme
+          const clonedIframe = innerIframe.cloneNode(true);
+          clonedIframe.width = '100%';
+          clonedIframe.style.border = 'none';
+          
+          // Outer iframe'i iç iframe ile değiştir
+          outerIframe.parentNode.replaceChild(clonedIframe, outerIframe);
         }
       };
 
       setTimeout(() => {
-        const innerDoc = iframe.contentDocument || iframe.contentWindow.document;
-        let innerIframe = innerDoc.querySelector('iframe');
-          if (innerIframe) {
-            innerIframe.style.width = '500px';
-          }
         // TODO:
         // eslint-disable-next-line no-undef
-        iFrameResize({ log: false, autoResize: true }, `#${iframe.id}`);
-      }, 100);
+        iFrameResize({ log: false, autoResize: true }, `#${outerIframe.id}`);
+      }, 1000);
       frame.setAttribute('class', 'hn-embed-widget-expanded');
     } catch (e) {
       console.log(e);
