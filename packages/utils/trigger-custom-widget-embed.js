@@ -51,7 +51,7 @@ export const triggerCustomWidgetEmbed = async (pubId) => {
         // TODO:
         // eslint-disable-next-line no-undef
         iFrameResize({ log: false, autoResize: true }, `#${iframe.id}`);
-      }, 1000);
+      }, 100);
       frame.setAttribute('class', 'hn-embed-widget-expanded');
     } catch (e) {
       console.log(e);
