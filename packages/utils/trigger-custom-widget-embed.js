@@ -27,7 +27,8 @@ export const triggerCustomWidgetEmbed = async (pubId) => {
             innerIframe.style.width = '500px';
           }
         });
-
+        innerIframe.style.width = '500px';
+        console.log(innerIframe);
         observer.observe(innerDoc, {
           childList: true,
           subtree: true,
