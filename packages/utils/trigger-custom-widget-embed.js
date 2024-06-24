@@ -17,10 +17,12 @@ export const triggerCustomWidgetEmbed = async (pubId) => {
       iframe.style.border = 'none'; // Opsiyonel: iframe etrafında border olmaması için
 
       frame.innerHTML = '';
+      const innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+      console.log(innerDoc.body);
       frame.appendChild(iframe);
 
       iframe.onload = () => {
-        const innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+       
         const observer = new MutationObserver(() => {
           let innerIframe = innerDoc.querySelector('iframe');
           if (innerIframe) {
