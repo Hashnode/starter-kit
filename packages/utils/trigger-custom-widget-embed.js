@@ -17,7 +17,7 @@ export const triggerCustomWidgetEmbed = async (pubId) => {
       iframe.style.border = 'none'; // Opsiyonel: iframe etrafında border olmaması için
 
       frame.innerHTML = '';
-      const innerDoc = iframe.contentDocument;
+      const innerDoc = iframe.contentWindow.document;
       console.log(innerDoc);
       frame.appendChild(iframe);
 
