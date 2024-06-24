@@ -60,7 +60,7 @@ export const triggerEmbed = async (node?: Element | undefined) => {
 		}
 
 		if (embedURL.includes('open.spotify.com')) {
-			_url.searchParams.set('width', '300');
+			_url.searchParams.set('width', '100%');
 			_url.searchParams.set('height', '380');
 		}
 
