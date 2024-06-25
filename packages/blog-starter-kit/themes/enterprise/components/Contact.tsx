@@ -11,6 +11,17 @@ type ContactProps = {
   publication: PublicationFragment;
 };
 
+const getIpAddress = async () => {
+  try {
+    const response = await fetch('/api/get-ip');
+    const data = await response.json();
+    return data.ip;
+  } catch (error) {
+    console.error('IP adresi alınırken hata oluştu:', error);
+    return '';
+  }
+};
+
 export const Contact: React.FC<ContactProps> = ({ publication }) => {
   const [formData, setFormData] = useState({
     name: '',
@@ -22,6 +33,16 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [remainingChars, setRemainingChars] = useState(120);
+  const [ipAddress, setIpAddress] = useState('');
+
+  useEffect(() => {
+    const fetchIp = async () => {
+      const ip = await getIpAddress();
+      setIpAddress(ip);
+    };
+
+    fetchIp();
+  }, []);
 
   useEffect(() => {
     const messageLength = formData.message.length;
@@ -43,19 +64,59 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
     setFormData(prevState => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Form gönderme işlemi burada yapılacak
-    console.log(formData);
 
-    // Formu temizle
-    setFormData({
-      name: '',
-      phone: '',
-      email: '',
-      subject: '',
-      message: '',
-    });
+    const konuIdMapping: { [key: string]: number } = {
+      'öneri': 35,
+      'şikayet': 36,
+      'diğer': 38,
+    };
+
+    const konuId = konuIdMapping[formData.subject];
+
+    const [firstName, ...lastName] = formData.name.split(' ');
+
+    const postData = {
+      uygulamaId: 1,
+      uygulamaDilId: 1,
+      kayitDilId: 1,
+      oturumId: "3dbd7db1-7ef4-4a5f-a023-f9c147c55ee7",
+      ipAdres: ipAddress,
+      ad: firstName,
+      soyad: lastName.join(' '),
+      telefon: formData.phone,
+      eMail: formData.email,
+      mesaj: formData.message,
+      konuId: konuId,
+      konuBaslik: formData.subject,
+      test: false,
+    };
+
+    try {
+      const response = await fetch('https://api.temizmama.com/v1/BlogKaydet', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Form gönderilirken hata oluştu.');
+      }
+
+      // Formu temizle
+      setFormData({
+        name: '',
+        phone: '',
+        email: '',
+        subject: '',
+        message: '',
+      });
+    } catch (error) {
+      console.error('Form gönderilirken hata oluştu:', error);
+    }
   };
 
   return (
@@ -129,9 +190,7 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="">Seçiniz</option>
-                  <option value="yardım">Yardım</option>
-                  <option value="öneri">Öneri</option>
-                  <option value="soru">Soru</option>
+                  <option value="öneri">Görüş ve Öneri</option>
                   <option value="şikayet">Şikayet</option>
                   <option value="diğer">Diğer</option>
                 </select>
