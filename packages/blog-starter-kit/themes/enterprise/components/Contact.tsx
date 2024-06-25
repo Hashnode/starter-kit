@@ -90,7 +90,7 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
       'öneri': 4,
       'şikayet': 3,
       'diğer': 6,
-    };
+    }; 
 
     const konuId = konuIdMapping[formData.subject];
 
