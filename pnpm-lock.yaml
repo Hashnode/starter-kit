@@ -90,6 +90,9 @@ importers:
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
+      react-recaptcha-google:
+        specifier: ^1.1.1
+        version: 1.1.1       
       react-waypoint:
         specifier: ^10.3.0
         version: 10.3.0(react@18.2.0)
@@ -105,6 +108,7 @@ importers:
       uuid:
         specifier: ^9.0.1
         version: 9.0.1
+        "react-recaptcha-google": "^1.1.0",
     devDependencies:
       '@graphql-codegen/cli':
         specifier: ^5.0.0
@@ -6668,6 +6672,17 @@ packages:
 
   /react-property@2.0.0:
     resolution: {integrity: sha512-kzmNjIgU32mO4mmH5+iUyrqlpFQhF8K2k7eZ4fdLSOPFrD1XgEuSBv9LDEgxRXTMBqMd8ppT0x6TIzqE5pdGdw==}
+    dev: false
+
+  /react-recaptcha-google@1.1.1:
+    resolution: {integrity: sha512-aSiUTg66cwU6NKc7JgnESLnDLcgKiUSoB/SQ44H25TpHzX4CwfSEFLU0ZRg3ojPHTfOO9FzzY5jwrBtGnTfycw==}
+      react-recaptcha-google@1.1.1:
+    dependencies:
+      react: 15.7.0
+      webpack: 2.7.0
+    transitivePeerDependencies:
+      - webpack-cli
+      - webpack-command
     dev: false
 
   /react-remove-scroll-bar@2.3.4(@types/react@18.2.28)(react@18.2.0):
