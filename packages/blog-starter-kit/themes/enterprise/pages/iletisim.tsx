@@ -1,5 +1,5 @@
 import { GetStaticProps } from 'next';
-import { Contact } from '../components/Contact';
+import Contact from '../components/Contact';
 import { request } from 'graphql-request';
 import { PublicationByHostDocument, PublicationByHostQuery, PublicationByHostQueryVariables, PublicationFragment } from '../generated/graphql';
 
