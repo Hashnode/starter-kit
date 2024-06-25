@@ -8,7 +8,7 @@ import { AppProvider } from './contexts/appContext';
 import { PublicationFragment } from '../generated/graphql';
 
 type ContactProps = {
-    publication: PublicationFragment;
+  publication: PublicationFragment;
 };
 
 export const Contact: React.FC<ContactProps> = ({ publication }) => {
@@ -16,60 +16,26 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
     name: '',
     phone: '',
     email: '',
-    country: '',
-    city: '',
+    subject: '',
     message: '',
   });
 
-  const [countries, setCountries] = useState<string[]>([]);
-  const [cities, setCities] = useState<string[]>([]);
-  const [showCitySelect, setShowCitySelect] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   useEffect(() => {
-    // Ülkeleri yükle
-    fetch('https://restcountries.com/v3.1/all')
-      .then(response => response.json())
-      .then(data => {
-        const sortedCountries = data
-          .map((country: any) => country.name.common)
-          .sort((a: string, b: string) => a.localeCompare(b));
-        
-        // Türkiye'yi listenin başına ekle
-        const turkeyIndex = sortedCountries.findIndex((country: string) => country === 'Turkey');
-        if (turkeyIndex !== -1) {
-          sortedCountries.splice(turkeyIndex, 1);
-          sortedCountries.unshift('Türkiye');
-        }
+    const isFormValid =
+      formData.name.trim() !== '' &&
+      formData.phone.trim() !== '' &&
+      formData.email.trim() !== '' &&
+      formData.subject.trim() !== '' &&
+      formData.message.trim().split(/\s+/).length >= 20;
 
-        setCountries(['Seçiniz', 'Belirtmek istemiyorum', ...sortedCountries]);
-      })
-      .catch(error => console.error('Ülkeler yüklenirken hata oluştu:', error));
-  }, []);
+    setIsButtonDisabled(!isFormValid);
+  }, [formData]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prevState => ({ ...prevState, [name]: value }));
-
-    if (name === 'country') {
-      if (value !== 'Seçiniz' && value !== 'Belirtmek istemiyorum') {
-        setShowCitySelect(true);
-        // Ülke seçildiğinde şehirleri yükle (örnek olarak)
-        setCities([
-          'Seçiniz', 'İzmir', 'İstanbul', 'Ankara', 'Adana', 'Adıyaman', 'Afyonkarahisar', 'Ağrı', 'Amasya', 'Antalya', 
-          'Artvin', 'Aydın', 'Balıkesir', 'Bilecik', 'Bingöl', 'Bitlis', 'Bolu', 'Burdur', 'Bursa', 'Çanakkale', 
-          'Çankırı', 'Çorum', 'Denizli', 'Diyarbakır', 'Edirne', 'Elazığ', 'Erzincan', 'Erzurum', 'Eskişehir', 'Gaziantep', 
-          'Giresun', 'Gümüşhane', 'Hakkari', 'Hatay', 'Isparta', 'Mersin', 'Kars', 'Kastamonu', 'Kayseri', 'Kırklareli', 
-          'Kırşehir', 'Kocaeli', 'Konya', 'Kütahya', 'Malatya', 'Manisa', 'Kahramanmaraş', 'Mardin', 'Muğla', 'Muş', 
-          'Nevşehir', 'Niğde', 'Ordu', 'Rize', 'Sakarya', 'Samsun', 'Siirt', 'Sinop', 'Sivas', 'Tekirdağ', 
-          'Tokat', 'Trabzon', 'Tunceli', 'Şanlıurfa', 'Uşak', 'Van', 'Yozgat', 'Zonguldak', 'Aksaray', 'Bayburt', 
-          'Karaman', 'Kırıkkale', 'Batman', 'Şırnak', 'Bartın', 'Ardahan', 'Iğdır', 'Yalova', 'Karabük', 'Kilis', 
-          'Osmaniye', 'Düzce'
-        ]);
-      } else {
-        setShowCitySelect(false);
-        setFormData(prevState => ({ ...prevState, city: '' }));
-      }
-    }
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -125,65 +91,57 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-              <div>
-                <label htmlFor="country" className="block mb-2 text-sm font-medium text-gray-900">Ülke</label>
-                <select
-                  id="country"
-                  name="country"
-                  value={formData.country}
+              <div className="col-span-2">
+                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">E-posta*</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
                   onChange={handleInputChange}
+                  required
+                  placeholder="E-posta Adresiniz"
+                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              <div className="col-span-2">
+                <label htmlFor="subject" className="block mb-2 text-sm font-medium text-gray-900">İletişimin Konusu*</label>
+                <select
+                  id="subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleInputChange}
+                  required
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  {countries.map(country => (
-                    <option key={country} value={country}>{country}</option>
-                  ))}
+                  <option value="">Seçiniz</option>
+                  <option value="yardım">Yardım</option>
+                  <option value="öneri">Öneri</option>
+                  <option value="soru">Soru</option>
+                  <option value="şikayet">Şikayet</option>
+                  <option value="diğer">Diğer</option>
                 </select>
               </div>
-              {showCitySelect && (
-                <div>
-                  <label htmlFor="city" className="block mb-2 text-sm font-medium text-gray-900">Şehir</label>
-                  <select
-                    id="city"
-                    name="city"
-                    value={formData.city}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  >
-                    {cities.map(city => (
-                      <option key={city} value={city}>{city}</option>
-                    ))}
-                  </select>
-                </div>
-              )}
+              <div className="col-span-2">
+                <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900">Mesajınız*</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  required
+                  rows={5}
+                  placeholder="Mesajınızı buraya yazın"
+                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                ></textarea>
+              </div>
             </div>
             <div className="mt-6">
-              <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">E-posta*</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-                placeholder="E-posta Adresiniz"
-                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div className="mt-6">
-              <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900">Mesajınız*</label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleInputChange}
-                required
-                rows={5}
-                placeholder="Mesajınızı buraya yazın"
-                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              ></textarea>
-            </div>
-            <div className="mt-6">
-              <button type="submit" className="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+              <button 
+                type="submit" 
+                className={`w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${isButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+                disabled={isButtonDisabled}
+              >
                 Gönder
               </button>
             </div>
