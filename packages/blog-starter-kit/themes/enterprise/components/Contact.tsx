@@ -97,9 +97,9 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
     e.preventDefault();
 
     const konuIdMapping: { [key: string]: number } = {
-      'öneri': 35,
-      'şikayet': 36,
-      'diğer': 38,
+      'öneri': 4,
+      'şikayet': 3,
+      'diğer': 6,
     };
 
     const konuId = konuIdMapping[formData.subject];
