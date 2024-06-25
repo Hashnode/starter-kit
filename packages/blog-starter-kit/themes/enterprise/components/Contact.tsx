@@ -103,8 +103,11 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
       });
 
       if (!response.ok) {
-        throw new Error('Form gönderilirken hata oluştu.');
+        const errorText = await response.text();
+        throw new Error(`Form gönderilirken hata oluştu: ${response.status} ${response.statusText} - ${errorText}`);
       }
+
+      console.log('Form başarıyla gönderildi:', postData);
 
       // Formu temizle
       setFormData({
@@ -114,6 +117,8 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
         subject: '',
         message: '',
       });
+
+      console.log('Form temizlendi');
     } catch (error) {
       console.error('Form gönderilirken hata oluştu:', error);
     }
