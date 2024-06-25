@@ -38,16 +38,6 @@ export const Navbar = () => {
               </li>
               <li style={{ opacity: 1, transform: "none" }}>
                 <Link
-                  href='./kurumsal'
-                  aria-label="Kurumsal"
-                  className="text-gray-800 transition hover:text-gray-700/75 cursor-pointer font-bold"
-                  style={{ fontFamily: 'PinkChicken' }}
-                >
-                  <span>Kurumsal</span>
-                </Link>
-              </li>
-              <li style={{ opacity: 1, transform: "none" }}>
-                <Link
                   href='./iletisim'
                   aria-label="İletişim"
                   className="text-gray-800 transition hover:text-gray-700/75 cursor-pointer font-bold"
@@ -88,16 +78,6 @@ export const Navbar = () => {
                   onClick={toggleMobileMenu}
                 >
                   Ana Sayfa
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="./kurumsal"
-                  className="block text-gray-800 hover:text-gray-700/75 font-bold"
-                  style={{ fontFamily: 'PinkChicken' }}
-                  onClick={toggleMobileMenu}
-                >
-                  Kurumsal
                 </Link>
               </li>
               <li>
