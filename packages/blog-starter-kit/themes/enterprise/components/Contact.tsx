@@ -6,7 +6,7 @@ import { Layout } from './layout';
 import { Container } from './container';
 import { AppProvider } from './contexts/appContext';
 import { PublicationFragment } from '../generated/graphql';
-import { loadReCaptcha, ReCaptcha } from 'react-recaptcha-google';
+//import { loadReCaptcha, ReCaptcha } from 'react-recaptcha-google';
 
 type ContactProps = {
   publication: PublicationFragment;
