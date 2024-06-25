@@ -50,9 +50,9 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
     setRemainingChars(charsNeeded);
 
     const isFormValid =
-      formData.name.trim() !== '' &&
-      formData.phone.trim() !== '' &&
-      formData.email.trim() !== '' &&
+      validateName(formData.name) &&
+      validatePhone(formData.phone) &&
+      validateEmail(formData.email) &&
       formData.subject.trim() !== '' &&
       messageLength >= 120;
 
@@ -62,6 +62,18 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prevState => ({ ...prevState, [name]: value }));
+  };
+
+  const validateName = (name: string) => {
+    return /^[a-zA-Z\s]+$/.test(name);
+  };
+
+  const validatePhone = (phone: string) => {
+    return /^[0-9]+$/.test(phone);
+  };
+
+  const validateEmail = (email: string) => {
+    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -155,7 +167,7 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
                   onChange={handleInputChange}
                   required
                   placeholder="Adınız ve Soyadınız"
-                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className={`w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 ${validateName(formData.name) ? 'focus:ring-blue-500' : 'focus:ring-red-500'}`}
                 />
               </div>
               <div>
@@ -168,7 +180,7 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
                   onChange={handleInputChange}
                   required
                   placeholder="Telefon Numaranız"
-                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className={`w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 ${validatePhone(formData.phone) ? 'focus:ring-blue-500' : 'focus:ring-red-500'}`}
                 />
               </div>
               <div className="col-span-2">
@@ -181,7 +193,7 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
                   onChange={handleInputChange}
                   required
                   placeholder="E-posta Adresiniz"
-                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className={`w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 ${validateEmail(formData.email) ? 'focus:ring-blue-500' : 'focus:ring-red-500'}`}
                 />
               </div>
               <div className="col-span-2">
