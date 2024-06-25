@@ -8,7 +8,7 @@ import { AppProvider } from './contexts/appContext';
 import { PublicationFragment } from '../generated/graphql';
 
 type ContactProps = {
-  publication?: PublicationFragment;
+    publication: PublicationFragment;
 };
 
 export const Contact: React.FC<ContactProps> = ({ publication }) => {
