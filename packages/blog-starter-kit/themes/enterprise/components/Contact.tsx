@@ -21,14 +21,19 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
   });
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [remainingChars, setRemainingChars] = useState(120);
 
   useEffect(() => {
+    const messageLength = formData.message.length;
+    const charsNeeded = 120 - messageLength;
+    setRemainingChars(charsNeeded);
+
     const isFormValid =
       formData.name.trim() !== '' &&
       formData.phone.trim() !== '' &&
       formData.email.trim() !== '' &&
       formData.subject.trim() !== '' &&
-      formData.message.trim().split(/\s+/).length >= 20;
+      messageLength >= 120;
 
     setIsButtonDisabled(!isFormValid);
   }, [formData]);
@@ -42,6 +47,15 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
     e.preventDefault();
     // Form gönderme işlemi burada yapılacak
     console.log(formData);
+
+    // Formu temizle
+    setFormData({
+      name: '',
+      phone: '',
+      email: '',
+      subject: '',
+      message: '',
+    });
   };
 
   return (
@@ -63,7 +77,7 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="max-w-2xl mx-auto w-full">
+          <form onSubmit={handleSubmit} className="max-w-2xl mx-auto w-full relative">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Ad Soyad*</label>
@@ -122,7 +136,7 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
                   <option value="diğer">Diğer</option>
                 </select>
               </div>
-              <div className="col-span-2">
+              <div className="col-span-2 relative">
                 <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900">Mesajınız*</label>
                 <textarea
                   id="message"
@@ -134,6 +148,12 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
                   placeholder="Mesajınızı buraya yazın"
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 ></textarea>
+                <div className="absolute right-2 top-0 text-sm text-red-500">
+                  {remainingChars > 0 && `${remainingChars} karakter daha yazınız`}
+                </div>
+                <p className="text-sm text-gray-400 mt-1">
+                  Mesajınızın minimum 120 karakter olması gerekmektedir.
+                </p>
               </div>
             </div>
             <div className="mt-6">
