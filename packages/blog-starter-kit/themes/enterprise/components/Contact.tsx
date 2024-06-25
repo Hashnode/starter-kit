@@ -65,7 +65,7 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
   };
 
   const validateName = (name: string) => {
-    return /^[a-zA-Z\s]+$/.test(name);
+    return /^[a-zA-ZığüşöçİĞÜŞÖÇ\s]+$/.test(name);
   };
 
   const validatePhone = (phone: string) => {
