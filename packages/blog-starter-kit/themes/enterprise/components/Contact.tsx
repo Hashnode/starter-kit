@@ -11,7 +11,7 @@ type ContactProps = {
   publication?: PublicationFragment;
 };
 
-export const Contact: React.FC<ContactProps> = ({ publication = {} }) => {
+export const Contact: React.FC<ContactProps> = ({ publication }) => {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -79,7 +79,7 @@ export const Contact: React.FC<ContactProps> = ({ publication = {} }) => {
   };
 
   return (
-    <AppProvider publication={publication || {}}>
+    <AppProvider publication={publication}>
       <Layout>
         <Head>
           <title>İletişim - {publication?.title || "Temizmama Blog"}</title>
