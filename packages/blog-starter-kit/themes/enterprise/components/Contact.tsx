@@ -65,11 +65,12 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
   };
 
   const validateName = (name: string) => {
-    return /^[a-zA-ZığüşöçİĞÜŞÖÇ\s]+$/.test(name);
+    const nameParts = name.trim().split(/\s+/);
+    return /^[a-zA-ZığüşöçİĞÜŞÖÇ\s]+$/.test(name) && nameParts.length >= 2 && nameParts.length <= 3;
   };
 
   const validatePhone = (phone: string) => {
-    return /^[0-9]+$/.test(phone);
+    return /^[0-9]{10,15}$/.test(phone);
   };
 
   const validateEmail = (email: string) => {
