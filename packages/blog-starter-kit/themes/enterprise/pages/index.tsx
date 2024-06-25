@@ -144,7 +144,7 @@ export default function Index({
               Temizmama Blog
             </h1>
             <p className="text-md leading-snug text-slate-500 dark:text-neutral-400 text-lg max-w-xl mx-auto">
-              Sevimli dostlarımız için en taze mamayı sunan <a href="https://temizmama.com" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:bg-orange-300 hover:bg-opacity-30 transition duration-300">Temizmama</a> aracılığıyla kedi & köpek bakımı ile ilgili bilinmesi
+              Sevimli dostlarımız için en taze mamayı sunan <a href="https://www.temizmama.com" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:bg-orange-300 hover:bg-opacity-30 transition duration-300">Temizmama</a> aracılığıyla kedi & köpek bakımı ile ilgili bilinmesi
               gerekenlerin hepsi bu sayfada!
             </p>
           </div>

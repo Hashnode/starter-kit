@@ -24,7 +24,7 @@ export default class ProfileImage extends React.Component {
           blogURL
             ? blogURL
             : user && !user.isDeactivated
-            ? `https://temizmama.com/@${user.username}`
+            ? `https://www.temizmama.com/@${user.username}`
             : this.props.postUrlForAnonymous
             ? this.props.postUrlForAnonymous
             : '#'

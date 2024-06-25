@@ -14,7 +14,7 @@ return (
     {PUBLICATION_LOGO ? (
     <>
     <div className="flex w-full flex-row justify-center">
-        <a href="https://temizmama.com" aria-label={publication.title} className="flex flex-row items-center gap-5" target="_blank" rel="noopener noreferrer">
+        <a href="https://www.temizmama.com" aria-label={publication.title} className="flex flex-row items-center gap-5" target="_blank" rel="noopener noreferrer">
           <img className="block w-40" src={PUBLICATION_LOGO} alt={publication.title} />
         </a>
     </div>
@@ -116,9 +116,9 @@ return (
     </div>
         <div className="border-gray-100 pt-8">
       <p className="text-center text-xs/relaxed text-gray-500">
-<a href="https://temizmama.com" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75"> Temizmama.com </a>, bir <a href="https://www.cagatay.com" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75">Çağatay</a> Markasıdır.
+<a href="https://www.temizmama.com" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75"> Temizmama.com </a>, bir <a href="https://www.cagatay.com" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75">Çağatay</a> Markasıdır.
         <br/>
-© 2008 - 2024<a href="https://temizmama.com" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75"> Temizmama.com </a> her hakkı saklıdır.
+© 2008 - 2024<a href="https://www.temizmama.com" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75"> Temizmama.com </a> her hakkı saklıdır.
       </p>
     </div>
   </Container>
