@@ -7,7 +7,7 @@ export const Footer = () => {
 const { publication } = useAppContext();
 const PUBLICATION_LOGO = publication.preferences.logo;
 return (
-<footer className="dark:border-neutral-800 border-t py-20">
+<footer className="dark:border-neutral-800 pt-20">
   <Container className="px-5 py-15 select-none">
      <div className="mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex justify-center text-teal-600">
