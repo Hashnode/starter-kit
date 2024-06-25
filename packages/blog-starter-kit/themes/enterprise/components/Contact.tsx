@@ -6,6 +6,7 @@ import { Layout } from './layout';
 import { Container } from './container';
 import { AppProvider } from './contexts/appContext';
 import { PublicationFragment } from '../generated/graphql';
+import { loadReCaptcha, ReCaptcha } from 'react-recaptcha-google';
 
 type ContactProps = {
   publication: PublicationFragment;
@@ -22,7 +23,13 @@ const getIpAddress = async () => {
   }
 };
 
-export const Contact: React.FC<ContactProps> = ({ publication }) => {
+const sanitizeInput = (input: string) => {
+  const element = document.createElement('div');
+  element.innerText = input;
+  return element.innerHTML.replace(/<script.*?>.*?<\/script>/gi, '');
+};
+
+const Contact: React.FC<ContactProps> = ({ publication }) => {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -34,8 +41,10 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [remainingChars, setRemainingChars] = useState(120);
   const [ipAddress, setIpAddress] = useState('');
+  const [captchaVerified, setCaptchaVerified] = useState(false);
 
   useEffect(() => {
+    loadReCaptcha();
     const fetchIp = async () => {
       const ip = await getIpAddress();
       setIpAddress(ip);
@@ -54,14 +63,15 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
       validatePhone(formData.phone) &&
       validateEmail(formData.email) &&
       formData.subject.trim() !== '' &&
-      messageLength >= 120;
+      messageLength >= 120 &&
+      captchaVerified;
 
     setIsButtonDisabled(!isFormValid);
-  }, [formData]);
+  }, [formData, captchaVerified]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({ ...prevState, [name]: value }));
+    setFormData(prevState => ({ ...prevState, [name]: sanitizeInput(value) }));
   };
 
   const validateName = (name: string) => {
@@ -75,6 +85,12 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
 
   const validateEmail = (email: string) => {
     return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+  };
+
+  const handleCaptchaVerify = (response: string) => {
+    if (response) {
+      setCaptchaVerified(true);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -169,6 +185,11 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
                   required
                   placeholder="Adınız ve Soyadınız"
                   className={`w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 ${validateName(formData.name) ? 'focus:ring-blue-500' : 'focus:ring-red-500'}`}
+                  onKeyPress={(e) => {
+                    if (!/^[a-zA-ZığüşöçİĞÜŞÖÇ\s]*$/.test(e.key)) {
+                      e.preventDefault();
+                    }
+                  }}
                 />
               </div>
               <div>
@@ -182,6 +203,11 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
                   required
                   placeholder="Telefon Numaranız"
                   className={`w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 ${validatePhone(formData.phone) ? 'focus:ring-blue-500' : 'focus:ring-red-500'}`}
+                  onKeyPress={(e) => {
+                    if (!/^[0-9]*$/.test(e.key)) {
+                      e.preventDefault();
+                    }
+                  }}
                 />
               </div>
               <div className="col-span-2">
@@ -231,6 +257,14 @@ export const Contact: React.FC<ContactProps> = ({ publication }) => {
                 <p className="text-sm text-gray-400 mt-1">
                   Mesajınızın minimum 120 karakter olması gerekmektedir.
                 </p>
+              </div>
+              <div className="col-span-2 mt-6">
+                <ReCaptcha
+                  sitekey="your-recaptcha-site-key"
+                  render="explicit"
+                  verifyCallback={handleCaptchaVerify}
+                  onloadCallback={() => console.log('Captcha loaded')}
+                />
               </div>
             </div>
             <div className="mt-6">

@@ -28,7 +28,8 @@
 		"remark": "^14.0.2",
 		"remark-html": "^15.0.1",
 		"tailwind-merge": "^1.13.2",
-		"uuid": "^9.0.1"
+		"uuid": "^9.0.1",
+		"react-recaptcha-google": "^1.1.0"
 	},
 	"devDependencies": {
 		"@graphql-codegen/cli": "^5.0.0",
