@@ -193,7 +193,7 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
                 />
               </div>
               <div>
-                <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900">Telefon*</label>
+                <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900">Cep Telefon*</label>
                 <input
                   type="tel"
                   id="phone"
@@ -201,7 +201,7 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
                   value={formData.phone}
                   onChange={handleInputChange}
                   required
-                  placeholder="Telefon Numaranız"
+                  placeholder="Cep Telefon Numaranız"
                   className={`w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 ${validatePhone(formData.phone) ? 'focus:ring-blue-500' : 'focus:ring-red-500'}`}
                   onKeyPress={(e) => {
                     if (!/^[0-9]*$/.test(e.key)) {
