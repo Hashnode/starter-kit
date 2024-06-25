@@ -5,7 +5,7 @@ import { PublicationByHostDocument, PublicationByHostQuery, PublicationByHostQue
 
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 
-const IletisimPage: React.FC<{ publication?: PublicationFragment }> = ({ publication }) => {
+const IletisimPage: React.FC<{ publication: PublicationFragment }> = ({ publication }) => {
   return <Contact publication={publication} />;
 };
 
