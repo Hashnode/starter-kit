@@ -43,6 +43,7 @@ export const Navbar = () => {
                     href={'./'}
                     aria-label={`Ana Sayfa`}
                     className="text-gray-800 transition hover:text-gray-700/75 cursor-pointer font-bold"
+                    style={{ fontFamily: 'PinkChicken' }}
                   >
                     <span>
                       Ana Sayfa
@@ -54,6 +55,7 @@ export const Navbar = () => {
                     href={'./kurumsal'}
                     aria-label={`kurumsal`}
                     className="text-gray-800 transition hover:text-gray-700/75 cursor-pointer font-bold"
+                    style={{ fontFamily: 'PinkChicken' }}
                   >
                     <span>
                       Kurumsal
@@ -65,6 +67,7 @@ export const Navbar = () => {
                     href={'./iletisim'}
                     aria-label={`İletişim`}
                     className="text-gray-800 transition hover:text-gray-700/75 cursor-pointer font-bold"
+                    style={{ fontFamily: 'PinkChicken' }}
                   >
                     <span>
                       İletişim
