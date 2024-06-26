@@ -19,7 +19,7 @@ importers:
         version: 4.17.21
       next:
         specifier: ^13.4.19
-        version: 13.5.5(@babel/core@7.23.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        version: 13.5.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -78,6 +78,9 @@ importers:
       '@tailwindcss/typography':
         specifier: ^0.5.10
         version: 0.5.10(tailwindcss@3.3.3)
+      '@types/lodash':
+        specifier: ^4.14.168
+        version: 4.14.201
       '@vercel/og':
         specifier: ^0.5.18
         version: 0.5.19
@@ -96,6 +99,9 @@ importers:
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       react-waypoint:
         specifier: ^10.3.0
         version: 10.3.0(react@18.2.0)
@@ -228,7 +234,7 @@ importers:
         version: 3.7.3
       next-axiom:
         specifier: 0.18.0
-        version: 0.18.0(next@13.5.5(@babel/core@7.23.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
+        version: 0.18.0(next@13.5.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
       next-urql:
         specifier: 5.0.2
         version: 5.0.2(react@18.2.0)(urql@4.0.4(graphql@16.8.1)(react@18.2.0))
@@ -8116,9 +8122,9 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  next-axiom@0.18.0(next@13.5.5(@babel/core@7.23.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)):
+  next-axiom@0.18.0(next@13.5.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0)):
     dependencies:
-      next: 13.5.5(@babel/core@7.23.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      next: 13.5.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       whatwg-fetch: 3.6.19
 
   next-themes@0.3.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
@@ -8132,7 +8138,7 @@ snapshots:
       react-ssr-prepass: 1.5.0(react@18.2.0)
       urql: 4.0.4(graphql@16.8.1)(react@18.2.0)
 
-  next@13.5.5(@babel/core@7.23.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+  next@13.5.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
     dependencies:
       '@next/env': 13.5.5
       '@swc/helpers': 0.5.2
@@ -8141,7 +8147,7 @@ snapshots:
       postcss: 8.4.31
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      styled-jsx: 5.1.1(@babel/core@7.23.2)(react@18.2.0)
+      styled-jsx: 5.1.1(react@18.2.0)
       watchpack: 2.4.0
     optionalDependencies:
       '@next/swc-darwin-arm64': 13.5.5
@@ -8958,12 +8964,10 @@ snapshots:
     dependencies:
       inline-style-parser: 0.2.2
 
-  styled-jsx@5.1.1(@babel/core@7.23.2)(react@18.2.0):
+  styled-jsx@5.1.1(react@18.2.0):
     dependencies:
       client-only: 0.0.1
       react: 18.2.0
-    optionalDependencies:
-      '@babel/core': 7.23.2
 
   stylis@4.3.0: {}
 
