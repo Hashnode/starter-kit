@@ -110,7 +110,7 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
     setCsrfToken(generateCsrfToken());
   }, []);
 
-  const [isMessageValid, setIsMessageValid] = useState(false); // <-- Add state for isMessageValid
+  const [isMessageValid, setIsMessageValid] = useState(false);
 
   const [messageCharCount, setMessageCharCount] = useState(0);
 
