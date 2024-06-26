@@ -35,11 +35,10 @@ const getIpAddress = async (): Promise<string> => {
 const sanitizeInput = (input: string): string => {
   const element = document.createElement('div');
   element.innerText = input;
-  let sanitized = element.innerHTML
+  return element.innerHTML
     .replace(/<script.*?>.*?<\/script>/gi, '')
     .replace(/[<>]/g, '')
-    .replace(/[\u0300-\u036f]/g, ""); // Unicode kombine karakterleri temizler
-  return sanitized.trim();
+    .trim();
 };
 
 const Contact: React.FC<ContactProps> = ({ publication }) => {
@@ -94,7 +93,13 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({ ...prevState, [name]: value }));
+    let sanitizedValue = sanitizeInput(value);
+    
+    if (name === 'name') {
+      sanitizedValue = sanitizedValue.replace(/[^a-zA-ZığüşöçİĞÜŞÖÇ\s]/g, '');
+    }
+
+    setFormData(prevState => ({ ...prevState, [name]: sanitizedValue }));
   };
 
   const validateName = (name: string): boolean => {
@@ -255,24 +260,24 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
                 </select>
               </div>
               <div className="col-span-2 relative">
-              <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900">Mesajınız*</label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleInputChange}
-                required
-                rows={5}
-                placeholder="Mesajınızı buraya yazın"
-                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              ></textarea>
+                <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900">Mesajınız*</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  required
+                  rows={5}
+                  placeholder="Mesajınızı buraya yazın"
+                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                ></textarea>
+                <div className="absolute right-2 top-0 text-sm text-red-500">
+                  {remainingChars > 0 && `${remainingChars} karakter daha yazınız`}
+                </div>
+                <p className="text-sm text-gray-400 mt-1">
+                  Mesajınızın minimum 120 karakter olması gerekmektedir.
+                </p>
               </div>
-              <div className="absolute right-2 top-0 text-sm text-red-500">
-                {remainingChars > 0 && `${remainingChars} karakter daha yazınız`}
-              </div>
-              <p className="text-sm text-gray-400 mt-1">
-                Mesajınızın minimum 120 karakter olması gerekmektedir.
-              </p>
             </div>
             <div className="mt-6">
               <button 
