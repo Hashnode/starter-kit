@@ -8,6 +8,8 @@ import { AppProvider } from './contexts/appContext';
 import { PublicationFragment } from '../generated/graphql';
 import { v4 as uuidv4 } from 'uuid';
 import { debounce } from 'lodash';
+import ReCAPTCHA from "react-google-recaptcha";
+import cryptly from 'cryptly';
 
 type ContactProps = {
   publication: PublicationFragment;
@@ -19,7 +21,11 @@ type FormData = {
   email: string;
   subject: string;
   message: string;
+  honeypot: string;
 };
+
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LdMIQEqAAAAAOAzB1FjU8LLNXYTGlFgZWGe80Za';
+const CSRF_SECRET = process.env.CSRF_SECRET || 'YOUR_CSRF_SECRET';
 
 const getIpAddress = async (): Promise<string> => {
   try {
@@ -27,7 +33,7 @@ const getIpAddress = async (): Promise<string> => {
     const data = await response.json();
     return data.ip;
   } catch (error) {
-    console.error('IP adresi alınırken hata oluştu:', error);
+    console.error('Error getting IP address:', error);
     return '';
   }
 };
@@ -41,6 +47,18 @@ const sanitizeInput = (input: string): string => {
     .trim();
 };
 
+const generateCsrfToken = (): string => {
+  const timestamp = Date.now().toString();
+  const hash = cryptly.hash(`${timestamp}${CSRF_SECRET}`, 'sha256');
+  return `${timestamp}.${hash}`;
+};
+
+const validateCsrfToken = (token: string): boolean => {
+  const [timestamp, hash] = token.split('.');
+  const expectedHash = cryptly.hash(`${timestamp}${CSRF_SECRET}`, 'sha256');
+  return cryptly.timingSafeEqual(hash, expectedHash);
+};
+
 const Contact: React.FC<ContactProps> = ({ publication }) => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -48,6 +66,7 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
     email: '',
     subject: '',
     message: '',
+    honeypot: '',
   });
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -55,6 +74,9 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
   const [ipAddress, setIpAddress] = useState('');
   const [sessionId, setSessionId] = useState('');
   const [notification, setNotification] = useState<{ type: string; message: string } | null>(null);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const [csrfToken, setCsrfToken] = useState('');
+  const [lastSubmissionTime, setLastSubmissionTime] = useState(0);
 
   useEffect(() => {
     const fetchIp = async () => {
@@ -73,6 +95,7 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
 
     fetchIp();
     getSessionId();
+    setCsrfToken(generateCsrfToken());
   }, []);
 
   const validateForm = useCallback(debounce((data: FormData) => {
@@ -115,8 +138,38 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
     return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
   };
 
+  const handleRecaptchaChange = (token: string | null) => {
+    setRecaptchaToken(token);
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Check honeypot field
+    if (formData.honeypot) {
+      console.log('Potential bot detected');
+      setNotification({ type: 'error', message: 'Form submission failed.' });
+      return;
+    }
+
+    // Check reCAPTCHA
+    if (!recaptchaToken) {
+      setNotification({ type: 'error', message: 'Please complete the reCAPTCHA.' });
+      return;
+    }
+
+    // Validate CSRF token
+    if (!validateCsrfToken(csrfToken)) {
+      setNotification({ type: 'error', message: 'Invalid session. Please refresh the page and try again.' });
+      return;
+    }
+
+    // Implement rate limiting
+    const currentTime = Date.now();
+    if (currentTime - lastSubmissionTime < 60000) { // 1 minute cooldown
+      setNotification({ type: 'error', message: 'Please wait before submitting again.' });
+      return;
+    }
 
     const konuIdMapping: { [key: string]: number } = {
       'öneri': 4,
@@ -144,6 +197,7 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
       konuId: konuId,
       konuBaslik: formData.subject,
       test: false,
+      recaptchaToken,
     };
 
     try {
@@ -151,16 +205,17 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken,
         },
         body: JSON.stringify(postData),
       });
 
       if (!response.ok) {
         const errorText = await response.text();
-        throw new Error(`Form gönderilirken hata oluştu: ${response.status} ${response.statusText} - ${errorText}`);
+        throw new Error(`Form submission error: ${response.status} ${response.statusText} - ${errorText}`);
       }
 
-      console.log('Form başarıyla gönderildi:', postData);
+      console.log('Form submitted successfully:', postData);
 
       setFormData({
         name: '',
@@ -168,12 +223,15 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
         email: '',
         subject: '',
         message: '',
+        honeypot: '',
       });
 
-      setNotification({ type: 'success', message: 'Form başarıyla gönderildi!' });
+      setNotification({ type: 'success', message: 'Form submitted successfully!' });
+      setLastSubmissionTime(currentTime);
+      setCsrfToken(generateCsrfToken()); // Generate new CSRF token after successful submission
     } catch (error) {
-      console.error('Form gönderilirken hata oluştu:', error);
-      setNotification({ type: 'error', message: 'Form gönderilirken hata oluştu. Lütfen tekrar deneyin.' });
+      console.error('Form submission error:', error);
+      setNotification({ type: 'error', message: 'Form submission failed. Please try again.' });
     }
 
     setTimeout(() => setNotification(null), 5000);
@@ -199,6 +257,7 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
           </div>
 
           <form onSubmit={handleSubmit} className="max-w-2xl mx-auto w-full relative">
+            <input type="hidden" name="csrf_token" value={csrfToken} />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Ad Soyad*</label>
@@ -279,27 +338,47 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
                 </p>
               </div>
             </div>
+
+           {/* Honeypot field */}
+            <input
+              type="text"
+              name="honeypot"
+              value={formData.honeypot}
+              onChange={handleInputChange}
+              style={{ display: 'none' }}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+
+            {/* ReCAPTCHA */}
+            <div className="mt-6">
+              <ReCAPTCHA
+                sitekey={RECAPTCHA_SITE_KEY}
+                onChange={handleRecaptchaChange}
+              />
+            </div>
+
             <div className="mt-6">
               <button 
                 type="submit" 
-                className={`w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${isButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
-                disabled={isButtonDisabled}
+                className={`w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${isButtonDisabled || !recaptchaToken ? 'opacity-50 cursor-not-allowed' : ''}`}
+                disabled={isButtonDisabled || !recaptchaToken}
               >
-                {isButtonDisabled ? 'Gönder' : <span className="flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5 mr-2"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Gönder</span>}
+                {isButtonDisabled || !recaptchaToken ? 'Gönder' : <span className="flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5 mr-2"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Gönder</span>}
               </button>
             </div>
-          </form>
-
-          {notification && (
-            <div className={`fixed bottom-4 right-4 px-4 py-2 rounded shadow-md text-white ${notification.type === 'success' ? 'bg-green-500' : 'bg-red-500'}`}>
-              {notification.message}
-            </div>
-          )}
-        </Container>
-        <Footer />
-      </Layout>
-    </AppProvider>
-  );
-};
-
-export default Contact;
+            </form>
+  
+            {notification && (
+              <div className={`fixed bottom-4 right-4 px-4 py-2 rounded shadow-md text-white ${notification.type === 'success' ? 'bg-green-500' : 'bg-red-500'}`}>
+                {notification.message}
+              </div>
+            )}
+          </Container>
+          <Footer />
+        </Layout>
+      </AppProvider>
+    );
+  };
+  
+  export default Contact;
