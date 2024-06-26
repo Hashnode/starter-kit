@@ -266,6 +266,7 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
                 placeholder="Mesajınızı buraya yazın"
                 className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
               ></textarea>
+              </div>
               <div className="absolute right-2 top-0 text-sm text-red-500">
                 {remainingChars > 0 && `${remainingChars} karakter daha yazınız`}
               </div>
