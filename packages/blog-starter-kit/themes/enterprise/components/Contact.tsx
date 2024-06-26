@@ -110,17 +110,20 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
     setCsrfToken(generateCsrfToken());
   }, []);
 
+  const [isMessageValid, setIsMessageValid] = useState(false); // <-- Add state for isMessageValid
+
   const validateForm = useCallback(debounce((data: FormData) => {
-    const isMessageValid = data.message.replace(/\s/g, '').length >= 120; 
+    const newIsMessageValid = data.message.replace(/\s/g, '').length >= 120; 
     const isFormValid =
       validateName(data.name) &&
       validatePhone(data.phone) &&
       validateEmail(data.email) &&
       data.subject.trim() !== '' &&
-      isMessageValid;
+      newIsMessageValid; 
 
     setIsButtonDisabled(!isFormValid); 
     setRemainingChars(Math.max(0, 120 - data.message.replace(/\s/g, '').length));
+    setIsMessageValid(newIsMessageValid); // <-- Update isMessageValid state
   }, 300), []);
 
   useEffect(() => {
