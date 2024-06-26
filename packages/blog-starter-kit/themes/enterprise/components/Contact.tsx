@@ -26,7 +26,10 @@ const getIpAddress = async () => {
 const sanitizeInput = (input: string) => {
   const element = document.createElement('div');
   element.innerText = input;
-  return element.innerHTML.replace(/<script.*?>.*?<\/script>/gi, '');
+  let sanitized = element.innerHTML.replace(/<script.*?>.*?<\/script>/gi, '').replace(/[<>]/g, '');
+  sanitized = sanitized.replace(/[\u0300-\u036f]/g, ""); // Unicode kombine karakterleri temizler
+  sanitized = sanitized.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''); // Özel karakterleri temizler
+  return sanitized;
 };
 
 const Contact: React.FC<ContactProps> = ({ publication }) => {
@@ -197,6 +200,8 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
                   required
                   placeholder="Adınız ve Soyadınız"
                   className={`w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 ${validateName(formData.name) ? 'focus:ring-blue-500' : 'focus:ring-red-500'}`}
+                  pattern="[a-zA-ZığüşöçİĞÜŞÖÇ\s]*"
+                  title="Sadece harfler ve boşluklar kullanılabilir."
                   onKeyPress={(e) => {
                     if (!/^[a-zA-ZığüşöçİĞÜŞÖÇ\s]*$/.test(e.key)) {
                       e.preventDefault();
@@ -215,6 +220,8 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
                   required
                   placeholder="Cep Telefon Numaranız"
                   className={`w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 ${validatePhone(formData.phone) ? 'focus:ring-blue-500' : 'focus:ring-red-500'}`}
+                  pattern="[0-9]{10,15}"
+                  title="Sadece 10-15 arasında rakamlar kullanılabilir."
                   onKeyPress={(e) => {
                     if (!/^[0-9]*$/.test(e.key)) {
                       e.preventDefault();
