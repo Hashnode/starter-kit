@@ -94,7 +94,7 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({ ...prevState, [name]: sanitizeInput(value) }));
+    setFormData(prevState => ({ ...prevState, [name]: value }));
   };
 
   const validateName = (name: string): boolean => {
@@ -255,35 +255,23 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
                 </select>
               </div>
               <div className="col-span-2 relative">
-                <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900">Mesajınız*</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  required
-                  rows={5}
-                  placeholder="Mesajınızı buraya yazın"
-                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && e.shiftKey) {
-                      e.preventDefault();
-                      const start = e.currentTarget.selectionStart;
-                      const end = e.currentTarget.selectionEnd;
-                      setFormData(prevState => ({
-                        ...prevState,
-                        message: prevState.message.substring(0, start) + '\n' + prevState.message.substring(end)
-                      }));
-                    }
-                  }}
-                ></textarea>
-                <div className="absolute right-2 top-0 text-sm text-red-500">
-                  {remainingChars > 0 && `${remainingChars} karakter daha yazınız`}
-                </div>
-                <p className="text-sm text-gray-400 mt-1">
-                  Mesajınızın minimum 120 karakter olması gerekmektedir. Shift + Enter ile yeni satıra geçebilirsiniz.
-                </p>
+              <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900">Mesajınız*</label>
+              <textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleInputChange}
+                required
+                rows={5}
+                placeholder="Mesajınızı buraya yazın"
+                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              ></textarea>
+              <div className="absolute right-2 top-0 text-sm text-red-500">
+                {remainingChars > 0 && `${remainingChars} karakter daha yazınız`}
               </div>
+              <p className="text-sm text-gray-400 mt-1">
+                Mesajınızın minimum 120 karakter olması gerekmektedir.
+              </p>
             </div>
             <div className="mt-6">
               <button 
