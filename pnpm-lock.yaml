@@ -84,6 +84,12 @@ importers:
       '@vercel/og':
         specifier: ^0.5.18
         version: 0.5.19
+      cryptly:
+        specifier: ^4.0.5
+        version: 4.0.5
+      crypto:
+        specifier: ^1.0.1
+        version: 1.0.1
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
@@ -102,6 +108,9 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      react-google-recaptcha-v3:
+        specifier: ^1.10.1
+        version: 1.10.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react-waypoint:
         specifier: ^10.3.0
         version: 10.3.0(react@18.2.0)
@@ -2078,6 +2087,13 @@ packages:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
     engines: {node: '>= 8'}
 
+  cryptly@4.0.5:
+    resolution: {integrity: sha512-8XTcSqtkaIIZT3pfqkAJjzBD0z2jeMuBQSpi24Toqah56nFmjQ77p4FvSZ3B8s9rkNDeqfFcC2dczhhd9ovBVA==}
+
+  crypto@1.0.1:
+    resolution: {integrity: sha512-VxBKmeNcqQdiUQUW2Tzq0t377b54N2bMtXO/qiLa+6eRRmmC4qT3D4OnTGoT/U6O9aklQ/jTwbOtRMTTY8G0Ig==}
+    deprecated: This package is no longer supported. It's now a built-in Node module. If you've depended on crypto, you should switch to the one that's built-in.
+
   css-background-parser@0.1.0:
     resolution: {integrity: sha512-2EZLisiZQ+7m4wwur/qiYJRniHX4K5Tc9w93MT3AS0WS1u5kaZ4FKXlOTBhOjc+CgEgPiGY+fX1yWD8UwpEqUA==}
 
@@ -2733,6 +2749,9 @@ packages:
     resolution: {integrity: sha512-Ox1pJVrDCyGHMG9CFg1tmrRUMRPRsAWYc/PinY0XzJU4K7y7vjNoLKIQ7BR5UJMCxNN8EM1MNDmHWA/B3aZUuw==}
     engines: {node: '>=6'}
 
+  hoist-non-react-statics@3.3.2:
+    resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
+
   html-dom-parser@5.0.1:
     resolution: {integrity: sha512-8MRxHcUjkpfkCEvf3t+r1nO7KCHgfFah23tAskZHgiOFsP5/24uxJnoS6C2Hq+p/cAzpPUiKb8vjywH6ixEgzQ==}
 
@@ -3005,6 +3024,9 @@ packages:
 
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
+
+  isly@0.1.16:
+    resolution: {integrity: sha512-OQjin/m8CdM7b3h/AeJEdCloSfyoGz/kZQ0cHzPof7r3aI1rGHyHm8tu72+dKiP1YwWhF9KgaNw9xq47oNqyyQ==}
 
   isomorphic-ws@5.0.0:
     resolution: {integrity: sha512-muId7Zzn9ywDsyXgTIafTry2sV3nySZeUDe6YedVd1Hvuuep5AsIlqK+XefWpYTyJG5e503F2xIuT2lcU6rCSw==}
@@ -3775,6 +3797,12 @@ packages:
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
     peerDependencies:
       react: ^18.2.0
+
+  react-google-recaptcha-v3@1.10.1:
+    resolution: {integrity: sha512-K3AYzSE0SasTn+XvV2tq+6YaxM+zQypk9rbCgG4OVUt7Rh4ze9basIKefoBz9sC0CNslJj9N1uwTTgRMJQbQJQ==}
+    peerDependencies:
+      react: ^16.3 || ^17.0 || ^18.0
+      react-dom: ^17.0 || ^18.0
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -6589,6 +6617,12 @@ snapshots:
       shebang-command: 2.0.0
       which: 2.0.2
 
+  cryptly@4.0.5:
+    dependencies:
+      isly: 0.1.16
+
+  crypto@1.0.1: {}
+
   css-background-parser@0.1.0: {}
 
   css-box-shadow@1.0.0-3: {}
@@ -7430,6 +7464,10 @@ snapshots:
 
   hex-rgb@4.3.0: {}
 
+  hoist-non-react-statics@3.3.2:
+    dependencies:
+      react-is: 16.13.1
+
   html-dom-parser@5.0.1:
     dependencies:
       domhandler: 5.0.3
@@ -7695,6 +7733,8 @@ snapshots:
   isarray@2.0.5: {}
 
   isexe@2.0.0: {}
+
+  isly@0.1.16: {}
 
   isomorphic-ws@5.0.0(ws@8.14.2):
     dependencies:
@@ -8475,6 +8515,12 @@ snapshots:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+
+  react-google-recaptcha-v3@1.10.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+    dependencies:
+      hoist-non-react-statics: 3.3.2
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
 
   react-is@16.13.1: {}
 
