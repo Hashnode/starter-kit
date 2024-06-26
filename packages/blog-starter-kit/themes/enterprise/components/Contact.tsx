@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import { Navbar } from './navbar';
 import { Footer } from './footer';
@@ -7,12 +7,21 @@ import { Container } from './container';
 import { AppProvider } from './contexts/appContext';
 import { PublicationFragment } from '../generated/graphql';
 import { v4 as uuidv4 } from 'uuid';
+import { debounce } from 'lodash';
 
 type ContactProps = {
   publication: PublicationFragment;
 };
 
-const getIpAddress = async () => {
+type FormData = {
+  name: string;
+  phone: string;
+  email: string;
+  subject: string;
+  message: string;
+};
+
+const getIpAddress = async (): Promise<string> => {
   try {
     const response = await fetch('/api/get-ip');
     const data = await response.json();
@@ -23,17 +32,18 @@ const getIpAddress = async () => {
   }
 };
 
-const sanitizeInput = (input: string) => {
+const sanitizeInput = (input: string): string => {
   const element = document.createElement('div');
   element.innerText = input;
-  let sanitized = element.innerHTML.replace(/<script.*?>.*?<\/script>/gi, '').replace(/[<>]/g, '');
-  sanitized = sanitized.replace(/[\u0300-\u036f]/g, ""); // Unicode kombine karakterleri temizler
-  sanitized = sanitized.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''); // Özel karakterleri temizler
-  return sanitized;
+  let sanitized = element.innerHTML
+    .replace(/<script.*?>.*?<\/script>/gi, '')
+    .replace(/[<>]/g, '')
+    .replace(/[\u0300-\u036f]/g, ""); // Unicode kombine karakterleri temizler
+  return sanitized.trim();
 };
 
 const Contact: React.FC<ContactProps> = ({ publication }) => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     phone: '',
     email: '',
@@ -66,36 +76,37 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
     getSessionId();
   }, []);
 
-  useEffect(() => {
-    const messageLength = formData.message.length;
-    const charsNeeded = 120 - messageLength;
-    setRemainingChars(charsNeeded);
-
+  const validateForm = useCallback(debounce((data: FormData) => {
     const isFormValid =
-      validateName(formData.name) &&
-      validatePhone(formData.phone) &&
-      validateEmail(formData.email) &&
-      formData.subject.trim() !== '' &&
-      messageLength >= 120;
+      validateName(data.name) &&
+      validatePhone(data.phone) &&
+      validateEmail(data.email) &&
+      data.subject.trim() !== '' &&
+      data.message.length >= 120;
 
     setIsButtonDisabled(!isFormValid);
-  }, [formData]);
+    setRemainingChars(Math.max(0, 120 - data.message.length));
+  }, 300), []);
+
+  useEffect(() => {
+    validateForm(formData);
+  }, [formData, validateForm]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prevState => ({ ...prevState, [name]: sanitizeInput(value) }));
   };
 
-  const validateName = (name: string) => {
+  const validateName = (name: string): boolean => {
     const nameParts = name.trim().split(/\s+/);
     return /^[a-zA-ZığüşöçİĞÜŞÖÇ\s]+$/.test(name) && nameParts.length >= 2 && nameParts.length <= 3;
   };
 
-  const validatePhone = (phone: string) => {
+  const validatePhone = (phone: string): boolean => {
     return /^[0-9]{10,15}$/.test(phone);
   };
 
-  const validateEmail = (email: string) => {
+  const validateEmail = (email: string): boolean => {
     return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
   };
 
@@ -108,7 +119,7 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
       'diğer': 6,
     };
 
-    const konuId = konuIdMapping[formData.subject];
+    const konuId = konuIdMapping[formData.subject] || 6;
 
     const nameParts = formData.name.trim().split(/\s+/);
     const firstName = nameParts.slice(0, -1).join(' ');
@@ -146,7 +157,6 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
 
       console.log('Form başarıyla gönderildi:', postData);
 
-      // Formu temizle
       setFormData({
         name: '',
         phone: '',
@@ -155,16 +165,12 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
         message: '',
       });
 
-      // Bildirim göster
       setNotification({ type: 'success', message: 'Form başarıyla gönderildi!' });
-
-      console.log('Form temizlendi');
     } catch (error) {
       console.error('Form gönderilirken hata oluştu:', error);
       setNotification({ type: 'error', message: 'Form gönderilirken hata oluştu. Lütfen tekrar deneyin.' });
     }
 
-    // Bildirimi belirli bir süre sonra kaldır
     setTimeout(() => setNotification(null), 5000);
   };
 
@@ -202,11 +208,6 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
                   className={`w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 ${validateName(formData.name) ? 'focus:ring-blue-500' : 'focus:ring-red-500'}`}
                   pattern="[a-zA-ZığüşöçİĞÜŞÖÇ\s]*"
                   title="Sadece harfler ve boşluklar kullanılabilir."
-                  onKeyPress={(e) => {
-                    if (!/^[a-zA-ZığüşöçİĞÜŞÖÇ\s]*$/.test(e.key)) {
-                      e.preventDefault();
-                    }
-                  }}
                 />
               </div>
               <div>
@@ -222,11 +223,6 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
                   className={`w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 ${validatePhone(formData.phone) ? 'focus:ring-blue-500' : 'focus:ring-red-500'}`}
                   pattern="[0-9]{10,15}"
                   title="Sadece 10-15 arasında rakamlar kullanılabilir."
-                  onKeyPress={(e) => {
-                    if (!/^[0-9]*$/.test(e.key)) {
-                      e.preventDefault();
-                    }
-                  }}
                 />
               </div>
               <div className="col-span-2">
@@ -270,8 +266,14 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
                   placeholder="Mesajınızı buraya yazın"
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter' && !e.shiftKey) {
+                    if (e.key === 'Enter' && e.shiftKey) {
                       e.preventDefault();
+                      const start = e.currentTarget.selectionStart;
+                      const end = e.currentTarget.selectionEnd;
+                      setFormData(prevState => ({
+                        ...prevState,
+                        message: prevState.message.substring(0, start) + '\n' + prevState.message.substring(end)
+                      }));
                     }
                   }}
                 ></textarea>
@@ -279,7 +281,7 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
                   {remainingChars > 0 && `${remainingChars} karakter daha yazınız`}
                 </div>
                 <p className="text-sm text-gray-400 mt-1">
-                  Mesajınızın minimum 120 karakter olması gerekmektedir.
+                  Mesajınızın minimum 120 karakter olması gerekmektedir. Shift + Enter ile yeni satıra geçebilirsiniz.
                 </p>
               </div>
             </div>
