@@ -235,13 +235,14 @@ const validateName = (name: string): boolean => {
         },
         body: JSON.stringify(postData),
       });
-
+    
       if (!response.ok) {
         const errorText = await response.text();
-        throw new Error(`Form submission error: ${response.status} ${response.statusText} - ${errorText}`);
+        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
       }
-
-      console.log('Form submitted successfully:', postData);
+    
+      const data = await response.json();
+      console.log('Form submitted successfully:', data);
 
       setFormData({
         name: '',
@@ -263,7 +264,7 @@ const validateName = (name: string): boolean => {
         setMessageCharCount(0);
       }, 5000);
     } catch (error) {
-      console.error('Form submission error:', error);
+      console.error('Fetch error:', error);
       setNotification({ type: 'error', message: 'Form submission failed. Please try again.' });
     }
 
