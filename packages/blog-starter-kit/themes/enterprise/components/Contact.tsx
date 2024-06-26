@@ -90,11 +90,13 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
       'öneri': 4,
       'şikayet': 3,
       'diğer': 6,
-    }; 
+    };
 
     const konuId = konuIdMapping[formData.subject];
 
-    const [firstName, ...lastName] = formData.name.split(' ');
+    const nameParts = formData.name.trim().split(/\s+/);
+    const firstName = nameParts.slice(0, -1).join(' ');
+    const lastName = nameParts[nameParts.length - 1];
 
     const postData = {
       uygulamaId: 1,
@@ -103,7 +105,7 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
       oturumId: "3dbd7db1-7ef4-4a5f-a023-f9c147c55ee7",
       ipAdres: ipAddress,
       ad: firstName,
-      soyad: lastName.join(' '),
+      soyad: lastName,
       telefon: formData.phone,
       eMail: formData.email,
       mesaj: formData.message,
@@ -240,6 +242,11 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
                   rows={5}
                   placeholder="Mesajınızı buraya yazın"
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                    }
+                  }}
                 ></textarea>
                 <div className="absolute right-2 top-0 text-sm text-red-500">
                   {remainingChars > 0 && `${remainingChars} karakter daha yazınız`}
