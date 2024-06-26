@@ -111,14 +111,15 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
   }, []);
 
   const validateForm = useCallback(debounce((data: FormData) => {
+    const isMessageValid = data.message.replace(/\s/g, '').length >= 120; 
     const isFormValid =
       validateName(data.name) &&
       validatePhone(data.phone) &&
       validateEmail(data.email) &&
       data.subject.trim() !== '' &&
-      data.message.replace(/\s/g, '').length >= 120;
+      isMessageValid;
 
-    setIsButtonDisabled(!isFormValid);
+    setIsButtonDisabled(!isFormValid); 
     setRemainingChars(Math.max(0, 120 - data.message.replace(/\s/g, '').length));
   }, 300), []);
 
@@ -128,25 +129,13 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    let sanitizedValue = sanitizeInput(value);
-
-    if (name === 'name') {
-      sanitizedValue = sanitizedValue.replace(/[^a-zA-ZığüşöçİĞÜŞÖÇ\s]/g, '');
-      const nameParts = sanitizedValue.split(/\s+/).filter(Boolean);
-      if (nameParts.length > 3) {
-        sanitizedValue = nameParts.slice(0, 3).join(' ');
-      }
-    }
-
-    if (name === 'phone') {
-      sanitizedValue = sanitizedValue.replace(/[^0-9]/g, '');
-    }
-
-    if (name === 'email') {
-      sanitizedValue = sanitizedValue.replace(/\s/g, '');
-    }
-
-    setFormData(prevState => ({ ...prevState, [name]: sanitizedValue }));
+    let sanitizedValue = sanitizeInput(value); 
+  
+    if (name === 'phone' || name === 'email') {
+      sanitizedValue = sanitizedValue.replace(/\s/g, ''); // Remove spaces
+    } 
+  
+    setFormData(prevState => ({ ...prevState, [name]: sanitizedValue })); 
   };
 
   const validateName = (name: string): boolean => {
@@ -348,7 +337,7 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
                 <textarea
                   id="message"
                   name="message"
-                  value={formData.message}
+                  value={remainingChars === 0 ? "Mesajınız gönderime hazır" : formData.message} // Clear if remaining chars are 0
                   onChange={handleInputChange}
                   required
                   rows={5}
@@ -381,9 +370,14 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
               <button 
                 type="submit" 
                 className={`w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${isButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
-                disabled={isButtonDisabled}
+                disabled={isButtonDisabled || !isMessageValid}
               >
-                {isButtonDisabled ? 'Gönder' : <span className="flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5 mr-2"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Gönder</span>}
+                {isButtonDisabled 
+                  ? 'Gönder' 
+                  : notification?.type === 'success' // Check if notification is successful
+                    ? 'Gönderildi!' // If successful, show "Gönderildi!"
+                    : <span className="flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5 mr-2"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Gönder</span>
+                }
               </button>
             </div>
           </form>
