@@ -138,7 +138,7 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
     // Sadece temel HTML özel karakterlerini kaldır, diğerlerini olduğu gibi bırak
     return input.replace(/[<>&]/g, '');
   };
-  
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     let sanitizedValue = sanitizeInput(value);
@@ -150,10 +150,11 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
     setFormData(prevState => ({ ...prevState, [name]: sanitizedValue }));
   };
 
-  const validateName = (name: string): boolean => {
-    const nameParts = name.trim().split(/\s+/);
-    return /^[a-zA-ZığüşöçİĞÜŞÖÇ\s]+$/.test(name) && nameParts.length >= 2 && nameParts.length <= 3;
-  };
+const validateName = (name: string): boolean => {
+  const nameParts = name.split(/\s+/).filter(Boolean); // Split and filter out extra spaces
+  const trimmedName = nameParts.join(' '); // Join back with a single space
+  return /^[a-zA-ZığüşöçİĞÜŞÖÇ\s]+$/.test(trimmedName) && nameParts.length >= 2 && nameParts.length <= 3;
+};
 
   const validatePhone = (phone: string): boolean => {
     return /^[0-9]{10,15}$/.test(phone);
