@@ -94,7 +94,7 @@ const Post = ({ publication, post }: PostProps) => {
 	return (
 		<>
 			<Head>
-				<title>{post.seo?.title || post.title}</title>
+				<title>{post.seo?.title || post.title} - Temizmama Blog</title>
 				<link rel="canonical" href={post.url} />
 				<meta name="description" content={post.seo?.description || post.subtitle || post.brief} />
 				<meta property="twitter:card" content="summary_large_image" />
@@ -134,7 +134,7 @@ const Post = ({ publication, post }: PostProps) => {
 			/>
 			{post.features.tableOfContents.isEnabled && <PostTOC />}
 			<MarkdownToHtml contentMarkdown={post.content.markdown} />
-			</>
+		</>
 	);
 };
 
@@ -143,7 +143,7 @@ const Page = ({ page }: PageProps) => {
 	return (
 		<>
 			<Head>
-				<title>{title}</title>
+				<title>{title} - Temizmama Blog</title>
 			</Head>
 			<MarkdownToHtml contentMarkdown={page.content.markdown} />
 		</>
