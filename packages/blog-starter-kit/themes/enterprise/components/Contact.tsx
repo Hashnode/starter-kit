@@ -253,7 +253,7 @@ const validateName = (name: string): boolean => {
         honeypot: '',
       });
 
-      setNotification({ type: 'success', message: 'Form submitted successfully!' });
+      setNotification({ type: 'success', message: 'Form başarıyla gönderildi!' });
       setLastSubmissionTime(currentTime);
       setCsrfToken(generateCsrfToken());
       setIsFormSubmitted(true);
@@ -265,7 +265,7 @@ const validateName = (name: string): boolean => {
       }, 5000);
     } catch (error) {
       console.error('Fetch error:', error);
-      setNotification({ type: 'error', message: 'Form submission failed. Please try again.' });
+      setNotification({ type: 'error', message: 'Form gönderimi başarısız oldu.  Lütfen tekrar deneyin.' });
     }
 
     setTimeout(() => setNotification(null), 5000);
