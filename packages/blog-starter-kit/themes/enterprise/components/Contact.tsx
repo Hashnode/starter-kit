@@ -113,10 +113,16 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
   const [isMessageValid, setIsMessageValid] = useState(false); // <-- Add state for isMessageValid
 
   const [messageCharCount, setMessageCharCount] = useState(0);
+
+  const countNonWhitespaceChars = (str: string): number => {
+    return str.replace(/\s/g, '').length;
+  };
+
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
   const validateForm = useCallback(debounce((data: FormData) => {
-    const newMessageCharCount = data.message.trim().length; // Baştaki ve sondaki boşlukları sayma
+    const newMessageCharCount = countNonWhitespaceChars(data.message);
+
     const newIsMessageValid = newMessageCharCount >= 120;
     const isFormValid =
       validateName(data.name) &&
