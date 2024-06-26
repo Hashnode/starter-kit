@@ -112,18 +112,22 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
 
   const [isMessageValid, setIsMessageValid] = useState(false); // <-- Add state for isMessageValid
 
+  const [messageCharCount, setMessageCharCount] = useState(0);
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+
   const validateForm = useCallback(debounce((data: FormData) => {
-    const newIsMessageValid = data.message.replace(/\s/g, '').length >= 120; 
+    const newMessageCharCount = data.message.length;
+    const newIsMessageValid = newMessageCharCount >= 120;
     const isFormValid =
       validateName(data.name) &&
       validatePhone(data.phone) &&
       validateEmail(data.email) &&
       data.subject.trim() !== '' &&
-      newIsMessageValid; 
+      newIsMessageValid;
 
-    setIsButtonDisabled(!isFormValid); 
-    setRemainingChars(Math.max(0, 120 - data.message.replace(/\s/g, '').length));
-    setIsMessageValid(newIsMessageValid); // <-- Update isMessageValid state
+    setIsButtonDisabled(!isFormValid);
+    setMessageCharCount(newMessageCharCount);
+    setIsMessageValid(newIsMessageValid);
   }, 300), []);
 
   useEffect(() => {
@@ -132,13 +136,13 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    let sanitizedValue = sanitizeInput(value); 
-  
+    let sanitizedValue = sanitizeInput(value);
+
     if (name === 'phone' || name === 'email') {
       sanitizedValue = sanitizedValue.replace(/\s/g, ''); // Remove spaces
-    } 
-  
-    setFormData(prevState => ({ ...prevState, [name]: sanitizedValue })); 
+    }
+
+    setFormData(prevState => ({ ...prevState, [name]: sanitizedValue }));
   };
 
   const validateName = (name: string): boolean => {
@@ -239,6 +243,13 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
       setNotification({ type: 'success', message: 'Form submitted successfully!' });
       setLastSubmissionTime(currentTime);
       setCsrfToken(generateCsrfToken());
+      setIsFormSubmitted(true);
+      
+      // Reset the form submission state after 5 seconds
+      setTimeout(() => {
+        setIsFormSubmitted(false);
+        setMessageCharCount(0);
+      }, 5000);
     } catch (error) {
       console.error('Form submission error:', error);
       setNotification({ type: 'error', message: 'Form submission failed. Please try again.' });
@@ -340,20 +351,17 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
                 <textarea
                   id="message"
                   name="message"
-                  value={remainingChars === 0 ? "Mesajınız gönderime hazır" : formData.message} // Clear if remaining chars are 0
+                  value={formData.message} 
                   onChange={handleInputChange}
                   required
                   rows={5}
                   placeholder="Mesajınızı buraya yazın"
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                      e.preventDefault();
-                    }
-                  }}
                 ></textarea>
                 <p className="text-sm text-gray-400 mt-1">
-                  Mesajınızın minimum 120 karakter olması gerekmektedir. {remainingChars} karakter kaldı.
+                  {messageCharCount >= 120 && !isFormSubmitted
+                    ? "Mesajınız gönderilmeye hazır"
+                    : `Mesajınızın minimum 120 karakter olması gerekmektedir. ${Math.max(0, 120 - messageCharCount)} karakter kaldı.`}
                 </p>
               </div>
             </div>
@@ -377,8 +385,8 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
               >
                 {isButtonDisabled 
                   ? 'Gönder' 
-                  : notification?.type === 'success' // Check if notification is successful
-                    ? 'Gönderildi!' // If successful, show "Gönderildi!"
+                  : isFormSubmitted
+                    ? 'Gönderildi!'
                     : <span className="flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5 mr-2"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Gönder</span>
                 }
               </button>
