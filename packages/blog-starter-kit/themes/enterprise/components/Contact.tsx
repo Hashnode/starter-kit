@@ -349,7 +349,7 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
                   }}
                 ></textarea>
                 <p className="text-sm text-gray-400 mt-1">
-                  Mesajınızın minimum 120 karakter olması gerekmektedir.
+                  Mesajınızın minimum 120 karakter olması gerekmektedir. {remainingChars} karakter kaldı.
                 </p>
               </div>
             </div>
