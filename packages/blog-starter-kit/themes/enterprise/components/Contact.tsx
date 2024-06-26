@@ -104,10 +104,10 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
       validatePhone(data.phone) &&
       validateEmail(data.email) &&
       data.subject.trim() !== '' &&
-      data.message.length >= 120;
+      data.message.replace(/\s/g, '').length >= 120;
 
     setIsButtonDisabled(!isFormValid);
-    setRemainingChars(Math.max(0, 120 - data.message.length));
+    setRemainingChars(Math.max(0, 120 - data.message.replace(/\s/g, '').length));
   }, 300), []);
 
   useEffect(() => {
@@ -117,17 +117,24 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     let sanitizedValue = sanitizeInput(value);
-    
+
     if (name === 'name') {
       sanitizedValue = sanitizedValue.replace(/[^a-zA-ZığüşöçİĞÜŞÖÇ\s]/g, '');
+      const nameParts = sanitizedValue.split(/\s+/).filter(Boolean);
+      if (nameParts.length > 3) {
+        sanitizedValue = nameParts.slice(0, 3).join(' ');
+      }
     }
-  
+
+    if (name === 'phone') {
+      sanitizedValue = sanitizedValue.replace(/[^0-9]/g, '');
+    }
+
+    if (name === 'email') {
+      sanitizedValue = sanitizedValue.replace(/\s/g, '');
+    }
+
     setFormData(prevState => ({ ...prevState, [name]: sanitizedValue }));
-    
-    if (name === 'message') {
-      const nonSpaceChars = sanitizedValue.replace(/\s+/g, '').length;
-      setRemainingChars(120 - nonSpaceChars);
-    }
   };
 
   const validateName = (name: string): boolean => {
@@ -146,14 +153,12 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Check honeypot field
     if (formData.honeypot) {
       console.log('Potential bot detected');
       setNotification({ type: 'error', message: 'Form submission failed.' });
       return;
     }
 
-    // Check reCAPTCHA
     if (!executeRecaptcha) {
       console.log('Execute recaptcha not yet available');
       return;
@@ -161,15 +166,13 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
 
     const recaptchaToken = await executeRecaptcha('contactFormSubmit');
 
-    // Validate CSRF token
     if (!validateCsrfToken(csrfToken)) {
       setNotification({ type: 'error', message: 'Invalid session. Please refresh the page and try again.' });
       return;
     }
 
-    // Implement rate limiting
     const currentTime = Date.now();
-    if (currentTime - lastSubmissionTime < 60000) { // 1 minute cooldown
+    if (currentTime - lastSubmissionTime < 60000) {
       setNotification({ type: 'error', message: 'Please wait before submitting again.' });
       return;
     }
@@ -231,7 +234,7 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
 
       setNotification({ type: 'success', message: 'Form submitted successfully!' });
       setLastSubmissionTime(currentTime);
-      setCsrfToken(generateCsrfToken()); // Generate new CSRF token after successful submission
+      setCsrfToken(generateCsrfToken());
     } catch (error) {
       console.error('Form submission error:', error);
       setNotification({ type: 'error', message: 'Form submission failed. Please try again.' });
@@ -290,6 +293,11 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
                   className={`w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 ${validatePhone(formData.phone) ? 'focus:ring-blue-500' : 'focus:ring-red-500'}`}
                   pattern="[0-9]{10,15}"
                   title="Sadece 10-15 arasında rakamlar kullanılabilir."
+                  onKeyPress={(e) => {
+                    if (!/^[0-9]*$/.test(e.key)) {
+                      e.preventDefault();
+                    }
+                  }}
                 />
               </div>
               <div className="col-span-2">
@@ -303,11 +311,8 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
                   required
                   placeholder="E-posta Adresiniz"
                   className={`w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 ${validateEmail(formData.email) ? 'focus:ring-blue-500' : 'focus:ring-red-500'}`}
-                  onKeyPress={(e) => {
-                    if (e.key === ' ') {
-                      e.preventDefault();
-                    }
-                  }}
+                  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                  title="Sadece geçerli bir e-posta adresi kullanılabilir."
                 />
               </div>
               <div className="col-span-2">
@@ -337,39 +342,38 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
                   rows={5}
                   placeholder="Mesajınızı buraya yazın"
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                    }
+                  }}
                 ></textarea>
-                <div className="absolute right-2 top-0 text-sm text-red-500">
-                  {remainingChars > 0 ? `${remainingChars} karakter daha yazınız` : 'Form gönderime hazır!'}
-                </div>
                 <p className="text-sm text-gray-400 mt-1">
-                  {remainingChars > 0 ? `Mesajınızın minimum 120 karakter olması gerekmektedir. ${remainingChars} karakter kaldı.` : 'Form gönderime hazır!'}
+                  Mesajınızın minimum 120 karakter olması gerekmektedir.
                 </p>
               </div>
             </div>
-                        {/* Honeypot field */}
-                        <input
-                      type="text"
-                      name="honeypot"
-                      value={formData.honeypot}
-                      onChange={handleInputChange}
-                      style={{ display: 'none' }}
-                      tabIndex={-1}
-                      autoComplete="off"
-                    />
+
+            {/* Honeypot field */}
+            <input
+              type="text"
+              name="honeypot"
+              value={formData.honeypot}
+              onChange={handleInputChange}
+              style={{ display: 'none' }}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+
             <div className="mt-6">
               <button 
                 type="submit" 
                 className={`w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${isButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
                 disabled={isButtonDisabled}
               >
-                Gönder
+                {isButtonDisabled ? 'Gönder' : <span className="flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5 mr-2"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Gönder</span>}
               </button>
             </div>
-            {notification && (
-              <div className={`fixed bottom-4 right-4 px-4 py-2 rounded shadow-md text-white ${notification.type === 'success' ? 'bg-green-500' : 'bg-red-500'}`}>
-                {notification.message}
-              </div>
-            )}
           </form>
 
           {notification && (
