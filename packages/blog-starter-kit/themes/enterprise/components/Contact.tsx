@@ -9,6 +9,7 @@ import { PublicationFragment } from '../generated/graphql';
 import { v4 as uuidv4 } from 'uuid';
 import { debounce } from 'lodash';
 import crypto from 'crypto';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 type ContactProps = {
   publication: PublicationFragment;
@@ -24,7 +25,7 @@ type FormData = {
 };
 
 const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LdMIQEqAAAAAOAzB1FjU8LLNXYTGlFgZWGe80Za';
-const CSRF_SECRET = process.env.CSRF_SECRET || 'YOUR_CSRF_SECRET';
+const CSRF_SECRET = process.env.NEXT_PUBLIC_CSRF_SECRET || 'cd0102b7cb534906f90d7b0298fb159217fb1ea2051331c3c57f70f826b29f350078efe0d7fb76e7e160aa0f1fbad1629f2f2086419b82b8f330e491e2f8c3e4';
 
 const getIpAddress = async (): Promise<string> => {
   try {
@@ -73,6 +74,7 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
   const [ipAddress, setIpAddress] = useState('');
   const [sessionId, setSessionId] = useState('');
   const [notification, setNotification] = useState<{ type: string; message: string } | null>(null);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [csrfToken, setCsrfToken] = useState('');
   const [lastSubmissionTime, setLastSubmissionTime] = useState(0);
 
@@ -102,11 +104,12 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
       validatePhone(data.phone) &&
       validateEmail(data.email) &&
       data.subject.trim() !== '' &&
-      data.message.length >= 120;
+      data.message.length >= 120 &&
+      recaptchaToken !== null;
 
     setIsButtonDisabled(!isFormValid);
     setRemainingChars(Math.max(0, 120 - data.message.length));
-  }, 300), []);
+  }, 300), [recaptchaToken]);
 
   useEffect(() => {
     validateForm(formData);
@@ -136,6 +139,10 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
     return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
   };
 
+  const handleRecaptchaChange = (token: string | null) => {
+    setRecaptchaToken(token);
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -143,6 +150,12 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
     if (formData.honeypot) {
       console.log('Potential bot detected');
       setNotification({ type: 'error', message: 'Form submission failed.' });
+      return;
+    }
+
+    // Check reCAPTCHA
+    if (!recaptchaToken) {
+      setNotification({ type: 'error', message: 'Please complete the reCAPTCHA.' });
       return;
     }
 
@@ -185,6 +198,7 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
       konuId: konuId,
       konuBaslik: formData.subject,
       test: false,
+      recaptchaToken,
     };
 
     try {
@@ -274,6 +288,11 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
                   className={`w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 ${validatePhone(formData.phone) ? 'focus:ring-blue-500' : 'focus:ring-red-500'}`}
                   pattern="[0-9]{10,15}"
                   title="Sadece 10-15 arasında rakamlar kullanılabilir."
+                  onKeyPress={(e) => {
+                    if (!/^[0-9]*$/.test(e.key)) {
+                      e.preventDefault();
+                    }
+                  }}
                 />
               </div>
               <div className="col-span-2">
@@ -316,6 +335,11 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
                   rows={5}
                   placeholder="Mesajınızı buraya yazın"
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                    }
+                  }}
                 ></textarea>
                 <div className="absolute right-2 top-0 text-sm text-red-500">
                   {remainingChars > 0 && `${remainingChars} karakter daha yazınız`}
@@ -337,27 +361,35 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
               autoComplete="off"
             />
 
+            {/* ReCAPTCHA */}
+            <div className="mt-6">
+              <ReCAPTCHA
+                sitekey={RECAPTCHA_SITE_KEY}
+                onChange={handleRecaptchaChange}
+              />
+            </div>
+
             <div className="mt-6">
               <button 
                 type="submit" 
-                className={`w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${isButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
-                disabled={isButtonDisabled}
+                className={`w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${isButtonDisabled || !recaptchaToken ? 'opacity-50 cursor-not-allowed' : ''}`}
+                disabled={isButtonDisabled || !recaptchaToken}
               >
-                {isButtonDisabled ? 'Gönder' : <span className="flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5 mr-2"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Gönder</span>}
+                {isButtonDisabled || !recaptchaToken ? 'Gönder' : <span className="flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5 mr-2"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Gönder</span>}
               </button>
             </div>
-            </form>
-  
-            {notification && (
-              <div className={`fixed bottom-4 right-4 px-4 py-2 rounded shadow-md text-white ${notification.type === 'success' ? 'bg-green-500' : 'bg-red-500'}`}>
-                {notification.message}
-              </div>
-            )}
-          </Container>
-          <Footer />
-        </Layout>
-      </AppProvider>
-    );
-  };
-  
-  export default Contact;
+          </form>
+
+          {notification && (
+            <div className={`fixed bottom-4 right-4 px-4 py-2 rounded shadow-md text-white ${notification.type === 'success' ? 'bg-green-500' : 'bg-red-500'}`}>
+              {notification.message}
+            </div>
+          )}
+        </Container>
+        <Footer />
+      </Layout>
+    </AppProvider>
+  );
+};
+
+export default Contact;
