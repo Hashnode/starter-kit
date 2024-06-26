@@ -116,7 +116,7 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
   const validateForm = useCallback(debounce((data: FormData) => {
-    const newMessageCharCount = data.message.length;
+    const newMessageCharCount = data.message.trim().length; // Baştaki ve sondaki boşlukları sayma
     const newIsMessageValid = newMessageCharCount >= 120;
     const isFormValid =
       validateName(data.name) &&
@@ -134,6 +134,11 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
     validateForm(formData);
   }, [formData, validateForm]);
 
+  const sanitizeInput = (input: string): string => {
+    // Sadece temel HTML özel karakterlerini kaldır, diğerlerini olduğu gibi bırak
+    return input.replace(/[<>&]/g, '');
+  };
+  
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     let sanitizedValue = sanitizeInput(value);
@@ -351,12 +356,17 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
                 <textarea
                   id="message"
                   name="message"
-                  value={formData.message} 
+                  value={formData.message}
                   onChange={handleInputChange}
                   required
                   rows={5}
                   placeholder="Mesajınızı buraya yazın"
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault(); // Normal enter tuşunu engelle
+                    }
+                  }}
                 ></textarea>
                 <p className="text-sm text-gray-400 mt-1">
                   {messageCharCount >= 120 && !isFormSubmitted
