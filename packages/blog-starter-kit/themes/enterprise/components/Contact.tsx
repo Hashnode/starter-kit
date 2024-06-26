@@ -9,7 +9,7 @@ import { PublicationFragment } from '../generated/graphql';
 import { v4 as uuidv4 } from 'uuid';
 import { debounce } from 'lodash';
 import crypto from 'crypto';
-import ReCAPTCHA from 'react-google-recaptcha';
+import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 type ContactProps = {
   publication: PublicationFragment;
@@ -59,7 +59,8 @@ const validateCsrfToken = (token: string): boolean => {
   return crypto.timingSafeEqual(Buffer.from(hash, 'hex'), Buffer.from(expectedHash, 'hex'));
 };
 
-const Contact: React.FC<ContactProps> = ({ publication }) => {
+const ContactForm: React.FC<ContactProps> = ({ publication }) => {
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const [formData, setFormData] = useState<FormData>({
     name: '',
     phone: '',
@@ -74,7 +75,6 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
   const [ipAddress, setIpAddress] = useState('');
   const [sessionId, setSessionId] = useState('');
   const [notification, setNotification] = useState<{ type: string; message: string } | null>(null);
-  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [csrfToken, setCsrfToken] = useState('');
   const [lastSubmissionTime, setLastSubmissionTime] = useState(0);
 
@@ -104,12 +104,11 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
       validatePhone(data.phone) &&
       validateEmail(data.email) &&
       data.subject.trim() !== '' &&
-      data.message.length >= 120 &&
-      recaptchaToken !== null;
+      data.message.length >= 120;
 
     setIsButtonDisabled(!isFormValid);
     setRemainingChars(Math.max(0, 120 - data.message.length));
-  }, 300), [recaptchaToken]);
+  }, 300), []);
 
   useEffect(() => {
     validateForm(formData);
@@ -118,7 +117,7 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     let sanitizedValue = sanitizeInput(value);
-    
+
     if (name === 'name') {
       sanitizedValue = sanitizedValue.replace(/[^a-zA-ZığüşöçİĞÜŞÖÇ\s]/g, '');
     }
@@ -139,10 +138,6 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
     return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
   };
 
-  const handleRecaptchaChange = (token: string | null) => {
-    setRecaptchaToken(token);
-  };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -154,10 +149,12 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
     }
 
     // Check reCAPTCHA
-    if (!recaptchaToken) {
-      setNotification({ type: 'error', message: 'Please complete the reCAPTCHA.' });
+    if (!executeRecaptcha) {
+      console.log('Execute recaptcha not yet available');
       return;
     }
+
+    const recaptchaToken = await executeRecaptcha('contactFormSubmit');
 
     // Validate CSRF token
     if (!validateCsrfToken(csrfToken)) {
@@ -361,21 +358,13 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
               autoComplete="off"
             />
 
-            {/* ReCAPTCHA */}
-            <div className="mt-6">
-              <ReCAPTCHA
-                sitekey={RECAPTCHA_SITE_KEY}
-                onChange={handleRecaptchaChange}
-              />
-            </div>
-
             <div className="mt-6">
               <button 
                 type="submit" 
-                className={`w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${isButtonDisabled || !recaptchaToken ? 'opacity-50 cursor-not-allowed' : ''}`}
-                disabled={isButtonDisabled || !recaptchaToken}
+                className={`w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${isButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+                disabled={isButtonDisabled}
               >
-                {isButtonDisabled || !recaptchaToken ? 'Gönder' : <span className="flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5 mr-2"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Gönder</span>}
+                {isButtonDisabled ? 'Gönder' : <span className="flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5 mr-2"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Gönder</span>}
               </button>
             </div>
           </form>
@@ -391,5 +380,11 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
     </AppProvider>
   );
 };
+
+const Contact: React.FC<ContactProps> = ({ publication }) => (
+  <GoogleReCaptchaProvider reCaptchaKey={RECAPTCHA_SITE_KEY}>
+    <ContactForm publication={publication} />
+  </GoogleReCaptchaProvider>
+);
 
 export default Contact;
