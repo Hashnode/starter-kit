@@ -6,6 +6,7 @@ import { Layout } from './layout';
 import { Container } from './container';
 import { AppProvider } from './contexts/appContext';
 import { PublicationFragment } from '../generated/graphql';
+import { v4 as uuidv4 } from 'uuid';
 
 type ContactProps = {
   publication: PublicationFragment;
@@ -40,6 +41,7 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [remainingChars, setRemainingChars] = useState(120);
   const [ipAddress, setIpAddress] = useState('');
+  const [sessionId, setSessionId] = useState('');
 
   useEffect(() => {
     const fetchIp = async () => {
@@ -47,7 +49,17 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
       setIpAddress(ip);
     };
 
+    const getSessionId = () => {
+      let sessionId = localStorage.getItem('sessionId');
+      if (!sessionId) {
+        sessionId = uuidv4();
+        localStorage.setItem('sessionId', sessionId);
+      }
+      setSessionId(sessionId);
+    };
+
     fetchIp();
+    getSessionId();
   }, []);
 
   useEffect(() => {
@@ -102,7 +114,7 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
       uygulamaId: 1,
       uygulamaDilId: 1,
       kayitDilId: 1,
-      oturumId: "3dbd7db1-7ef4-4a5f-a023-f9c147c55ee7",
+      oturumId: sessionId,
       ipAdres: ipAddress,
       ad: firstName,
       soyad: lastName,
