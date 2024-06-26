@@ -8,8 +8,7 @@ import { AppProvider } from './contexts/appContext';
 import { PublicationFragment } from '../generated/graphql';
 import { v4 as uuidv4 } from 'uuid';
 import { debounce } from 'lodash';
-import ReCAPTCHA from "react-google-recaptcha";
-import cryptly from 'cryptly';
+import crypto from 'crypto';
 
 type ContactProps = {
   publication: PublicationFragment;
@@ -25,7 +24,7 @@ type FormData = {
 };
 
 const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LdMIQEqAAAAAOAzB1FjU8LLNXYTGlFgZWGe80Za';
-const CSRF_SECRET = process.env.CSRF_SECRET || 'cd0102b7cb534906f90d7b0298fb159217fb1ea2051331c3c57f70f826b29f350078efe0d7fb76e7e160aa0f1fbad1629f2f2086419b82b8f330e491e2f8c3e4';
+const CSRF_SECRET = process.env.CSRF_SECRET || 'YOUR_CSRF_SECRET';
 
 const getIpAddress = async (): Promise<string> => {
   try {
@@ -49,14 +48,14 @@ const sanitizeInput = (input: string): string => {
 
 const generateCsrfToken = (): string => {
   const timestamp = Date.now().toString();
-  const hash = cryptly.hash(`${timestamp}${CSRF_SECRET}`, 'sha256');
+  const hash = crypto.createHmac('sha256', CSRF_SECRET).update(timestamp).digest('hex');
   return `${timestamp}.${hash}`;
 };
 
 const validateCsrfToken = (token: string): boolean => {
   const [timestamp, hash] = token.split('.');
-  const expectedHash = cryptly.hash(`${timestamp}${CSRF_SECRET}`, 'sha256');
-  return cryptly.timingSafeEqual(hash, expectedHash);
+  const expectedHash = crypto.createHmac('sha256', CSRF_SECRET).update(timestamp).digest('hex');
+  return crypto.timingSafeEqual(Buffer.from(hash, 'hex'), Buffer.from(expectedHash, 'hex'));
 };
 
 const Contact: React.FC<ContactProps> = ({ publication }) => {
@@ -74,7 +73,6 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
   const [ipAddress, setIpAddress] = useState('');
   const [sessionId, setSessionId] = useState('');
   const [notification, setNotification] = useState<{ type: string; message: string } | null>(null);
-  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [csrfToken, setCsrfToken] = useState('');
   const [lastSubmissionTime, setLastSubmissionTime] = useState(0);
 
@@ -138,10 +136,6 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
     return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
   };
 
-  const handleRecaptchaChange = (token: string | null) => {
-    setRecaptchaToken(token);
-  };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -149,12 +143,6 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
     if (formData.honeypot) {
       console.log('Potential bot detected');
       setNotification({ type: 'error', message: 'Form submission failed.' });
-      return;
-    }
-
-    // Check reCAPTCHA
-    if (!recaptchaToken) {
-      setNotification({ type: 'error', message: 'Please complete the reCAPTCHA.' });
       return;
     }
 
@@ -197,7 +185,6 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
       konuId: konuId,
       konuBaslik: formData.subject,
       test: false,
-      recaptchaToken,
     };
 
     try {
@@ -350,21 +337,13 @@ const Contact: React.FC<ContactProps> = ({ publication }) => {
               autoComplete="off"
             />
 
-            {/* ReCAPTCHA */}
-            <div className="mt-6">
-              <ReCAPTCHA
-                sitekey={RECAPTCHA_SITE_KEY}
-                onChange={handleRecaptchaChange}
-              />
-            </div>
-
             <div className="mt-6">
               <button 
                 type="submit" 
-                className={`w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${isButtonDisabled || !recaptchaToken ? 'opacity-50 cursor-not-allowed' : ''}`}
-                disabled={isButtonDisabled || !recaptchaToken}
+                className={`w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${isButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+                disabled={isButtonDisabled}
               >
-                {isButtonDisabled || !recaptchaToken ? 'Gönder' : <span className="flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5 mr-2"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Gönder</span>}
+                {isButtonDisabled ? 'Gönder' : <span className="flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5 mr-2"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Gönder</span>}
               </button>
             </div>
             </form>
