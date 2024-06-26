@@ -120,6 +120,10 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
 
     if (name === 'name') {
       sanitizedValue = sanitizedValue.replace(/[^a-zA-ZığüşöçİĞÜŞÖÇ\s]/g, '');
+      const nameParts = sanitizedValue.split(/\s+/);
+      if (nameParts.length > 3) {
+        sanitizedValue = nameParts.slice(0, 3).join(' ');
+      }
     }
 
     setFormData(prevState => ({ ...prevState, [name]: sanitizedValue }));
@@ -338,16 +342,13 @@ const ContactForm: React.FC<ContactProps> = ({ publication }) => {
                     }
                   }}
                 ></textarea>
-                <div className="absolute right-2 top-0 text-sm text-red-500">
-                  {remainingChars > 0 && `${remainingChars} karakter daha yazınız`}
-                </div>
                 <p className="text-sm text-gray-400 mt-1">
-                  Mesajınızın minimum 120 karakter olması gerekmektedir.
+                  Mesajınızın minimum 120 "{remainingChars > 0 && `${remainingChars}`}" karakter olması gerekmektedir.
                 </p>
               </div>
             </div>
 
-           {/* Honeypot field */}
+            {/* Honeypot field */}
             <input
               type="text"
               name="honeypot"
