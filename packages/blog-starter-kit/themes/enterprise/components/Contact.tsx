@@ -56,7 +56,7 @@ const generateCsrfToken = (): string => {
 const validateCsrfToken = (token: string): boolean => {
   const [timestamp, hash] = token.split('.');
   const expectedHash = crypto.createHmac('sha256', CSRF_SECRET).update(timestamp).digest('hex');
-  return crypto.timingSafeEqual(Buffer.from(hash, 'hex'), Buffer.from(expectedHash, 'hex'));
+  return crypto.timingSafeEqual(Buffer.from(hash), Buffer.from(expectedHash));
 };
 
 const ContactForm: React.FC<ContactProps> = ({ publication }) => {
