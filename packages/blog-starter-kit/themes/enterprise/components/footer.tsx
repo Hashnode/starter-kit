@@ -32,26 +32,34 @@ return (
     )}
       </div>
       <div className="footer-cta pt-5 pb-5">
-            <div className="flex flex-col md:flex-row justify-between">
+            <div className="flex flex-col md:flex-row justify-between items-center">
               <div className="flex flex-col items-center md:w-1/3 mb-6 md:mb-0">
                 <i className="fas fa-map-marker-alt text-2xl mb-2"></i>
                 <div className="text-center">
-                  <h4 className="text-lg mb-1" style={{ fontFamily: 'PinkChicken'}} >Adresimiz</h4>
-                  <a className="text-gray-700 transition hover:text-gray-700/75" target="_blank"   href="https://maps.app.goo.gl/vApfgXquMGtYyTEr6"><span>Ümit Mah. 7406/1 Sok. No: 9 Bornova - İZMİR</span></a>
+                  <h4 className="text-lg mb-1" style={{ fontFamily: 'PinkChicken' }}>Adresimiz</h4>
+                  <a className="text-gray-700 transition hover:text-gray-700/75" target="_blank" href="https://maps.app.goo.gl/vApfgXquMGtYyTEr6">
+                    <span>Ümit Mah. 7406/1 Sok. No: 9 Bornova - İZMİR</span>
+                  </a>
                 </div>
               </div>
-              <div className="flex flex-col items-center md:w-1/3 mb-6 md:mb-0">
-                <i className="fas fa-phone text-2xl mb-2"></i>
-                <div className="text-center">
-                  <h4 className="text-lg mb-1" style={{ fontFamily: 'PinkChicken'}} >Bizi arayın</h4>
-                  <a className="text-gray-700 transition hover:text-gray-700/75" target="_blank"   href="tel:8502221869"><span>850 222 1 869</span></a>
+              <div className="flex flex-col md:flex-row md:items-center justify-between md:w-2/3 gap-6">
+                <div className="flex flex-col items-center mb-6 md:mb-0 md:w-1/2">
+                  <i className="fas fa-phone text-2xl mb-2"></i>
+                  <div className="text-center">
+                    <h4 className="text-lg mb-1" style={{ fontFamily: 'PinkChicken' }}>Bizi arayın</h4>
+                    <a className="text-gray-700 transition hover:text-gray-700/75" target="_blank" href="tel:8502221869">
+                      <span>850 222 1 869</span>
+                    </a>
+                  </div>
                 </div>
-              </div>
-              <div className="flex flex-col items-center md:w-1/3">
-                <i className="far fa-envelope-open text-2xl mb-2"></i>
-                <div className="text-center">
-                  <h4 className="text-lg mb-1" style={{ fontFamily: 'PinkChicken'}} >Bize e-posta gönderin</h4>
-                  <a className="text-gray-700 transition hover:text-gray-700/75" target="_blank"   href="mailto:info@temizmama.com"><span>info@temizmama.com</span></a>
+                <div className="flex flex-col items-center md:w-1/2">
+                  <i className="far fa-envelope-open text-2xl mb-2"></i>
+                  <div className="text-center">
+                    <h4 className="text-lg mb-1" style={{ fontFamily: 'PinkChicken' }}>Bize e-posta gönderin</h4>
+                    <a className="text-gray-700 transition hover:text-gray-700/75" target="_blank" href="mailto:info@temizmama.com">
+                      <span>info@temizmama.com</span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
