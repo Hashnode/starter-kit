@@ -99,7 +99,7 @@ const Post = ({ publication, post }: PostProps) => {
 				<meta name="theme-color" content="rgba(203, 105, 0, 0.22)" />
 
 				{/* Open Graph Meta Tags */}
-				<meta property="og:title" content={`${post.seo?.title || post.title} | Temizmama Blog`} />
+				<meta property="og:title" content={`${post.seo?.title || post.title}`} />
 				<meta property="og:site_name" content="Temizmama Blog" />
 				<meta property="og:locale" content="tr_TR" />
 				<meta property="og:url" content={post.url} />
@@ -118,7 +118,7 @@ const Post = ({ publication, post }: PostProps) => {
 
 				{/* Genel Meta Etiketleri */}
 				<meta name="description" content={post.seo?.description || post.subtitle || post.brief} />
-				<meta name="keywords" content={post.seo?.keywords || `temizmama, blog, ${post.tags?.join(', ')}`} />
+				<meta name="keywords" content={post.seo?.keywords || `temizmama, blog, tazemama, kedi, köpek,mama ${post.tags?.join(', ')}`} />
 				<meta name="author" content={post.author?.name || "Temizmama Blog"} />
 
 				{/* Ek Meta Etiketleri */}
