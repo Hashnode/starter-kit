@@ -3,7 +3,6 @@ export const addArticleJsonLd = (publication: any, post: any) => {
 	const schema = {
 		'@context': 'https://schema.org/',
 		'@type': 'BlogPosting',
-		"headline": "${post.seo?.title || post.title}",
 		'@id': publication.url,
 		mainEntityOfPage: publication.url,
 		name: publication.title,
