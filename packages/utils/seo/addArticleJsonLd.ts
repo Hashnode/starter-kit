@@ -37,7 +37,7 @@ export const addArticleJsonLd = (publication: any, post: any) => {
 					url: post.coverImage?.url,
 				},
 				url: post.url,
-				keywords: tags,
+				keywords: post.seo?.keywords || tags,
 			},
 		],
 	};
