@@ -22,7 +22,7 @@ export const HeroPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
 	};
 
 	return (
-		<section className="grid grid-cols-1 gap-5">
+		<section className="grid grid-cols-1 gap-5 hover:opacity-90">
 			<div className="col-span-1">
 				<CoverImage
 					title={title}
