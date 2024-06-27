@@ -1,5 +1,6 @@
 import { Container } from './container';
 import { useAppContext } from './contexts/appContext';
+import CookieConsent from '../components/CookieConsent';
 import { SocialLinks } from './social-links';
 import Link from 'next/link';
 
@@ -154,6 +155,7 @@ return (
 © 2008 - 2024<a href="https://www.temizmama.com" rel="noreferrer" target="_blank" className="text-gray-700 transition hover:text-gray-700/75"> Temizmama.com </a> her hakkı saklıdır.
       </p>
     </div>
+    <CookieConsent />
   </Container>
 </footer>
 );
