@@ -22,7 +22,11 @@ const CookieConsent: React.FC = () => {
   if (!showConsent) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 w-1/4 min-w-[300px] bg-gray-800 rounded-lg p-4 text-white shadow-lg" style={{ display: 'flex'}}>
+    <div className="fixed bottom-4 left-4 w-1/4 min-w-[300px] rounded-lg p-4 text-white shadow-lg" style={{
+      display: 'flex',
+      backgroundColor: '#000000d9',
+      backdropFilter: 'blur(4px)'
+    }}>
               <Image
           src="assets/blog/preview/cookie.png"
           alt="Cookie icon"
