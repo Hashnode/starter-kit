@@ -49,7 +49,7 @@ export default function Post({ publication, post }: Props) {
 			<Layout>
 				<Header />
 				<Container className="pt-101">
-					<article className="flex flex-col items-start gap-10 pb-10">
+					<article className="border-b-1-1/2 flex flex-col items-start gap-10 pb-10">
 						<Head>
 							<title>{title}</title>
 							<link rel="canonical" href={post.url} />

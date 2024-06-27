@@ -160,7 +160,7 @@ export default function PostOrPage(props: Props) {
 			<Layout>
 				<Navbar />
 				<Container className="pt-101">
-					<article className="flex flex-col items-start gap-10 pb-10">
+					<article className="border-b-1-1/2 flex flex-col items-start gap-10 pb-10">
 						{props.type === 'post' && <Post {...props} />}
 						{props.type === 'page' && <Page {...props} />}
 					</article>
