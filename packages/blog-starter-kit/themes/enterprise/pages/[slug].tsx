@@ -118,7 +118,7 @@ const Post = ({ publication, post }: PostProps) => {
 
 				{/* Genel Meta Etiketleri */}
 				<meta name="description" content={post.seo?.description || post.subtitle || post.brief} />
-				<meta name="keywords" content={post.seo?.keywords || `temizmama, blog, ${post.tags?.join(', ')}`} />
+				<meta name="keywords" content={post.seo || `temizmama, blog, ${post.tags?.join(', ')}`} />
 				<meta name="author" content={post.author?.name || "Temizmama Blog"} />
 
 				{/* Ek Meta Etiketleri */}
@@ -144,7 +144,7 @@ const Post = ({ publication, post }: PostProps) => {
 						"name": "Temizmama Blog",
 						"logo": {
 						"@type": "ImageObject",
-						"url": "https://temizmama.com/logo.png"
+						"url": "https://blog.temizmama.com/_next/image?url=https%3A%2F%2F9kelt5xnesj2nkgz.public.blob.vercel-storage.com%2Ffile-eYpF3jWI7j8924LUC1AR51hcMjnVNp.png&w=1200&q=75"
 						}
 					},
 					"datePublished": "${post.publishedAt}",
