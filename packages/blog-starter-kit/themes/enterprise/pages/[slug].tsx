@@ -98,7 +98,7 @@ const Post = ({ publication, post }: PostProps) => {
 	return (
 		<>
 			<Head>
-				<title>{`${postTitle} | Temizmama Blog`}</title>
+				<title>{`${postTitle}`}</title>
 				<link rel="canonical" href={post.url} />
 				<meta name="theme-color" content="rgba(203, 105, 0, 0.22)" />
 
