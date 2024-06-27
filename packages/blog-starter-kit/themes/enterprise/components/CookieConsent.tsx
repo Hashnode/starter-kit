@@ -22,7 +22,7 @@ const CookieConsent: React.FC = () => {
   if (!showConsent) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 w-1/4 min-w-[300px] rounded-lg p-4 text-white shadow-lg bg-black bg-opacity-80 backdrop-blur-md">
+    <div className="fixed bottom-4 left-4 w-1/4 min-w-[300px] bg-gray-800 rounded-lg p-4 text-white shadow-lg" style={{ fontFamily: 'PinkChicken'}}>
       <img
         src="https://blog.temizmama.com/assets/blog/preview/cookie.png"
         alt="Cookie icon"
