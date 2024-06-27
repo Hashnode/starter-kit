@@ -100,7 +100,7 @@ const Post = ({ publication, post }: PostProps) => {
 			<Head>
 				<title>{`${postTitle}`}</title>
 				<link rel="canonical" href={post.url} />
-				<meta name="theme-color" content="rgba(203, 105, 0, 0.22)" />
+				<meta name="theme-color" content="#efdcc9" />
 
 				{/* Open Graph Meta Tags */}
 				<meta property="og:title" content={`${postTitle} | Temizmama Blog`} />
