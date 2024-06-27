@@ -31,7 +31,7 @@ return (
     </p>
     )}
       </div>
-      <div className="footer-cta pt-5 pb-5">
+      <div className="mt-12 pt-5 pb-5">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <div className="flex flex-col items-center md:w-1/3 mb-6 md:mb-0">
                 <i className="fas fa-map-marker-alt text-2xl mb-2"></i>
