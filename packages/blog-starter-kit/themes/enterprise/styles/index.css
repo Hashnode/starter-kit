@@ -15,7 +15,11 @@
   .border-b-1-1\/2 {
     border-bottom-width: 1.5px;
 }
-
+.cstmimg {
+    position: absolute;
+    transform: translate(3.6rem, -1.5rem);
+    zoom: 2.3;
+}
 .bg-orng-500 {
     --tw-bg-opacity: 1;
   background-color: rgb(255 147 92);

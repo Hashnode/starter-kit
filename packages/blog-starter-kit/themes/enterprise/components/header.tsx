@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { PublicationNavbarItem } from '../generated/graphql';
 import { Button } from './button';
 import { Container } from './container';
+import CookieConsent from '../components/CookieConsent';
 import { useAppContext } from './contexts/appContext';
 import HamburgerSVG from './icons/svgs/HamburgerSVG';
 import PublicationSidebar from './sidebar';
@@ -101,6 +102,7 @@ export const Header = () => {
 			</Container>
 			<div className="mt-5 flex justify-center lg:hidden">
 			</div>
+			<CookieConsent />
 		</header>
 	);
 };

@@ -22,15 +22,15 @@ const CookieConsent: React.FC = () => {
   if (!showConsent) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 w-1/4 min-w-[300px] bg-gray-800 rounded-lg p-4 text-white shadow-lg">
-      <div className="flex items-center space-x-3">
-        <Image
+    <div className="fixed bottom-4 left-4 w-1/4 min-w-[300px] bg-gray-800 rounded-lg p-4 text-white shadow-lg" style={{ display: 'flex'}}>
+              <Image
           src="assets/blog/preview/cookie.png"
           alt="Cookie icon"
-          width={40}
-          height={40}
-          className="rounded-full"
+          width={453}
+          height={301}
+          className="rounded-full absolute cstmimg"
         />
+      <div className="flex items-center space-x-3">
         <p className="text-sm flex-grow">
           Ziyaretçi profilinizi (
           <a href="https://www.temizmama.com/aydinlatma-metni" className="underline" onClick={handleCookieInfoClick}>
