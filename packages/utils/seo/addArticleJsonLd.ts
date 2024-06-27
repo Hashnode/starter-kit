@@ -5,12 +5,12 @@ export const addArticleJsonLd = (publication: any, post: any) => {
 		'@type': 'BlogPosting',
 		'@id': publication.url,
 		mainEntityOfPage: publication.url,
-		name: publication.title,
+		name: "Temizmama Blog",
 		description: publication.about?.markdown,
 		publisher: {
 			'@type': "Person",
 			'@id': publication.url,
-			name: publication.title,
+			name: "Temizmama Blog",
 			image: {
 				'@type': 'ImageObject',
 				url: publication.preferences?.logo || publication.preferences?.darkMode?.logo,
