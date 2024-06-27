@@ -36,7 +36,7 @@ return (
               <div className="flex flex-col items-center md:w-1/3 mb-6 md:mb-0">
                 <i className="fas fa-map-marker-alt text-2xl mb-2"></i>
                 <div className="text-center">
-                  <h4 className="text-lg font-semibold mb-1">Bizi bul</h4>
+                  <h4 className="text-lg font-semibold mb-1">Adresimiz</h4>
                   <a href="https://maps.app.goo.gl/vApfgXquMGtYyTEr6"><span>Ümit Mah. 7406/1 Sok. No: 9 Bornova - İZMİR</span></a>
                 </div>
               </div>
