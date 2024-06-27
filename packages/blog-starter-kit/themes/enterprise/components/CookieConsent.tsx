@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const CookieConsent: React.FC = () => {
   const [showConsent, setShowConsent] = useState(false);
@@ -9,7 +10,7 @@ const CookieConsent: React.FC = () => {
     setShowConsent(cookieConsent !== 'true');
   }, []);
 
-  const handleConsent = () => {
+  const handleAccept = () => {
     localStorage.setItem('CookieConfirm', 'true');
     setShowConsent(false);
   };
@@ -21,20 +22,31 @@ const CookieConsent: React.FC = () => {
   if (!showConsent) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 w-full bg-gray-800 text-white p-4 flex justify-between items-center text-sm md:text-base">
-      <p className="mr-4">
-        Ziyaretçi profilinizi (
-        <Link href="/cookie-politika" className="underline" onClick={handleCookieInfoClick}>
-          Cookie
-        </Link>
-        ) analiz ve ar-ge için kullanabiliriz.
-      </p>
-      <button
-        onClick={handleConsent}
-        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300"
-      >
-        Anladım
-      </button>
+    <div className="fixed bottom-4 left-4 w-1/4 min-w-[300px] bg-gray-800 rounded-lg p-4 text-white shadow-lg">
+      <div className="flex items-center space-x-3">
+        <Image
+          src="assets/blog/preview/cookie-icon.png"
+          alt="Cookie icon"
+          width={40}
+          height={40}
+          className="rounded-full"
+        />
+        <p className="text-sm flex-grow">
+          Ziyaretçi profilinizi (
+          <a href="https://www.temizmama.com/aydinlatma-metni" className="underline" onClick={handleCookieInfoClick}>
+            Cookie
+          </a>
+          ) analiz ve ar-ge için kullanabiliriz.
+        </p>
+      </div>
+      <div className="mt-3 flex justify-end">
+        <button
+          onClick={handleAccept}
+          className="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-md text-sm transition duration-300"
+        >
+          Anladım
+        </button>
+      </div>
     </div>
   );
 };
