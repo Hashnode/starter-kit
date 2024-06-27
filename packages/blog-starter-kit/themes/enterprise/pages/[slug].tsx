@@ -118,7 +118,7 @@ const Post = ({ publication, post }: PostProps) => {
 
 				{/* Genel Meta Etiketleri */}
 				<meta name="description" content={post.seo?.description || post.subtitle || post.brief} />
-				<meta name="keywords" content={post.seo || `temizmama, blog, ${post.tags?.join(', ')}`} />
+				<meta name="keywords" content={post.seo?.keywords || `temizmama, blog, ${post.tags?.join(', ')}`} />
 				<meta name="author" content={post.author?.name || "Temizmama Blog"} />
 
 				{/* Ek Meta Etiketleri */}
