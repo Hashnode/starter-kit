@@ -12,7 +12,9 @@
   nav {
 	transition: transform 0.3s ease-in-out;
   }
-  
+  .border-b-1-1\/2 {
+    border-bottom-width: 1.5px;
+}
   .hidden-nav {
 	transform: translateY(100%);
   }
