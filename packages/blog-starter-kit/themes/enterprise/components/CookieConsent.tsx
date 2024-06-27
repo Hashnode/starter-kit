@@ -22,7 +22,7 @@ const CookieConsent: React.FC = () => {
   if (!showConsent) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 w-1/4 min-w-[300px] bg-gray-800 rounded-lg p-4 text-white shadow-lg" style={{ fontFamily: 'PinkChicken'}}>
+<div className="fixed bottom-4 left-4 w-1/4 min-w-[300px] rounded-lg p-4 text-white shadow-lg flex bg-black bg-opacity-80 backdrop-blur-md" style={{ fontFamily: 'PinkChicken'}}>
       <img
         src="https://blog.temizmama.com/assets/blog/preview/cookie.png"
         alt="Cookie icon"
@@ -31,9 +31,9 @@ const CookieConsent: React.FC = () => {
         className="rounded-full absolute cstmimg"
       />
       <div className="flex items-center space-x-3">
-        <p className="text-sm flex-grow">
+        <p className="text-sm flex-grow"  style={{ fontFamily: 'PinkChicken'}}>
           Ziyaretçi profilinizi (
-          <a href="https://www.temizmama.com/aydinlatma-metni" className="underline" onClick={handleCookieInfoClick}>
+          <a href="https://www.temizmama.com/aydinlatma-metni" className="underline" onClick={handleCookieInfoClick}  style={{ fontFamily: 'PinkChicken'}}>
             Cookie
           </a>
           ) analiz ve ar-ge için kullanabiliriz.
@@ -43,6 +43,7 @@ const CookieConsent: React.FC = () => {
         <button
           onClick={handleAccept}
           className="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-md text-sm transition duration-300"
+          style={{ fontFamily: 'PinkChicken'}}
         >
           Anladım
         </button>
