@@ -275,8 +275,34 @@ const validateName = (name: string): boolean => {
     <AppProvider publication={publication}>
       <Layout>
         <Head>
-          <title>İletişim - {publication?.title || "Temizmama Blog"}</title>
-          <meta name="description" content="Bizimle iletişime geçin" />
+          <title>İletişim | Temizmama Blog</title>
+          <meta name="description" content="Bizimle iletişime geçin. Temizmama Blog'da size yardımcı olmaktan memnuniyet duyarız!" />
+          <link rel="canonical" href="https://blog.temizmama.com/iletisim" />  
+          <meta name="theme-color" content="#efdcc9" />
+
+          {/* Open Graph Meta Tags */}
+          <meta property="og:title" content="İletişim | Temizmama Blog" />
+          <meta property="og:site_name" content="Temizmama Blog" />
+          <meta property="og:locale" content="tr_TR" />
+          <meta property="og:type" content="website" />  
+          <meta property="og:image" content="https://blog.temizmama.com/assets/blog/preview/contact.webp" />
+          <meta property="og:image:alt" content="İletişim Sayfası Görseli" />
+          <meta property="og:url" content="https://blog.temizmama.com/iletisim" />
+          <meta property="og:description" content="Bizimle iletişime geçin. Temizmama Blog'da size yardımcı olmaktan memnuniyet duyarız!" />
+
+          {/* Twitter Card Meta Tags */}
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:site" content="@temizmamacom" />
+          <meta name="twitter:title" content="İletişim | Temizmama Blog" />
+          <meta name="twitter:description" content="Bizimle iletişime geçin. Temizmama Blog'da size yardımcı olmaktan memnuniyet duyarız!" />
+          <meta name="twitter:image" content="https://blog.temizmama.com/assets/blog/preview/contact.webp" />
+          <meta name="twitter:image:alt" content="İletişim Sayfası Görseli" />
+
+          {/* Ek Meta Etiketleri */}
+          <meta name="robots" content="index, follow" />
+          <meta name="googlebot" content="index, follow" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <meta name="format-detection" content="telephone=no" />
         </Head>
         <Navbar />
 
