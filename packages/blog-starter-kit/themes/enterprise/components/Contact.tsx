@@ -379,10 +379,10 @@ const validateName = (name: string): boolean => {
                   required
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-22 focus:ring-orng-500"
                 >
-                  <option value="">Seçiniz</option>
-                  <option value="öneri">Görüş ve Öneri</option>
-                  <option value="şikayet">Şikayet</option>
-                  <option value="diğer">Diğer</option>
+                  <option value="" className="hover:bg-orng-600">Seçiniz</option>
+                  <option value="öneri" className="hover:bg-orng-600">Görüş ve Öneri</option>
+                  <option value="şikayet" className="hover:bg-orng-600">Şikayet</option>
+                  <option value="diğer" className="hover:bg-orng-600">Diğer</option>
                 </select>
               </div>
               <div className="col-span-2 relative">
