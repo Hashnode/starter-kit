@@ -329,7 +329,7 @@ const validateName = (name: string): boolean => {
                   onChange={handleInputChange}
                   required
                   placeholder="Adınız ve Soyadınız"
-                  className={`w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 ${validateName(formData.name) ? 'focus:ring-blue-500' : 'focus:ring-red-500'}`}
+                  className={`w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-22 ${validateName(formData.name) ? 'focus:ring-orng-500' : 'focus:ring-red-500'}`}
                   pattern="[a-zA-ZığüşöçİĞÜŞÖÇ\s]*"
                   title="Sadece harfler ve boşluklar kullanılabilir."
                 />
@@ -344,7 +344,7 @@ const validateName = (name: string): boolean => {
                   onChange={handleInputChange}
                   required
                   placeholder="Cep Telefon Numaranız"
-                  className={`w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 ${validatePhone(formData.phone) ? 'focus:ring-blue-500' : 'focus:ring-red-500'}`}
+                  className={`w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-22 ${validatePhone(formData.phone) ? 'focus:ring-orng-500' : 'focus:ring-red-500'}`}
                   pattern="[0-9]{10,15}"
                   title="Sadece 10-15 arasında rakamlar kullanılabilir."
                   onKeyPress={(e) => {
@@ -364,7 +364,7 @@ const validateName = (name: string): boolean => {
                   onChange={handleInputChange}
                   required
                   placeholder="E-posta Adresiniz"
-                  className={`w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 ${validateEmail(formData.email) ? 'focus:ring-blue-500' : 'focus:ring-red-500'}`}
+                  className={`w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-22 ${validateEmail(formData.email) ? 'focus:ring-orng-500' : 'focus:ring-red-500'}`}
                   pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                   title="Sadece geçerli bir e-posta adresi kullanılabilir."
                 />
@@ -377,7 +377,7 @@ const validateName = (name: string): boolean => {
                   value={formData.subject}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-22 focus:ring-orng-500"
                 >
                   <option value="">Seçiniz</option>
                   <option value="öneri">Görüş ve Öneri</option>
@@ -395,7 +395,7 @@ const validateName = (name: string): boolean => {
                   required
                   rows={5}
                   placeholder="Mesajınızı buraya yazın"
-                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-22 focus:ring-orng-500"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' && !e.shiftKey) {
                       e.preventDefault(); // Normal enter tuşunu engelle
@@ -424,7 +424,7 @@ const validateName = (name: string): boolean => {
             <div className="mt-6">
               <button 
                 type="submit" 
-                className={`w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${isButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+                className={`w-full px-4 py-2 text-white bg-orng-500 rounded-md hover:bg-orng-600 focus:outline-none focus:ring-22 focus:ring-orng-500 focus:ring-offset-2 ${isButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
                 disabled={isButtonDisabled || !isMessageValid}
               >
                 {isButtonDisabled 
