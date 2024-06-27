@@ -98,12 +98,12 @@ const Post = ({ publication, post }: PostProps) => {
 	return (
 		<>
 			<Head>
-				<title>{postTitle} | Temizmama Blog</title>
+				<title>{`${postTitle} | Temizmama Blog`}</title>
 				<link rel="canonical" href={post.url} />
 				<meta name="theme-color" content="rgba(203, 105, 0, 0.22)" />
 
 				{/* Open Graph Meta Tags */}
-				<meta property="og:title" content={postTitle} />
+				<meta property="og:title" content={`${postTitle} | Temizmama Blog`} />
 				<meta property="og:site_name" content="Temizmama Blog" />
 				<meta property="og:locale" content="tr_TR" />
 				<meta property="og:url" content={post.url} />
@@ -122,7 +122,7 @@ const Post = ({ publication, post }: PostProps) => {
 
 				{/* Genel Meta Etiketleri */}
 				<meta name="description" content={postDescription} />
-				<meta name="keywords" content={post.seo?.keywords || `temizmama, blog, tazemama, kedi, köpek,mama ${post.tags?.join(', ')}`} />
+				<meta name="keywords" content={post.seo?.keywords || `temizmama, blog, tazemama, kedi, köpek, mama ${post.tags?.join(', ')}`} />
 				<meta name="author" content={post.author?.name || "Temizmama Blog"} />
 
 				{/* Ek Meta Etiketleri */}
@@ -132,35 +132,6 @@ const Post = ({ publication, post }: PostProps) => {
 				<meta name="format-detection" content="telephone=no" />
 
 				{/* Yapısal Veri İşaretlemesi */}
-				<script type="application/ld+json">
-				{`
-					{
-					"@context": "https://schema.org",
-					"@type": "BlogPosting",
-					"headline": "${postTitle}",
-					"image": "${postImage}",
-					"author": {
-						"@type": "Person",
-						"name": "${post.author?.name || "Temizmama Blog"}"
-					},
-					"publisher": {
-						"@type": "Organization",
-						"name": "Temizmama Blog",
-						"logo": {
-						"@type": "ImageObject",
-						"url": "https://blog.temizmama.com/_next/image?url=https%3A%2F%2F9kelt5xnesj2nkgz.public.blob.vercel-storage.com%2Ffile-eYpF3jWI7j8924LUC1AR51hcMjnVNp.png&w=1200&q=75"
-						}
-					},
-					"datePublished": "${post.publishedAt}",
-					"dateModified": "${post.updatedAt || post.publishedAt}",
-					"description": "${postDescription}",
-					"mainEntityOfPage": {
-						"@type": "WebPage",
-						"@id": "${post.url}"
-					}
-					}
-				`}
-				</script>
 				<script
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{
@@ -185,7 +156,7 @@ const Page = ({ page }: PageProps) => {
 	return (
 		<>
 			<Head>
-				<title>{title} - Temizmama Blog</title>
+				<title>{`${title} - Temizmama Blog`}</title>
 			</Head>
 			<MarkdownToHtml contentMarkdown={page.content.markdown} />
 		</>
