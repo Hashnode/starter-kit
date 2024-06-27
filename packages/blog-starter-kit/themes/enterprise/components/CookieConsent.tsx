@@ -24,7 +24,7 @@ const CookieConsent: React.FC = () => {
     <div className="fixed bottom-0 left-0 w-full bg-gray-800 text-white p-4 flex justify-between items-center text-sm md:text-base">
       <p className="mr-4">
         Ziyaretçi profilinizi (
-        <Link href="/cookie-policy" className="underline" onClick={handleCookieInfoClick}>
+        <Link href="/cookie-politika" className="underline" onClick={handleCookieInfoClick}>
           Cookie
         </Link>
         ) analiz ve ar-ge için kullanabiliriz.
