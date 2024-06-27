@@ -12,7 +12,7 @@ export const CoverImage = ({ title, src, slug, priority = false }: Props) => {
 	const postURL = `/${slug}`;
 
 	const image = (
-		<div className="relative pt-[52.5%] select-none">
+		<div className="relative pt-[52.5%] select-none hover:opacity-90">
 			<Image
 				src={src}
 				alt={`Temizmama - ${title}`}
