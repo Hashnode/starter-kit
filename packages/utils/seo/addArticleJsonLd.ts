@@ -47,6 +47,7 @@ export const addArticleJsonLd = (publication: any, post: any) => {
 				url: post.url,
 				keywords: post.seo?.keywords || tags,
 			},
+		},
 		],
 	};
 	return schema;
