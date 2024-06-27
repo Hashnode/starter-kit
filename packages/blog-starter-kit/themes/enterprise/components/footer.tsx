@@ -36,22 +36,22 @@ return (
               <div className="flex flex-col items-center md:w-1/3 mb-6 md:mb-0">
                 <i className="fas fa-map-marker-alt text-2xl mb-2"></i>
                 <div className="text-center">
-                  <h4 className="text-lg font-semibold mb-1">Adresimiz</h4>
-                  <a href="https://maps.app.goo.gl/vApfgXquMGtYyTEr6"><span>Ümit Mah. 7406/1 Sok. No: 9 Bornova - İZMİR</span></a>
+                  <h4 className="text-lg mb-1" style={{ fontFamily: 'PinkChicken'}} >Adresimiz</h4>
+                  <a className="text-gray-700 transition hover:text-gray-700/75" target="_blank"   href="https://maps.app.goo.gl/vApfgXquMGtYyTEr6"><span>Ümit Mah. 7406/1 Sok. No: 9 Bornova - İZMİR</span></a>
                 </div>
               </div>
               <div className="flex flex-col items-center md:w-1/3 mb-6 md:mb-0">
                 <i className="fas fa-phone text-2xl mb-2"></i>
                 <div className="text-center">
-                  <h4 className="text-lg font-semibold mb-1">Bizi arayın</h4>
-                  <a href="tel:8502221869"><span>850 222 1 869</span></a>
+                  <h4 className="text-lg mb-1" style={{ fontFamily: 'PinkChicken'}} >Bizi arayın</h4>
+                  <a className="text-gray-700 transition hover:text-gray-700/75" target="_blank"   href="tel:8502221869"><span>850 222 1 869</span></a>
                 </div>
               </div>
               <div className="flex flex-col items-center md:w-1/3">
                 <i className="far fa-envelope-open text-2xl mb-2"></i>
                 <div className="text-center">
-                  <h4 className="text-lg font-semibold mb-1">Bize e-posta gönderin</h4>
-                  <a href="mailto:info@temizmama.com"><span>info@temizmama.com</span></a>
+                  <h4 className="text-lg mb-1" style={{ fontFamily: 'PinkChicken'}} >Bize e-posta gönderin</h4>
+                  <a className="text-gray-700 transition hover:text-gray-700/75" target="_blank"   href="mailto:info@temizmama.com"><span>info@temizmama.com</span></a>
                 </div>
               </div>
             </div>
