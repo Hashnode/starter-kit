@@ -22,18 +22,14 @@ const CookieConsent: React.FC = () => {
   if (!showConsent) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 w-1/4 min-w-[300px] rounded-lg p-4 text-white shadow-lg" style={{
-      display: 'flex',
-      backgroundColor: '#000000d9',
-      backdropFilter: 'blur(4px)'
-    }}>
-              <Image
-          src="assets/blog/preview/cookie.png"
-          alt="Cookie icon"
-          width={453}
-          height={301}
-          className="rounded-full absolute cstmimg"
-        />
+    <div className="fixed bottom-4 left-4 w-1/4 min-w-[300px] rounded-lg p-4 text-white shadow-lg flex bg-black bg-opacity-80 backdrop-blur-md">
+      <img
+        src="https://blog.temizmama.com/assets/blog/preview/cookie.png"
+        alt="Cookie icon"
+        width="453"
+        height="301"
+        className="rounded-full absolute cstmimg"
+      />
       <div className="flex items-center space-x-3">
         <p className="text-sm flex-grow">
           Ziyaretçi profilinizi (
