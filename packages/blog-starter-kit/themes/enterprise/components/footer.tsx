@@ -32,8 +32,8 @@ return (
     )}
       </div>
       <div className="footer-cta pt-5 pb-5">
-            <div className="flex flex-col lg:flex-row justify-between items-center lg:space-x-4">
-              <div className="flex flex-col items-center w-full lg:w-auto mb-6 lg:mb-0">
+            <div className="flex flex-col md:flex-row justify-between items-center">
+              <div className="flex flex-col items-center md:w-1/3 mb-6 md:mb-0">
                 <i className="fas fa-map-marker-alt text-2xl mb-2"></i>
                 <div className="text-center">
                   <h4 className="text-lg mb-1" style={{ fontFamily: 'PinkChicken' }}>Adresimiz</h4>
@@ -42,8 +42,8 @@ return (
                   </a>
                 </div>
               </div>
-              <div className="flex flex-col lg:flex-row lg:items-center w-full lg:w-auto gap-6">
-                <div className="flex flex-col items-center w-full lg:w-auto mb-6 lg:mb-0">
+              <div className="flex flex-col md:flex-row md:items-center justify-between md:w-2/3 gap-6">
+                <div className="flex flex-col items-center mb-6 md:mb-0 md:w-1/2">
                   <i className="fas fa-phone text-2xl mb-2"></i>
                   <div className="text-center">
                     <h4 className="text-lg mb-1" style={{ fontFamily: 'PinkChicken' }}>Bizi arayın</h4>
@@ -52,7 +52,7 @@ return (
                     </a>
                   </div>
                 </div>
-                <div className="flex flex-col items-center w-full lg:w-auto">
+                <div className="flex flex-col items-center md:w-1/2">
                   <i className="far fa-envelope-open text-2xl mb-2"></i>
                   <div className="text-center">
                     <h4 className="text-lg mb-1" style={{ fontFamily: 'PinkChicken' }}>Bize e-posta gönderin</h4>
