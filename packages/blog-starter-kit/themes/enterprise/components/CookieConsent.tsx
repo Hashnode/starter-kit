@@ -25,7 +25,7 @@ const CookieConsent: React.FC = () => {
     <div className="fixed bottom-4 left-4 w-1/4 min-w-[300px] bg-gray-800 rounded-lg p-4 text-white shadow-lg">
       <div className="flex items-center space-x-3">
         <Image
-          src="assets/blog/preview/cookie-icon.png"
+          src="assets/blog/preview/cookie.png"
           alt="Cookie icon"
           width={40}
           height={40}
