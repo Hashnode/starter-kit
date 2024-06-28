@@ -1,4 +1,3 @@
-// components/CircularProgressBar.tsx
 import { useState, useEffect } from 'react';
 
 const CircularProgressBar = () => {
@@ -19,20 +18,17 @@ const CircularProgressBar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToTop = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    e.preventDefault();
+  const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <div className="fixed right-4 bottom-4 flex items-center justify-center select-none">
-      <a
-        href="__next"
-        id="cta"
+      <button
         onClick={scrollToTop}
-        className="justify-center bg-white rounded-full"
+        className="relative flex items-center justify-center bg-white rounded-full w-12 h-12 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        aria-label="Sayfanın başına dön"
       >
-        <span className="sr-only">Yukarı</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -47,10 +43,10 @@ const CircularProgressBar = () => {
             d="m4.5 15.75 7.5-7.5 7.5 7.5"
           />
         </svg>
-        <div className="absolute top-1/2 transform -translate-y-1/2 text-sm text-black font-bold" id="circusll">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-sm text-black font-bold">
           {Math.round(scrollPercentage)}
         </div>
-      </a>
+      </button>
     </div>
   );
 };
