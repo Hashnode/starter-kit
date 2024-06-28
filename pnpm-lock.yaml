@@ -14,6 +14,9 @@ importers:
       classnames:
         specifier: ^2.3.1
         version: 2.3.2
+      graphql-request:
+        specifier: ^7.1.0
+        version: 7.1.0(graphql@16.8.1)
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
