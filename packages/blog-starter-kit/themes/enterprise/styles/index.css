@@ -267,7 +267,9 @@ img {
 
 
 
-
+.bottom-2 {
+    bottom: 2rem;
+}
 
 .sketch-button {
     -webkit-tap-highlight-color: transparent;
