@@ -244,11 +244,10 @@ export default function Index({
               <MorePosts context="home" posts={morePosts} />
               {!loadedMore && pageInfo.hasNextPage && pageInfo.endCursor && (
                 <div className="flex w-full flex-row items-center justify-center">
-                  <Button
+                  <SketchButton
                     onClick={loadMore}
-                    type="outline"
-                    icon={<ChevronDownSVG className="sketch-button h-5 w-5 stroke-current" />}
                     label="Daha fazla"
+                    className="sketch-button h-5 w-5 stroke-current"
                   />
                 </div>
               )}
