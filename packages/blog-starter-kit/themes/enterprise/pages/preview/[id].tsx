@@ -19,6 +19,7 @@ import type {
   PublicationByHostQuery,
   PublicationByHostQueryVariables,
 } from '../../generated/graphql';
+import { DraftByIdDocument, PublicationByHostDocument } from '../../generated/graphql';
 
 type Props = {
   post: PostType;
