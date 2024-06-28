@@ -270,6 +270,15 @@ img {
 .bottom-2 {
     bottom: 2rem;
 }
+button.SketchButton_sketch-button__dkxwe:hover {
+    background-image: linear-gradient(90deg, rgba(229, 137, 48, .86), rgba(199, 199, 199, .67), rgba(229, 137, 48, .86));
+    color: black;
+}
+button.SketchButton_sketch-button__dkxwe {
+    background-image: linear-gradient(90deg, rgba(199, 199, 199, .67), rgba(229, 137, 48, .86), rgba(199, 199, 199, .67));
+    color: black;
+    font-family: PinkChicken, sans-serif;
+}
 
 .sketch-button {
     -webkit-tap-highlight-color: transparent;
