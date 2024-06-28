@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
 
 const CookieConsent: React.FC = () => {
   const [showConsent, setShowConsent] = useState(false);
@@ -33,7 +31,7 @@ const CookieConsent: React.FC = () => {
       <div className="flex items-center space-x-3">
         <p className="text-sm flex-grow"  style={{ fontFamily: 'PinkChicken'}}>
           Ziyaretçi profilinizi (
-          <a href="https://www.temizmama.com/aydinlatma-metni" className="underline" onClick={handleCookieInfoClick}  style={{ fontFamily: 'PinkChicken'}}>
+          <a href="https://www.temizmama.com/aydinlatma-metni" target="_blank" className="underline" onClick={handleCookieInfoClick}  style={{ fontFamily: 'PinkChicken'}}>
             Cookie
           </a>
           ) analiz ve ar-ge için kullanabiliriz.

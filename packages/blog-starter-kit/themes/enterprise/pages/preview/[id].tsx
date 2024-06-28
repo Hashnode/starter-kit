@@ -2,6 +2,8 @@ import request from 'graphql-request';
 import ErrorPage from 'next/error';
 import Head from 'next/head';
 import Link from 'next/link';
+import { Navbar } from '../../components/navbar';
+import  CookieConsent from "../../components/CookieConsent";
 import { Container } from '../../components/container';
 import { AppProvider } from '../../components/contexts/appContext';
 import { Footer } from '../../components/footer';
@@ -48,6 +50,7 @@ export default function Post({ publication, post }: Props) {
 		<AppProvider publication={publication}>
 			<Layout>
 				<Header />
+				<Navbar />
 				<Container className="pt-101">
 					<article className="border-b-1-1/2 flex flex-col items-start gap-10 pb-10">
 						<Head>
@@ -63,6 +66,7 @@ export default function Post({ publication, post }: Props) {
 					</article>
 				</Container>
 				<Footer />
+				<CookieConsent />
 			</Layout>
 		</AppProvider>
 	);
