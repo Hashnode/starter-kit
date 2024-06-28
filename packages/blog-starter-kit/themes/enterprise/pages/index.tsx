@@ -6,7 +6,6 @@ import Head from "next/head";
 import React, { useState, useRef, useEffect } from 'react';
 import { Navbar } from "../components/navbar";
 import { Waypoint } from "react-waypoint";
-import { Button } from "../components/button";
 import { Container } from "../components/container";
 import { AppProvider } from "../components/contexts/appContext";
 import { Footer } from "../components/footer";
