@@ -8,7 +8,7 @@ import { AppProvider } from './contexts/appContext';
 import { PublicationFragment } from '../generated/graphql';
 import { v4 as uuidv4 } from 'uuid';
 import { debounce } from 'lodash';
-const { randomBytes } = require('crypto');
+import { randomBytes, createHmac } from 'crypto'; // Burada createHmac fonksiyonunu import ediyoruz
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 type ContactProps = {
@@ -49,7 +49,7 @@ const sanitizeInput = (input: string): string => {
 
 const generateCsrfToken = (): string => {
   const timestamp = Date.now().toString();
-  const hash = crypto.createHmac('sha256', CSRF_SECRET).update(timestamp).digest('hex');
+  const hash = createHmac('sha256', CSRF_SECRET).update(timestamp).digest('hex'); // Burada createHmac fonksiyonunu kullanıyoruz
   return `${timestamp}.${hash}`;
 };
 
@@ -67,7 +67,7 @@ const timingSafeEqual = (a: string, b: string): boolean => {
 
 const validateCsrfToken = (token: string): boolean => {
   const [timestamp, hash] = token.split('.');
-  const expectedHash = crypto.createHmac('sha256', CSRF_SECRET).update(timestamp).digest('hex');
+  const expectedHash = createHmac('sha256', CSRF_SECRET).update(timestamp).digest('hex'); // Burada createHmac fonksiyonunu kullanıyoruz
   return timingSafeEqual(hash, expectedHash);
 };
 
