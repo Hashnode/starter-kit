@@ -12,7 +12,7 @@ export const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white/10 shadow-md py-4 rounded-xl select-none" style={{ opacity: 1, transform: "none", background: "hsl(30.98deg 100% 39.84% / 22%)" }}>
         <div className="flex items-center justify-between h-10">
           <div className="flex items-center">
-            <Link href="./">
+            <Link href="/">
               <div style={{ position: 'relative', width: '100px', height: '53px', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', zoom: '1.6' }}>
                 <Image
                   src="https://9kelt5xnesj2nkgz.public.blob.vercel-storage.com/file-eYpF3jWI7j8924LUC1AR51hcMjnVNp.png"
@@ -28,7 +28,7 @@ export const Navbar = () => {
             <ul className="flex items-center space-x-8">
               <li style={{ opacity: 1, transform: "none" }}>
                 <Link
-                  href='./'
+                  href='/'
                   aria-label="Ana Sayfa"
                   className="text-gray-800 transition hover:text-gray-700/75 cursor-pointer font-bold"
                   style={{ fontFamily: 'PinkChicken' }}
@@ -38,7 +38,7 @@ export const Navbar = () => {
               </li>
               <li style={{ opacity: 1, transform: "none" }}>
                 <Link
-                  href='./iletisim'
+                  href='/iletisim'
                   aria-label="İletişim"
                   className="text-gray-800 transition hover:text-gray-700/75 cursor-pointer font-bold"
                   style={{ fontFamily: 'PinkChicken' }}
@@ -72,7 +72,7 @@ export const Navbar = () => {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="./"
+                  href="/"
                   className="block text-gray-800 hover:text-gray-700/75 font-bold"
                   style={{ fontFamily: 'PinkChicken' }}
                   onClick={toggleMobileMenu}
@@ -82,7 +82,7 @@ export const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="./iletisim"
+                  href="/iletisim"
                   className="block text-gray-800 hover:text-gray-700/75 font-bold"
                   style={{ fontFamily: 'PinkChicken' }}
                   onClick={toggleMobileMenu}
