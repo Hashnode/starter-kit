@@ -75,9 +75,6 @@ importers:
       cryptly:
         specifier: ^4.0.5
         version: 4.0.5
-      crypto:
-        specifier: ^1.0.1
-        version: 1.0.1
       gray-matter:
         specifier: ^4.0.3
         version: 4.0.3
@@ -2671,10 +2668,6 @@ packages:
 
   cryptly@4.0.5:
     resolution: {integrity: sha512-8XTcSqtkaIIZT3pfqkAJjzBD0z2jeMuBQSpi24Toqah56nFmjQ77p4FvSZ3B8s9rkNDeqfFcC2dczhhd9ovBVA==}
-
-  crypto@1.0.1:
-    resolution: {integrity: sha512-VxBKmeNcqQdiUQUW2Tzq0t377b54N2bMtXO/qiLa+6eRRmmC4qT3D4OnTGoT/U6O9aklQ/jTwbOtRMTTY8G0Ig==}
-    deprecated: This package is no longer supported. It's now a built-in Node module. If you've depended on crypto, you should switch to the one that's built-in.
 
   css-background-parser@0.1.0:
     resolution: {integrity: sha512-2EZLisiZQ+7m4wwur/qiYJRniHX4K5Tc9w93MT3AS0WS1u5kaZ4FKXlOTBhOjc+CgEgPiGY+fX1yWD8UwpEqUA==}
@@ -8259,8 +8252,6 @@ snapshots:
   cryptly@4.0.5:
     dependencies:
       isly: 0.1.16
-
-  crypto@1.0.1: {}
 
   css-background-parser@0.1.0: {}
 
