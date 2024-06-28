@@ -3,7 +3,7 @@ import { resizeImage } from '@starter-kit/utils/image';
 
 import { DEFAULT_AVATAR } from '../utils/const';
 import { twMerge } from 'tailwind-merge';
-
+ 
 /**
  * Progressive Image Component which loads low resolution version image before loading original
  * @param {string}    options.src         Image source
