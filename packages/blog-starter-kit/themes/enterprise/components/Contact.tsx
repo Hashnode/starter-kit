@@ -8,7 +8,7 @@ import { AppProvider } from './contexts/appContext';
 import { PublicationFragment } from '../generated/graphql';
 import { v4 as uuidv4 } from 'uuid';
 import { debounce } from 'lodash';
-import { randomBytes, createHmac } from 'crypto'; // Burada createHmac fonksiyonunu import ediyoruz
+import { randomBytes, createHmac } from 'crypto';
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 type ContactProps = {
