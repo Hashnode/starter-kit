@@ -1,0 +1,91 @@
+.sketch-button {
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    outline: none;
+    border: none;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    background-image: linear-gradient(90deg, #fcecfe, #fbf6e7, #e6fcf5);
+    border-radius: 11px;
+    padding: 12px 20px;
+    position: relative;
+    line-height: 24px;
+    color: #14387e;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02), 0 4px 16px rgba(0, 0, 0, 0.02), 0 4px 24px rgba(0, 0, 0, 0.02);
+  }
+  
+  .sketch-button.start svg {
+    animation: stroke 1s linear;
+  }
+  
+  .lines {
+    position: absolute;
+    inset: 0;
+    mix-blend-mode: hard-light;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  .lines > div {
+    position: absolute;
+    inset: 0;
+  }
+  
+  .lines > div:last-child {
+    transform: rotate(180deg);
+  }
+  
+  .lines > div svg {
+    display: block;
+    position: absolute;
+    inset: 0;
+    overflow: visible;
+    fill: none;
+    stroke-width: 2;
+    stroke: #c9e9ff;
+    width: 100%;
+    height: 100%;
+    stroke-dasharray: 2 10;
+    stroke-dashoffset: 14;
+    opacity: 0;
+  }
+  
+  .lines > div svg:nth-child(1) {
+    stroke: #f8fcff;
+  }
+  
+  .lines > div svg:nth-child(2) {
+    stroke-width: 6px;
+    filter: blur(20px);
+  }
+  
+  .lines > div svg:nth-child(3) {
+    stroke-width: 5px;
+    filter: blur(6px);
+  }
+  
+  .lines > div svg:nth-child(4) {
+    stroke-width: 10px;
+    filter: blur(56px);
+  }
+  
+  @keyframes stroke {
+    0% {
+      stroke-dashoffset: 14;
+      opacity: 0;
+    }
+    25% {
+      opacity: 1;
+    }
+    75% {
+      opacity: 1;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 0;
+    }
+  }

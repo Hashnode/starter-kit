@@ -12,6 +12,7 @@ import { AppProvider } from "../components/contexts/appContext";
 import { Footer } from "../components/footer";
 import { HeroPost } from "../components/hero-post";
 import { ArticleSVG, ChevronDownSVG } from "../components/icons";
+import styles from '../styles/SketchButton.module.css';
 import { Layout } from "../components/layout";
 import { MorePosts } from "../components/more-posts";
 import { SecondaryPost } from "../components/secondary-post";
@@ -78,6 +79,68 @@ export default function Index({
     );
   });
   const morePosts = allPosts.slice(4);
+
+
+
+
+  const createSVG = () => {
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    const rectangle = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    svg.setAttributeNS("http://www.w3.org/2000/svg", "viewBox", "0 0 100 100");
+    rectangle.setAttribute("width", "100");
+    rectangle.setAttribute("height", "100");
+    svg.appendChild(rectangle);
+    return svg;
+  };
+  
+  const SketchButton: React.FC<{ onClick: () => void; label: string }> = ({ onClick, label }) => {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+  
+    useEffect(() => {
+      const button = buttonRef.current;
+      if (!button) return;
+  
+      const lines = document.createElement("div");
+      lines.classList.add(styles.lines);
+      const groupTop = document.createElement("div");
+      const groupBottom = document.createElement("div");
+  
+      for (let i = 0; i < 4; i++) {
+        groupTop.appendChild(createSVG());
+        groupBottom.appendChild(createSVG());
+      }
+  
+      lines.appendChild(groupTop);
+      lines.appendChild(groupBottom);
+      button.appendChild(lines);
+  
+      const handlePointerEnter = () => {
+        button.classList.add(styles.start);
+      };
+  
+      const handleAnimationEnd = () => {
+        button.classList.remove(styles.start);
+      };
+  
+      button.addEventListener("pointerenter", handlePointerEnter);
+      button.addEventListener("animationend", handleAnimationEnd);
+  
+      return () => {
+        button.removeEventListener("pointerenter", handlePointerEnter);
+        button.removeEventListener("animationend", handleAnimationEnd);
+      };
+    }, []);
+
+    return (
+      <button
+        ref={buttonRef}
+        onClick={onClick}
+        className={styles['sketch-button']}
+      >
+        {label}
+      </button>
+    );
+  };
 
   return (
     <AppProvider publication={publication}>
@@ -184,7 +247,7 @@ export default function Index({
                   <Button
                     onClick={loadMore}
                     type="outline"
-                    icon={<ChevronDownSVG className="h-5 w-5 stroke-current" />}
+                    icon={<ChevronDownSVG className="sketch-button h-5 w-5 stroke-current" />}
                     label="Daha fazla"
                   />
                 </div>

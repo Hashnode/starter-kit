@@ -404,7 +404,7 @@ const validateName = (name: string): boolean => {
                 ></textarea>
                 <p className="text-sm text-gray-400 mt-1">
                   {messageCharCount >= 120 && !isFormSubmitted
-                    ? "Mesajınız gönderilmeye hazır"
+                    ? "Formu göndererek benimle iletişime geçilmesine izin verdiğimi ve bilgilerimin gerek görüldüğü gibi işleneceğine izin verdiğimi beyan ederim."
                     : `Mesajınızın minimum 120 karakter olması gerekmektedir. ${Math.max(0, 120 - messageCharCount)} karakter kaldı.`}
                 </p>
               </div>
