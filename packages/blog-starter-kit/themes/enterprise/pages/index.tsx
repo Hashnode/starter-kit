@@ -246,8 +246,7 @@ export default function Index({
                 <div className="flex w-full flex-row items-center justify-center">
                   <SketchButton
                     onClick={loadMore}
-                    label="Daha fazla",
-                    className="sketch-button h-5 w-5 stroke-current"
+                    label="Daha fazla"
                   />
                 </div>
               )}
