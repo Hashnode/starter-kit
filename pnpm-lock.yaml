@@ -18,8 +18,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       next:
-        specifier: ^13.4.19
-        version: 13.5.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        specifier: ^14.2.4
+        version: 14.2.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -28,8 +28,8 @@ importers:
         version: 18.2.0(react@18.2.0)
     devDependencies:
       '@types/node':
-        specifier: ^18.0.3
-        version: 18.18.5
+        specifier: ^20.14.9
+        version: 20.14.9
       '@types/react':
         specifier: ^18.0.15
         version: 18.2.28
@@ -49,8 +49,8 @@ importers:
         specifier: ^2.4.6
         version: 2.4.6(prettier@3.0.3)
       prettier-plugin-tailwindcss:
-        specifier: ^0.5.5
-        version: 0.5.6(prettier-plugin-organize-imports@3.2.3(prettier@3.0.3)(typescript@5.2.2))(prettier@3.0.3)
+        specifier: ^0.6.5
+        version: 0.6.5(prettier-plugin-organize-imports@3.2.3(prettier@3.0.3)(typescript@5.2.2))(prettier@3.0.3)
       react-google-recaptcha-v3:
         specifier: ^1.10.1
         version: 1.10.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -252,7 +252,7 @@ importers:
         version: 3.7.3
       next-axiom:
         specifier: 0.18.0
-        version: 0.18.0(next@13.5.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
+        version: 0.18.0(next@14.2.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
       next-urql:
         specifier: 5.0.2
         version: 5.0.2(react@18.2.0)(urql@4.0.4(graphql@16.8.1)(react@18.2.0))
@@ -1060,62 +1060,62 @@ packages:
   '@jridgewell/trace-mapping@0.3.20':
     resolution: {integrity: sha512-R8LcPeWZol2zR8mmH3JeKQ6QRCFb7XgUhV9ZlGhHLGyg4wpPiPZNQOOWhFZhxKw8u//yTbNGI42Bx/3paXEQ+Q==}
 
-  '@next/env@13.5.5':
-    resolution: {integrity: sha512-agvIhYWp+ilbScg81s/sLueZo8CNEYLjNOqhISxheLmD/AQI4/VxV7bV76i/KzxH4iHy/va0YS9z0AOwGnw4Fg==}
+  '@next/env@14.2.4':
+    resolution: {integrity: sha512-3EtkY5VDkuV2+lNmKlbkibIJxcO4oIHEhBWne6PaAp+76J9KoSsGvNikp6ivzAT8dhhBMYrm6op2pS1ApG0Hzg==}
 
   '@next/eslint-plugin-next@13.5.5':
     resolution: {integrity: sha512-S/32s4S+SCOpW58lHKdmILAAPRdnsSei7Y3L1oZSoe5Eh0QSlzbG1nYyIpnpwWgz3T7qe3imdq7cJ6Hf29epRA==}
 
-  '@next/swc-darwin-arm64@13.5.5':
-    resolution: {integrity: sha512-FvTdcJdTA7H1FGY8dKPPbf/O0oDC041/znHZwXA7liiGUhgw5hOQ+9z8tWvuz0M5a/SDjY/IRPBAb5FIFogYww==}
+  '@next/swc-darwin-arm64@14.2.4':
+    resolution: {integrity: sha512-AH3mO4JlFUqsYcwFUHb1wAKlebHU/Hv2u2kb1pAuRanDZ7pD/A/KPD98RHZmwsJpdHQwfEc/06mgpSzwrJYnNg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
 
-  '@next/swc-darwin-x64@13.5.5':
-    resolution: {integrity: sha512-mTqNIecaojmyia7appVO2QggBe1Z2fdzxgn6jb3x9qlAk8yY2sy4MAcsj71kC9RlenCqDmr9vtC/ESFf110TPA==}
+  '@next/swc-darwin-x64@14.2.4':
+    resolution: {integrity: sha512-QVadW73sWIO6E2VroyUjuAxhWLZWEpiFqHdZdoQ/AMpN9YWGuHV8t2rChr0ahy+irKX5mlDU7OY68k3n4tAZTg==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
 
-  '@next/swc-linux-arm64-gnu@13.5.5':
-    resolution: {integrity: sha512-U9e+kNkfvwh/T8yo+xcslvNXgyMzPPX1IbwCwnHHFmX5ckb1Uc3XZSInNjFQEQR5xhJpB5sFdal+IiBIiLYkZA==}
+  '@next/swc-linux-arm64-gnu@14.2.4':
+    resolution: {integrity: sha512-KT6GUrb3oyCfcfJ+WliXuJnD6pCpZiosx2X3k66HLR+DMoilRb76LpWPGb4tZprawTtcnyrv75ElD6VncVamUQ==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@next/swc-linux-arm64-musl@13.5.5':
-    resolution: {integrity: sha512-h7b58eIoNCSmKVC5fr167U0HWZ/yGLbkKD9wIller0nGdyl5zfTji0SsPKJvrG8jvKPFt2xOkVBmXlFOtuKynw==}
+  '@next/swc-linux-arm64-musl@14.2.4':
+    resolution: {integrity: sha512-Alv8/XGSs/ytwQcbCHwze1HmiIkIVhDHYLjczSVrf0Wi2MvKn/blt7+S6FJitj3yTlMwMxII1gIJ9WepI4aZ/A==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@next/swc-linux-x64-gnu@13.5.5':
-    resolution: {integrity: sha512-6U4y21T1J6FfcpM9uqzBJicxycpB5gJKLyQ3g6KOfBzT8H1sMwfHTRrvHKB09GIn1BCRy5YJHrA1G26DzqR46w==}
+  '@next/swc-linux-x64-gnu@14.2.4':
+    resolution: {integrity: sha512-ze0ShQDBPCqxLImzw4sCdfnB3lRmN3qGMB2GWDRlq5Wqy4G36pxtNOo2usu/Nm9+V2Rh/QQnrRc2l94kYFXO6Q==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@next/swc-linux-x64-musl@13.5.5':
-    resolution: {integrity: sha512-OuqWSAQHJQM2EsapPFTSU/FLQ0wKm7UeRNatiR/jLeCe1V02aB9xmzuWYo2Neaxxag4rss3S8fj+lvMLzwDaFA==}
+  '@next/swc-linux-x64-musl@14.2.4':
+    resolution: {integrity: sha512-8dwC0UJoc6fC7PX70csdaznVMNr16hQrTDAMPvLPloazlcaWfdPogq+UpZX6Drqb1OBlwowz8iG7WR0Tzk/diQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@next/swc-win32-arm64-msvc@13.5.5':
-    resolution: {integrity: sha512-+yLrOZIIZDY4uGn9bLOc0wTgs+M8RuOUFSUK3BhmcLav9e+tcAj0jyBHD4aXv2qWhppUeuYMsyBo1I58/eE6Dg==}
+  '@next/swc-win32-arm64-msvc@14.2.4':
+    resolution: {integrity: sha512-jxyg67NbEWkDyvM+O8UDbPAyYRZqGLQDTPwvrBBeOSyVWW/jFQkQKQ70JDqDSYg1ZDdl+E3nkbFbq8xM8E9x8A==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [win32]
 
-  '@next/swc-win32-ia32-msvc@13.5.5':
-    resolution: {integrity: sha512-SyMxXyJtf9ScMH0Dh87THJMXNFvfkRAk841xyW9SeOX3KxM1buXX3hN7vof4kMGk0Yg996OGsX+7C9ueS8ugsw==}
+  '@next/swc-win32-ia32-msvc@14.2.4':
+    resolution: {integrity: sha512-twrmN753hjXRdcrZmZttb/m5xaCBFa48Dt3FbeEItpJArxriYDunWxJn+QFXdJ3hPkm4u7CKxncVvnmgQMY1ag==}
     engines: {node: '>= 10'}
     cpu: [ia32]
     os: [win32]
 
-  '@next/swc-win32-x64-msvc@13.5.5':
-    resolution: {integrity: sha512-n5KVf2Ok0BbLwofAaHiiKf+BQCj1M8WmTujiER4/qzYAVngnsNSjqEWvJ03raeN9eURqxDO+yL5VRoDrR33H9A==}
+  '@next/swc-win32-x64-msvc@14.2.4':
+    resolution: {integrity: sha512-tkLrjBzqFTP8DVrAAQmZelEahfR9OxWpFR++vAI9FBhCiIxtwHwBHC23SBHCTURBtwB4kc/x44imVOnkKGNVGg==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
@@ -1576,8 +1576,11 @@ packages:
     engines: {node: '>= 8.0.0'}
     hasBin: true
 
-  '@swc/helpers@0.5.2':
-    resolution: {integrity: sha512-E4KcWTpoLHqwPHLxidpOqQbcrZVgi0rsmmZXUle1jXmJfuIf/UWpczUJ7MZZ5tlxytgJXyp0w4PGkkeLiuIdZw==}
+  '@swc/counter@0.1.3':
+    resolution: {integrity: sha512-e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ==}
+
+  '@swc/helpers@0.5.5':
+    resolution: {integrity: sha512-KGYxvIOXcceOAbEk4bi/dVLEK9z8sZ0uBB3Il5b1rhfClSpcX0yfRO0KmTkqR2cnQDymwLB+25ZyMzICg/cm/A==}
 
   '@tailwindcss/typography@0.5.10':
     resolution: {integrity: sha512-Pe8BuPJQJd3FfRnm6H0ulKIGoMEQS+Vq01R6M5aCrFB/ccR/shT+0kXLjouGC1gFLm9hopTFN+DMP0pfwRWzPw==}
@@ -1626,6 +1629,9 @@ packages:
 
   '@types/node@18.18.5':
     resolution: {integrity: sha512-4slmbtwV59ZxitY4ixUZdy1uRLf9eSIvBWPQxNjhHYWEtn0FryfKpyS2cvADYXTayWdKEIsJengncrVvkI4I6A==}
+
+  '@types/node@20.14.9':
+    resolution: {integrity: sha512-06OCtnTXtWOZBJlRApleWndH4JsRVs1pDCc8dLSQp+7PpUpX3ePdHyeNSFTeSe7FtKyQkrlPvHwJOW3SLd8Oyg==}
 
   '@types/parse5@6.0.3':
     resolution: {integrity: sha512-SuT16Q1K51EAVPz1K29DJ/sXjhSQ0zjvsypYJ6tlwVsRV9jwW5Adq2ch8Dq8kDBCkYnELS7N7VNCSB5nC56t/g==}
@@ -1956,6 +1962,9 @@ packages:
 
   caniuse-lite@1.0.30001550:
     resolution: {integrity: sha512-p82WjBYIypO0ukTsd/FG3Xxs+4tFeaY9pfT4amQL8KWtYH7H9nYwReGAbMTJ0hsmRO8IfDtsS6p3ZWj8+1c2RQ==}
+
+  caniuse-lite@1.0.30001638:
+    resolution: {integrity: sha512-5SuJUJ7cZnhPpeLHaH0c/HPAnAHZvS6ElWyHK9GSIbVOQABLzowiI2pjmpvZ1WEbkyz46iFd4UXlOHR5SqgfMQ==}
 
   capital-case@1.0.4:
     resolution: {integrity: sha512-ds37W8CytHgwnhGGTi88pcPyR15qoNkOpYwmMMfnWqqWgESapLqvDx6huFjQ5vqWSn2Z06173XNA7LtMOeUh1A==}
@@ -2620,9 +2629,6 @@ packages:
   glob-parent@6.0.2:
     resolution: {integrity: sha512-XxwI8EOhVQgWp6iDL+3b0r86f4d6AX6zSU55HfB4ydCEuXLXc5FcYeOu+nnGftS4TEju/11rt4KJPTMgbfmv4A==}
     engines: {node: '>=10.13.0'}
-
-  glob-to-regexp@0.4.1:
-    resolution: {integrity: sha512-lkX1HJXwyMcprw/5YUZc2s7DrpAiHB21/V+E1rHUrVNokkvB6bqMzT0VfV6/86ZNabt1k14YOIaT7nDvOX3Iiw==}
 
   glob@7.1.6:
     resolution: {integrity: sha512-LwaxwyZ72Lk7vZINtNNrywX0ZuLyStrdDtabefZKAY5ZGJhVtgdznluResxNmPitE0SAO+O26sWTHeKSI2wMBA==}
@@ -3416,17 +3422,20 @@ packages:
       react: '>=16.8.0'
       urql: ^4.0.0
 
-  next@13.5.5:
-    resolution: {integrity: sha512-LddFJjpfrtrMMw8Q9VLhIURuSidiCNcMQjRqcPtrKd+Fx07MsG7hYndJb/f2d3I+mTbTotsTJfCnn0eZ/YPk8w==}
-    engines: {node: '>=16.14.0'}
+  next@14.2.4:
+    resolution: {integrity: sha512-R8/V7vugY+822rsQGQCjoLhMuC9oFj9SOi4Cl4b2wjDrseD0LRZ10W7R6Czo4w9ZznVSshKjuIomsRjvm9EKJQ==}
+    engines: {node: '>=18.17.0'}
     hasBin: true
     peerDependencies:
       '@opentelemetry/api': ^1.1.0
+      '@playwright/test': ^1.41.2
       react: ^18.2.0
       react-dom: ^18.2.0
       sass: ^1.3.0
     peerDependenciesMeta:
       '@opentelemetry/api':
+        optional: true
+      '@playwright/test':
         optional: true
       sass:
         optional: true
@@ -3719,15 +3728,15 @@ packages:
       prettier:
         optional: true
 
-  prettier-plugin-tailwindcss@0.5.6:
-    resolution: {integrity: sha512-2Xgb+GQlkPAUCFi3sV+NOYcSI5XgduvDBL2Zt/hwJudeKXkyvRS65c38SB0yb9UB40+1rL83I6m0RtlOQ8eHdg==}
+  prettier-plugin-tailwindcss@0.6.5:
+    resolution: {integrity: sha512-axfeOArc/RiGHjOIy9HytehlC0ZLeMaqY09mm8YCkMzznKiDkwFzOpBvtuhuv3xG5qB73+Mj7OCe2j/L1ryfuQ==}
     engines: {node: '>=14.21.3'}
     peerDependencies:
       '@ianvs/prettier-plugin-sort-imports': '*'
       '@prettier/plugin-pug': '*'
       '@shopify/prettier-plugin-liquid': '*'
-      '@shufo/prettier-plugin-blade': '*'
       '@trivago/prettier-plugin-sort-imports': '*'
+      '@zackad/prettier-plugin-twig-melody': '*'
       prettier: ^3.0
       prettier-plugin-astro: '*'
       prettier-plugin-css-order: '*'
@@ -3736,9 +3745,9 @@ packages:
       prettier-plugin-marko: '*'
       prettier-plugin-organize-attributes: '*'
       prettier-plugin-organize-imports: '*'
+      prettier-plugin-sort-imports: '*'
       prettier-plugin-style-order: '*'
       prettier-plugin-svelte: '*'
-      prettier-plugin-twig-melody: '*'
     peerDependenciesMeta:
       '@ianvs/prettier-plugin-sort-imports':
         optional: true
@@ -3746,9 +3755,9 @@ packages:
         optional: true
       '@shopify/prettier-plugin-liquid':
         optional: true
-      '@shufo/prettier-plugin-blade':
-        optional: true
       '@trivago/prettier-plugin-sort-imports':
+        optional: true
+      '@zackad/prettier-plugin-twig-melody':
         optional: true
       prettier-plugin-astro:
         optional: true
@@ -3764,11 +3773,11 @@ packages:
         optional: true
       prettier-plugin-organize-imports:
         optional: true
+      prettier-plugin-sort-imports:
+        optional: true
       prettier-plugin-style-order:
         optional: true
       prettier-plugin-svelte:
-        optional: true
-      prettier-plugin-twig-melody:
         optional: true
 
   prettier@3.0.3:
@@ -4427,6 +4436,9 @@ packages:
     resolution: {integrity: sha512-eXL4nmJT7oCpkZsHZUOJo8hcX3GbsiDOa0Qu9F646fi8dT3XuSVopVqAcEiVzSKKH7UoDti23wNX3qGFxcW5Qg==}
     engines: {node: '>=0.10.0'}
 
+  undici-types@5.26.5:
+    resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+
   unicode-trie@2.0.0:
     resolution: {integrity: sha512-x7bc76x0bm4prf1VLg79uhAzKw8DVboClSN5VxJuQ+LKDOVEW9CdH+VY7SP+vX7xCYQqzzgQpFqz15zeLvAtZQ==}
 
@@ -4538,10 +4550,6 @@ packages:
 
   vfile@5.3.7:
     resolution: {integrity: sha512-r7qlzkgErKjobAmyNIkkSpizsFPYiUPuJb5pNW1RB4JcYVZhs4lIbVqk8XPk033CV/1z8ss5pkax8SuhGpcG8g==}
-
-  watchpack@2.4.0:
-    resolution: {integrity: sha512-Lcvm7MGST/4fup+ifyKi2hjyIAwcdI4HRgtvTpIUxBRhB+RFtUh8XtDOxUfctVCnhVi+QQj49i91OyvzkJl6cg==}
-    engines: {node: '>=10.13.0'}
 
   wcwidth@1.0.1:
     resolution: {integrity: sha512-XHPEwS0q6TaxcvG85+8EYkbiCux2XtWG2mkc47Ng2A77BQu9+DqIOJldST4HgPkuea7dvKSj5VgX3P1d4rW8Tg==}
@@ -5383,7 +5391,7 @@ snapshots:
   '@graphql-tools/optimize@2.0.0(graphql@16.8.1)':
     dependencies:
       graphql: 16.8.1
-      tslib: 2.5.3
+      tslib: 2.6.2
 
   '@graphql-tools/prisma-loader@8.0.1(@types/node@18.18.5)(graphql@16.8.1)':
     dependencies:
@@ -5418,7 +5426,7 @@ snapshots:
       '@ardatan/relay-compiler': 12.0.0(graphql@16.8.1)
       '@graphql-tools/utils': 10.0.7(graphql@16.8.1)
       graphql: 16.8.1
-      tslib: 2.5.3
+      tslib: 2.6.2
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -5502,37 +5510,37 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  '@next/env@13.5.5': {}
+  '@next/env@14.2.4': {}
 
   '@next/eslint-plugin-next@13.5.5':
     dependencies:
       glob: 7.1.7
 
-  '@next/swc-darwin-arm64@13.5.5':
+  '@next/swc-darwin-arm64@14.2.4':
     optional: true
 
-  '@next/swc-darwin-x64@13.5.5':
+  '@next/swc-darwin-x64@14.2.4':
     optional: true
 
-  '@next/swc-linux-arm64-gnu@13.5.5':
+  '@next/swc-linux-arm64-gnu@14.2.4':
     optional: true
 
-  '@next/swc-linux-arm64-musl@13.5.5':
+  '@next/swc-linux-arm64-musl@14.2.4':
     optional: true
 
-  '@next/swc-linux-x64-gnu@13.5.5':
+  '@next/swc-linux-x64-gnu@14.2.4':
     optional: true
 
-  '@next/swc-linux-x64-musl@13.5.5':
+  '@next/swc-linux-x64-musl@14.2.4':
     optional: true
 
-  '@next/swc-win32-arm64-msvc@13.5.5':
+  '@next/swc-win32-arm64-msvc@14.2.4':
     optional: true
 
-  '@next/swc-win32-ia32-msvc@13.5.5':
+  '@next/swc-win32-ia32-msvc@14.2.4':
     optional: true
 
-  '@next/swc-win32-x64-msvc@13.5.5':
+  '@next/swc-win32-x64-msvc@14.2.4':
     optional: true
 
   '@nodelib/fs.scandir@2.1.5':
@@ -6009,8 +6017,11 @@ snapshots:
       fflate: 0.7.4
       string.prototype.codepointat: 0.2.1
 
-  '@swc/helpers@0.5.2':
+  '@swc/counter@0.1.3': {}
+
+  '@swc/helpers@0.5.5':
     dependencies:
+      '@swc/counter': 0.1.3
       tslib: 2.6.2
 
   '@tailwindcss/typography@0.5.10(tailwindcss@3.3.3)':
@@ -6061,6 +6072,10 @@ snapshots:
   '@types/ms@0.7.32': {}
 
   '@types/node@18.18.5': {}
+
+  '@types/node@20.14.9':
+    dependencies:
+      undici-types: 5.26.5
 
   '@types/parse5@6.0.3': {}
 
@@ -6456,7 +6471,7 @@ snapshots:
   camel-case@4.1.2:
     dependencies:
       pascal-case: 3.1.2
-      tslib: 2.5.3
+      tslib: 2.6.2
 
   camelcase-css@2.0.1: {}
 
@@ -6466,10 +6481,12 @@ snapshots:
 
   caniuse-lite@1.0.30001550: {}
 
+  caniuse-lite@1.0.30001638: {}
+
   capital-case@1.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.5.3
+      tslib: 2.6.2
       upper-case-first: 2.0.2
 
   ccount@2.0.1: {}
@@ -6511,7 +6528,7 @@ snapshots:
       path-case: 3.0.4
       sentence-case: 3.0.4
       snake-case: 3.0.4
-      tslib: 2.5.3
+      tslib: 2.6.2
 
   character-entities-html4@2.1.0: {}
 
@@ -6611,7 +6628,7 @@ snapshots:
   constant-case@3.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.5.3
+      tslib: 2.6.2
       upper-case: 2.0.2
 
   convert-source-map@2.0.0: {}
@@ -6793,7 +6810,7 @@ snapshots:
   dot-case@3.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.5.3
+      tslib: 2.6.2
 
   dotenv@16.3.1: {}
 
@@ -7283,8 +7300,6 @@ snapshots:
     dependencies:
       is-glob: 4.0.3
 
-  glob-to-regexp@0.4.1: {}
-
   glob@7.1.6:
     dependencies:
       fs.realpath: 1.0.0
@@ -7383,7 +7398,7 @@ snapshots:
   graphql-tag@2.12.6(graphql@16.8.1):
     dependencies:
       graphql: 16.8.1
-      tslib: 2.5.3
+      tslib: 2.6.2
 
   graphql-ws@5.14.1(graphql@16.8.1):
     dependencies:
@@ -7486,7 +7501,7 @@ snapshots:
   header-case@2.0.4:
     dependencies:
       capital-case: 1.0.4
-      tslib: 2.5.3
+      tslib: 2.6.2
 
   hex-rgb@4.3.0: {}
 
@@ -7678,7 +7693,7 @@ snapshots:
 
   is-lower-case@2.0.2:
     dependencies:
-      tslib: 2.5.3
+      tslib: 2.6.2
 
   is-map@2.0.2: {}
 
@@ -7735,7 +7750,7 @@ snapshots:
 
   is-upper-case@2.0.2:
     dependencies:
-      tslib: 2.5.3
+      tslib: 2.6.2
 
   is-weakmap@2.0.1: {}
 
@@ -7906,11 +7921,11 @@ snapshots:
 
   lower-case-first@2.0.2:
     dependencies:
-      tslib: 2.5.3
+      tslib: 2.6.2
 
   lower-case@2.0.2:
     dependencies:
-      tslib: 2.5.3
+      tslib: 2.6.2
 
   lru-cache@5.1.1:
     dependencies:
@@ -8188,9 +8203,9 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  next-axiom@0.18.0(next@13.5.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0)):
+  next-axiom@0.18.0(next@14.2.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0)):
     dependencies:
-      next: 13.5.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      next: 14.2.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       whatwg-fetch: 3.6.19
 
   next-themes@0.3.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
@@ -8204,27 +8219,27 @@ snapshots:
       react-ssr-prepass: 1.5.0(react@18.2.0)
       urql: 4.0.4(graphql@16.8.1)(react@18.2.0)
 
-  next@13.5.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+  next@14.2.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
     dependencies:
-      '@next/env': 13.5.5
-      '@swc/helpers': 0.5.2
+      '@next/env': 14.2.4
+      '@swc/helpers': 0.5.5
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001550
+      caniuse-lite: 1.0.30001638
+      graceful-fs: 4.2.11
       postcss: 8.4.31
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       styled-jsx: 5.1.1(react@18.2.0)
-      watchpack: 2.4.0
     optionalDependencies:
-      '@next/swc-darwin-arm64': 13.5.5
-      '@next/swc-darwin-x64': 13.5.5
-      '@next/swc-linux-arm64-gnu': 13.5.5
-      '@next/swc-linux-arm64-musl': 13.5.5
-      '@next/swc-linux-x64-gnu': 13.5.5
-      '@next/swc-linux-x64-musl': 13.5.5
-      '@next/swc-win32-arm64-msvc': 13.5.5
-      '@next/swc-win32-ia32-msvc': 13.5.5
-      '@next/swc-win32-x64-msvc': 13.5.5
+      '@next/swc-darwin-arm64': 14.2.4
+      '@next/swc-darwin-x64': 14.2.4
+      '@next/swc-linux-arm64-gnu': 14.2.4
+      '@next/swc-linux-arm64-musl': 14.2.4
+      '@next/swc-linux-x64-gnu': 14.2.4
+      '@next/swc-linux-x64-musl': 14.2.4
+      '@next/swc-win32-arm64-msvc': 14.2.4
+      '@next/swc-win32-ia32-msvc': 14.2.4
+      '@next/swc-win32-x64-msvc': 14.2.4
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
@@ -8232,7 +8247,7 @@ snapshots:
   no-case@3.0.4:
     dependencies:
       lower-case: 2.0.2
-      tslib: 2.5.3
+      tslib: 2.6.2
 
   node-addon-api@7.0.0: {}
 
@@ -8380,7 +8395,7 @@ snapshots:
   param-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.5.3
+      tslib: 2.6.2
 
   parent-module@1.0.1:
     dependencies:
@@ -8411,12 +8426,12 @@ snapshots:
   pascal-case@3.1.2:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.5.3
+      tslib: 2.6.2
 
   path-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.5.3
+      tslib: 2.6.2
 
   path-exists@4.0.0: {}
 
@@ -8502,7 +8517,7 @@ snapshots:
     optionalDependencies:
       prettier: 3.0.3
 
-  prettier-plugin-tailwindcss@0.5.6(prettier-plugin-organize-imports@3.2.3(prettier@3.0.3)(typescript@5.2.2))(prettier@3.0.3):
+  prettier-plugin-tailwindcss@0.6.5(prettier-plugin-organize-imports@3.2.3(prettier@3.0.3)(typescript@5.2.2))(prettier@3.0.3):
     dependencies:
       prettier: 3.0.3
     optionalDependencies:
@@ -8863,7 +8878,7 @@ snapshots:
   sentence-case@3.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.5.3
+      tslib: 2.6.2
       upper-case-first: 2.0.2
 
   set-blocking@2.0.0: {}
@@ -8917,7 +8932,7 @@ snapshots:
   snake-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.5.3
+      tslib: 2.6.2
 
   sort-object-keys@1.1.3: {}
 
@@ -8950,7 +8965,7 @@ snapshots:
 
   sponge-case@1.0.1:
     dependencies:
-      tslib: 2.5.3
+      tslib: 2.6.2
 
   sprintf-js@1.0.3: {}
 
@@ -9081,7 +9096,7 @@ snapshots:
 
   swap-case@2.0.2:
     dependencies:
-      tslib: 2.5.3
+      tslib: 2.6.2
 
   synckit@0.8.5:
     dependencies:
@@ -9139,7 +9154,7 @@ snapshots:
 
   title-case@3.0.3:
     dependencies:
-      tslib: 2.5.3
+      tslib: 2.6.2
 
   titleize@3.0.0: {}
 
@@ -9232,6 +9247,8 @@ snapshots:
 
   unc-path-regex@0.1.2: {}
 
+  undici-types@5.26.5: {}
+
   unicode-trie@2.0.0:
     dependencies:
       pako: 0.2.9
@@ -9286,11 +9303,11 @@ snapshots:
 
   upper-case-first@2.0.2:
     dependencies:
-      tslib: 2.5.3
+      tslib: 2.6.2
 
   upper-case@2.0.2:
     dependencies:
-      tslib: 2.5.3
+      tslib: 2.6.2
 
   uri-js@4.4.1:
     dependencies:
@@ -9358,11 +9375,6 @@ snapshots:
       is-buffer: 2.0.5
       unist-util-stringify-position: 3.0.3
       vfile-message: 3.1.4
-
-  watchpack@2.4.0:
-    dependencies:
-      glob-to-regexp: 0.4.1
-      graceful-fs: 4.2.11
 
   wcwidth@1.0.1:
     dependencies:
