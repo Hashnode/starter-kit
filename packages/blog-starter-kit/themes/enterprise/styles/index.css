@@ -266,7 +266,12 @@ img {
 }
 
 
-
+.hover\:bg-orng-600:hover {
+    background-color: #ff935ca1;
+}
+.bg-orng-cokie {
+    background-color: #ff935c57;
+}
 .bottom-2 {
     bottom: 2rem;
 }

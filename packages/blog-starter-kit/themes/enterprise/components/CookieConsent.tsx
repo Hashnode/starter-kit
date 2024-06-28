@@ -40,7 +40,7 @@ const CookieConsent: React.FC = () => {
       <div className="mt-3 flex justify-end">
         <button
           onClick={handleAccept}
-          className="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-md text-sm transition duration-300"
+          className="px-4 py-2 bg-orng-cokie hover:bg-orng-cokie rounded-md text-sm transition duration-300"
           style={{ fontFamily: 'PinkChicken'}}
         >
           Anladım
