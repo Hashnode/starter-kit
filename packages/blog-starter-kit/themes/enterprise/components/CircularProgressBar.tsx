@@ -13,8 +13,8 @@ const CircularProgressBar: React.FC = () => {
 
     setScrollPercentage(scrollPercentage);
 
-    // Show the button when user has scrolled down 20% of the page
-    setIsVisible(scrollTop > windowHeight * 0.2);
+    // Show the button when user has scrolled down 03% of the page
+    setIsVisible(scrollTop > windowHeight * 0.03);
   };
 
   useEffect(() => {
