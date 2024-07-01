@@ -1,6 +1,6 @@
 // next.config.mjs
-const CSRF_SECRET = process.env.CSRF_SECRET;
-const RECAPTCHA_SITE_KEY = process.env.RECAPTCHA_SITE_KEY;
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+const CSRF_SECRET = process.env.NEXT_PUBLIC_CSRF_SECRET;
 
 import { request, gql } from 'graphql-request';
 
@@ -69,8 +69,8 @@ const config = {
     scrollRestoration: true,
   },
   env: {
-    CSRF_SECRET: CSRF_SECRET,
-    RECAPTCHA_SITE_KEY: RECAPTCHA_SITE_KEY,
+    NEXT_PUBLIC_RECAPTCHA_SITE_KEY: RECAPTCHA_SITE_KEY,
+    NEXT_PUBLIC_CSRF_SECRET: CSRF_SECRET,
   },
   images: {
     remotePatterns: [
