@@ -103,7 +103,7 @@ const Post = ({ publication, post }: PostProps) => {
 				<meta name="theme-color" content="#efdcc9" />
 
 				{/* Open Graph Meta Tags */}
-				<meta property="og:title" content={`${postTitle} | Temizmama Blog`} />
+				<meta property="og:title" content={`${postTitle}`} />
 				<meta property="og:site_name" content="Temizmama Blog" />
 				<meta property="og:locale" content="tr_TR" />
 				<meta property="og:url" content={post.url} />
@@ -112,11 +112,11 @@ const Post = ({ publication, post }: PostProps) => {
 				<meta property="og:image:alt" content={`${postTitle} görseli`} />
 				<meta property="og:description" content={postDescription} />
 				<meta http-equiv="Content-Security-Policy" content="script-src 'none'"></meta>
-				
+
 				{/* Twitter Card Meta Tags */}
 				<meta name="twitter:card" content="summary_large_image" />
 				<meta name="twitter:site" content="@temizmamacom" />
-				<meta name="twitter:title" content={`${postTitle} | Temizmama Blog`} />
+				<meta name="twitter:title" content={`${postTitle}`} />
 				<meta name="twitter:description" content={postDescription} />
 				<meta name="twitter:image" content={postImage} />
 				<meta name="twitter:image:alt" content={`${postTitle} görseli`} />
