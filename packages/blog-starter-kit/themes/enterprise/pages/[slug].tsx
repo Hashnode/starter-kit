@@ -111,7 +111,6 @@ const Post = ({ publication, post }: PostProps) => {
 				<meta property="og:image" content={postImage} />
 				<meta property="og:image:alt" content={`${postTitle} görseli`} />
 				<meta property="og:description" content={postDescription} />
-				<meta http-equiv="Content-Security-Policy" content="script-src 'none'"></meta>
 
 				{/* Twitter Card Meta Tags */}
 				<meta name="twitter:card" content="summary_large_image" />
