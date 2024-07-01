@@ -35,7 +35,6 @@ export const SecondaryPost = ({ title, coverImage, date, excerpt, slug }: Props)
 					<Link
 						href={postURL}
 						className="dark:hover:text-primary-500"
-						rel="canonical"
 					>
 						{title}
 					</Link>

@@ -72,7 +72,6 @@ function PublicationSidebar(props: Props) {
 								<li>
 									<Link
 										href="/"
-										rel="canonical"
 										className="transition-200 block truncate text-ellipsis whitespace-nowrap rounded p-2 px-3 transition-colors hover:bg-slate-100 hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
 									>
 										Home
@@ -81,7 +80,6 @@ function PublicationSidebar(props: Props) {
 								{navbarItems.map((item) => (
 									<li key={item.url}>
 										<Link
-										 rel="canonical"
 											href={item.url}
 											className="transition-200 block truncate text-ellipsis whitespace-nowrap rounded p-2 px-3 transition-colors hover:bg-slate-100 hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
 										>

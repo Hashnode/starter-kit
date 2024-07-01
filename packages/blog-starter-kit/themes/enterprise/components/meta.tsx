@@ -20,7 +20,7 @@ export const Meta = () => {
 		<Head>
 			{favicon ? <link rel="icon" type="image/png" href={favicon} /> : defaultFavicons}
 			<meta name="msapplication-config" content="/favicon/browserconfig.xml" />
-			<link rel="alternate" type="application/rss+xml" href="/feed.xml" />
+			<link rel="alternate" type="application/rss+xml" href="/rss.xml" />
 			{metaTags && parse(metaTags)}
 		</Head>
 	);

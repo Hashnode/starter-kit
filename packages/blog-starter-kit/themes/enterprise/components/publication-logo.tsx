@@ -1,5 +1,6 @@
 import { resizeImage } from '@starter-kit/utils/image';
 import Link from 'next/link';
+
 import { useAppContext } from './contexts/appContext';
 import { PublicationFragment } from '../generated/graphql';
 
@@ -19,7 +20,6 @@ export const PublicationLogo = ({ isSidebar }: { isSidebar?: boolean }) => {
 						href={'/'}
 						aria-label={`${publication.title} blog home page`}
 						className="flex flex-row items-center justify-center gap-3"
-						rel="canonical"
 					>
 						{PUBLICATION_LOGO ? (
 							<>
