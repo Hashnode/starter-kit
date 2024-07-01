@@ -375,3 +375,15 @@ button.SketchButton_sketch-button__dkxwe {
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
   }
+
+  .sticky-wrapper {
+    position: relative;
+    height: 100%;
+  }
+  
+  .sticky-toc {
+    position: sticky;
+    top: 20px; /* Adjust this value to set the distance from the top of the viewport */
+    max-height: calc(100vh - 40px); /* Adjust based on your needs */
+    overflow-y: auto;
+  }

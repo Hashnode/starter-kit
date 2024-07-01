@@ -96,7 +96,13 @@ return (
         </li>
 
         <li>
-          <a className="text-gray-700 transition hover:text-gray-700/75" href="https://www.temizmama.com/iletisim" target="_blank" style={{ fontFamily: 'PinkChicken'}}> İletişim </a>
+          <Link
+                  href="/iletisim"
+                  className="block text-gray-800 hover:text-gray-700/75 font-bold"
+                  style={{ fontFamily: 'PinkChicken' }}
+                >
+                  İletişim
+                </Link>
         </li>
       </ul>
 

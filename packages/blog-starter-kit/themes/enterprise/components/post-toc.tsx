@@ -5,8 +5,6 @@ type TableOfContentsItem = PostFullFragment['features']['tableOfContents']['item
 
 const mapTableOfContentItems = (toc: TableOfContentsItem[]) => {
 	try {
-		// `toc` is sometimes an array of arrays or an array of objects. Hashnode is trying to investigate this issue.
-		// Meanwhile, we can use the following code to map the table of content items to handle both cases.
 		return (toc ?? []).map((tocItem) => {
 			const item = Array.isArray(tocItem) ? tocItem[0] : tocItem;
 			return {
@@ -59,10 +57,12 @@ export const PostTOC = () => {
 
 	return (
 		<div className="w-full px-5">
-			<div className="select-none mx-auto w-full max-w-screen-md rounded-lg border border-b-4 border-r-4 p-5 text-base leading-snug dark:border-neutral-800 dark:text-neutral-50 md:p-8 md:text-lg">
-				<h2 className="mb-5 text-lg font-bold md:text-xl">Konu Başlıkları</h2>
-				<h2 className="mb-5 text-lg font-bold md:text-xl">{post.title}</h2>
-				<Toc parentId={null} data={mapTableOfContentItems(post.features.tableOfContents.items)} />
+			<div className="sticky-wrapper">
+				<div className="sticky-toc select-none mx-auto w-full max-w-screen-md rounded-lg border border-b-4 border-r-4 p-5 text-base leading-snug dark:border-neutral-800 dark:text-neutral-50 md:p-8 md:text-lg">
+					<h2 className="mb-5 text-lg font-bold md:text-xl">Konu Başlıkları</h2>
+					<h2 className="mb-5 text-lg font-bold md:text-xl">{post.title}</h2>
+					<Toc parentId={null} data={mapTableOfContentItems(post.features.tableOfContents.items)} />
+				</div>
 			</div>
 		</div>
 	);
