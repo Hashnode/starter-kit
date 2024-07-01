@@ -1,7 +1,4 @@
 // next.config.mjs
-const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
-const CSRF_SECRET = process.env.NEXT_PUBLIC_CSRF_SECRET;
-
 import { request, gql } from 'graphql-request';
 
 const ANALYTICS_BASE_URL = 'https://hn-ping2.hashnode.com';
@@ -67,10 +64,6 @@ const config = {
   basePath: getBasePath(),
   experimental: {
     scrollRestoration: true,
-  },
-  env: {
-    NEXT_PUBLIC_RECAPTCHA_SITE_KEY: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
-    NEXT_PUBLIC_CSRF_SECRET: process.env.NEXT_PUBLIC_CSRF_SECRET,
   },
   images: {
     remotePatterns: [
