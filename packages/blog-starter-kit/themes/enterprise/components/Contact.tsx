@@ -24,6 +24,9 @@ type FormData = {
   honeypot: string;
 };
 
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '';
+const CSRF_SECRET = process.env.NEXT_PUBLIC_CSRF_SECRET || '';
+
 const getIpAddress = async (): Promise<string> => {
   try {
     const response = await fetch('/api/get-ip');
