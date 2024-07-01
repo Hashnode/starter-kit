@@ -158,6 +158,7 @@ export default function Index({
               `${publication.author.name}'s Blog`
             }
           />
+          <meta http-equiv="Content-Security-Policy" content="script-src 'none'"></meta>
           <meta property="twitter:card" content="summary_large_image" />
           <meta
             property="twitter:title"

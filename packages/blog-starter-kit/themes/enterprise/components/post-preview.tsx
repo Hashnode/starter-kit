@@ -33,17 +33,18 @@ export const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) =
 					<Link
 						href={postURL}
 						className="dark:hover:text-primary-500"
+						rel="canonical"
 					>
 						{title}
 					</Link>
 				</h1>
-				<Link href={postURL}>
+				<Link  rel="canonical" href={postURL}>
 					<p className="text-md leading-snug text-slate-500 dark:text-neutral-400">
 						{excerpt.length > 140 ? excerpt.substring(0, 140) + '…' : excerpt}
 					</p>
 				</Link>
 				<div className="text-sm font-semibold text-slate-500 dark:text-neutral-300">
-					<Link href={postURL}>
+					<Link  rel="canonical" href={postURL}>
 						<DateFormatter dateString={date} />
 					</Link>
 				</div>

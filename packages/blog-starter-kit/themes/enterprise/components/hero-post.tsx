@@ -36,15 +36,16 @@ export const HeroPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
 					<Link
 						href={postURL}
 						className="dark:hover:text-primary-500 leading-tight tracking-tight"
+						rel="canonical"
 					>
 						{title}
 					</Link>
 				</h1>
-				<Link href={postURL}>
+				<Link  rel="canonical" href={postURL}>
 					<p className="text-md leading-snug text-slate-500 dark:text-neutral-400">{cleanExcerpt(excerpt)}</p>
 				</Link>
 				<div className="text-sm font-semibold text-slate-500 dark:text-neutral-300">
-					<Link href={postURL}>
+					<Link  rel="canonical" href={postURL}>
 						<DateFormatter dateString={date} />
 					</Link>
 				</div>

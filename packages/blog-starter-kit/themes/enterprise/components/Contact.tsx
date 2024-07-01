@@ -289,7 +289,7 @@ const validateName = (name: string): boolean => {
           <meta property="og:image:alt" content="İletişim Sayfası Görseli" />
           <meta property="og:url" content="https://blog.temizmama.com/iletisim" />
           <meta property="og:description" content="Bizimle iletişime geçin. Temizmama Blog'da size yardımcı olmaktan memnuniyet duyarız!" />
-
+          <meta http-equiv="Content-Security-Policy" content="script-src 'none'"></meta>
           {/* Twitter Card Meta Tags */}
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:site" content="@temizmamacom" />

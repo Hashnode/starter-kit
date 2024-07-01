@@ -19,6 +19,7 @@ export const PublicationLogo = ({ isSidebar }: { isSidebar?: boolean }) => {
 						href={'/'}
 						aria-label={`${publication.title} blog home page`}
 						className="flex flex-row items-center justify-center gap-3"
+						rel="canonical"
 					>
 						{PUBLICATION_LOGO ? (
 							<>

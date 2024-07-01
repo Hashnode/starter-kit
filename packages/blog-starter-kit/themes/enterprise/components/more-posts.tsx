@@ -14,7 +14,7 @@ export const MorePosts = ({ posts, context }: Props) => {
 							  <p className="text-md leading-snug text-slate-500 dark:text-neutral-400 text-lg max-w-xl mx-auto mt-4">
 			  Kedilerle ve köpeklerle ilgili öğrenmek istediğiniz başka bir şey varsa önceki yazılarımıza göz atabilirsiniz.
 			  </p>
-			  <img className="w-1/2 block" src="https://9kelt5xnesj2nkgz.public.blob.vercel-storage.com/underline-G32Fu5noQ2QvXU7bIiaq9zclJsLPcm.png" />
+			  <img loading="lazy" className="w-1/2 block" alt="Sayfa ayracı" src="https://9kelt5xnesj2nkgz.public.blob.vercel-storage.com/underline-G32Fu5noQ2QvXU7bIiaq9zclJsLPcm.png" />
 			</div>
 			)}
 			<div className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3">

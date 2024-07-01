@@ -78,6 +78,7 @@ export const Search = () => {
 				key={post.id}
 				href={postURL}
 				className="flex flex-row items-center gap-5 px-4 py-2 hover:bg-slate-50 focus:outline-1 dark:hover:bg-neutral-800"
+				rel="canonical"
 			>
 				<div className="flex flex-col gap-1">
 					<strong className="text-base">{post.title}</strong>
