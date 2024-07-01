@@ -191,9 +191,10 @@ export const triggerEmbed = async (node?: Element | undefined) => {
 	gistFrameDoc.close();
 };
 
-const loadIframeResizer = () => {
+export const loadIframeResizer = () => {
 	return new Promise((resolve) => {
-		if ((window as any).iframeResizerLoaded) {
+		// @ts-ignore
+		if (window.iframeResizerLoaded) {
 			return resolve(null);
 		}
 		const script = document.createElement('script');
@@ -209,40 +210,7 @@ const loadIframeResizer = () => {
 			return;
 		}
 		scripts.parentNode.insertBefore(script, scripts);
-		(window as any).iframeResizerLoaded = true;
+		// @ts-ignore
+		window.iframeResizerLoaded = true;
 	});
-};
-
-// Yeni fonksiyon: Lazy loading için Intersection Observer kullanımı
-const lazyLoadEmbeds = () => {
-	const embedLinks = document.querySelectorAll('a[href]');
-	
-	const observer = new IntersectionObserver((entries, observer) => {
-		entries.forEach(entry => {
-			if (entry.isIntersecting) {
-				const link = entry.target as HTMLAnchorElement;
-				triggerEmbed(link);
-				observer.unobserve(link);
-			}
-		});
-	}, { rootMargin: '200px' });
-
-	embedLinks.forEach(link => {
-		if (SUPPORTED_EMBEDS.some(embed => link.href.includes(embed))) {
-			observer.observe(link);
-		}
-	});
-};
-
-// Yeni fonksiyon: Sayfa yüklendiğinde çağrılacak ana fonksiyon
-export const initializeEmbeds = () => {
-	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', () => {
-			setTimeout(lazyLoadEmbeds, 0);
-			loadIframeResizer();
-		});
-	} else {
-		setTimeout(lazyLoadEmbeds, 0);
-		loadIframeResizer();
-	}
 };

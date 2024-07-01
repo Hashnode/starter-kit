@@ -25,7 +25,7 @@ import {
 // @ts-ignore
 import handleMathJax from '@starter-kit/utils/handle-math-jax';
 import { useEmbeds } from '@starter-kit/utils/renderer/hooks/useEmbeds';
-import { initializeEmbeds  } from '@starter-kit/utils/renderer/services/embed';
+import { loadIframeResizer } from '@starter-kit/utils/renderer/services/embed';
 import { useEffect, useState } from 'react';
 // @ts-ignore
 import { triggerCustomWidgetEmbed } from '@starter-kit/utils/trigger-custom-widget-embed';
@@ -85,7 +85,7 @@ const Post = ({ publication, post }: PostProps) => {
 		// TODO:
 		// More of an alert, did this below to wrap async funcs inside useEffect
 		(async () => {
-			await initializeEmbeds();();
+			await loadIframeResizer();
 			triggerCustomWidgetEmbed(post.publication?.id.toString());
 			setCanLoadEmbeds(true);
 		})();
