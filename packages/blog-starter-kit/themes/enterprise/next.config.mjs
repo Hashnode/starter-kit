@@ -29,6 +29,7 @@ const getRedirectionRules = async () => {
     }
   `;
 
+
   const data = await request(GQL_ENDPOINT, query);
 
   if (!data.publication) {
@@ -53,6 +54,12 @@ const getRedirectionRules = async () => {
       };
     });
 
+    redirects.push({
+      source: '/feed.xml',
+      destination: '/rss.xml',
+      permanent: true,
+    });
+    
   return redirects;
 };
 
