@@ -69,8 +69,8 @@ const config = {
     scrollRestoration: true,
   },
   env: {
-    NEXT_PUBLIC_RECAPTCHA_SITE_KEY: RECAPTCHA_SITE_KEY,
-    NEXT_PUBLIC_CSRF_SECRET: CSRF_SECRET,
+    NEXT_PUBLIC_RECAPTCHA_SITE_KEY: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+    NEXT_PUBLIC_CSRF_SECRET: process.env.NEXT_PUBLIC_CSRF_SECRET,
   },
   images: {
     remotePatterns: [
