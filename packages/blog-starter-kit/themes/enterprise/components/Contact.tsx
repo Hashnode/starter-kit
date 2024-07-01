@@ -24,9 +24,6 @@ type FormData = {
   honeypot: string;
 };
 
-const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LdMIQEqAAAAAOAzB1FjU8LLNXYTGlFgZWGe80Za';
-const CSRF_SECRET = process.env.NEXT_PUBLIC_CSRF_SECRET || 'cd0102b7cb534906f90d7b0298fb159217fb1ea2051331c3c57f70f826b29f350078efe0d7fb76e7e160aa0f1fbad1629f2f2086419b82b8f330e491e2f8c3e4';
-
 const getIpAddress = async (): Promise<string> => {
   try {
     const response = await fetch('/api/get-ip');
