@@ -387,3 +387,6 @@ button.SketchButton_sketch-button__dkxwe {
     max-height: calc(100vh - 40px); /* Adjust based on your needs */
     overflow-y: auto;
   }
+  article > div > p > a {
+    color: #f70 !important;
+}
