@@ -275,7 +275,7 @@ const validateName = (name: string): boolean => {
     <AppProvider publication={publication}>
       <Layout>
         <Head>
-          <title>İletişim | Temizmama Blog</title>
+          <title>Bizimle iletişime geçin! | Temizmama Blog</title>
           <meta name="description" content="Bizimle iletişime geçin. Temizmama Blog'da size yardımcı olmaktan memnuniyet duyarız!" />
           <link href="https://blog.temizmama.com/iletisim" />  
           <meta name="theme-color" content="#efdcc9" />
