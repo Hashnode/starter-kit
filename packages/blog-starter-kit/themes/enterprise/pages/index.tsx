@@ -4,6 +4,7 @@ import request from "graphql-request";
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import React, { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { Navbar } from "../components/navbar";
 import { Waypoint } from "react-waypoint";
 import { Container } from "../components/container";
@@ -41,6 +42,7 @@ export default function Index({
   initialAllPosts,
   initialPageInfo,
 }: Props) {
+  const router = useRouter();
   const [allPosts, setAllPosts] = useState<PostFragment[]>(initialAllPosts);
   const [pageInfo, setPageInfo] = useState<Props["initialPageInfo"]>(initialPageInfo);
   const [loadedMore, setLoadedMore] = useState(false);
@@ -69,13 +71,21 @@ export default function Index({
       }
     };
 
+    // Yönlendirme olaylarını dinle
+    const handleRouteChange = () => {
+      saveScrollPosition();
+      savePosts();
+    };
+
+    router.events.on('routeChangeStart', handleRouteChange);
+    router.events.on('routeChangeComplete', restoreScrollPosition);
+
     restoreScrollPosition();
     restorePosts();
-    window.addEventListener('beforeunload', saveScrollPosition);
-    window.addEventListener('beforeunload', savePosts);
+
     return () => {
-      window.removeEventListener('beforeunload', saveScrollPosition);
-      window.removeEventListener('beforeunload', savePosts);
+      router.events.off('routeChangeStart', handleRouteChange);
+      router.events.off('routeChangeComplete', restoreScrollPosition);
     };
   }, [allPosts]);
 
