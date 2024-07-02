@@ -155,7 +155,7 @@ export default function Index({
             content={
               publication.descriptionSEO ||
               publication.title ||
-              ${publication.author.name}'s Blog
+              `${publication.author.name}'s Blog`
             }
           />
           <meta property="twitter:card" content="summary_large_image" />
@@ -172,7 +172,7 @@ export default function Index({
             content={
               publication.descriptionSEO ||
               publication.title ||
-              ${publication.author.name}'s Blog
+              `${publication.author.name}'s Blog`
             }
           />
           <meta
