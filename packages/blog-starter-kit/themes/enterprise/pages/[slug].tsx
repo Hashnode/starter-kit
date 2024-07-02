@@ -163,11 +163,27 @@ const Page = ({ page }: PageProps) => {
 	);
 };
 
-export default function PostOrPage(props: Props) {
+const saveScrollPosition = () => {
+	sessionStorage.setItem('scrollPosition', window.scrollY.toString());
+  };
+  
+  const restoreScrollPosition = () => {
+	const savedPosition = sessionStorage.getItem('scrollPosition');
+	if (savedPosition) {
+	  window.scrollTo(0, parseInt(savedPosition, 10));
+	}
+  };
+  
+  export default function PostOrPage(props: Props) {
 	const maybePost = props.type === 'post' ? props.post : null;
 	const maybePage = props.type === 'page' ? props.page : null;
 	const publication = props.publication;
-
+  
+	useEffect(() => {
+	  restoreScrollPosition();
+	  return () => saveScrollPosition();
+	}, []);
+	
 	return (
 		<AppProvider publication={publication} post={maybePost} page={maybePage}>
 			<Layout>
