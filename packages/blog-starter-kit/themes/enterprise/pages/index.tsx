@@ -42,29 +42,42 @@ export default function Index({
   initialPageInfo,
 }: Props) {
   const [allPosts, setAllPosts] = useState<PostFragment[]>(initialAllPosts);
-  const [pageInfo, setPageInfo] =
-    useState<Props["initialPageInfo"]>(initialPageInfo);
+  const [pageInfo, setPageInfo] = useState<Props["initialPageInfo"]>(initialPageInfo);
   const [loadedMore, setLoadedMore] = useState(false);
 
-  // Kaydırma pozisyonunu kaydetmek için useEffect kullanımı
+  // Kaydırma pozisyonunu ve eklenen içerikleri kaydetmek için useEffect kullanımı
   useEffect(() => {
     const saveScrollPosition = () => {
-      sessionStorage.setItem('scrollPosition', window.scrollY.toString());
+      localStorage.setItem('scrollPosition', window.scrollY.toString());
     };
 
     const restoreScrollPosition = () => {
-      const savedPosition = sessionStorage.getItem('scrollPosition');
+      const savedPosition = localStorage.getItem('scrollPosition');
       if (savedPosition) {
         window.scrollTo(0, parseInt(savedPosition, 10));
       }
     };
 
+    const savePosts = () => {
+      localStorage.setItem('allPosts', JSON.stringify(allPosts));
+    };
+
+    const restorePosts = () => {
+      const savedPosts = localStorage.getItem('allPosts');
+      if (savedPosts) {
+        setAllPosts(JSON.parse(savedPosts));
+      }
+    };
+
     restoreScrollPosition();
+    restorePosts();
     window.addEventListener('beforeunload', saveScrollPosition);
+    window.addEventListener('beforeunload', savePosts);
     return () => {
       window.removeEventListener('beforeunload', saveScrollPosition);
+      window.removeEventListener('beforeunload', savePosts);
     };
-  }, []);
+  }, [allPosts]);
 
   const loadMore = async () => {
     const data = await request<
@@ -82,6 +95,7 @@ export default function Index({
     setAllPosts([...allPosts, ...newPosts]);
     setPageInfo(data.publication.posts.pageInfo);
     setLoadedMore(true);
+    localStorage.setItem('allPosts', JSON.stringify([...allPosts, ...newPosts]));
   };
 
   const firstPost = allPosts[0];
