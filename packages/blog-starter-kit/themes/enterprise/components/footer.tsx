@@ -99,7 +99,7 @@ return (
         <li>
           <Link
                   href="/iletisim"
-                  className="block text-gray-800 hover:text-gray-700/75 font-bold"
+                  className="block text-gray-800 hover:text-gray-700/75"
                   style={{ fontFamily: 'PinkChicken' }}
                   rel="canonical"
                 >
