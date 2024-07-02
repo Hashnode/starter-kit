@@ -37,7 +37,7 @@ export const constructRSSFeedFromPosts = (
 		feed_url: `${baseUrl}/rss.xml${currentCursor ? `?after=${currentCursor}` : ''}`,
 		site_url: baseUrl,
 		image_url: publication.preferences!.logo,
-		language: 'en',
+		language: 'tr',
 		ttl: 60,
 		custom_elements: customElements,
 	};
@@ -50,7 +50,6 @@ export const constructRSSFeedFromPosts = (
 			description: post.content!.html!.replace(NON_ASCII_REGEX, ''),
 			url: `${baseUrl}/${post.slug}`,
 			categories: post.tags!.map((tag: any) => tag.name),
-			author: post.author!.name,
 			date: post.publishedAt,
 			...(post.coverImage && { custom_elements: [{ cover_image: post.coverImage }] }),
 		});
