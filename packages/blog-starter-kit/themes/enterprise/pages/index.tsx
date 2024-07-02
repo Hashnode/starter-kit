@@ -46,6 +46,26 @@ export default function Index({
     useState<Props["initialPageInfo"]>(initialPageInfo);
   const [loadedMore, setLoadedMore] = useState(false);
 
+  // Kaydırma pozisyonunu kaydetmek için useEffect kullanımı
+  useEffect(() => {
+    const saveScrollPosition = () => {
+      sessionStorage.setItem('scrollPosition', window.scrollY.toString());
+    };
+
+    const restoreScrollPosition = () => {
+      const savedPosition = sessionStorage.getItem('scrollPosition');
+      if (savedPosition) {
+        window.scrollTo(0, parseInt(savedPosition, 10));
+      }
+    };
+
+    restoreScrollPosition();
+    window.addEventListener('beforeunload', saveScrollPosition);
+    return () => {
+      window.removeEventListener('beforeunload', saveScrollPosition);
+    };
+  }, []);
+
   const loadMore = async () => {
     const data = await request<
       MorePostsByPublicationQuery,
@@ -78,9 +98,6 @@ export default function Index({
     );
   });
   const morePosts = allPosts.slice(4);
-
-
-
 
   const createSVG = () => {
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
