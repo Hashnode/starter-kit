@@ -68,6 +68,7 @@ export const SocialLinks = ({ isSidebar }: { isSidebar?: boolean }) => {
 					target="_blank"
 					rel="noopener noreferrer"
 					aria-label="Open blog XML Feed, opens in new tab"
+					title="Rss"
 					className="flex flex-row items-center justify-center rounded-full dark:border-neutral-800 dark:hover:bg-neutral-600 transition hover:text-gray-700/75"
 				>
 					<RssSVG className="h-6 w-6 stroke-current" />
