@@ -87,7 +87,7 @@ export default function Index({
       router.events.off('routeChangeStart', handleRouteChange);
       router.events.off('routeChangeComplete', restoreScrollPosition);
     };
-  }, [allPosts]);
+  }, [allPosts, router.events]);
 
   const loadMore = async () => {
     const data = await request<
@@ -102,7 +102,7 @@ export default function Index({
       return;
     }
     const newPosts = data.publication.posts.edges.map((edge) => edge.node);
-    setAllPosts([...allPosts, ...newPosts]);
+    setAllPosts((prevPosts) => [...prevPosts, ...newPosts]);
     setPageInfo(data.publication.posts.pageInfo);
     setLoadedMore(true);
     localStorage.setItem('allPosts', JSON.stringify([...allPosts, ...newPosts]));
