@@ -308,10 +308,10 @@ const validateName = (name: string): boolean => {
         <Container className="flex flex-col items-stretch gap-10 px-5 pb-10 select-none">
           <div className="text-center">
             <h1 className="text-5xl text-gray-900 font-semibold mt-2 mb-5">
-              İletişim
+              Temizmama Blog İletişim
             </h1>
             <p className="text-md leading-snug text-slate-500 dark:text-neutral-400 text-lg max-w-xl mx-auto">
-              Bizimle iletişime geçmek için aşağıdaki formu doldurun.
+            Bizimle iletişime geçin. Temizmama Blog'da size yardımcı olmaktan memnuniyet duyarız!
             </p>
           </div>
 
@@ -319,7 +319,7 @@ const validateName = (name: string): boolean => {
             <input type="hidden" name="csrf_token" value={csrfToken} />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Ad Soyad*</label>
+                <label htmlFor="name" content="noindex" className="block mb-2 text-sm font-medium text-gray-900">Ad Soyad*</label>
                 <input
                   type="text"
                   id="name"
@@ -334,7 +334,7 @@ const validateName = (name: string): boolean => {
                 />
               </div>
               <div>
-                <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900">Cep Telefon*</label>
+                <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900" content="noindex">Cep Telefon*</label>
                 <input
                   type="tel"
                   id="phone"
@@ -354,7 +354,7 @@ const validateName = (name: string): boolean => {
                 />
               </div>
               <div className="col-span-2">
-                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">E-posta*</label>
+                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900" content="noindex">E-posta*</label>
                 <input
                   type="email"
                   id="email"
@@ -369,7 +369,7 @@ const validateName = (name: string): boolean => {
                 />
               </div>
               <div className="col-span-2">
-                <label htmlFor="subject" className="block mb-2 text-sm font-medium text-gray-900">İletişimin Konusu*</label>
+                <label htmlFor="subject" className="block mb-2 text-sm font-medium text-gray-900" content="noindex">İletişimin Konusu*</label>
                 <select
                   id="subject"
                   name="subject"
@@ -378,14 +378,14 @@ const validateName = (name: string): boolean => {
                   required
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-22 focus:ring-orng-500"
                 >
-                  <option value="" className="hover:bg-orng-600">Seçiniz</option>
-                  <option value="öneri" className="hover:bg-orng-600">Görüş ve Öneri</option>
-                  <option value="şikayet" className="hover:bg-orng-600">Şikayet</option>
-                  <option value="diğer" className="hover:bg-orng-600">Diğer</option>
+                  <option value="" className="hover:bg-orng-600" content="noindex">Seçiniz</option>
+                  <option value="öneri" className="hover:bg-orng-600" content="noindex">Görüş ve Öneri</option>
+                  <option value="şikayet" className="hover:bg-orng-600" content="noindex">Şikayet</option>
+                  <option value="diğer" className="hover:bg-orng-600" content="noindex">Diğer</option>
                 </select>
               </div>
               <div className="col-span-2 relative">
-                <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900">Mesajınız*</label>
+                <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900" content="noindex">Mesajınız*</label>
                 <textarea
                   id="message"
                   name="message"
