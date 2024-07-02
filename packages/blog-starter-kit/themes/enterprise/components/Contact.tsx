@@ -281,7 +281,7 @@ const validateName = (name: string): boolean => {
           <meta name="theme-color" content="#efdcc9" />
 
           {/* Open Graph Meta Tags */}
-          <meta property="og:title" content="İletişim | Temizmama Blog" />
+          <meta property="og:title" content="Bizimle iletişime geçin! | Temizmama Blog" />
           <meta property="og:site_name" content="Temizmama Blog" />
           <meta property="og:locale" content="tr_TR" />
           <meta property="og:type" content="website" />  
@@ -292,7 +292,7 @@ const validateName = (name: string): boolean => {
           {/* Twitter Card Meta Tags */}
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:site" content="@temizmamacom" />
-          <meta name="twitter:title" content="İletişim | Temizmama Blog" />
+          <meta name="twitter:title" content="Bizimle iletişime geçin! | Temizmama Blog" />
           <meta name="twitter:description" content="Bizimle iletişime geçin. Temizmama Blog'da size yardımcı olmaktan memnuniyet duyarız!" />
           <meta name="twitter:image" content="https://blog.temizmama.com/assets/blog/preview/contact.webp" />
           <meta name="twitter:image:alt" content="İletişim Sayfası Görseli" />
