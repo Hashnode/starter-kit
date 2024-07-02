@@ -57,7 +57,9 @@ export default function Index({
     const restoreScrollPosition = () => {
       const savedPosition = localStorage.getItem('scrollPosition');
       if (savedPosition) {
-        window.scrollTo(0, parseInt(savedPosition, 10));
+        setTimeout(() => {
+          window.scrollTo(0, parseInt(savedPosition, 10));
+        }, 0);
       }
     };
 
@@ -72,20 +74,16 @@ export default function Index({
       }
     };
 
-    // Yönlendirme olaylarını dinle
-    const handleRouteChange = () => {
-      saveScrollPosition();
-      savePosts();
-    };
-
-    router.events.on('routeChangeStart', handleRouteChange);
-    router.events.on('routeChangeComplete', restoreScrollPosition);
-
     restoreScrollPosition();
     restorePosts();
 
+    window.addEventListener('beforeunload', saveScrollPosition);
+    router.events.on('routeChangeStart', saveScrollPosition);
+    router.events.on('routeChangeComplete', restoreScrollPosition);
+
     return () => {
-      router.events.off('routeChangeStart', handleRouteChange);
+      window.removeEventListener('beforeunload', saveScrollPosition);
+      router.events.off('routeChangeStart', saveScrollPosition);
       router.events.off('routeChangeComplete', restoreScrollPosition);
     };
   }, [allPosts, router.events]);
