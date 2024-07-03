@@ -33,7 +33,7 @@ const Toc = ({
 	const children = data.filter((item) => item.parentId === parentId);
 	if (children.length === 0) return null;
 	return (
-		<ul className="mt-5 flex flex-col pl-5 font-medium text-slate-800 dark:text-neutral-200 select-none">
+		<ul className="flex flex-col pl-5 font-medium text-slate-800 dark:text-neutral-200 select-none">
 			{children.map((item) => (
 				<li key={item.id}>
 					<a
