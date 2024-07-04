@@ -8,7 +8,7 @@ export const Navbar = () => {
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   return (
-    <nav className="top-0 w-full z-50 sm:p-6 p-3 animate-onload" style={{ opacity: 1, transform: "none" }}>
+    <nav className="top-0 w-full z-50 sm:p-6 p-3 animate-onload" style={{ opacity: 1, zIndex: 2, transform: "none" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white/10 shadow-md py-4 rounded-xl select-none" style={{ opacity: 1, transform: "none", background: "hsl(30.98deg 100% 39.84% / 22%)" }}>
         <div className="flex items-center justify-between h-10">
           <div className="flex items-center">
