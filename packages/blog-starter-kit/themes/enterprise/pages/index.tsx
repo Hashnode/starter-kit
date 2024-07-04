@@ -18,11 +18,13 @@ import { SecondaryPost } from "../components/secondary-post";
 import FakeLighthouseScores from '../components/FakeLighthouseScores';
 import dynamic from 'next/dynamic';
 import ErrorBoundary from "../components/ErrorBoundary";
+import DOMPurify from 'dompurify';
+
 
 const PerformanceDashboard = dynamic(
-  () => import('../components/PerformanceDashboard'),
-  { ssr: false }
-);
+   () => import('../components/PerformanceDashboard'),
+   { ssr: false }
+  );
 
 import {
   MorePostsByPublicationDocument,
@@ -77,11 +79,11 @@ export default function Index({
     const secondaryPosts = allPosts.slice(1, 4).map((post) => (
       <SecondaryPost
         key={post.id}
-        title={post.title}
+        title={DOMPurify.sanitize(post.title)} // Sanitize title
         coverImage={post.coverImage?.url || DEFAULT_COVER}
         date={post.publishedAt}
         slug={post.slug}
-        excerpt={post.brief}
+        excerpt={DOMPurify.sanitize(post.brief)} // Sanitize excerpt
       />
     ));
     const morePosts = allPosts.slice(4);

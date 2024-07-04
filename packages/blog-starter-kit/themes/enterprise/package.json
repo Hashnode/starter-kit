@@ -15,6 +15,7 @@
 		"@graphql-typed-document-node/core": "^3.2.0",
 		"@starter-kit/utils": "workspace:*",
 		"cryptly": "^4.0.5",
+		"dompurify": "^3.1.5",
 		"gray-matter": "^4.0.3",
 		"js-cookie": "^3.0.5",
 		"lodash": "^4.17.21",
