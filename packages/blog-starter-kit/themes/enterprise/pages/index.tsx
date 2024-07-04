@@ -41,31 +41,37 @@ export default function Index({
     initialPosts,
     initialPageInfo,
 }: Props) {
-    const {
-        data,
-        fetchNextPage,
-        hasNextPage,
-        isFetchingNextPage,
-    } = useInfiniteQuery(
-        ['posts'],
-        async ({ pageParam = initialPageInfo.endCursor }) => {
-            const data = await request<
-                MorePostsByPublicationQuery,
-                MorePostsByPublicationQueryVariables
-            >(GQL_ENDPOINT, MorePostsByPublicationDocument, {
-                first: 10,
-                host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
-                after: pageParam
-            });
-            return data.publication;
-        },
-        {
-            getNextPageParam: (lastPage) => lastPage?.posts.pageInfo.endCursor,
-            initialData: { pages: [publication], pageParams: [null] },
-            refetchOnWindowFocus: false, // Sayfa odaklandığında yeniden çekme
-            refetchInterval: 30000 // 30 saniyede bir yeniden çekme
-        }
-    );
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery<PostsByPublicationQuery, Error>( // Add generic type for data and error
+    ['posts'],
+    async ({ pageParam = initialPageInfo.endCursor }) => {
+      const data = await request<
+        MorePostsByPublicationQuery,
+        MorePostsByPublicationQueryVariables
+      >(GQL_ENDPOINT, MorePostsByPublicationDocument, {
+        first: 10,
+        host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
+        after: pageParam
+      });
+  
+      // Ensure the returned data is always a PublicationFragment
+      if (data.publication) { 
+        return data.publication;  // Return the PublicationFragment
+      } else {
+        return null; // Or return null if publication is undefined
+      }
+    },
+    {
+      getNextPageParam: (lastPage) => lastPage?.posts.pageInfo.endCursor,
+      initialData: { pages: [publication], pageParams: [null] },
+      refetchOnWindowFocus: false, // Sayfa odaklandığında yeniden çekme
+      refetchInterval: 30000 // 30 saniyede bir yeniden çekme
+    }
+  );
 
 
     const allPosts = data?.pages.flatMap((page) => page?.posts.edges.map((edge) => edge.node) || []) || [];
