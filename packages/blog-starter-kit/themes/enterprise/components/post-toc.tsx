@@ -41,6 +41,7 @@ const Toc = ({
                     <a
                         href={`#heading-${item.slug}`}
                         className="hover:text-primary-650 hover:bg-primary-50 dark:hover:text-primary-650 dark:hover:bg-neutral-800"
+						style={{ fontFamily: 'PinkChicken, sans-serif' }}
                     >
                         {item.title}
                     </a>
