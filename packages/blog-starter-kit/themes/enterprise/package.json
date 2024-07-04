@@ -20,7 +20,8 @@
 		"lodash": "^4.17.21",
 		"react-google-recaptcha": "^3.1.0",
 		"react-google-recaptcha-v3": "^1.10.1",
-		"react-waypoint": "^10.3.0"
+		"react-waypoint": "^10.3.0",
+		"web-vitals": "^4.2.1"
 	},
 	"devDependencies": {
 		"@graphql-codegen/cli": "^5.0.2",

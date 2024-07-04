@@ -16,6 +16,8 @@ import { Layout } from "../components/layout";
 import { MorePosts } from "../components/more-posts";
 import { SecondaryPost } from "../components/secondary-post";
 import FakeLighthouseScores from '../components/FakeLighthouseScores';
+import PerformanceDashboard from '../components/PerformanceDashboard';
+
 import {
   MorePostsByPublicationDocument,
   MorePostsByPublicationQuery,
@@ -257,6 +259,7 @@ export default function Index({
         </Container>
         <Footer />
       </Layout>
+      <PerformanceDashboard />
     </AppProvider>
   );
 }
