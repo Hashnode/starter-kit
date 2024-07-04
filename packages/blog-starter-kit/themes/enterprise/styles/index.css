@@ -263,12 +263,10 @@ h1::selection {
     background-color: hsl(30.98deg 100% 39.84% / 10%);
 }
 img {
-	-webkit-user-drag: none; /* Chrome, Safari, Opera */
-	user-drag: none; /* Standard */
-	pointer-events: none; /* Prevent interactions */
+  -webkit-user-drag: none; /* Safari */
+  user-select: none;       /* Standard: Prevent text selection */
+  pointer-events: none;    /* Prevent most interactions (optional) */
 }
-
-
 .hover\:bg-orng-cokie:hover {
     background-color: #ff935ca1;
 }
