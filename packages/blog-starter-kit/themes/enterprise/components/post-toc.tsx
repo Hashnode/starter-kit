@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import { PostFullFragment } from '../generated/graphql';
 import { useAppContext } from './contexts/appContext';
 
