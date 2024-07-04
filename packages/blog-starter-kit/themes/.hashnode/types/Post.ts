@@ -1,6 +1,6 @@
 import { ObjectID } from 'mongodb';
 
-import { PublicationType, User, Publication, Series, Tag, Response, Badge, Nullish } from '../types/index';
+import { PublicationType, User, Publication, Series, Tag, Response, Badge, Nullish } from './index';
 
 export type TocType = {
   title: string;

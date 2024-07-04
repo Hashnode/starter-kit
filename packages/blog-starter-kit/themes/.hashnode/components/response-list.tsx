@@ -13,7 +13,7 @@ interface Props {
 }
 
 const PostComments = dynamic(() =>
-	import('../components/post-comments').then((mod) => mod.PostComments),
+	import('./post-comments').then((mod) => mod.PostComments),
 );
 
 function ResponseList(props: Props) {

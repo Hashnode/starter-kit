@@ -50,13 +50,13 @@ importers:
         version: 3.3.2
       prettier-plugin-organize-imports:
         specifier: ^3.2.4
-        version: 3.2.4(prettier@3.3.2)(typescript@5.5.2)
+        version: 3.2.4(prettier@3.3.2)(typescript@5.5.3)
       prettier-plugin-packagejson:
         specifier: ^2.5.0
         version: 2.5.0(prettier@3.3.2)
       prettier-plugin-tailwindcss:
         specifier: ^0.6.5
-        version: 0.6.5(prettier-plugin-organize-imports@3.2.4(prettier@3.3.2)(typescript@5.5.2))(prettier@3.3.2)
+        version: 0.6.5(prettier-plugin-organize-imports@3.2.4(prettier@3.3.2)(typescript@5.5.3))(prettier@3.3.2)
       react-google-recaptcha-v3:
         specifier: ^1.10.1
         version: 1.10.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -64,8 +64,8 @@ importers:
         specifier: ^3.4.4
         version: 3.4.4
       typescript:
-        specifier: ^5.5.2
-        version: 5.5.2
+        specifier: ^5.5.3
+        version: 5.5.3
 
   packages/blog-starter-kit/themes/enterprise:
     dependencies:
@@ -99,7 +99,7 @@ importers:
     devDependencies:
       '@graphql-codegen/cli':
         specifier: ^5.0.2
-        version: 5.0.2(@parcel/watcher@2.4.1)(@types/node@20.14.9)(graphql@16.8.1)(typescript@5.5.2)
+        version: 5.0.2(@parcel/watcher@2.4.1)(@types/node@20.14.9)(graphql@16.8.1)(typescript@5.5.3)
       '@graphql-codegen/typed-document-node':
         specifier: ^5.0.8
         version: 5.0.8(graphql@16.8.1)
@@ -298,7 +298,7 @@ importers:
     devDependencies:
       '@graphql-codegen/cli':
         specifier: ^5.0.0
-        version: 5.0.0(@parcel/watcher@2.3.0)(@types/node@18.18.5)(graphql@16.8.1)(typescript@5.5.2)
+        version: 5.0.0(@parcel/watcher@2.3.0)(@types/node@18.18.5)(graphql@16.8.1)(typescript@5.5.3)
       '@graphql-codegen/typed-document-node':
         specifier: ^5.0.1
         version: 5.0.1(graphql@16.8.1)
@@ -410,7 +410,7 @@ importers:
     devDependencies:
       '@graphql-codegen/cli':
         specifier: ^5.0.0
-        version: 5.0.0(@parcel/watcher@2.3.0)(@types/node@18.18.5)(graphql@16.8.1)(typescript@5.5.2)
+        version: 5.0.0(@parcel/watcher@2.3.0)(@types/node@18.18.5)(graphql@16.8.1)(typescript@5.5.3)
       '@graphql-codegen/typed-document-node':
         specifier: ^5.0.1
         version: 5.0.1(graphql@16.8.1)
@@ -464,7 +464,7 @@ importers:
         version: 8.51.0
       eslint-config-next:
         specifier: ^13.5.4
-        version: 13.5.5(eslint@8.51.0)(typescript@5.5.2)
+        version: 13.5.5(eslint@8.51.0)(typescript@5.5.3)
       eslint-config-prettier:
         specifier: ^9.0.0
         version: 9.0.0(eslint@8.51.0)
@@ -2525,6 +2525,9 @@ packages:
   caniuse-lite@1.0.30001638:
     resolution: {integrity: sha512-5SuJUJ7cZnhPpeLHaH0c/HPAnAHZvS6ElWyHK9GSIbVOQABLzowiI2pjmpvZ1WEbkyz46iFd4UXlOHR5SqgfMQ==}
 
+  caniuse-lite@1.0.30001640:
+    resolution: {integrity: sha512-lA4VMpW0PSUrFnkmVuEKBUovSWKhj7puyCg8StBChgu298N1AtuF1sKWEvfDuimSEDbhlb/KqPKC3fs1HbuQUA==}
+
   capital-case@1.0.4:
     resolution: {integrity: sha512-ds37W8CytHgwnhGGTi88pcPyR15qoNkOpYwmMMfnWqqWgESapLqvDx6huFjQ5vqWSn2Z06173XNA7LtMOeUh1A==}
 
@@ -3103,8 +3106,8 @@ packages:
   fastest-stable-stringify@2.0.2:
     resolution: {integrity: sha512-bijHueCGd0LqqNK9b5oCMHc0MluJAx0cwqASgbWMvkO01lCYgIhacVRLcaDz3QnyYIRNJRDwMb41VuT6pHJ91Q==}
 
-  fastq@1.15.0:
-    resolution: {integrity: sha512-wBrocU2LCXXa+lWBt8RoIRD89Fi8OdABODa/kEnyeyjS5aZO5/GNvI5sEINADqP/h8M29UHTHUb53sUu5Ihqdw==}
+  fastq@1.17.1:
+    resolution: {integrity: sha512-sRVD3lWVIXWg6By68ZN7vho9a1pQcN/WBFaAAsDDFzlJjvoGx0P8z7V1t72grFJfJhu3YPZBuu25f7Kaw2jN1w==}
 
   fb-watchman@2.0.2:
     resolution: {integrity: sha512-p5161BqbuCaSnB8jIbzQHOlpgsPmK5rJVDfDKO91Axs5NC1uu3HRQm6wt9cd9/+GtQQIO53JdGXXoyDpTAsgYA==}
@@ -4462,6 +4465,10 @@ packages:
     resolution: {integrity: sha512-Wglpdk03BSfXkHoQa3b/oulrotAkwrlLDRSOb9D0bN86FdRyE9lppSp33aHNPgBa0JKCoB+drFLZkQoRRYae5A==}
     engines: {node: ^10 || ^12 || >=14}
 
+  postcss@8.4.39:
+    resolution: {integrity: sha512-0vzE+lAiG7hZl1/9I8yzKLx3aR9Xbof3fBHKunvMfOCYAtMhrsnccJY2iTURb9EZd5+pLuiNV9/c/GZJOHsgIw==}
+    engines: {node: ^10 || ^12 || >=14}
+
   prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
@@ -4712,8 +4719,8 @@ packages:
     resolution: {integrity: sha512-ECkTw8TmJwW60lOTR+ZkODISW6RQ8+2CL3COqtiJKLd6MmB45hN51HprHFziKLGkAuTGQhBb91V8cy+KHlaCjw==}
     engines: {node: '>= 0.4'}
 
-  regenerator-runtime@0.14.0:
-    resolution: {integrity: sha512-srw17NI0TUWHuGa5CFGGmhfNIeja30WMBfbslPNhf6JrqQlLN5gcrvig1oqPxiVaXb0oW0XRKtH6Nngs5lKCIA==}
+  regenerator-runtime@0.14.1:
+    resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
 
   regexp.prototype.flags@1.5.1:
     resolution: {integrity: sha512-sy6TXMN+hnP/wMy+ISxg3krXx7BAtWVO4UouuCN/ziM9UEne0euamVNafDfvC83bRNr95y0V5iijeDQFUNpvrg==}
@@ -5232,8 +5239,8 @@ packages:
     resolution: {integrity: sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w==}
     engines: {node: '>=10'}
 
-  type-fest@4.20.1:
-    resolution: {integrity: sha512-R6wDsVsoS9xYOpy8vgeBlqpdOyzJ12HNfQhC/aAKWM3YoCV9TtunJzh/QpkMgeDhkoynDcw5f1y+qF9yc/HHyg==}
+  type-fest@4.21.0:
+    resolution: {integrity: sha512-ADn2w7hVPcK6w1I0uWnM//y1rLXZhzB9mr0a3OirzclKF1Wp6VzevUmzz/NRAWunOT6E8HrnpGY7xOfc6K57fA==}
     engines: {node: '>=16'}
 
   typed-array-buffer@1.0.0:
@@ -5251,8 +5258,8 @@ packages:
   typed-array-length@1.0.4:
     resolution: {integrity: sha512-KjZypGq+I/H7HI5HlOoGHkWUUGq+Q0TPhQurLbyrVrvnKTBgzLhIJ7j6J/XTQOi0d1RjyZ0wdas8bKs2p0x3Ng==}
 
-  typescript@5.5.2:
-    resolution: {integrity: sha512-NcRtPEOsPFFWjobJEtfihkLCZCXZt/os3zf8nTxjVH3RvTSxjrCamJpbExGvYOF+tFHc3pA65qpdwPbzjohhew==}
+  typescript@5.5.3:
+    resolution: {integrity: sha512-/hreyEujaB0w76zKo6717l3L0o/qEUtRgdvUBvlkhoWeOVMjMuHNHk0BRBzikzuGDqNmPQbg5ifMEqsHLiIUcQ==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -5903,11 +5910,11 @@ snapshots:
 
   '@babel/runtime@7.23.2':
     dependencies:
-      regenerator-runtime: 0.14.0
+      regenerator-runtime: 0.14.1
 
   '@babel/runtime@7.24.7':
     dependencies:
-      regenerator-runtime: 0.14.0
+      regenerator-runtime: 0.14.1
 
   '@babel/template@7.22.15':
     dependencies:
@@ -6013,7 +6020,7 @@ snapshots:
       graphql: 16.8.1
       tslib: 2.6.2
 
-  '@graphql-codegen/cli@5.0.0(@parcel/watcher@2.3.0)(@types/node@18.18.5)(graphql@16.8.1)(typescript@5.5.2)':
+  '@graphql-codegen/cli@5.0.0(@parcel/watcher@2.3.0)(@types/node@18.18.5)(graphql@16.8.1)(typescript@5.5.3)':
     dependencies:
       '@babel/generator': 7.23.0
       '@babel/template': 7.22.15
@@ -6032,11 +6039,11 @@ snapshots:
       '@graphql-tools/utils': 10.0.7(graphql@16.8.1)
       '@whatwg-node/fetch': 0.8.8
       chalk: 4.1.2
-      cosmiconfig: 8.3.6(typescript@5.5.2)
+      cosmiconfig: 8.3.6(typescript@5.5.3)
       debounce: 1.2.1
       detect-indent: 6.1.0
       graphql: 16.8.1
-      graphql-config: 5.0.3(@types/node@18.18.5)(graphql@16.8.1)(typescript@5.5.2)
+      graphql-config: 5.0.3(@types/node@18.18.5)(graphql@16.8.1)(typescript@5.5.3)
       inquirer: 8.2.6
       is-glob: 4.0.3
       jiti: 1.20.0
@@ -6062,7 +6069,7 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@graphql-codegen/cli@5.0.2(@parcel/watcher@2.4.1)(@types/node@20.14.9)(graphql@16.8.1)(typescript@5.5.2)':
+  '@graphql-codegen/cli@5.0.2(@parcel/watcher@2.4.1)(@types/node@20.14.9)(graphql@16.8.1)(typescript@5.5.3)':
     dependencies:
       '@babel/generator': 7.23.0
       '@babel/template': 7.22.15
@@ -6082,11 +6089,11 @@ snapshots:
       '@graphql-tools/utils': 10.0.7(graphql@16.8.1)
       '@whatwg-node/fetch': 0.8.8
       chalk: 4.1.2
-      cosmiconfig: 8.3.6(typescript@5.5.2)
+      cosmiconfig: 8.3.6(typescript@5.5.3)
       debounce: 1.2.1
       detect-indent: 6.1.0
       graphql: 16.8.1
-      graphql-config: 5.0.3(@types/node@20.14.9)(graphql@16.8.1)(typescript@5.5.2)
+      graphql-config: 5.0.3(@types/node@20.14.9)(graphql@16.8.1)(typescript@5.5.3)
       inquirer: 8.2.6
       is-glob: 4.0.3
       jiti: 1.20.0
@@ -6703,7 +6710,7 @@ snapshots:
       string-length: 6.0.0
       strip-ansi: 7.1.0
       ts-toolbelt: 9.6.0
-      type-fest: 4.20.1
+      type-fest: 4.21.0
       zod: 3.23.8
 
   '@molt/types@0.2.0':
@@ -6753,7 +6760,7 @@ snapshots:
   '@nodelib/fs.walk@1.2.8':
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
-      fastq: 1.15.0
+      fastq: 1.17.1
 
   '@parcel/watcher-android-arm64@2.3.0':
     optional: true
@@ -7700,16 +7707,16 @@ snapshots:
     dependencies:
       '@types/node': 20.14.9
 
-  '@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.2)':
+  '@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.3)':
     dependencies:
       '@typescript-eslint/scope-manager': 6.8.0
       '@typescript-eslint/types': 6.8.0
-      '@typescript-eslint/typescript-estree': 6.8.0(typescript@5.5.2)
+      '@typescript-eslint/typescript-estree': 6.8.0(typescript@5.5.3)
       '@typescript-eslint/visitor-keys': 6.8.0
       debug: 4.3.4
       eslint: 8.51.0
     optionalDependencies:
-      typescript: 5.5.2
+      typescript: 5.5.3
     transitivePeerDependencies:
       - supports-color
 
@@ -7720,7 +7727,7 @@ snapshots:
 
   '@typescript-eslint/types@6.8.0': {}
 
-  '@typescript-eslint/typescript-estree@6.8.0(typescript@5.5.2)':
+  '@typescript-eslint/typescript-estree@6.8.0(typescript@5.5.3)':
     dependencies:
       '@typescript-eslint/types': 6.8.0
       '@typescript-eslint/visitor-keys': 6.8.0
@@ -7728,9 +7735,9 @@ snapshots:
       globby: 11.1.0
       is-glob: 4.0.3
       semver: 7.6.2
-      ts-api-utils: 1.0.3(typescript@5.5.2)
+      ts-api-utils: 1.0.3(typescript@5.5.3)
     optionalDependencies:
-      typescript: 5.5.2
+      typescript: 5.5.3
     transitivePeerDependencies:
       - supports-color
 
@@ -8119,6 +8126,8 @@ snapshots:
 
   caniuse-lite@1.0.30001638: {}
 
+  caniuse-lite@1.0.30001640: {}
+
   capital-case@1.0.4:
     dependencies:
       no-case: 3.0.4
@@ -8289,14 +8298,14 @@ snapshots:
 
   core-util-is@1.0.3: {}
 
-  cosmiconfig@8.3.6(typescript@5.5.2):
+  cosmiconfig@8.3.6(typescript@5.5.3):
     dependencies:
       import-fresh: 3.3.0
       js-yaml: 4.1.0
       parse-json: 5.2.0
       path-type: 4.0.0
     optionalDependencies:
-      typescript: 5.5.2
+      typescript: 5.5.3
 
   cross-fetch@3.1.8:
     dependencies:
@@ -8570,20 +8579,20 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-config-next@13.5.5(eslint@8.51.0)(typescript@5.5.2):
+  eslint-config-next@13.5.5(eslint@8.51.0)(typescript@5.5.3):
     dependencies:
       '@next/eslint-plugin-next': 13.5.5
       '@rushstack/eslint-patch': 1.5.1
-      '@typescript-eslint/parser': 6.8.0(eslint@8.51.0)(typescript@5.5.2)
+      '@typescript-eslint/parser': 6.8.0(eslint@8.51.0)(typescript@5.5.3)
       eslint: 8.51.0
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.28.1(eslint@8.51.0))(eslint@8.51.0)
-      eslint-plugin-import: 2.28.1(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.2))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.28.1(eslint@8.51.0))(eslint@8.51.0))(eslint@8.51.0)
+      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.28.1(eslint@8.51.0))(eslint@8.51.0)
+      eslint-plugin-import: 2.28.1(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.3))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.28.1(eslint@8.51.0))(eslint@8.51.0))(eslint@8.51.0)
       eslint-plugin-jsx-a11y: 6.7.1(eslint@8.51.0)
       eslint-plugin-react: 7.33.2(eslint@8.51.0)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.51.0)
     optionalDependencies:
-      typescript: 5.5.2
+      typescript: 5.5.3
     transitivePeerDependencies:
       - eslint-import-resolver-webpack
       - supports-color
@@ -8600,13 +8609,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.28.1(eslint@8.51.0))(eslint@8.51.0):
+  eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.28.1(eslint@8.51.0))(eslint@8.51.0):
     dependencies:
       debug: 4.3.4
       enhanced-resolve: 5.15.0
       eslint: 8.51.0
-      eslint-module-utils: 2.8.0(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.28.1(eslint@8.51.0))(eslint@8.51.0))(eslint@8.51.0)
-      eslint-plugin-import: 2.28.1(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.2))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.28.1(eslint@8.51.0))(eslint@8.51.0))(eslint@8.51.0)
+      eslint-module-utils: 2.8.0(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.28.1(eslint@8.51.0))(eslint@8.51.0))(eslint@8.51.0)
+      eslint-plugin-import: 2.28.1(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.3))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.28.1(eslint@8.51.0))(eslint@8.51.0))(eslint@8.51.0)
       fast-glob: 3.3.2
       get-tsconfig: 4.7.2
       is-core-module: 2.14.0
@@ -8617,18 +8626,18 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-module-utils@2.8.0(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.28.1(eslint@8.51.0))(eslint@8.51.0))(eslint@8.51.0):
+  eslint-module-utils@2.8.0(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.28.1(eslint@8.51.0))(eslint@8.51.0))(eslint@8.51.0):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
-      '@typescript-eslint/parser': 6.8.0(eslint@8.51.0)(typescript@5.5.2)
+      '@typescript-eslint/parser': 6.8.0(eslint@8.51.0)(typescript@5.5.3)
       eslint: 8.51.0
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.28.1(eslint@8.51.0))(eslint@8.51.0)
+      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.28.1(eslint@8.51.0))(eslint@8.51.0)
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.28.1(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.2))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.28.1(eslint@8.51.0))(eslint@8.51.0))(eslint@8.51.0):
+  eslint-plugin-import@2.28.1(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.3))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.28.1(eslint@8.51.0))(eslint@8.51.0))(eslint@8.51.0):
     dependencies:
       array-includes: 3.1.7
       array.prototype.findlastindex: 1.2.3
@@ -8638,7 +8647,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 8.51.0
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.8.0(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.28.1(eslint@8.51.0))(eslint@8.51.0))(eslint@8.51.0)
+      eslint-module-utils: 2.8.0(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.8.0(eslint@8.51.0)(typescript@5.5.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.28.1(eslint@8.51.0))(eslint@8.51.0))(eslint@8.51.0)
       has: 1.0.4
       is-core-module: 2.14.0
       is-glob: 4.0.3
@@ -8649,7 +8658,7 @@ snapshots:
       semver: 6.3.1
       tsconfig-paths: 3.14.2
     optionalDependencies:
-      '@typescript-eslint/parser': 6.8.0(eslint@8.51.0)(typescript@5.5.2)
+      '@typescript-eslint/parser': 6.8.0(eslint@8.51.0)(typescript@5.5.3)
     transitivePeerDependencies:
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
@@ -8864,7 +8873,7 @@ snapshots:
 
   fastest-stable-stringify@2.0.2: {}
 
-  fastq@1.15.0:
+  fastq@1.17.1:
     dependencies:
       reusify: 1.0.4
 
@@ -9056,7 +9065,7 @@ snapshots:
 
   graphemer@1.4.0: {}
 
-  graphql-config@5.0.3(@types/node@18.18.5)(graphql@16.8.1)(typescript@5.5.2):
+  graphql-config@5.0.3(@types/node@18.18.5)(graphql@16.8.1)(typescript@5.5.3):
     dependencies:
       '@graphql-tools/graphql-file-loader': 8.0.0(graphql@16.8.1)
       '@graphql-tools/json-file-loader': 8.0.0(graphql@16.8.1)
@@ -9064,7 +9073,7 @@ snapshots:
       '@graphql-tools/merge': 9.0.0(graphql@16.8.1)
       '@graphql-tools/url-loader': 8.0.0(@types/node@18.18.5)(graphql@16.8.1)
       '@graphql-tools/utils': 10.0.7(graphql@16.8.1)
-      cosmiconfig: 8.3.6(typescript@5.5.2)
+      cosmiconfig: 8.3.6(typescript@5.5.3)
       graphql: 16.8.1
       jiti: 1.20.0
       minimatch: 4.2.3
@@ -9077,7 +9086,7 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  graphql-config@5.0.3(@types/node@20.14.9)(graphql@16.8.1)(typescript@5.5.2):
+  graphql-config@5.0.3(@types/node@20.14.9)(graphql@16.8.1)(typescript@5.5.3):
     dependencies:
       '@graphql-tools/graphql-file-loader': 8.0.0(graphql@16.8.1)
       '@graphql-tools/json-file-loader': 8.0.0(graphql@16.8.1)
@@ -9085,7 +9094,7 @@ snapshots:
       '@graphql-tools/merge': 9.0.0(graphql@16.8.1)
       '@graphql-tools/url-loader': 8.0.0(@types/node@20.14.9)(graphql@16.8.1)
       '@graphql-tools/utils': 10.0.7(graphql@16.8.1)
-      cosmiconfig: 8.3.6(typescript@5.5.2)
+      cosmiconfig: 8.3.6(typescript@5.5.3)
       graphql: 16.8.1
       jiti: 1.20.0
       minimatch: 4.2.3
@@ -10252,7 +10261,7 @@ snapshots:
       '@next/env': 14.2.4
       '@swc/helpers': 0.5.5
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001638
+      caniuse-lite: 1.0.30001640
       graceful-fs: 4.2.11
       postcss: 8.4.31
       react: 18.3.1
@@ -10485,28 +10494,28 @@ snapshots:
 
   pirates@4.0.6: {}
 
-  postcss-import@15.1.0(postcss@8.4.38):
+  postcss-import@15.1.0(postcss@8.4.39):
     dependencies:
-      postcss: 8.4.38
+      postcss: 8.4.39
       postcss-value-parser: 4.2.0
       read-cache: 1.0.0
       resolve: 1.22.8
 
-  postcss-js@4.0.1(postcss@8.4.38):
+  postcss-js@4.0.1(postcss@8.4.39):
     dependencies:
       camelcase-css: 2.0.1
-      postcss: 8.4.38
+      postcss: 8.4.39
 
-  postcss-load-config@4.0.2(postcss@8.4.38):
+  postcss-load-config@4.0.2(postcss@8.4.39):
     dependencies:
       lilconfig: 3.1.2
       yaml: 2.4.5
     optionalDependencies:
-      postcss: 8.4.38
+      postcss: 8.4.39
 
-  postcss-nested@6.0.1(postcss@8.4.38):
+  postcss-nested@6.0.1(postcss@8.4.39):
     dependencies:
-      postcss: 8.4.38
+      postcss: 8.4.39
       postcss-selector-parser: 6.1.0
 
   postcss-selector-parser@6.0.10:
@@ -10533,12 +10542,18 @@ snapshots:
       picocolors: 1.0.0
       source-map-js: 1.2.0
 
+  postcss@8.4.39:
+    dependencies:
+      nanoid: 3.3.7
+      picocolors: 1.0.1
+      source-map-js: 1.2.0
+
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-organize-imports@3.2.4(prettier@3.3.2)(typescript@5.5.2):
+  prettier-plugin-organize-imports@3.2.4(prettier@3.3.2)(typescript@5.5.3):
     dependencies:
       prettier: 3.3.2
-      typescript: 5.5.2
+      typescript: 5.5.3
 
   prettier-plugin-packagejson@2.5.0(prettier@3.3.2):
     dependencies:
@@ -10547,11 +10562,11 @@ snapshots:
     optionalDependencies:
       prettier: 3.3.2
 
-  prettier-plugin-tailwindcss@0.6.5(prettier-plugin-organize-imports@3.2.4(prettier@3.3.2)(typescript@5.5.2))(prettier@3.3.2):
+  prettier-plugin-tailwindcss@0.6.5(prettier-plugin-organize-imports@3.2.4(prettier@3.3.2)(typescript@5.5.3))(prettier@3.3.2):
     dependencies:
       prettier: 3.3.2
     optionalDependencies:
-      prettier-plugin-organize-imports: 3.2.4(prettier@3.3.2)(typescript@5.5.2)
+      prettier-plugin-organize-imports: 3.2.4(prettier@3.3.2)(typescript@5.5.3)
 
   prettier@3.3.2: {}
 
@@ -10760,7 +10775,7 @@ snapshots:
       globalthis: 1.0.3
       which-builtin-type: 1.1.3
 
-  regenerator-runtime@0.14.0: {}
+  regenerator-runtime@0.14.1: {}
 
   regexp.prototype.flags@1.5.1:
     dependencies:
@@ -11249,11 +11264,11 @@ snapshots:
       normalize-path: 3.0.0
       object-hash: 3.0.0
       picocolors: 1.0.1
-      postcss: 8.4.38
-      postcss-import: 15.1.0(postcss@8.4.38)
-      postcss-js: 4.0.1(postcss@8.4.38)
-      postcss-load-config: 4.0.2(postcss@8.4.38)
-      postcss-nested: 6.0.1(postcss@8.4.38)
+      postcss: 8.4.39
+      postcss-import: 15.1.0(postcss@8.4.39)
+      postcss-js: 4.0.1(postcss@8.4.39)
+      postcss-load-config: 4.0.2(postcss@8.4.39)
+      postcss-nested: 6.0.1(postcss@8.4.39)
       postcss-selector-parser: 6.1.0
       resolve: 1.22.8
       sucrase: 3.35.0
@@ -11304,9 +11319,9 @@ snapshots:
 
   trough@2.1.0: {}
 
-  ts-api-utils@1.0.3(typescript@5.5.2):
+  ts-api-utils@1.0.3(typescript@5.5.3):
     dependencies:
-      typescript: 5.5.2
+      typescript: 5.5.3
 
   ts-easing@0.2.0: {}
 
@@ -11337,7 +11352,7 @@ snapshots:
 
   type-fest@0.21.3: {}
 
-  type-fest@4.20.1: {}
+  type-fest@4.21.0: {}
 
   typed-array-buffer@1.0.0:
     dependencies:
@@ -11366,7 +11381,7 @@ snapshots:
       for-each: 0.3.3
       is-typed-array: 1.1.12
 
-  typescript@5.5.2: {}
+  typescript@5.5.3: {}
 
   ua-parser-js@1.0.36: {}
 

@@ -7,7 +7,7 @@ import { getCommonBtnStyles } from './common-header-icon-btn';
 import HeaderBlogSearch from './header-blog-search';
 import HeaderLeftSidebar from './header-left-sidebar';
 import HeaderTooltip from './header-tooltip';
-import { ChevronLeftSVG } from './icons/svgs/';
+import { ChevronLeftSVG } from './icons/svgs';
 import PublicationSocialLinks from './publication-social-links';
 import useStickyNavScroll from './use-sticky-nav-scroll';
 

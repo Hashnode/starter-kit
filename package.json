@@ -30,7 +30,7 @@
 		"prettier-plugin-tailwindcss": "^0.6.5",
 		"react-google-recaptcha-v3": "^1.10.1",
 		"tailwindcss": "^3.4.4",
-		"typescript": "^5.5.2"
+		"typescript": "^5.5.3"
 	},
 	"engines": {
 		"node": ">=18.0.0",
