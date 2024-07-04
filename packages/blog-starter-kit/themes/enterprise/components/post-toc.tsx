@@ -24,12 +24,28 @@ const mapTableOfContentItems = (toc: TableOfContentsItem[]) => {
     }
 };
 
+const scrollToElement = (elementId: string) => {
+    const element = document.getElementById(elementId);
+    if (element) {
+        const offset = 20; // Ekranın üstünde bırakılacak boşluk (piksel cinsinden)
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+        });
+    }
+};
+
 const Toc = ({
     data,
     parentId,
+    handleSmoothScroll,
 }: {
     data: TableOfContentsItem[];
     parentId: TableOfContentsItem['parentId'];
+    handleSmoothScroll: (e: React.MouseEvent, targetId: string) => void;
 }) => {
     const children = data.filter((item) => item.parentId === parentId);
     if (children.length === 0) return null;
@@ -45,7 +61,7 @@ const Toc = ({
                     >
                         {item.title}
                     </a>
-                    <Toc data={data} parentId={item.id} />
+                    <Toc data={data} parentId={item.id} handleSmoothScroll={handleSmoothScroll} />
                 </li>
             ))}
         </ul>
@@ -56,29 +72,15 @@ export const PostTOC: React.FC = () => {
     const { post } = useAppContext();
     const topRef = useRef<HTMLDivElement>(null);
 
-    const scrollToElement = (elementId: string) => {
-        const element = document.getElementById(elementId);
-        if (element) {
-            const offset = 20; // Ekranın üstünde bırakılacak boşluk (piksel cinsinden)
-            const elementPosition = element.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
-        }
-    };
-
-    const scrollToTop = (e: React.MouseEvent) => {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
-    const handleSmoothScroll = (e: React.MouseEvent, targetId: string) => {
+    const handleSmoothScroll = useCallback((e: React.MouseEvent, targetId: string) => {
         e.preventDefault();
         scrollToElement(targetId);
-    };
+    }, []);
+
+    const scrollToTop = useCallback((e: React.MouseEvent) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, []);
 
     useEffect(() => {
         const handleSmoothScrollForAllLinks = (e: MouseEvent) => {
@@ -111,6 +113,7 @@ export const PostTOC: React.FC = () => {
                     <Toc 
                         parentId={null} 
                         data={mapTableOfContentItems(post.features.tableOfContents.items)} 
+                        handleSmoothScroll={handleSmoothScroll}
                     />
                 </div>
             </div>
