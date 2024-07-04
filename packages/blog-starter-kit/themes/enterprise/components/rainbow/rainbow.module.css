@@ -39,27 +39,6 @@
   
 
 
-  *, ::before, ::after {
-    --tw-border-spacing-x: 0;
-    --tw-border-spacing-y: 0;
-    --tw-translate-x: 0;
-    --tw-translate-y: 0;
-    --tw-rotate: 0;
-    --tw-skew-x: 0;
-    --tw-skew-y: 0;
-    --tw-scale-x: 1;
-    --tw-scale-y: 1;
-    --tw-scroll-snap-strictness: proximity;
-    --tw-ring-offset-width: 0px;
-    --tw-ring-offset-color: #fff;
-    --tw-ring-color: rgb(59 130 246 / .5);
-    --darkreader-bg--tw-ring-offset-shadow: 0 0 #0000;
-    --darkreader-bg--tw-ring-shadow: 0 0 #0000;
-    --darkreader-bg--tw-shadow: 0 0 #0000;
-    --darkreader-bg--tw-shadow-colored: 0 0 #0000;
-}
-
-
 @keyframes jumbo-a742e9dc {
   0% {
     background-position: 50% 50%, 50% 50%;
