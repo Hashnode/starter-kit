@@ -6,9 +6,10 @@
 		"codegen": "graphql-codegen --config codegen.yml",
 		"dev": "concurrently \"next\" \"pnpm codegen --watch\" --names next,codegen",
 		"format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,json}\" --ignore-path ../../../../.prettierignore",
-		"lint": "next lint",
+		"lint": "next lint --dir src",
 		"start": "next start",
-		"typecheck": "tsc"
+		"typecheck": "tsc",
+		"lint:fix": "next lint --dir src --fix"
 	},
 	"dependencies": {
 		"@graphql-typed-document-node/core": "^3.2.0",
