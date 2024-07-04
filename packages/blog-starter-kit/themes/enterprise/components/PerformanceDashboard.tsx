@@ -1,28 +1,43 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react'; // Import useState
 import dynamic from 'next/dynamic';
 import { onCLS, onFID, onFCP, onLCP } from 'web-vitals';
 
+type MetricsState = {
+  FCP?: number;
+  LCP?: number;
+  CLS?: number;
+  FID?: number;
+};
+
 const PerformanceDashboard: React.FC = () => {
+  const [metrics, setMetrics] = useState<MetricsState>({});
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      // Clear the console before logging
       console.clear();
 
-      const logMetric = (metricName: string, value: number) => {
-        console.log(`${metricName}: ${value.toFixed(2)} ms`);
-      };
-
-      onCLS((metric) => logMetric('CLS', metric.value));
-      onFID((metric) => logMetric('FID', metric.value));
-      onFCP((metric) => logMetric('FCP', metric.value));
-      onLCP((metric) => logMetric('LCP', metric.value));
+      onCLS((metric) => {  
+        setMetrics((prevMetrics: MetricsState) => ({ ...prevMetrics, CLS: metric.value }));
+        console.log(`CLS: ${metric.value.toFixed(2)} ${metric.delta.toFixed(2)}`);
+      });
+      onFID((metric) => {  
+        setMetrics((prevMetrics: MetricsState) => ({ ...prevMetrics, FID: metric.value }));
+        console.log(`FID: ${metric.value.toFixed(2)} ${metric.delta.toFixed(2)}`);
+      });
+      onFCP((metric) => { 
+        setMetrics((prevMetrics: MetricsState) => ({ ...prevMetrics, FCP: metric.value }));
+        console.log(`FCP: ${metric.value.toFixed(2)} ${metric.delta.toFixed(2)}`);
+      });
+      onLCP((metric) => {  
+        setMetrics((prevMetrics: MetricsState) => ({ ...prevMetrics, LCP: metric.value }));
+        console.log(`LCP: ${metric.value.toFixed(2)} ${metric.delta.toFixed(2)}`);
+      });
     }
-  }, []);
+  }, []); 
 
-  // No need to return any JSX since we're only logging to the console
   return null; 
 };
 
 export default dynamic(() => Promise.resolve(PerformanceDashboard), {
-  ssr: false, // This component is client-side only
+  ssr: false, 
 });
