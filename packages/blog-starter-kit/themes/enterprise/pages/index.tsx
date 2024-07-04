@@ -26,7 +26,7 @@ import {
 } from "../generated/graphql";
 import { DEFAULT_COVER } from "../utils/const";
 import { useInfiniteQuery } from 'react-query'; 
-import { SketchButton } from "../components/button";
+import { Button  } from "../components/button";
 
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 
