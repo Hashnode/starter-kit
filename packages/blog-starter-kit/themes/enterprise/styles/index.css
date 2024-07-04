@@ -249,7 +249,18 @@ html {
 ::selection {
     background-color: hsl(30.98deg 100% 39.84% / 22%); 
 }
-
+::-webkit-scrollbar {
+  background-color: var(--darkreader-bg--yt-spec-general-background-a);
+}
+html[hide-scrollbar] ::-webkit-scrollbar {
+  display: none !important;
+}
+::-webkit-scrollbar-thumb {
+background-color: #f3c9ab !important;
+}
+::-webkit-scrollbar{
+background-color: transparent !important;
+}
 ::-webkit-selection {
     background-color: hsl(30.98deg 100% 39.84% / 22%);
 }
