@@ -19,6 +19,7 @@ import FakeLighthouseScores from '../components/FakeLighthouseScores';
 import dynamic from 'next/dynamic';
 import ErrorBoundary from "../components/ErrorBoundary";
 
+
 const PerformanceDashboard = dynamic(
   () => import('../components/PerformanceDashboard'),
   { ssr: false }
@@ -206,7 +207,7 @@ export default function Index({
         </Head>
         <Navbar />
 
-        <Container className="flex flex-col items-stretch gap-10 px-5 pb-10 select-none" style={{ zIndex: 2, position: 'relative' }}>
+        <Container className="flex flex-col items-stretch gap-10 px-5 pb-10 select-none">
           
           <div className="text-center">
             <h1 className="text-5xl text-gray-900 font-semibold mt-2 mb-5">
