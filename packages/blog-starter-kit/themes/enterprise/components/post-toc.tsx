@@ -41,6 +41,7 @@ const Toc = ({
                         href={`#heading-${item.slug}`}
                         className="hover:text-primary-650 hover:bg-primary-50 dark:hover:text-primary-650 dark:hover:bg-neutral-800 transition-colors duration-200 ease-in-out"
                         style={{ fontFamily: 'PinkChicken, sans-serif' }}
+                        onClick={(e) => handleSmoothScroll(e, `heading-${item.slug}`)}
                     >
                         {item.title}
                     </a>
@@ -55,25 +56,42 @@ export const PostTOC: React.FC = () => {
     const { post } = useAppContext();
     const topRef = useRef<HTMLDivElement>(null);
 
+    const scrollToElement = (elementId: string) => {
+        const element = document.getElementById(elementId);
+        if (element) {
+            const offset = 20; // Ekranın üstünde bırakılacak boşluk (piksel cinsinden)
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    };
+
     const scrollToTop = (e: React.MouseEvent) => {
         e.preventDefault();
-        topRef.current?.scrollIntoView({ behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const handleSmoothScroll = (e: React.MouseEvent, targetId: string) => {
+        e.preventDefault();
+        scrollToElement(targetId);
     };
 
     useEffect(() => {
-        const handleSmoothScroll = (e: MouseEvent) => {
+        const handleSmoothScrollForAllLinks = (e: MouseEvent) => {
             const target = e.target as HTMLAnchorElement;
             if (target.tagName === 'A' && target.hash) {
                 e.preventDefault();
-                const element = document.querySelector(target.hash);
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                }
+                const targetId = target.hash.slice(1); // Remove the '#' from the hash
+                scrollToElement(targetId);
             }
         };
 
-        document.addEventListener('click', handleSmoothScroll);
-        return () => document.removeEventListener('click', handleSmoothScroll);
+        document.addEventListener('click', handleSmoothScrollForAllLinks);
+        return () => document.removeEventListener('click', handleSmoothScrollForAllLinks);
     }, []);
 
     if (!post) return null;
