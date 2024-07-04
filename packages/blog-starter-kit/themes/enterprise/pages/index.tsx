@@ -15,6 +15,7 @@ import styles from '../styles/SketchButton.module.css';
 import { Layout } from "../components/layout";
 import { MorePosts } from "../components/more-posts";
 import { SecondaryPost } from "../components/secondary-post";
+import FakeLighthouseScores from '../components/FakeLighthouseScores';
 import {
   MorePostsByPublicationDocument,
   MorePostsByPublicationQuery,
@@ -141,6 +142,7 @@ export default function Index({
 
   return (
     <AppProvider publication={publication}>
+      {process.env.NODE_ENV === 'development' && <FakeLighthouseScores />}
       <Layout>
         <Head>
           <title>
