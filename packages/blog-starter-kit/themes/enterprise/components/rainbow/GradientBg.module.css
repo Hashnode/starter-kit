@@ -18,10 +18,10 @@
 
 .gradient {
   position: absolute;
-  width: 60%;  /* Gradientlerin boyutunu artırdık */
+  width: 60%;
   height: 60%;
   mix-blend-mode: var(--blending, hard-light);
-  opacity: 0.3;  /* Opaklığı azalttık */
+  opacity: 1;
   animation: moveGradient var(--duration, 35s) ease-in-out infinite alternate;
 }
 
