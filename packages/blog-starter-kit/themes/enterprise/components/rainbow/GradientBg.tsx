@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback, useMemo } from 'react';
+import React, { useEffect, useRef, useCallback, useMemo, useState } from 'react';
 
 const MIN_SPEED = 1.5;
 const MAX_SPEED = 2.5;
@@ -12,20 +12,29 @@ interface BlobProps {
 
 const Blob: React.FC<BlobProps> = React.memo(({ color, isWhite }) => {
   const blobRef = useRef<HTMLDivElement>(null);
+  const [initialState, setInitialState] = useState<{
+    size: number;
+    initialX: number;
+    initialY: number;
+    vx: number;
+    vy: number;
+  } | null>(null);
 
-  const initialState = useMemo(() => {
-    const size = isWhite ? 15 : 32;
-    return {
-      size: size,
-      initialX: randomNumber(0, window.innerWidth - size),
-      initialY: randomNumber(0, window.innerHeight - size),
-      vx: randomNumber(MIN_SPEED, MAX_SPEED) * (Math.random() > 0.5 ? 1 : -1),
-      vy: randomNumber(MIN_SPEED, MAX_SPEED) * (Math.random() > 0.5 ? 1 : -1),
-    };
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const size = isWhite ? 15 : 32;
+      setInitialState({
+        size: size,
+        initialX: randomNumber(0, window.innerWidth - size),
+        initialY: randomNumber(0, window.innerHeight - size),
+        vx: randomNumber(MIN_SPEED, MAX_SPEED) * (Math.random() > 0.5 ? 1 : -1),
+        vy: randomNumber(MIN_SPEED, MAX_SPEED) * (Math.random() > 0.5 ? 1 : -1),
+      });
+    }
   }, [isWhite]);
 
   const updatePosition = useCallback(() => {
-    if (!blobRef.current) return;
+    if (!blobRef.current || !initialState) return;
 
     let { x, y, vx, vy } = blobRef.current.dataset;
     let numX = parseFloat(x!);
@@ -51,22 +60,24 @@ const Blob: React.FC<BlobProps> = React.memo(({ color, isWhite }) => {
   }, [initialState]);
 
   useEffect(() => {
-    if (blobRef.current) {
+    if (blobRef.current && initialState) {
       blobRef.current.style.top = `${initialState.initialY}px`;
       blobRef.current.style.left = `${initialState.initialX}px`;
       blobRef.current.dataset.x = initialState.initialX.toString();
       blobRef.current.dataset.y = initialState.initialY.toString();
       blobRef.current.dataset.vx = initialState.vx.toString();
       blobRef.current.dataset.vy = initialState.vy.toString();
+
+      const animationFrame = requestAnimationFrame(function animate() {
+        updatePosition();
+        requestAnimationFrame(animate);
+      });
+
+      return () => cancelAnimationFrame(animationFrame);
     }
-
-    const animationFrame = requestAnimationFrame(function animate() {
-      updatePosition();
-      requestAnimationFrame(animate);
-    });
-
-    return () => cancelAnimationFrame(animationFrame);
   }, [initialState, updatePosition]);
+
+  if (!initialState) return null;
 
   return (
     <div 
