@@ -86,7 +86,7 @@
 }
 
 .gradient-bg.visible {
-  opacity: 0.3;
+  opacity: 0.2;
 }
 
 .gradient-bg .svgBlur {
@@ -98,7 +98,7 @@
   inset: 0;
   z-index: 1;
   mix-blend-mode: soft-light;
-  opacity: 0.3;
+  opacity: 0.2;
 }
 
 .gradient-bg .gradients-container {

@@ -100,7 +100,7 @@
 
 
   .gradient-bg.visible {
-    opacity: 0.3;
+    opacity: 0.2;
   }
   .svgBlur {
     display: none;
@@ -114,7 +114,7 @@
     left: 0;
     z-index: 1;
     mix-blend-mode: soft-light;
-    opacity: 0.3;
+    opacity: 0.2;
   }
   .gradients-container {
     filter: url(#goo) blur(40px);
