@@ -101,7 +101,7 @@ export default function Index({
 
   const memoizedContent = useMemo(() => {
     const firstPost = allPosts[0];
-    const secondaryPosts = allPosts.slice(1, 6).map((post) => (
+    const secondaryPosts = allPosts.slice(1, 4).map((post) => (
       <SecondaryPost
         key={post.id}
         title={post.title}
@@ -111,7 +111,7 @@ export default function Index({
         excerpt={post.brief}
       />
     ));
-    const morePosts = allPosts.slice(6);
+    const morePosts = allPosts.slice(10);
 
     return { firstPost, secondaryPosts, morePosts };
   }, [allPosts]);
