@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useCallback, useMemo } from 'react';
+import styles from '../styles/GradientBg.module.css';
 
 const MIN_SPEED = 1.5;
 const MAX_SPEED = 2.5;
@@ -71,17 +72,16 @@ const Blob: React.FC<BlobProps> = React.memo(({ color, isWhite }) => {
   return (
     <div 
       ref={blobRef}
-      className= 'bouncing-blob bouncing-blob--${color}'
-      style={isWhite ? { width: '15vw', zIndex: 2 } : undefined}
+      className={`${styles['bouncing-blob']} ${styles[`bouncing-blob--${color}`]}`}
     />
   );
 });
 
 const GradientBg: React.FC = () => {
   return (
-    <div className='bouncing-blobs-container'>
-      <div className='bouncing-blobs-glass' />
-      <div className='bouncing-blobs'>
+    <div className={styles['bouncing-blobs-container']}>
+      <div className={styles['bouncing-blobs-glass']} />
+      <div className={styles['bouncing-blobs']}>
         <Blob color="blue" />
         <Blob color="blue" />
         <Blob color="blue" />
