@@ -87,7 +87,7 @@ export default function Index({
       (entries) => {
         if (entries[0].isIntersecting) loadMore();
       },
-      { threshold: 1.5 }
+      { threshold: 0.1 }
     );
 
     observerRef.current.observe(loadingRef.current);
