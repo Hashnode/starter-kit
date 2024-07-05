@@ -55,7 +55,7 @@ const Toc = ({
                 <li key={item.id}>
                     <a
                         href={`#heading-${item.slug}`}
-                        className="hover:text-primary-650 hover:bg-primary-50 dark:hover:text-primary-650 dark:hover:bg-neutral-800 transition-colors duration-200 ease-in-out"
+                        className="hover:text-primary-650 dark:hover:text-primary-650 dark:hover:bg-neutral-800 transition-colors duration-200 ease-in-out"
                         style={{ fontFamily: 'PinkChicken, sans-serif' }}
                         onClick={(e) => handleSmoothScroll(e, `heading-${item.slug}`)}
                     >
