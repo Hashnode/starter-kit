@@ -54,13 +54,13 @@ const ClickSpark: React.FC = () => {
   return (
     <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 9999 }}>
       <style>{`
-        svgspark {
+        #svgspark {
           pointer-events: none;
           position: absolute;
           rotate: -20deg;
           stroke: #efdcc9;
         }
-        line {
+        #svgspark line {
           stroke-dasharray: 30;
           stroke-dashoffset: 30;
           transform-origin: center;
