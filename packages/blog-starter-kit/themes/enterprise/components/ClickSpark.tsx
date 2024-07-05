@@ -58,7 +58,7 @@ const ClickSpark: React.FC = () => {
           pointer-events: none;
           position: absolute;
           rotate: -20deg;
-          stroke: #efdcc9;
+          stroke: #ff9257;
         }
         #svgspark line {
           stroke-dasharray: 30;
