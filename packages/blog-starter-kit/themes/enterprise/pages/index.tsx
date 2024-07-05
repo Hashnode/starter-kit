@@ -111,7 +111,7 @@ export default function Index({
         excerpt={post.brief}
       />
     ));
-    const morePosts = allPosts.slice(10);
+    const morePosts = allPosts.slice(6);
 
     return { firstPost, secondaryPosts, morePosts };
   }, [allPosts]);
