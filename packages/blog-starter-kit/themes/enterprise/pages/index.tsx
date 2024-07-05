@@ -159,6 +159,8 @@ export default function Index({
               publication.title ||
               "Temizmama Blog"}
           </title>
+          <meta name="theme-color" content="#efdcc9" />
+
           <meta
             name="description"
             content={
