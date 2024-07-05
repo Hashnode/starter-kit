@@ -81,6 +81,7 @@
   position: fixed;
   inset: 0;
   overflow: hidden;
+  opacity: 0.2;
 }
 
 .gradient-bg .svgBlur {
