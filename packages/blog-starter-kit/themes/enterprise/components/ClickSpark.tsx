@@ -54,7 +54,7 @@ const ClickSpark: React.FC = () => {
   return (
     <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 9999 }}>
       <style>{`
-        svg {
+        svgspark {
           pointer-events: none;
           position: absolute;
           rotate: -20deg;
@@ -66,7 +66,7 @@ const ClickSpark: React.FC = () => {
           transform-origin: center;
         }
       `}</style>
-      <svg ref={svgRef} width="30" height="30" viewBox="0 0 100 100" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+      <svg id={"svgspark"} ref={svgRef} width="30" height="30" viewBox="0 0 100 100" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
         {[...Array(8)].map((_, i) => (
           <line key={i} x1="50" y1="30" x2="50" y2="4" />
         ))}
