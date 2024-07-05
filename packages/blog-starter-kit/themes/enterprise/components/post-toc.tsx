@@ -105,7 +105,7 @@ export const PostTOC: React.FC = () => {
                     <h2 className="mb-5 text-lg font-bold md:text-xl">Konu Başlıkları</h2>
                     <button 
                         onClick={scrollToTop}
-                        className="mb-5 text-lg font-bold md:text-xl hover:text-primary-650 hover:bg-primary-50 dark:hover:text-primary-650 dark:hover:bg-neutral-800 cursor-pointer transition-colors duration-200 ease-in-out w-full text-left"
+                        className="mb-5 text-lg font-bold md:text-xl hover:text-primary-650 dark:hover:text-primary-650 dark:hover:bg-neutral-800 cursor-pointer transition-colors duration-200 ease-in-out w-full text-left"
                         style={{ fontFamily: 'PinkChicken, sans-serif' }}
                     >
                         {post.title}
