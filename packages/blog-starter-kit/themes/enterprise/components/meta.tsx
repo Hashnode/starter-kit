@@ -12,7 +12,9 @@ export const Meta = () => {
 			<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
 			<link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#000000" />
 			<meta name="msapplication-TileColor" content="#000000" />
-			<meta name="theme-color" content="#000" />
+			<meta name="theme-color" content="#efdcc9" />
+			<meta name="msapplication-navbutton-color" content="#efdcc9" />
+			<meta name="apple-mobile-web-app-status-bar-style" content="#efdcc9" />
 		</>
 	);
 

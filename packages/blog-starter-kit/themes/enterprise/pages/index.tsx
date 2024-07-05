@@ -160,7 +160,8 @@ export default function Index({
               "Temizmama Blog"}
           </title>
           <meta name="theme-color" content="#efdcc9" />
-
+          <meta name="msapplication-navbutton-color" content="#efdcc9" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="#efdcc9" />
           <meta
             name="description"
             content={

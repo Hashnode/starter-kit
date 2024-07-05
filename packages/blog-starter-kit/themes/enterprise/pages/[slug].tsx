@@ -101,6 +101,8 @@ const Post = ({ publication, post }: PostProps) => {
 				<title>{`${postTitle}`}</title>
 				<link rel="canonical" href={post.url} />
 				<meta name="theme-color" content="#efdcc9" />
+				<meta name="msapplication-navbutton-color" content="#efdcc9" />
+				<meta name="apple-mobile-web-app-status-bar-style" content="#efdcc9" />
 
 				{/* Open Graph Meta Tags */}
 				<meta property="og:title" content={`${postTitle}`} />
