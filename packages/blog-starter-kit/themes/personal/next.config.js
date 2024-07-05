@@ -83,12 +83,12 @@ const config = {
 				destination: `${HASHNODE_ADVANCED_ANALYTICS_URL}/api/analytics`,
 			},
 			{
-				source: "/posts",
-				destination: "https://megabyte0x.xyz/posts"
+				source: "/blog",
+				destination: "https://megabyte0x.xyz/blog"
 			},
 			{
-				source: "/posts/:path*",
-				destination: "https://megabyte0x.xyz/posts/:path*"
+				source: "/blog/:path*",
+				destination: "https://megabyte0x.xyz/blog/:path*"
 			},
 		];
 	},
