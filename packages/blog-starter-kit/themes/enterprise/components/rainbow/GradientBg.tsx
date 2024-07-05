@@ -1,72 +1,68 @@
-import React, { useEffect, useRef, useCallback, useMemo, useState } from 'react';
+import React, { useEffect, useRef, ForwardedRef, MutableRefObject } from 'react';
 
 const MIN_SPEED = 1.5;
 const MAX_SPEED = 2.5;
 
-const randomNumber = (min: number, max: number) => Math.random() * (max - min) + min;
+const randomNumber = (min: number, max: number): number => Math.random() * (max - min) + min;
 
 interface BlobProps {
   color: string;
   isWhite?: boolean;
 }
 
-const Blob: React.FC<BlobProps> = React.memo(({ color, isWhite }) => {
-  const blobRef = useRef<HTMLDivElement>(null);
-  const [initialState, setInitialState] = useState<{
-    size: number;
-    initialX: number;
-    initialY: number;
-    vx: number;
-    vy: number;
-  } | null>(null);
+const Blob = React.forwardRef(
+  (
+    { color, isWhite }: BlobProps,
+    ref: ForwardedRef<HTMLDivElement>
+  ) => {
+    const localRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
+    useEffect(() => {
+      if (ref && typeof ref === 'function') {
+        ref(localRef.current);
+      } else if (ref) {
+        (ref as MutableRefObject<HTMLDivElement | null>).current = localRef.current;
+      }
+
+      const blob = localRef.current;
+      if (!blob || typeof window === 'undefined') return;
+
       const size = isWhite ? 15 : 32;
-      setInitialState({
-        size: size,
-        initialX: randomNumber(0, window.innerWidth - size),
-        initialY: randomNumber(0, window.innerHeight - size),
-        vx: randomNumber(MIN_SPEED, MAX_SPEED) * (Math.random() > 0.5 ? 1 : -1),
-        vy: randomNumber(MIN_SPEED, MAX_SPEED) * (Math.random() > 0.5 ? 1 : -1),
-      });
-    }
-  }, [isWhite]);
+      const initialX = randomNumber(0, window.innerWidth - size);
+      const initialY = randomNumber(0, window.innerHeight - size);
+      const vx = randomNumber(MIN_SPEED, MAX_SPEED) * (Math.random() > 0.5 ? 1 : -1);
+      const vy = randomNumber(MIN_SPEED, MAX_SPEED) * (Math.random() > 0.5 ? 1 : -1);
 
-  const updatePosition = useCallback(() => {
-    if (!blobRef.current || !initialState) return;
+      // Set initial position using transform (not top/left)
+      blob.style.transform = `translate(${initialX}px, ${initialY}px)`; 
+      blob.dataset.x = initialX.toString();
+      blob.dataset.y = initialY.toString();
+      blob.dataset.vx = vx.toString();
+      blob.dataset.vy = vy.toString();
 
-    let { x, y, vx, vy } = blobRef.current.dataset;
-    let numX = parseFloat(x!);
-    let numY = parseFloat(y!);
-    let numVx = parseFloat(vx!);
-    let numVy = parseFloat(vy!);
+      const updatePosition = () => {
+        let { x, y, vx, vy } = blob.dataset;
+        let numX = parseFloat(x!);
+        let numY = parseFloat(y!);
+        let numVx = parseFloat(vx!);
+        let numVy = parseFloat(vy!);
 
-    numX += numVx;
-    numY += numVy;
+        numX += numVx;
+        numY += numVy;
 
-    if (numX >= window.innerWidth - initialState.size || numX <= 0) {
-      numVx *= -1;
-    }
-    if (numY >= window.innerHeight - initialState.size || numY <= 0) {
-      numVy *= -1;
-    }
+        if (numX >= window.innerWidth - size || numX <= 0) {
+          numVx *= -1;
+        }
+        if (numY >= window.innerHeight - size || numY <= 0) {
+          numVy *= -1;
+        }
 
-    blobRef.current.style.transform = `translate(${numX - initialState.initialX}px, ${numY - initialState.initialY}px)`;
-    blobRef.current.dataset.x = numX.toString();
-    blobRef.current.dataset.y = numY.toString();
-    blobRef.current.dataset.vx = numVx.toString();
-    blobRef.current.dataset.vy = numVy.toString();
-  }, [initialState]);
-
-  useEffect(() => {
-    if (blobRef.current && initialState) {
-      blobRef.current.style.top = `${initialState.initialY}px`;
-      blobRef.current.style.left = `${initialState.initialX}px`;
-      blobRef.current.dataset.x = initialState.initialX.toString();
-      blobRef.current.dataset.y = initialState.initialY.toString();
-      blobRef.current.dataset.vx = initialState.vx.toString();
-      blobRef.current.dataset.vy = initialState.vy.toString();
+        blob.style.transform = `translate(${numX}px, ${numY}px)`; 
+        blob.dataset.x = numX.toString();
+        blob.dataset.y = numY.toString();
+        blob.dataset.vx = numVx.toString();
+        blob.dataset.vy = numVy.toString();
+      };
 
       const animationFrame = requestAnimationFrame(function animate() {
         updatePosition();
@@ -74,32 +70,29 @@ const Blob: React.FC<BlobProps> = React.memo(({ color, isWhite }) => {
       });
 
       return () => cancelAnimationFrame(animationFrame);
-    }
-  }, [initialState, updatePosition]);
+    }, [isWhite]); 
 
-  if (!initialState) return null;
+    const blobClassNames = `bouncing-blob bouncing-blob--${color} ${isWhite ? 'bouncing-blob--white' : ''}`;
 
-  return (
-    <div 
-      ref={blobRef}
-      className={`bouncing-blob bouncing-blob--${color}`}
-      style={isWhite ? { width: '15vw', zIndex: 2 } : undefined}
-    />
-  );
-});
+    return <div ref={localRef} className={blobClassNames} />;
+  }
+);
 
 const GradientBg: React.FC = () => {
+  const blobRefs = Array.from({ length: 7 }, () => useRef<HTMLDivElement>(null));
+
   return (
     <div className="bouncing-blobs-container">
       <div className="bouncing-blobs-glass" />
       <div className="bouncing-blobs">
-        <Blob color="blue" />
-        <Blob color="blue" />
-        <Blob color="blue" />
-        <Blob color="white" isWhite />
-        <Blob color="purple" />
-        <Blob color="purple" />
-        <Blob color="pink" />
+        {blobRefs.map((ref, index) => (
+          <Blob
+            key={index}
+            ref={ref}
+            color={index === 3 ? "white" : index < 3 ? "blue" : index > 5 ? "pink" : "purple"}
+            isWhite={index === 3}
+          />
+        ))}
       </div>
     </div>
   );
