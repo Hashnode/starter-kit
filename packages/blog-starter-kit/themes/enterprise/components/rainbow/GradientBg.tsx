@@ -30,7 +30,7 @@ const GradientBg = () => {
   }, []);
 
   return (
-    <div className={styles.gradientBg} style={{ position: "fixed", zIndex: 0, opacity: 0.5 }}>
+    <div className="gradient-bg" style={{ position: "fixed", zIndex: 0, opacity: 0.5 }}>
       <svg viewBox="0 0 100vw 100vw" xmlns="http://www.w3.org/2000/svg" className="noiseBg">
         <filter id="noiseFilterBg">
           <feTurbulence type="fractalNoise" baseFrequency="0.6" stitchTiles="stitch"></feTurbulence>
