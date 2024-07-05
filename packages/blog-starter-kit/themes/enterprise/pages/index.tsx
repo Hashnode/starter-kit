@@ -47,6 +47,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
   const [allPosts, setAllPosts] = useState<PostFragment[]>(initialAllPosts);
   const [pageInfo, setPageInfo] = useState<Props["initialPageInfo"]>(initialPageInfo);
   const [isLoading, setIsLoading] = useState(false);
+  const [displayedPosts, setDisplayedPosts] = useState<PostFragment[]>(initialAllPosts.slice(0, 4));
 
   const observerRef = useRef<IntersectionObserver | null>(null);
   const loadingRef = useRef<HTMLDivElement>(null);
@@ -97,9 +98,28 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
     };
   }, [loadMore, isLoading, pageInfo.hasNextPage]);
 
+  // Function to load more posts immediately when there are fewer than 3 displayed
+  const loadPostsImmediately = useCallback(() => {
+    if (allPosts.length > displayedPosts.length && displayedPosts.length < allPosts.length - 3) {
+      const newDisplayedPosts = allPosts.slice(0, displayedPosts.length + 7); 
+      setDisplayedPosts(newDisplayedPosts);
+    }
+  }, [allPosts, displayedPosts.length]);
+
+  // useEffect to trigger initial post loading
+  useEffect(() => {
+    loadPostsImmediately(); 
+  }, [loadPostsImmediately]);
+
+  // useEffect to trigger subsequent post loading when new posts are fetched
+  useEffect(() => {
+    loadPostsImmediately();
+  }, [allPosts]);
+
+
   const memoizedContent = useMemo(() => {
-    const firstPost = allPosts[0];
-    const secondaryPosts = allPosts.slice(1, 4).map((post) => (
+    const firstPost = displayedPosts[0];
+    const secondaryPosts = displayedPosts.slice(1, 4).map((post) => (
       <SecondaryPost
         key={post.id}
         title={post.title}
@@ -109,10 +129,10 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
         excerpt={post.brief}
       />
     ));
-    const morePosts = allPosts.slice(4);
+    const morePosts = displayedPosts.slice(4);
 
     return { firstPost, secondaryPosts, morePosts };
-  }, [allPosts]);
+  }, [displayedPosts]);
 
   return (
     <AppProvider publication={publication}>
