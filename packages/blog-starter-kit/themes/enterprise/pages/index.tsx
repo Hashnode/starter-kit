@@ -64,7 +64,7 @@ export default function Index({
         MorePostsByPublicationQuery,
         MorePostsByPublicationQueryVariables
       >(GQL_ENDPOINT, MorePostsByPublicationDocument, {
-        first: 10,
+        first: 7,
         host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
         after: pageInfo.endCursor,
       });
@@ -87,7 +87,7 @@ export default function Index({
       (entries) => {
         if (entries[0].isIntersecting) loadMore();
       },
-      { threshold: 0.6 }
+      { threshold: 0.1 }
     );
 
     observerRef.current.observe(loadingRef.current);
@@ -111,7 +111,7 @@ export default function Index({
         excerpt={post.brief}
       />
     ));
-    const morePosts = allPosts.slice(6);
+    const morePosts = allPosts.slice(4);
 
     return { firstPost, secondaryPosts, morePosts };
   }, [allPosts]);
@@ -245,7 +245,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     PostsByPublicationQuery,
     PostsByPublicationQueryVariables
   >(GQL_ENDPOINT, PostsByPublicationDocument, {
-    first: 10,
+    first: 6,
     host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
   });
 
