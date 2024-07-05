@@ -81,15 +81,7 @@ const config = {
 			{
 				source: '/api/analytics',
 				destination: `${HASHNODE_ADVANCED_ANALYTICS_URL}/api/analytics`,
-			},
-			{
-				source: "/blog",
-				destination: "https://megabyte0x.xyz/blog"
-			},
-			{
-				source: "/blog/:path*",
-				destination: "https://megabyte0x.xyz/blog/:path*"
-			},
+			}
 		];
 	},
 	async redirects() {
