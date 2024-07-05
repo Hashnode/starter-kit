@@ -3,20 +3,20 @@ import React, { useEffect, useRef, useCallback, useMemo } from 'react';
 const MIN_SPEED = 1.5;
 const MAX_SPEED = 2.5;
 
-const randomNumber = (min, max) => Math.random() * (max - min) + min;
+const randomNumber = (min: number, max: number) => Math.random() * (max - min) + min;
 
 interface BlobProps {
   color: string;
   isWhite?: boolean;
 }
 
-const Blob = React.memo(({ color, isWhite }) => {
-  const blobRef = useRef(null);
+const Blob: React.FC<BlobProps> = React.memo(({ color, isWhite }) => {
+  const blobRef = useRef<HTMLDivElement>(null);
 
   const initialState = useMemo(() => {
     const size = isWhite ? 15 : 32;
     return {
-      size,
+      size: size,
       initialX: randomNumber(0, window.innerWidth - size),
       initialY: randomNumber(0, window.innerHeight - size),
       vx: randomNumber(MIN_SPEED, MAX_SPEED) * (Math.random() > 0.5 ? 1 : -1),
@@ -28,10 +28,10 @@ const Blob = React.memo(({ color, isWhite }) => {
     if (!blobRef.current) return;
 
     let { x, y, vx, vy } = blobRef.current.dataset;
-    let numX = parseFloat(x);
-    let numY = parseFloat(y);
-    let numVx = parseFloat(vx);
-    let numVy = parseFloat(vy);
+    let numX = parseFloat(x!);
+    let numY = parseFloat(y!);
+    let numVx = parseFloat(vx!);
+    let numVy = parseFloat(vy!);
 
     numX += numVx;
     numY += numVy;
@@ -44,20 +44,20 @@ const Blob = React.memo(({ color, isWhite }) => {
     }
 
     blobRef.current.style.transform = `translate(${numX - initialState.initialX}px, ${numY - initialState.initialY}px)`;
-    blobRef.current.dataset.x = numX;
-    blobRef.current.dataset.y = numY;
-    blobRef.current.dataset.vx = numVx;
-    blobRef.current.dataset.vy = numVy;
+    blobRef.current.dataset.x = numX.toString();
+    blobRef.current.dataset.y = numY.toString();
+    blobRef.current.dataset.vx = numVx.toString();
+    blobRef.current.dataset.vy = numVy.toString();
   }, [initialState]);
 
   useEffect(() => {
     if (blobRef.current) {
-      blobRef.current.dataset.x = initialState.initialX;
-      blobRef.current.dataset.y = initialState.initialY;
-      blobRef.current.dataset.vx = initialState.vx;
-      blobRef.current.dataset.vy = initialState.vy;
-
-      updatePosition(); // Initial positioning
+      blobRef.current.style.top = `${initialState.initialY}px`;
+      blobRef.current.style.left = `${initialState.initialX}px`;
+      blobRef.current.dataset.x = initialState.initialX.toString();
+      blobRef.current.dataset.y = initialState.initialY.toString();
+      blobRef.current.dataset.vx = initialState.vx.toString();
+      blobRef.current.dataset.vy = initialState.vy.toString();
     }
 
     const animationFrame = requestAnimationFrame(function animate() {
@@ -68,28 +68,30 @@ const Blob = React.memo(({ color, isWhite }) => {
     return () => cancelAnimationFrame(animationFrame);
   }, [initialState, updatePosition]);
 
-  const blobClassNames = `bouncing-blob bouncing-blob--${color} ${isWhite ? 'bouncing-blob--white' : ''}`;
-
   return (
-    <div ref={blobRef} className={blobClassNames} style={isWhite ? { width: '15vw', zIndex: 2 } : undefined} /> 
+    <div 
+      ref={blobRef}
+      className= 'bouncing-blob bouncing-blob--${color}'
+      style={isWhite ? { width: '15vw', zIndex: 2 } : undefined}
+    />
   );
 });
 
-
-const GradientBg = React.memo(() => (
-  <div className="bouncing-blobs-container">
-    <div className="bouncing-blobs-glass" />
-    <div className="bouncing-blobs">
-      {/* Blobs */}
-      <Blob color="blue" />
-      <Blob color="blue" />
-      <Blob color="blue" />
-      <Blob color="white" isWhite />
-      <Blob color="purple" />
-      <Blob color="purple" />
-      <Blob color="pink" />
+const GradientBg: React.FC = () => {
+  return (
+    <div className='bouncing-blobs-container'>
+      <div className='bouncing-blobs-glass' />
+      <div className='bouncing-blobs'>
+        <Blob color="blue" />
+        <Blob color="blue" />
+        <Blob color="blue" />
+        <Blob color="white" isWhite />
+        <Blob color="purple" />
+        <Blob color="purple" />
+        <Blob color="pink" />
+      </div>
     </div>
-  </div>
-));
+  );
+};
 
-export default GradientBg;
+export default React.memo(GradientBg);
