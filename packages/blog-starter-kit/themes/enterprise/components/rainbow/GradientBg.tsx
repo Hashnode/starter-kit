@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useCallback, useMemo } from 'react';
-import styles from '../styles/GradientBg.module.css';
+import styles from '../rainbow/GradientBg.module.css';
 
 const MIN_SPEED = 1.5;
 const MAX_SPEED = 2.5;
