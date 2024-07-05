@@ -3,7 +3,7 @@ import { Integrations } from './integrations';
 import { Meta } from './meta';
 import { Scripts } from './scripts';
 import OfflineNotification from './OfflineNotification';
-import { Rainbow } from '../components/rainbow/rainbow';
+import GradientBg from './rainbow/GradientBg';
 
 
 type Props = {
@@ -16,8 +16,8 @@ export const Layout = ({ children }: Props) => {
 			<Meta />
 			<Scripts />
 			<div className="min-h-screen bg-white dark:bg-neutral-950">
-			<Rainbow />
-				<main>{children}</main>
+			<GradientBg />
+			<main className="relative z-1">{children}</main>
 				<OfflineNotification />
 			</div>
 			<Analytics />
