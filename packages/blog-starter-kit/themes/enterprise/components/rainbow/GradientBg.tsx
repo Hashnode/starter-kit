@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useCallback } from "react";
-import styles from "./GradientBg.module.css";
 
 const GradientBg: React.FC = () => {
   const interBubbleRef = useRef<HTMLDivElement>(null);
@@ -43,14 +42,14 @@ const GradientBg: React.FC = () => {
   }, [move]);
 
   return (
-    <div className={styles.gradientBg}>
-      <svg className={styles.noiseBg} xmlns="http://www.w3.org/2000/svg">
+    <div className="gradient-bg">
+      <svg className="noiseBg" xmlns="http://www.w3.org/2000/svg">
         <filter id="noiseFilterBg">
           <feTurbulence type="fractalNoise" baseFrequency="0.6" stitchTiles="stitch" />
         </filter>
         <rect width="100%" height="100%" filter="url(#noiseFilterBg)" />
       </svg>
-      <svg className={styles.svgBlur} xmlns="http://www.w3.org/2000/svg">
+      <svg className="svgBlur" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <filter id="goo">
             <feGaussianBlur in="SourceGraphic" stdDeviation="20" result="blur" />
@@ -59,13 +58,13 @@ const GradientBg: React.FC = () => {
           </filter>
         </defs>
       </svg>
-      <div className={styles.gradientsContainer}>
-        <div className={styles.g1}></div>
-        <div className={styles.g2}></div>
-        <div className={styles.g3}></div>
-        <div className={styles.g4}></div>
-        <div className={styles.g5}></div>
-        <div ref={interBubbleRef} className={styles.interactive}></div>
+      <div className="gradients-container">
+        <div className="g1"></div>
+        <div className="g2"></div>
+        <div className="g3"></div>
+        <div className="g4"></div>
+        <div className="g5"></div>
+        <div ref={interBubbleRef} className="interactive"></div>
       </div>
     </div>
   );
