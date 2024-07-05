@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700");
+
+:root {
+  --color-bg1: rgb(8, 10, 15);
+  --color-bg2: rgb(0, 17, 32);
+  --color1: 255, 102, 0;
+  --color2: 255, 190, 17;
+  --color3: 165, 95, 0;
+  --color4: 250, 155, 0;
+  --color5: 255, 174, 53;
+  --color-interactive: 140, 100, 255;
+  --circle-size: 80%;
+  --blending: hard-light;
+}
