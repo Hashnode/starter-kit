@@ -44,14 +44,13 @@ type Props = {
   initialPageInfo: PageInfo;
 };
 
-export default function Index({
-  publication,
-  initialAllPosts,
-  initialPageInfo,
-}: Props) {
+export default function Index({ publication, initialAllPosts, initialPageInfo }: Props) {
   const [allPosts, setAllPosts] = useState<PostFragment[]>(initialAllPosts);
   const [pageInfo, setPageInfo] = useState<Props["initialPageInfo"]>(initialPageInfo);
   const [isLoading, setIsLoading] = useState(false);
+  const [fetchedPosts, setFetchedPosts] = useState(initialAllPosts);
+  const [displayedPosts, setDisplayedPosts] = useState(initialAllPosts.slice(0, 4));
+
   const observerRef = useRef<IntersectionObserver | null>(null);
   const loadingRef = useRef<HTMLDivElement>(null);
 
@@ -71,7 +70,8 @@ export default function Index({
       if (!data.publication) return;
 
       const newPosts = data.publication.posts.edges.map((edge) => edge.node);
-      setAllPosts(prevPosts => [...prevPosts, ...newPosts]);
+      setAllPosts((prevPosts) => [...prevPosts, ...newPosts]);
+      setFetchedPosts((prevPosts) => [...prevPosts, ...newPosts]); // Update fetchedPosts too
       setPageInfo(data.publication.posts.pageInfo);
     } catch (error) {
       console.error('Error loading more posts:', error);
@@ -99,22 +99,55 @@ export default function Index({
     };
   }, [loadMore]);
 
+  useEffect(() => {
+    // Prefetch the rest of the posts in the background
+    const fetchMorePosts = async () => {
+      if (pageInfo.hasNextPage) {
+        try {
+          const data = await request<
+            MorePostsByPublicationQuery,
+            MorePostsByPublicationQueryVariables
+          >(GQL_ENDPOINT, MorePostsByPublicationDocument, {
+            first: 10, // Fetch more than 4 posts in advance
+            host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
+            after: pageInfo.endCursor,
+          });
+          if (!data.publication) return;
+
+          const newPosts = data.publication.posts.edges.map((edge) => edge.node);
+          setFetchedPosts((prevPosts) => [...prevPosts, ...newPosts]);
+          setPageInfo(data.publication.posts.pageInfo);
+        } catch (error) {
+          console.error("Error pre-fetching posts:", error);
+        }
+      }
+    };
+    fetchMorePosts();
+  }, [initialPageInfo, pageInfo]); // Only run once when the initial page info is available
+
+  useEffect(() => {
+    // Load the initial posts
+    if (fetchedPosts.length > displayedPosts.length) {
+      setDisplayedPosts(fetchedPosts.slice(0, displayedPosts.length + 4));
+    }
+  }, [fetchedPosts]);
+
   const memoizedContent = useMemo(() => {
-    const firstPost = allPosts[0];
-    const secondaryPosts = allPosts.slice(1, 4).map((post) => (
+    const firstPost = displayedPosts[0]; // Use displayedPosts
+    const secondaryPosts = displayedPosts.slice(1, 4).map((post) => (
       <SecondaryPost
-        key={post.id}
-        title={post.title}
-        coverImage={post.coverImage?.url || DEFAULT_COVER}
-        date={post.publishedAt}
-        slug={post.slug}
-        excerpt={post.brief}
-      />
+        key={post.id}
+        title={post.title}
+        coverImage={post.coverImage?.url || DEFAULT_COVER}
+        date={post.publishedAt}
+        slug={post.slug}
+        excerpt={post.brief}
+      />
     ));
-    const morePosts = allPosts.slice(4);
+    const morePosts = displayedPosts.slice(4); // Use displayedPosts
 
     return { firstPost, secondaryPosts, morePosts };
-  }, [allPosts]);
+  }, [displayedPosts]); // Use displayedPosts here
 
   return (
     <AppProvider publication={publication}>
