@@ -17,6 +17,7 @@ import { SecondaryPost } from "../components/secondary-post";
 import FakeLighthouseScores from '../components/FakeLighthouseScores';
 import dynamic from 'next/dynamic';
 import ErrorBoundary from "../components/ErrorBoundary";
+import { DEFAULT_COVER } from "../utils/const";
 
 const PerformanceDashboard = dynamic(
   () => import('../components/PerformanceDashboard'),
@@ -34,7 +35,6 @@ import {
   PostsByPublicationQueryVariables,
   PublicationFragment,
 } from "../generated/graphql";
-import { DEFAULT_COVER } from "../utils/const";
 
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 
@@ -48,8 +48,6 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
   const [allPosts, setAllPosts] = useState<PostFragment[]>(initialAllPosts);
   const [pageInfo, setPageInfo] = useState<Props["initialPageInfo"]>(initialPageInfo);
   const [isLoading, setIsLoading] = useState(false);
-  const [fetchedPosts, setFetchedPosts] = useState(initialAllPosts);
-  const [displayedPosts, setDisplayedPosts] = useState(initialAllPosts.slice(0, 4));
 
   const observerRef = useRef<IntersectionObserver | null>(null);
   const loadingRef = useRef<HTMLDivElement>(null);
@@ -71,7 +69,6 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 
       const newPosts = data.publication.posts.edges.map((edge) => edge.node);
       setAllPosts((prevPosts) => [...prevPosts, ...newPosts]);
-      setFetchedPosts((prevPosts) => [...prevPosts, ...newPosts]); // Update fetchedPosts too
       setPageInfo(data.publication.posts.pageInfo);
     } catch (error) {
       console.error('Error loading more posts:', error);
@@ -85,9 +82,11 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 
     observerRef.current = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) loadMore();
+        if (entries[0].isIntersecting && !isLoading && pageInfo.hasNextPage) {
+          loadMore();
+        }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 } 
     );
 
     observerRef.current.observe(loadingRef.current);
@@ -97,57 +96,24 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
         observerRef.current.disconnect();
       }
     };
-  }, [loadMore]);
-
-  useEffect(() => {
-    // Prefetch the rest of the posts in the background
-    const fetchMorePosts = async () => {
-      if (pageInfo.hasNextPage) {
-        try {
-          const data = await request<
-            MorePostsByPublicationQuery,
-            MorePostsByPublicationQueryVariables
-          >(GQL_ENDPOINT, MorePostsByPublicationDocument, {
-            first: 10, // Fetch more than 4 posts in advance
-            host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
-            after: pageInfo.endCursor,
-          });
-          if (!data.publication) return;
-
-          const newPosts = data.publication.posts.edges.map((edge) => edge.node);
-          setFetchedPosts((prevPosts) => [...prevPosts, ...newPosts]);
-          setPageInfo(data.publication.posts.pageInfo);
-        } catch (error) {
-          console.error("Error pre-fetching posts:", error);
-        }
-      }
-    };
-    fetchMorePosts();
-  }, [initialPageInfo, pageInfo]); // Only run once when the initial page info is available
-
-  useEffect(() => {
-    // Load the initial posts
-    if (fetchedPosts.length > displayedPosts.length) {
-      setDisplayedPosts(fetchedPosts.slice(0, displayedPosts.length + 4));
-    }
-  }, [fetchedPosts]);
+  }, [loadMore, isLoading, pageInfo.hasNextPage]);
 
   const memoizedContent = useMemo(() => {
-    const firstPost = displayedPosts[0]; // Use displayedPosts
-    const secondaryPosts = displayedPosts.slice(1, 4).map((post) => (
+    const firstPost = allPosts[0];
+    const secondaryPosts = allPosts.slice(1, 4).map((post) => (
       <SecondaryPost
-        key={post.id}
-        title={post.title}
-        coverImage={post.coverImage?.url || DEFAULT_COVER}
-        date={post.publishedAt}
-        slug={post.slug}
-        excerpt={post.brief}
-      />
+        key={post.id}
+        title={post.title}
+        coverImage={post.coverImage?.url || DEFAULT_COVER}
+        date={post.publishedAt}
+        slug={post.slug}
+        excerpt={post.brief}
+      />
     ));
-    const morePosts = displayedPosts.slice(4); // Use displayedPosts
+    const morePosts = allPosts.slice(4);
 
     return { firstPost, secondaryPosts, morePosts };
-  }, [displayedPosts]); // Use displayedPosts here
+  }, [allPosts]);
 
   return (
     <AppProvider publication={publication}>
