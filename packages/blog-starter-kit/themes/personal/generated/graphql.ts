@@ -18,6 +18,31 @@ export type Scalars = {
   URL: { input: any; output: any; }
 };
 
+export type AcceptInviteToPublicationInput = {
+  /** The invitation token to accept. */
+  inviteToken: Scalars['String']['input'];
+};
+
+/** Response to accepting an invitation to join a publication. */
+export type AcceptInviteToPublicationPayload = {
+  __typename?: 'AcceptInviteToPublicationPayload';
+  /** Signifies if the mutation was successful. */
+  success: Scalars['Boolean']['output'];
+};
+
+/** Input to accept a role based invite. */
+export type AcceptRoleBasedInviteInput = {
+  /** Invite token of the role based invite. */
+  inviteToken: Scalars['String']['input'];
+};
+
+/** Input to toggle role based invite links. */
+export type AcceptRoleBasedInvitePayload = {
+  __typename?: 'AcceptRoleBasedInvitePayload';
+  /** Signifies if the mutation was successful. */
+  success: Scalars['Boolean']['output'];
+};
+
 export type AddCommentInput = {
   contentMarkdown: Scalars['String']['input'];
   postId: Scalars['ID']['input'];
@@ -137,6 +162,43 @@ export type CancelScheduledDraftPayload = {
   __typename?: 'CancelScheduledDraftPayload';
   /** Payload returned in response of cancel scheduled post mutation. */
   scheduledPost: ScheduledPost;
+};
+
+/** Input to change the role of a user in a publication. */
+export type ChangePublicationMemberRoleInput = {
+  /** The publication ID the user is a member of. */
+  publicationId: Scalars['ID']['input'];
+  /** The role of the user in the publication. */
+  role: UserPublicationRole;
+  /** The username of the user to change the role for. */
+  username: Scalars['String']['input'];
+};
+
+/** Response to changing the role of a user in a publication. */
+export type ChangePublicationMemberRolePayload = {
+  __typename?: 'ChangePublicationMemberRolePayload';
+  /** The updated publication member. */
+  member: PublicationMember;
+};
+
+/** Input to change the privacy state of a user in a publication. */
+export type ChangePublicationMemberVisibilityInput = {
+  /**
+   * The privacy state of the user in the publication.
+   * PRIVATE members are not visible on the members page while PUBLIC members are visible.
+   */
+  privacyState: PublicationMemberPrivacyState;
+  /** The publication ID the user is a member of. */
+  publicationId: Scalars['ID']['input'];
+  /** The username of the user to change the role for. */
+  username: Scalars['String']['input'];
+};
+
+/** Response to changing the privacy state of a user in a publication. */
+export type ChangePublicationMemberVisibilityPayload = {
+  __typename?: 'ChangePublicationMemberVisibilityPayload';
+  /** The updated publication member. */
+  member: PublicationMember;
 };
 
 /**
@@ -761,6 +823,11 @@ export type CreateDraftInput = {
   coverImageOptions?: InputMaybe<CoverImageOptionsInput>;
   /** A flag to indicate if the comments are disabled for the resulting draft. */
   disableComments?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * The id of the user who owns the draft. When this field is supplied, the draft is created directly under that user's account.
+   * Only applicable for team publications.
+   */
+  draftOwner?: InputMaybe<Scalars['ID']['input']>;
   /** Information about the meta tags added to the resulting draft, used for SEO purpose. */
   metaTags?: InputMaybe<MetaTagsInput>;
   /** The URL of the original article if the draft is imported from an external source. */
@@ -825,6 +892,41 @@ export type CreateDraftTagInput = {
    * Either this and name or id should be provided. If both are provided, the id will be used.
    */
   slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CreateRedirectionRuleInput = {
+  destination: Scalars['URL']['input'];
+  publicationId: Scalars['ID']['input'];
+  source: Scalars['String']['input'];
+  type: HttpRedirectionType;
+};
+
+export type CreateRedirectionRulePayload = {
+  __typename?: 'CreateRedirectionRulePayload';
+  redirectionRule: RedirectionRule;
+};
+
+/** Input to create a role based invite for a publication. */
+export type CreateRoleBasedInviteForPublicationInput = {
+  /** The capacity of how many members to be invited by the link. */
+  capacity?: InputMaybe<Scalars['Int']['input']>;
+  /** Boolean to enable unlimited capacity. */
+  enableUnlimitedCapacity?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The expiry date of the invite. */
+  expiryDate?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Invite token set for the invitation */
+  inviteToken?: InputMaybe<Scalars['String']['input']>;
+  /** The publication ID to create the invite for. */
+  publicationId: Scalars['ID']['input'];
+  /** The role to assign to the user in the publication. */
+  role: UserPublicationInviteRole;
+};
+
+/** Response to creating a role based invite for a publication. */
+export type CreateRoleBasedInviteForPublicationPayload = {
+  __typename?: 'CreateRoleBasedInviteForPublicationPayload';
+  /** The created role based invite. */
+  invite: RoleBasedInvite;
 };
 
 export type CreateSeriesInput = {
@@ -901,6 +1003,7 @@ export type DarkModePreferences = {
   logo?: Maybe<Scalars['String']['output']>;
 };
 
+/** Input to delete a role based invite. */
 export type DeleteRoleBasedInviteInput = {
   /** The ID of the role based invite. */
   inviteId: Scalars['ID']['input'];
@@ -968,8 +1071,8 @@ export type Draft = Node & {
   canonicalUrl?: Maybe<Scalars['String']['output']>;
   /**
    * Returns the user details of the co-authors of the post.
-   * Hashnode users can add up to 4 co-authors as collaborators to their posts.
-   * This functionality is limited to teams publication.
+   *
+   * Only available for team publications.
    */
   coAuthors?: Maybe<Array<User>>;
   /** Content of the draft in HTML and markdown */
@@ -985,6 +1088,12 @@ export type Draft = Node & {
   features: DraftFeatures;
   /** The ID of the draft. */
   id: Scalars['ID']['output'];
+  /**
+   * Whether or not the draft has been submitted for review.
+   *
+   * Only applicable to drafts in team publications.
+   */
+  isSubmittedForReview?: Maybe<Scalars['Boolean']['output']>;
   /** Information about the last backup of the draft. */
   lastBackup?: Maybe<DraftBackup>;
   /** The date the draft last failed to back up. */
@@ -993,6 +1102,8 @@ export type Draft = Node & {
   lastSuccessfulBackupAt?: Maybe<Scalars['DateTime']['output']>;
   /** OG meta-data of the draft. Contains image url used in open graph meta tags. */
   ogMetaData?: Maybe<OpenGraphMetaData>;
+  /** The publication the draft belongs to. */
+  publication?: Maybe<Publication>;
   readTimeInMinutes: Scalars['Int']['output'];
   /** The date the draft is scheduled to be published. */
   scheduledDate?: Maybe<Scalars['DateTime']['output']>;
@@ -1076,6 +1187,26 @@ export type DraftFeatures = {
   tableOfContents: TableOfContentsFeature;
 };
 
+export type DraftRevision = Node & {
+  __typename?: 'DraftRevision';
+  /** The name of the user who created the revision. */
+  authorName: Scalars['String']['output'];
+  /** The content of the draft revision. */
+  content: Content;
+  /** The time the revision has been created. */
+  createdAt: Scalars['DateTime']['output'];
+  /** The ID of the draft revision. */
+  id: Scalars['ID']['output'];
+};
+
+export type DraftRevisionEdge = Edge & {
+  __typename?: 'DraftRevisionEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String']['output'];
+  /** A node in the connection containing a draft revision. */
+  node: DraftRevision;
+};
+
 export type DraftSettings = {
   __typename?: 'DraftSettings';
   /** A flag to indicate if the comments are disabled for the post. */
@@ -1139,6 +1270,17 @@ export enum EmailImportStatus {
   Success = 'SUCCESS'
 }
 
+/** Invitations that failed to be sent to the user */
+export type FailedInvite = {
+  __typename?: 'FailedInvite';
+  /** The email of the user that failed to invite. */
+  email?: Maybe<Scalars['String']['output']>;
+  /** The reason why the user failed to invite. */
+  errorMessage: Scalars['String']['output'];
+  /** The username of the user that failed to invite. */
+  username?: Maybe<Scalars['String']['output']>;
+};
+
 /** Common fields that describe a feature. */
 export type Feature = {
   /** Whether the feature is enabled or not. */
@@ -1194,6 +1336,12 @@ export enum FeedType {
   /** Returns posts based on old personalization algorithm. */
   Relevant = 'RELEVANT'
 }
+
+export type GptBotCrawlingFeature = Feature & {
+  __typename?: 'GPTBotCrawlingFeature';
+  /** A flag indicating if the GPT Bot Crawler feature is enabled or not. */
+  isEnabled: Scalars['Boolean']['output'];
+};
 
 /** Views implementation that will be returned if grouping by browser. */
 export type GroupedByBrowserViews = Node & Views & {
@@ -1378,6 +1526,12 @@ export type GroupedByTimeVisitors = Node & Visitors & {
   total: Scalars['Int']['output'];
 };
 
+export type HeadlessCmsFeature = Feature & {
+  __typename?: 'HeadlessCMSFeature';
+  /** A flag indicating if the Headless CMS feature is enabled or not. */
+  isEnabled: Scalars['Boolean']['output'];
+};
+
 export enum HttpRedirectionType {
   /** A permanent redirect that corresponds to the 302 HTTP status code. */
   Permanent = 'PERMANENT',
@@ -1483,6 +1637,25 @@ export type IUserPublicationsArgs = {
   first: Scalars['Int']['input'];
 };
 
+/** Input to invite users to a publication. */
+export type InviteUsersToPublicationInput = {
+  /** The publication ID to invite users to. */
+  publicationId: Scalars['ID']['input'];
+  /** The list of users  to invite to the publication. */
+  users: Array<UserInviteInput>;
+};
+
+/** Response to inviting users to a publication. */
+export type InviteUsersToPublicationPayload = {
+  __typename?: 'InviteUsersToPublicationPayload';
+  /** Invites that failed due to an error. */
+  failedInvites: Array<FailedInvite>;
+  /** Signifies if the mutation was successful for all users. */
+  success: Scalars['Boolean']['output'];
+  /** The number of successful invites. */
+  successfulInviteCount: Scalars['Int']['output'];
+};
+
 export type LikeCommentInput = {
   commentId: Scalars['ID']['input'];
   likesCount?: InputMaybe<Scalars['Int']['input']>;
@@ -1526,6 +1699,10 @@ export type MetaTagsInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  /** Accepts an invitation to join a publication. The user is added as a member of the publication. */
+  acceptInviteToPublication: AcceptInviteToPublicationPayload;
+  /** Accepts a role based invite and adds the user as a member of the publication. The user is assigned the role specified in the invite. */
+  acceptRoleBasedInvite: AcceptRoleBasedInvitePayload;
   /** Adds a comment to a post. */
   addComment: AddCommentPayload;
   /** Adds a post to a series. */
@@ -1533,14 +1710,26 @@ export type Mutation = {
   /** Adds a reply to a comment. */
   addReply: AddReplyPayload;
   cancelScheduledDraft: CancelScheduledDraftPayload;
+  /** Changes the role of a user in a publication. */
+  changePublicationMemberRole: ChangePublicationMemberRolePayload;
+  /**
+   * Changes the privacy state of a user in a publication.
+   * PRIVATE members are not visible on the members page while PUBLIC members are visible.
+   */
+  changePublicationMemberVisibility: ChangePublicationMemberVisibilityPayload;
   /** Creates a new draft for a post. */
   createDraft: CreateDraftPayload;
+  createRedirectionRule: CreateRedirectionRulePayload;
+  /** Creates a role based invite for a publication and returns a link to invite users to a publication. */
+  createRoleBasedInviteForPublication: CreateRoleBasedInviteForPublicationPayload;
   /** Creates a new series. */
   createSeries: CreateSeriesPayload;
   createWebhook: CreateWebhookPayload;
   /** Deletes a role based invite. */
   deleteRoleBasedInvite: DeleteRoleBasedInvitePayload;
   deleteWebhook: DeleteWebhookPayload;
+  /** Invites users to a publication. Either by username or email. */
+  inviteUsersToPublication: InviteUsersToPublicationPayload;
   /** Likes a comment. */
   likeComment: LikeCommentPayload;
   /** Likes a post. */
@@ -1552,11 +1741,16 @@ export type Mutation = {
   /** Creates a new post. */
   publishPost: PublishPostPayload;
   recommendPublications: RecommendPublicationsPayload;
+  /** Resends an invitation to a user to join a publication. The user must have been previously invited. Sends an email to the user. */
+  reinviteUserToPublication: ReinviteUserToPublicationPayload;
   /** Removes a comment from a post. */
   removeComment: RemoveCommentPayload;
   /** Removes a post. */
   removePost: RemovePostPayload;
+  /** Removes a user from a teams publication. */
+  removePublicationMember: RemovePublicationMemberPayload;
   removeRecommendation: RemoveRecommendationPayload;
+  removeRedirectionRule: RemoveRedirectionRulePayload;
   /** Removes a reply from a comment. */
   removeReply: RemoveReplyPayload;
   /** Removes a series. */
@@ -1566,8 +1760,12 @@ export type Mutation = {
   resendWebhookRequest: ResendWebhookRequestPayload;
   /** Restores a deleted post. */
   restorePost: RestorePostPayload;
+  /** Revokes a user invitation that was sent to join a publication. */
+  revokeUserInviteToPublication: RevokeUserInviteToPublicationPayload;
   scheduleDraft: ScheduleDraftPayload;
   subscribeToNewsletter: SubscribeToNewsletterPayload;
+  /** Toggle allowContributorEdits flag to allow or restrict external contributors to further edit published articles. */
+  toggleAllowContributorEdits: ToggleAllowContributorEditsPayload;
   /**
    * Update the follow state for the user that is provided via id or username.
    * If the authenticated user does not follow the user, the mutation will follow the user.
@@ -1575,16 +1773,35 @@ export type Mutation = {
    * Only available to the authenticated user.
    */
   toggleFollowUser: ToggleFollowUserPayload;
+  /** Toggle GPT bot crawling feature. */
+  toggleGPTBotCrawling: ToggleGptBotCrawlingPayload;
+  /** Toggles role based invite links' active status. Users can join the publication by the invite link only if it is active. */
+  toggleRoleBasedInviteLinks: ToggleRoleBasedInviteLinksPayload;
+  /** Toggle text selection sharer feature. */
+  toggleTextSelectionSharer: ToggleTextSelectionSharerPayload;
   triggerWebhookTest: TriggerWebhookTestPayload;
   unsubscribeFromNewsletter: UnsubscribeFromNewsletterPayload;
   /** Updates a comment on a post. */
   updateComment: UpdateCommentPayload;
   updatePost: UpdatePostPayload;
+  updateRedirectionRule: UpdateRedirectionRulePayload;
   /** Updates a reply */
   updateReply: UpdateReplyPayload;
+  /** Updates a role based invite for a publication. */
+  updateRoleBasedInvite: UpdateRoleBasedInvitePayload;
   /** Updates a series. */
   updateSeries: UpdateSeriesPayload;
   updateWebhook: UpdateWebhookPayload;
+};
+
+
+export type MutationAcceptInviteToPublicationArgs = {
+  input: AcceptInviteToPublicationInput;
+};
+
+
+export type MutationAcceptRoleBasedInviteArgs = {
+  input: AcceptRoleBasedInviteInput;
 };
 
 
@@ -1608,8 +1825,28 @@ export type MutationCancelScheduledDraftArgs = {
 };
 
 
+export type MutationChangePublicationMemberRoleArgs = {
+  input: ChangePublicationMemberRoleInput;
+};
+
+
+export type MutationChangePublicationMemberVisibilityArgs = {
+  input: ChangePublicationMemberVisibilityInput;
+};
+
+
 export type MutationCreateDraftArgs = {
   input: CreateDraftInput;
+};
+
+
+export type MutationCreateRedirectionRuleArgs = {
+  input: CreateRedirectionRuleInput;
+};
+
+
+export type MutationCreateRoleBasedInviteForPublicationArgs = {
+  input: CreateRoleBasedInviteForPublicationInput;
 };
 
 
@@ -1630,6 +1867,11 @@ export type MutationDeleteRoleBasedInviteArgs = {
 
 export type MutationDeleteWebhookArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type MutationInviteUsersToPublicationArgs = {
+  input: InviteUsersToPublicationInput;
 };
 
 
@@ -1663,6 +1905,11 @@ export type MutationRecommendPublicationsArgs = {
 };
 
 
+export type MutationReinviteUserToPublicationArgs = {
+  input: ReinviteUserToPublicationInput;
+};
+
+
 export type MutationRemoveCommentArgs = {
   input: RemoveCommentInput;
 };
@@ -1673,8 +1920,18 @@ export type MutationRemovePostArgs = {
 };
 
 
+export type MutationRemovePublicationMemberArgs = {
+  input: RemovePublicationMemberInput;
+};
+
+
 export type MutationRemoveRecommendationArgs = {
   input: RemoveRecommendationInput;
+};
+
+
+export type MutationRemoveRedirectionRuleArgs = {
+  input: RemoveRedirectionRuleInput;
 };
 
 
@@ -1703,6 +1960,11 @@ export type MutationRestorePostArgs = {
 };
 
 
+export type MutationRevokeUserInviteToPublicationArgs = {
+  input: RevokeUserInviteToPublicationInput;
+};
+
+
 export type MutationScheduleDraftArgs = {
   input: ScheduleDraftInput;
 };
@@ -1713,9 +1975,29 @@ export type MutationSubscribeToNewsletterArgs = {
 };
 
 
+export type MutationToggleAllowContributorEditsArgs = {
+  input: ToggleAllowContributorEditsInput;
+};
+
+
 export type MutationToggleFollowUserArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   username?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type MutationToggleGptBotCrawlingArgs = {
+  input: ToggleGptBotCrawlingInput;
+};
+
+
+export type MutationToggleRoleBasedInviteLinksArgs = {
+  publicationId: Scalars['ID']['input'];
+};
+
+
+export type MutationToggleTextSelectionSharerArgs = {
+  input: ToggleTextSelectionSharerInput;
 };
 
 
@@ -1739,8 +2021,18 @@ export type MutationUpdatePostArgs = {
 };
 
 
+export type MutationUpdateRedirectionRuleArgs = {
+  input: UpdateRedirectionRuleInput;
+};
+
+
 export type MutationUpdateReplyArgs = {
   input: UpdateReplyInput;
+};
+
+
+export type MutationUpdateRoleBasedInviteArgs = {
+  input: UpdateRoleBasedInviteInput;
 };
 
 
@@ -1776,6 +2068,9 @@ export type MyUser = IUser & Node & {
   dateJoined?: Maybe<Scalars['DateTime']['output']>;
   /** Whether or not the user is deactivated. */
   deactivated: Scalars['Boolean']['output'];
+  drafts: UserDraftConnection;
+  /** Email address of the user. Only available to the authenticated user. */
+  email: Scalars['String']['output'];
   /** The users who are following this user */
   followers: UserConnection;
   /** The number of users that follow the requested user. Visible in the user's profile. */
@@ -1797,6 +2092,8 @@ export type MyUser = IUser & Node & {
   provider?: Maybe<Scalars['String']['output']>;
   /** Publications associated with the user. Includes personal and team publications. */
   publications: UserPublicationsConnection;
+  /** Returns the user's role if any. */
+  role: UserRole;
   /** The social media links of the user. Shown on the user's profile. */
   socialMediaLinks?: Maybe<SocialMediaLinks>;
   /** The tagline of the user. Shown on the user's profile below the name. */
@@ -1805,6 +2102,16 @@ export type MyUser = IUser & Node & {
   tagsFollowing: Array<Tag>;
   /** The username of the user. It is unique and tied with user's profile URL. Example - https://hashnode.com/@username */
   username: Scalars['String']['output'];
+};
+
+
+/**
+ * Basic information about the authenticated user.
+ * User must be authenticated to use this type.
+ */
+export type MyUserDraftsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  first: Scalars['Int']['input'];
 };
 
 
@@ -1876,7 +2183,7 @@ export type NewsletterRecord = Node & {
   /** The number of subscribers the newsletter was opened by. */
   openCount: Scalars['Int']['output'];
   /** Associated post it was sent with */
-  post: Post;
+  post?: Maybe<Post>;
   /** The date the newsletter was sent. */
   sentAt: Scalars['DateTime']['output'];
   /** The number of subscribers the newsletter was sent to. */
@@ -1977,6 +2284,7 @@ export type PagesPreferences = {
   newsletter?: Maybe<Scalars['Boolean']['output']>;
 };
 
+/** Contains the pending invite information. */
 export type PendingInvite = Node & {
   __typename?: 'PendingInvite';
   /** The email of the user that was invited. */
@@ -1987,6 +2295,16 @@ export type PendingInvite = Node & {
   role: UserPublicationRole;
   /** Invited Hashnode user, returns null if the user is not a Hashnode user. */
   user?: Maybe<User>;
+};
+
+export type PendingInviteConnection = PageConnection & {
+  __typename?: 'PendingInviteConnection';
+  /** A list of invites */
+  nodes: Array<PendingInvite>;
+  /** Information to aid in pagination. */
+  pageInfo: OffsetPageInfo;
+  /** The total number of invites. */
+  totalDocuments: Scalars['Int']['output'];
 };
 
 /** Contains basic information about the tag returned by popularTags query. */
@@ -2089,6 +2407,14 @@ export type Post = Node & {
   ogMetaData?: Maybe<OpenGraphMetaData>;
   /** Preference settings for the post. Contains information about if the post is pinned to blog, comments are disabled, etc. */
   preferences: PostPreferences;
+  /**
+   * The previous slugs of the post. Only present if the slug has been changed.
+   *
+   * This could be used to create redirects for all posts from all previous slugs to the current slug.
+   *
+   * The latest slug is always the first element in the array.
+   */
+  previousSlugs: Array<Scalars['String']['output']>;
   /** The publication the post belongs to. */
   publication?: Maybe<Publication>;
   /** The date and time the post was published. */
@@ -2344,6 +2670,12 @@ export type Preferences = {
   navbarItems: Array<PublicationNavbarItem>;
 };
 
+export type ProTeamFeature = Feature & {
+  __typename?: 'ProTeamFeature';
+  /** A flag indicating if the Pro team feature is enabled or not. */
+  isEnabled: Scalars['Boolean']['output'];
+};
+
 /**
  * Contains basic information about the publication.
  * A publication is a blog that can be created for a user or a team.
@@ -2352,6 +2684,10 @@ export type Publication = Node & {
   __typename?: 'Publication';
   /** The about section of the publication. */
   about?: Maybe<Content>;
+  /** Returns the list of drafts in the publication */
+  allDrafts: DraftConnection;
+  /** Returns all the scheduled drafts of the publication. */
+  allScheduledDrafts: DraftConnection;
   /** Boolean flag indicating if the publication allows edits by contributors */
   allowContributorEdits: Scalars['Boolean']['output'];
   /** The author who owns the publication. */
@@ -2364,7 +2700,7 @@ export type Publication = Node & {
   displayTitle?: Maybe<Scalars['String']['output']>;
   /** Domain information of the publication. */
   domainInfo: DomainInfo;
-  /** Returns the list of drafts in the publication. */
+  /** Returns the list of drafts of the authenticated user in the publication. */
   drafts: DraftConnection;
   /** Returns the publication's email imports, used with newsletter feature. */
   emailImport?: Maybe<EmailImport>;
@@ -2389,8 +2725,12 @@ export type Publication = Node & {
   imprintV2?: Maybe<Content>;
   /** The integrations connected to the publication. */
   integrations?: Maybe<PublicationIntegrations>;
+  /** Details of publication invites. Returns null if publication is not a team publication. */
+  invites?: Maybe<PublicationInvite>;
   /** Returns true if GitHub backup is configured and active and false otherwise. */
   isGitHubBackupEnabled: Scalars['Boolean']['output'];
+  /** Returns whether the publication's GitHub source repo is connected. */
+  isGithubAsSourceConnected: Scalars['Boolean']['output'];
   /** A flag to indicate if the publication is using Headless CMS. This can be used to check if the post redirect needs authentication. */
   isHeadless: Scalars['Boolean']['output'];
   /** True if the publication is a team publication and false otherwise. */
@@ -2414,9 +2754,18 @@ export type Publication = Node & {
   recommendedPublications: Array<UserRecommendedPublicationEdge>;
   /** Publications that are recommending this publication. */
   recommendingPublications: PublicationUserRecommendingPublicationConnection;
+  /**
+   * Returns a post by a previous slug. It does not resolve a post by its current slug.
+   *
+   * If a slug has been changed, we'll create a redirect from the old slug to the new one.
+   * With `redirectedPost` you can resolve a post by the old slug.
+   *
+   * This can be used to redirect a user to the new post slug (via `redirectedPost.slug`).
+   */
+  redirectedPost?: Maybe<Post>;
   /** Configured redirection rules for the publication. */
   redirectionRules: Array<RedirectionRule>;
-  /** Returns the scheduled drafts of the publication. */
+  /** Returns the scheduled drafts of the publication by the authenticated user. */
   scheduledDrafts: DraftConnection;
   /** Returns series by slug in the publication. */
   series?: Maybe<Series>;
@@ -2441,6 +2790,26 @@ export type Publication = Node & {
   url: Scalars['String']['output'];
   /** Determines the structure of the post URLs. */
   urlPattern: UrlPattern;
+};
+
+
+/**
+ * Contains basic information about the publication.
+ * A publication is a blog that can be created for a user or a team.
+ */
+export type PublicationAllDraftsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  first: Scalars['Int']['input'];
+};
+
+
+/**
+ * Contains basic information about the publication.
+ * A publication is a blog that can be created for a user or a team.
+ */
+export type PublicationAllScheduledDraftsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  first: Scalars['Int']['input'];
 };
 
 
@@ -2480,6 +2849,7 @@ export type PublicationPostsArgs = {
  * A publication is a blog that can be created for a user or a team.
  */
 export type PublicationPostsViaPageArgs = {
+  filter?: InputMaybe<PublicationPostsViaPageFilter>;
   page: Scalars['Int']['input'];
   pageSize: Scalars['Int']['input'];
 };
@@ -2492,6 +2862,15 @@ export type PublicationPostsViaPageArgs = {
 export type PublicationRecommendingPublicationsArgs = {
   page: Scalars['Int']['input'];
   pageSize: Scalars['Int']['input'];
+};
+
+
+/**
+ * Contains basic information about the publication.
+ * A publication is a blog that can be created for a user or a team.
+ */
+export type PublicationRedirectedPostArgs = {
+  slug: Scalars['String']['input'];
 };
 
 
@@ -2573,8 +2952,14 @@ export type PublicationFeatures = {
   audioBlog: AudioBlogFeature;
   /** Individual styling for the publication. */
   customCSS: CustomCssFeature;
+  /** GPT Bot crawler to index the publication. */
+  gptBotCrawling: GptBotCrawlingFeature;
+  /** Headless CMS for the publication. */
+  headlessCMS: HeadlessCmsFeature;
   /** Newsletter feature for the publication which adds a `/newsletter` route for collecting subscribers and allows sending out newsletters. */
   newsletter: NewsletterFeature;
+  /** Flag to denote if publication is a pro team's publication. */
+  proTeam: ProTeamFeature;
   /** Show the read time for blog posts. */
   readTime: ReadTimeFeature;
   /** Widget that shows up if a text on a blog post is selected. Allows for easy sharing or copying of the selected text. */
@@ -2615,6 +3000,33 @@ export type PublicationIntegrations = {
   umamiWebsiteUUID?: Maybe<Scalars['String']['output']>;
   /** Web Monetization Payment Pointer for integration with Web Monetization. */
   wmPaymentPointer?: Maybe<Scalars['String']['output']>;
+};
+
+/** Contains the publication invite information. */
+export type PublicationInvite = {
+  __typename?: 'PublicationInvite';
+  /**
+   * Signifies if invite links in role-based invites are active.
+   * Users trying to join by role-based invite can only join if this is enabled.
+   */
+  areRoleBasedInviteLinksActive: Scalars['Boolean']['output'];
+  pendingInvites: PendingInviteConnection;
+  /** The paginated list of role based invites. */
+  roleBasedInvites: RoleBasedInviteConnection;
+};
+
+
+/** Contains the publication invite information. */
+export type PublicationInvitePendingInvitesArgs = {
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+};
+
+
+/** Contains the publication invite information. */
+export type PublicationInviteRoleBasedInvitesArgs = {
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
 };
 
 /** Contains publication's layout choices. */
@@ -2669,6 +3081,7 @@ export type PublicationMember = Node & {
   user?: Maybe<User>;
 };
 
+/** Publication member privacy state on members page */
 export enum PublicationMemberPrivacyState {
   /** The member is private and not visible on the members page. */
   Private = 'PRIVATE',
@@ -2754,6 +3167,23 @@ export type PublicationPostPageConnection = PageConnection & {
   pageInfo: OffsetPageInfo;
   /** The total number of posts. */
   totalDocuments: Scalars['Int']['output'];
+};
+
+export type PublicationPostsViaPageFilter = {
+  /** Remove pinned post from the result set. */
+  excludePinnedPosts?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * Filtering by tag slugs and tag IDs will return posts that match either of the filters.
+   *
+   * It is an "OR" filter and not an "AND" filter.
+   */
+  tagSlugs?: InputMaybe<Array<Scalars['String']['input']>>;
+  /**
+   * Filtering by tag slugs and tag IDs will return posts that match either of the filters.
+   *
+   * It is an "OR" filter and not an "AND" filter.
+   */
+  tags?: InputMaybe<Array<Scalars['ID']['input']>>;
 };
 
 /**
@@ -3024,6 +3454,21 @@ export type RedirectionRule = Node & {
   type: HttpRedirectionType;
 };
 
+/** Input to reinvite a user to a publication. */
+export type ReinviteUserToPublicationInput = {
+  /** The ID of the invitation to resend. */
+  inviteId: Scalars['ID']['input'];
+  /** The publication ID to resend the invitation from. */
+  publicationId: Scalars['ID']['input'];
+};
+
+/** Response to reinviting a user to a publication. */
+export type ReinviteUserToPublicationPayload = {
+  __typename?: 'ReinviteUserToPublicationPayload';
+  /** Signifies if the mutation was successful. */
+  success: Scalars['Boolean']['output'];
+};
+
 export type RemoveCommentInput = {
   id: Scalars['ID']['input'];
 };
@@ -3044,6 +3489,21 @@ export type RemovePostPayload = {
   post?: Maybe<Post>;
 };
 
+/** Input to remove a user from a publication. */
+export type RemovePublicationMemberInput = {
+  /** The publication ID the user is a member of. */
+  publicationId: Scalars['ID']['input'];
+  /** The username of the user to remove from the publication. */
+  username: Scalars['String']['input'];
+};
+
+/** Response to removing a user from a publication. */
+export type RemovePublicationMemberPayload = {
+  __typename?: 'RemovePublicationMemberPayload';
+  /** Returns the removed publication member. */
+  member: PublicationMember;
+};
+
 export type RemoveRecommendationInput = {
   recommendedPublicationId: Scalars['ID']['input'];
   recommendingPublicationId: Scalars['ID']['input'];
@@ -3052,6 +3512,16 @@ export type RemoveRecommendationInput = {
 export type RemoveRecommendationPayload = {
   __typename?: 'RemoveRecommendationPayload';
   recommendedPublication: Publication;
+};
+
+export type RemoveRedirectionRuleInput = {
+  id: Scalars['ID']['input'];
+  publicationId: Scalars['ID']['input'];
+};
+
+export type RemoveRedirectionRulePayload = {
+  __typename?: 'RemoveRedirectionRulePayload';
+  redirectionRule: RedirectionRule;
 };
 
 export type RemoveReplyInput = {
@@ -3132,10 +3602,28 @@ export type RestorePostPayload = {
   post?: Maybe<Post>;
 };
 
+/** Input to revoke a user invitation to a publication. */
+export type RevokeUserInviteToPublicationInput = {
+  /** The invite ID to revoke. */
+  inviteId: Scalars['ID']['input'];
+  /** The publication ID to revoke the invite from. */
+  publicationId: Scalars['ID']['input'];
+};
+
+/** Response to revoking a user invitation to a publication. */
+export type RevokeUserInviteToPublicationPayload = {
+  __typename?: 'RevokeUserInviteToPublicationPayload';
+  /** Signifies if the mutation was successful. */
+  success: Scalars['Boolean']['output'];
+};
+
+/** Contains the role based invite information. */
 export type RoleBasedInvite = Node & {
   __typename?: 'RoleBasedInvite';
   /** The capacity of how many members to be invited by the link. */
   capacity?: Maybe<Scalars['Int']['output']>;
+  /** The date the invite was created. */
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
   /** The expiry date of the invite. */
   expiryDate?: Maybe<Scalars['DateTime']['output']>;
   /** The ID of the role based invite. */
@@ -3146,6 +3634,18 @@ export type RoleBasedInvite = Node & {
   isUnlimitedCapacity?: Maybe<Scalars['Boolean']['output']>;
   /** The role assigned to the user in the publication. */
   role: UserPublicationRole;
+  /** The number of members that have already used the link to join the team. */
+  usedCapacity?: Maybe<Scalars['Int']['output']>;
+};
+
+export type RoleBasedInviteConnection = PageConnection & {
+  __typename?: 'RoleBasedInviteConnection';
+  /** A list of invites */
+  nodes: Array<RoleBasedInvite>;
+  /** Information to aid in pagination. */
+  pageInfo: OffsetPageInfo;
+  /** The total number of invites. */
+  totalDocuments: Scalars['Int']['output'];
 };
 
 /** Information to help in seo related meta tags. */
@@ -3199,27 +3699,34 @@ export enum Scope {
   AssignProPublications = 'assign_pro_publications',
   ChangeProSubscription = 'change_pro_subscription',
   CreatePro = 'create_pro',
+  DeleteDraft = 'delete_draft',
   DocsEditorOrOwner = 'docs_editor_or_owner',
   DocsOwner = 'docs_owner',
   ImportSubscribersToPublication = 'import_subscribers_to_publication',
   InvitedTeamUser = 'invited_team_user',
+  MoveDraft = 'move_draft',
   PublicationAdmin = 'publication_admin',
+  PublicationAuthor = 'publication_author',
   PublicationMember = 'publication_member',
   PublishComment = 'publish_comment',
   PublishDraft = 'publish_draft',
   PublishPost = 'publish_post',
   PublishReply = 'publish_reply',
   RecommendPublications = 'recommend_publications',
+  RejectDraftSubmission = 'reject_draft_submission',
   RemoveComment = 'remove_comment',
   RemoveReply = 'remove_reply',
   RestorePost = 'restore_post',
   Signup = 'signup',
+  SubmitDraft = 'submit_draft',
   TeamHashnode = 'team_hashnode',
   UpdateComment = 'update_comment',
+  UpdateDraft = 'update_draft',
   UpdatePost = 'update_post',
   UpdateReply = 'update_reply',
   WebhookAdmin = 'webhook_admin',
   WriteDraft = 'write_draft',
+  WriteDraftRevision = 'write_draft_revision',
   WritePost = 'write_post',
   WriteSeries = 'write_series',
   WriteStaticPage = 'write_static_page',
@@ -3240,12 +3747,14 @@ export type SearchPostConnection = Connection & {
 };
 
 export type SearchPostsOfPublicationFilter = {
+  /** An array of author Ids to filter the posts. */
+  authorIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   /** Only return posts that are deleted. Query returns active posts by default, set this to true to return deleted posts. */
   deletedOnly?: InputMaybe<Scalars['Boolean']['input']>;
   /** The ID of publications to search from. */
   publicationId: Scalars['ObjectId']['input'];
   /** The query to be searched in post. */
-  query: Scalars['String']['input'];
+  query?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type SearchUser = Node & {
@@ -3378,7 +3887,7 @@ export type StaticPage = Node & {
   ogMetaData?: Maybe<OpenGraphMetaData>;
   /** Information about the static page's SEO metadata i.e. title and description. */
   seo?: Maybe<Seo>;
-  /** The slug of the static page. Used to access static page.  Example https://johndoe.com/my-page */
+  /** The slug of the static page. Used to access static page. Example `https://johndoe.com/my-page`. */
   slug: Scalars['String']['output'];
   /** The title of the static page. Shown in nav bar. */
   title: Scalars['String']['output'];
@@ -3516,11 +4025,45 @@ export type TextSelectionSharerFeature = Feature & {
   isEnabled: Scalars['Boolean']['output'];
 };
 
+export type ToggleAllowContributorEditsInput = {
+  publicationId: Scalars['ID']['input'];
+};
+
+export type ToggleAllowContributorEditsPayload = {
+  __typename?: 'ToggleAllowContributorEditsPayload';
+  publication?: Maybe<Publication>;
+};
+
 /** Payload for the toggleFollowingUser mutation. */
 export type ToggleFollowUserPayload = {
   __typename?: 'ToggleFollowUserPayload';
   /** The user that was followed/unfollowed. */
   user?: Maybe<User>;
+};
+
+export type ToggleGptBotCrawlingInput = {
+  publicationId: Scalars['ID']['input'];
+};
+
+export type ToggleGptBotCrawlingPayload = {
+  __typename?: 'ToggleGPTBotCrawlingPayload';
+  publication?: Maybe<Publication>;
+};
+
+/** Response to toggling role based invite links. */
+export type ToggleRoleBasedInviteLinksPayload = {
+  __typename?: 'ToggleRoleBasedInviteLinksPayload';
+  /** Signifies the status of invite links after toggling. */
+  areRoleBasedInviteLinksActive: Scalars['Boolean']['output'];
+};
+
+export type ToggleTextSelectionSharerInput = {
+  publicationId: Scalars['ID']['input'];
+};
+
+export type ToggleTextSelectionSharerPayload = {
+  __typename?: 'ToggleTextSelectionSharerPayload';
+  publication?: Maybe<Publication>;
 };
 
 export type TriggerWebhookTestInput = {
@@ -3628,6 +4171,19 @@ export type UpdatePostSettingsInput = {
   pinToBlog?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+export type UpdateRedirectionRuleInput = {
+  destination?: InputMaybe<Scalars['URL']['input']>;
+  id: Scalars['ID']['input'];
+  publicationId: Scalars['ID']['input'];
+  source?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<HttpRedirectionType>;
+};
+
+export type UpdateRedirectionRulePayload = {
+  __typename?: 'UpdateRedirectionRulePayload';
+  redirectionRule: RedirectionRule;
+};
+
 export type UpdateReplyInput = {
   commentId: Scalars['ID']['input'];
   contentMarkdown: Scalars['String']['input'];
@@ -3637,6 +4193,28 @@ export type UpdateReplyInput = {
 export type UpdateReplyPayload = {
   __typename?: 'UpdateReplyPayload';
   reply?: Maybe<Reply>;
+};
+
+/** Input to update a role based invite. */
+export type UpdateRoleBasedInviteInput = {
+  /** The capacity of how many members to be invited by the link. */
+  capacity?: InputMaybe<Scalars['Int']['input']>;
+  /** Boolean to enable unlimited capacity. */
+  enableUnlimitedCapacity?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The expiry date of the invite. */
+  expiryDate?: InputMaybe<Scalars['DateTime']['input']>;
+  /** The ID of the role based invite. */
+  inviteId: Scalars['ID']['input'];
+  publicationId: Scalars['ID']['input'];
+  /** The role to assign to the user in the publication. */
+  role?: InputMaybe<UserPublicationInviteRole>;
+};
+
+/** Response to updating a role based invite for a publication. */
+export type UpdateRoleBasedInvitePayload = {
+  __typename?: 'UpdateRoleBasedInvitePayload';
+  /** The updated role based invite. */
+  invite: RoleBasedInvite;
 };
 
 export type UpdateSeriesInput = {
@@ -3790,6 +4368,26 @@ export type UserConnection = PageConnection & {
   totalDocuments: Scalars['Int']['output'];
 };
 
+/** Drafts that belong to a user. */
+export type UserDraftConnection = Connection & {
+  __typename?: 'UserDraftConnection';
+  /** A list of edges. */
+  edges: Array<UserDraftEdge>;
+  /** Generic information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The total number of documents in the connection. */
+  totalDocuments: Scalars['Int']['output'];
+};
+
+/** A generic type which holds a draft during pagination. */
+export type UserDraftEdge = Edge & {
+  __typename?: 'UserDraftEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String']['output'];
+  /** The item at the end of UserDraftEdge. */
+  node: Draft;
+};
+
 /** Contains a node of type user and cursor for pagination. */
 export type UserEdge = Edge & {
   __typename?: 'UserEdge';
@@ -3797,6 +4395,15 @@ export type UserEdge = Edge & {
   cursor: Scalars['String']['output'];
   /** The node containing User information */
   node: User;
+};
+
+export type UserInviteInput = {
+  /** The email of the user to invite to the publication. */
+  email?: InputMaybe<Scalars['String']['input']>;
+  /** The role to assign to the user in the publication. */
+  role: UserPublicationInviteRole;
+  /** Username of the user to invite to the publication. */
+  username?: InputMaybe<Scalars['String']['input']>;
 };
 
 /**
@@ -3862,6 +4469,17 @@ export enum UserPostsSort {
   DatePublishedDesc = 'DATE_PUBLISHED_DESC'
 }
 
+/** The invited role of the user in the publication. */
+export enum UserPublicationInviteRole {
+  /** Contributors can join the publication and contribute an article. They cannot directly publish a new article. */
+  Contributor = 'CONTRIBUTOR',
+  /**
+   * The editor has access to the publication dashboard to customize the blog and approve/reject posts.
+   * They also have access to the member panel to add/modify/remove members. Editors cannot remove other editors or update their roles.
+   */
+  Editor = 'EDITOR'
+}
+
 /** The role of the user in the publication. */
 export enum UserPublicationRole {
   /** Contributors can join the publication and contribute an article. They cannot directly publish a new article. */
@@ -3923,6 +4541,17 @@ export type UserRecommendingPublicationEdge = {
   /** The amount of followers the publication has gained by recommendations from the publication referenced in `node`. */
   totalFollowersGained: Scalars['Int']['output'];
 };
+
+/** Role of the user within Hashnode */
+export enum UserRole {
+  Moderator = 'MODERATOR',
+  Superuser = 'SUPERUSER',
+  User = 'USER'
+}
+
+export enum ValidationMethod {
+  Id = 'ID'
+}
 
 /**
  * Contains the flag indicating if the view count feature is enabled or not.
