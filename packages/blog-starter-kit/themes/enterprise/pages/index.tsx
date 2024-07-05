@@ -10,7 +10,6 @@ import { AppProvider } from "../components/contexts/appContext";
 import { Footer } from "../components/footer";
 import { HeroPost } from "../components/hero-post";
 import { ArticleSVG } from "../components/icons";
-import styles from '../styles/SketchButton.module.css';
 import { Layout } from "../components/layout";
 import { MorePosts } from "../components/more-posts";
 import { SecondaryPost } from "../components/secondary-post";
