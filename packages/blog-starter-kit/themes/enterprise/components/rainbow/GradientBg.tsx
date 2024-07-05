@@ -1,11 +1,33 @@
 import React, { useMemo, useState, useEffect } from "react";
 
-const getRandomPosition = () => ({
-  x: Math.random() * 100 - 50,
-  y: Math.random() * 100 - 50
-});
+// Ekranın köşelerinde ve kenarlarında pozisyon oluştur
+const getCornerPosition = () => {
+  const side = Math.floor(Math.random() * 4); // 0: üst, 1: sağ, 2: alt, 3: sol
+  let x, y;
 
-const getRandomDuration = () => Math.random() * 10 + 20; // 20-30 saniye arası
+  switch (side) {
+    case 0: // üst
+      x = Math.random() * 100;
+      y = Math.random() * 20 - 20; // -20% ile 0% arası
+      break;
+    case 1: // sağ
+      x = Math.random() * 20 + 80; // 80% ile 100% arası
+      y = Math.random() * 100;
+      break;
+    case 2: // alt
+      x = Math.random() * 100;
+      y = Math.random() * 20 + 80; // 80% ile 100% arası
+      break;
+    case 3: // sol
+      x = Math.random() * 20 - 20; // -20% ile 0% arası
+      y = Math.random() * 100;
+      break;
+  }
+
+  return { x, y };
+};
+
+const getRandomDuration = () => Math.random() * 10 + 30; // 30-40 saniye arası
 
 const GradientBg: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -14,18 +36,18 @@ const GradientBg: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoaded(true);
-      setTimeout(() => setIsVisible(true), 50); // Kısa bir gecikme ile opacity değişimini tetikle
-    }, 1000); // 1 saniye gecikme ile yüklemeyi başlat
+      setTimeout(() => setIsVisible(true), 50);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
 
   const gradients = useMemo(() => [
-    { class: 'g1', ...getRandomPosition(), duration: getRandomDuration() },
-    { class: 'g2', ...getRandomPosition(), duration: getRandomDuration() },
-    { class: 'g3', ...getRandomPosition(), duration: getRandomDuration() },
-    { class: 'g4', ...getRandomPosition(), duration: getRandomDuration() },
-    { class: 'g5', ...getRandomPosition(), duration: getRandomDuration() },
+    { class: 'g1', ...getCornerPosition(), duration: getRandomDuration() },
+    { class: 'g2', ...getCornerPosition(), duration: getRandomDuration() },
+    { class: 'g3', ...getCornerPosition(), duration: getRandomDuration() },
+    { class: 'g4', ...getCornerPosition(), duration: getRandomDuration() },
+    { class: 'g5', ...getCornerPosition(), duration: getRandomDuration() },
   ], []);
 
   if (!isLoaded) {

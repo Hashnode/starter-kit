@@ -1,82 +1,3 @@
-@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap");
-
-:root {
-  --color-bg1: rgb(8, 10, 15);
-  --color-bg2: rgb(0, 17, 32);
-  --color1: 255, 102, 0;
-  --color2: 255, 190, 17;
-  --color3: 165, 95, 0;
-  --color4: 250, 155, 0;
-  --color5: 255, 174, 53;
-  --color-interactive: 140, 100, 255;
-  --circle-size: 80%;
-  --blending: hard-light;
-}
-
-.z-1 {
-  z-index: 1;
-}
-
-.card {
-  position: absolute;
-  z-index: 10;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  user-select: none;
-  max-width: 600px;
-  padding: 48px;
-  backdrop-filter: blur(10px);
-  border-radius: 8px;
-  box-shadow: 0 4px 90px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-}
-
-.card::before {
-  content: "";
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 1) 34%,
-    rgba(255, 255, 255, 1) 89%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  opacity: 0.3;
-  filter: blur(0.5px);
-  mix-blend-mode: hard-light;
-}
-
-.card .noise {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  opacity: 0.2;
-}
-
-.card .content {
-  position: relative;
-  z-index: 2;
-  text-shadow: -3px 0px 2px rgba(0, 0, 0, 0.1);
-}
-
-@keyframes moveInCircle {
-  to { transform: rotate(1turn); }
-}
-
-@keyframes moveVertical {
-  50% { transform: translateY(100%); }
-}
-
-@keyframes moveHorizontal {
-  50% { transform: translateX(100%) translateY(20%); }
-}
-
 .gradient-bg {
   position: fixed;
   inset: 0;
@@ -89,89 +10,46 @@
   opacity: 0.2;
 }
 
-.gradient-bg .svgBlur {
-  display: none;
-}
-
-.gradient-bg .noiseBg {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  mix-blend-mode: soft-light;
-  opacity: 0.2;
-}
-
-.gradient-bg .gradients-container {
+.gradients-container {
+  width: 100%;
+  height: 100%;
   filter: url(#goo) blur(40px);
-  width: 100%;
-  height: 100%;
 }
 
-.gradient-bg [class^="g"] {
+.gradient {
   position: absolute;
-  width: var(--circle-size);
-  height: var(--circle-size);
-  top: calc(50% - var(--circle-size) / 2);
-  left: calc(50% - var(--circle-size) / 2);
-  mix-blend-mode: var(--blending);
-  opacity: 1;
+  width: 60%;  /* Gradientlerin boyutunu artırdık */
+  height: 60%;
+  mix-blend-mode: var(--blending, hard-light);
+  opacity: 0.3;  /* Opaklığı azalttık */
+  animation: moveGradient var(--duration, 35s) ease-in-out infinite alternate;
 }
 
-.gradient-bg .g1 {
-  background: radial-gradient(circle at center, rgba(var(--color1), 0.8) 0, rgba(var(--color1), 0) 50%) no-repeat;
-  animation: moveVertical 30s ease infinite;
+@keyframes moveGradient {
+  0% {
+    transform: translate(var(--x), var(--y)) scale(0.8);
+  }
+  100% {
+    transform: translate(
+      calc(var(--x) - 20% + 40% * var(--x-direction, 1)),
+      calc(var(--y) - 20% + 40% * var(--y-direction, 1))
+    ) scale(1.2);
+  }
 }
 
-.gradient-bg .g2 {
-  background: radial-gradient(circle at center, rgba(var(--color2), 0.8) 0, rgba(var(--color2), 0) 50%) no-repeat;
-  transform-origin: calc(50% - 400px);
-  animation: moveInCircle 20s reverse infinite;
-}
-
-.gradient-bg .g3 {
-  background: radial-gradient(circle at center, rgba(var(--color3), 0.8) 0, rgba(var(--color3), 0) 50%) no-repeat;
-  top: calc(50% - var(--circle-size) / 2 + 200px);
-  left: calc(50% - var(--circle-size) / 2 - 500px);
-  transform-origin: calc(50% + 400px);
-  animation: moveInCircle 40s linear infinite;
-}
-
-.gradient-bg .g4 {
-  background: radial-gradient(circle at center, rgba(var(--color4), 0.8) 0, rgba(var(--color4), 0) 50%) no-repeat;
-  transform-origin: calc(50% - 200px);
-  animation: moveHorizontal 40s ease infinite;
-  opacity: 0.7;
-}
-
-.gradient-bg .g5 {
-  background: radial-gradient(circle at center, rgba(var(--color5), 0.8) 0, rgba(var(--color5), 0) 50%) no-repeat;
-  width: calc(var(--circle-size) * 2);
-  height: calc(var(--circle-size) * 2);
-  top: calc(50% - var(--circle-size));
-  left: calc(50% - var(--circle-size));
-  transform-origin: calc(50% - 800px) calc(50% + 200px);
-  animation: moveInCircle 20s ease infinite;
-}
-
-.gradient-bg .interactive {
-  background: radial-gradient(circle at center, rgba(var(--color-interactive), 0.8) 0, rgba(var(--color-interactive), 0) 50%) no-repeat;
-  width: 100%;
-  height: 100%;
-  top: -50%;
-  left: -50%;
-  opacity: 0.7;
-}
+.gradient.g1 { background: radial-gradient(circle at center, rgba(var(--color1, 255, 102, 0), 0.8) 0, rgba(var(--color1, 255, 102, 0), 0) 70%); }
+.gradient.g2 { background: radial-gradient(circle at center, rgba(var(--color2, 255, 190, 17), 0.8) 0, rgba(var(--color2, 255, 190, 17), 0) 70%); }
+.gradient.g3 { background: radial-gradient(circle at center, rgba(var(--color3, 165, 95, 0), 0.8) 0, rgba(var(--color3, 165, 95, 0), 0) 70%); }
+.gradient.g4 { background: radial-gradient(circle at center, rgba(var(--color4, 250, 155, 0), 0.8) 0, rgba(var(--color4, 250, 155, 0), 0) 70%); }
+.gradient.g5 { background: radial-gradient(circle at center, rgba(var(--color5, 255, 174, 53), 0.8) 0, rgba(var(--color5, 255, 174, 53), 0) 70%); }
 
 @media (max-width: 768px) {
-  :root {
-    --circle-size: 60%;
-  }
-
-  .gradient-bg .gradients-container {
+  .gradients-container {
     filter: url(#goo) blur(20px);
   }
-
-  .card {
-    padding: 24px;
+  
+  .gradient {
+    width: 80%;
+    height: 80%;
   }
 }
