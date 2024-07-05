@@ -81,7 +81,12 @@
   position: fixed;
   inset: 0;
   overflow: hidden;
-  opacity: 0.1;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.gradient-bg.visible {
+  opacity: 0.3;
 }
 
 .gradient-bg .svgBlur {

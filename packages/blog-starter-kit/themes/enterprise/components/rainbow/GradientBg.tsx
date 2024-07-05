@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 
 const getRandomPosition = () => ({
   x: Math.random() * 100 - 50,
@@ -8,6 +8,16 @@ const getRandomPosition = () => ({
 const getRandomDuration = () => Math.random() * 10 + 20; // 20-30 saniye arası
 
 const GradientBg: React.FC = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 1000); // 1 saniye gecikme
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const gradients = useMemo(() => [
     { class: 'g1', ...getRandomPosition(), duration: getRandomDuration() },
     { class: 'g2', ...getRandomPosition(), duration: getRandomDuration() },
@@ -16,8 +26,18 @@ const GradientBg: React.FC = () => {
     { class: 'g5', ...getRandomPosition(), duration: getRandomDuration() },
   ], []);
 
+  if (!isVisible) {
+    return null;
+  }
+
   return (
-    <div className="gradient-bg">
+    <div className={`gradient-bg ${isVisible ? 'visible' : ''}`}>
+      <svg className="noiseBg" xmlns="http://www.w3.org/2000/svg">
+        <filter id="noiseFilterBg">
+          <feTurbulence type="fractalNoise" baseFrequency="0.6" stitchTiles="stitch" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#noiseFilterBg)" />
+      </svg>
       <div className="gradients-container">
         {gradients.map((gradient, index) => (
           <div 

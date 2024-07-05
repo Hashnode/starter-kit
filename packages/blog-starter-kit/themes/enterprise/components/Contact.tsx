@@ -329,7 +329,6 @@ const validateName = (name: string): boolean => {
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                  placeholder="Adınız ve Soyadınız"
                   className={`w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-22 ${validateName(formData.name) ? 'focus:ring-orng-500' : 'focus:ring-red-500'}`}
                   pattern="[a-zA-ZığüşöçİĞÜŞÖÇ\s]*"
                   title="Sadece harfler ve boşluklar kullanılabilir."
@@ -344,7 +343,6 @@ const validateName = (name: string): boolean => {
                   value={formData.phone}
                   onChange={handleInputChange}
                   required
-                  placeholder="Cep Telefon Numaranız"
                   className={`w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-22 ${validatePhone(formData.phone) ? 'focus:ring-orng-500' : 'focus:ring-red-500'}`}
                   pattern="[0-9]{10,15}"
                   title="Sadece 10-15 arasında rakamlar kullanılabilir."
@@ -364,7 +362,6 @@ const validateName = (name: string): boolean => {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  placeholder="E-posta Adresiniz"
                   className={`w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-22 ${validateEmail(formData.email) ? 'focus:ring-orng-500' : 'focus:ring-red-500'}`}
                   pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                   title="Sadece geçerli bir e-posta adresi kullanılabilir."
@@ -429,7 +426,7 @@ const validateName = (name: string): boolean => {
                 disabled={isButtonDisabled || !isMessageValid}
               >
                 {isButtonDisabled 
-                  ? 'Formu eksiksiz doldur!' 
+                  ? 'Formu eksiksiz doldurunuz.' 
                   : isFormSubmitted
                     ? 'Gönderildi!'
                     : <span className="flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5 mr-2"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Gönder</span>
