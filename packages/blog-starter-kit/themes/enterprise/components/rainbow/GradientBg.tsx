@@ -1,73 +1,95 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useEffect, useRef, useCallback, useMemo } from 'react';
+import styles from '../styles/GradientBg.module.css';
 
-// Ekranın köşelerinde ve kenarlarında pozisyon oluştur
-const getCornerPosition = () => {
-  const side = Math.floor(Math.random() * 4); // 0: üst, 1: sağ, 2: alt, 3: sol
-  let x, y;
+const MIN_SPEED = 1.5;
+const MAX_SPEED = 2.5;
 
-  switch (side) {
-    case 0: // üst
-      x = Math.random() * 100;
-      y = Math.random() * 20 - 20; // -20% ile 0% arası
-      break;
-    case 1: // sağ
-      x = Math.random() * 20 + 80; // 80% ile 100% arası
-      y = Math.random() * 100;
-      break;
-    case 2: // alt
-      x = Math.random() * 100;
-      y = Math.random() * 20 + 80; // 80% ile 100% arası
-      break;
-    case 3: // sol
-      x = Math.random() * 20 - 20; // -20% ile 0% arası
-      y = Math.random() * 100;
-      break;
-  }
+const randomNumber = (min: number, max: number) => Math.random() * (max - min) + min;
 
-  return { x, y };
-};
+interface BlobProps {
+  color: string;
+  isWhite?: boolean;
+}
 
-const getRandomDuration = () => Math.random() * 10 + 30; // 30-40 saniye arası
+const Blob: React.FC<BlobProps> = React.memo(({ color, isWhite }) => {
+  const blobRef = useRef<HTMLDivElement>(null);
 
-const GradientBg: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const initialState = useMemo(() => {
+    const size = isWhite ? 15 : 32;
+    return {
+      size: size,
+      initialX: randomNumber(0, window.innerWidth - size),
+      initialY: randomNumber(0, window.innerHeight - size),
+      vx: randomNumber(MIN_SPEED, MAX_SPEED) * (Math.random() > 0.5 ? 1 : -1),
+      vy: randomNumber(MIN_SPEED, MAX_SPEED) * (Math.random() > 0.5 ? 1 : -1),
+    };
+  }, [isWhite]);
+
+  const updatePosition = useCallback(() => {
+    if (!blobRef.current) return;
+
+    let { x, y, vx, vy } = blobRef.current.dataset;
+    let numX = parseFloat(x!);
+    let numY = parseFloat(y!);
+    let numVx = parseFloat(vx!);
+    let numVy = parseFloat(vy!);
+
+    numX += numVx;
+    numY += numVy;
+
+    if (numX >= window.innerWidth - initialState.size || numX <= 0) {
+      numVx *= -1;
+    }
+    if (numY >= window.innerHeight - initialState.size || numY <= 0) {
+      numVy *= -1;
+    }
+
+    blobRef.current.style.transform = `translate(${numX - initialState.initialX}px, ${numY - initialState.initialY}px)`;
+    blobRef.current.dataset.x = numX.toString();
+    blobRef.current.dataset.y = numY.toString();
+    blobRef.current.dataset.vx = numVx.toString();
+    blobRef.current.dataset.vy = numVy.toString();
+  }, [initialState]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-      setTimeout(() => setIsVisible(true), 50);
-    }, 1000);
+    if (blobRef.current) {
+      blobRef.current.style.top = `${initialState.initialY}px`;
+      blobRef.current.style.left = `${initialState.initialX}px`;
+      blobRef.current.dataset.x = initialState.initialX.toString();
+      blobRef.current.dataset.y = initialState.initialY.toString();
+      blobRef.current.dataset.vx = initialState.vx.toString();
+      blobRef.current.dataset.vy = initialState.vy.toString();
+    }
 
-    return () => clearTimeout(timer);
-  }, []);
+    const animationFrame = requestAnimationFrame(function animate() {
+      updatePosition();
+      requestAnimationFrame(animate);
+    });
 
-  const gradients = useMemo(() => [
-    { class: 'g1', ...getCornerPosition(), duration: getRandomDuration() },
-    { class: 'g2', ...getCornerPosition(), duration: getRandomDuration() },
-    { class: 'g3', ...getCornerPosition(), duration: getRandomDuration() },
-    { class: 'g4', ...getCornerPosition(), duration: getRandomDuration() },
-    { class: 'g5', ...getCornerPosition(), duration: getRandomDuration() },
-  ], []);
-
-  if (!isLoaded) {
-    return null;
-  }
+    return () => cancelAnimationFrame(animationFrame);
+  }, [initialState, updatePosition]);
 
   return (
-    <div className={`gradient-bg ${isVisible ? 'visible' : ''}`}>
-      <div className="gradients-container">
-        {gradients.map((gradient, index) => (
-          <div 
-            key={index}
-            className={`gradient ${gradient.class}`}
-            style={{
-              '--x': `${gradient.x}%`,
-              '--y': `${gradient.y}%`,
-              '--duration': `${gradient.duration}s`,
-            } as React.CSSProperties}
-          />
-        ))}
+    <div 
+      ref={blobRef}
+      className={`${styles['bouncing-blob']} ${styles[`bouncing-blob--${color}`]}`}
+      style={isWhite ? { width: '15vw', zIndex: 2 } : undefined}
+    />
+  );
+});
+
+const GradientBg: React.FC = () => {
+  return (
+    <div className={styles['bouncing-blobs-container']}>
+      <div className={styles['bouncing-blobs-glass']} />
+      <div className={styles['bouncing-blobs']}>
+        <Blob color="blue" />
+        <Blob color="blue" />
+        <Blob color="blue" />
+        <Blob color="white" isWhite />
+        <Blob color="purple" />
+        <Blob color="purple" />
+        <Blob color="pink" />
       </div>
     </div>
   );

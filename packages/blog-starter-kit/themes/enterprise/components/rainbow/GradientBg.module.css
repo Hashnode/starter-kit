@@ -1,127 +1,79 @@
-.gradient-bg {
-  position: fixed;
+.bouncing-blob {
+  width: 32vw;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  will-change: transform;
+  position: absolute;
+  z-index: 1;
   top: 0;
-  right: 0;
-  bottom: 0;
   left: 0;
-  overflow: hidden;
-  opacity: 0;
-  -webkit-transition: opacity 3s ease-in-out;
-  -moz-transition: opacity 3s ease-in-out;
-  -ms-transition: opacity 3s ease-in-out;
-  -o-transition: opacity 3s ease-in-out;
-  transition: opacity 3s ease-in-out;
+  transform-origin: left top;
 }
 
-.gradient-bg.visible {
-  opacity: 0.2;
+.bouncing-blob--blue {
+  background: #4783c7;
 }
 
-.gradients-container {
+.bouncing-blob--white {
+  background: #ffffff;
+  z-index: 2;
+  width: 15vw;
+}
+
+.bouncing-blob--purple {
+  background: #8c8ff1;
+}
+
+.bouncing-blob--pink {
+  background: #e289cd50;
+}
+
+.bouncing-blobs-container {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  -webkit-filter: url(#goo) blur(40px);
-  filter: url(#goo) blur(40px);
 }
 
-.gradient {
+.bouncing-blobs-glass {
   position: absolute;
-  width: 60%;
-  height: 60%;
-  mix-blend-mode: hard-light;
-  opacity: 1;
-  -webkit-animation: moveGradient var(--duration, 35s) ease-in-out infinite alternate;
-  -moz-animation: moveGradient var(--duration, 35s) ease-in-out infinite alternate;
-  -ms-animation: moveGradient var(--duration, 35s) ease-in-out infinite alternate;
-  -o-animation: moveGradient var(--duration, 35s) ease-in-out infinite alternate;
-  animation: moveGradient var(--duration, 35s) ease-in-out infinite alternate;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(140px);
+  -webkit-backdrop-filter: blur(140px);
+  pointer-events: none;
 }
 
-@-webkit-keyframes moveGradient {
-  0% { -webkit-transform: translate(var(--x), var(--y)) scale(0.8); }
-  100% { -webkit-transform: translate(calc(var(--x) - 20% + 40% * var(--x-direction, 1)), calc(var(--y) - 20% + 40% * var(--y-direction, 1))) scale(1.2); }
+.bouncing-blobs {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
-@-moz-keyframes moveGradient {
-  0% { -moz-transform: translate(var(--x), var(--y)) scale(0.8); }
-  100% { -moz-transform: translate(calc(var(--x) - 20% + 40% * var(--x-direction, 1)), calc(var(--y) - 20% + 40% * var(--y-direction, 1))) scale(1.2); }
-}
-
-@-ms-keyframes moveGradient {
-  0% { -ms-transform: translate(var(--x), var(--y)) scale(0.8); }
-  100% { -ms-transform: translate(calc(var(--x) - 20% + 40% * var(--x-direction, 1)), calc(var(--y) - 20% + 40% * var(--y-direction, 1))) scale(1.2); }
-}
-
-@-o-keyframes moveGradient {
-  0% { -o-transform: translate(var(--x), var(--y)) scale(0.8); }
-  100% { -o-transform: translate(calc(var(--x) - 20% + 40% * var(--x-direction, 1)), calc(var(--y) - 20% + 40% * var(--y-direction, 1))) scale(1.2); }
-}
-
-@keyframes moveGradient {
-  0% {
-    -webkit-transform: translate(var(--x), var(--y)) scale(0.8);
-    -moz-transform: translate(var(--x), var(--y)) scale(0.8);
-    -ms-transform: translate(var(--x), var(--y)) scale(0.8);
-    -o-transform: translate(var(--x), var(--y)) scale(0.8);
-    transform: translate(var(--x), var(--y)) scale(0.8);
-  }
-  100% {
-    -webkit-transform: translate(calc(var(--x) - 20% + 40% * var(--x-direction, 1)), calc(var(--y) - 20% + 40% * var(--y-direction, 1))) scale(1.2);
-    -moz-transform: translate(calc(var(--x) - 20% + 40% * var(--x-direction, 1)), calc(var(--y) - 20% + 40% * var(--y-direction, 1))) scale(1.2);
-    -ms-transform: translate(calc(var(--x) - 20% + 40% * var(--x-direction, 1)), calc(var(--y) - 20% + 40% * var(--y-direction, 1))) scale(1.2);
-    -o-transform: translate(calc(var(--x) - 20% + 40% * var(--x-direction, 1)), calc(var(--y) - 20% + 40% * var(--y-direction, 1))) scale(1.2);
-    transform: translate(calc(var(--x) - 20% + 40% * var(--x-direction, 1)), calc(var(--y) - 20% + 40% * var(--y-direction, 1))) scale(1.2);
+@media (max-width: 1200px) {
+  .bouncing-blobs-glass {
+    backdrop-filter: blur(120px);
+    -webkit-backdrop-filter: blur(120px);
   }
 }
 
-.gradient.g1 { background: -webkit-radial-gradient(center, rgba(255, 102, 0, 0.8) 0, rgba(255, 102, 0, 0) 70%);
-               background: -moz-radial-gradient(center, rgba(255, 102, 0, 0.8) 0, rgba(255, 102, 0, 0) 70%);
-               background: -ms-radial-gradient(center, rgba(255, 102, 0, 0.8) 0, rgba(255, 102, 0, 0) 70%);
-               background: -o-radial-gradient(center, rgba(255, 102, 0, 0.8) 0, rgba(255, 102, 0, 0) 70%);
-               background: radial-gradient(circle at center, rgba(255, 102, 0, 0.8) 0, rgba(255, 102, 0, 0) 70%); }
-.gradient.g2 { background: -webkit-radial-gradient(center, rgba(255, 190, 17, 0.8) 0, rgba(255, 190, 17, 0) 70%);
-               background: -moz-radial-gradient(center, rgba(255, 190, 17, 0.8) 0, rgba(255, 190, 17, 0) 70%);
-               background: -ms-radial-gradient(center, rgba(255, 190, 17, 0.8) 0, rgba(255, 190, 17, 0) 70%);
-               background: -o-radial-gradient(center, rgba(255, 190, 17, 0.8) 0, rgba(255, 190, 17, 0) 70%);
-               background: radial-gradient(circle at center, rgba(255, 190, 17, 0.8) 0, rgba(255, 190, 17, 0) 70%); }
-.gradient.g3 { background: -webkit-radial-gradient(center, rgba(165, 95, 0, 0.8) 0, rgba(165, 95, 0, 0) 70%);
-               background: -moz-radial-gradient(center, rgba(165, 95, 0, 0.8) 0, rgba(165, 95, 0, 0) 70%);
-               background: -ms-radial-gradient(center, rgba(165, 95, 0, 0.8) 0, rgba(165, 95, 0, 0) 70%);
-               background: -o-radial-gradient(center, rgba(165, 95, 0, 0.8) 0, rgba(165, 95, 0, 0) 70%);
-               background: radial-gradient(circle at center, rgba(165, 95, 0, 0.8) 0, rgba(165, 95, 0, 0) 70%); }
-.gradient.g4 { background: -webkit-radial-gradient(center, rgba(250, 155, 0, 0.8) 0, rgba(250, 155, 0, 0) 70%);
-               background: -moz-radial-gradient(center, rgba(250, 155, 0, 0.8) 0, rgba(250, 155, 0, 0) 70%);
-               background: -ms-radial-gradient(center, rgba(250, 155, 0, 0.8) 0, rgba(250, 155, 0, 0) 70%);
-               background: -o-radial-gradient(center, rgba(250, 155, 0, 0.8) 0, rgba(250, 155, 0, 0) 70%);
-               background: radial-gradient(circle at center, rgba(250, 155, 0, 0.8) 0, rgba(250, 155, 0, 0) 70%); }
-.gradient.g5 { background: -webkit-radial-gradient(center, rgba(255, 174, 53, 0.8) 0, rgba(255, 174, 53, 0) 70%);
-               background: -moz-radial-gradient(center, rgba(255, 174, 53, 0.8) 0, rgba(255, 174, 53, 0) 70%);
-               background: -ms-radial-gradient(center, rgba(255, 174, 53, 0.8) 0, rgba(255, 174, 53, 0) 70%);
-               background: -o-radial-gradient(center, rgba(255, 174, 53, 0.8) 0, rgba(255, 174, 53, 0) 70%);
-               background: radial-gradient(circle at center, rgba(255, 174, 53, 0.8) 0, rgba(255, 174, 53, 0) 70%); }
-
-@media (max-width: 768px) {
-  .gradients-container {
-    -webkit-filter: url(#goo) blur(20px);
-    filter: url(#goo) blur(20px);
+@media (max-width: 500px) {
+  .bouncing-blob {
+    width: 60vw;
   }
-  
-  .gradient {
-    width: 80%;
-    height: 80%;
+  .bouncing-blob--white {
+    width: 30vw;
   }
-}
-
-@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-  .gradients-container {
-    -webkit-backdrop-filter: blur(40px);
-    backdrop-filter: blur(40px);
-  }
-
-  @media (max-width: 768px) {
-    .gradients-container {
-      -webkit-backdrop-filter: blur(20px);
-      backdrop-filter: blur(20px);
-    }
+  .bouncing-blobs-glass {
+    backdrop-filter: blur(90px);
+    -webkit-backdrop-filter: blur(90px);
   }
 }
