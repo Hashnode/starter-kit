@@ -245,7 +245,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     PostsByPublicationQuery,
     PostsByPublicationQueryVariables
   >(GQL_ENDPOINT, PostsByPublicationDocument, {
-    first: 6,
+    first: 7,
     host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
   });
 
