@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { PublicationNavbarItem } from '../generated/graphql';
 import { useAppContext } from './contexts/appContext';
 import { ToggleTheme } from './toggle-theme';
+import { Button } from './button';
+import NewsletterPlusSVG from './icons/svgs/NewsletterPlusSVG';
 
 function hasUrl(
 	navbarItem: PublicationNavbarItem,
@@ -67,8 +69,8 @@ export const PersonalHeader = () => {
 					<h1>
 						<Link
 							className="flex flex-row items-center gap-2 text-lg font-bold leading-tight tracking-tight text-black dark:text-white"
-							href="/"
-							aria-label={`${publication.author.name}'s blog home page`}
+							href="https://megabyte0x.xyz/"
+							aria-label={`megabyte's blog home page`}
 						>
 							{publication.author.profilePicture && (
 								<img
@@ -81,7 +83,7 @@ export const PersonalHeader = () => {
 									})}
 								/>
 							)}
-							{publication.title}
+							megabyte
 						</Link>
 					</h1>
 					<ToggleTheme className="md:hidden" />
@@ -90,12 +92,12 @@ export const PersonalHeader = () => {
 			<div className="col-span-full flex flex-row items-center justify-between gap-4 md:col-span-1 md:justify-end">
 				<nav>{navList}</nav>
 				<ToggleTheme className="hidden md:block" />
-				{/* <Button
-          label=""
-          type="outline"
-          className="!p-2"
-          icon={<NewsletterPlusSVG className="w-5 h-5 fill-current" />}
-        /> */}
+				<Button
+					label=""
+					type="outline"
+					className="!p-2"
+					icon={<NewsletterPlusSVG className="w-5 h-5 fill-current" />}
+				/>
 			</div>
 		</header>
 	);
