@@ -20,6 +20,9 @@
     transform: translate(25.6rem, -16.5rem);
     zoom: 0.2;
 }
+.text-slate-500 {
+  color: black;
+}
 .bg-orng-500 {
     --tw-bg-opacity: 1;
   background-color: rgb(255 147 92);
