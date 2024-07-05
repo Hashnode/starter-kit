@@ -9,11 +9,13 @@ const getRandomDuration = () => Math.random() * 10 + 20; // 20-30 saniye arası
 
 const GradientBg: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 1000); // 1 saniye gecikme
+      setIsLoaded(true);
+      setTimeout(() => setIsVisible(true), 50); // Kısa bir gecikme ile opacity değişimini tetikle
+    }, 1000); // 1 saniye gecikme ile yüklemeyi başlat
 
     return () => clearTimeout(timer);
   }, []);
@@ -26,7 +28,7 @@ const GradientBg: React.FC = () => {
     { class: 'g5', ...getRandomPosition(), duration: getRandomDuration() },
   ], []);
 
-  if (!isVisible) {
+  if (!isLoaded) {
     return null;
   }
 
