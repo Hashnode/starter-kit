@@ -109,7 +109,6 @@
   top: calc(50% - var(--circle-size) / 2);
   left: calc(50% - var(--circle-size) / 2);
   mix-blend-mode: var(--blending);
-  animation: moveInCircle 20s ease infinite;
   opacity: 1;
 }
 
