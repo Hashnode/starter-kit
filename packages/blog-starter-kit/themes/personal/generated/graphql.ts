@@ -1104,6 +1104,7 @@ export type Draft = Node & {
   ogMetaData?: Maybe<OpenGraphMetaData>;
   /** The publication the draft belongs to. */
   publication?: Maybe<Publication>;
+  publishAs?: Maybe<User>;
   readTimeInMinutes: Scalars['Int']['output'];
   /** The date the draft is scheduled to be published. */
   scheduledDate?: Maybe<Scalars['DateTime']['output']>;

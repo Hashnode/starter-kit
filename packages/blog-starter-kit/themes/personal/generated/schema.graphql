@@ -1106,6 +1106,7 @@ type Draft implements Node {
   ogMetaData: OpenGraphMetaData
   """The publication the draft belongs to."""
   publication: Publication
+  publishAs: User
   readTimeInMinutes: Int!
   """The date the draft is scheduled to be published."""
   scheduledDate: DateTime
