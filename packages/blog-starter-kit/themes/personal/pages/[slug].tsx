@@ -82,14 +82,14 @@ const Post = ({ publication, post }: PostProps) => {
 			triggerCustomWidgetEmbed(post.publication?.id.toString());
 			setCanLoadEmbeds(true);
 		})();
-	}, []);
+	}, [post]);
 
 	const coverImageSrc = !!post.coverImage?.url
 		? resizeImage(post.coverImage.url, {
-				w: 1600,
-				h: 840,
-				c: 'thumb',
-		  })
+			w: 1600,
+			h: 840,
+			c: 'thumb',
+		})
 		: undefined;
 
 	return (

@@ -74,16 +74,14 @@ export default async function handler(req: NextRequest) {
 			>
 				{/* if blog is set to open in dark mode, then change text-slate-900 to text-white and change bg-white to bg-black */}
 				<div
-					tw={`relative flex flex-col items-center p-10 ${
-						isDefaultModeDark ? 'bg-black' : 'bg-white'
-					} ${
-						isDefaultModeDark ? 'text-white' : 'text-slate-900'
-					} h-full w-full rounded-xl shadow-md`}
+					tw={`relative flex flex-col items-center p-10 ${isDefaultModeDark ? 'bg-black' : 'bg-white'
+						} ${isDefaultModeDark ? 'text-white' : 'text-slate-900'
+						} h-full w-full rounded-xl shadow-md`}
 				>
 					<div tw="absolute -top-px -left-px -right-px -bottom-px rounded-xl border-2 border-black/5" />
 					<div tw="flex w-full flex-row items-center">
 						{/* if author image is not available, use the default author image (DEFAULT_AVATAR) from const */}
-						<img tw="mr-5 h-16 w-16 rounded-full" alt="name" src={photo} />
+						<Image tw="mr-5 h-16 w-16 rounded-full" alt="name" src={photo} />
 						<div tw="flex flex-col items-start">
 							{/* Author name, even if it's team */}
 							<p tw="m-0 text-2xl font-bold leading-tight">{author}</p>

@@ -44,7 +44,7 @@ class ProgressiveImage extends React.Component<{
     const resizedImage = resizeImage(src, resize);
 
     return (
-      <img
+      <Image
         data-sizes="auto"
         loading="lazy"
         src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="

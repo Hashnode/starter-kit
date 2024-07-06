@@ -6,6 +6,7 @@ import { useAppContext } from './contexts/appContext';
 import { ToggleTheme } from './toggle-theme';
 import { Button } from './button';
 import NewsletterPlusSVG from './icons/svgs/NewsletterPlusSVG';
+import Image from 'next/image';
 
 function hasUrl(
 	navbarItem: PublicationNavbarItem,
@@ -73,7 +74,7 @@ export const PersonalHeader = () => {
 							aria-label={`megabyte's blog home page`}
 						>
 							{publication.author.profilePicture && (
-								<img
+								<Image
 									className="block h-8 w-8 rounded-full fill-current"
 									alt={publication.author.name}
 									src={resizeImage(publication.author.profilePicture, {

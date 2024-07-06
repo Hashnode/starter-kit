@@ -1,5 +1,5 @@
 export const DEFAULT_AVATAR =
-	'https://cdn.hashnode.com/res/hashnode/image/upload/v1659089761812/fsOct5gl6.png';
+  'https://cdn.hashnode.com/res/hashnode/image/upload/v1659089761812/fsOct5gl6.png';
 
 const DEFAULT_PHOTO = `${DEFAULT_AVATAR},format&format=webp`;
 
@@ -25,9 +25,8 @@ const _resizeImage = (src, resize, defaultImage) => {
         if (nextParts[0].indexOf('v') === 0) {
           nextParts[0] = nextParts[0].substring(1);
         }
-        newSrc = `${parts[0]}/upload/${nextParts[1].substring(0, nextParts[1].lastIndexOf('.'))}/${
-          nextParts[0]
-        }.${format}?auto=compress,format&format=webp`;
+        newSrc = `${parts[0]}/upload/${nextParts[1].substring(0, nextParts[1].lastIndexOf('.'))}/${nextParts[0]
+          }.${format}?auto=compress,format&format=webp`;
       }
       newSrc = newSrc.replace('//res.cloudinary.com', '//cdn.hashnode.com/res').replace('http://', 'https://');
     } else if (src.indexOf('//cdn.hashnode.com') !== -1 && src.indexOf('/upload/') !== -1) {
@@ -91,7 +90,7 @@ export const kFormatter = (num) => {
 };
 
 export const imageReplacer = (content, lazyLoad = false) => {
-  var regex = /<img src="([^"]+)"/g;
+  var regex = /<Image src="([^"]+)"/g;
   var srcVals = content.match(regex);
 
   if (!srcVals) {
@@ -108,7 +107,7 @@ export const imageReplacer = (content, lazyLoad = false) => {
     content = content.replace(oldSrc, map[oldSrc]);
   });
   if (lazyLoad) {
-    content = content.replace(/<img/g, '<img loading="lazy"');
+    content = content.replace(/<Image/g, '<Image loading="lazy"');
   }
   return content;
 };

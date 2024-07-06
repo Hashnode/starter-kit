@@ -14,7 +14,7 @@ import {
 	DraftByIdDocument,
 	DraftByIdQuery,
 	DraftByIdQueryVariables,
-	Post,
+	type Post,
 	Publication,
 	PublicationByHostDocument,
 	PublicationByHostQuery,
@@ -35,10 +35,10 @@ export default function Post({ publication, post }: Props) {
 
 	const coverImageSrc = !!post.coverImage?.url
 		? resizeImage(post.coverImage.url, {
-				w: 1600,
-				h: 840,
-				c: 'thumb',
-		  })
+			w: 1600,
+			h: 840,
+			c: 'thumb',
+		})
 		: undefined;
 
 	const tagsList = post.tags?.map((tag) => (

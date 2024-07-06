@@ -2,20 +2,20 @@
   <a href="https://hashnode.com">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://cdn.hashnode.com/res/hashnode/image/upload/v1611902473383/CDyAuTy75.png?auto=compress">
-      <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1611902473383/CDyAuTy75.png?auto=compress" height="128">
+      <Image src="https://cdn.hashnode.com/res/hashnode/image/upload/v1611902473383/CDyAuTy75.png?auto=compress" height="128">
     </picture>
     <h1 align="center">Hashnode</h1>
   </a>
 </p>
 <p align="center">
   <a href="https://hashnode.com/headless">
-    <img src="https://img.shields.io/badge/MADE%20BY%20Hashnode-000000.svg?style=for-the-badge&logo=Hashnode&labelColor=000">
+    <Image src="https://Image.shields.io/badge/MADE%20BY%20Hashnode-000000.svg?style=for-the-badge&logo=Hashnode&labelColor=000">
   </a>
   <a href="https://hashnode.com">
-    <img alt="" src="https://img.shields.io/badge/LICENSE%20%7C%20MIT-000.svg?style=for-the-badge">
+    <Image alt="" src="https://Image.shields.io/badge/LICENSE%20%7C%20MIT-000.svg?style=for-the-badge">
   </a>
   <a href="https://discord.gg/hashnode">
-    <img alt="" src="https://img.shields.io/badge/Join%20the%20community-black.svg?style=for-the-badge&logo=discord&labelColor=000000&logoWidth=20">
+    <Image alt="" src="https://Image.shields.io/badge/Join%20the%20community-black.svg?style=for-the-badge&logo=discord&labelColor=000000&logoWidth=20">
   </a>
 </p>
 
@@ -183,11 +183,11 @@ If you prefer to build your frontend from scratch, you can use our public GraphQ
 
 In addition to our core themes, the community has developed a variety of themes to customize your blog. Check out these themes and explore their unique designs:
 
-| Theme Name                    | Demo Link                                          | Codebase Link                                                                 |
-| ----------------------------- | -------------------------------------------------- | ----------------------------------------------------------------------------- |
-| **Newsletter Theme**          | [View Demo](https://starter-kit1-6yte.vercel.app/) | [GitHub Repository](https://github.com/masterismail/starter-kit1/tree/main)   |
-| **Minimalist (Ikigai) Theme** | [View Demo](https://pravinreacts.vercel.app/)      | [GitHub Repository](https://github.com/pravintargaryen/starter-kit/tree/main) |
-| **Floaty Portfolio/Blog Theme** | [View Demo](https://floaty-hashnode-headless.vercel.app/)      | [GitHub Repository](https://github.com/iammarmirza/floaty-hashnode-headless/tree/main) |
+| Theme Name                      | Demo Link                                                 | Codebase Link                                                                          |
+| ------------------------------- | --------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| **Newsletter Theme**            | [View Demo](https://starter-kit1-6yte.vercel.app/)        | [GitHub Repository](https://github.com/masterismail/starter-kit1/tree/main)            |
+| **Minimalist (Ikigai) Theme**   | [View Demo](https://pravinreacts.vercel.app/)             | [GitHub Repository](https://github.com/pravintargaryen/starter-kit/tree/main)          |
+| **Floaty Portfolio/Blog Theme** | [View Demo](https://floaty-hashnode-headless.vercel.app/) | [GitHub Repository](https://github.com/iammarmirza/floaty-hashnode-headless/tree/main) |
 
 > Note: These themes are maintained by the community and are not part of the official starter kit.
 

@@ -1,6 +1,6 @@
 import { resizeImage } from '@starter-kit/utils/image';
 import { DEFAULT_AVATAR } from '../utils/const';
-
+import Image from 'next/image';
 type Props = {
 	username: string;
 	name: string;
@@ -12,7 +12,7 @@ export const Avatar = ({ username, name, picture, size }: Props) => {
 	return (
 		<div className="flex items-center gap-2">
 			<a href={`https://hashnode.com/@${username}`} target="_blank" rel="noopener noreferrer">
-				<img
+				<Image
 					src={resizeImage(picture, { w: 160, h: 160, c: 'face' }, DEFAULT_AVATAR)}
 					className={size ? `w-${size} h-${size} rounded-full` : 'h-8 w-8 rounded-full'}
 					alt={name}

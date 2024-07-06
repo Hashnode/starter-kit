@@ -61,7 +61,7 @@ const { default: isURL } = require('validator/lib/isURL');
 		'(?!(?:' +
 		'a|em|strong|small|s|cite|q|dfn|abbr|data|time|code' +
 		'|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo' +
-		'|span|br|wbr|ins|del|img)\\b)\\w+(?!:/|[^\\w\\s@]*@)\\b';
+		'|span|br|wbr|ins|del|Image)\\b)\\w+(?!:/|[^\\w\\s@]*@)\\b';
 
 	block.html = replace(block.html)('comment', /<!--[\s\S]*?-->/)('closed', /<(tag)[\s\S]+?<\/\1>/)(
 		'closing',
@@ -92,10 +92,10 @@ const { default: isURL } = require('validator/lib/isURL');
 	block.gfm.paragraph = replace(block.paragraph)(
 		'(?!',
 		'(?!' +
-			block.gfm.fences.source.replace('\\1', '\\2') +
-			'|' +
-			block.list.source.replace('\\1', '\\3') +
-			'|',
+		block.gfm.fences.source.replace('\\1', '\\2') +
+		'|' +
+		block.list.source.replace('\\1', '\\3') +
+		'|',
 	)();
 
 	/**
@@ -1008,7 +1008,7 @@ const { default: isURL } = require('validator/lib/isURL');
 			default:
 				alignmentStyles = '';
 		}
-		let out = `<img src="${href}" alt="${text}" class="${alignmentStyles}"`;
+		let out = `<Image src="${href}" alt="${text}" class="${alignmentStyles}"`;
 		if (title) {
 			out += ' title="' + title + '"';
 		}
@@ -1257,7 +1257,7 @@ const { default: isURL } = require('validator/lib/isURL');
 		};
 	}
 
-	function noop() {}
+	function noop() { }
 	noop.exec = noop;
 
 	function merge(obj) {

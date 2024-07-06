@@ -10,9 +10,9 @@ type Props = {
   ImageProps;
 
 /**
- * Conditionally renders native img for gifs and next/image for other types
+ * Conditionally renders native Image for gifs and next/image for other types
  * @param props
- * @returns <img /> or <Image/>
+ * @returns <Image /> or <Image/>
  */
 function CustomImage(props: Props) {
   const { originalSrc, ...originalRestOfTheProps } = props;
@@ -32,7 +32,7 @@ function CustomImage(props: Props) {
     placeholder,
     blurDataURL,
     ...restOfTheProps
-  } = originalRestOfTheProps; // Destructured next/image props on purpose, so that unwanted props don't end up in <img />
+  } = originalRestOfTheProps; // Destructured next/image props on purpose, so that unwanted props don't end up in <Image />
 
   if (!originalSrc) {
     return null;
@@ -43,7 +43,7 @@ function CustomImage(props: Props) {
 
   if (isGif || !isHashnodeCDNImage) {
     // restOfTheProps will contain all props excluding the next/image props
-    return <img {...restOfTheProps} alt={alt} src={src || originalSrc} />;
+    return <Image {...restOfTheProps} alt={alt} src={src || originalSrc} />;
   }
 
   // Notes we are passing whole props object here

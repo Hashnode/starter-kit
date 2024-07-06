@@ -1,7 +1,6 @@
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-
 import { useAppContext } from './contexts/appContext';
 const GA_TRACKING_ID = 'G-72XG3F8LNJ'; // This is Hashnode's GA tracking ID
 const isProd = process.env.NEXT_PUBLIC_MODE === 'production';
