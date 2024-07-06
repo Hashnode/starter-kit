@@ -12,8 +12,8 @@ export const Layout = ({ children }: Props) => {
 		<>
 			<Meta />
 			<Scripts />
-			<div className="min-h-screen bg-white dark:bg-neutral-950">
-				<main>{children}</main>
+			<div className="min-h-screen bg-white dark:bg-[#121212] flex justify-center">
+				<main className='max-w-[700px] '>{children}</main>
 			</div>
 			<Analytics />
 			<Integrations />
