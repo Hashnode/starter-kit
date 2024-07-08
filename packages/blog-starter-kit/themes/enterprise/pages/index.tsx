@@ -235,7 +235,9 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
         <PerformanceDashboard />
       </ErrorBoundary>
     </AppProvider>
+    console.log("Has next page:", pageInfo.hasNextPage);
   );
+  console.log("Has next page:", pageInfo.hasNextPage);
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
