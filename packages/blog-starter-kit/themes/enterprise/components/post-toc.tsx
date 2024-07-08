@@ -77,9 +77,13 @@ export const PostTOC: React.FC = () => {
         scrollToElement(targetId);
     }, []);
 
-    const scrollToTop = useCallback((e: React.MouseEvent) => {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Ref to store the element you want to scroll to
+    const contentRef = useRef<HTMLDivElement | null>(null);
+
+    const scrollToTop = useCallback(() => {
+    if (contentRef.current) {
+        contentRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
     }, []);
 
     useEffect(() => {
