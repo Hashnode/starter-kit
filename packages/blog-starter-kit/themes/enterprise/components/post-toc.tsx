@@ -1,6 +1,7 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect, useCallback, RefObject } from 'react';
 import { PostFullFragment } from '../generated/graphql';
 import { useAppContext } from './contexts/appContext';
+import { MarkdownToHtmlRef } from './markdown-to-html';
 
 type TableOfContentsItem = PostFullFragment['features']['tableOfContents']['items'][number];
 
@@ -68,7 +69,12 @@ const Toc = ({
     );
 };
 
-export const PostTOC: React.FC = () => {
+interface PostTOCProps {
+    markdownRef: RefObject<MarkdownToHtmlRef>;
+}
+
+
+export const PostTOC: React.FC<PostTOCProps> = ({ markdownRef }) => {
     const { post } = useAppContext();
     const topRef = useRef<HTMLDivElement>(null);
 
@@ -77,14 +83,9 @@ export const PostTOC: React.FC = () => {
         scrollToElement(targetId);
     }, []);
 
-    // Ref to store the element you want to scroll to
-    const contentRef = useRef<HTMLDivElement | null>(null);
-
     const scrollToTop = useCallback(() => {
-    if (contentRef.current) {
-        contentRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-    }, []);
+        markdownRef.current?.scrollToTop();
+    }, [markdownRef]);
 
     useEffect(() => {
         const handleSmoothScrollForAllLinks = (e: MouseEvent) => {
