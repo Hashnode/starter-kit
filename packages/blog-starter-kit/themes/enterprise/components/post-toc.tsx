@@ -1,7 +1,6 @@
-import React, { useRef, useEffect, useCallback, RefObject } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import { PostFullFragment } from '../generated/graphql';
 import { useAppContext } from './contexts/appContext';
-import { MarkdownToHtmlRef } from './markdown-to-html';
 
 type TableOfContentsItem = PostFullFragment['features']['tableOfContents']['items'][number];
 
@@ -28,7 +27,7 @@ const mapTableOfContentItems = (toc: TableOfContentsItem[]) => {
 const scrollToElement = (elementId: string) => {
     const element = document.getElementById(elementId);
     if (element) {
-        const offset = 20;
+        const offset = 20; // Ekranın üstünde bırakılacak boşluk (piksel cinsinden)
         const elementPosition = element.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - offset;
 
@@ -69,12 +68,7 @@ const Toc = ({
     );
 };
 
-interface PostTOCProps {
-    markdownRef: RefObject<MarkdownToHtmlRef>;
-}
-
-
-export const PostTOC: React.FC<PostTOCProps> = ({ markdownRef }) => {
+export const PostTOC: React.FC = () => {
     const { post } = useAppContext();
     const topRef = useRef<HTMLDivElement>(null);
 
@@ -83,16 +77,21 @@ export const PostTOC: React.FC<PostTOCProps> = ({ markdownRef }) => {
         scrollToElement(targetId);
     }, []);
 
+    // Ref to store the element you want to scroll to
+    const contentRef = useRef<HTMLDivElement | null>(null);
+
     const scrollToTop = useCallback(() => {
-        markdownRef.current?.scrollToTop();
-    }, [markdownRef]);
+    if (contentRef.current) {
+        contentRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+    }, []);
 
     useEffect(() => {
         const handleSmoothScrollForAllLinks = (e: MouseEvent) => {
             const target = e.target as HTMLAnchorElement;
             if (target.tagName === 'A' && target.hash) {
                 e.preventDefault();
-                const targetId = target.hash.slice(1);
+                const targetId = target.hash.slice(1); // Remove the '#' from the hash
                 scrollToElement(targetId);
             }
         };
