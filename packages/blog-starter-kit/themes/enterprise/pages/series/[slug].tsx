@@ -33,6 +33,8 @@ export default function Post({ series, publication, posts }: Props) {
 			<Layout>
 				<Head>
 					<title>{title}</title>
+					<meta name="robots" content="noindex" />
+
 				</Head>
 				<Header />
 				<Container className="flex flex-col items-stretch gap-10 px-5 pb-10">
