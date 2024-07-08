@@ -85,7 +85,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
           loadMore();
         }
       },
-      { threshold: 0.6 } 
+      { threshold: 0.1 } 
     );
 
     observerRef.current.observe(loadingRef.current);
