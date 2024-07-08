@@ -9,7 +9,6 @@ export const PostContent: React.FC = () => {
 
     if (!post) return null;
 
-    // post.content objesinden doğru alanı alıyoruz
     const contentMarkdown = post.content.markdown;
 
     return (

@@ -28,7 +28,7 @@ const mapTableOfContentItems = (toc: TableOfContentsItem[]) => {
 const scrollToElement = (elementId: string) => {
     const element = document.getElementById(elementId);
     if (element) {
-        const offset = 20; // Ekranın üstünde bırakılacak boşluk (piksel cinsinden)
+        const offset = 20;
         const elementPosition = element.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - offset;
 
@@ -92,7 +92,7 @@ export const PostTOC: React.FC<PostTOCProps> = ({ markdownRef }) => {
             const target = e.target as HTMLAnchorElement;
             if (target.tagName === 'A' && target.hash) {
                 e.preventDefault();
-                const targetId = target.hash.slice(1); // Remove the '#' from the hash
+                const targetId = target.hash.slice(1);
                 scrollToElement(targetId);
             }
         };
