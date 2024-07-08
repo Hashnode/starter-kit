@@ -101,7 +101,8 @@ export const PostTOC: React.FC = () => {
     return (
         <div className="w-full px-5">
             <div ref={topRef} className="sticky-wrapper">
-                <div className="sticky-toc select-none mx-auto w-full max-w-screen-md rounded-lg border border-b-4 border-r-4 p-5 text-base leading-snug dark:border-neutral-800 dark:text-neutral-50 md:p-8 md:text-lg">
+                <div className="sticky-toc select-none mx-auto w-full max-w-screen-md rounded-lg border border-b-4 border-r-4 p-5 text-base leading-snug dark:border-neutral-800 dark:text-neutral-50 md:p-8 md:text-lg"
+                     style={{ borderColor: '#f3cbae' }}>
                     <h2 className="mb-5 text-lg font-bold md:text-xl">Konu Başlıkları</h2>
                     <button 
                         onClick={scrollToTop}
