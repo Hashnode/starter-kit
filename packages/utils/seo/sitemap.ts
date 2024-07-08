@@ -35,23 +35,6 @@ export const getSitemap = (publication: any) => {
 		xml += '</url>';
 	});
 
-	const uniqueTags = new Set<string>();
-	for (const post of posts) {
-		if (Array.isArray(post.tags)) {
-			for (const tag of post.tags) {
-				uniqueTags.add(tag.slug);
-			}
-		}
-	}
-
-	uniqueTags.forEach((tag: any) => {
-		xml += '<url>';
-		xml += `<loc>${domain}/tag/${tag}</loc>`;
-		xml += '<changefreq>always</changefreq>';
-		xml += `<priority>1</priority>`;
-		xml += '</url>';
-	});
-
 	xml += '</urlset>';
 	return xml;
 };
