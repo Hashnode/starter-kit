@@ -156,7 +156,7 @@ Congrats 🎉! Hashnode will now treat your blog as a headless blog and send rea
 - `pnpm install`
 - `pnpm dev`
 
-Visit http://localhost:3000!
+Visit https://localhost:3000!
 
 ## APIs
 
