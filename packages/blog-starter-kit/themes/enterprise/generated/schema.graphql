@@ -11,6 +11,31 @@ directive @private on FIELD_DEFINITION | OBJECT
 
 directive @requireAuth(scopes: [Scope!]) on FIELD_DEFINITION | OBJECT
 
+directive @validate(message: String, method: ValidationMethod!) on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+
+input AcceptInviteToPublicationInput {
+  """The invitation token to accept."""
+  inviteToken: String!
+}
+
+"""Response to accepting an invitation to join a publication."""
+type AcceptInviteToPublicationPayload {
+  """Signifies if the mutation was successful."""
+  success: Boolean!
+}
+
+"""Input to accept a role based invite."""
+input AcceptRoleBasedInviteInput {
+  """Invite token of the role based invite."""
+  inviteToken: String!
+}
+
+"""Input to toggle role based invite links."""
+type AcceptRoleBasedInvitePayload {
+  """Signifies if the mutation was successful."""
+  success: Boolean!
+}
+
 input AddCommentInput {
   contentMarkdown: String!
   postId: ID!
@@ -124,6 +149,41 @@ input CancelScheduledDraftInput {
 type CancelScheduledDraftPayload {
   """Payload returned in response of cancel scheduled post mutation."""
   scheduledPost: ScheduledPost!
+}
+
+"""Input to change the role of a user in a publication."""
+input ChangePublicationMemberRoleInput {
+  """The publication ID the user is a member of."""
+  publicationId: ID!
+  """The role of the user in the publication."""
+  role: UserPublicationRole!
+  """The username of the user to change the role for."""
+  username: String!
+}
+
+"""Response to changing the role of a user in a publication."""
+type ChangePublicationMemberRolePayload {
+  """The updated publication member."""
+  member: PublicationMember!
+}
+
+"""Input to change the privacy state of a user in a publication."""
+input ChangePublicationMemberVisibilityInput {
+  """
+  The privacy state of the user in the publication.
+  PRIVATE members are not visible on the members page while PUBLIC members are visible.
+  """
+  privacyState: PublicationMemberPrivacyState!
+  """The publication ID the user is a member of."""
+  publicationId: ID!
+  """The username of the user to change the role for."""
+  username: String!
+}
+
+"""Response to changing the privacy state of a user in a publication."""
+type ChangePublicationMemberVisibilityPayload {
+  """The updated publication member."""
+  member: PublicationMember!
 }
 
 """
@@ -755,6 +815,11 @@ input CreateDraftInput {
   """
   disableComments: Boolean
   """
+  The id of the user who owns the draft. When this field is supplied, the draft is created directly under that user's account.
+  Only applicable for team publications.
+  """
+  draftOwner: ID
+  """
   Information about the meta tags added to the resulting draft, used for SEO purpose.
   """
   metaTags: MetaTagsInput
@@ -827,6 +892,39 @@ input CreateDraftTagInput {
   Either this and name or id should be provided. If both are provided, the id will be used.
   """
   slug: String
+}
+
+input CreateRedirectionRuleInput {
+  destination: URL!
+  publicationId: ID!
+  source: String!
+  type: HttpRedirectionType!
+}
+
+type CreateRedirectionRulePayload {
+  redirectionRule: RedirectionRule!
+}
+
+"""Input to create a role based invite for a publication."""
+input CreateRoleBasedInviteForPublicationInput {
+  """The capacity of how many members to be invited by the link."""
+  capacity: Int
+  """Boolean to enable unlimited capacity."""
+  enableUnlimitedCapacity: Boolean
+  """The expiry date of the invite."""
+  expiryDate: DateTime
+  """Invite token set for the invitation"""
+  inviteToken: String
+  """The publication ID to create the invite for."""
+  publicationId: ID!
+  """The role to assign to the user in the publication."""
+  role: UserPublicationInviteRole!
+}
+
+"""Response to creating a role based invite for a publication."""
+type CreateRoleBasedInviteForPublicationPayload {
+  """The created role based invite."""
+  invite: RoleBasedInvite!
 }
 
 input CreateSeriesInput {
@@ -909,6 +1007,7 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 """
 scalar DateTime
 
+"""Input to delete a role based invite."""
 input DeleteRoleBasedInviteInput {
   """The ID of the role based invite."""
   inviteId: ID!
@@ -957,7 +1056,7 @@ type DomainStatus {
   """A flag indicating the status of a publication domain"""
   status: CustomDomainStatus!
   """
-  A timestamp indicating when the domain was verified. 
+  A timestamp indicating when the domain was verified.
   It is only present if the domain is verified.
   """
   verifiedAt: DateTime
@@ -973,8 +1072,8 @@ type Draft implements Node {
   canonicalUrl: String
   """
   Returns the user details of the co-authors of the post.
-  Hashnode users can add up to 4 co-authors as collaborators to their posts.
-  This functionality is limited to teams publication.
+  
+  Only available for team publications.
   """
   coAuthors: [User!]
   """Content of the draft in HTML and markdown"""
@@ -989,6 +1088,12 @@ type Draft implements Node {
   features: DraftFeatures!
   """The ID of the draft."""
   id: ID!
+  """
+  Whether or not the draft has been submitted for review.
+  
+  Only applicable to drafts in team publications.
+  """
+  isSubmittedForReview: Boolean
   """Information about the last backup of the draft."""
   lastBackup: DraftBackup
   """The date the draft last failed to back up."""
@@ -999,6 +1104,9 @@ type Draft implements Node {
   OG meta-data of the draft. Contains image url used in open graph meta tags.
   """
   ogMetaData: OpenGraphMetaData
+  """The publication the draft belongs to."""
+  publication: Publication
+  publishAs: User
   readTimeInMinutes: Int!
   """The date the draft is scheduled to be published."""
   scheduledDate: DateTime
@@ -1083,6 +1191,24 @@ type DraftFeatures {
   tableOfContents: TableOfContentsFeature!
 }
 
+type DraftRevision implements Node {
+  """The name of the user who created the revision."""
+  authorName: String!
+  """The content of the draft revision."""
+  content: Content!
+  """The time the revision has been created."""
+  createdAt: DateTime!
+  """The ID of the draft revision."""
+  id: ID!
+}
+
+type DraftRevisionEdge implements Edge {
+  """A cursor for use in pagination."""
+  cursor: String!
+  """A node in the connection containing a draft revision."""
+  node: DraftRevision!
+}
+
 type DraftSettings {
   """A flag to indicate if the comments are disabled for the post."""
   disableComments: Boolean!
@@ -1147,6 +1273,16 @@ enum EmailImportStatus {
   SUCCESS
 }
 
+"""Invitations that failed to be sent to the user"""
+type FailedInvite {
+  """The email of the user that failed to invite."""
+  email: String
+  """The reason why the user failed to invite."""
+  errorMessage: String!
+  """The username of the user that failed to invite."""
+  username: String
+}
+
 """Common fields that describe a feature."""
 interface Feature {
   """Whether the feature is enabled or not."""
@@ -1206,6 +1342,11 @@ enum FeedType {
   RECENT
   """Returns posts based on old personalization algorithm."""
   RELEVANT
+}
+
+type GPTBotCrawlingFeature implements Feature {
+  """A flag indicating if the GPT Bot Crawler feature is enabled or not."""
+  isEnabled: Boolean!
 }
 
 """Views implementation that will be returned if grouping by browser."""
@@ -1385,6 +1526,11 @@ type GroupedByTimeVisitors implements Node & Visitors {
   total: Int!
 }
 
+type HeadlessCMSFeature implements Feature {
+  """A flag indicating if the Headless CMS feature is enabled or not."""
+  isEnabled: Boolean!
+}
+
 enum HttpRedirectionType {
   """A permanent redirect that corresponds to the 302 HTTP status code."""
   PERMANENT
@@ -1503,6 +1649,24 @@ interface IUser {
   username: String!
 }
 
+"""Input to invite users to a publication."""
+input InviteUsersToPublicationInput {
+  """The publication ID to invite users to."""
+  publicationId: ID!
+  """The list of users  to invite to the publication."""
+  users: [UserInviteInput!]!
+}
+
+"""Response to inviting users to a publication."""
+type InviteUsersToPublicationPayload {
+  """Invites that failed due to an error."""
+  failedInvites: [FailedInvite!]!
+  """Signifies if the mutation was successful for all users."""
+  success: Boolean!
+  """The number of successful invites."""
+  successfulInviteCount: Int!
+}
+
 input LikeCommentInput {
   commentId: ID!
   likesCount: Int = 1
@@ -1542,6 +1706,14 @@ input MetaTagsInput {
 }
 
 type Mutation {
+  """
+  Accepts an invitation to join a publication. The user is added as a member of the publication.
+  """
+  acceptInviteToPublication(input: AcceptInviteToPublicationInput!): AcceptInviteToPublicationPayload!
+  """
+  Accepts a role based invite and adds the user as a member of the publication. The user is assigned the role specified in the invite.
+  """
+  acceptRoleBasedInvite(input: AcceptRoleBasedInviteInput!): AcceptRoleBasedInvitePayload!
   """Adds a comment to a post."""
   addComment(input: AddCommentInput!): AddCommentPayload!
   """Adds a post to a series."""
@@ -1549,17 +1721,31 @@ type Mutation {
   """Adds a reply to a comment."""
   addReply(input: AddReplyInput!): AddReplyPayload!
   cancelScheduledDraft(input: CancelScheduledDraftInput!): CancelScheduledDraftPayload!
+  """Changes the role of a user in a publication."""
+  changePublicationMemberRole(input: ChangePublicationMemberRoleInput!): ChangePublicationMemberRolePayload!
+  """
+  Changes the privacy state of a user in a publication.
+  PRIVATE members are not visible on the members page while PUBLIC members are visible.
+  """
+  changePublicationMemberVisibility(input: ChangePublicationMemberVisibilityInput!): ChangePublicationMemberVisibilityPayload!
   """Creates a new draft for a post."""
   createDraft(
     """Information about the draft to be created."""
     input: CreateDraftInput!
   ): CreateDraftPayload!
+  createRedirectionRule(input: CreateRedirectionRuleInput!): CreateRedirectionRulePayload!
+  """
+  Creates a role based invite for a publication and returns a link to invite users to a publication.
+  """
+  createRoleBasedInviteForPublication(input: CreateRoleBasedInviteForPublicationInput!): CreateRoleBasedInviteForPublicationPayload!
   """Creates a new series."""
   createSeries(input: CreateSeriesInput!): CreateSeriesPayload!
   createWebhook(input: CreateWebhookInput!): CreateWebhookPayload!
   """Deletes a role based invite."""
   deleteRoleBasedInvite(input: DeleteRoleBasedInviteInput!): DeleteRoleBasedInvitePayload!
   deleteWebhook(id: ID!): DeleteWebhookPayload!
+  """Invites users to a publication. Either by username or email."""
+  inviteUsersToPublication(input: InviteUsersToPublicationInput!): InviteUsersToPublicationPayload!
   """Likes a comment."""
   likeComment(input: LikeCommentInput!): LikeCommentPayload!
   """Likes a post."""
@@ -1577,11 +1763,18 @@ type Mutation {
     input: PublishPostInput!
   ): PublishPostPayload!
   recommendPublications(input: RecommendPublicationsInput!): RecommendPublicationsPayload!
+  """
+  Resends an invitation to a user to join a publication. The user must have been previously invited. Sends an email to the user.
+  """
+  reinviteUserToPublication(input: ReinviteUserToPublicationInput!): ReinviteUserToPublicationPayload!
   """Removes a comment from a post."""
   removeComment(input: RemoveCommentInput!): RemoveCommentPayload!
   """Removes a post."""
   removePost(input: RemovePostInput!): RemovePostPayload!
+  """Removes a user from a teams publication."""
+  removePublicationMember(input: RemovePublicationMemberInput!): RemovePublicationMemberPayload!
   removeRecommendation(input: RemoveRecommendationInput!): RemoveRecommendationPayload!
+  removeRedirectionRule(input: RemoveRedirectionRuleInput!): RemoveRedirectionRulePayload!
   """Removes a reply from a comment."""
   removeReply(input: RemoveReplyInput!): RemoveReplyPayload!
   """Removes a series."""
@@ -1591,11 +1784,17 @@ type Mutation {
   resendWebhookRequest(input: ResendWebhookRequestInput!): ResendWebhookRequestPayload!
   """Restores a deleted post."""
   restorePost(input: RestorePostInput!): RestorePostPayload!
+  """Revokes a user invitation that was sent to join a publication."""
+  revokeUserInviteToPublication(input: RevokeUserInviteToPublicationInput!): RevokeUserInviteToPublicationPayload!
   scheduleDraft(
     """Information about the draft to be published."""
     input: ScheduleDraftInput!
   ): ScheduleDraftPayload!
   subscribeToNewsletter(input: SubscribeToNewsletterInput!): SubscribeToNewsletterPayload!
+  """
+  Toggle allowContributorEdits flag to allow or restrict external contributors to further edit published articles.
+  """
+  toggleAllowContributorEdits(input: ToggleAllowContributorEditsInput!): ToggleAllowContributorEditsPayload!
   """
   Update the follow state for the user that is provided via id or username.
   If the authenticated user does not follow the user, the mutation will follow the user.
@@ -1603,13 +1802,24 @@ type Mutation {
   Only available to the authenticated user.
   """
   toggleFollowUser(id: ID, username: String): ToggleFollowUserPayload!
+  """Toggle GPT bot crawling feature."""
+  toggleGPTBotCrawling(input: ToggleGPTBotCrawlingInput!): ToggleGPTBotCrawlingPayload!
+  """
+  Toggles role based invite links' active status. Users can join the publication by the invite link only if it is active.
+  """
+  toggleRoleBasedInviteLinks(publicationId: ID!): ToggleRoleBasedInviteLinksPayload!
+  """Toggle text selection sharer feature."""
+  toggleTextSelectionSharer(input: ToggleTextSelectionSharerInput!): ToggleTextSelectionSharerPayload!
   triggerWebhookTest(input: TriggerWebhookTestInput!): TriggerWebhookTestPayload!
   unsubscribeFromNewsletter(input: UnsubscribeFromNewsletterInput!): UnsubscribeFromNewsletterPayload!
   """Updates a comment on a post."""
   updateComment(input: UpdateCommentInput!): UpdateCommentPayload!
   updatePost(input: UpdatePostInput!): UpdatePostPayload!
+  updateRedirectionRule(input: UpdateRedirectionRuleInput!): UpdateRedirectionRulePayload!
   """Updates a reply"""
   updateReply(input: UpdateReplyInput!): UpdateReplyPayload!
+  """Updates a role based invite for a publication."""
+  updateRoleBasedInvite(input: UpdateRoleBasedInviteInput!): UpdateRoleBasedInvitePayload!
   """Updates a series."""
   updateSeries(input: UpdateSeriesInput!): UpdateSeriesPayload!
   updateWebhook(input: UpdateWebhookInput!): UpdateWebhookPayload!
@@ -1642,6 +1852,14 @@ type MyUser implements IUser & Node {
   dateJoined: DateTime
   """Whether or not the user is deactivated."""
   deactivated: Boolean!
+  drafts(
+    """A cursor to the last item in the previous page."""
+    after: String
+    """The number of posts to return."""
+    first: Int!
+  ): UserDraftConnection!
+  """Email address of the user. Only available to the authenticated user."""
+  email: String!
   """The users who are following this user"""
   followers(
     """The page number that should be returned."""
@@ -1695,6 +1913,8 @@ type MyUser implements IUser & Node {
     """The maximum number of publications to return in a batch."""
     first: Int!
   ): UserPublicationsConnection!
+  """Returns the user's role if any."""
+  role: UserRole!
   """The social media links of the user. Shown on the user's profile."""
   socialMediaLinks: SocialMediaLinks
   """The tagline of the user. Shown on the user's profile below the name."""
@@ -1731,7 +1951,7 @@ type NewsletterRecord implements Node {
   """The number of subscribers the newsletter was opened by."""
   openCount: Int!
   """Associated post it was sent with"""
-  post: Post!
+  post: Post
   """The date the newsletter was sent."""
   sentAt: DateTime!
   """The number of subscribers the newsletter was sent to."""
@@ -1831,6 +2051,7 @@ type PagesPreferences {
   newsletter: Boolean
 }
 
+"""Contains the pending invite information."""
 type PendingInvite implements Node {
   """The email of the user that was invited."""
   email: String
@@ -1842,6 +2063,15 @@ type PendingInvite implements Node {
   Invited Hashnode user, returns null if the user is not a Hashnode user.
   """
   user: User
+}
+
+type PendingInviteConnection implements PageConnection {
+  """A list of invites"""
+  nodes: [PendingInvite!]!
+  """Information to aid in pagination."""
+  pageInfo: OffsetPageInfo!
+  """The total number of invites."""
+  totalDocuments: Int!
 }
 
 """
@@ -1983,6 +2213,14 @@ type Post implements Node {
   Preference settings for the post. Contains information about if the post is pinned to blog, comments are disabled, etc.
   """
   preferences: PostPreferences!
+  """
+  The previous slugs of the post. Only present if the slug has been changed.
+  
+  This could be used to create redirects for all posts from all previous slugs to the current slug.
+  
+  The latest slug is always the first element in the array.
+  """
+  previousSlugs: [String!]!
   """The publication the post belongs to."""
   publication: Publication
   """The date and time the post was published."""
@@ -2230,6 +2468,11 @@ type Preferences {
   navbarItems: [PublicationNavbarItem!]!
 }
 
+type ProTeamFeature implements Feature {
+  """A flag indicating if the Pro team feature is enabled or not."""
+  isEnabled: Boolean!
+}
+
 """
 Contains basic information about the publication.
 A publication is a blog that can be created for a user or a team.
@@ -2237,6 +2480,20 @@ A publication is a blog that can be created for a user or a team.
 type Publication implements Node {
   """The about section of the publication."""
   about: Content
+  """Returns the list of drafts in the publication"""
+  allDrafts(
+    """A cursor to the last item in the previous page."""
+    after: String
+    """The number of drafts to return."""
+    first: Int!
+  ): DraftConnection!
+  """Returns all the scheduled drafts of the publication."""
+  allScheduledDrafts(
+    """A cursor to the last item in the previous page."""
+    after: String
+    """The number of scheduled drafts to return."""
+    first: Int!
+  ): DraftConnection!
   """
   Boolean flag indicating if the publication allows edits by contributors
   """
@@ -2253,7 +2510,9 @@ type Publication implements Node {
   displayTitle: String
   """Domain information of the publication."""
   domainInfo: DomainInfo!
-  """Returns the list of drafts in the publication."""
+  """
+  Returns the list of drafts of the authenticated user in the publication.
+  """
   drafts(
     """A cursor to the last item in the previous page."""
     after: String
@@ -2291,9 +2550,15 @@ type Publication implements Node {
   """The integrations connected to the publication."""
   integrations: PublicationIntegrations
   """
+  Details of publication invites. Returns null if publication is not a team publication.
+  """
+  invites: PublicationInvite
+  """
   Returns true if GitHub backup is configured and active and false otherwise.
   """
   isGitHubBackupEnabled: Boolean!
+  """Returns whether the publication's GitHub source repo is connected."""
+  isGithubAsSourceConnected: Boolean!
   """
   A flag to indicate if the publication is using Headless CMS. This can be used to check if the post redirect needs authentication.
   """
@@ -2320,6 +2585,8 @@ type Publication implements Node {
     first: Int!
   ): PublicationPostConnection!
   postsViaPage(
+    """The filters to be applied to the post list."""
+    filter: PublicationPostsViaPageFilter
     """The page number that should be returned."""
     page: Int!
     """The number of posts to return on a single page."""
@@ -2338,9 +2605,20 @@ type Publication implements Node {
     """Size of the page."""
     pageSize: Int!
   ): PublicationUserRecommendingPublicationConnection!
+  """
+  Returns a post by a previous slug. It does not resolve a post by its current slug.
+  
+  If a slug has been changed, we'll create a redirect from the old slug to the new one.
+  With `redirectedPost` you can resolve a post by the old slug.
+  
+  This can be used to redirect a user to the new post slug (via `redirectedPost.slug`).
+  """
+  redirectedPost(slug: String!): Post
   """Configured redirection rules for the publication."""
   redirectionRules: [RedirectionRule!]!
-  """Returns the scheduled drafts of the publication."""
+  """
+  Returns the scheduled drafts of the publication by the authenticated user.
+  """
   scheduledDrafts(
     """A cursor to the last item in the previous page."""
     after: String
@@ -2411,10 +2689,16 @@ type PublicationFeatures {
   audioBlog: AudioBlogFeature! @deprecated(reason: "Audio Blogs are not supported anymore. This field will be removed 18/04/23")
   """Individual styling for the publication."""
   customCSS: CustomCSSFeature!
+  """GPT Bot crawler to index the publication."""
+  gptBotCrawling: GPTBotCrawlingFeature!
+  """Headless CMS for the publication."""
+  headlessCMS: HeadlessCMSFeature!
   """
   Newsletter feature for the publication which adds a `/newsletter` route for collecting subscribers and allows sending out newsletters.
   """
   newsletter: NewsletterFeature!
+  """Flag to denote if publication is a pro team's publication."""
+  proTeam: ProTeamFeature!
   """Show the read time for blog posts."""
   readTime: ReadTimeFeature!
   """
@@ -2462,6 +2746,28 @@ type PublicationIntegrations {
   Web Monetization Payment Pointer for integration with Web Monetization.
   """
   wmPaymentPointer: String
+}
+
+"""Contains the publication invite information."""
+type PublicationInvite {
+  """
+  Signifies if invite links in role-based invites are active.
+  Users trying to join by role-based invite can only join if this is enabled.
+  """
+  areRoleBasedInviteLinksActive: Boolean!
+  pendingInvites(
+    """The page number that should be returned."""
+    page: Int!
+    """The number of pending invites to return on a single page."""
+    pageSize: Int!
+  ): PendingInviteConnection!
+  """The paginated list of role based invites."""
+  roleBasedInvites(
+    """The page number that should be returned."""
+    page: Int!
+    """The number of role based invites to return on a single page."""
+    pageSize: Int!
+  ): RoleBasedInviteConnection!
 }
 
 """Contains publication's layout choices."""
@@ -2514,6 +2820,7 @@ type PublicationMember implements Node {
   user: User
 }
 
+"""Publication member privacy state on members page"""
 enum PublicationMemberPrivacyState {
   """The member is private and not visible on the members page."""
   PRIVATE
@@ -2595,6 +2902,23 @@ type PublicationPostPageConnection implements PageConnection {
   pageInfo: OffsetPageInfo!
   """The total number of posts."""
   totalDocuments: Int!
+}
+
+input PublicationPostsViaPageFilter {
+  """Remove pinned post from the result set."""
+  excludePinnedPosts: Boolean
+  """
+  Filtering by tag slugs and tag IDs will return posts that match either of the filters.
+  
+  It is an "OR" filter and not an "AND" filter.
+  """
+  tagSlugs: [String!]
+  """
+  Filtering by tag slugs and tag IDs will return posts that match either of the filters.
+  
+  It is an "OR" filter and not an "AND" filter.
+  """
+  tags: [ID!]
 }
 
 """
@@ -2857,6 +3181,20 @@ type RedirectionRule implements Node {
   type: HttpRedirectionType!
 }
 
+"""Input to reinvite a user to a publication."""
+input ReinviteUserToPublicationInput {
+  """The ID of the invitation to resend."""
+  inviteId: ID!
+  """The publication ID to resend the invitation from."""
+  publicationId: ID!
+}
+
+"""Response to reinviting a user to a publication."""
+type ReinviteUserToPublicationPayload {
+  """Signifies if the mutation was successful."""
+  success: Boolean!
+}
+
 input RemoveCommentInput {
   id: ID!
 }
@@ -2875,6 +3213,20 @@ type RemovePostPayload {
   post: Post
 }
 
+"""Input to remove a user from a publication."""
+input RemovePublicationMemberInput {
+  """The publication ID the user is a member of."""
+  publicationId: ID!
+  """The username of the user to remove from the publication."""
+  username: String!
+}
+
+"""Response to removing a user from a publication."""
+type RemovePublicationMemberPayload {
+  """Returns the removed publication member."""
+  member: PublicationMember!
+}
+
 input RemoveRecommendationInput {
   recommendedPublicationId: ID!
   recommendingPublicationId: ID!
@@ -2882,6 +3234,15 @@ input RemoveRecommendationInput {
 
 type RemoveRecommendationPayload {
   recommendedPublication: Publication!
+}
+
+input RemoveRedirectionRuleInput {
+  id: ID!
+  publicationId: ID!
+}
+
+type RemoveRedirectionRulePayload {
+  redirectionRule: RedirectionRule!
 }
 
 input RemoveReplyInput {
@@ -2960,9 +3321,26 @@ type RestorePostPayload {
   post: Post
 }
 
+"""Input to revoke a user invitation to a publication."""
+input RevokeUserInviteToPublicationInput {
+  """The invite ID to revoke."""
+  inviteId: ID!
+  """The publication ID to revoke the invite from."""
+  publicationId: ID!
+}
+
+"""Response to revoking a user invitation to a publication."""
+type RevokeUserInviteToPublicationPayload {
+  """Signifies if the mutation was successful."""
+  success: Boolean!
+}
+
+"""Contains the role based invite information."""
 type RoleBasedInvite implements Node {
   """The capacity of how many members to be invited by the link."""
   capacity: Int
+  """The date the invite was created."""
+  createdAt: DateTime
   """The expiry date of the invite."""
   expiryDate: DateTime
   """The ID of the role based invite."""
@@ -2973,6 +3351,19 @@ type RoleBasedInvite implements Node {
   isUnlimitedCapacity: Boolean
   """The role assigned to the user in the publication."""
   role: UserPublicationRole!
+  """
+  The number of members that have already used the link to join the team.
+  """
+  usedCapacity: Int
+}
+
+type RoleBasedInviteConnection implements PageConnection {
+  """A list of invites"""
+  nodes: [RoleBasedInvite!]!
+  """Information to aid in pagination."""
+  pageInfo: OffsetPageInfo!
+  """The total number of invites."""
+  totalDocuments: Int!
 }
 
 """Information to help in seo related meta tags."""
@@ -3029,27 +3420,34 @@ enum Scope {
   assign_pro_publications
   change_pro_subscription
   create_pro
+  delete_draft
   docs_editor_or_owner
   docs_owner
   import_subscribers_to_publication
   invited_team_user
+  move_draft
   publication_admin
+  publication_author
   publication_member
   publish_comment
   publish_draft
   publish_post
   publish_reply
   recommend_publications
+  reject_draft_submission
   remove_comment
   remove_reply
   restore_post
   signup
+  submit_draft
   team_hashnode
   update_comment
+  update_draft
   update_post
   update_reply
   webhook_admin
   write_draft
+  write_draft_revision
   write_post
   write_series
   write_static_page
@@ -3069,6 +3467,8 @@ type SearchPostConnection implements Connection {
 }
 
 input SearchPostsOfPublicationFilter {
+  """An array of author Ids to filter the posts."""
+  authorIds: [ID!]
   """
   Only return posts that are deleted. Query returns active posts by default, set this to true to return deleted posts.
   """
@@ -3076,7 +3476,7 @@ input SearchPostsOfPublicationFilter {
   """The ID of publications to search from."""
   publicationId: ObjectId!
   """The query to be searched in post."""
-  query: String!
+  query: String
 }
 
 type SearchUser implements Node {
@@ -3212,7 +3612,7 @@ type StaticPage implements Node {
   """
   seo: SEO
   """
-  The slug of the static page. Used to access static page.  Example https://johndoe.com/my-page
+  The slug of the static page. Used to access static page. Example `https://johndoe.com/my-page`.
   """
   slug: String!
   """The title of the static page. Shown in nav bar."""
@@ -3358,10 +3758,40 @@ type TextSelectionSharerFeature implements Feature {
   isEnabled: Boolean!
 }
 
+input ToggleAllowContributorEditsInput {
+  publicationId: ID!
+}
+
+type ToggleAllowContributorEditsPayload {
+  publication: Publication
+}
+
 """Payload for the toggleFollowingUser mutation."""
 type ToggleFollowUserPayload {
   """The user that was followed/unfollowed."""
   user: User
+}
+
+input ToggleGPTBotCrawlingInput {
+  publicationId: ID!
+}
+
+type ToggleGPTBotCrawlingPayload {
+  publication: Publication
+}
+
+"""Response to toggling role based invite links."""
+type ToggleRoleBasedInviteLinksPayload {
+  """Signifies the status of invite links after toggling."""
+  areRoleBasedInviteLinksActive: Boolean!
+}
+
+input ToggleTextSelectionSharerInput {
+  publicationId: ID!
+}
+
+type ToggleTextSelectionSharerPayload {
+  publication: Publication
 }
 
 input TriggerWebhookTestInput {
@@ -3475,6 +3905,18 @@ input UpdatePostSettingsInput {
   pinToBlog: Boolean
 }
 
+input UpdateRedirectionRuleInput {
+  destination: URL
+  id: ID!
+  publicationId: ID!
+  source: String
+  type: HttpRedirectionType
+}
+
+type UpdateRedirectionRulePayload {
+  redirectionRule: RedirectionRule!
+}
+
 input UpdateReplyInput {
   commentId: ID!
   contentMarkdown: String!
@@ -3483,6 +3925,27 @@ input UpdateReplyInput {
 
 type UpdateReplyPayload {
   reply: Reply
+}
+
+"""Input to update a role based invite."""
+input UpdateRoleBasedInviteInput {
+  """The capacity of how many members to be invited by the link."""
+  capacity: Int
+  """Boolean to enable unlimited capacity."""
+  enableUnlimitedCapacity: Boolean
+  """The expiry date of the invite."""
+  expiryDate: DateTime
+  """The ID of the role based invite."""
+  inviteId: ID!
+  publicationId: ID!
+  """The role to assign to the user in the publication."""
+  role: UserPublicationInviteRole
+}
+
+"""Response to updating a role based invite for a publication."""
+type UpdateRoleBasedInvitePayload {
+  """The updated role based invite."""
+  invite: RoleBasedInvite!
 }
 
 input UpdateSeriesInput {
@@ -3643,12 +4106,39 @@ type UserConnection implements PageConnection {
   totalDocuments: Int!
 }
 
+"""Drafts that belong to a user."""
+type UserDraftConnection implements Connection {
+  """A list of edges."""
+  edges: [UserDraftEdge!]!
+  """Generic information to aid in pagination."""
+  pageInfo: PageInfo!
+  """The total number of documents in the connection."""
+  totalDocuments: Int!
+}
+
+"""A generic type which holds a draft during pagination."""
+type UserDraftEdge implements Edge {
+  """A cursor for use in pagination."""
+  cursor: String!
+  """The item at the end of UserDraftEdge."""
+  node: Draft!
+}
+
 """Contains a node of type user and cursor for pagination."""
 type UserEdge implements Edge {
   """The cursor for use in pagination."""
   cursor: String!
   """The node containing User information"""
   node: User!
+}
+
+input UserInviteInput {
+  """The email of the user to invite to the publication."""
+  email: String
+  """The role to assign to the user in the publication."""
+  role: UserPublicationInviteRole!
+  """Username of the user to invite to the publication."""
+  username: String
 }
 
 """
@@ -3714,6 +4204,19 @@ enum UserPostsSort {
   DATE_PUBLISHED_ASC
   """Newest posts first."""
   DATE_PUBLISHED_DESC
+}
+
+"""The invited role of the user in the publication."""
+enum UserPublicationInviteRole {
+  """
+  Contributors can join the publication and contribute an article. They cannot directly publish a new article.
+  """
+  CONTRIBUTOR
+  """
+  The editor has access to the publication dashboard to customize the blog and approve/reject posts.
+  They also have access to the member panel to add/modify/remove members. Editors cannot remove other editors or update their roles.
+  """
+  EDITOR
 }
 
 """The role of the user in the publication."""
@@ -3788,6 +4291,17 @@ type UserRecommendingPublicationEdge {
   The amount of followers the publication has gained by recommendations from the publication referenced in `node`.
   """
   totalFollowersGained: Int!
+}
+
+"""Role of the user within Hashnode"""
+enum UserRole {
+  MODERATOR
+  SUPERUSER
+  USER
+}
+
+enum ValidationMethod {
+  ID
 }
 
 """

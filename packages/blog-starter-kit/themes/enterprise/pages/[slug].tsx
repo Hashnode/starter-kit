@@ -167,7 +167,6 @@ const Post = ({ publication, post, relatedPosts }: PostProps) => {
         <meta name="twitter:image:alt" content={`${postTitle} görseli`} />
 
         <meta name="description" content={postDescription} />
-        <meta name="keywords" content={post.seo?.keywords || `temizmama, blog, tazemama, kedi, köpek, mama ${post.tags?.join(', ')}`} />
         <meta name="author" content={post.author?.name || "Temizmama Blog"} />
 
         <meta name="robots" content="index, follow" />
@@ -234,38 +233,38 @@ type Params = {
 };
 
 export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) => {
-  if (!params) {
-    throw new Error('No params');
-  }
-
-  const endpoint = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
-  const host = process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST;
-  const slug = params.slug;
-
-  const postData = await request(endpoint, SinglePostByPublicationDocument, { host, slug });
-
-  if (postData.publication?.post) {
-    // Fetch related posts
-    const relatedPostsData = await request<RelatedPostsQuery, RelatedPostsQueryVariables>(
-      endpoint,
-      RelatedPostsDocument,
-      {
-        host,
-        slug,
-        first: 3 // Limit to 3 related posts
-      }
-    );
-
-    return {
-      props: {
-        type: 'post',
-        post: postData.publication.post,
-        publication: postData.publication,
-        relatedPosts: relatedPostsData.publication?.relatedPosts || [],
-      },
-      revalidate: 1,
-    };
-  }
+	if (!params) {
+	  throw new Error('No params');
+	}
+  
+	const endpoint = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
+	const host = process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST;
+	const slug = params.slug;
+  
+	const postData = await request(endpoint, SinglePostByPublicationDocument, { host, slug });
+  
+	if (postData.publication?.post) {
+	  // Fetch related posts
+	  const relatedPostsData = await request<RelatedPostsQuery, RelatedPostsQueryVariables>(
+		endpoint,
+		RelatedPostsDocument,
+		{
+		  host,
+		  slug,
+		  first: 3 // Limit to 3 related posts
+		}
+	  );
+  
+	  return {
+		props: {
+		  type: 'post',
+		  post: postData.publication.post,
+		  publication: postData.publication,
+		  relatedPosts: relatedPostsData.publication?.relatedPosts || [],
+		},
+		revalidate: 1,
+	  };
+	}
 
   const pageData = await request(endpoint, PageByPublicationDocument, { host, slug });
 
