@@ -161,7 +161,9 @@ h1, h2, h3 {
     display: none;
 }
 */
-
+.hover\:orangeshadow:hover {
+  text-shadow: 0 0 2px rgb(249 115 22);
+}
 .embed-wrapper {
     padding-bottom: 2rem;
     padding-top: 1rem;
