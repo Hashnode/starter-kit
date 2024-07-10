@@ -235,6 +235,9 @@ export default function PostOrPage(props: Props) {
             {props.type === 'page' && <Page {...props as PageProps} />}
           </article>
         </Container>
+		{props.type === 'post' && props.relatedPosts && props.relatedPosts.length > 0 && (
+					<RelatedPosts posts={props.relatedPosts} />
+				)}
         <CircularProgressBar />
         <Footer />
       </Layout>
