@@ -39,22 +39,25 @@ const PostComments = dynamic(() =>
   import('../components/post-comments').then((mod) => mod.PostComments),
 );
 
-export const PostsByTagDocument = gql`
-  query PostsByTag($host: String!, $tagSlugs: [String!], $first: Int!) {
+export const RelatedPostsDocument = gql`
+  query RelatedPosts($host: String!, $slug: String!, $first: Int!) {
     publication(host: $host) {
-      posts(first: $first, filter: { tagSlugs: $tagSlugs }) {
-        edges {
-          node {
-            id
-            title
-            brief
-            slug
-            coverImage {
-              url
-            }
-            author {
-              name
-              profilePicture
+      post(slug: $slug) {
+        relatedPosts(first: $first) {
+          edges {
+            node {
+              id
+              title
+              brief
+              slug
+              coverImage {
+                url
+              }
+              author {
+                name
+                profilePicture
+              }
+              publishedAt
             }
           }
         }
@@ -63,31 +66,25 @@ export const PostsByTagDocument = gql`
   }
 `;
 
-type PostsByTagQuery = {
-	publication?: {
-	  posts: {
-		edges: Array<{
-		  node: RelatedPostFragment;
-		}>;
-	  };
-	};
-  };
-
-type RelatedPostFragment = {
+export type RelatedPostFragment = {
   id: string;
   title: string;
   brief: string;
   slug: string;
+  publishedAt: string;
   coverImage?: { url: string } | null;
   author: { name: string; profilePicture?: string | null };
 };
 
-
 export type RelatedPostsQuery = {
-  __typename?: 'Query';
   publication?: {
-    __typename?: 'Publication';
-    relatedPosts: Array<RelatedPostFragment>;
+    post?: {
+      relatedPosts: {
+        edges: Array<{
+          node: RelatedPostFragment;
+        }>;
+      };
+    } | null;
   } | null;
 };
 
@@ -102,6 +99,16 @@ type PostProps = {
 	post: PostFullFragment;
 	publication: PublicationFragment;
 	relatedPosts: RelatedPostFragment[];
+  };
+  
+  type PostsByTagQuery = {
+	publication?: {
+	  posts: {
+		edges: Array<{
+		  node: RelatedPostFragment;
+		}>;
+	  };
+	};
   };
 
 type PageProps = {
@@ -258,30 +265,28 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
 	const postData = await request(endpoint, SinglePostByPublicationDocument, { host, slug });
   
 	if (postData.publication?.post) {
-		const currentPost = postData.publication.post;
-		const tagSlugs = currentPost.tags?.map(tag => tag.slug) || [];
-	
-		const relatedPostsData = await request<PostsByTagQuery>(endpoint, PostsByTagDocument, {
+	  const relatedPostsData = await request<RelatedPostsQuery, RelatedPostsQueryVariables>(
+		endpoint,
+		RelatedPostsDocument,
+		{
 		  host,
-		  tagSlugs,
-		  first: 4
-		});
-	
-		const relatedPosts = relatedPostsData.publication?.posts.edges
-		  .map((edge: { node: RelatedPostFragment }) => edge.node)
-		  .filter((post: RelatedPostFragment) => post.id !== currentPost.id)
-		  .slice(0, 3);
-	
-		return {
-		  props: {
-			type: 'post',
-			post: currentPost,
-			publication: postData.publication,
-			relatedPosts: relatedPosts || [],
-		  },
-		  revalidate: 1,
-		};
-	  }
+		  slug,
+		  first: 3 // Limit to 3 related posts
+		}
+	  );
+  
+	  const relatedPosts = relatedPostsData.publication?.post?.relatedPosts.edges.map(edge => edge.node) || [];
+  
+	  return {
+		props: {
+		  type: 'post',
+		  post: postData.publication.post,
+		  publication: postData.publication,
+		  relatedPosts: relatedPosts,
+		},
+		revalidate: 1,
+	  };
+	}
 
   const pageData = await request(endpoint, PageByPublicationDocument, { host, slug });
 
