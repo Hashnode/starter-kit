@@ -2,9 +2,8 @@ import { useMemo, useCallback, useState, useRef, useEffect } from 'react';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
-import { useVirtual } from 'react-virtual';
+import { useInView } from 'react-intersection-observer';
 import { request } from 'graphql-request';
-import { useIntersectionObserver } from 'react-intersection-observer-hook';
 
 import { AppProvider } from '../components/contexts/appContext';
 import { Navbar } from '../components/navbar';
@@ -42,18 +41,11 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
   const [allPosts, setAllPosts] = useState<PostFragment[]>(initialAllPosts);
   const [pageInfo, setPageInfo] = useState<PageInfo>(initialPageInfo);
   const [isLoading, setIsLoading] = useState(false);
+  const [filter, setFilter] = useState<string>('');
 
-  const parentRef = useRef<HTMLDivElement>(null);
-
-  const rowVirtualizer = useVirtual({
-    size: allPosts.length,
-    parentRef,
-    estimateSize: useCallback(() => 100, []),
-    overscan: 5,
+  const { ref: loadingRef, inView } = useInView({
+    threshold: 0.1,
   });
-
-  const [loadingRef, loadingEntry] = useIntersectionObserver();
-  const shouldLoadMore = loadingEntry?.isIntersecting;
 
   const loadMore = useCallback(async () => {
     if (isLoading || !pageInfo.hasNextPage) return;
@@ -72,25 +64,32 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
         setPageInfo(data.publication.posts.pageInfo);
       }
     } catch (error) {
-      console.error('Error loading more posts:', error);
+      console.error('Daha fazla gönderi yüklenirken hata oluştu:', error);
     } finally {
       setIsLoading(false);
     }
   }, [pageInfo, isLoading]);
 
   useEffect(() => {
-    if (shouldLoadMore) {
+    if (inView) {
       loadMore();
     }
-  }, [shouldLoadMore, loadMore]);
+  }, [inView, loadMore]);
+
+  const filteredPosts = useMemo(() => {
+    return allPosts.filter((post) =>
+      post.title.toLowerCase().includes(filter.toLowerCase()) ||
+      post.brief.toLowerCase().includes(filter.toLowerCase())
+    );
+  }, [allPosts, filter]);
 
   const memoizedContent = useMemo(() => {
-    const firstPost = allPosts[0];
-    const secondaryPosts = allPosts.slice(1, 4);
-    const morePosts = allPosts.slice(4);
+    const firstPost = filteredPosts[0];
+    const secondaryPosts = filteredPosts.slice(1, 4);
+    const morePosts = filteredPosts.slice(4);
 
     return { firstPost, secondaryPosts, morePosts };
-  }, [allPosts]);
+  }, [filteredPosts]);
 
   return (
     <AppProvider publication={publication}>
@@ -110,6 +109,16 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
             <p className="text-md leading-snug text-slate-500 dark:text-neutral-400 text-lg max-w-xl mx-auto">
               Sevimli dostlarımız için en taze mamayı sunan <a href="https://www.temizmama.com" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:orangeshadow transition duration-300">Temizmama</a> aracılığıyla kedi & köpek bakımı ile ilgili bilinmesi gerekenlerin hepsi bu sayfada!
             </p>
+          </div>
+
+          <div className="mb-4">
+            <input
+              type="text"
+              placeholder="Gönderilerde ara..."
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded"
+            />
           </div>
 
           {memoizedContent.firstPost && (
@@ -135,27 +144,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
             ))}
           </div>
 
-          <div ref={parentRef} style={{ height: `${rowVirtualizer.totalSize}px`, position: 'relative' }}>
-            {rowVirtualizer.virtualItems.map((virtualRow) => {
-              const post = memoizedContent.morePosts[virtualRow.index];
-              return (
-                <div
-                  key={virtualRow.index}
-                  ref={virtualRow.measureRef}
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: `${virtualRow.size}px`,
-                    transform: `translateY(${virtualRow.start}px)`,
-                  }}
-                >
-                  <MorePosts context="home" posts={[post]} />
-                </div>
-              );
-            })}
-          </div>
+          <MorePosts context="home" posts={memoizedContent.morePosts} />
 
           {pageInfo.hasNextPage && (
             <div ref={loadingRef} className="flex justify-center items-center py-4">
