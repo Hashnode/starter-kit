@@ -2395,24 +2395,7 @@ type Publication implements Node {
   """Determines the structure of the post URLs."""
   urlPattern: UrlPattern!
 }
-query RelatedPosts($host: String!, $slug: String!, $first: Int!) {
-  publication(host: $host) {
-    relatedPosts(slug: $slug, first: $first) {
-      id
-      title
-      brief
-      slug
-      coverImage {
-        url
-      }
-      tags {
-        id
-        name
-        slug
-      }
-    }
-  }
-}
+
 """
 Connection to get list of drafts in publications.
 Returns a list of edges which contains the drafts in publication and cursor to the last item of the previous page.
