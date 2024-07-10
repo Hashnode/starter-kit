@@ -14,9 +14,6 @@ importers:
       classnames:
         specifier: ^2.5.1
         version: 2.5.1
-      framer-motion:
-        specifier: ^11.3.0
-        version: 11.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       graphql:
         specifier: ^16.9.0
         version: 16.9.0
@@ -63,6 +60,9 @@ importers:
       '@types/react-google-recaptcha':
         specifier: ^2.1.9
         version: 2.1.9
+      framer-motion:
+        specifier: ^11.3.0
+        version: 11.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       prettier:
         specifier: ^3.3.2
         version: 3.3.2
