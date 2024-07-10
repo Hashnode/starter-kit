@@ -108,6 +108,8 @@ export type Badge = Node & {
   suppressed?: Maybe<Scalars['Boolean']['output']>;
 };
 
+
+
 /**
  * Contains basic information about the beta feature.
  * A beta feature is a feature that is not yet released to all users.
