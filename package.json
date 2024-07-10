@@ -12,6 +12,7 @@
 	"dependencies": {
 		"@types/lodash-es": "^4.17.12",
 		"classnames": "^2.5.1",
+		"graphql": "^16.9.0",
 		"graphql-request": "^7.1.0",
 		"lodash-es": "^4.17.21",
 		"next": "^14.2.4",
