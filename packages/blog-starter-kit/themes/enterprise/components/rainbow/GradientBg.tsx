@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, ForwardedRef, MutableRefObject, useState } from 'react';
 
-const MIN_SPEED = 0.5;
-const MAX_SPEED = 1.5;
+const MIN_SPEED = 1.5;
+const MAX_SPEED = 2.5;
 
 const randomNumber = (min: number, max: number): number => Math.random() * (max - min) + min;
 
