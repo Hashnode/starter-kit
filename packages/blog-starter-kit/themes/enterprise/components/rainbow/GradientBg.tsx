@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, ForwardedRef, MutableRefObject, useState } from 'react';
 
-const MIN_SPEED = 1.5;
-const MAX_SPEED = 2.5;
+const MIN_SPEED = 0.2;
+const MAX_SPEED = 0.5;
 
 const randomNumber = (min: number, max: number): number => Math.random() * (max - min) + min;
 
@@ -74,13 +74,19 @@ const Blob = React.forwardRef(
       };
 
       let animationFrameId: number;
+      let lastUpdateTime = 0;
+      const fps = 30; // Limit FPS for smoother, slower animation
 
-      const animate = () => {
-        updatePosition();
+      const animate = (currentTime: number) => {
         animationFrameId = requestAnimationFrame(animate);
+
+        if (currentTime - lastUpdateTime > 1000 / fps) {
+          updatePosition();
+          lastUpdateTime = currentTime;
+        }
       };
 
-      animate();
+      animate(0);
 
       return () => {
         cancelAnimationFrame(animationFrameId);
