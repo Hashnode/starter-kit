@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, ForwardedRef, MutableRefObject, useState } from 'react';
+import React, { useEffect, useRef, ForwardedRef, MutableRefObject } from 'react';
 
-const MIN_SPEED = 0.2;
-const MAX_SPEED = 0.5;
+const MIN_SPEED = 1.5;
+const MAX_SPEED = 2.5;
 
 const randomNumber = (min: number, max: number): number => Math.random() * (max - min) + min;
 
@@ -16,7 +16,6 @@ const Blob = React.forwardRef(
     ref: ForwardedRef<HTMLDivElement>
   ) => {
     const localRef = useRef<HTMLDivElement>(null);
-    const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
 
     useEffect(() => {
       if (ref && typeof ref === 'function') {
@@ -28,20 +27,14 @@ const Blob = React.forwardRef(
       const blob = localRef.current;
       if (!blob || typeof window === 'undefined') return;
 
-      const updateWindowSize = () => {
-        setWindowSize({ width: window.innerWidth, height: window.innerHeight });
-      };
-
-      updateWindowSize();
-      window.addEventListener('resize', updateWindowSize);
-
-      const size = isWhite ? 60 : 128; // Fixed size in pixels
+      const size = isWhite ? 15 : 32;
       const initialX = randomNumber(0, window.innerWidth - size);
       const initialY = randomNumber(0, window.innerHeight - size);
       const vx = randomNumber(MIN_SPEED, MAX_SPEED) * (Math.random() > 0.5 ? 1 : -1);
       const vy = randomNumber(MIN_SPEED, MAX_SPEED) * (Math.random() > 0.5 ? 1 : -1);
 
-      blob.style.transform = `translate(${initialX}px, ${initialY}px)`;
+      // Set initial position using transform (not top/left)
+      blob.style.transform = `translate(${initialX}px, ${initialY}px)`; 
       blob.dataset.x = initialX.toString();
       blob.dataset.y = initialY.toString();
       blob.dataset.vx = vx.toString();
@@ -59,40 +52,25 @@ const Blob = React.forwardRef(
 
         if (numX >= window.innerWidth - size || numX <= 0) {
           numVx *= -1;
-          numX = Math.max(0, Math.min(numX, window.innerWidth - size));
         }
         if (numY >= window.innerHeight - size || numY <= 0) {
           numVy *= -1;
-          numY = Math.max(0, Math.min(numY, window.innerHeight - size));
         }
 
-        blob.style.transform = `translate(${numX}px, ${numY}px)`;
+        blob.style.transform = `translate(${numX}px, ${numY}px)`; 
         blob.dataset.x = numX.toString();
         blob.dataset.y = numY.toString();
         blob.dataset.vx = numVx.toString();
         blob.dataset.vy = numVy.toString();
       };
 
-      let animationFrameId: number;
-      let lastUpdateTime = 0;
-      const fps = 30; // Limit FPS for smoother, slower animation
+      const animationFrame = requestAnimationFrame(function animate() {
+        updatePosition();
+        requestAnimationFrame(animate);
+      });
 
-      const animate = (currentTime: number) => {
-        animationFrameId = requestAnimationFrame(animate);
-
-        if (currentTime - lastUpdateTime > 1000 / fps) {
-          updatePosition();
-          lastUpdateTime = currentTime;
-        }
-      };
-
-      animate(0);
-
-      return () => {
-        cancelAnimationFrame(animationFrameId);
-        window.removeEventListener('resize', updateWindowSize);
-      };
-    }, [isWhite, windowSize]);
+      return () => cancelAnimationFrame(animationFrame);
+    }, [isWhite]); 
 
     const blobClassNames = `bouncing-blob bouncing-blob--${color} ${isWhite ? 'bouncing-blob--white' : ''}`;
 
@@ -102,22 +80,6 @@ const Blob = React.forwardRef(
 
 const GradientBg: React.FC = () => {
   const blobRefs = Array.from({ length: 7 }, () => useRef<HTMLDivElement>(null));
-  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
-
-  useEffect(() => {
-    const updateWindowSize = () => {
-      setWindowSize({ width: window.innerWidth, height: window.innerHeight });
-    };
-
-    updateWindowSize();
-    window.addEventListener('resize', updateWindowSize);
-    window.addEventListener('orientationchange', updateWindowSize);
-
-    return () => {
-      window.removeEventListener('resize', updateWindowSize);
-      window.removeEventListener('orientationchange', updateWindowSize);
-    };
-  }, []);
 
   return (
     <div className="bouncing-blobs-container">
