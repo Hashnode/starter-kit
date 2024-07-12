@@ -1,5 +1,5 @@
 export const DEFAULT_AVATAR =
-	'https://cdn.hashnode.com/res/hashnode/image/upload/v1720783929907/OSTT0QVJ9.png';
+	'https://cdn.hashnode.com/res/hashnode/image/upload/v1659089761812/fsOct5gl6.png';
 
 const DEFAULT_PHOTO = `${DEFAULT_AVATAR},format&format=webp`;
 
