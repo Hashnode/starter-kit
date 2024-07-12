@@ -12,6 +12,7 @@ import { AppProvider } from '../components/contexts/appContext';
 import { Footer } from '../components/footer';
 import { Navbar } from "../components/navbar";
 import { Layout } from '../components/layout';
+import { Integrations } from '../components/integrations';
 import { MarkdownToHtml } from '../components/markdown-to-html';
 import { PostHeader } from '../components/post-header';
 import { PostTOC } from '../components/post-toc';
@@ -241,6 +242,7 @@ export default function PostOrPage(props: Props) {
         <CircularProgressBar />
         <Footer />
       </Layout>
+      <Integrations />
     </AppProvider>
   );
 }
