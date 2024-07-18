@@ -12,10 +12,6 @@ function PostAuthorInfo(props: any) {
     <div className="flex w-full flex-1 flex-col md:flex-row">
       <div className="mb-4 flex w-full flex-1 flex-row md:mb-0 ">
         <div className="mr-4 flex flex-row md:mb-0">
-          <a
-            href={`https://hashnode.com/@${author.username}`}
-            className="block h-10 w-10 overflow-hidden rounded-full border dark:border-slate-800 md:h-14 md:w-14"
-          >
             <CustomImage
               className="block"
               placeholder="blur"
@@ -36,7 +32,6 @@ function PostAuthorInfo(props: any) {
               height={256}
               alt={author.name}
             />
-          </a>
         </div>
         <div
           className={twJoin(
@@ -46,7 +41,7 @@ function PostAuthorInfo(props: any) {
         >
           <div className="flex flex-row items-center md:mb-1">
             <h1 className="font-sans text-lg font-semibold text-slate-800 dark:text-slate-100">
-              <a href={`https://hashnode.com/@${author.username}`}>{author.name}</a>
+              {author.name}
             </h1>
           </div>
           {author.bio?.html && (
