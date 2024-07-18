@@ -16,7 +16,6 @@ import { Integrations } from '../components/integrations';
 import { MarkdownToHtml } from '../components/markdown-to-html';
 import { PostHeader } from '../components/post-header';
 import { PostTOC } from '../components/post-toc';
-import RelatedPosts from '../components/RelatedPosts';
 import {
   PageByPublicationDocument,
   PostFullFragment,
@@ -35,7 +34,6 @@ import { useEffect, useState } from 'react';
 import { triggerCustomWidgetEmbed } from '@starter-kit/utils/trigger-custom-widget-embed';
 
 const AboutAuthor = dynamic(() => import('../components/about-author'), { ssr: false });
-const Subscribe = dynamic(() => import('../components/subscribe').then((mod) => mod.Subscribe));
 const PostComments = dynamic(() =>
   import('../components/post-comments').then((mod) => mod.PostComments),
 );
