@@ -198,15 +198,18 @@ const Post = ({ publication, post, relatedPosts }: PostProps) => {
         <style dangerouslySetInnerHTML={{ __html: highlightJsMonokaiTheme }}></style>
       </Head>
       
-      <PostHeader
-        title={post.title}
-        coverImage={post.coverImage?.url}
-      />
-      {post.features.tableOfContents.isEnabled && <PostTOC />}
-      <MarkdownToHtml contentMarkdown={post.content.markdown} />
-      {/* {relatedPosts && relatedPosts.length > 0 && <RelatedPosts posts={relatedPosts} />} */}
-    </>
-  );
+			<PostHeader
+				title={post.title}
+				coverImage={post.coverImage?.url}
+				date={post.publishedAt}
+				author={post.author}
+			/>
+			{post.features.tableOfContents.isEnabled && <PostTOC />}
+			<MarkdownToHtml contentMarkdown={post.content.markdown} />
+			<AboutAuthor />
+			{!post.preferences.disableComments && post.comments.totalDocuments > 0 && <PostComments />}
+		</>
+	);
 };
 
 const Page = ({ page }: PageProps) => {
