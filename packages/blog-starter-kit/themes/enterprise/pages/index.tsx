@@ -13,7 +13,6 @@ import { ArticleSVG } from "../components/icons";
 import { Layout } from "../components/layout";
 import { MorePosts } from "../components/more-posts";
 import { SecondaryPost } from "../components/secondary-post";
-import FakeLighthouseScores from '../components/FakeLighthouseScores';
 import dynamic from 'next/dynamic';
 import ErrorBoundary from "../components/ErrorBoundary";
 import { DEFAULT_COVER } from "../utils/const";
@@ -111,7 +110,6 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 
   return (
     <AppProvider publication={publication}>
-      {process.env.NODE_ENV === 'development' && <FakeLighthouseScores />}
       <Layout>
         <Head>
           <title>
