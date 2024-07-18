@@ -18,11 +18,6 @@ import dynamic from 'next/dynamic';
 import ErrorBoundary from "../components/ErrorBoundary";
 import { DEFAULT_COVER } from "../utils/const";
 
-const PerformanceDashboard = dynamic(
-  () => import('../components/PerformanceDashboard'),
-  { ssr: false }
-);
-
 import {
   MorePostsByPublicationDocument,
   MorePostsByPublicationQuery,
@@ -231,9 +226,6 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
         </Container>
         <Footer />
       </Layout>
-      <ErrorBoundary>
-        <PerformanceDashboard />
-      </ErrorBoundary>
     </AppProvider>
   );
 }
