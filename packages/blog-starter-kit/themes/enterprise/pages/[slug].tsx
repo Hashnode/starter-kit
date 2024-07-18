@@ -204,7 +204,7 @@ const Post = ({ publication, post, relatedPosts }: PostProps) => {
       />
       {post.features.tableOfContents.isEnabled && <PostTOC />}
       <MarkdownToHtml contentMarkdown={post.content.markdown} />
-      {relatedPosts && relatedPosts.length > 0 && <RelatedPosts posts={relatedPosts} />}
+      {/* {relatedPosts && relatedPosts.length > 0 && <RelatedPosts posts={relatedPosts} />} */}
     </>
   );
 };
@@ -236,9 +236,9 @@ export default function PostOrPage(props: Props) {
             {props.type === 'page' && <Page {...props as PageProps} />}
           </article>
         </Container>
-		{props.type === 'post' && props.relatedPosts && props.relatedPosts.length > 0 && (
+		{/* {props.type === 'post' && props.relatedPosts && props.relatedPosts.length > 0 && (
 					<RelatedPosts posts={props.relatedPosts} />
-				)}
+				)} */}
         <CircularProgressBar />
         <Footer />
       </Layout>
