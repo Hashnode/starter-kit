@@ -16,9 +16,9 @@
     border-bottom-width: 1.5px;
 }
 .cstmimg {
-    position: absolute;
-    transform: translate(25.6rem, -16.5rem);
-    zoom: 0.2;
+  position:absolute;
+  transform:translate(25.6rem,-16.5rem);
+  zoom: calc(0.2);
 }
 .text-slate-500 {
   color: black;
