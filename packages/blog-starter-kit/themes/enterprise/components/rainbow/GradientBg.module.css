@@ -1,6 +1,6 @@
 .bouncing-blob {
-  width: 128px; /* Sabit genişlik */
-  height: 128px; /* Sabit yükseklik */
+  width: 128px;
+  height: 128px;
   border-radius: 50%;
   will-change: transform;
   position: absolute;
@@ -9,21 +9,25 @@
   left: 0;
   transform-origin: left top;
 }
+
 .bouncing-blob--white {
-  width: 60px; /* Daha küçük sabit genişlik */
-  height: 60px; /* Daha küçük sabit yükseklik */
+  width: 60px;
+  height: 60px;
   z-index: 2;
 }
+
 .bouncing-blob--blue {
-  background: #4783c7;
+  background-color: #4783c7; /* Arka plan rengi için 'background' yerine 'background-color' kullanın */
 }
 
 .bouncing-blob--purple {
-  background: #8c8ff1;
+  background-color: #8c8ff1; /* Arka plan rengi için 'background' yerine 'background-color' kullanın */
 }
+
 .bouncing-blob--pink {
-  background: #e289cd50;
+  background-color: #e289cd50; /* Arka plan rengi için 'background' yerine 'background-color' kullanın */
 }
+
 .bouncing-blobs-container {
   position: fixed;
   top: 0;
@@ -32,6 +36,7 @@
   bottom: 0;
   overflow: hidden;
 }
+
 .bouncing-blobs-glass {
   position: absolute;
   z-index: 2;
@@ -40,9 +45,10 @@
   right: 0;
   bottom: 0;
   backdrop-filter: blur(240px);
-  -webkit-backdrop-filter: blur(240px);
+  -webkit-backdrop-filter: blur(240px); /* WebKit tabanlı tarayıcılar için */
   pointer-events: none;
 }
+
 .bouncing-blobs {
   position: absolute;
   z-index: 1;
@@ -55,15 +61,17 @@
 
 @media (max-width: 768px) {
   .bouncing-blob {
-    width: 64px; /* Daha küçük boyut mobil cihazlar için */
+    width: 64px;
     height: 64px;
   }
+
   .bouncing-blob--white {
     width: 30px;
     height: 30px;
   }
+
   .bouncing-blobs-glass {
     backdrop-filter: blur(190px);
-    -webkit-backdrop-filter: blur(190px);
+    -webkit-backdrop-filter: blur(190px); /* WebKit tabanlı tarayıcılar için */
   }
 }
