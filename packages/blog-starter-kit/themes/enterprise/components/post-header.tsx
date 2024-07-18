@@ -33,7 +33,7 @@ export const PostHeader = ({ title, coverImage, date, author }: Props) => {
 	return (
 		<>
 			<PostTitle>{title}</PostTitle>
-			<div className="flex flex-row flex-wrap items-center justify-center w-full gap-2 px-2 text-slate-700 dark:text-neutral-300 md:px-0">
+			{/* <div className="flex flex-row flex-wrap items-center justify-center w-full gap-2 px-2 text-slate-700 dark:text-neutral-300 md:px-0">
 				<div className="mb-5 flex w-full flex-row items-center justify-center md:mb-0 md:w-auto md:justify-start">
 					{authorsArray.map((coAuthor, index) => (
 						<div
@@ -87,7 +87,7 @@ export const PostHeader = ({ title, coverImage, date, author }: Props) => {
 					<span className="mx-3 hidden font-bold text-slate-500 md:block">&middot;</span>
 					<DateFormatter dateString={date} />
 				</div>
-			</div>
+			</div> */}
 			{coverImage && (
 				<div className="flex justify-center items-center relative w-1/2 h-1/2 w-full px-5 sm:mx-0">
 					<CoverImage
