@@ -57,7 +57,12 @@ export default function Post({ publication, post }: Props) {
               <link rel="canonical" href={post.url} />
               <style dangerouslySetInnerHTML={{ __html: highlightJsMonokaiTheme }}></style>
             </Head>
-            <PostHeader title={post.title} coverImage={post.coverImage?.url} />
+            <PostHeader
+							title={post.title}
+							coverImage={post.coverImage?.url}
+							date={new Date().toISOString()}
+							author={post.author}
+						/>
             <MarkdownToHtml contentMarkdown={post.content.markdown} />
           </article>
         </Container>
