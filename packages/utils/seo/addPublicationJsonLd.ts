@@ -9,6 +9,7 @@ export const addPublicationJsonLd = (publication: any) => {
 		publisher: {
 			'@type': publication.isTeam ? 'Organization' : 'Person',
 			'@id': publication.url,
+			url: `https://www.temizmama.com`,
 			name: publication.title,
 			image: {
 				'@type': 'ImageObject',

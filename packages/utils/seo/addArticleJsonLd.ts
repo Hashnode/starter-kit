@@ -8,8 +8,9 @@ export const addArticleJsonLd = (publication: any, post: any) => {
 		name: "Temizmama Blog",
 		description: publication.about?.markdown,
 		publisher: {
-			'@type': "Person",
+			'@type': "Organization",
 			'@id': publication.url,
+			url: `https://www.temizmama.com`,
 			name: "Temizmama Blog",
 			image: {
 				'@type': 'ImageObject',
@@ -27,10 +28,10 @@ export const addArticleJsonLd = (publication: any, post: any) => {
 				datePublished: post.publishedAt,
 				dateModified: post.updatedAt,
 				author: {
-					'@type': 'Person',
+					'@type': 'Organization',
 					'@id': `https://hashnode.com/@${post.author?.username}`,
 					'name': "Temizmama Blog",
-				url: `https://hashnode.com/@${post.author?.username}`,
+				url: `https://www.temizmama.com`,
 				},
 				publisher: {
 					'@type': "Organization",
