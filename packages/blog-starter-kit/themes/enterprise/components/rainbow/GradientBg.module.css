@@ -39,8 +39,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  backdrop-filter: blur(140px);
-  -webkit-backdrop-filter: blur(140px);
+  backdrop-filter: blur(240px);
+  -webkit-backdrop-filter: blur(240px);
   pointer-events: none;
 }
 .bouncing-blobs {
@@ -63,7 +63,7 @@
     height: 30px;
   }
   .bouncing-blobs-glass {
-    backdrop-filter: blur(90px);
-    -webkit-backdrop-filter: blur(90px);
+    backdrop-filter: blur(190px);
+    -webkit-backdrop-filter: blur(190px);
   }
 }
