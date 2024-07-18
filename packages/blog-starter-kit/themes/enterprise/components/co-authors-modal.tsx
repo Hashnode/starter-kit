@@ -19,21 +19,13 @@ const AuthorCard = ({ author }: { author: PostFullFragment['author']; }) => {
         className="flex w-full flex-wrap items-center justify-between overflow-hidden px-0 py-2.5"
       >
         <div className="flex flex-wrap items-center overflow-hidden">
-          <a href={`https://hashnode.com/@${author.username}`} title={author.name} className="mr-2 w-8">
-            <ResizableImage
+          <ResizableImage
               src={author.profilePicture || DEFAULT_AVATAR}
               resize={{ w: 200, h: 200, c: 'face' }}
               className="mr-3 h-8 w-8 rounded-full"
             />
-          </a>
           <div className="flex flex-row items-center text-clip">
-            <a
-              href={`https://hashnode.com/@${author.username}`}
-              title={author.name}
-              className="truncate font-sans text-sm font-medium text-slate-700 dark:text-slate-200"
-            >
               {author.name}
-            </a>
           </div>
         </div>
       </div>
