@@ -162,11 +162,12 @@ export const Search: React.FC<SearchProps> = ({ isOpen, onClose }) => {
 		  onClick={onClose}
 		></div>
   
-		<div 
-		  className="bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all w-[90%] md:w-[70%] h-[80%] md:h-[60%] max-w-[70rem]"
-		  style={{
-			maxHeight: '80vh',
-		  }}
+  		<div 
+		  className="bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all w-[90%] md:w-[70%] max-w-[70rem]"
+		style={{
+		  maxHeight: '70vh',
+		  overflow: 'scroll',
+		}}
 		>
 		  <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 h-full flex flex-col">
 			<div className="flex justify-between items-center mb-4">
