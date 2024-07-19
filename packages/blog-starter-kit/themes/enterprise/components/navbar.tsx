@@ -1,3 +1,4 @@
+import { Search } from './searchbar';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -26,6 +27,9 @@ export const Navbar = () => {
           </div>
           <div className="hidden md:flex justify-end w-full">
             <ul className="flex items-center space-x-8">
+              <li style={{ opacity: 1, transform: "none" }}>
+                <Search />
+              </li>
               <li style={{ opacity: 1, transform: "none" }}>
                 <Link
                   href='/'
@@ -72,6 +76,9 @@ export const Navbar = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden top-0 left-0 right-0 rounded-b-xl mt-2 py-2 px-4">
             <ul className="space-y-2">
+              <li style={{ opacity: 1, transform: "none" }}>
+                <Search />
+              </li>
               <li>
                 <Link
                   href="/"

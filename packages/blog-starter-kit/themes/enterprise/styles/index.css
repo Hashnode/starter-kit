@@ -80,6 +80,10 @@ div#circusll {
     color: rgb(226 121 0);
 }
 
+.fixed.top-1\/2.left-1\/2.transform.-translate-x-1\/2.-translate-y-1\/2.z-10.mt-0.flex.w-full.max-w-4xl.flex-col.items-stretch.overflow-hidden.rounded-lg.border.bg-white.p-1.text-left.text-slate-900.shadow-2xl.dark\:border-neutral-800.dark\:bg-neutral-900.dark\:text-neutral-50 {
+  box-shadow: 0 0 90rem black;
+}
+
 a.text-gray-700.transition.hover\:text-gray-700\/75 {
     font-family: ui-monospace;
 }
