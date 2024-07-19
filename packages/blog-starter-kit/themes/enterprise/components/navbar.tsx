@@ -29,7 +29,7 @@ export const Navbar = () => {
           </div>
           <div className="hidden md:flex justify-end w-full">
             <ul className="flex items-center space-x-8">
-              <li style={{ opacity: 1, transform: "none" }}>
+              <li className="mt-2" style={{ opacity: 1, transform: "none" }}>
                 <button onClick={toggleSearch} className="text-gray-800 hover:text-gray-600">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -91,7 +91,6 @@ export const Navbar = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden top-0 left-0 right-0 rounded-b-xl mt-2 py-2 px-4">
             <ul className="space-y-2 mt-2 mr-4">
-
               <li>
                 <Link
                   href="/"
