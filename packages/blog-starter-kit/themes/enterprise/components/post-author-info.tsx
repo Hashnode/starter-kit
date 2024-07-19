@@ -11,7 +11,7 @@ function PostAuthorInfo(props: any) {
   return (
     <div className="flex w-full flex-1 flex-col md:flex-row">
       <div className="mb-4 flex w-full flex-1 flex-row md:mb-0 ">
-        <div className="mr-4 flex flex-row md:mb-0">
+        <div className="mr-4 flex flex-row md:mb-0 w-16 h-16 items-center self-center">
             <CustomImage
               className="block"
               placeholder="blur"
