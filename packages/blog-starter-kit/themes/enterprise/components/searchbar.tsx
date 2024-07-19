@@ -184,8 +184,16 @@ export const Search: React.FC<SearchProps> = ({ isOpen, onClose }) => {
 				</svg>
 			  </button>
 			</div>
-			<div className="sticky top-4 z-10 mb-4 p-4 rounded-full bg-slate-50 border border-slate-200 text-base dark:bg-neutral-800 dark:border-neutral-800 dark:text-neutral-50 dark:placeholder:text-neutral-400 dark:hover:bg-neutral-950">
-				<input type="text" placeholder="Ara…" className="w-full rounded-full  px-4 py-2" required />
+			<div className="mb-4 sticky top-4 z-10 m-0 pt-[0.1rem] pb-4">
+			  <input
+				type="text"
+				ref={searchInputRef}
+				onKeyUp={escapeSearchOnESC}
+				onChange={updateSearchQuery}
+				placeholder="Ara…"
+				className="w-full rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-base dark:border-neutral-800 dark:bg-neutral-800 dark:text-neutral-50 dark:placeholder:text-neutral-400 dark:hover:bg-neutral-950"
+				required
+			  />
 			</div>
 			<div className="flex-grow overflow-y-auto">
 			  {isSearching && searchResults.length === 0 ? (
