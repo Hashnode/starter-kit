@@ -1,19 +1,21 @@
-import { Search } from './searchbar';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Search } from './searchbar';
 
 export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+  const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
 
   return (
     <nav className="container mx-auto items-stretch gap-10 px-5 pb-10 select-none top-0 w-full z-50 sm:p-6 p-3 animate-onload" style={{ opacity: 1, zIndex: 2, transform: "none" }}>
       <div className="mx-auto px-4 sm:px-6 lg:px-8 bg-white/10 shadow-md py-4 rounded-xl select-none" style={{ opacity: 1, transform: "none", background: "hsl(30.98deg 100% 39.84% / 22%)" }}>
         <div className="flex items-center justify-between h-10">
           <div className="flex items-center">
-            <Link  rel="canonical" href="/">
+            <Link rel="canonical" href="/">
               <div style={{ position: 'relative', width: '100px', height: '53px', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', zoom: '1.6' }}>
                 <Image
                   src="https://9kelt5xnesj2nkgz.public.blob.vercel-storage.com/file-eYpF3jWI7j8924LUC1AR51hcMjnVNp.png"
@@ -28,7 +30,11 @@ export const Navbar = () => {
           <div className="hidden md:flex justify-end w-full">
             <ul className="flex items-center space-x-8">
               <li style={{ opacity: 1, transform: "none" }}>
-                <Search />
+                <button onClick={toggleSearch} className="text-gray-800 hover:text-gray-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </button>
               </li>
               <li style={{ opacity: 1, transform: "none" }}>
                 <Link
@@ -55,6 +61,15 @@ export const Navbar = () => {
             </ul>
           </div>
           <div className="md:hidden flex items-center">
+          <ul className="space-y-2 mt-2 mr-4">
+            <li style={{ opacity: 1, transform: "none" }}>
+                <button onClick={toggleSearch} className="text-gray-800 hover:text-gray-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </button>
+            </li>
+          </ul>
             <button
               className="text-gray-800 relative w-6 h-6"
               onClick={toggleMobileMenu}
@@ -76,9 +91,7 @@ export const Navbar = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden top-0 left-0 right-0 rounded-b-xl mt-2 py-2 px-4">
             <ul className="space-y-2">
-              <li style={{ opacity: 1, transform: "none" }}>
-                <Search />
-              </li>
+
               <li>
                 <Link
                   href="/"
@@ -105,6 +118,7 @@ export const Navbar = () => {
           </div>
         )}
       </div>
-    </nav>
+      {isSearchOpen && <Search isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />}
+            </nav>
   );
 };
