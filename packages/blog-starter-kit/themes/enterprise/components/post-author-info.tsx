@@ -40,9 +40,9 @@ function PostAuthorInfo(props: any) {
           )}
         >
           <div className="flex flex-row items-center md:mb-1">
-            <h1 className="font-sans text-lg font-semibold text-slate-800 dark:text-slate-100">
+            <p className="font-sans text-lg font-semibold text-slate-800 dark:text-slate-100">
               {author.name}
-            </h1>
+            </p>
           </div>
           {author.bio?.html && (
             <div className="hidden pr-2 md:block">
