@@ -172,7 +172,7 @@ export const Search: React.FC<SearchProps> = ({ isOpen, onClose }) => {
 		  <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 h-full flex flex-col">
 			<div className="flex justify-between items-center mb-4">
 			  <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-				{searchResults.length > 0 ? `${searchResults.length} sonuç bulundu` : 'Arama'}
+				{searchResults.length > 0 ? `${searchResults.length} sonuç bulundu` : 'Size ne sunabilirim?'}
 			  </h3>
 			  <button
 				onClick={onClose}
