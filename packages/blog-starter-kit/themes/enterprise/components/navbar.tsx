@@ -90,7 +90,7 @@ export const Navbar = () => {
         </div>
         {isMobileMenuOpen && (
           <div className="md:hidden top-0 left-0 right-0 rounded-b-xl mt-2 py-2 px-4">
-            <ul className="space-y-2">
+            <ul className="space-y-2 mt-2 mr-4">
 
               <li>
                 <Link
