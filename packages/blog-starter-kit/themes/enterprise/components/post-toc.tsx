@@ -27,7 +27,7 @@ const mapTableOfContentItems = (toc: TableOfContentsItem[]) => {
 const scrollToElement = (elementId: string, retryCount = 0) => {
     const element = document.getElementById(elementId);
     if (element) {
-        const offset = 20; // Ekranın üstünde bırakılacak boşluk (piksel cinsinden)
+        const offset = 20;
         const elementPosition = element.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - offset;
 
@@ -36,7 +36,6 @@ const scrollToElement = (elementId: string, retryCount = 0) => {
             behavior: 'smooth'
         });
 
-        // Scroll işlemini kontrol et ve gerekirse düzelt
         setTimeout(() => {
             const newPosition = element.getBoundingClientRect().top;
             if (Math.abs(newPosition - offset) > 2 && retryCount < 3) {
@@ -44,7 +43,6 @@ const scrollToElement = (elementId: string, retryCount = 0) => {
             }
         }, 500);
     } else if (retryCount < 3) {
-        // Element bulunamadıysa, kısa bir süre bekleyip tekrar dene
         setTimeout(() => scrollToElement(elementId, retryCount + 1), 200);
     }
 };
@@ -92,7 +90,7 @@ export const PostTOC: React.FC = () => {
     const scrollToTop = useCallback(() => {
         const contentElement = document.querySelector('.hashnode-content-style.mx-auto.w-full.px-5.md\\:max-w-screen-md');
         if (contentElement) {
-            const offset = 20; // Ekranın üstünde bırakılacak boşluk (piksel cinsinden)
+            const offset = 20;
             const elementPosition = contentElement.getBoundingClientRect().top;
             const offsetPosition = elementPosition + window.scrollY - offset;
             window.scrollTo({
@@ -107,17 +105,15 @@ export const PostTOC: React.FC = () => {
             const target = e.target as HTMLAnchorElement;
             if (target.tagName === 'A' && target.hash) {
                 e.preventDefault();
-                const targetId = target.hash.slice(1); // Remove the '#' from the hash
+                const targetId = target.hash.slice(1);
                 scrollToElement(targetId);
             }
         };
 
         document.addEventListener('click', handleSmoothScrollForAllLinks);
 
-        // Set page as loaded after all content is likely loaded
         const timer = setTimeout(() => setIsPageLoaded(true), 500);
 
-        // Use Intersection Observer to detect when headings come into view
         const headingObserver = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
@@ -144,7 +140,6 @@ export const PostTOC: React.FC = () => {
 
     useEffect(() => {
         if (isPageLoaded) {
-            // Recalculate positions of all headings
             const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
             headings.forEach((heading) => {
                 const id = heading.id;
