@@ -13,8 +13,6 @@ import { ArticleSVG } from "../components/icons";
 import { Layout } from "../components/layout";
 import { MorePosts } from "../components/more-posts";
 import { SecondaryPost } from "../components/secondary-post";
-import dynamic from 'next/dynamic';
-import ErrorBoundary from "../components/ErrorBoundary";
 import { DEFAULT_COVER } from "../utils/const";
 
 import {
@@ -37,10 +35,14 @@ type Props = {
   initialPageInfo: PageInfo;
 };
 
+type Category = 'all' | 'cat' | 'dog';
+
 export default function Index({ publication, initialAllPosts, initialPageInfo }: Props) {
   const [allPosts, setAllPosts] = useState<PostFragment[]>(initialAllPosts);
   const [pageInfo, setPageInfo] = useState<Props["initialPageInfo"]>(initialPageInfo);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<Category>('all');
+  const [hasMorePosts, setHasMorePosts] = useState(true);
 
   const observerRef = useRef<IntersectionObserver | null>(null);
   const loadingRef = useRef<HTMLDivElement>(null);
@@ -63,6 +65,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
       const newPosts = data.publication.posts.edges.map((edge) => edge.node);
       setAllPosts((prevPosts) => [...prevPosts, ...newPosts]);
       setPageInfo(data.publication.posts.pageInfo);
+      setHasMorePosts(data.publication.posts.pageInfo.hasNextPage || false);
     } catch (error) {
       console.error('Error loading more posts:', error);
     } finally {
@@ -75,7 +78,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 
     observerRef.current = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && !isLoading && pageInfo.hasNextPage) {
+        if (entries[0].isIntersecting && !isLoading && hasMorePosts) {
           loadMore();
         }
       },
@@ -89,11 +92,27 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
         observerRef.current.disconnect();
       }
     };
-  }, [loadMore, isLoading, pageInfo.hasNextPage]);
+  }, [loadMore, isLoading, hasMorePosts]);
+
+  const filteredPosts = useMemo(() => {
+    if (selectedCategory === 'all') return allPosts;
+    return allPosts.filter(post => {
+      const lowerCaseTitle = post.title.toLowerCase();
+      const lowerCaseBrief = post.brief.toLowerCase();
+      const lowerCaseContent = (post as any).content?.html?.toLowerCase() || '';
+
+      if (selectedCategory === 'cat') {
+        return lowerCaseTitle.includes('kedi') || lowerCaseBrief.includes('kedi') || lowerCaseContent.includes('kedi');
+      } else if (selectedCategory === 'dog') {
+        return lowerCaseTitle.includes('köpek') || lowerCaseBrief.includes('köpek') || lowerCaseContent.includes('köpek');
+      }
+      return false;
+    });
+  }, [allPosts, selectedCategory]);
 
   const memoizedContent = useMemo(() => {
-    const firstPost = allPosts[0];
-    const secondaryPosts = allPosts.slice(1, 4).map((post) => (
+    const firstPost = filteredPosts[0];
+    const secondaryPosts = filteredPosts.slice(1, 4).map((post) => (
       <SecondaryPost
         key={post.id}
         title={post.title}
@@ -103,10 +122,16 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
         excerpt={post.brief}
       />
     ));
-    const morePosts = allPosts.slice(4);
+    const morePosts = filteredPosts.slice(4);
 
     return { firstPost, secondaryPosts, morePosts };
-  }, [allPosts]);
+  }, [filteredPosts]);
+
+  const handleCategoryChange = (category: Category) => {
+    setSelectedCategory(category);
+    // Reset scroll position when changing category
+    window.scrollTo(0, 0);
+  };
 
   return (
     <AppProvider publication={publication}>
@@ -169,7 +194,6 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
         <Navbar />
 
         <Container className="flex flex-col items-stretch gap-10 px-5 pb-10 select-none">
-          
           <div className="text-center">
             <h1 className="text-5xl text-gray-900 font-semibold mt-2 mb-5">
               Temizmama Blog
@@ -179,40 +203,65 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
               gerekenlerin hepsi bu sayfada!
             </p>
           </div>
-          {allPosts.length === 0 && (
+
+          <div className="flex justify-center space-x-4 mb-6">
+            <button 
+              onClick={() => handleCategoryChange('all')}
+              className={`px-4 py-2 rounded ${selectedCategory === 'all' ? 'bg-orange-500 text-white' : 'bg-gray-200-pre'}`}
+            >
+              Tümü
+            </button>
+            <button 
+              onClick={() => handleCategoryChange('cat')}
+              className={`px-4 py-2 rounded ${selectedCategory === 'cat' ? 'bg-orange-500 text-white' : 'bg-gray-200-pre'}`}
+            >
+              Kedi
+            </button>
+            <button 
+              onClick={() => handleCategoryChange('dog')}
+              className={`px-4 py-2 rounded ${selectedCategory === 'dog' ? 'bg-orange-500 text-white' : 'bg-gray-200-pre'}`}
+            >
+              Köpek
+            </button>
+          </div>
+
+          {filteredPosts.length === 0 ? (
             <div className="grid grid-cols-1 py-20 lg:grid-cols-3">
               <div className="col-span-1 flex flex-col items-center gap-5 text-center text-slate-700 dark:text-neutral-400 lg:col-start-2">
                 <div className="w-20">
                   <ArticleSVG clasName="stroke-current" />
                 </div>
                 <p className="text-xl font-semibold ">
+                  Bu kategoride gönderi bulunamadı.
                 </p>
               </div>
             </div>
-          )}
+          ) : (
+            <>
+              <div className="grid items-start gap-6 xl:grid-cols-2">
+                <div className="col-span-1">
+                  {memoizedContent.firstPost && (
+                    <HeroPost
+                      title={memoizedContent.firstPost.title}
+                      coverImage={memoizedContent.firstPost.coverImage?.url || DEFAULT_COVER}
+                      date={memoizedContent.firstPost.publishedAt}
+                      slug={memoizedContent.firstPost.slug}
+                      excerpt={memoizedContent.firstPost.brief}
+                    />
+                  )}
+                </div>
+                <div className="col-span-1 flex flex-col gap-6">
+                  {memoizedContent.secondaryPosts}
+                </div>
+              </div>
 
-          <div className="grid items-start gap-6 xl:grid-cols-2">
-            <div className="col-span-1">
-              {memoizedContent.firstPost && (
-                <HeroPost
-                  title={memoizedContent.firstPost.title}
-                  coverImage={memoizedContent.firstPost.coverImage?.url || DEFAULT_COVER}
-                  date={memoizedContent.firstPost.publishedAt}
-                  slug={memoizedContent.firstPost.slug}
-                  excerpt={memoizedContent.firstPost.brief}
-                />
+              {memoizedContent.morePosts.length > 0 && (
+                <MorePosts context="home" posts={memoizedContent.morePosts} />
               )}
-            </div>
-            <div className="col-span-1 flex flex-col gap-6">
-              {memoizedContent.secondaryPosts}
-            </div>
-          </div>
-
-          {memoizedContent.morePosts.length > 0 && (
-            <MorePosts context="home" posts={memoizedContent.morePosts} />
+            </>
           )}
-          
-          {pageInfo.hasNextPage && (
+
+          {hasMorePosts && (
             <div ref={loadingRef} className="flex justify-center items-center py-4">
               {isLoading ? (
                 <span>Yükleniyor...</span>

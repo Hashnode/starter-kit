@@ -52,7 +52,10 @@ figcaption {
     position: relative;
     user-select: none;
 }
-
+.bg-gray-202-pre {
+  --tw-bg-opacity: 1;
+  background-color: rgb(244, 222, 199);
+}
 .grecaptcha-badge {
   user-select: none;
 }
