@@ -158,6 +158,23 @@ const config = {
       },
     ];
   },
+  reactStrictMode: true,
+  onError: function (error, errorInfo) {
+    console.log('Global error handler');
+    console.error(error);
+    console.error(errorInfo);
+    // Hata izleme servisi entegrasyonu buraya eklenebilir
+  },
+  // Minimize edilmiş hataları tam hata mesajlarına dönüştürmek için:
+  webpack: (config, { dev, isServer }) => {
+    if (!dev && !isServer) {
+      Object.assign(config.resolve.alias, {
+        'react-dom$': 'react-dom/profiling',
+        'scheduler/tracing': 'scheduler/tracing-profiling',
+      });
+    }
+    return config;
+  },
 };
 
 export default config;
