@@ -12,7 +12,9 @@ type Props = {
 };
 
 const Skeleton = () => (
-    <div className="absolute inset-0 animate-pulse bg-gray-200 dark:bg-gray-700 rounded-md" />
+    <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 rounded-md overflow-hidden">
+        <div className="shimmer" />
+    </div>
 );
 
 export const CoverImage = ({ title, src, slug, priority = false, onLoad, className }: Props) => {
@@ -50,6 +52,38 @@ export const CoverImage = ({ title, src, slug, priority = false, onLoad, classNa
             ) : (
                 image
             )}
+            <style jsx global>{`
+                @keyframes shimmer {
+                    0% {
+                        transform: translateX(-100%);
+                    }
+                    100% {
+                        transform: translateX(100%);
+                    }
+                }
+                .shimmer {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(
+                        90deg,
+                        rgba(255, 255, 255, 0) 0%,
+                        rgba(255, 255, 255, 0.3) 50%,
+                        rgba(255, 255, 255, 0) 100%
+                    );
+                    animation: shimmer 1.5s infinite;
+                }
+                .dark .shimmer {
+                    background: linear-gradient(
+                        90deg,
+                        rgba(255, 255, 255, 0) 0%,
+                        rgba(255, 255, 255, 0.1) 50%,
+                        rgba(255, 255, 255, 0) 100%
+                    );
+                }
+            `}</style>
         </div>
     );
 };
