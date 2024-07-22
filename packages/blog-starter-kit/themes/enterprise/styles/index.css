@@ -46,6 +46,11 @@
   .max-h-10 {
     max-height: 5.5rem;
 }
+
+:root {
+  --topbar-offset: 12px;
+}
+
 figcaption {
     font-family: 'PinkChicken', sans-serif;
     top: -2rem;

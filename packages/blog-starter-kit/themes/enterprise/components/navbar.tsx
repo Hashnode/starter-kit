@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Search } from './searchbar';
@@ -6,12 +6,44 @@ import { Search } from './searchbar';
 export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
 
+  useEffect(() => {
+    const controlNavbar = () => {
+      if (typeof window !== 'undefined') {
+        if (window.scrollY > lastScrollY) { // scroll down
+          setIsVisible(false);
+        } else { // scroll up
+          setIsVisible(true);
+        }
+        setLastScrollY(window.scrollY);
+      }
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', controlNavbar);
+
+      // cleanup function
+      return () => {
+        window.removeEventListener('scroll', controlNavbar);
+      };
+    }
+  }, [lastScrollY]);
+
   return (
-    <nav className="container mx-auto items-stretch gap-10 px-5 pb-10 select-none top-0 w-full z-50 sm:p-6 p-3 animate-onload" style={{ opacity: 1, zIndex: 2, transform: "none" }}>
+    <nav 
+      className={`sticky container mx-auto items-stretch gap-10 px-5 pb-10 select-none top-0 w-full z-50 sm:p-6 p-3 animate-onload transition-transform duration-300`}
+      style={{ 
+        opacity: 1, 
+        zIndex: 2, 
+        transform: isVisible ? 'translateY(0)' : 'translateY(calc(-100% - var(--topbar-offset)))',
+        '--topbar-offset': '12px'
+      } as React.CSSProperties}
+    >
       <div className="mx-auto px-4 sm:px-6 lg:px-8 bg-white/10 shadow-md py-4 rounded-xl select-none" style={{ opacity: 1, transform: "none", background: "hsl(30.5, 100%, 87.6%)" }}>
         <div className="flex items-center justify-between h-10">
           <div className="flex items-center">
@@ -61,15 +93,15 @@ export const Navbar = () => {
             </ul>
           </div>
           <div className="md:hidden flex items-center">
-          <ul className="space-y-2 mt-2 mr-4">
-            <li style={{ opacity: 1, transform: "none" }}>
+            <ul className="space-y-2 mt-2 mr-4">
+              <li style={{ opacity: 1, transform: "none" }}>
                 <button onClick={toggleSearch} className="text-gray-800 hover:text-gray-600">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                 </button>
-            </li>
-          </ul>
+              </li>
+            </ul>
             <button
               className="text-gray-800 relative w-6 h-6"
               onClick={toggleMobileMenu}
@@ -118,6 +150,6 @@ export const Navbar = () => {
         )}
       </div>
       {isSearchOpen && <Search isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />}
-            </nav>
+    </nav>
   );
 };
