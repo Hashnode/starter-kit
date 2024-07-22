@@ -16,7 +16,7 @@ export const Navbar = () => {
         <div className="flex items-center justify-between h-10">
           <div className="flex items-center">
             <Link rel="canonical" href="/">
-              <div className="relative w-[100px] h-[53px] flex items-center justify-start scale-160 origin-top-left">
+              <div className="relative w-[100px] h-[53px] flex items-center justify-start scale-160 origin-top-left bottom-4">
                 <Image
                   src="https://9kelt5xnesj2nkgz.public.blob.vercel-storage.com/file-eYpF3jWI7j8924LUC1AR51hcMjnVNp.png"
                   alt="Ana Sayfa"
