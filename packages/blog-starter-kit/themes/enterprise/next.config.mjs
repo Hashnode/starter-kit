@@ -68,14 +68,14 @@ const securityHeaders = [
   {
     key: 'Content-Security-Policy',
     value: `
-      default-src 'self';
-      script-src 'self' https://*.hashnode.com https://*.hashnode.co 'nonce-${generateNonce()}' 'strict-dynamic';
-      style-src 'self' https://*.hashnode.com https://*.hashnode.co 'nonce-${generateNonce()}';
-      img-src 'self' https://*.hashnode.com https://*.hashnode.co data:;
-      font-src 'self' https://*.hashnode.com https://*.hashnode.co;
-      connect-src 'self' https://*.hashnode.com https://*.hashnode.co;
-      media-src 'self' https://*.hashnode.com https://*.hashnode.co;
-      frame-src 'self' https://*.hashnode.com https://*.hashnode.co;
+      default-src 'self' https://*.hashnode.com https://*.hashnode.co;
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https: https://*.hashnode.com https://*.hashnode.co;
+      style-src 'self' 'unsafe-inline' https: https://*.hashnode.com https://*.hashnode.co;
+      img-src 'self' data: https: https://*.hashnode.com https://*.hashnode.co;
+      font-src 'self' https: https://*.hashnode.com https://*.hashnode.co;
+      connect-src 'self' https: https://*.hashnode.com https://*.hashnode.co;
+      media-src 'self' https: https://*.hashnode.com https://*.hashnode.co;
+      frame-src 'self' https: https://*.hashnode.com https://*.hashnode.co;
       object-src 'none';
       base-uri 'self';
       form-action 'self';
@@ -104,7 +104,10 @@ const securityHeaders = [
     value: 'cross-origin'
   }
 ];
-
+// Nonce oluşturmak için yardımcı fonksiyon
+function generateNonce() {
+  return Buffer.from(crypto.randomBytes(16)).toString('base64');
+}
 /**
  * @type {import('next').NextConfig}
  */
