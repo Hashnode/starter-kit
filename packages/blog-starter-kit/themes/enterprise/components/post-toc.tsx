@@ -89,12 +89,17 @@ export const PostTOC: React.FC = () => {
         scrollToElement(targetId);
     }, []);
 
-    // Ref to store the element you want to scroll to
-    const contentRef = useRef<HTMLDivElement | null>(null);
-
     const scrollToTop = useCallback(() => {
-        if (contentRef.current) {
-            contentRef.current.scrollIntoView({ behavior: 'smooth' });
+        const contentElement = document.querySelector('.hashnode-content-style.mx-auto.w-full.px-5.md\\:max-w-screen-md');
+        if (contentElement) {
+            const offset = 20; // Ekranın üstünde bırakılacak boşluk (piksel cinsinden)
+            const elementPosition = contentElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
         }
     }, []);
 
