@@ -4,6 +4,7 @@ import request from "graphql-request";
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Navbar } from "../components/navbar";
 import { Container } from "../components/container";
 import { AppProvider } from "../components/contexts/appContext";
@@ -37,12 +38,44 @@ type Props = {
 
 type Category = 'all' | 'cat' | 'dog';
 
+type EmojiType = {
+  id: number;
+  type: string;
+  position: { x: number; y: number };
+};
+
+const EmojiBurst: React.FC<{ emoji: string; position: { x: number; y: number } }> = ({ emoji, position }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 1, scale: 0, y: 0 }}
+      animate={{
+        opacity: 0,
+        scale: 1,
+        y: -50,
+        x: Math.random() * 100 - 50, // Random horizontal movement
+      }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1 }}
+      style={{
+        position: 'fixed',
+        top: position.y,
+        left: position.x,
+        pointerEvents: 'none',
+        fontSize: '2rem',
+      }}
+    >
+      {emoji}
+    </motion.div>
+  );
+};
+
 export default function Index({ publication, initialAllPosts, initialPageInfo }: Props) {
   const [allPosts, setAllPosts] = useState<PostFragment[]>(initialAllPosts);
-  const [pageInfo, setPageInfo] = useState<Props["initialPageInfo"]>(initialPageInfo);
+  const [pageInfo, setPageInfo] = useState<PageInfo>(initialPageInfo);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<Category>('all');
   const [hasMorePosts, setHasMorePosts] = useState(true);
+  const [emojis, setEmojis] = useState<EmojiType[]>([]);
 
   const observerRef = useRef<IntersectionObserver | null>(null);
   const loadingRef = useRef<HTMLDivElement>(null);
@@ -99,12 +132,12 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
     return allPosts.filter(post => {
       const lowerCaseTitle = post.title.toLowerCase();
       const lowerCaseBrief = post.brief.toLowerCase();
-      const lowerCaseContent = (post as any).content?.html?.toLowerCase() || '';
+      // Note: Removed content check as it's not available in PostFragment
 
       if (selectedCategory === 'cat') {
-        return lowerCaseTitle.includes('kedi') || lowerCaseBrief.includes('kedi') || lowerCaseContent.includes('kedi');
+        return lowerCaseTitle.includes('kedi') || lowerCaseBrief.includes('kedi');
       } else if (selectedCategory === 'dog') {
-        return lowerCaseTitle.includes('köpek') || lowerCaseBrief.includes('köpek') || lowerCaseContent.includes('köpek');
+        return lowerCaseTitle.includes('köpek') || lowerCaseBrief.includes('köpek');
       }
       return false;
     });
@@ -127,13 +160,45 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
     return { firstPost, secondaryPosts, morePosts };
   }, [filteredPosts]);
 
-  const handleCategoryChange = (category: Category) => {
-    setSelectedCategory(category);
-    // Reset scroll position when changing category
-    window.scrollTo(0, 0);
-  };
+  const addEmoji = useCallback((type: string, position: { x: number; y: number }) => {
+    const newEmoji = {
+      id: Date.now(),
+      type,
+      position,
+    };
+    setEmojis((prevEmojis) => [...prevEmojis, newEmoji]);
+    setTimeout(() => {
+      setEmojis((prevEmojis) => prevEmojis.filter((emoji) => emoji.id !== newEmoji.id));
+    }, 1000);
+  }, []);
 
+  const handleCategoryChange = useCallback((category: Category) => {
+    setSelectedCategory(category);
+    window.scrollTo(0, 0);
+    
+    const button = document.querySelector(`button[data-category="${category}"]`);
+    if (button) {
+      const rect = button.getBoundingClientRect();
+      const randomX = Math.random() * rect.width;
+      const randomY = Math.random() * rect.height;
+      const position = {
+        x: rect.left + randomX,
+        y: rect.top + randomY + window.scrollY,
+      };
   
+      if (category === 'cat') {
+        const catEmojis = ['😸', '😼', '😻', '😹', '🐱', '😺', '😽', '😾'];
+        const randomCatEmoji = catEmojis[Math.floor(Math.random() * catEmojis.length)];
+        addEmoji(randomCatEmoji, position);
+      } else if (category === 'dog') {
+        addEmoji('🐶', position);
+      } else {
+        ['🐕', '🐶', '😼', '🐈'].forEach((emoji) => addEmoji(emoji, position));
+      }
+    }
+  }, [addEmoji]);
+
+
   return (
     <AppProvider publication={publication}>
       <Layout>
@@ -207,24 +272,33 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 
           <div className="flex justify-center space-x-4 mb-6">
             <button 
+              data-category="all"
               onClick={() => handleCategoryChange('all')}
               className={`px-4 py-2 rounded ${selectedCategory === 'all' ? 'bg-orange-500 text-white' : 'bg-gray-202-pre'}`}
             >
               Tümü
             </button>
             <button 
+              data-category="cat"
               onClick={() => handleCategoryChange('cat')}
               className={`px-4 py-2 rounded ${selectedCategory === 'cat' ? 'bg-orange-500 text-white' : 'bg-gray-202-pre'}`}
             >
               Kedi
             </button>
             <button 
+              data-category="dog"
               onClick={() => handleCategoryChange('dog')}
               className={`px-4 py-2 rounded ${selectedCategory === 'dog' ? 'bg-orange-500 text-white' : 'bg-gray-202-pre'}`}
             >
               Köpek
             </button>
           </div>
+
+          <AnimatePresence>
+            {emojis.map((emoji) => (
+              <EmojiBurst key={emoji.id} emoji={emoji.type} position={emoji.position} />
+            ))}
+          </AnimatePresence>
 
           {filteredPosts.length === 0 ? (
             <div className="grid grid-cols-1 py-20 lg:grid-cols-3">
