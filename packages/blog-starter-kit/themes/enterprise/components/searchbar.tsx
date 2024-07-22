@@ -31,7 +31,7 @@ export const Search: React.FC<SearchProps> = ({ isOpen, onClose }) => {
   const [query, setQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Post[]>([]);
   const [isSearching, setIsSearching] = useState(false);
-  const [hasNextPage, setHasNextPage] = useState(false);
+const [hasNextPage, setHasNextPage] = useState<boolean | null>(false);
   const [endCursor, setEndCursor] = useState<string | null>(null);
 
   const resetInput = () => {
@@ -78,7 +78,7 @@ export const Search: React.FC<SearchProps> = ({ isOpen, onClose }) => {
 
         const newPosts = data.searchPostsOfPublication.edges.map((edge) => edge.node);
         setSearchResults(prev => after ? [...prev, ...newPosts] : newPosts);
-        setHasNextPage(data.searchPostsOfPublication.pageInfo.hasNextPage);
+        setHasNextPage(data.searchPostsOfPublication.pageInfo.hasNextPage ?? null);
         setEndCursor(data.searchPostsOfPublication.pageInfo.endCursor || null);
       } catch (error) {
         console.error('GraphQL request failed:', error);
