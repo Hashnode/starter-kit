@@ -67,7 +67,21 @@ const getRedirectionRules = async () => {
 const securityHeaders = [
   {
     key: 'Content-Security-Policy',
-    value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https:; frame-src 'self' https://embed.hashnode.co https://open.spotify.com; frame-ancestors 'none';"
+    value: `
+      default-src 'self' *hashnode.*;
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https: *hashnode.*;
+      style-src 'self' 'unsafe-inline' https: *hashnode.*;
+      img-src 'self' data: https: *hashnode.*;
+      font-src 'self' https: *hashnode.*;
+      connect-src 'self' https: *hashnode.*;
+      media-src 'self' https: *hashnode.*;
+      frame-src 'self' https: *hashnode.*;
+      object-src 'none';
+      base-uri 'self';
+      form-action 'self';
+      frame-ancestors 'none';
+      upgrade-insecure-requests;
+    `.replace(/\s+/g, ' ').trim()
   },
   {
     key: 'Referrer-Policy',
@@ -106,7 +120,7 @@ const config = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'cdn.hashnode.com',
+        hostname: '**hashnode.**',
       },
       {
         protocol: 'https',
