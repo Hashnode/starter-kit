@@ -16,6 +16,8 @@ import { Integrations } from '../components/integrations';
 import { MarkdownToHtml } from '../components/markdown-to-html';
 import { PostHeader } from '../components/post-header';
 import { PostTOC } from '../components/post-toc';
+import ShareButtons from '../components/ShareButtons';
+
 import {
   PageByPublicationDocument,
   PostFullFragment,
@@ -204,6 +206,7 @@ const Post = ({ publication, post, relatedPosts }: PostProps) => {
 			/>
 			{post.features.tableOfContents.isEnabled && <PostTOC />}
 			<MarkdownToHtml contentMarkdown={post.content.markdown} />
+      <ShareButtons url={post.url} title={post.title} />
 			<AboutAuthor />
 			{!post.preferences.disableComments && post.comments.totalDocuments > 0 && <PostComments />}
 		</>
