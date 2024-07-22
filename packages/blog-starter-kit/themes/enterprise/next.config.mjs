@@ -175,6 +175,11 @@ const config = {
     }
     return config;
   },
+
+  // Hydration hatalarını göster
+  onError: (error) => {
+    console.error('Next.js Hydration Error:', error);
+  },
 };
 
 export default config;
