@@ -6,22 +6,21 @@ import { Search } from './searchbar';
 export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
+  const [isSticky, setIsSticky] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
-    setIsVisible(true); // Menü açılırken navbar'ı görünür yap
   };
   const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
 
   useEffect(() => {
     const controlNavbar = () => {
-      if (typeof window !== 'undefined' && !isMobileMenuOpen) {
+      if (typeof window !== 'undefined') {
         if (window.scrollY > lastScrollY) { // scroll down
-          setIsVisible(false);
+          setIsSticky(false);
         } else { // scroll up
-          setIsVisible(true);
+          setIsSticky(true);
         }
         setLastScrollY(window.scrollY);
       }
@@ -35,16 +34,14 @@ export const Navbar = () => {
         window.removeEventListener('scroll', controlNavbar);
       };
     }
-  }, [lastScrollY, isMobileMenuOpen]);
+  }, [lastScrollY]);
 
   return (
     <nav 
-      className={`sticky container mx-auto items-stretch gap-10 px-5 pb-10 select-none top-0 w-full z-50 sm:p-6 p-3 animate-onload transition-transform duration-300`}
+      className={`container mx-auto items-stretch gap-10 px-5 pb-10 select-none top-0 w-full z-50 sm:p-6 p-3 animate-onload transition-all duration-300 ${isSticky ? 'sticky' : ''}`}
       style={{ 
         opacity: 1, 
-        zIndex: 2, 
-        transform: isVisible ? 'translateY(0)' : 'translateY(calc(-100% - var(--topbar-offset)))',
-        '--topbar-offset': '12px'
+        zIndex: 2,
       } as React.CSSProperties}
     >
       <div className="mx-auto px-4 sm:px-6 lg:px-8 bg-white/10 shadow-md py-4 rounded-xl select-none" style={{ opacity: 1, transform: "none", background: "hsl(30.5, 100%, 87.6%)" }}>
