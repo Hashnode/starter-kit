@@ -94,8 +94,7 @@ export const PostTOC: React.FC = () => {
         if (contentElement) {
             const offset = 20; // Ekranın üstünde bırakılacak boşluk (piksel cinsinden)
             const elementPosition = contentElement.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - offset;
-
+            const offsetPosition = elementPosition + window.scrollY - offset;
             window.scrollTo({
                 top: offsetPosition,
                 behavior: 'smooth'
