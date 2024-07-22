@@ -67,7 +67,7 @@ const getRedirectionRules = async () => {
 const securityHeaders = [
   {
     key: 'Content-Security-Policy',
-    value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https:; frame-ancestors 'none';"
+    value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https:; frame-src 'self' https://embed.hashnode.co https://open.spotify.com; frame-ancestors 'none';"
   },
   {
     key: 'Referrer-Policy',
@@ -79,7 +79,7 @@ const securityHeaders = [
   },
   {
     key: 'X-Frame-Options',
-    value: 'DENY'
+    value: 'SAMEORIGIN'
   },
   {
     key: 'Strict-Transport-Security',
@@ -87,7 +87,7 @@ const securityHeaders = [
   },
   {
     key: 'Cross-Origin-Resource-Policy',
-    value: 'same-origin'
+    value: 'cross-origin'
   }
 ];
 
