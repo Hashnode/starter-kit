@@ -47,7 +47,7 @@ export const Navbar = () => {
       <div className="mx-auto px-4 sm:px-6 lg:px-8 bg-white/10 shadow-md py-4 rounded-xl select-none" style={{ opacity: 1, transform: "none", background: "hsl(30.5, 100%, 87.6%)" }}>
         <div className="flex items-center justify-between h-10">
           <div className="flex items-center">
-            <Link rel="canonical" href="/">
+          <Link rel="canonical" href="/">
               <div className="relative w-[100px] h-[53px] flex items-center justify-start scale-160 origin-top-left bottom-4">
                 <Image
                   src="https://9kelt5xnesj2nkgz.public.blob.vercel-storage.com/file-eYpF3jWI7j8924LUC1AR51hcMjnVNp.png"
