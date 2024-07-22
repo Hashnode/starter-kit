@@ -207,19 +207,19 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
           <div className="flex justify-center space-x-4 mb-6">
             <button 
               onClick={() => handleCategoryChange('all')}
-              className={`px-4 py-2 rounded ${selectedCategory === 'all' ? 'bg-orange-500 text-white' : 'bg-gray-200-pre'}`}
+              className={`px-4 py-2 rounded ${selectedCategory === 'all' ? 'bg-orange-500 text-white' : 'bg-gray-202-pre'}`}
             >
               Tümü
             </button>
             <button 
               onClick={() => handleCategoryChange('cat')}
-              className={`px-4 py-2 rounded ${selectedCategory === 'cat' ? 'bg-orange-500 text-white' : 'bg-gray-200-pre'}`}
+              className={`px-4 py-2 rounded ${selectedCategory === 'cat' ? 'bg-orange-500 text-white' : 'bg-gray-202-pre'}`}
             >
               Kedi
             </button>
             <button 
               onClick={() => handleCategoryChange('dog')}
-              className={`px-4 py-2 rounded ${selectedCategory === 'dog' ? 'bg-orange-500 text-white' : 'bg-gray-200-pre'}`}
+              className={`px-4 py-2 rounded ${selectedCategory === 'dog' ? 'bg-orange-500 text-white' : 'bg-gray-202-pre'}`}
             >
               Köpek
             </button>
