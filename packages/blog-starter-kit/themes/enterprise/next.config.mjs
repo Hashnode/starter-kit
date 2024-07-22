@@ -104,10 +104,7 @@ const securityHeaders = [
     value: 'cross-origin'
   }
 ];
-// Nonce oluşturmak için yardımcı fonksiyon
-function generateNonce() {
-  return Buffer.from(crypto.randomBytes(16)).toString('base64');
-}
+
 /**
  * @type {import('next').NextConfig}
  */
