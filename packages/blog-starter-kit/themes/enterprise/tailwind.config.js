@@ -45,6 +45,9 @@ module.exports = {
 				  },
 				}
 			}),
+			scale: {
+				'160': '1.6',
+			},
 			spacing: {
 				28: '7rem',
 			},
