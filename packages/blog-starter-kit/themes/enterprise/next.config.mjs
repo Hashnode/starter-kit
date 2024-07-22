@@ -68,14 +68,14 @@ const securityHeaders = [
   {
     key: 'Content-Security-Policy',
     value: `
-      default-src 'self' *hashnode.*;
-      script-src 'self' 'unsafe-inline' 'unsafe-eval' https: *hashnode.*;
-      style-src 'self' 'unsafe-inline' https: *hashnode.*;
-      img-src 'self' data: https: *hashnode.*;
-      font-src 'self' https: *hashnode.*;
-      connect-src 'self' https: *hashnode.*;
-      media-src 'self' https: *hashnode.*;
-      frame-src 'self' https: *hashnode.*;
+      default-src 'self' https://*.hashnode.com https://*.hashnode.co;
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https: https://*.hashnode.com https://*.hashnode.co;
+      style-src 'self' 'unsafe-inline' https: https://*.hashnode.com https://*.hashnode.co;
+      img-src 'self' data: https: https://*.hashnode.com https://*.hashnode.co;
+      font-src 'self' https: https://*.hashnode.com https://*.hashnode.co;
+      connect-src 'self' https: https://*.hashnode.com https://*.hashnode.co;
+      media-src 'self' https: https://*.hashnode.com https://*.hashnode.co;
+      frame-src 'self' https: https://*.hashnode.com https://*.hashnode.co;
       object-src 'none';
       base-uri 'self';
       form-action 'self';
@@ -115,12 +115,16 @@ const config = {
     scrollRestoration: true,
   },
   images: {
-    domains: ['cdn.hashnode.com'],
+    domains: ['cdn.hashnode.com', 'cdn.hashnode.co'],
     formats: ['image/webp'],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**hashnode.**',
+        hostname: '*.hashnode.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.hashnode.co',
       },
       {
         protocol: 'https',
