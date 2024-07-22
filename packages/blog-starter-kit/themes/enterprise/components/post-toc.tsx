@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect, useCallback, useState } from 'react';
 import { PostFullFragment } from '../generated/graphql';
 import { useAppContext } from './contexts/appContext';
 
@@ -71,11 +71,17 @@ const Toc = ({
 export const PostTOC: React.FC = () => {
     const { post } = useAppContext();
     const topRef = useRef<HTMLDivElement>(null);
+    const [isPageLoaded, setIsPageLoaded] = useState(false);
 
     const handleSmoothScroll = useCallback((e: React.MouseEvent, targetId: string) => {
         e.preventDefault();
-        scrollToElement(targetId);
-    }, []);
+        if (isPageLoaded) {
+            scrollToElement(targetId);
+        } else {
+            // If page is not fully loaded, wait for a short time before scrolling
+            setTimeout(() => scrollToElement(targetId), 100);
+        }
+    }, [isPageLoaded]);
 
     // Ref to store the element you want to scroll to
     const contentRef = useRef<HTMLDivElement | null>(null);
@@ -97,8 +103,30 @@ export const PostTOC: React.FC = () => {
         };
 
         document.addEventListener('click', handleSmoothScrollForAllLinks);
-        return () => document.removeEventListener('click', handleSmoothScrollForAllLinks);
+
+        // Set page as loaded after a short delay
+        const timer = setTimeout(() => setIsPageLoaded(true), 500);
+
+        return () => {
+            document.removeEventListener('click', handleSmoothScrollForAllLinks);
+            clearTimeout(timer);
+        };
     }, []);
+
+    useEffect(() => {
+        if (isPageLoaded) {
+            // Recalculate positions of all headings
+            const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+            headings.forEach((heading) => {
+                const id = heading.id;
+                const element = document.getElementById(id);
+                if (element) {
+                    const rect = element.getBoundingClientRect();
+                    element.dataset.top = rect.top.toString();
+                }
+            });
+        }
+    }, [isPageLoaded]);
 
     if (!post) return null;
 
