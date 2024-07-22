@@ -11,16 +11,16 @@ export const Navbar = () => {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
-    setIsVisible(true);
+    setIsVisible(true); // Menü açılırken navbar'ı görünür yap
   };
   const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
 
   useEffect(() => {
     const controlNavbar = () => {
       if (typeof window !== 'undefined' && !isMobileMenuOpen) {
-        if (window.scrollY > lastScrollY) {
+        if (window.scrollY > lastScrollY) { // scroll down
           setIsVisible(false);
-        } else {
+        } else { // scroll up
           setIsVisible(true);
         }
         setLastScrollY(window.scrollY);
@@ -29,6 +29,8 @@ export const Navbar = () => {
 
     if (typeof window !== 'undefined') {
       window.addEventListener('scroll', controlNavbar);
+
+      // cleanup function
       return () => {
         window.removeEventListener('scroll', controlNavbar);
       };
