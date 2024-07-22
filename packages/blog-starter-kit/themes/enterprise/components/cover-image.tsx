@@ -8,7 +8,7 @@ type Props = {
     slug?: string;
     priority?: boolean;
     onLoad?: () => void;
-    className?: string;  // Add this line
+    className?: string;
 };
 
 const Skeleton = () => (
@@ -25,7 +25,7 @@ export const CoverImage = ({ title, src, slug, priority = false, onLoad, classNa
     };
 
     const image = (
-        <div className={`relative pt-[52.5%] select-none ${className || ''}`}>  // Add className here
+        <div className={`relative pt-[52.5%] select-none ${className || ''}`}>
             {!imageLoaded && <Skeleton />}
             <Image
                 src={src}
