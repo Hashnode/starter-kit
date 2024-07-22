@@ -24,7 +24,7 @@ const mapTableOfContentItems = (toc: TableOfContentsItem[]) => {
     }
 };
 
-const scrollToElement = (elementId: string) => {
+const scrollToElement = (elementId: string, retryCount = 0) => {
     const element = document.getElementById(elementId);
     if (element) {
         const offset = 20; // Ekranın üstünde bırakılacak boşluk (piksel cinsinden)
@@ -35,6 +35,17 @@ const scrollToElement = (elementId: string) => {
             top: offsetPosition,
             behavior: 'smooth'
         });
+
+        // Scroll işlemini kontrol et ve gerekirse düzelt
+        setTimeout(() => {
+            const newPosition = element.getBoundingClientRect().top;
+            if (Math.abs(newPosition - offset) > 2 && retryCount < 3) {
+                scrollToElement(elementId, retryCount + 1);
+            }
+        }, 500);
+    } else if (retryCount < 3) {
+        // Element bulunamadıysa, kısa bir süre bekleyip tekrar dene
+        setTimeout(() => scrollToElement(elementId, retryCount + 1), 200);
     }
 };
 
@@ -100,7 +111,7 @@ export const PostTOC: React.FC = () => {
         document.addEventListener('click', handleSmoothScrollForAllLinks);
 
         // Set page as loaded after all content is likely loaded
-        const timer = setTimeout(() => setIsPageLoaded(true), 1000);
+        const timer = setTimeout(() => setIsPageLoaded(true), 500);
 
         // Use Intersection Observer to detect when headings come into view
         const headingObserver = new IntersectionObserver((entries) => {
