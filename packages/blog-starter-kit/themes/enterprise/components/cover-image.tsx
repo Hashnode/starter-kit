@@ -1,37 +1,55 @@
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 type Props = {
-	title: string;
-	src: string;
-	slug?: string;
-	priority?: boolean;
+    title: string;
+    src: string;
+    slug?: string;
+    priority?: boolean;
+    onLoad?: () => void;
+    className?: string;  // Add this line
 };
 
-export const CoverImage = ({ title, src, slug, priority = false }: Props) => {
-	const postURL = `/${slug}`;
+const Skeleton = () => (
+    <div className="absolute inset-0 animate-pulse bg-gray-200 dark:bg-gray-700 rounded-md" />
+);
 
-	const image = (
-		<div className="relative pt-[52.5%] select-none">
-			<Image
-				src={src}
-				alt={`Temizmama - ${title}`}
-				className="w-full rounded-md border object-cover hover:opacity-90 dark:border-neutral-800"
-				fill
-				unoptimized
-				priority={priority}
-			/>
-		</div>
-	);
-	return (
-		<div className="relative w-full max-w-screen-lg sm:mx-0">
-			{slug ? (
-				<Link href={postURL} aria-label={title}>
-					{image}
-				</Link>
-			) : (
-				image
-			)}
-		</div>
-	);
+export const CoverImage = ({ title, src, slug, priority = false, onLoad, className }: Props) => {
+    const [imageLoaded, setImageLoaded] = useState(false);
+    const postURL = `/${slug}`;
+
+    const handleImageLoad = () => {
+        setImageLoaded(true);
+        if (onLoad) onLoad();
+    };
+
+    const image = (
+        <div className={`relative pt-[52.5%] select-none ${className || ''}`}>  // Add className here
+            {!imageLoaded && <Skeleton />}
+            <Image
+                src={src}
+                alt={`Temizmama - ${title}`}
+                className={`w-full rounded-md border object-cover hover:opacity-90 dark:border-neutral-800 transition-opacity duration-300 ${
+                    imageLoaded ? 'opacity-100' : 'opacity-0'
+                }`}
+                fill
+                unoptimized
+                priority={priority}
+                onLoad={handleImageLoad}
+            />
+        </div>
+    );
+
+    return (
+        <div className="relative w-full max-w-screen-lg sm:mx-0">
+            {slug ? (
+                <Link href={postURL} aria-label={title}>
+                    {image}
+                </Link>
+            ) : (
+                image
+            )}
+        </div>
+    );
 };
