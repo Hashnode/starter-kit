@@ -32,7 +32,7 @@ const ShareButtons: React.FC<ShareButtonsProps> = ({ url, title }) => {
           <WhatsappIcon size={iconSize} round />
         </WhatsappShareButton>
 
-        <EmailShareButton url={url} subject={title} body="Check out this article:">
+        <EmailShareButton url={url} subject={title} body="Bu makaleye göz at:">
           <EmailIcon size={iconSize} round />
         </EmailShareButton>
 
