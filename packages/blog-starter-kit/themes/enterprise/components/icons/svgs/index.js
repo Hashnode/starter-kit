@@ -7,78 +7,54 @@ import GithubSVG from './GithubSVG';
 import HashnodeSVG from './HashnodeSVG';
 import LinkedinSVG from './LinkedinSVG';
 import MindsdbLogoSVG from './MindsdbLogoSVG';
-import AIAgentsSVG from './NavbarIcons/AIAgentsSVG';
-import AboutUsNavSVG from './NavbarIcons/AboutUsNavSVG';
-import BlogNavSGV from './NavbarIcons/BlogNavSVG';
+import MindsCloudSVG from './NavbarIcons/MinsCloudSVG';
+import SlackWhiteNavSGV from './NavbarIcons/SlackWhiteSVG';
+
+import CommunitySVG from './NavbarIcons/CommunitySVG';
+import GitHubNavBarSVG from './NavbarIcons/GitHubNavBarSVG';
+import IntegrationsSVG from './NavbarIcons/IntegrationsSVG';
+import SupportSVG from './NavbarIcons/SupportSVG';
+
+import ConnectSVG from './NavbarIcons/ConnectSVG';
+
+import AboutUsSVG from './NavbarIcons/AboutUsSVG';
+import BlogSVG from './NavbarIcons/BlogSVG';
 import CareersSVG from './NavbarIcons/CareersSVG';
 import CaseStudiesSVG from './NavbarIcons/CaseStudiesSVG';
-import CloudNavBarSVG from './NavbarIcons/CloudNavBar';
-import CommunitySVG from './NavbarIcons/CommunitySVG';
-import ContactSVG from './NavbarIcons/ContactSVG';
-import ContributeSVG from './NavbarIcons/ContributeSVG';
-import CustomChatbotSVG from './NavbarIcons/CustomChatbotSVG';
-import DataEnrichmentSVG from './NavbarIcons/DataEnrichmentSVG';
-import DocsNavSVG from './NavbarIcons/DocsNavSVG';
-import EnterpriseSVG from './NavbarIcons/EnterpriseSVG';
+import ContactsSVG from './NavbarIcons/ContactSVG';
 import EventsSVG from './NavbarIcons/EventsSVG';
-import FeaturesSVG from './NavbarIcons/FeaturesSVG';
-import FineTuningSVG from './NavbarIcons/FineTuningSVG';
-import ForecastingSVG from './NavbarIcons/ForecastingSVG';
-import HashnodeBlueSVG from './NavbarIcons/HashnodeSVG';
-import IntegrationsSVG from './NavbarIcons/IntegrationsSVG';
-import NewsroomSVG from './NavbarIcons/NewsroomSVG';
-import ProductUpdatesSVG from './NavbarIcons/ProductUpdatesSVG';
-import SemanticSearchSVG from './NavbarIcons/SemanticSearchSVG';
-import SlackNavSGV from './NavbarIcons/SlackNavSGV';
-import SlackWhiteNavSGV from './NavbarIcons/SlackWhiteSVG';
-import SupportSVG from './NavbarIcons/SupportSVG';
-import TextProcessingSVG from './NavbarIcons/TextProcessingSVG';
-import UpTimeNavSVG from './NavbarIcons/UpTimeNavSVG';
-import UseCasesSVG from './NavbarIcons/UseCasesSVG';
+import NewsRoomSVG from './NavbarIcons/NewsRoomSVG';
+
 import NewsletterPlusSVG from './NewsletterPlusSVG';
 import PlusCircleSVG from './PlusCircleSVG';
 import RssSVG from './RssSVG';
 import XSVG from './XSVG';
 export {
-	AIAgentsSVG,
-	AboutUsNavSVG,
+	AboutUsSVG,
 	ArticleSVG,
-	BlogNavSGV,
+	BlogSVG,
 	BookOpenSVG,
 	CareersSVG,
 	CaseStudiesSVG,
 	ChevronDownSVG,
 	CloseSVG,
-	CloudNavBarSVG,
 	CommunitySVG,
-	ContactSVG,
-	ContributeSVG,
-	CustomChatbotSVG,
-	DataEnrichmentSVG,
-	DocsNavSVG,
-	EnterpriseSVG,
+	ConnectSVG,
+	ContactsSVG,
 	EventsSVG,
 	ExternalArrowSVG,
-	FeaturesSVG,
-	FineTuningSVG,
-	ForecastingSVG,
+	GitHubNavBarSVG,
 	GithubSVG,
-	HashnodeBlueSVG,
 	HashnodeSVG,
 	IntegrationsSVG,
 	LinkedinSVG,
+	MindsCloudSVG,
 	MindsdbLogoSVG,
+	NewsRoomSVG,
 	NewsletterPlusSVG,
-	NewsroomSVG,
 	PlusCircleSVG,
-	ProductUpdatesSVG,
 	RssSVG,
-	SemanticSearchSVG,
-	SlackNavSGV,
 	SlackWhiteNavSGV,
 	SupportSVG,
-	TextProcessingSVG,
-	UpTimeNavSVG,
-	UseCasesSVG,
 	XSVG,
 };

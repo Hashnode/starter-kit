@@ -9,34 +9,21 @@ import { PublicationNavbarItem } from '../generated/graphql';
 import { Button } from './button';
 import { useAppContext } from './contexts/appContext';
 import {
-	AIAgentsSVG,
-	AboutUsNavSVG,
-	BlogNavSGV,
+	AboutUsSVG,
+	BlogSVG,
 	CareersSVG,
 	CaseStudiesSVG,
 	CommunitySVG,
-	ContactSVG,
-	ContributeSVG,
-	CustomChatbotSVG,
-	DataEnrichmentSVG,
-	DocsNavSVG,
-	EnterpriseSVG,
+	ConnectSVG,
+	ContactsSVG,
 	EventsSVG,
-	FeaturesSVG,
-	FineTuningSVG,
-	ForecastingSVG,
-	GithubSVG,
+	GitHubNavBarSVG,
 	IntegrationsSVG,
+	MindsCloudSVG,
 	MindsdbLogoSVG,
-	NewsroomSVG,
-	ProductUpdatesSVG,
-	SemanticSearchSVG,
-	SlackNavSGV,
+	NewsRoomSVG,
 	SlackWhiteNavSGV,
 	SupportSVG,
-	TextProcessingSVG,
-	UpTimeNavSVG,
-	UseCasesSVG,
 } from './icons';
 function hasUrl(
 	navbarItem: PublicationNavbarItem,
@@ -44,203 +31,18 @@ function hasUrl(
 	return !!navbarItem.url && navbarItem.url.length > 0;
 }
 
-const product1 = [
-	// {
-	// 	name: 'MindsDB Pro',
-	// 	description: 'Try our managed service',
-	// 	href: 'https://cloud.mindsdb.com/',
-	// 	Icon: <CloudNavBarSVG />,
-	// },
-	{
-		name: 'Features',
-		description: 'Building blocks & concepts',
-		href: 'https://docs.mindsdb.com/what-is-mindsdb',
-		Icon: <FeaturesSVG />,
-	},
-	{
-		name: 'Integrations',
-		description: 'AI engines, data sources, and apps',
-		href: 'https://docs.mindsdb.com/integrations/integrations',
-		Icon: <IntegrationsSVG />,
-	},
-	{
-		name: 'Product Updates',
-		description: 'New features and improvements',
-		href: 'https://github.com/mindsdb/mindsdb/releases',
-		Icon: <ProductUpdatesSVG />,
-	},
-	{
-		name: 'Enterprise',
-		description: 'Get it on your terms',
-		href: 'https://mindsdb.com/book-a-demo',
-		Icon: <EnterpriseSVG />,
-	},
-];
-const product2 = [
-	{
-		name: 'Github',
-		description: 'Visit our Repo',
-		href: 'https://github.com/mindsdb/mindsdb/',
-		Icon: <GithubSVG />,
-	},
-	{
-		name: 'Community',
-		description: ' Join our Slack',
-		href: 'https://mindsdb.com/community',
-		Icon: <CommunitySVG />,
-	},
-];
-const sol1 = [
-	{
-		name: 'Automated Fine-Tuning',
-		description: 'Keep models up-to-date with your real-time enterprise data',
-		href: 'https://docs.mindsdb.com/use-cases/automated_finetuning',
-		Icon: <FineTuningSVG />,
-	},
-	{
-		name: 'AI Agents',
-		description: 'Enhance versatility with customizable “skills”',
-		href: 'https://docs.mindsdb.com/use-cases/ai_agents',
-		Icon: <AIAgentsSVG />,
-	},
-	{
-		name: 'AI-powered Data Retrieval',
-		description: 'Embeddings sync, RAG, semantic search and more',
-		href: 'https://docs.mindsdb.com/use-cases/ai-powered_data_retrieval',
-		Icon: <SemanticSearchSVG />,
-	},
-	{
-		name: 'Data Enrichment',
-		description: 'Automatically enhance your data using AI',
-		href: 'https://docs.mindsdb.com/use-cases/data_enrichment',
-		Icon: <DataEnrichmentSVG />,
-	},
-];
-const sol2 = [
-	{
-		name: 'Predictive Analytics',
-		description: 'Detect anomalies and build time-series forecasts using just SQL',
-		href: 'https://docs.mindsdb.com/use-cases/predictive_analytics',
-		Icon: <CustomChatbotSVG />,
-	},
-	{
-		name: 'In-Database Machine Learning',
-		description: 'Deploy AI models at the data layer and inference with SQL',
-		href: 'https://docs.mindsdb.com/use-cases/in-database_ml',
-		Icon: <ForecastingSVG />,
-	},
-	{
-		name: 'AI Workflow Automation',
-		description: 'Automate AI pipelines with Jobs and Triggers',
-		href: 'https://docs.mindsdb.com/use-cases/ai_workflow_automation',
-		Icon: <TextProcessingSVG />,
-	},
-];
-const res1 = [
-	{
-		name: 'Support',
-		description: 'Email or chat with one of our techical experts',
-		href: 'https://mindsdb.com/joincommunity',
-		Icon: <SupportSVG />,
-	},
-	{
-		name: 'Docs',
-		description: 'Machine Learning made easy',
-		href: 'https://docs.mindsdb.com/',
-		Icon: <DocsNavSVG />,
-	},
-	{
-		name: 'Case Studies',
-		description: 'Customers success stories',
-		href: 'https://mindsdb.com/case-studies',
-		Icon: <CaseStudiesSVG />,
-	},
-	{
-		name: 'Blog',
-		description: 'Read posts and articles about machine learning',
-		href: 'https://mindsdb.com/blog',
-		Icon: <BlogNavSGV />,
-	},
-	{
-		name: 'Slack',
-		description: 'Join our channels for helpful discussions',
-		href: 'https://mindsdb.com/joincommunity',
-		Icon: <SlackNavSGV />,
-	},
-];
-const res2 = [
-	{
-		name: 'Use Cases',
-		description: 'Learn about the full range of ML applications',
-		href: 'https://mindsdb.com/machine-learning-use-cases',
-		Icon: <UseCasesSVG />,
-	},
-	{
-		name: 'Product updates',
-		description: 'latest new features',
-		href: 'https://mindsdb.com/blog-categories/product-updates',
-		Icon: <ProductUpdatesSVG />,
-	},
-
-	{
-		name: 'Uptime Status',
-		description: 'All systems operational',
-		href: 'https://mindsdb.instatus.com/',
-		Icon: <UpTimeNavSVG />,
-	},
-];
-
-const company1 = [
-	{
-		name: 'About Us',
-		description: 'Our vision and team',
-		href: 'https://mindsdb.com/about',
-		Icon: <AboutUsNavSVG />,
-	},
-	{
-		name: 'Events',
-		description: 'Archive of past and upcoming events',
-		href: 'https://mindsdb.com/events',
-		Icon: <EventsSVG />,
-	},
-	{
-		name: 'Newsroom',
-		description: 'Read the latest news about MindsDB',
-		href: 'https://mindsdb.com/newsroom',
-		Icon: <NewsroomSVG />,
-	},
-];
-const company2 = [
-	{
-		name: 'Careers',
-		description: 'Learn about open roles at MindsDB',
-		href: 'https://mindsdb.com/careers',
-		Icon: <CareersSVG />,
-	},
-	{
-		name: 'Contacts',
-		description: 'Find the right channel to get in touch',
-		href: 'https://mindsdb.com/contact',
-		Icon: <ContactSVG />,
-	},
-	{
-		name: 'Contribute',
-		description: 'Check guidelines and first-time issues',
-		href: 'https://docs.mindsdb.com/contribute/contribute',
-		Icon: <ContributeSVG />,
-	},
-];
-
 const NavItem = ({
 	title,
 	description,
 	icon: Icon,
 	url,
+	cta,
 }: {
 	title: string;
 	description: string;
 	icon: React.ReactNode;
 	url: string;
+	cta?: string;
 }) => {
 	return (
 		<a href={url} className=" flex flex-row gap-3 rounded-md  px-4 py-3 hover:bg-green-50 ">
@@ -248,16 +50,27 @@ const NavItem = ({
 			<span>
 				<p>{title}</p>
 				<p className=" text-sm text-gray-500">{description}</p>
+				{cta && <p className=" text-primary-500 mt-2 text-sm">{cta}</p>}
 			</span>
 		</a>
 	);
 };
 
-const ProductPopover = () => {
+const mindsCloudList = [
+	{
+		name: 'Minds Cloud',
+		description:
+			'Minds are intelligent systems, designed to answer data questions for applications.',
+		href: 'https://mdb.ai/',
+		Icon: <MindsCloudSVG />,
+		cta: 'Try now →',
+	},
+];
+const MindsCloudPopover = () => {
 	return (
 		<Popover className="relative">
 			<Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-white">
-				Product
+				Minds Cloud
 				<ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
 			</Popover.Button>
 
@@ -275,13 +88,14 @@ const ProductPopover = () => {
 						<div className="w-full">
 							{/* <p className="mb-4 border-b px-4 pb-3 text-black">CLOUD</p> */}
 
-							{product1.map((item) => (
+							{mindsCloudList.map((item) => (
 								<NavItem
 									key={item.name}
 									title={item.name}
 									description={item.description}
 									icon={item.Icon}
 									url={item.href}
+									cta={item.cta}
 								/>
 							))}
 						</div>
@@ -291,11 +105,39 @@ const ProductPopover = () => {
 		</Popover>
 	);
 };
-const SolutionsPopover = () => {
+
+const opensourceNav = [
+	{
+		name: 'Integrations',
+		description: 'AI models, data sources, applications',
+		href: 'https://docs.mindsdb.com/integrations/integrations',
+		Icon: <IntegrationsSVG />,
+	},
+	{
+		name: 'Support',
+		description: 'Chat with experts on Slack',
+		href: 'https://mindsdb.com/joincommunity',
+		Icon: <SupportSVG />,
+	},
+	{
+		name: 'GitHub',
+		description: 'Get code, contribute, flag issues',
+		href: 'https://docs.mindsdb.com/what-is-mindsdb',
+		Icon: <GitHubNavBarSVG />,
+	},
+	{
+		name: 'Community',
+		description: 'Programs, rewards, swag',
+		href: 'https://mindsdb.com/community',
+		Icon: <CommunitySVG />,
+	},
+];
+
+const OpenSourcePopover = () => {
 	return (
 		<Popover className="relative">
 			<Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-white">
-				Solutions
+				Open Source
 				<ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
 			</Popover.Button>
 
@@ -308,21 +150,12 @@ const SolutionsPopover = () => {
 				leaveFrom="opacity-100 translate-y-0"
 				leaveTo="opacity-0 translate-y-1"
 			>
-				<Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-2xl overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
+				<Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-96 max-w-2xl overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
 					<div className="flex flex-row p-4 text-black ">
 						<div className="w-full">
-							{sol1.map((item) => (
-								<NavItem
-									key={item.name}
-									title={item.name}
-									description={item.description}
-									icon={item.Icon}
-									url={item.href}
-								/>
-							))}
-						</div>
-						<div className="w-full">
-							{sol2.map((item) => (
+							{/* <p className="mb-4 border-b px-4 pb-3 text-black">CLOUD</p> */}
+
+							{opensourceNav.map((item) => (
 								<NavItem
 									key={item.name}
 									title={item.name}
@@ -338,6 +171,102 @@ const SolutionsPopover = () => {
 		</Popover>
 	);
 };
+
+const connectList = [
+	{
+		name: 'Connect with an Expert',
+		description: "Let's explore AI together and solve your most pressing business challenges.",
+		href: 'https://mindsdb.com/enterprise',
+		Icon: <ConnectSVG />,
+		cta: 'Learn more →',
+	},
+];
+const ConnectPopover = () => {
+	return (
+		<Popover className="relative">
+			<Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-white">
+				Connect with an Expert
+				<ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
+			</Popover.Button>
+
+			<Transition
+				as={Fragment}
+				enter="transition ease-out duration-200"
+				enterFrom="opacity-0 translate-y-1"
+				enterTo="opacity-100 translate-y-0"
+				leave="transition ease-in duration-150"
+				leaveFrom="opacity-100 translate-y-0"
+				leaveTo="opacity-0 translate-y-1"
+			>
+				<Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-96 max-w-2xl overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
+					<div className="flex flex-row p-4 text-black ">
+						<div className="w-full">
+							{/* <p className="mb-4 border-b px-4 pb-3 text-black">CLOUD</p> */}
+
+							{connectList.map((item) => (
+								<NavItem
+									key={item.name}
+									title={item.name}
+									description={item.description}
+									icon={item.Icon}
+									url={item.href}
+									cta={item?.cta}
+								/>
+							))}
+						</div>
+					</div>
+				</Popover.Panel>
+			</Transition>
+		</Popover>
+	);
+};
+
+const resources1 = [
+	{
+		name: 'Events',
+		description: 'Learn, network, collaborate',
+		href: 'https://mindsdb.com/events',
+		Icon: <EventsSVG />,
+	},
+	{
+		name: 'Blog',
+		description: 'Tutorials and content about AI',
+		href: 'https://mindsdb.com/blog',
+		Icon: <BlogSVG />,
+	},
+	{
+		name: 'About Us',
+		description: 'Our vision and team',
+		href: 'https://mindsdb.com/about',
+		Icon: <AboutUsSVG />,
+	},
+	{
+		name: 'Case Studies',
+		description: 'Meet MindsDB customers',
+		href: 'https://mindsdb.com/case-studies',
+		Icon: <CaseStudiesSVG />,
+	},
+];
+const resources2 = [
+	{
+		name: 'Newsroom',
+		description: 'Latest news about MindsDB',
+		href: 'https://mindsdb.com/newsroom',
+		Icon: <NewsRoomSVG />,
+	},
+	{
+		name: 'Contacts',
+		description: 'Find the right channel to get in touch',
+		href: 'https://mindsdb.com/contact',
+		Icon: <ContactsSVG />,
+	},
+	{
+		name: 'Careers',
+		description: 'See open roles at MindsDB',
+		href: 'https://mindsdb.com/careers',
+		Icon: <CareersSVG />,
+	},
+];
 const ResourcesPopover = () => {
 	return (
 		<Popover className="relative">
@@ -355,57 +284,10 @@ const ResourcesPopover = () => {
 				leaveFrom="opacity-100 translate-y-0"
 				leaveTo="opacity-0 translate-y-1"
 			>
-				<Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-96 max-w-2xl overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
-					<div className="flex flex-row p-4 text-black ">
-						<div className="w-full">
-							{res1.map((item) => (
-								<NavItem
-									key={item.name}
-									title={item.name}
-									description={item.description}
-									icon={item.Icon}
-									url={item.href}
-								/>
-							))}
-						</div>
-						{/* <div className="w-full">
-							{res2.map((item) => (
-								<NavItem
-									key={item.name}
-									title={item.name}
-									description={item.description}
-									icon={item.Icon}
-									url={item.href}
-								/>
-							))}
-						</div> */}
-					</div>
-				</Popover.Panel>
-			</Transition>
-		</Popover>
-	);
-};
-const CompanyPopover = () => {
-	return (
-		<Popover className="relative">
-			<Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-white">
-				Company
-				<ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
-			</Popover.Button>
-
-			<Transition
-				as={Fragment}
-				enter="transition ease-out duration-200"
-				enterFrom="opacity-0 translate-y-1"
-				enterTo="opacity-100 translate-y-0"
-				leave="transition ease-in duration-150"
-				leaveFrom="opacity-100 translate-y-0"
-				leaveTo="opacity-0 translate-y-1"
-			>
 				<Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-2xl overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
 					<div className="flex flex-row p-4 text-black ">
 						<div className="w-full">
-							{company1.map((item) => (
+							{resources1.map((item) => (
 								<NavItem
 									key={item.name}
 									title={item.name}
@@ -416,7 +298,7 @@ const CompanyPopover = () => {
 							))}
 						</div>
 						<div className="w-full">
-							{company2.map((item) => (
+							{resources2.map((item) => (
 								<NavItem
 									key={item.name}
 									title={item.name}
@@ -486,10 +368,21 @@ export const Header = () => {
 							</button>
 						</div>
 						<Popover.Group className="hidden lg:flex lg:gap-x-7">
-							<ProductPopover />
-							<SolutionsPopover />
+							<Link
+								className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-white"
+								href="https://docs.mindsdb.com/what-is-mindsdb"
+							>
+								Docs
+							</Link>
+							<MindsCloudPopover />
+							<OpenSourcePopover />
+							<ConnectPopover />
+
+							{/* <ConnectPopover /> */}
+
+							{/* <CompanyPopover /> */}
+
 							<ResourcesPopover />
-							<CompanyPopover />
 						</Popover.Group>
 						<div className=" col-span-2  flex flex-row items-center justify-end gap-5 text-slate-300 max-lg:hidden  lg:col-span-3">
 							{/* <nav className="hidden lg:block">{navList}</nav> */}
@@ -549,21 +442,84 @@ export const Header = () => {
 									<Disclosure as="div" className="-mx-3">
 										{({ open }) => (
 											<>
+												<Link
+													className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+													href="https://docs.mindsdb.com/what-is-mindsdb"
+												>
+													Docs
+												</Link>
 												<Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-													Product
+													Minds Cloud
 													<ChevronDownIcon
 														className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
 														aria-hidden="true"
 													/>
 												</Disclosure.Button>
 												<Disclosure.Panel className="mt-2 space-y-2">
-													{[...product1, ...product2].map((item) => (
+													{mindsCloudList.map((item) => (
 														<NavItem
 															key={item.name}
 															title={item.name}
 															description={item.description}
 															icon={item.Icon}
 															url={item.href}
+															cta={item?.cta}
+														/>
+													))}
+												</Disclosure.Panel>
+											</>
+										)}
+									</Disclosure>
+									<Disclosure as="div" className="-mx-3">
+										{({ open }) => (
+											<>
+												<Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+													Open Source
+													<ChevronDownIcon
+														className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
+														aria-hidden="true"
+													/>
+												</Disclosure.Button>
+												<Disclosure.Panel className="mt-2 space-y-2">
+													{opensourceNav.map((item) => (
+														<NavItem
+															key={item.name}
+															title={item.name}
+															description={item.description}
+															icon={item.Icon}
+															url={item.href}
+														/>
+													))}
+												</Disclosure.Panel>
+											</>
+										)}
+									</Disclosure>
+
+									<Disclosure as="div" className="-mx-3">
+										{({ open }) => (
+											<>
+												<Link
+													className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+													href="https://docs.mindsdb.com/what-is-mindsdb"
+												>
+													Docs
+												</Link>
+												<Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+													Connect with an Expert
+													<ChevronDownIcon
+														className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
+														aria-hidden="true"
+													/>
+												</Disclosure.Button>
+												<Disclosure.Panel className="mt-2 space-y-2">
+													{connectList.map((item) => (
+														<NavItem
+															key={item.name}
+															title={item.name}
+															description={item.description}
+															icon={item.Icon}
+															url={item.href}
+															cta={item?.cta}
 														/>
 													))}
 												</Disclosure.Panel>
@@ -581,31 +537,7 @@ export const Header = () => {
 													/>
 												</Disclosure.Button>
 												<Disclosure.Panel className="mt-2 space-y-2">
-													{[...res1, ...res2].map((item) => (
-														<NavItem
-															key={item.name}
-															title={item.name}
-															description={item.description}
-															icon={item.Icon}
-															url={item.href}
-														/>
-													))}
-												</Disclosure.Panel>
-											</>
-										)}
-									</Disclosure>
-									<Disclosure as="div" className="-mx-3">
-										{({ open }) => (
-											<>
-												<Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-													Company
-													<ChevronDownIcon
-														className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
-														aria-hidden="true"
-													/>
-												</Disclosure.Button>
-												<Disclosure.Panel className="mt-2 space-y-2">
-													{[...company1, ...company2].map((item) => (
+													{[...resources1, ...resources2].map((item) => (
 														<NavItem
 															key={item.name}
 															title={item.name}
