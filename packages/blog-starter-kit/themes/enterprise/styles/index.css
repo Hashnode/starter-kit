@@ -94,10 +94,15 @@ div#circusll {
 .hashnode-content-style :where(div[data-node-type=callout-emoji]):not(:where([class~=not-prose],[class~=not-prose] *)) {
   background-color: #fefefa00;
 }
-
-
+.hn-embed-widget-expanded {
+  user-select: none;
+}
 .fixed.top-1\/2.left-1\/2.transform.-translate-x-1\/2.-translate-y-1\/2.z-10.mt-0.flex.w-full.max-w-4xl.flex-col.items-stretch.overflow-hidden.rounded-lg.border.bg-white.p-1.text-left.text-slate-900.shadow-2xl.dark\:border-neutral-800.dark\:bg-neutral-900.dark\:text-neutral-50 {
   box-shadow: 0 0 90rem black;
+}
+
+.hashnode-content-style.mx-auto.w-full.px-5.md\:max-w-screen-md.flex {
+  user-select: none;
 }
 
 a.text-gray-700.transition.hover\:text-gray-700\/75 {
