@@ -23,8 +23,7 @@ import CareersSVG from './NavbarIcons/CareersSVG';
 import CaseStudiesSVG from './NavbarIcons/CaseStudiesSVG';
 import ContactsSVG from './NavbarIcons/ContactSVG';
 import EventsSVG from './NavbarIcons/EventsSVG';
-import NewsRoomSVG from './NavbarIcons/NewsRoomSVG';
-
+import NewsroomSVG from './NavbarIcons/NewsroomSVG';
 import NewsletterPlusSVG from './NewsletterPlusSVG';
 import PlusCircleSVG from './PlusCircleSVG';
 import RssSVG from './RssSVG';
@@ -50,7 +49,7 @@ export {
 	LinkedinSVG,
 	MindsCloudSVG,
 	MindsdbLogoSVG,
-	NewsRoomSVG,
+	NewsroomSVG,
 	NewsletterPlusSVG,
 	PlusCircleSVG,
 	RssSVG,

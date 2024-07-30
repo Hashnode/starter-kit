@@ -21,7 +21,7 @@ import {
 	IntegrationsSVG,
 	MindsCloudSVG,
 	MindsdbLogoSVG,
-	NewsRoomSVG,
+	NewsroomSVG,
 	SlackWhiteNavSGV,
 	SupportSVG,
 } from './icons';
@@ -252,7 +252,7 @@ const resources2 = [
 		name: 'Newsroom',
 		description: 'Latest news about MindsDB',
 		href: 'https://mindsdb.com/newsroom',
-		Icon: <NewsRoomSVG />,
+		Icon: <NewsroomSVG />,
 	},
 	{
 		name: 'Contacts',
