@@ -8,8 +8,8 @@ export const getSitemap = (publication: any) => {
 
 	xml += '<url>';
 	xml += `<loc>${domain}</loc>`;
-	xml += '<changefreq>always</changefreq>';
-	xml += '<priority>1</priority>';
+	// xml += '<changefreq>always</changefreq>';
+	// xml += '<priority>1</priority>';
 
 	if (posts.length > 0) {
 		xml += `<lastmod>${posts[0].publishedAt}</lastmod>`;
@@ -19,8 +19,8 @@ export const getSitemap = (publication: any) => {
 	for (let i: any = 0; i < posts.length; i += 1) {
 		xml += '<url>';
 		xml += `<loc>${domain}/${posts[i].slug}</loc>`;
-		xml += '<changefreq>daily</changefreq>';
-		xml += '<priority>0.8</priority>';
+		// xml += '<changefreq>daily</changefreq>';
+		// xml += '<priority>0.8</priority>';
 		if (posts[i].updatedAt) {
 			xml += `<lastmod>${posts[i].updatedAt}</lastmod>`;
 		}
@@ -30,8 +30,8 @@ export const getSitemap = (publication: any) => {
 	staticPages.forEach((page: any) => {
 		xml += '<url>';
 		xml += `<loc>${domain}/${page.slug}</loc>`;
-		xml += '<changefreq>always</changefreq>';
-		xml += `<priority>${1}</priority>`;
+		// xml += '<changefreq>always</changefreq>';
+		// xml += `<priority>${1}</priority>`;
 		xml += '</url>';
 	});
 
