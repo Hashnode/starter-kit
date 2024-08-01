@@ -38,7 +38,7 @@ export const Navbar = () => {
 
   return (
     <nav 
-      className={`container mx-auto items-stretch gap-10 px-5 pb-10 select-none top-0 w-full z-50 sm:p-6 p-3 animate-onload transition-all duration-300 ${isSticky ? 'sticky' : ''}`}
+      className={`container mx-auto items-stretch gap-10 px-5 pb-10 select-none top-0 w-full z-50 p-3 animate-onload transition-all duration-300 ${isSticky ? 'sticky' : ''}`}
       style={{ 
         opacity: 1, 
         zIndex: 2,
