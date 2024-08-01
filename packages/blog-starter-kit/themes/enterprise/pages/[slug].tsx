@@ -42,9 +42,9 @@ const PostComments = dynamic(() =>
 );
 
 export const PostsByTagDocument = gql`
-  query PostsByTag($host: String!, $tagSlugs: [String!], $first: Int!) {
+  query PostsByTag($host: String!, $tagSlugs: [String!], $first: Int!, $after: String) {
     publication(host: $host) {
-      posts(first: $first, filter: { tagSlugs: $tagSlugs }) {
+      posts(first: $first, after: $after, filter: { tagSlugs: $tagSlugs }) {
         edges {
           node {
             id
@@ -58,7 +58,12 @@ export const PostsByTagDocument = gql`
               name
               profilePicture
             }
+            publishedAt
           }
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
         }
       }
     }
@@ -66,23 +71,28 @@ export const PostsByTagDocument = gql`
 `;
 
 type PostsByTagQuery = {
-	publication?: {
-	  posts: {
-		edges: Array<{
-		  node: RelatedPostFragment;
-		}>;
-	  };
-	};
+  publication?: {
+    posts: {
+      edges: Array<{
+        node: RelatedPostFragment;
+      }>;
+      pageInfo: {
+        hasNextPage: boolean;
+        endCursor: string | null;
+      };
+    };
   };
-
-type RelatedPostFragment = {
-  id: string;
-  title: string;
-  brief: string;
-  slug: string;
-  coverImage?: { url: string } | null;
-  author: { name: string; profilePicture?: string | null };
 };
+
+  type RelatedPostFragment = {
+    id: string;
+    title: string;
+    brief: string;
+    slug: string;
+    coverImage?: { url: string } | null;
+    author: { name: string; profilePicture?: string | null };
+    publishedAt: string;
+  };
 
 
 export type RelatedPostsQuery = {
@@ -267,31 +277,47 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
   
 	const postData = await request(endpoint, SinglePostByPublicationDocument, { host, slug });
   
-	if (postData.publication?.post) {
-		const currentPost = postData.publication.post;
-		const tagSlugs = currentPost.tags?.map(tag => tag.slug) || [];
-	
-		const relatedPostsData = await request<PostsByTagQuery>(endpoint, PostsByTagDocument, {
-		  host,
-		  tagSlugs,
-		  first: 4
-		});
-	
-		const relatedPosts = relatedPostsData.publication?.posts.edges
-		  .map((edge: { node: RelatedPostFragment }) => edge.node)
-		  .filter((post: RelatedPostFragment) => post.id !== currentPost.id)
-		  .slice(0, 3);
-	
-		return {
-		  props: {
-			type: 'post',
-			post: currentPost,
-			publication: postData.publication,
-			relatedPosts: relatedPosts || [],
-		  },
-		  revalidate: 1,
-		};
-	  }
+  if (postData.publication?.post) {
+    const currentPost = postData.publication.post;
+    const tagSlugs = currentPost.tags?.map(tag => tag.slug) || [];
+
+    let allRelatedPosts: RelatedPostFragment[] = [];
+    let hasNextPage = true;
+    let after = null;
+
+    while (hasNextPage && allRelatedPosts.length < 20) {
+      const relatedPostsData: PostsByTagQuery = await request(endpoint, PostsByTagDocument, {
+        host,
+        tagSlugs,
+        first: 20,
+        after
+      });
+
+      const newPosts = relatedPostsData.publication?.posts.edges
+      .map((edge) => edge.node)
+      .filter((post) => post.id !== currentPost.id) ?? [];
+    
+    allRelatedPosts = [...allRelatedPosts, ...newPosts];
+    hasNextPage = relatedPostsData.publication?.posts.pageInfo?.hasNextPage ?? false;
+    after = relatedPostsData.publication?.posts.pageInfo?.endCursor ?? null;    
+    }
+
+    // Postları karıştır
+    const shuffledPosts = allRelatedPosts.sort(() => 0.5 - Math.random());
+
+    // İlk 3'ünü seç
+    const relatedPosts = shuffledPosts.slice(0, 3);
+
+    return {
+      props: {
+        type: 'post',
+        post: currentPost,
+        publication: postData.publication,
+        relatedPosts: relatedPosts || [],
+      },
+      revalidate: 1,
+    };
+  }
 
   const pageData = await request(endpoint, PageByPublicationDocument, { host, slug });
 

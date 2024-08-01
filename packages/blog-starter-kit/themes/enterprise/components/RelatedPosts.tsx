@@ -26,7 +26,7 @@ const RelatedPosts: React.FC<RelatedPostsProps> = ({ posts }) => {
         İlgili Blog Yazıları
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {posts.slice(0, 6).map((post) => (
+          {posts.slice(0, 3).map((post) => (
             <div key={post.id} className="card">
               <div className="card-inner rounded-lg overflow-hidden shadow-md">
                 <div className="box relative pb-[56.25%]">
