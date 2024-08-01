@@ -34,6 +34,7 @@ import { loadIframeResizer } from '@starter-kit/utils/renderer/services/embed';
 import { useEffect, useState } from 'react';
 // @ts-ignore
 import { triggerCustomWidgetEmbed } from '@starter-kit/utils/trigger-custom-widget-embed';
+import RelatedPosts from '../components/RelatedPosts';
 
 const AboutAuthor = dynamic(() => import('../components/about-author'), { ssr: false });
 const PostComments = dynamic(() =>
@@ -240,9 +241,9 @@ export default function PostOrPage(props: Props) {
             {props.type === 'page' && <Page {...props as PageProps} />}
           </article>
         </Container>
-		{/* {props.type === 'post' && props.relatedPosts && props.relatedPosts.length > 0 && (
+		{props.type === 'post' && props.relatedPosts && props.relatedPosts.length > 0 && (
 					<RelatedPosts posts={props.relatedPosts} />
-				)} */}
+				)} 
         <CircularProgressBar />
         <Footer />
       </Layout>
