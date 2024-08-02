@@ -151,7 +151,7 @@ const config = {
         has: [
           {
             type: 'query',
-            key: 'category',
+            key: 'kategori',
             value: 'true',
           },
         ],
