@@ -145,6 +145,17 @@ const config = {
         source: '/api/analytics',
         destination: `${HASHNODE_ADVANCED_ANALYTICS_URL}/api/analytics`,
       },
+      {
+        source: '/:slug',
+        destination: '/kategori/:slug',
+        has: [
+          {
+            type: 'query',
+            key: 'category',
+            value: 'true',
+          },
+        ],
+      },
     ];
   },
   async redirects() {
