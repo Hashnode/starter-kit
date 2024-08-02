@@ -275,6 +275,12 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
               data-category="all"
               onClick={() => handleCategoryChange('all')}
               className={`px-4 py-2 rounded ${selectedCategory === 'all' ? 'bg-orange-500 text-white' : 'bg-gray-202-pre'}`}
+              style={{
+                position: 'absolute',
+                marginTop: '3rem',
+                width: '11rem',
+                marginRight: '-1rem'
+              }}
             >
               Tümü
             </button>
@@ -282,6 +288,9 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
               data-category="cat"
               onClick={() => handleCategoryChange('cat')}
               className={`px-4 py-2 rounded ${selectedCategory === 'cat' ? 'bg-orange-500 text-white' : 'bg-gray-202-pre'}`}
+              style={{
+                width: '5rem'
+              }}
             >
               Kedi
             </button>
