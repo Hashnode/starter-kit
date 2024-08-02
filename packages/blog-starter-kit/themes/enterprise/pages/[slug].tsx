@@ -4,11 +4,10 @@ import request from 'graphql-request';
 import { gql } from 'graphql-request';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
-
+import Head from 'next/head';
 import CircularProgressBar from '../components/CircularProgressBar';
 import { Container } from '../components/container';
 import { AppProvider } from '../components/contexts/appContext';
-import Head from 'next/head';
 import { Footer } from '../components/footer';
 import { Navbar } from "../components/navbar";
 import { Layout } from '../components/layout';
@@ -17,6 +16,7 @@ import { MarkdownToHtml } from '../components/markdown-to-html';
 import { PostHeader } from '../components/post-header';
 import { PostTOC } from '../components/post-toc';
 import ShareButtons from '../components/ShareButtons';
+import { MorePosts } from '../components/more-posts';
 
 import {
   PageByPublicationDocument,
@@ -25,6 +25,8 @@ import {
   SinglePostByPublicationDocument,
   SlugPostsByPublicationDocument,
   StaticPageFragment,
+  SeriesFragment,
+  SeriesPostsByPublicationDocument,
 } from '../generated/graphql';
 
 // @ts-ignore
@@ -84,37 +86,22 @@ type PostsByTagQuery = {
   };
 };
 
-  type RelatedPostFragment = {
-    id: string;
-    title: string;
-    brief: string;
-    slug: string;
-    coverImage?: { url: string } | null;
-    author: { name: string; profilePicture?: string | null };
-    publishedAt: string;
-  };
-
-
-export type RelatedPostsQuery = {
-  __typename?: 'Query';
-  publication?: {
-    __typename?: 'Publication';
-    relatedPosts: Array<RelatedPostFragment>;
-  } | null;
-};
-
-export type RelatedPostsQueryVariables = {
-  host: string;
+type RelatedPostFragment = {
+  id: string;
+  title: string;
+  brief: string;
   slug: string;
-  first: number;
+  coverImage?: { url: string } | null;
+  author: { name: string; profilePicture?: string | null };
+  publishedAt: string;
 };
 
 type PostProps = {
-	type: 'post';
-	post: PostFullFragment;
-	publication: PublicationFragment;
-	relatedPosts: RelatedPostFragment[];
-  };
+  type: 'post';
+  post: PostFullFragment;
+  publication: PublicationFragment;
+  relatedPosts: RelatedPostFragment[];
+};
 
 type PageProps = {
   type: 'page';
@@ -122,38 +109,39 @@ type PageProps = {
   publication: PublicationFragment;
 };
 
-type Props = PostProps | PageProps;
+type CategoryProps = {
+  type: 'category';
+  series: SeriesFragment;
+  posts: PostFullFragment[];
+  publication: PublicationFragment;
+};
+
+type Props = PostProps | PageProps | CategoryProps;
 
 const Post = ({ publication, post, relatedPosts }: PostProps) => {
-  const highlightJsMonokaiTheme =
-    '.hljs{display:block;overflow-x:auto;padding:.5em;background:#23241f}.hljs,.hljs-subst,.hljs-tag{color:#f8f8f2}.hljs,.hljs-subst,.hljs-tag{color:#f8f8f2}.hljs-emphasis,.hljs-strong{color:#a8a8a2}.hljs-bullet,.hljs-link,.hljs-literal,.hljs-number,.hljs-quote,.hljs-regexp{color:#ae81ff}.hljs-code,.hljs-section,.hljs-selector-class,.hljs-title{color:#a6e22e}.hljs-strong{font-weight:700}.hljs-emphasis{font-style:italic}.hljs-attr,.hljs-keyword,.hljs-name,.hljs-selector-tag{color:#f92672}.hljs-attribute,.hljs-symbol{color:#66d9ef}.hljs-class .hljs-title,.hljs-params{color:#f8f8f2}.hljs-addition,.hljs-built_in,.hljs-builtin-name,.hljs-selector-attr,.hljs-selector-id,.hljs-selector-pseudo,.hljs-string,.hljs-template-variable,.hljs-type,.hljs-variable{color:#e6db74}.hljs-comment,.hljs-deletion,.hljs-meta{color:#75715e}';
-
-
-
   const [, setMobMount] = useState(false);
   const [canLoadEmbeds, setCanLoadEmbeds] = useState(false);
   useEmbeds({ enabled: canLoadEmbeds });
-  if (post.hasLatexInPost) {
-    setTimeout(() => {
-      handleMathJax(true);
-    }, 500);
-  }
 
   useEffect(() => {
+    if (post.hasLatexInPost) {
+      setTimeout(() => {
+        handleMathJax(true);
+      }, 500);
+    }
+
     if (screen.width <= 425) {
       setMobMount(true);
     }
 
-    if (!post) {
-      return;
+    if (post) {
+      (async () => {
+        await loadIframeResizer();
+        triggerCustomWidgetEmbed(post.publication?.id.toString());
+        setCanLoadEmbeds(true);
+      })();
     }
-
-    (async () => {
-      await loadIframeResizer();
-      triggerCustomWidgetEmbed(post.publication?.id.toString());
-      setCanLoadEmbeds(true);
-    })();
-  }, []);
+  }, [post]);
 
   const postTitle = post.seo?.title || post.title;
   const postDescription = post.seo?.description || post.subtitle || post.brief;
@@ -164,41 +152,20 @@ const Post = ({ publication, post, relatedPosts }: PostProps) => {
       <Head>
         <title>{`${postTitle}`}</title>
         <link rel="canonical" href={post.url} />
-        <meta name="theme-color" content="#efdcc9" />
-        <meta name="msapplication-navbutton-color" content="#efdcc9" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="#efdcc9" />
-
+        <meta name="description" content={postDescription} />
         <meta property="og:title" content={`${postTitle}`} />
-        <meta property="og:site_name" content="Temizmama Blog" />
-        <meta property="og:locale" content="tr_TR" />
-        <meta property="og:url" content={post.url} />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={postImage} />
-        <meta property="og:image:alt" content={`${postTitle} görseli`} />
         <meta property="og:description" content={postDescription} />
-
+        <meta property="og:image" content={postImage} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@temizmamacom" />
         <meta name="twitter:title" content={`${postTitle}`} />
         <meta name="twitter:description" content={postDescription} />
         <meta name="twitter:image" content={postImage} />
-        <meta name="twitter:image:alt" content={`${postTitle} görseli`} />
-
-        <meta name="description" content={postDescription} />
-        <meta name="author" content={post.author?.name || "Temizmama Blog"} />
-
-        <meta name="robots" content="index, follow" />
-        <meta name="googlebot" content="index, follow" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="format-detection" content="telephone=no" />
-
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(addArticleJsonLd(publication, post)),
           }}
         />
-        <style dangerouslySetInnerHTML={{ __html: highlightJsMonokaiTheme }}></style>
       </Head>
       
       <PostHeader
@@ -209,44 +176,58 @@ const Post = ({ publication, post, relatedPosts }: PostProps) => {
       />
       {post.features.tableOfContents.isEnabled && <PostTOC />}
       <MarkdownToHtml contentMarkdown={post.content.markdown} />
-
       <ShareButtons url={post.url} title={post.title} />
       <AboutAuthor />
       {!post.preferences.disableComments && post.comments.totalDocuments > 0 && <PostComments />}
+      {relatedPosts && relatedPosts.length > 0 && <RelatedPosts posts={relatedPosts} />}
     </>
-	);
+  );
 };
 
-const Page = ({ page }: PageProps) => {
-  const title = page.title;
+const Page = ({ page, publication }: PageProps) => {
   return (
     <>
       <Head>
-        <title>{`${title} - Temizmama Blog`}</title>
+        <title>{`${page.title} - ${publication.title}`}</title>
       </Head>
+      <h1>{page.title}</h1>
       <MarkdownToHtml contentMarkdown={page.content.markdown} />
     </>
   );
 };
 
-export default function PostOrPage(props: Props) {
-  const maybePost = props.type === 'post' ? props.post : null;
-  const maybePage = props.type === 'page' ? props.page : null;
+const Category = ({ series, posts, publication }: CategoryProps) => {
+  const title = `${series.name} - ${publication.title}`;
+  return (
+    <>
+      <Head>
+        <title>{title}</title>
+        <meta name="robots" content="noindex" />
+      </Head>
+      <h1 className="text-3xl font-bold mb-6">{series.name}</h1>
+      {posts.length > 0 ? (
+        <MorePosts context="series" posts={posts} />
+      ) : (
+        <div>Bu kategoride henüz içerik bulunmuyor...</div>
+      )}
+    </>
+  );
+};
+
+export default function DynamicPage(props: Props) {
   const publication = props.publication;
 
   return (
-    <AppProvider publication={publication} post={maybePost} page={maybePage}>
+    <AppProvider publication={publication} post={props.type === 'post' ? props.post : null} page={props.type === 'page' ? props.page : null} series={props.type === 'category' ? props.series : null}>
       <Layout>
         <Navbar />
         <Container className="pt-101">
           <article className="border-b-1-1/2 flex flex-col items-start gap-10 pb-10">
-            {props.type === 'post' && <Post {...props as PostProps} />}
-            {props.type === 'page' && <Page {...props as PageProps} />}
+            {props.type === 'post' && <Post {...props} />}
+            {props.type === 'page' && <Page {...props} />}
+            {props.type === 'category' && <Category {...props} />}
           </article>
         </Container>
-		{props.type === 'post' && props.relatedPosts && props.relatedPosts.length > 0 && (
-					<RelatedPosts posts={props.relatedPosts} />
-				)} 
         <CircularProgressBar />
         <Footer />
       </Layout>
@@ -268,6 +249,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
   const host = process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST;
   const slug = params.slug;
   
+  // Post için kontrol
   const postData = await request(endpoint, SinglePostByPublicationDocument, { host, slug });
   
   if (postData.publication?.post) {
@@ -295,10 +277,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
       after = relatedPostsData.publication?.posts.pageInfo?.endCursor ?? null;    
     }
 
-    // Postları karıştır
     const shuffledPosts = allRelatedPosts.sort(() => 0.5 - Math.random());
-
-    // İlk 3'ünü seç
     const relatedPosts = shuffledPosts.slice(0, 3);
 
     return {
@@ -312,6 +291,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
     };
   }
 
+  // Statik sayfa için kontrol
   const pageData = await request(endpoint, PageByPublicationDocument, { host, slug });
 
   if (pageData.publication?.staticPage) {
@@ -320,6 +300,28 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
         type: 'page',
         page: pageData.publication.staticPage,
         publication: pageData.publication,
+      },
+      revalidate: 1,
+    };
+  }
+
+  // Kategori (series) için kontrol
+  const seriesData = await request(endpoint, SeriesPostsByPublicationDocument, {
+    host,
+    seriesSlug: slug,
+    first: 20,
+  });
+
+  if (seriesData.publication?.series) {
+    const series = seriesData.publication.series;
+    const posts = series.posts.edges.map(edge => edge.node) as PostFullFragment[];
+
+    return {
+      props: {
+        type: 'category',
+        series,
+        posts,
+        publication: seriesData.publication,
       },
       revalidate: 1,
     };
