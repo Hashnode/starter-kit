@@ -1,5 +1,5 @@
-// next.config.mjs
 import { request, gql } from 'graphql-request';
+import crypto from 'crypto';
 
 const ANALYTICS_BASE_URL = 'https://hn-ping2.hashnode.com';
 const HASHNODE_ADVANCED_ANALYTICS_URL = 'https://user-analytics.hashnode.com';
@@ -29,7 +29,6 @@ const getRedirectionRules = async () => {
     }
   `;
 
-
   const data = await request(GQL_ENDPOINT, query);
 
   if (!data.publication) {
@@ -38,31 +37,22 @@ const getRedirectionRules = async () => {
 
   const redirectionRules = data.publication.redirectionRules;
 
-  // convert to next.js redirects format
   const redirects = redirectionRules
-    .filter((rule) => {
-      // Hashnode gives an option to set a wildcard redirect,
-      // but it doesn't work properly with Next.js
-      // the solution is to filter out all the rules with wildcard and use static redirects for now
-      return rule.source.indexOf('*') === -1;
-    })
-    .map((rule) => {
-      return {
-        source: rule.source,
-        destination: rule.destination,
-        permanent: rule.type === 'PERMANENT',
-      };
-    });
+    .filter((rule) => rule.source.indexOf('*') === -1)
+    .map((rule) => ({
+      source: rule.source,
+      destination: rule.destination,
+      permanent: rule.type === 'PERMANENT',
+    }));
 
-    redirects.push({
-      source: '/feed.xml',
-      destination: '/rss.xml',
-      permanent: true,
-    });
+  redirects.push({
+    source: '/feed.xml',
+    destination: '/rss.xml',
+    permanent: true,
+  });
     
   return redirects;
 };
-
 
 const securityHeaders = [
   {
@@ -104,10 +94,11 @@ const securityHeaders = [
     value: 'cross-origin'
   }
 ];
-// Nonce oluşturmak için yardımcı fonksiyon
+
 function generateNonce() {
   return Buffer.from(crypto.randomBytes(16)).toString('base64');
 }
+
 /**
  * @type {import('next').NextConfig}
  */
@@ -116,6 +107,8 @@ const config = {
   basePath: getBasePath(),
   experimental: {
     scrollRestoration: true,
+    // Hydration hatalarını göstermek için:
+    reactMode: 'concurrent',
   },
   images: {
     domains: ['cdn.hashnode.com', 'cdn.hashnode.co'],
@@ -176,7 +169,6 @@ const config = {
     console.error(errorInfo);
     // Hata izleme servisi entegrasyonu buraya eklenebilir
   },
-  // Minimize edilmiş hataları tam hata mesajlarına dönüştürmek için:
   webpack: (config, { dev, isServer }) => {
     if (!dev && !isServer) {
       Object.assign(config.resolve.alias, {
@@ -184,13 +176,43 @@ const config = {
         'scheduler/tracing': 'scheduler/tracing-profiling',
       });
     }
+
+    // Production'da detaylı hata mesajlarını gizle
+    if (process.env.NODE_ENV === 'production') {
+      config.optimization.minimize = true;
+    }
+
     return config;
   },
-
   // Hydration hatalarını göster
-  onError: (error) => {
-    console.error('Next.js Hydration Error:', error);
+  onErrorBoundary: (error, errorInfo) => {
+    console.error('Next.js Error Boundary:', error, errorInfo);
   },
+  // Geliştirme ortamında performans ölçümlerini etkinleştir
+  devIndicators: {
+    buildActivity: true,
+    buildActivityPosition: 'bottom-right',
+  },
+  // Sayfaların ön belleğe alınmasını kontrol et
+  onDemandEntries: {
+    // Sayfaların bellekte ne kadar süre tutulacağı (ms cinsinden)
+    maxInactiveAge: 25 * 1000,
+    // Aynı anda kaç sayfanın bellekte tutulacağı
+    pagesBufferLength: 2,
+  },
+  // TypeScript hata kontrolünü etkinleştir
+  typescript: {
+    // !! UYARI !!
+    // TypeScript hatalarını görmezden gelir
+    // Sadece geliştirme aşamasında kullanın!
+    ignoreBuildErrors: false,
+  },
+  // Büyük sayfa sayısı için optimizasyon
+  pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
+  // Çıktı izleme için
+  generateEtags: true,
+  // Derleme sırasında konsolda ayrıntılı bilgi göster
+  verbose: true,
 };
 
 export default config;
