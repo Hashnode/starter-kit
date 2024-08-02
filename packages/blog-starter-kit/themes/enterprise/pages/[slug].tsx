@@ -17,6 +17,8 @@ import { PostHeader } from '../components/post-header';
 import { PostTOC } from '../components/post-toc';
 import ShareButtons from '../components/ShareButtons';
 import { MorePosts } from '../components/more-posts';
+import { resizeImage } from '@starter-kit/utils/image';
+import { DEFAULT_COVER } from '../utils/const';
 
 import {
   PageByPublicationDocument,
@@ -200,22 +202,68 @@ const Page = ({ page, publication }: PageProps) => {
 
 const Category = ({ series, posts, publication }: CategoryProps) => {
   const title = `${series.name} - ${publication.title}`;
+  const description = series.description?.html ? stripHtml(series.description.html) : '';
+  const coverImage = resizeImage(
+    series.coverImage,
+    { w: 1200, h: 630, c: 'thumb' },
+    DEFAULT_COVER
+  );
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "headline": series.name,
+    "description": description,
+    "image": coverImage,
+    "publisher": {
+      "@type": "Organization",
+      "name": publication.title,
+      "logo": {
+        "@type": "ImageObject",
+        "url": publication.preferences.logo || DEFAULT_COVER
+      }
+    }
+  };
+
   return (
     <>
       <Head>
         <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={coverImage} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`${publication.url}/${series.slug}`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={coverImage} />
         <meta name="robots" content="index, follow" />
         <meta name="googlebot" content="index, follow" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
       </Head>
-      <h1 className="text-3xl font-bold mb-6">{series.name}</h1>
-      {posts.length > 0 ? (
-        <MorePosts context="series" posts={posts} />
-      ) : (
-        <div>Bu kategoride henüz içerik bulunmuyor...</div>
-      )}
+      <div className="pt-5">
+        <h1 className="text-4xl font-bold text-slate-900 dark:text-neutral-50 mb-6">
+          {series.name}
+        </h1>
+        {posts.length > 0 ? (
+          <MorePosts context="series" posts={posts} />
+        ) : (
+          <div>Bu kategoride henüz içerik bulunmuyor...</div>
+        )}
+      </div>
     </>
   );
 };
+
+// HTML'den metin çıkarmak için yardımcı fonksiyon
+function stripHtml(html: string): string {
+  return html.replace(/<[^>]*>?/gm, '').trim();
+}
 
 export default function DynamicPage(props: Props) {
   const publication = props.publication;
