@@ -8,6 +8,8 @@ import { CoverImage } from '../../components/cover-image';
 import { Footer } from '../../components/footer';
 import { Header } from '../../components/header';
 import { Layout } from '../../components/layout';
+import { Navbar } from "../../components/navbar";
+
 import { MorePosts } from '../../components/more-posts';
 import {
 	PostFragment,
@@ -36,9 +38,9 @@ export default function Post({ series, publication, posts }: Props) {
 					<meta name="robots" content="noindex" />
 
 				</Head>
-				<Header />
+				<Navbar />
 				<Container className="flex flex-col items-stretch gap-10 px-5 pb-10">
-					<div
+					{/* <div
 						className={`${
 							series.coverImage ? 'col-span-full' : 'col-span-3'
 						} grid grid-cols-4 pt-5 md:gap-5`}
@@ -67,7 +69,7 @@ export default function Post({ series, publication, posts }: Props) {
 								)}
 							/>
 						</div>
-					</div>
+					</div> */}
 					{posts.length > 0 ? (
 						<MorePosts context="series" posts={posts} />
 					) : (

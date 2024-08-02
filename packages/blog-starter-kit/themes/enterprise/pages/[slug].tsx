@@ -4,10 +4,11 @@ import request from 'graphql-request';
 import { gql } from 'graphql-request';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
-import Head from 'next/head';
+
 import CircularProgressBar from '../components/CircularProgressBar';
 import { Container } from '../components/container';
 import { AppProvider } from '../components/contexts/appContext';
+import Head from 'next/head';
 import { Footer } from '../components/footer';
 import { Navbar } from "../components/navbar";
 import { Layout } from '../components/layout';
