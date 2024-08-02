@@ -73,7 +73,7 @@ export default function Post({ series, publication, posts }: Props) {
 					{posts.length > 0 ? (
 						<MorePosts context="series" posts={posts} />
 					) : (
-						<div>No Posts found</div>
+						<div>Kategoride ilgili içerikler bulunamadı...</div>
 					)}
 				</Container>
 				<Footer />
