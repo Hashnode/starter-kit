@@ -6,13 +6,16 @@ import Link from 'next/link';
 
 export const Footer = () => {
 const { publication } = useAppContext();
-const PUBLICATION_LOGO = publication.preferences.logo;
+
+const PUBLICATION_LOGO = publication?.preferences?.logo ?? null;
+const publicationTitle = publication?.title ?? 'Temizmama Blog';
+
 return (
 <footer className="dark:border-neutral-800 pt-20">
   <Container className="px-5 py-15 select-none">
      <div className="mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex justify-center text-teal-600">
-    {PUBLICATION_LOGO ? (
+    {PUBLICATION_LOGO && 
     <>
     <div className="flex w-full flex-row justify-center">
         <a href="https://www.temizmama.com" aria-label={publication.title} className="flex flex-row items-center gap-5" target="_blank" rel="noopener noreferrer">
@@ -26,11 +29,7 @@ return (
     </div>
 
     </>
-    ) : (
-    <p className="text-center text-xl font-semibold text-slate-900 dark:text-slate-50 md:text-4xl">
-      {publication.title}
-    </p>
-    )}
+    } 
       </div>
       <div className="mt-12 pt-5 pb-5">
             <div className="flex flex-col md:flex-row justify-between items-center">
