@@ -160,6 +160,8 @@ const Post = ({ publication, post, relatedPosts }: PostProps) => {
         <meta name="twitter:title" content={`${postTitle}`} />
         <meta name="twitter:description" content={postDescription} />
         <meta name="twitter:image" content={postImage} />
+        <meta name="robots" content="index, follow" />
+        <meta name="googlebot" content="index, follow" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -202,7 +204,8 @@ const Category = ({ series, posts, publication }: CategoryProps) => {
     <>
       <Head>
         <title>{title}</title>
-        <meta name="robots" content="noindex" />
+        <meta name="robots" content="index, follow" />
+        <meta name="googlebot" content="index, follow" />
       </Head>
       <h1 className="text-3xl font-bold mb-6">{series.name}</h1>
       {posts.length > 0 ? (
