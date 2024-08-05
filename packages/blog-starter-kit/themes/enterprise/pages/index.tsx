@@ -261,7 +261,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
         </Head>
         <Navbar />
 
-        <Container className="flex flex-col items-stretch gap-10 px-5 pb-10 select-none pt-28">
+        <Container className="flex flex-col items-stretch gap-10 px-5 pb-10 pt-28">
           <div className="text-center">
             <h1 className="text-5xl text-gray-900 font-semibold mt-2 mb-5">
               Temizmama Blog
