@@ -16,6 +16,7 @@ export const Navbar = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isCatMenuOpen, setIsCatMenuOpen] = useState(false);
   const [isDogMenuOpen, setIsDogMenuOpen] = useState(false);
+  const [currentHoverImage, setCurrentHoverImage] = useState<string | null>(null);
   const [preloadedImages, setPreloadedImages] = useState<Record<string, HTMLImageElement>>({});
   const [currentCatImage, setCurrentCatImage] = useState<string>('');
   const [currentDogImage, setCurrentDogImage] = useState<string>('');
@@ -204,7 +205,7 @@ export const Navbar = () => {
         <div className="flex">
           <div className="w-1/2 pr-4" style={{ marginTop: '-2.5rem' }}>
             <Image
-              src={currentCatImage || currentDogImage || defaultImage}
+              src={currentHoverImage || (items === catMenuItems ? currentCatImage : currentDogImage)}
               alt={altText}
               width={300}
               height={200}
@@ -222,19 +223,11 @@ export const Navbar = () => {
                     onMouseEnter={() => {
                       const metaImage = metaImages[item.url];
                       if (metaImage) {
-                        if (items === catMenuItems) {
-                          setCurrentCatImage(metaImage);
-                        } else {
-                          setCurrentDogImage(metaImage);
-                        }
+                        setCurrentHoverImage(metaImage);
                       }
                     }}
                     onMouseLeave={() => {
-                      if (items === catMenuItems) {
-                        setCurrentCatImage(defaultImage);
-                      } else {
-                        setCurrentDogImage(defaultImage);
-                      }
+                      setCurrentHoverImage(null);
                     }}
                   >
                     {item.name}
