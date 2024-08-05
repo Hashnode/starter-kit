@@ -22,34 +22,25 @@ export const Navbar = () => {
   const [currentCatImage, setCurrentCatImage] = useState<string>('');
   const [currentDogImage, setCurrentDogImage] = useState<string>('');
   const [metaImages, setMetaImages] = useState<Record<string, string>>({});
-  
+  const [isMetaImagesLoaded, setIsMetaImagesLoaded] = useState(false);
+
   const catMenuRef = useRef<HTMLDivElement>(null);
   const dogMenuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   const catImages = [
-    "assets/blog/navbar/kedi/2a594ba2-632d-41ff-bf15-608111aa4b2f.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "assets/blog/navbar/kedi/28b52b89-5dd2-45fb-a43f-1e9703f7eab9.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "assets/blog/navbar/kedi/73d02acd-c140-44f8-bf5b-a88dc6886f46.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "assets/blog/navbar/kedi/97a1a9ae-4f35-44da-9f8e-4257263a690c.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "assets/blog/navbar/kedi/302f54be-9665-47c4-8a2f-142f580dd0f4.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "assets/blog/navbar/kedi/341e8904-e5f1-4746-909d-a20f60317ff8.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "assets/blog/navbar/kedi/f45abcb8-5043-4dee-b45e-12a802e858ba.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "assets/blog/navbar/kedi/ca7ba310-adc0-4bd8-9402-6c95210345cf.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp"
+    "assets/blog/navbar/all.png?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+  //   "assets/blog/navbar/kedi/28b52b89-5dd2-45fb-a43f-1e9703f7eab9.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+  //   "assets/blog/navbar/kedi/73d02acd-c140-44f8-bf5b-a88dc6886f46.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+  //   "assets/blog/navbar/kedi/97a1a9ae-4f35-44da-9f8e-4257263a690c.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+  //   "assets/blog/navbar/kedi/302f54be-9665-47c4-8a2f-142f580dd0f4.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+  //   "assets/blog/navbar/kedi/341e8904-e5f1-4746-909d-a20f60317ff8.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+  //   "assets/blog/navbar/kedi/f45abcb8-5043-4dee-b45e-12a802e858ba.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+  //   "assets/blog/navbar/kedi/ca7ba310-adc0-4bd8-9402-6c95210345cf.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp"
   ];
 
   const dogImages = [
-    "assets/blog/navbar/kopek/2a58504a-4418-4273-9c66-6e31985451f5.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "assets/blog/navbar/kopek/4cac18aa-5d81-4c31-985d-c172e29c78dd.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "assets/blog/navbar/kopek/7f66abca-c7ee-4e07-abe7-70c644ab1f19.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "assets/blog/navbar/kopek/061ceafa-7063-4ec8-894b-b922e0893d3e.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "assets/blog/navbar/kopek/93dc6921-00d2-4d7e-a836-242fadd08804.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "assets/blog/navbar/kopek/389e4f1a-3c7c-4e10-a677-89af8ca1f2cf.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "assets/blog/navbar/kopek/3201e855-eec1-4b2b-8783-dfed466146ae.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "assets/blog/navbar/kopek/9739937a-2d83-431d-bd78-358bf2fbedf5.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "assets/blog/navbar/kopek/a1df46d4-404f-44ea-ab6a-b425d6b7ad1f.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "assets/blog/navbar/kopek/a202c886-748a-4809-90ae-b687d51108ef.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "assets/blog/navbar/kopek/b22c90a3-5329-4b23-bcd0-3d30862b21b9.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp"
+    "assets/blog/navbar/all.png?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp"
   ];
 
   const getRandomImage = (images: string[]) => {
@@ -63,31 +54,19 @@ export const Navbar = () => {
   };
 
 
-
   const preloadImages = useCallback((images: string[]) => {
-    const loadedImages: Record<string, HTMLImageElement> = {};
-    let loadedCount = 0;
-    const totalImages = images.length;
-
-    images.forEach((src) => {
-      const img = document.createElement('img');
+    const promises = images.map(src => new Promise<void>((resolve, reject) => {
+      const img = new (window.Image as any)() as HTMLImageElement;
       img.src = src;
-      img.onload = () => {
-        loadedImages[src] = img;
-        loadedCount++;
-        if (loadedCount === totalImages) {
-          setPreloadedImages(loadedImages);
-          setIsImagesLoaded(true);
-        }
-      };
-      img.onerror = () => {
-        console.error(`Failed to load image: ${src}`);
-        loadedCount++;
-        if (loadedCount === totalImages) {
-          setPreloadedImages(loadedImages);
-          setIsImagesLoaded(true);
-        }
-      };
+      img.onload = () => resolve();
+      img.onerror = (error) => reject(error);
+    }));
+
+    Promise.all(promises).then(() => {
+      setIsImagesLoaded(true);
+    }).catch(error => {
+      console.error('Failed to preload images:', error);
+      setIsImagesLoaded(true); // Set to true even on error to prevent UI from being stuck
     });
   }, []);
 
@@ -166,11 +145,11 @@ export const Navbar = () => {
   }, [router]);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (isMetaImagesLoaded) {
       const allImages = [...catImages, ...dogImages, ...Object.values(metaImages)];
       preloadImages(allImages);
     }
-  }, [preloadImages, metaImages, catImages, dogImages]);
+  }, [preloadImages, metaImages, catImages, dogImages, isMetaImagesLoaded]);
 
   const catMenuItems: MenuItem[] = [
     { name: "Kedi Bakımı", url: "/kedi-bakimi" },
@@ -206,18 +185,33 @@ export const Navbar = () => {
   const fetchMetaImages = useCallback(async () => {
     const allItems = [...catMenuItems, ...dogMenuItems];
     const images: Record<string, string> = {};
-    for (const item of allItems) {
-      const metaImage = await fetchMetaImage(item.url);
-      if (metaImage) {
-        images[item.url] = metaImage;
+    const fetchPromises = allItems.map(async item => {
+      try {
+        const response = await fetch(item.url);
+        const html = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const metaTag = doc.querySelector('meta[property="og:image"]');
+        if (metaTag) {
+          const content = metaTag.getAttribute('content');
+          if (content) {
+            images[item.url] = content;
+          }
+        }
+      } catch (error) {
+        console.error(`Error fetching meta image for ${item.url}:`, error);
       }
-    }
+    });
+    await Promise.all(fetchPromises);
     setMetaImages(images);
+    setIsMetaImagesLoaded(true);
   }, [catMenuItems, dogMenuItems]);
 
   useEffect(() => {
-    fetchMetaImages();
-  }, [fetchMetaImages]);
+    if (!isMetaImagesLoaded) {
+      fetchMetaImages();
+    }
+  }, [fetchMetaImages, isMetaImagesLoaded]);
 
   const renderDropdownMenu = (items: MenuItem[], defaultImage: string, altText: string, description: React.ReactNode) => (
     <div className="fixed left-1/2 transform -translate-x-1/2 w-3/5 bg-white bg-opacity-70 backdrop-filter backdrop-blur-md shadow-lg rounded-xl mt-2 py-6 px-8 z-50">
@@ -244,7 +238,7 @@ export const Navbar = () => {
                     onClick={closeAllMenus}
                     onMouseEnter={() => {
                       const metaImage = metaImages[item.url];
-                      if (metaImage && isImagesLoaded) {
+                      if (metaImage) {
                         setCurrentHoverImage(metaImage);
                       }
                     }}
