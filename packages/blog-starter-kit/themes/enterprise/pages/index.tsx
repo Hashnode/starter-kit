@@ -279,6 +279,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
                 position: 'absolute',
                 marginTop: '3rem',
                 width: '11rem',
+                top: '14rem',
                 marginRight: '-1rem'
               }}
             >
@@ -289,7 +290,9 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
               onClick={() => handleCategoryChange('cat')}
               className={`px-4 py-2 rounded ${selectedCategory === 'cat' ? 'bg-orange-500 text-white' : 'bg-gray-202-pre'}`}
               style={{
-                width: '5rem'
+                width: '5rem',
+                top: '2rem',
+                position: 'relative'
               }}
             >
               Kedi
@@ -298,6 +301,11 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
               data-category="dog"
               onClick={() => handleCategoryChange('dog')}
               className={`px-4 py-2 rounded ${selectedCategory === 'dog' ? 'bg-orange-500 text-white' : 'bg-gray-202-pre'}`}
+              style={{
+                width: '5rem',
+                top: '2rem',
+                position: 'relative'
+              }}
             >
               Köpek
             </button>
