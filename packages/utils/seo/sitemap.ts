@@ -7,6 +7,26 @@ export const getSitemap = (publication: any) => {
 	const posts = publication.posts;
 	const categories = publication.seriesList?.edges?.map((edge: any) => edge.node) || [];
   
+	// Manuel olarak eklenecek kategoriler
+	const manualCategories = [
+	  { slug: 'kedi-bakimi', updatedAt: '2024-08-05' },
+	  { slug: 'kedi-sagligi', updatedAt: '2024-08-05' },
+	  { slug: 'kedi-irklari', updatedAt: '2024-08-05' },
+	  { slug: 'kedi-beslenmesi', updatedAt: '2024-08-05' },
+	  { slug: 'kedi-diger', updatedAt: '2024-08-05' },
+	  { slug: 'kopek-sagligi', updatedAt: '2024-08-05' },
+	  { slug: 'kopek-bakimi', updatedAt: '2024-08-05' },
+	  { slug: 'kopek-irklari', updatedAt: '2024-08-05' },
+	  { slug: 'kopek-beslenmesi', updatedAt: '2024-08-05' },
+	  { slug: 'kopek-diger', updatedAt: '2024-08-05' },
+	  // Daha fazla kategori ekleyebilirsiniz
+	];
+  
+	// Manuel olarak eklenecek statik sayfalar
+	const manualStaticPages = [
+	  { slug: 'iletisim' },
+	];
+  
 	// Ana sayfa
 	xml += '<url>';
 	xml += `<loc>${domain}</loc>`;
@@ -25,15 +45,18 @@ export const getSitemap = (publication: any) => {
 	  xml += '</url>';
 	}
   
-	// Statik sayfalar
-	staticPages.forEach((page: any) => {
+	// Statik sayfalar (otomatik + manuel)
+	[...staticPages, ...manualStaticPages].forEach((page: any) => {
 	  xml += '<url>';
 	  xml += `<loc>${domain}/${page.slug}</loc>`;
+	  if (page.updatedAt) {
+		xml += `<lastmod>${page.updatedAt}</lastmod>`;
+	  }
 	  xml += '</url>';
 	});
   
-	// Kategoriler (Series)
-	categories.forEach((category: any) => {
+	// Kategoriler (Series) (otomatik + manuel)
+	[...categories, ...manualCategories].forEach((category: any) => {
 	  xml += '<url>';
 	  xml += `<loc>${domain}/${category.slug}</loc>`;
 	  if (category.updatedAt) {
