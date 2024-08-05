@@ -24,6 +24,7 @@ export const Navbar = () => {
   const [metaImages, setMetaImages] = useState<Record<string, string>>({});
   const [isMetaImagesLoaded, setIsMetaImagesLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
 
   const catMenuRef = useRef<HTMLDivElement>(null);
@@ -123,20 +124,11 @@ export const Navbar = () => {
     const controlNavbar = () => {
       if (typeof window !== 'undefined') {
         if (window.scrollY > lastScrollY) { // scroll down
-          setIsSticky(false);
+          setIsVisible(false);
         } else { // scroll up
-          setIsSticky(true);
+          setIsVisible(true);
         }
         setLastScrollY(window.scrollY);
-      }
-    };
-
-    const handleClickOutside = (event: MouseEvent) => {
-      if (catMenuRef.current && !catMenuRef.current.contains(event.target as Node)) {
-        setIsCatMenuOpen(false);
-      }
-      if (dogMenuRef.current && !dogMenuRef.current.contains(event.target as Node)) {
-        setIsDogMenuOpen(false);
       }
     };
 
@@ -147,13 +139,11 @@ export const Navbar = () => {
     if (typeof window !== 'undefined') {
       window.addEventListener('scroll', controlNavbar);
       window.addEventListener('scroll', handleScroll);
-      document.addEventListener('mousedown', handleClickOutside);
       window.addEventListener('wheel', handleScroll);
 
       return () => {
         window.removeEventListener('scroll', controlNavbar);
         window.removeEventListener('scroll', handleScroll);
-        document.removeEventListener('mousedown', handleClickOutside);
         window.removeEventListener('wheel', handleScroll);
       };
     }
@@ -281,13 +271,15 @@ export const Navbar = () => {
 
   return (
     <nav 
-      className="container mx-auto px-4 py-4 select-none top-0 w-full z-50 transition-all duration-300"
+      className={`container mx-auto px-4 py-4 select-none fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 ${
+        isVisible ? 'translate-y-0' : '-translate-y-full'
+      }`}
       style={{ 
         opacity: 1, 
         zIndex: 2,
       } as React.CSSProperties}
     >
-      <div className="mx-auto px-4 sm:px-6 lg:px-8 bg-white/10 shadow-md py-4 rounded-xl select-none" style={{ opacity: 1, transform: "none", background: "hsl(30.5, 100%, 87.6%)" }}>
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 bg-white/10 shadow-md py-4 rounded-xl select-none">
         <div className="flex items-center justify-between h-10">
           <div className="flex items-center">
             <Link rel="canonical" href="/">
