@@ -29,6 +29,7 @@ export const Navbar = () => {
 
   const catMenuRef = useRef<HTMLDivElement>(null);
   const dogMenuRef = useRef<HTMLDivElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -132,6 +133,18 @@ export const Navbar = () => {
       }
     };
 
+    const handleClickOutside = (event: MouseEvent) => {
+      if (catMenuRef.current && !catMenuRef.current.contains(event.target as Node)) {
+        setIsCatMenuOpen(false);
+      }
+      if (dogMenuRef.current && !dogMenuRef.current.contains(event.target as Node)) {
+        setIsDogMenuOpen(false);
+      }
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
     const handleScroll = () => {
       closeAllMenus();
     };
@@ -139,11 +152,13 @@ export const Navbar = () => {
     if (typeof window !== 'undefined') {
       window.addEventListener('scroll', controlNavbar);
       window.addEventListener('scroll', handleScroll);
+      document.addEventListener('mousedown', handleClickOutside);
       window.addEventListener('wheel', handleScroll);
 
       return () => {
         window.removeEventListener('scroll', controlNavbar);
         window.removeEventListener('scroll', handleScroll);
+        document.removeEventListener('mousedown', handleClickOutside);
         window.removeEventListener('wheel', handleScroll);
       };
     }
@@ -373,11 +388,11 @@ export const Navbar = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </span>
-            </button>
+              </button>
           </div>
         </div>
         {isMobileMenuOpen && (
-          <div className="md:hidden top-0 left-0 right-0 rounded-b-xl mt-2 py-2 px-4">
+          <div ref={mobileMenuRef} className="md:hidden top-0 left-0 right-0 rounded-b-xl mt-2 py-2 px-4">
             <ul className="space-y-2 mt-2 mr-4">
               <li>
                 <button
@@ -402,7 +417,10 @@ export const Navbar = () => {
                   href="/"
                   className="block text-gray-800 hover:text-gray-700/75 font-bold"
                   style={{ fontFamily: 'PinkChicken' }}
-                  onClick={toggleMobileMenu}
+                  onClick={() => {
+                    toggleMobileMenu();
+                    closeAllMenus();
+                  }}
                   rel="canonical"
                 >
                   Ana Sayfa
@@ -413,7 +431,10 @@ export const Navbar = () => {
                   href="/iletisim"
                   className="block text-gray-800 hover:text-gray-700/75 font-bold"
                   style={{ fontFamily: 'PinkChicken' }}
-                  onClick={toggleMobileMenu}
+                  onClick={() => {
+                    toggleMobileMenu();
+                    closeAllMenus();
+                  }}
                   rel="canonical"
                 >
                   İletişim
