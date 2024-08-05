@@ -236,7 +236,7 @@ export const Navbar = () => {
   }, [fetchMetaImages, isMetaImagesLoaded]);
 
   const renderDropdownMenu = (items: MenuItem[], defaultImage: string, altText: string, description: React.ReactNode) => (
-    <div className={`fixed ${isMobile ? 'left-0 w-3/4' : 'left-1/2 transform -translate-x-1/2 w-3/5'} bg-white bg-opacity-70 backdrop-filter backdrop-blur-md shadow-lg rounded-xl mt-2 py-6 px-8 z-50`}>
+    <div className={`fixed ${isMobile ? 'left-1/2 transform -translate-x-1/2 w-3/4' : 'left-1/2 transform -translate-x-1/2 w-3/5'} bg-white bg-opacity-70 backdrop-filter backdrop-blur-md shadow-lg rounded-xl mt-2 py-6 px-8 z-50`}>
       <div className="flex flex-col">
         <div className={`flex ${isMobile ? 'flex-col' : ''}`}>
           <div className={isMobile ? 'w-full mb-4' : 'w-1/2 pr-4'}>
