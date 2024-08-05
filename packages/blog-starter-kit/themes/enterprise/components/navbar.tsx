@@ -16,7 +16,9 @@ export const Navbar = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isCatMenuOpen, setIsCatMenuOpen] = useState(false);
   const [isDogMenuOpen, setIsDogMenuOpen] = useState(false);
-  const [currentImage, setCurrentImage] = useState<string>('');
+  const [preloadedImages, setPreloadedImages] = useState<Record<string, HTMLImageElement>>({});
+  const [currentCatImage, setCurrentCatImage] = useState<string>('');
+  const [currentDogImage, setCurrentDogImage] = useState<string>('');
   const [metaImages, setMetaImages] = useState<Record<string, string>>({});
   
   const catMenuRef = useRef<HTMLDivElement>(null);
@@ -24,8 +26,6 @@ export const Navbar = () => {
   const router = useRouter();
 
   const catImages = [
-    // Kedi görsel URL'lerini buraya ekleyin
-    // Örnek: "https://example.com/cat-image.jpg"
     "assets/blog/navbar/kedi/2a594ba2-632d-41ff-bf15-608111aa4b2f.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
     "assets/blog/navbar/kedi/28b52b89-5dd2-45fb-a43f-1e9703f7eab9.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
     "assets/blog/navbar/kedi/73d02acd-c140-44f8-bf5b-a88dc6886f46.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
@@ -34,11 +34,9 @@ export const Navbar = () => {
     "assets/blog/navbar/kedi/341e8904-e5f1-4746-909d-a20f60317ff8.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
     "assets/blog/navbar/kedi/f45abcb8-5043-4dee-b45e-12a802e858ba.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
     "assets/blog/navbar/kedi/ca7ba310-adc0-4bd8-9402-6c95210345cf.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp"
-   ];
+  ];
 
   const dogImages = [
-    // Köpek görsel URL'lerini buraya ekleyin
-    // Örnek: "https://example.com/dog-image.jpg"
     "assets/blog/navbar/kopek/2a58504a-4418-4273-9c66-6e31985451f5.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
     "assets/blog/navbar/kopek/4cac18aa-5d81-4c31-985d-c172e29c78dd.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
     "assets/blog/navbar/kopek/7f66abca-c7ee-4e07-abe7-70c644ab1f19.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
@@ -62,22 +60,34 @@ export const Navbar = () => {
     return newImage;
   };
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+  const preloadImages = (images: string[]) => {
+    const loadedImages: Record<string, HTMLImageElement> = {};
+    images.forEach((src) => {
+      const img = new (window.Image as any)() as HTMLImageElement;
+      img.src = src;
+      loadedImages[src] = img;
+    });
+    setPreloadedImages(loadedImages);
   };
+
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
+  
   const toggleCatMenu = () => {
     setIsCatMenuOpen(!isCatMenuOpen);
     setIsDogMenuOpen(false);
     if (!isCatMenuOpen) {
-      setCurrentImage(getRandomImage(catImages));
+      const newImage = getRandomImage(catImages);
+      setCurrentCatImage(newImage);
     }
   };
+
   const toggleDogMenu = () => {
     setIsDogMenuOpen(!isDogMenuOpen);
     setIsCatMenuOpen(false);
     if (!isDogMenuOpen) {
-      setCurrentImage(getRandomImage(dogImages));
+      const newImage = getRandomImage(dogImages);
+      setCurrentDogImage(newImage);
     }
   };
 
@@ -117,7 +127,6 @@ export const Navbar = () => {
       document.addEventListener('mousedown', handleClickOutside);
       window.addEventListener('wheel', handleScroll);
 
-      // cleanup function
       return () => {
         window.removeEventListener('scroll', controlNavbar);
         window.removeEventListener('scroll', handleScroll);
@@ -128,12 +137,17 @@ export const Navbar = () => {
   }, [lastScrollY]);
 
   useEffect(() => {
-    // Close menus on route change
     router.events.on('routeChangeStart', closeAllMenus);
     return () => {
       router.events.off('routeChangeStart', closeAllMenus);
     };
   }, [router]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      preloadImages([...catImages, ...dogImages]);
+    }
+  }, []);
 
   const catMenuItems: MenuItem[] = [
     { name: "Kedi Bakımı", url: "/kedi-bakimi" },
@@ -187,13 +201,15 @@ export const Navbar = () => {
         <div className="mb-4 font-bold text-end mr-12">{description}</div>
         <div className="flex">
           <div className="w-1/2 pr-4" style={{ marginTop: '-2.5rem' }}>
-            <Image
-              src={currentImage || defaultImage}
-              alt={altText}
-              width={300}
-              height={200}
-              className="rounded-lg object-cover"
-            />
+            {preloadedImages[defaultImage] && (
+              <Image
+                src={defaultImage}
+                alt={altText}
+                width={300}
+                height={200}
+                className="rounded-lg object-cover"
+              />
+            )}
           </div>
           <div className="w-1/2 pl-4">
             <div className="grid grid-cols-2 gap-4">
@@ -203,8 +219,17 @@ export const Navbar = () => {
                     href={item.url} 
                     className="block text-gray-800 hover:text-gray-600"
                     onClick={closeAllMenus}
-                    onMouseEnter={() => setCurrentImage(metaImages[item.url] || defaultImage)}
-                    onMouseLeave={() => setCurrentImage(defaultImage)}
+                    onMouseEnter={() => {
+                      const metaImage = metaImages[item.url];
+                      if (metaImage && preloadedImages[metaImage]) {
+                        setCurrentCatImage(metaImage);
+                        setCurrentDogImage(metaImage);
+                      }
+                    }}
+                    onMouseLeave={() => {
+                      setCurrentCatImage(defaultImage);
+                      setCurrentDogImage(defaultImage);
+                    }}
                   >
                     {item.name}
                   </Link>
@@ -370,7 +395,7 @@ export const Navbar = () => {
         <div ref={catMenuRef}>
           {renderDropdownMenu(
             catMenuItems, 
-            getRandomImage(catImages), 
+            currentCatImage, 
             "Kedi", 
             "Kediler hakkında bilmek istediğiniz her şey"
           )}
@@ -380,7 +405,7 @@ export const Navbar = () => {
         <div ref={dogMenuRef}>
           {renderDropdownMenu(
             dogMenuItems, 
-            getRandomImage(dogImages), 
+            currentDogImage, 
             "Köpek", 
             "Köpekler hakkında bilmek istediğiniz her şey"
           )}
