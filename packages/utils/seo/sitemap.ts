@@ -19,7 +19,6 @@ export const getSitemap = (publication: any) => {
 	  { slug: 'kopek-irklari', updatedAt: '2024-08-05' },
 	  { slug: 'kopek-beslenmesi', updatedAt: '2024-08-05' },
 	  { slug: 'kopek-diger', updatedAt: '2024-08-05' },
-	  // Daha fazla kategori ekleyebilirsiniz
 	];
   
 	// Manuel olarak eklenecek statik sayfalar
