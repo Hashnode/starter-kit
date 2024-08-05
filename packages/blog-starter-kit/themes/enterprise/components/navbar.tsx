@@ -187,6 +187,8 @@ export const Navbar = () => {
         const metaImage = await fetchMetaImage(item.url);
         if (metaImage) {
           images[item.url] = metaImage;
+          // Önceden yükle
+          preloadImages([metaImage]);
         }
       }
       setMetaImages(images);
@@ -201,15 +203,13 @@ export const Navbar = () => {
         <div className="mb-4 font-bold text-end mr-12">{description}</div>
         <div className="flex">
           <div className="w-1/2 pr-4" style={{ marginTop: '-2.5rem' }}>
-            {preloadedImages[defaultImage] && (
-              <Image
-                src={defaultImage}
-                alt={altText}
-                width={300}
-                height={200}
-                className="rounded-lg object-cover"
-              />
-            )}
+            <Image
+              src={currentCatImage || currentDogImage || defaultImage}
+              alt={altText}
+              width={300}
+              height={200}
+              className="rounded-lg object-cover"
+            />
           </div>
           <div className="w-1/2 pl-4">
             <div className="grid grid-cols-2 gap-4">
@@ -221,14 +221,20 @@ export const Navbar = () => {
                     onClick={closeAllMenus}
                     onMouseEnter={() => {
                       const metaImage = metaImages[item.url];
-                      if (metaImage && preloadedImages[metaImage]) {
-                        setCurrentCatImage(metaImage);
-                        setCurrentDogImage(metaImage);
+                      if (metaImage) {
+                        if (items === catMenuItems) {
+                          setCurrentCatImage(metaImage);
+                        } else {
+                          setCurrentDogImage(metaImage);
+                        }
                       }
                     }}
                     onMouseLeave={() => {
-                      setCurrentCatImage(defaultImage);
-                      setCurrentDogImage(defaultImage);
+                      if (items === catMenuItems) {
+                        setCurrentCatImage(defaultImage);
+                      } else {
+                        setCurrentDogImage(defaultImage);
+                      }
                     }}
                   >
                     {item.name}
