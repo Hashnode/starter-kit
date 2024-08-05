@@ -3,7 +3,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Search } from './searchbar';
 import { useRouter } from 'next/router';
-import { StaticImport } from 'next/dist/shared/lib/get-img-props';
+
+interface MenuItem {
+  name: string;
+  url: string;
+}
 
 export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -12,10 +16,50 @@ export const Navbar = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isCatMenuOpen, setIsCatMenuOpen] = useState(false);
   const [isDogMenuOpen, setIsDogMenuOpen] = useState(false);
+  const [currentImage, setCurrentImage] = useState<string>('');
+  const [metaImages, setMetaImages] = useState<Record<string, string>>({});
   
   const catMenuRef = useRef<HTMLDivElement>(null);
   const dogMenuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+
+  const catImages = [
+    // Kedi görsel URL'lerini buraya ekleyin
+    // Örnek: "https://example.com/cat-image.jpg"
+    "assets/blog/navbar/kedi/2a594ba2-632d-41ff-bf15-608111aa4b2f.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "assets/blog/navbar/kedi/28b52b89-5dd2-45fb-a43f-1e9703f7eab9.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "assets/blog/navbar/kedi/73d02acd-c140-44f8-bf5b-a88dc6886f46.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "assets/blog/navbar/kedi/97a1a9ae-4f35-44da-9f8e-4257263a690c.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "assets/blog/navbar/kedi/302f54be-9665-47c4-8a2f-142f580dd0f4.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "assets/blog/navbar/kedi/341e8904-e5f1-4746-909d-a20f60317ff8.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "assets/blog/navbar/kedi/f45abcb8-5043-4dee-b45e-12a802e858ba.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp"
+   ];
+
+  const dogImages = [
+    // Köpek görsel URL'lerini buraya ekleyin
+    // Örnek: "https://example.com/dog-image.jpg"
+    "https://cdn.hashnode.com/res/hashnode/image/upload/v1721918807048/061ceafa-7063-4ec8-894b-b922e0893d3e.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "https://cdn.hashnode.com/res/hashnode/image/upload/v1722338211510/7f66abca-c7ee-4e07-abe7-70c644ab1f19.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "https://cdn.hashnode.com/res/hashnode/image/upload/v1722244485522/389e4f1a-3c7c-4e10-a677-89af8ca1f2cf.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "https://cdn.hashnode.com/res/hashnode/image/upload/v1721387717434/a202c886-748a-4809-90ae-b687d51108ef.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "https://cdn.hashnode.com/res/hashnode/image/upload/v1721120157122/a1df46d4-404f-44ea-ab6a-b425d6b7ad1f.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "https://cdn.hashnode.com/res/hashnode/image/upload/v1720175391710/2a58504a-4418-4273-9c66-6e31985451f5.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "https://cdn.hashnode.com/res/hashnode/image/upload/v1719921051169/3201e855-eec1-4b2b-8783-dfed466146ae.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "https://cdn.hashnode.com/res/hashnode/image/upload/v1719406285402/9739937a-2d83-431d-bd78-358bf2fbedf5.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "https://cdn.hashnode.com/res/hashnode/image/upload/v1718889841936/4cac18aa-5d81-4c31-985d-c172e29c78dd.png?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "https://cdn.hashnode.com/res/hashnode/image/upload/v1718967360455/93dc6921-00d2-4d7e-a836-242fadd08804.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "https://cdn.hashnode.com/res/hashnode/image/upload/v1718367762996/b22c90a3-5329-4b23-bcd0-3d30862b21b9.png?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp"
+  ];
+
+  const getRandomImage = (images: string[]) => {
+    const lastImage = localStorage.getItem('lastImage');
+    let newImage;
+    do {
+      newImage = images[Math.floor(Math.random() * images.length)];
+    } while (newImage === lastImage && images.length > 1);
+    localStorage.setItem('lastImage', newImage);
+    return newImage;
+  };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -24,10 +68,16 @@ export const Navbar = () => {
   const toggleCatMenu = () => {
     setIsCatMenuOpen(!isCatMenuOpen);
     setIsDogMenuOpen(false);
+    if (!isCatMenuOpen) {
+      setCurrentImage(getRandomImage(catImages));
+    }
   };
   const toggleDogMenu = () => {
     setIsDogMenuOpen(!isDogMenuOpen);
     setIsCatMenuOpen(false);
+    if (!isDogMenuOpen) {
+      setCurrentImage(getRandomImage(dogImages));
+    }
   };
 
   const closeAllMenus = () => {
@@ -56,14 +106,22 @@ export const Navbar = () => {
       }
     };
 
+    const handleScroll = () => {
+      closeAllMenus();
+    };
+
     if (typeof window !== 'undefined') {
       window.addEventListener('scroll', controlNavbar);
+      window.addEventListener('scroll', handleScroll);
       document.addEventListener('mousedown', handleClickOutside);
+      window.addEventListener('wheel', handleScroll);
 
       // cleanup function
       return () => {
         window.removeEventListener('scroll', controlNavbar);
+        window.removeEventListener('scroll', handleScroll);
         document.removeEventListener('mousedown', handleClickOutside);
+        window.removeEventListener('wheel', handleScroll);
       };
     }
   }, [lastScrollY]);
@@ -76,38 +134,64 @@ export const Navbar = () => {
     };
   }, [router]);
 
-  const catMenuItems = [
+  const catMenuItems: MenuItem[] = [
     { name: "Kedi Bakımı", url: "/kedi-bakimi" },
     { name: "Kedi Beslenmesi", url: "/kedi-beslenmesi" },
-    { name: "Kedi Diğer", url: "/kedi-diger" },
     { name: "Kedi Irkları", url: "/kedi-irklari" },
-    { name: "Kedi Sağlığı", url: "/kedi-sagligi" }
+    { name: "Kedi Sağlığı", url: "/kedi-sagligi" },
+    { name: "Kedi Diğer", url: "/kedi-diger" }
   ];
 
-  const dogMenuItems = [
+  const dogMenuItems: MenuItem[] = [
     { name: "Köpek Bakımı", url: "/kopek-bakimi" },
     { name: "Köpek Beslenmesi", url: "/kopek-beslenmesi" },
-    { name: "Köpek Diğer", url: "/kopek-diger" },
     { name: "Köpek Irkları", url: "/kopek-irklari" },
-    { name: "Köpek Sağlığı", url: "/kopek-sagligi" }
+    { name: "Köpek Sağlığı", url: "/kopek-sagligi" },
+    { name: "Köpek Diğer", url: "/kopek-diger" }
   ];
 
-  const renderDropdownMenu = (items: any[], imageSrc: string | StaticImport, altText: string, description: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | Promise<React.AwaitedReactNode> | null | undefined) => (
+  const fetchMetaImage = async (url: string) => {
+    try {
+      const response = await fetch(url);
+      const html = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const metaTag = doc.querySelector('meta[property="og:image"]');
+      return metaTag ? metaTag.getAttribute('content') : null;
+    } catch (error) {
+      console.error('Error fetching meta image:', error);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    const fetchAllMetaImages = async () => {
+      const allItems = [...catMenuItems, ...dogMenuItems];
+      const images: Record<string, string> = {};
+      for (const item of allItems) {
+        const metaImage = await fetchMetaImage(item.url);
+        if (metaImage) {
+          images[item.url] = metaImage;
+        }
+      }
+      setMetaImages(images);
+    };
+
+    fetchAllMetaImages();
+  }, []);
+
+  const renderDropdownMenu = (items: MenuItem[], defaultImage: string, altText: string, description: React.ReactNode) => (
     <div className="fixed left-1/2 transform -translate-x-1/2 w-3/5 bg-white bg-opacity-70 backdrop-filter backdrop-blur-md shadow-lg rounded-xl mt-2 py-6 px-8 z-50">
       <div className="flex flex-col">
         <div className="mb-4 font-bold text-end mr-12">{description}</div>
         <div className="flex">
-          <div className="w-1/2 pr-4"
-               style={{
-                marginTop: '-2.5rem'
-                }}>
+          <div className="w-1/2 pr-4" style={{ marginTop: '-2.5rem' }}>
             <Image
-              src={imageSrc}
+              src={currentImage || defaultImage}
               alt={altText}
               width={300}
               height={200}
-              objectFit="cover"
-              className="rounded-lg"
+              className="rounded-lg object-cover"
             />
           </div>
           <div className="w-1/2 pl-4">
@@ -118,6 +202,8 @@ export const Navbar = () => {
                     href={item.url} 
                     className="block text-gray-800 hover:text-gray-600"
                     onClick={closeAllMenus}
+                    onMouseEnter={() => setCurrentImage(metaImages[item.url] || defaultImage)}
+                    onMouseLeave={() => setCurrentImage(defaultImage)}
                   >
                     {item.name}
                   </Link>
@@ -283,7 +369,7 @@ export const Navbar = () => {
         <div ref={catMenuRef}>
           {renderDropdownMenu(
             catMenuItems, 
-            "https://cdn.hashnode.com/res/hashnode/image/upload/v1720701543770/73d02acd-c140-44f8-bf5b-a88dc6886f46.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp", 
+            getRandomImage(catImages), 
             "Kedi", 
             "Kediler hakkında bilmek istediğiniz her şey"
           )}
@@ -293,7 +379,7 @@ export const Navbar = () => {
         <div ref={dogMenuRef}>
           {renderDropdownMenu(
             dogMenuItems, 
-            "https://cdn.hashnode.com/res/hashnode/image/upload/v1719406285402/9739937a-2d83-431d-bd78-358bf2fbedf5.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp", 
+            getRandomImage(dogImages), 
             "Köpek", 
             "Köpekler hakkında bilmek istediğiniz her şey"
           )}
