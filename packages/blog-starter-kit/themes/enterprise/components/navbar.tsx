@@ -201,9 +201,9 @@ export const Navbar = () => {
   const renderDropdownMenu = (items: MenuItem[], defaultImage: string, altText: string, description: React.ReactNode) => (
     <div className="fixed left-1/2 transform -translate-x-1/2 w-3/5 bg-white bg-opacity-70 backdrop-filter backdrop-blur-md shadow-lg rounded-xl mt-2 py-6 px-8 z-50">
       <div className="flex flex-col">
-        <div className="mb-4 font-bold text-end mr-12">{description}</div>
+        {/* <div className="mb-4 font-bold text-end mr-12">{description}</div> */}
         <div className="flex">
-          <div className="w-1/2 pr-4" style={{ marginTop: '-2.5rem' }}>
+          <div className="w-1/2 pr-4">
             <Image
               src={currentHoverImage || (items === catMenuItems ? currentCatImage : currentDogImage)}
               alt={altText}
