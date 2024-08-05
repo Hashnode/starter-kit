@@ -95,8 +95,11 @@ export const Navbar = () => {
   }, []);
 
 
-  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
-  const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+    if (isCatMenuOpen) setIsCatMenuOpen(false);
+    if (isDogMenuOpen) setIsDogMenuOpen(false);
+  };  const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
   
   const toggleCatMenu = () => {
     setIsCatMenuOpen(!isCatMenuOpen);
@@ -378,17 +381,16 @@ export const Navbar = () => {
               onClick={toggleMobileMenu}
               aria-label={isMobileMenuOpen ? "Menüyü Kapat" : "Menüyü Aç"}
             >
-              <span className={`absolute inset-0 transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'opacity-0 rotate-90' : 'opacity-100 rotate-0'}`}>
-                <svg xmlns="https://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
+              {isMobileMenuOpen ? (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
-              </span>
-              <span className={`absolute inset-0 transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'opacity-100 rotate-0' : 'opacity-0 -rotate-90'}`}>
-                <svg xmlns="https://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
-              </span>
-              </button>
+              )}
+            </button>
           </div>
         </div>
         {isMobileMenuOpen && (
@@ -396,7 +398,10 @@ export const Navbar = () => {
             <ul className="space-y-2 mt-2 mr-4">
               <li>
                 <button
-                  onClick={toggleCatMenu}
+                  onClick={() => {
+                    toggleCatMenu();
+                    setIsMobileMenuOpen(false);
+                  }}
                   className="block text-gray-800 hover:text-gray-700/75 font-bold"
                   style={{ fontFamily: 'PinkChicken' }}
                 >
@@ -405,7 +410,10 @@ export const Navbar = () => {
               </li>
               <li>
                 <button
-                  onClick={toggleDogMenu}
+                  onClick={() => {
+                    toggleDogMenu();
+                    setIsMobileMenuOpen(false);
+                  }}
                   className="block text-gray-800 hover:text-gray-700/75 font-bold"
                   style={{ fontFamily: 'PinkChicken' }}
                 >
@@ -418,7 +426,7 @@ export const Navbar = () => {
                   className="block text-gray-800 hover:text-gray-700/75 font-bold"
                   style={{ fontFamily: 'PinkChicken' }}
                   onClick={() => {
-                    toggleMobileMenu();
+                    setIsMobileMenuOpen(false);
                     closeAllMenus();
                   }}
                   rel="canonical"
@@ -432,7 +440,7 @@ export const Navbar = () => {
                   className="block text-gray-800 hover:text-gray-700/75 font-bold"
                   style={{ fontFamily: 'PinkChicken' }}
                   onClick={() => {
-                    toggleMobileMenu();
+                    setIsMobileMenuOpen(false);
                     closeAllMenus();
                   }}
                   rel="canonical"
