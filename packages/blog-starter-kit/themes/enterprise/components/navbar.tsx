@@ -32,23 +32,24 @@ export const Navbar = () => {
     "assets/blog/navbar/kedi/97a1a9ae-4f35-44da-9f8e-4257263a690c.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
     "assets/blog/navbar/kedi/302f54be-9665-47c4-8a2f-142f580dd0f4.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
     "assets/blog/navbar/kedi/341e8904-e5f1-4746-909d-a20f60317ff8.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "assets/blog/navbar/kedi/f45abcb8-5043-4dee-b45e-12a802e858ba.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp"
+    "assets/blog/navbar/kedi/f45abcb8-5043-4dee-b45e-12a802e858ba.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "assets/blog/navbar/kedi/ca7ba310-adc0-4bd8-9402-6c95210345cf.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp"
    ];
 
   const dogImages = [
     // Köpek görsel URL'lerini buraya ekleyin
     // Örnek: "https://example.com/dog-image.jpg"
-    "https://cdn.hashnode.com/res/hashnode/image/upload/v1721918807048/061ceafa-7063-4ec8-894b-b922e0893d3e.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "https://cdn.hashnode.com/res/hashnode/image/upload/v1722338211510/7f66abca-c7ee-4e07-abe7-70c644ab1f19.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "https://cdn.hashnode.com/res/hashnode/image/upload/v1722244485522/389e4f1a-3c7c-4e10-a677-89af8ca1f2cf.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "https://cdn.hashnode.com/res/hashnode/image/upload/v1721387717434/a202c886-748a-4809-90ae-b687d51108ef.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "https://cdn.hashnode.com/res/hashnode/image/upload/v1721120157122/a1df46d4-404f-44ea-ab6a-b425d6b7ad1f.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "https://cdn.hashnode.com/res/hashnode/image/upload/v1720175391710/2a58504a-4418-4273-9c66-6e31985451f5.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "https://cdn.hashnode.com/res/hashnode/image/upload/v1719921051169/3201e855-eec1-4b2b-8783-dfed466146ae.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "https://cdn.hashnode.com/res/hashnode/image/upload/v1719406285402/9739937a-2d83-431d-bd78-358bf2fbedf5.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "https://cdn.hashnode.com/res/hashnode/image/upload/v1718889841936/4cac18aa-5d81-4c31-985d-c172e29c78dd.png?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "https://cdn.hashnode.com/res/hashnode/image/upload/v1718967360455/93dc6921-00d2-4d7e-a836-242fadd08804.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
-    "https://cdn.hashnode.com/res/hashnode/image/upload/v1718367762996/b22c90a3-5329-4b23-bcd0-3d30862b21b9.png?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp"
+    "assets/blog/navbar/kopek/2a58504a-4418-4273-9c66-6e31985451f5.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "assets/blog/navbar/kopek/4cac18aa-5d81-4c31-985d-c172e29c78dd.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "assets/blog/navbar/kopek/7f66abca-c7ee-4e07-abe7-70c644ab1f19.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "assets/blog/navbar/kopek/061ceafa-7063-4ec8-894b-b922e0893d3e.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "assets/blog/navbar/kopek/93dc6921-00d2-4d7e-a836-242fadd08804.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "assets/blog/navbar/kopek/389e4f1a-3c7c-4e10-a677-89af8ca1f2cf.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "assets/blog/navbar/kopek/3201e855-eec1-4b2b-8783-dfed466146ae.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "assets/blog/navbar/kopek/9739937a-2d83-431d-bd78-358bf2fbedf5.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "assets/blog/navbar/kopek/a1df46d4-404f-44ea-ab6a-b425d6b7ad1f.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "assets/blog/navbar/kopek/a202c886-748a-4809-90ae-b687d51108ef.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
+    "assets/blog/navbar/kopek/b22c90a3-5329-4b23-bcd0-3d30862b21b9.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp"
   ];
 
   const getRandomImage = (images: string[]) => {
