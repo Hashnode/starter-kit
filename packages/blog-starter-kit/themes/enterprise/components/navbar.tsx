@@ -23,10 +23,22 @@ export const Navbar = () => {
   const [currentDogImage, setCurrentDogImage] = useState<string>('');
   const [metaImages, setMetaImages] = useState<Record<string, string>>({});
   const [isMetaImagesLoaded, setIsMetaImagesLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
 
   const catMenuRef = useRef<HTMLDivElement>(null);
   const dogMenuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const catImages = [
     "assets/blog/navbar/all.png?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
@@ -224,21 +236,21 @@ export const Navbar = () => {
   }, [fetchMetaImages, isMetaImagesLoaded]);
 
   const renderDropdownMenu = (items: MenuItem[], defaultImage: string, altText: string, description: React.ReactNode) => (
-    <div className="fixed left-1/2 transform -translate-x-1/2 w-3/5 bg-white bg-opacity-70 backdrop-filter backdrop-blur-md shadow-lg rounded-xl mt-2 py-6 px-8 z-50">
+    <div className={`fixed ${isMobile ? 'left-0 w-full' : 'left-1/2 transform -translate-x-1/2 w-3/4'} bg-white bg-opacity-70 backdrop-filter backdrop-blur-md shadow-lg rounded-xl mt-2 py-6 px-8 z-50`}>
       <div className="flex flex-col">
-        <div className="flex">
-          <div className="w-1/2 pr-4">
+        <div className={`flex ${isMobile ? 'flex-col' : ''}`}>
+          <div className={isMobile ? 'w-full mb-4' : 'w-1/2 pr-4'}>
             {isImagesLoaded && (
               <Image
                 src={currentHoverImage || (items === catMenuItems ? currentCatImage : currentDogImage)}
                 alt={altText}
                 width={300}
                 height={200}
-                className="rounded-lg object-cover"
+                className="rounded-lg object-cover w-full h-auto"
               />
             )}
           </div>
-          <div className="w-1/2 pl-4">
+          <div className={isMobile ? 'pl-0 -ml-4 -mr-8 pt-4' : 'w-1/2 pl-4'}>
             <div className="grid grid-cols-2 gap-4">
               {items.map((item, index) => (
                 <div key={index}>
@@ -269,10 +281,11 @@ export const Navbar = () => {
 
   return (
     <nav 
-      className={`container mx-auto items-stretch gap-10 px-5 pb-10 select-none top-0 w-full z-50 p-3 animate-onload transition-all duration-300 ${isSticky ? 'sticky' : ''}`}
+      className="container mx-auto px-4 py-4 select-none top-0 w-full z-50 transition-all duration-300"
       style={{ 
         opacity: 1, 
         zIndex: 2,
+        background: "hsl(30.5, 100%, 87.6%)",
       } as React.CSSProperties}
     >
       <div className="mx-auto px-4 sm:px-6 lg:px-8 bg-white/10 shadow-md py-4 rounded-xl select-none" style={{ opacity: 1, transform: "none", background: "hsl(30.5, 100%, 87.6%)" }}>
@@ -416,23 +429,13 @@ export const Navbar = () => {
           </div>
         )}
       </div>
-      {isCatMenuOpen && (
-        <div ref={catMenuRef}>
+      {(isCatMenuOpen || isDogMenuOpen) && (
+        <div ref={isCatMenuOpen ? catMenuRef : dogMenuRef}>
           {renderDropdownMenu(
-            catMenuItems, 
-            currentCatImage, 
-            "Kedi", 
-            "Kediler hakkında bilmek istediğiniz her şey"
-          )}
-        </div>
-      )}
-      {isDogMenuOpen && (
-        <div ref={dogMenuRef}>
-          {renderDropdownMenu(
-            dogMenuItems, 
-            currentDogImage, 
-            "Köpek", 
-            "Köpekler hakkında bilmek istediğiniz her şey"
+            isCatMenuOpen ? catMenuItems : dogMenuItems, 
+            isCatMenuOpen ? currentCatImage : currentDogImage, 
+            isCatMenuOpen ? "Kedi" : "Köpek", 
+            isCatMenuOpen ? "Kediler hakkında bilmek istediğiniz her şey" : "Köpekler hakkında bilmek istediğiniz her şey"
           )}
         </div>
       )}
