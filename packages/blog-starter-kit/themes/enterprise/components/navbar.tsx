@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Search } from './searchbar';
+import { useRouter } from 'next/router';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 
 export const Navbar = () => {
@@ -14,6 +15,7 @@ export const Navbar = () => {
   
   const catMenuRef = useRef<HTMLDivElement>(null);
   const dogMenuRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -26,6 +28,11 @@ export const Navbar = () => {
   const toggleDogMenu = () => {
     setIsDogMenuOpen(!isDogMenuOpen);
     setIsCatMenuOpen(false);
+  };
+
+  const closeAllMenus = () => {
+    setIsCatMenuOpen(false);
+    setIsDogMenuOpen(false);
   };
 
   useEffect(() => {
@@ -61,6 +68,14 @@ export const Navbar = () => {
     }
   }, [lastScrollY]);
 
+  useEffect(() => {
+    // Close menus on route change
+    router.events.on('routeChangeStart', closeAllMenus);
+    return () => {
+      router.events.off('routeChangeStart', closeAllMenus);
+    };
+  }, [router]);
+
   const catMenuItems = [
     { name: "Kedi Bakımı", url: "/kedi-bakimi" },
     { name: "Kedi Beslenmesi", url: "/kedi-beslenmesi" },
@@ -80,9 +95,12 @@ export const Navbar = () => {
   const renderDropdownMenu = (items: any[], imageSrc: string | StaticImport, altText: string, description: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | Promise<React.AwaitedReactNode> | null | undefined) => (
     <div className="fixed left-1/2 transform -translate-x-1/2 w-3/5 bg-white bg-opacity-70 backdrop-filter backdrop-blur-md shadow-lg rounded-xl mt-2 py-6 px-8 z-50">
       <div className="flex flex-col">
-        <div className="mb-4 font-bold">{description}</div>
+        <div className="mb-4 font-bold text-end mr-12">{description}</div>
         <div className="flex">
-          <div className="w-1/2 pr-4">
+          <div className="w-1/2 pr-4"
+               style={{
+                marginTop: '-2.5rem'
+                }}>
             <Image
               src={imageSrc}
               alt={altText}
@@ -96,7 +114,11 @@ export const Navbar = () => {
             <div className="grid grid-cols-2 gap-4">
               {items.map((item, index) => (
                 <div key={index}>
-                  <Link href={item.url} className="block text-gray-800 hover:text-gray-600">
+                  <Link 
+                    href={item.url} 
+                    className="block text-gray-800 hover:text-gray-600"
+                    onClick={closeAllMenus}
+                  >
                     {item.name}
                   </Link>
                 </div>
@@ -271,7 +293,7 @@ export const Navbar = () => {
         <div ref={dogMenuRef}>
           {renderDropdownMenu(
             dogMenuItems, 
-            "https://cdn.hashnode.com/res/hashnode/image/upload/v1719562132840/6495fa3b-d3df-49a8-80b4-1beb0d758b69.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp", 
+            "https://cdn.hashnode.com/res/hashnode/image/upload/v1719406285402/9739937a-2d83-431d-bd78-358bf2fbedf5.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp", 
             "Köpek", 
             "Köpekler hakkında bilmek istediğiniz her şey"
           )}
