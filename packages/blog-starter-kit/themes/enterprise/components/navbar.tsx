@@ -279,7 +279,10 @@ export const Navbar = () => {
         zIndex: 2,
       } as React.CSSProperties}
     >
-      <div className="mx-auto px-4 sm:px-6 lg:px-8 bg-white/10 shadow-md py-4 rounded-xl select-none">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 bg-white/10 shadow-md py-4 rounded-xl select-none"
+        style={{ 
+          background: "hsl(30.5, 100%, 87.6%)",
+        }}>
         <div className="flex items-center justify-between h-10">
           <div className="flex items-center">
             <Link rel="canonical" href="/">
