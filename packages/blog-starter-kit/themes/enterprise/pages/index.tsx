@@ -15,6 +15,8 @@ import { Layout } from "../components/layout";
 import { MorePosts } from "../components/more-posts";
 import { SecondaryPost } from "../components/secondary-post";
 import { DEFAULT_COVER } from "../utils/const";
+import CircularProgressBar from '../components/CircularProgressBar';
+
 
 import {
   MorePostsByPublicationDocument,
@@ -355,6 +357,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
             </div>
           )}
         </Container>
+        <CircularProgressBar />
         <Footer />
       </Layout>
     </AppProvider>
