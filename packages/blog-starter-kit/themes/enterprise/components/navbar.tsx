@@ -250,8 +250,8 @@ export const Navbar = () => {
               />
             )}
           </div>
-          <div className={isMobile ? 'pl-0 -ml-4 -mr-8 pt-4' : 'w-1/2 pl-4'}>
-            <div className="grid grid-cols-2 gap-4">
+          <div className={isMobile ? 'pl-0 -ml-4 -mr-8 pt-4' : 'w-1/2 pl-4 content-center'}>
+            <div className="grid grid-cols-2 gap-x-0 gap-y-4">
               {items.map((item, index) => (
                 <div key={index}>
                   <Link 
