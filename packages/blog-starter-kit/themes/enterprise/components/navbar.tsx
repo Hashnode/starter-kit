@@ -95,34 +95,40 @@ export const Navbar = () => {
   }, []);
 
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-    if (isCatMenuOpen) setIsCatMenuOpen(false);
-    if (isDogMenuOpen) setIsDogMenuOpen(false);
-  };  const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
-  
-  const toggleCatMenu = () => {
-    setIsCatMenuOpen(!isCatMenuOpen);
+  const toggleMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen(prev => !prev);
+    setIsCatMenuOpen(false);
     setIsDogMenuOpen(false);
+  }, []);
+  
+  const toggleSearch = useCallback(() => setIsSearchOpen(prev => !prev), []);
+
+
+   const toggleCatMenu = useCallback(() => {
+    setIsCatMenuOpen(prev => !prev);
+    setIsDogMenuOpen(false);
+    setIsMobileMenuOpen(false);
     if (!isCatMenuOpen) {
       const newImage = getRandomImage(catImages);
       setCurrentCatImage(newImage);
     }
-  };
+  }, [isCatMenuOpen, catImages]);
 
-  const toggleDogMenu = () => {
-    setIsDogMenuOpen(!isDogMenuOpen);
+  const toggleDogMenu = useCallback(() => {
+    setIsDogMenuOpen(prev => !prev);
     setIsCatMenuOpen(false);
+    setIsMobileMenuOpen(false);
     if (!isDogMenuOpen) {
       const newImage = getRandomImage(dogImages);
       setCurrentDogImage(newImage);
     }
-  };
+  }, [isDogMenuOpen, dogImages]);
 
-  const closeAllMenus = () => {
+  const closeAllMenus = useCallback(() => {
     setIsCatMenuOpen(false);
     setIsDogMenuOpen(false);
-  };
+    setIsMobileMenuOpen(false);
+  }, []);
 
   useEffect(() => {
     const controlNavbar = () => {
@@ -137,14 +143,12 @@ export const Navbar = () => {
     };
 
     const handleClickOutside = (event: MouseEvent) => {
-      if (catMenuRef.current && !catMenuRef.current.contains(event.target as Node)) {
-        setIsCatMenuOpen(false);
-      }
-      if (dogMenuRef.current && !dogMenuRef.current.contains(event.target as Node)) {
-        setIsDogMenuOpen(false);
-      }
-      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
-        setIsMobileMenuOpen(false);
+      if (
+        (catMenuRef.current && !catMenuRef.current.contains(event.target as Node)) &&
+        (dogMenuRef.current && !dogMenuRef.current.contains(event.target as Node)) &&
+        (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node))
+      ) {
+        closeAllMenus();
       }
     };
 
@@ -165,14 +169,14 @@ export const Navbar = () => {
         window.removeEventListener('wheel', handleScroll);
       };
     }
-  }, [lastScrollY]);
+  }, [lastScrollY, closeAllMenus]);
 
   useEffect(() => {
     router.events.on('routeChangeStart', closeAllMenus);
     return () => {
       router.events.off('routeChangeStart', closeAllMenus);
     };
-  }, [router]);
+  }, [router, closeAllMenus]);
 
   useEffect(() => {
     if (isMetaImagesLoaded) {
@@ -377,7 +381,7 @@ export const Navbar = () => {
               </li>
             </ul>
             <button
-              className="text-gray-800 relative w-6 h-6"
+              className="md:hidden text-gray-800 relative w-6 h-6"
               onClick={toggleMobileMenu}
               aria-label={isMobileMenuOpen ? "Menüyü Kapat" : "Menüyü Aç"}
             >
