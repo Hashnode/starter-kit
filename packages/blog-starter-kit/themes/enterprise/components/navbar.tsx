@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Search } from './searchbar';
@@ -16,6 +16,7 @@ export const Navbar = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isCatMenuOpen, setIsCatMenuOpen] = useState(false);
   const [isDogMenuOpen, setIsDogMenuOpen] = useState(false);
+  const [isImagesLoaded, setIsImagesLoaded] = useState(false);
   const [currentHoverImage, setCurrentHoverImage] = useState<string | null>(null);
   const [preloadedImages, setPreloadedImages] = useState<Record<string, HTMLImageElement>>({});
   const [currentCatImage, setCurrentCatImage] = useState<string>('');
@@ -61,15 +62,35 @@ export const Navbar = () => {
     return newImage;
   };
 
-  const preloadImages = (images: string[]) => {
+
+
+  const preloadImages = useCallback((images: string[]) => {
     const loadedImages: Record<string, HTMLImageElement> = {};
+    let loadedCount = 0;
+    const totalImages = images.length;
+
     images.forEach((src) => {
-      const img = new (window.Image as any)() as HTMLImageElement;
+      const img = document.createElement('img');
       img.src = src;
-      loadedImages[src] = img;
+      img.onload = () => {
+        loadedImages[src] = img;
+        loadedCount++;
+        if (loadedCount === totalImages) {
+          setPreloadedImages(loadedImages);
+          setIsImagesLoaded(true);
+        }
+      };
+      img.onerror = () => {
+        console.error(`Failed to load image: ${src}`);
+        loadedCount++;
+        if (loadedCount === totalImages) {
+          setPreloadedImages(loadedImages);
+          setIsImagesLoaded(true);
+        }
+      };
     });
-    setPreloadedImages(loadedImages);
-  };
+  }, []);
+
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
@@ -146,9 +167,10 @@ export const Navbar = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      preloadImages([...catImages, ...dogImages]);
+      const allImages = [...catImages, ...dogImages, ...Object.values(metaImages)];
+      preloadImages(allImages);
     }
-  }, []);
+  }, [preloadImages, metaImages, catImages, dogImages]);
 
   const catMenuItems: MenuItem[] = [
     { name: "Kedi Bakımı", url: "/kedi-bakimi" },
@@ -166,7 +188,7 @@ export const Navbar = () => {
     { name: "Köpek Diğer", url: "/kopek-diger" }
   ];
 
-  const fetchMetaImage = async (url: string) => {
+  const fetchMetaImage = async (url: string): Promise<string | null> => {
     try {
       const response = await fetch(url);
       const html = await response.text();
@@ -180,37 +202,37 @@ export const Navbar = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchAllMetaImages = async () => {
-      const allItems = [...catMenuItems, ...dogMenuItems];
-      const images: Record<string, string> = {};
-      for (const item of allItems) {
-        const metaImage = await fetchMetaImage(item.url);
-        if (metaImage) {
-          images[item.url] = metaImage;
-          // Önceden yükle
-          preloadImages([metaImage]);
-        }
-      }
-      setMetaImages(images);
-    };
 
-    fetchAllMetaImages();
-  }, []);
+  const fetchMetaImages = useCallback(async () => {
+    const allItems = [...catMenuItems, ...dogMenuItems];
+    const images: Record<string, string> = {};
+    for (const item of allItems) {
+      const metaImage = await fetchMetaImage(item.url);
+      if (metaImage) {
+        images[item.url] = metaImage;
+      }
+    }
+    setMetaImages(images);
+  }, [catMenuItems, dogMenuItems]);
+
+  useEffect(() => {
+    fetchMetaImages();
+  }, [fetchMetaImages]);
 
   const renderDropdownMenu = (items: MenuItem[], defaultImage: string, altText: string, description: React.ReactNode) => (
     <div className="fixed left-1/2 transform -translate-x-1/2 w-3/5 bg-white bg-opacity-70 backdrop-filter backdrop-blur-md shadow-lg rounded-xl mt-2 py-6 px-8 z-50">
       <div className="flex flex-col">
-        {/* <div className="mb-4 font-bold text-end mr-12">{description}</div> */}
         <div className="flex">
           <div className="w-1/2 pr-4">
-            <Image
-              src={currentHoverImage || (items === catMenuItems ? currentCatImage : currentDogImage)}
-              alt={altText}
-              width={300}
-              height={200}
-              className="rounded-lg object-cover"
-            />
+            {isImagesLoaded && (
+              <Image
+                src={currentHoverImage || (items === catMenuItems ? currentCatImage : currentDogImage)}
+                alt={altText}
+                width={300}
+                height={200}
+                className="rounded-lg object-cover"
+              />
+            )}
           </div>
           <div className="w-1/2 pl-4">
             <div className="grid grid-cols-2 gap-4">
@@ -222,7 +244,7 @@ export const Navbar = () => {
                     onClick={closeAllMenus}
                     onMouseEnter={() => {
                       const metaImage = metaImages[item.url];
-                      if (metaImage) {
+                      if (metaImage && isImagesLoaded) {
                         setCurrentHoverImage(metaImage);
                       }
                     }}
