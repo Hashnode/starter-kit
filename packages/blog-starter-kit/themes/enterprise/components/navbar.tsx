@@ -156,50 +156,60 @@ export const Navbar = () => {
 	  }, []);
 
 	  useEffect(() => {
+		const navbar = navbarRef.current;
+		let navbarHeight = navbar ? navbar.offsetHeight : 0;
+		let ticking = false;
+	  
 		const controlNavbar = () => {
-		  if (typeof window !== 'undefined') {
-			const scrollY = window.scrollY;
-			const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
-			const scrollPercentage = (scrollY / pageHeight) * 100;
-			const scrollDelta = scrollY - lastScrollY;
-			const scrollThreshold = 5; // px cinsinden scroll eşiği
+		  if (!ticking) {
+			window.requestAnimationFrame(() => {
+			  if (navbar) {
+				const scrollY = window.scrollY;
+				const viewportHeight = window.innerHeight;
+				
+				if (scrollY > viewportHeight - navbarHeight) {
+				  // Navbar viewport'un dışına çıktı
+				  if (scrollY > lastScrollY) {
+					// Aşağı scroll
+					setIsVisible(false);
+				  } else {
+					// Yukarı scroll
+					setIsVisible(true);
+				  }
+				} else {
+				  // Navbar hala viewport içinde
+				  setIsVisible(true);
+				}
+				
+				setLastScrollY(scrollY);
+			  }
+			  ticking = false;
+			});
+			ticking = true;
+		  }
+		};
 	  
-			if (scrollPercentage < 10) {
-			  // Sayfanın ilk %10'luk kısmında her zaman görünür
-			  setIsVisible(true);
-			} else if (Math.abs(scrollDelta) > scrollThreshold) {
-			  // Scroll yönüne göre görünürlüğü ayarla, ancak sadece belirli bir eşiği aşan scroll hareketlerinde
-			  setIsVisible(scrollDelta < 0);
-			}
-	  
-			setLastScrollY(scrollY);
+		const handleResize = () => {
+		  if (navbar) {
+			navbarHeight = navbar.offsetHeight;
 		  }
 		};
 	  
 		const handleClickOutside = (event: MouseEvent) => {
-		  if (
-			navbarRef.current &&
-			!navbarRef.current.contains(event.target as Node)
-		  ) {
+		  if (navbar && !navbar.contains(event.target as Node)) {
 			closeAllMenus();
 		  }
 		};
 	  
-		const handleScroll = () => {
-		  closeAllMenus();
-		};
-	  
 		if (typeof window !== 'undefined') {
 		  window.addEventListener('scroll', controlNavbar);
-		  window.addEventListener('scroll', handleScroll);
+		  window.addEventListener('resize', handleResize);
 		  document.addEventListener('mousedown', handleClickOutside);
-		  window.addEventListener('wheel', handleScroll);
 	  
 		  return () => {
 			window.removeEventListener('scroll', controlNavbar);
-			window.removeEventListener('scroll', handleScroll);
+			window.removeEventListener('resize', handleResize);
 			document.removeEventListener('mousedown', handleClickOutside);
-			window.removeEventListener('wheel', handleScroll);
 		  };
 		}
 	  }, [lastScrollY, closeAllMenus]);
