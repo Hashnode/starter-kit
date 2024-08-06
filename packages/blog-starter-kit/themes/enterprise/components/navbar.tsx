@@ -158,14 +158,21 @@ export const Navbar = () => {
 	  useEffect(() => {
 		const controlNavbar = () => {
 		  if (typeof window !== 'undefined') {
-			if (window.scrollY > lastScrollY) {
-			  // scroll down
-			  setIsVisible(false);
-			} else {
-			  // scroll up
+			const scrollY = window.scrollY;
+			const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
+			const scrollPercentage = (scrollY / pageHeight) * 100;
+			const scrollDelta = scrollY - lastScrollY;
+			const scrollThreshold = 5; // px cinsinden scroll eşiği
+	  
+			if (scrollPercentage < 10) {
+			  // Sayfanın ilk %10'luk kısmında her zaman görünür
 			  setIsVisible(true);
+			} else if (Math.abs(scrollDelta) > scrollThreshold) {
+			  // Scroll yönüne göre görünürlüğü ayarla, ancak sadece belirli bir eşiği aşan scroll hareketlerinde
+			  setIsVisible(scrollDelta < 0);
 			}
-			setLastScrollY(window.scrollY);
+	  
+			setLastScrollY(scrollY);
 		  }
 		};
 	  
