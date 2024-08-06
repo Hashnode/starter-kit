@@ -336,7 +336,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
                     />
                   )}
                 </div>
-                <div className="col-span-1 flex flex-col gap-6">
+                <div className="col-span-1 flex flex-col gap-6 sm:gap-12">
                   {memoizedContent.secondaryPosts}
                 </div>
               </div>
