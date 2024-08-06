@@ -324,7 +324,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
             </div>
           ) : (
             <>
-              <div className="grid items-start gap-6 xl:grid-cols-2 sm:gap-12">
+              <div className="grid items-start gap-6 xl:grid-cols-2 md:gap-12">
                 <div className="col-span-1">
                   {memoizedContent.firstPost && (
                     <HeroPost
@@ -336,7 +336,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
                     />
                   )}
                 </div>
-                <div className="col-span-1 flex flex-col gap-6 sm:gap-12">
+                <div className="col-span-1 flex flex-col gap-6 md:gap-12">
                   {memoizedContent.secondaryPosts}
                 </div>
               </div>
