@@ -250,7 +250,7 @@ export const Navbar = () => {
 				<div key={index}>
 					<Link
 					href={item.url}
-					className="block text-gray-800 hover:text-gray-600"
+					className="block text-gray-800 hover:text-orange-500"
 					onClick={closeAllMenus}
 					onMouseEnter={() => handleMenuItemHover(item.image)}
 					>
