@@ -7,9 +7,26 @@ import { Search } from './searchbar';
 interface MenuItem {
 	name: string;
 	url: string;
+	image: string;
 }
 
 export const Navbar = () => {
+	const catMenuItems: MenuItem[] = [
+		{ name: 'Kedi Bakımı', url: '/kedi-bakimi', image: '/assets/blog/navbar/kedi/1.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
+		{ name: 'Kedi Beslenmesi', url: '/kedi-beslenmesi', image: '/assets/blog/navbar/kedi/2.webp?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
+		{ name: 'Kedi Irkları', url: '/kedi-irklari', image: '/assets/blog/navbar/kedi/3.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
+		{ name: 'Kedi Sağlığı', url: '/kedi-sagligi', image: '/assets/blog/navbar/kedi/4.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
+		{ name: 'Kedi Diğer', url: '/kedi-diger', image: '/assets/blog/navbar/kedi/5.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
+	  ];
+	  
+	  const dogMenuItems: MenuItem[] = [
+		{ name: 'Köpek Bakımı', url: '/kopek-bakimi', image: '/assets/blog/navbar/kopek/1.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
+		{ name: 'Köpek Beslenmesi', url: '/kopek-beslenmesi', image: '/assets/blog/navbar/kopek/2.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
+		{ name: 'Köpek Irkları', url: '/kopek-irklari', image: '/assets/blog/navbar/kopek/3.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
+		{ name: 'Köpek Sağlığı', url: '/kopek-sagligi', image: '/assets/blog/navbar/kopek/4.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
+		{ name: 'Köpek Diğer', url: '/kopek-diger', image: '/assets/blog/navbar/kopek/5.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
+	  ];
+
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 	const [isSearchOpen, setIsSearchOpen] = useState(false);
 	const [isSticky, setIsSticky] = useState(false);
@@ -25,7 +42,7 @@ export const Navbar = () => {
 	const [isMetaImagesLoaded, setIsMetaImagesLoaded] = useState(false);
 	const [isMobile, setIsMobile] = useState(false);
 	const [isVisible, setIsVisible] = useState(true);
-
+	const navbarRef = useRef<HTMLDivElement>(null);
 	const catMenuRef = useRef<HTMLDivElement>(null);
 	const dogMenuRef = useRef<HTMLDivElement>(null);
 	const mobileMenuRef = useRef<HTMLDivElement>(null);
@@ -43,7 +60,7 @@ export const Navbar = () => {
 	}, []);
 
 	const catImages = [
-		'assets/blog/navbar/all.png?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp',
+		'/assets/blog/navbar/all.png?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp',
 		//   "assets/blog/navbar/kedi/28b52b89-5dd2-45fb-a43f-1e9703f7eab9.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
 		//   "assets/blog/navbar/kedi/73d02acd-c140-44f8-bf5b-a88dc6886f46.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
 		//   "assets/blog/navbar/kedi/97a1a9ae-4f35-44da-9f8e-4257263a690c.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
@@ -54,7 +71,7 @@ export const Navbar = () => {
 	];
 
 	const dogImages = [
-		'assets/blog/navbar/all.png?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp',
+		'/assets/blog/navbar/all.png?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp',
 		// "assets/blog/navbar/kopek/2a58504a-4418-4273-9c66-6e31985451f5.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
 		// "assets/blog/navbar/kopek/4cac18aa-5d81-4c31-985d-c172e29c78dd.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
 		// "assets/blog/navbar/kopek/7f66abca-c7ee-4e07-abe7-70c644ab1f19.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp",
@@ -67,15 +84,15 @@ export const Navbar = () => {
 		// "assets/blog/navbar/kopek/a202c886-748a-4809-90ae-b687d51108ef.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp"
 	];
 
-	const getRandomImage = (images: string[]) => {
-		const lastImage = localStorage.getItem('lastImage');
-		let newImage;
-		do {
-			newImage = images[Math.floor(Math.random() * images.length)];
-		} while (newImage === lastImage && images.length > 1);
-		localStorage.setItem('lastImage', newImage);
-		return newImage;
-	};
+	const getRandomImage = useCallback((items: MenuItem[]) => {
+	const lastImage = localStorage.getItem('lastImage');
+	let newImage;
+	do {
+		newImage = items[Math.floor(Math.random() * items.length)].image;
+	} while (newImage === lastImage && items.length > 1);
+	localStorage.setItem('lastImage', newImage);
+	return newImage;
+	}, []);
 
 	const preloadImages = useCallback((images: string[]) => {
 		const promises = images.map(
@@ -111,25 +128,26 @@ export const Navbar = () => {
 		setIsDogMenuOpen(false);
 		setIsMobileMenuOpen(false);
 		if (!isCatMenuOpen) {
-			const newImage = getRandomImage(catImages);
-			setCurrentCatImage(newImage);
+		  const newImage = getRandomImage(catMenuItems);
+		  setCurrentCatImage(newImage);
 		}
-	}, [isCatMenuOpen, catImages]);
-
-	const toggleDogMenu = useCallback(() => {
+	  }, [isCatMenuOpen, getRandomImage]);
+	  
+	  const toggleDogMenu = useCallback(() => {
 		setIsDogMenuOpen((prev) => !prev);
 		setIsCatMenuOpen(false);
 		setIsMobileMenuOpen(false);
 		if (!isDogMenuOpen) {
-			const newImage = getRandomImage(dogImages);
-			setCurrentDogImage(newImage);
+		  const newImage = getRandomImage(dogMenuItems);
+		  setCurrentDogImage(newImage);
 		}
-	}, [isDogMenuOpen, dogImages]);
+	  }, [isDogMenuOpen, getRandomImage]);
 
 	const closeAllMenus = useCallback(() => {
 		setIsCatMenuOpen(false);
 		setIsDogMenuOpen(false);
 		setIsMobileMenuOpen(false);
+		setCurrentHoverImage(null);
 	  }, []);
 
 	  useEffect(() => {
@@ -148,12 +166,8 @@ export const Navbar = () => {
 	  
 		const handleClickOutside = (event: MouseEvent) => {
 		  if (
-			catMenuRef.current &&
-			!catMenuRef.current.contains(event.target as Node) &&
-			dogMenuRef.current &&
-			!dogMenuRef.current.contains(event.target as Node) &&
-			mobileMenuRef.current &&
-			!mobileMenuRef.current.contains(event.target as Node)
+			navbarRef.current &&
+			!navbarRef.current.contains(event.target as Node)
 		  ) {
 			closeAllMenus();
 		  }
@@ -167,11 +181,13 @@ export const Navbar = () => {
 		  window.addEventListener('scroll', controlNavbar);
 		  window.addEventListener('scroll', handleScroll);
 		  document.addEventListener('mousedown', handleClickOutside);
+		  window.addEventListener('wheel', handleScroll);
 	  
 		  return () => {
 			window.removeEventListener('scroll', controlNavbar);
 			window.removeEventListener('scroll', handleScroll);
 			document.removeEventListener('mousedown', handleClickOutside);
+			window.removeEventListener('wheel', handleScroll);
 		  };
 		}
 	  }, [lastScrollY, closeAllMenus]);
@@ -184,129 +200,62 @@ export const Navbar = () => {
 	}, [router, closeAllMenus]);
 
 	useEffect(() => {
-		if (isMetaImagesLoaded) {
-			const allImages = [...catImages, ...dogImages, ...Object.values(metaImages)];
-			preloadImages(allImages);
-		}
-	}, [preloadImages, metaImages, catImages, dogImages, isMetaImagesLoaded]);
+		const allImages = [...catMenuItems, ...dogMenuItems].map(item => item.image);
+		preloadImages(allImages);
+	  }, [preloadImages]);
 
-	const catMenuItems: MenuItem[] = [
-		{ name: 'Kedi Bakımı', url: '/kedi-bakimi' },
-		{ name: 'Kedi Beslenmesi', url: '/kedi-beslenmesi' },
-		{ name: 'Kedi Irkları', url: '/kedi-irklari' },
-		{ name: 'Kedi Sağlığı', url: '/kedi-sagligi' },
-		{ name: 'Kedi Diğer', url: '/kedi-diger' },
-	];
 
-	const dogMenuItems: MenuItem[] = [
-		{ name: 'Köpek Bakımı', url: '/kopek-bakimi' },
-		{ name: 'Köpek Beslenmesi', url: '/kopek-beslenmesi' },
-		{ name: 'Köpek Irkları', url: '/kopek-irklari' },
-		{ name: 'Köpek Sağlığı', url: '/kopek-sagligi' },
-		{ name: 'Köpek Diğer', url: '/kopek-diger' },
-	];
 
-	const fetchMetaImage = async (url: string): Promise<string | null> => {
-		try {
-			const response = await fetch(url);
-			const html = await response.text();
-			const parser = new DOMParser();
-			const doc = parser.parseFromString(html, 'text/html');
-			const metaTag = doc.querySelector('meta[property="og:image"]');
-			return metaTag ? metaTag.getAttribute('content') : null;
-		} catch (error) {
-			console.error('Error fetching meta image:', error);
-			return null;
-		}
-	};
 
-	const fetchMetaImages = useCallback(async () => {
-		const allItems = [...catMenuItems, ...dogMenuItems];
-		const images: Record<string, string> = {};
-		const fetchPromises = allItems.map(async (item) => {
-			try {
-				const response = await fetch(item.url);
-				const html = await response.text();
-				const parser = new DOMParser();
-				const doc = parser.parseFromString(html, 'text/html');
-				const metaTag = doc.querySelector('meta[property="og:image"]');
-				if (metaTag) {
-					const content = metaTag.getAttribute('content');
-					if (content) {
-						images[item.url] = content;
-					}
-				}
-			} catch (error) {
-				console.error(`Error fetching meta image for ${item.url}:`, error);
-			}
-		});
-		await Promise.all(fetchPromises);
-		setMetaImages(images);
-		setIsMetaImagesLoaded(true);
-	}, [catMenuItems, dogMenuItems]);
 
-	useEffect(() => {
-		if (!isMetaImagesLoaded) {
-			fetchMetaImages();
-		}
-	}, [fetchMetaImages, isMetaImagesLoaded]);
-
-	const renderDropdownMenu = (
+	  const renderDropdownMenu = (
 		items: MenuItem[],
 		defaultImage: string,
 		altText: string,
 		description: React.ReactNode,
-	) => (
+	  ) => (
 		<div
-			className={`fixed ${isMobile ? 'left-1/2 w-3/4 -translate-x-1/2 transform' : 'left-1/2 w-3/5 -translate-x-1/2 transform'} z-50 mt-2 rounded-xl bg-white bg-opacity-70 px-8 py-6 shadow-lg backdrop-blur-md backdrop-filter`}
+		  className={`fixed ${isMobile ? 'left-1/2 w-3/4 -translate-x-1/2 transform' : 'left-1/2 w-3/5 -translate-x-1/2 transform'} z-50 mt-2 rounded-xl bg-white bg-opacity-70 px-8 py-6 shadow-lg backdrop-blur-md backdrop-filter`}
 		>
-			<div className="flex flex-col">
-				<div className={`flex ${isMobile ? 'flex-col' : ''}`}>
-					<div className={isMobile ? 'mb-4 w-full' : 'w-1/2 pr-4'}>
-						{isImagesLoaded && (
-							<Image
-								src={
-									currentHoverImage || (items === catMenuItems ? currentCatImage : currentDogImage)
-								}
-								alt={altText}
-								width={300}
-								height={200}
-								className="h-auto w-full rounded-lg object-cover"
-							/>
-						)}
+		  <div className="flex flex-col">
+			<div className={`flex ${isMobile ? 'flex-col' : ''}`}>
+			  <div className={isMobile ? 'mb-4 w-full' : 'w-1/2 pr-4'}>
+				{isImagesLoaded && (
+				  <Image
+					src={currentHoverImage || defaultImage}
+					alt={altText}
+					width={300}
+					height={200}
+					className="h-auto w-full rounded-lg object-cover"
+				  />
+				)}
+			  </div>
+			  <div className={isMobile ? '-ml-4 -mr-8 pl-0 pt-4' : 'w-1/2 content-center pl-4'}>
+				<div className="grid grid-cols-2 gap-x-0 gap-y-4">
+				  {items.map((item, index) => (
+					<div key={index}>
+					  <Link
+						href={item.url}
+						className="block text-gray-800 hover:text-gray-600"
+						onClick={closeAllMenus}
+						onMouseEnter={() => setCurrentHoverImage(item.image)}
+						onMouseLeave={() => setCurrentHoverImage(null)}
+					  >
+						{item.name}
+					  </Link>
 					</div>
-					<div className={isMobile ? '-ml-4 -mr-8 pl-0 pt-4' : 'w-1/2 content-center pl-4'}>
-						<div className="grid grid-cols-2 gap-x-0 gap-y-4">
-							{items.map((item, index) => (
-								<div key={index}>
-									<Link
-										href={item.url}
-										className="block text-gray-800 hover:text-gray-600"
-										onClick={closeAllMenus}
-										onMouseEnter={() => {
-											const metaImage = metaImages[item.url];
-											if (metaImage) {
-												setCurrentHoverImage(metaImage);
-											}
-										}}
-										onMouseLeave={() => {
-											setCurrentHoverImage(null);
-										}}
-									>
-										{item.name}
-									</Link>
-								</div>
-							))}
-						</div>
-					</div>
+				  ))}
 				</div>
+			  </div>
 			</div>
+		  </div>
 		</div>
-	);
+	  );
 
 	return (
 		<>
 			<nav
+				ref={navbarRef}
 				className={`container fixed left-0 right-0 top-0 z-50 mx-auto w-full select-none px-4 py-4 transition-all duration-300 ${
 					isVisible ? 'translate-y-0' : '-translate-y-full'
 				}`}
