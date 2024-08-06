@@ -17,7 +17,7 @@ export const MorePosts = ({ posts, context }: Props) => {
 				<img loading="lazy" className="w-1/2 block" alt="Sayfa ayracı" src="https://9kelt5xnesj2nkgz.public.blob.vercel-storage.com/underline-G32Fu5noQ2QvXU7bIiaq9zclJsLPcm.png" />
 			  </div>
 			)}
-			<div className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3">
+			<div className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3 sm:gap-12">
 				{posts.map((post) => (
 					<PostPreview
 						key={post.slug}
