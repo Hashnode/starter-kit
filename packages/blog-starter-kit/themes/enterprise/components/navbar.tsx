@@ -47,6 +47,10 @@ export const Navbar = () => {
 	const dogMenuRef = useRef<HTMLDivElement>(null);
 	const mobileMenuRef = useRef<HTMLDivElement>(null);
 
+	const [lastHoveredImage, setLastHoveredImage] = useState<string | null>(null);
+	const [defaultCatImage, setDefaultCatImage] = useState<string>(catMenuItems[0].image);
+	const [defaultDogImage, setDefaultDogImage] = useState<string>(dogMenuItems[0].image);
+
 	const router = useRouter();
 
 	useEffect(() => {
@@ -85,14 +89,14 @@ export const Navbar = () => {
 	];
 
 	const getRandomImage = useCallback((items: MenuItem[]) => {
-	const lastImage = localStorage.getItem('lastImage');
-	let newImage;
-	do {
-		newImage = items[Math.floor(Math.random() * items.length)].image;
-	} while (newImage === lastImage && items.length > 1);
-	localStorage.setItem('lastImage', newImage);
-	return newImage;
-	}, []);
+		const lastImage = localStorage.getItem('lastImage');
+		let newImage;
+		do {
+		  newImage = items[Math.floor(Math.random() * items.length)].image;
+		} while (newImage === lastImage && items.length > 1);
+		localStorage.setItem('lastImage', newImage);
+		return newImage;
+	  }, []);
 
 	const preloadImages = useCallback((images: string[]) => {
 		const promises = images.map(
@@ -127,27 +131,28 @@ export const Navbar = () => {
 		setIsCatMenuOpen((prev) => !prev);
 		setIsDogMenuOpen(false);
 		setIsMobileMenuOpen(false);
-		if (!isCatMenuOpen) {
-		  const newImage = getRandomImage(catMenuItems);
-		  setCurrentCatImage(newImage);
-		}
-	  }, [isCatMenuOpen, getRandomImage]);
+		const newImage = getRandomImage(catMenuItems);
+		setCurrentCatImage(newImage);
+		setDefaultCatImage(newImage);
+		setLastHoveredImage(null);
+	  }, [getRandomImage, catMenuItems]);
 	  
 	  const toggleDogMenu = useCallback(() => {
 		setIsDogMenuOpen((prev) => !prev);
 		setIsCatMenuOpen(false);
 		setIsMobileMenuOpen(false);
-		if (!isDogMenuOpen) {
-		  const newImage = getRandomImage(dogMenuItems);
-		  setCurrentDogImage(newImage);
-		}
-	  }, [isDogMenuOpen, getRandomImage]);
+		const newImage = getRandomImage(dogMenuItems);
+		setCurrentDogImage(newImage);
+		setDefaultDogImage(newImage);
+		setLastHoveredImage(null);
+	  }, [getRandomImage, dogMenuItems]);
 
-	const closeAllMenus = useCallback(() => {
+	  const closeAllMenus = useCallback(() => {
 		setIsCatMenuOpen(false);
 		setIsDogMenuOpen(false);
 		setIsMobileMenuOpen(false);
 		setCurrentHoverImage(null);
+		setLastHoveredImage(null);
 	  }, []);
 
 	  useEffect(() => {
@@ -206,51 +211,59 @@ export const Navbar = () => {
 
 
 
+	  const handleMenuItemHover = useCallback((image: string) => {
+		setCurrentHoverImage(image);
+		setLastHoveredImage(image);
+	  }, []);
+
+	  const handleMenuAreaLeave = useCallback(() => {
+		setCurrentHoverImage(null);
+	  }, []);
 
 
-	  const renderDropdownMenu = (
-		items: MenuItem[],
-		defaultImage: string,
-		altText: string,
-		description: React.ReactNode,
-	  ) => (
-		<div
-		  className={`fixed ${isMobile ? 'left-1/2 w-3/4 -translate-x-1/2 transform' : 'left-1/2 w-3/5 -translate-x-1/2 transform'} z-50 mt-2 rounded-xl bg-white bg-opacity-70 px-8 py-6 shadow-lg backdrop-blur-md backdrop-filter`}
-		>
-		  <div className="flex flex-col">
-			<div className={`flex ${isMobile ? 'flex-col' : ''}`}>
-			  <div className={isMobile ? 'mb-4 w-full' : 'w-1/2 pr-4'}>
-				{isImagesLoaded && (
-				  <Image
-					src={currentHoverImage || defaultImage}
-					alt={altText}
-					width={300}
-					height={200}
-					className="h-auto w-full rounded-lg object-cover"
-				  />
-				)}
-			  </div>
-			  <div className={isMobile ? '-ml-4 -mr-8 pl-0 pt-4' : 'w-1/2 content-center pl-4'}>
-				<div className="grid grid-cols-2 gap-x-0 gap-y-4">
-				  {items.map((item, index) => (
-					<div key={index}>
-					  <Link
-						href={item.url}
-						className="block text-gray-800 hover:text-gray-600"
-						onClick={closeAllMenus}
-						onMouseEnter={() => setCurrentHoverImage(item.image)}
-						onMouseLeave={() => setCurrentHoverImage(null)}
-					  >
-						{item.name}
-					  </Link>
-					</div>
-				  ))}
-				</div>
-			  </div>
+	const renderDropdownMenu = (
+	items: MenuItem[],
+	defaultImage: string,
+	altText: string,
+	description: React.ReactNode,
+	) => (
+	<div
+		className={`fixed ${isMobile ? 'left-1/2 w-3/4 -translate-x-1/2 transform' : 'left-1/2 w-3/5 -translate-x-1/2 transform'} z-50 mt-2 rounded-xl bg-white bg-opacity-70 px-8 py-6 shadow-lg backdrop-blur-md backdrop-filter`}
+		onMouseLeave={handleMenuAreaLeave}
+	>
+		<div className="flex flex-col">
+		<div className={`flex ${isMobile ? 'flex-col' : ''}`}>
+			<div className={isMobile ? 'mb-4 w-full' : 'w-1/2 pr-4'}>
+			{isImagesLoaded && (
+				<Image
+				src={currentHoverImage || lastHoveredImage || defaultImage}
+				alt={altText}
+				width={300}
+				height={200}
+				className="h-auto w-full rounded-lg object-cover"
+				/>
+			)}
 			</div>
-		  </div>
+			<div className={isMobile ? '-ml-4 -mr-8 pl-0 pt-4' : 'w-1/2 content-center pl-4'}>
+			<div className="grid grid-cols-2 gap-x-0 gap-y-4">
+				{items.map((item, index) => (
+				<div key={index}>
+					<Link
+					href={item.url}
+					className="block text-gray-800 hover:text-gray-600"
+					onClick={closeAllMenus}
+					onMouseEnter={() => handleMenuItemHover(item.image)}
+					>
+					{item.name}
+					</Link>
+				</div>
+				))}
+			</div>
+			</div>
 		</div>
-	  );
+		</div>
+	</div>
+	);
 
 	return (
 		<>
