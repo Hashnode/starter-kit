@@ -157,29 +157,29 @@ export const Navbar = () => {
 
 	  useEffect(() => {
 		const navbar = navbarRef.current;
-		const pageTitle = document.querySelector('h1.text-5xl.text-gray-900.font-semibold.mt-2.mb-5') as HTMLElement;
+		const pageTitles = document.querySelectorAll('h1.text-5xl.text-gray-900.font-semibold.mt-2.mb-5, h1.text-4xl.font-bold.text-slate-900.dark\\:text-neutral-50.mb-6');
 		let navbarHeight = navbar ? navbar.offsetHeight : 0;
-		let pageTitleHeight = pageTitle ? pageTitle.offsetHeight : 0;
+		let pageTitleHeight = 0;
 		let ticking = false;
+	  
+		const calculateTitleHeight = () => {
+		  pageTitleHeight = Array.from(pageTitles).reduce((total, title) => total + (title as HTMLElement).offsetHeight, 0);
+		};
 	  
 		const controlNavbar = () => {
 		  if (!ticking) {
 			window.requestAnimationFrame(() => {
-			  if (navbar && pageTitle) {
+			  if (navbar) {
 				const scrollY = window.scrollY;
-				const triggerPoint = pageTitleHeight; // Navbar'ın gizlenmeye başlayacağı nokta
+				const triggerPoint = pageTitleHeight;
 				
 				if (scrollY > triggerPoint) {
-				  // Scroll pozisyonu trigger noktasını geçti
 				  if (scrollY > lastScrollY) {
-					// Aşağı scroll
 					setIsVisible(false);
 				  } else {
-					// Yukarı scroll
 					setIsVisible(true);
 				  }
 				} else {
-				  // Henüz trigger noktasına ulaşılmadı
 				  setIsVisible(true);
 				}
 				
@@ -192,9 +192,9 @@ export const Navbar = () => {
 		};
 	  
 		const handleResize = () => {
-		  if (navbar && pageTitle) {
+		  if (navbar) {
 			navbarHeight = navbar.offsetHeight;
-			pageTitleHeight = pageTitle.offsetHeight;
+			calculateTitleHeight();
 		  }
 		};
 	  
@@ -209,7 +209,7 @@ export const Navbar = () => {
 		  window.addEventListener('resize', handleResize);
 		  document.addEventListener('mousedown', handleClickOutside);
 	  
-		  // İlk yükleme ve resize durumları için yükseklikleri hesapla
+		  // İlk yükleme için yükseklikleri hesapla
 		  handleResize();
 	  
 		  return () => {
