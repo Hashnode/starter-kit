@@ -29,6 +29,7 @@ export const Navbar = () => {
 	const catMenuRef = useRef<HTMLDivElement>(null);
 	const dogMenuRef = useRef<HTMLDivElement>(null);
 	const mobileMenuRef = useRef<HTMLDivElement>(null);
+
 	const router = useRouter();
 
 	useEffect(() => {
@@ -129,53 +130,51 @@ export const Navbar = () => {
 		setIsCatMenuOpen(false);
 		setIsDogMenuOpen(false);
 		setIsMobileMenuOpen(false);
-	}, []);
+	  }, []);
 
-	useEffect(() => {
+	  useEffect(() => {
 		const controlNavbar = () => {
-			if (typeof window !== 'undefined') {
-				if (window.scrollY > lastScrollY) {
-					// scroll down
-					setIsVisible(false);
-				} else {
-					// scroll up
-					setIsVisible(true);
-				}
-				setLastScrollY(window.scrollY);
+		  if (typeof window !== 'undefined') {
+			if (window.scrollY > lastScrollY) {
+			  // scroll down
+			  setIsVisible(false);
+			} else {
+			  // scroll up
+			  setIsVisible(true);
 			}
+			setLastScrollY(window.scrollY);
+		  }
 		};
-
+	  
 		const handleClickOutside = (event: MouseEvent) => {
-			if (
-				catMenuRef.current &&
-				!catMenuRef.current.contains(event.target as Node) &&
-				dogMenuRef.current &&
-				!dogMenuRef.current.contains(event.target as Node) &&
-				mobileMenuRef.current &&
-				!mobileMenuRef.current.contains(event.target as Node)
-			) {
-				closeAllMenus();
-			}
-		};
-
-		const handleScroll = () => {
+		  if (
+			catMenuRef.current &&
+			!catMenuRef.current.contains(event.target as Node) &&
+			dogMenuRef.current &&
+			!dogMenuRef.current.contains(event.target as Node) &&
+			mobileMenuRef.current &&
+			!mobileMenuRef.current.contains(event.target as Node)
+		  ) {
 			closeAllMenus();
+		  }
 		};
-
+	  
+		const handleScroll = () => {
+		  closeAllMenus();
+		};
+	  
 		if (typeof window !== 'undefined') {
-			window.addEventListener('scroll', controlNavbar);
-			window.addEventListener('scroll', handleScroll);
-			document.addEventListener('mousedown', handleClickOutside);
-			window.addEventListener('wheel', handleScroll);
-
-			return () => {
-				window.removeEventListener('scroll', controlNavbar);
-				window.removeEventListener('scroll', handleScroll);
-				document.removeEventListener('mousedown', handleClickOutside);
-				window.removeEventListener('wheel', handleScroll);
-			};
+		  window.addEventListener('scroll', controlNavbar);
+		  window.addEventListener('scroll', handleScroll);
+		  document.addEventListener('mousedown', handleClickOutside);
+	  
+		  return () => {
+			window.removeEventListener('scroll', controlNavbar);
+			window.removeEventListener('scroll', handleScroll);
+			document.removeEventListener('mousedown', handleClickOutside);
+		  };
 		}
-	}, [lastScrollY, closeAllMenus]);
+	  }, [lastScrollY, closeAllMenus]);
 
 	useEffect(() => {
 		router.events.on('routeChangeStart', closeAllMenus);
@@ -523,16 +522,16 @@ export const Navbar = () => {
 					)}
 				</div>
 				{(isCatMenuOpen || isDogMenuOpen) && (
-					<div ref={isCatMenuOpen ? catMenuRef : dogMenuRef}>
-						{renderDropdownMenu(
-							isCatMenuOpen ? catMenuItems : dogMenuItems,
-							isCatMenuOpen ? currentCatImage : currentDogImage,
-							isCatMenuOpen ? 'Kedi' : 'Köpek',
-							isCatMenuOpen
-								? 'Kediler hakkında bilmek istediğiniz her şey'
-								: 'Köpekler hakkında bilmek istediğiniz her şey',
-						)}
-					</div>
+				<div ref={isCatMenuOpen ? catMenuRef : dogMenuRef}>
+					{renderDropdownMenu(
+					isCatMenuOpen ? catMenuItems : dogMenuItems,
+					isCatMenuOpen ? currentCatImage : currentDogImage,
+					isCatMenuOpen ? 'Kedi' : 'Köpek',
+					isCatMenuOpen
+						? 'Kediler hakkında bilmek istediğiniz her şey'
+						: 'Köpekler hakkında bilmek istediğiniz her şey',
+					)}
+				</div>
 				)}
 			</nav>
 			{isSearchOpen && (
