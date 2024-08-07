@@ -33,7 +33,7 @@ export const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) =
                     slug={slug}
                     title={title}
                     src={resizeImage(coverImage, { w: 1600, h: 840, c: 'thumb' }, DEFAULT_COVER)}
-                    onLoad={() => setImageLoaded(true)}
+                    // onLoad={() => setImageLoaded(true)}
                     className={`transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
                 />
             </div>

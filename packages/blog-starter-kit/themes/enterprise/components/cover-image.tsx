@@ -38,7 +38,7 @@ export const CoverImage = ({ title, src, slug, priority = false, onLoad, classNa
                 fill
                 unoptimized
                 priority={priority}
-                onLoad={handleImageLoad}
+                // onLoad={handleImageLoad}
             />
         </div>
     );
