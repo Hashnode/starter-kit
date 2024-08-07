@@ -28,12 +28,12 @@ export const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) =
     return (
         <div className="grid grid-cols-1 gap-5 hover:opacity-90">
             <div className="col-span-1 relative aspect-[1600/840]">
-                {!imageLoaded && <Skeleton />}
+                 {imageLoaded && <Skeleton />} 
                 <CoverImage
                     slug={slug}
                     title={title}
                     src={resizeImage(coverImage, { w: 1600, h: 840, c: 'thumb' }, DEFAULT_COVER)}
-                    // onLoad={() => setImageLoaded(true)}
+                    onLoad={() => setImageLoaded(true)}
                     className={`transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
                 />
             </div>
