@@ -28,7 +28,7 @@ export const CoverImage = ({ title, src, slug, priority = false, onLoad, classNa
 
     const image = (
         <div className={`relative pt-[52.5%] select-none ${className || ''}`}>
-            {imageLoaded && <Skeleton />}
+            {imageLoaded && !<Skeleton />}
             <Image
                 src={src}
                 alt={`Temizmama - ${title}`}
