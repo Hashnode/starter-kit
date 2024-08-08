@@ -1,6 +1,33 @@
 {
-	"$schema": "https://json.schemastore.org/tsconfig",
-	"extends": "@starter-kit/tsconfig/nextjs.json",
-	"include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
-	"exclude": ["node_modules"]
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@starter-kit/tsconfig/nextjs.json",
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "**/*.jsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./types"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@starter-kit/*": [
+        "packages/*"
+      ]
+    }
+  }
 }
