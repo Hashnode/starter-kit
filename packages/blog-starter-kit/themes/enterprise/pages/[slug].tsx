@@ -12,7 +12,6 @@ import { Header } from '../components/header';
 import { Layout } from '../components/layout';
 import { MarkdownToHtml } from '../components/markdown-to-html';
 import { PostHeader } from '../components/post-header';
-import { PostTOC } from '../components/post-toc';
 import {
 	PageByPublicationDocument,
 	PostFullFragment,
@@ -27,7 +26,10 @@ import { useEmbeds } from '@starter-kit/utils/renderer/hooks/useEmbeds';
 import { loadIframeResizer } from '@starter-kit/utils/renderer/services/embed';
 import { useEffect, useState } from 'react';
 // @ts-ignore
+import { resizeImage } from '@starter-kit/utils/image';
 import { triggerCustomWidgetEmbed } from '@starter-kit/utils/trigger-custom-widget-embed';
+import { CoverImage } from '../components/cover-image';
+import { PostTOC } from '../components/post-toc';
 
 const AboutAuthor = dynamic(() => import('../components/about-author'), { ssr: false });
 const Subscribe = dynamic(() => import('../components/subscribe').then((mod) => mod.Subscribe));
@@ -126,15 +128,34 @@ const Post = ({ publication, post }: PostProps) => {
 				/>
 				<style dangerouslySetInnerHTML={{ __html: highlightJsMonokaiTheme }}></style>
 			</Head>
-			<PostHeader
-				title={post.title}
-				coverImage={post.coverImage?.url}
-				date={post.publishedAt}
-				author={post.author}
-				readTimeInMinutes={post.readTimeInMinutes}
-			/>
-			{post.features.tableOfContents.isEnabled && post.features?.tableOfContents?.items?.length > 0 && <PostTOC />}
-			<MarkdownToHtml contentMarkdown={post.content.markdown} />
+			<div className="w-full px-2 lg:px-5">
+				<PostHeader
+					title={post.title}
+					coverImage={post.coverImage?.url}
+					date={post.publishedAt}
+					author={post.author}
+					readTimeInMinutes={post.readTimeInMinutes}
+				/>
+				<div className="mt-12 flex w-full gap-8 lg:justify-between">
+					<div className="flex flex-1 flex-col gap-6">
+						{post.coverImage?.url && (
+							<div className="w-full sm:mx-0 md:max-w-screen-md">
+								<CoverImage
+									title={post.title}
+									src={resizeImage(post.coverImage?.url, { w: 1600, h: 840, c: 'thumb' })}
+									priority={true}
+								/>
+							</div>
+						)}
+						<MarkdownToHtml contentMarkdown={post.content.markdown} />
+					</div>
+					<div className="hidden flex-[0.4] lg:block">
+						{post.features.tableOfContents.isEnabled &&
+							post.features?.tableOfContents?.items?.length > 0 && <PostTOC />}
+					</div>
+				</div>
+			</div>
+
 			{(post.tags ?? []).length > 0 && (
 				<div className="mx-auto w-full px-5 text-slate-600 dark:text-neutral-300 md:max-w-screen-md">
 					<ul className="flex flex-row flex-wrap items-center gap-2">{tagsList}</ul>

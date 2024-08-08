@@ -79,7 +79,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 			/>
 		);
 	});
-	const morePosts = allPosts.slice(4);
+	const morePosts = allPosts.slice(1);
 
 	return (
 		<AppProvider publication={publication}>
@@ -137,7 +137,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 						</div>
 					)}
 
-					<div className="grid items-start gap-6 xl:grid-cols-2">
+					<div className="grid items-start gap-6 xl:grid-cols-1">
 						<div className="col-span-1">
 							{firstPost && (
 								<HeroPost
@@ -149,19 +149,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 								/>
 							)}
 						</div>
-						<div className="col-span-1 flex flex-col gap-6">{secondaryPosts}</div>
 					</div>
-
-					{allPosts.length > 0 && (
-						<div className="bg-primary-50 grid grid-cols-4 rounded-lg px-5 py-5 dark:bg-neutral-900 md:py-10">
-							<div className="col-span-full md:col-span-2 md:col-start-2">
-								<h2 className="text-primary-600 dark:text-primary-500 mb-5 text-center text-lg font-semibold">
-									Subscribe to our newsletter for updates and changelog.
-								</h2>
-								<SubscribeForm />
-							</div>
-						</div>
-					)}
 
 					{morePosts.length > 0 && (
 						<>
