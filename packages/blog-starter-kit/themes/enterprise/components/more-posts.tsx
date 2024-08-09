@@ -1,5 +1,5 @@
 import { PostFragment } from '../generated/graphql';
-import { PostPreview } from './post-preview';
+import { PostPreviewHome } from './post-preview-home';
 
 type Props = {
 	posts: PostFragment[];
@@ -14,9 +14,9 @@ export const MorePosts = ({ posts, context }: Props) => {
 					More Posts
 				</h2>
 			)}
-			<div className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3">
+			<div className="grid w-full grid-cols-1 items-start gap-5">
 				{posts.map((post) => (
-					<PostPreview
+					<PostPreviewHome
 						key={post.slug}
 						title={post.title}
 						coverImage={post.coverImage?.url}

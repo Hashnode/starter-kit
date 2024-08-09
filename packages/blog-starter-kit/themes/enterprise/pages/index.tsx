@@ -151,6 +151,8 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 						</div>
 					</div>
 
+					<hr />
+
 					{morePosts.length > 0 && (
 						<>
 							<MorePosts context="home" posts={morePosts} />
