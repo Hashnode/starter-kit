@@ -24,6 +24,7 @@ export const MorePosts = ({ posts, context }: Props) => {
 			{context === 'home' && (
 				<div className="grid w-full grid-cols-4">
 					<div className="col-span-3 grid grid-cols-1 gap-2">
+						<SocialLinks />
 						<div className="flex items-center gap-3">
 							{navbarItems.map((item) => (
 								<a
@@ -37,7 +38,6 @@ export const MorePosts = ({ posts, context }: Props) => {
 								</a>
 							))}
 						</div>
-						<SocialLinks />
 					</div>
 					<SearchBox />
 				</div>
