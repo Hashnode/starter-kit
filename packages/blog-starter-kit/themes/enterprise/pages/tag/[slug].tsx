@@ -1,3 +1,4 @@
+import { PostsProvider } from 'components/contexts/postsContext';
 import request from 'graphql-request';
 import Head from 'next/head';
 import { Container } from '../../components/container';
@@ -34,7 +35,9 @@ export default function Post({ publication, posts, tag }: Props) {
 						<p className="font-bold uppercase text-slate-500 dark:text-neutral-400">Tag</p>
 						<h1 className="text-4xl font-bold text-slate-900 dark:text-neutral-50">#{tag}</h1>
 					</div>
-					<MorePosts context="tag" posts={posts} />
+					<PostsProvider>
+						<MorePosts context="tag" posts={posts} />
+					</PostsProvider>
 				</Container>
 				<Footer />
 			</Layout>

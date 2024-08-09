@@ -1,4 +1,5 @@
 import { resizeImage } from '@starter-kit/utils/image';
+import { PostsProvider } from 'components/contexts/postsContext';
 import request from 'graphql-request';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
@@ -67,7 +68,9 @@ export default function Post({ series, publication, posts }: Props) {
 						</div>
 					</div>
 					{posts.length > 0 ? (
-						<MorePosts context="series" posts={posts} />
+						<PostsProvider>
+							<MorePosts context="series" posts={posts} />
+						</PostsProvider>
 					) : (
 						<div>No Posts found</div>
 					)}

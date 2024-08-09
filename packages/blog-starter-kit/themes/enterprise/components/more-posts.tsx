@@ -1,7 +1,7 @@
 import { PostFragment, PublicationNavbarItem } from '../generated/graphql';
 import { useAppContext } from './contexts/appContext';
-import { PostPreviewHome } from './post-preview-home';
-import { Search } from './searchbar';
+import PostsList from './posts-list';
+import SearchBox from './search-box';
 import { SocialLinks } from './social-links';
 
 type Props = {
@@ -39,25 +39,10 @@ export const MorePosts = ({ posts, context }: Props) => {
 						</div>
 						<SocialLinks />
 					</div>
-					<Search />
+					<SearchBox />
 				</div>
 			)}
-			<div className="grid w-full grid-cols-1 items-start gap-5">
-				{posts.map((post) => (
-					<PostPreviewHome
-						key={post.slug}
-						title={post.title}
-						coverImage={post.coverImage?.url}
-						date={post.publishedAt}
-						author={{
-							name: post.author.name,
-							profilePicture: post.author.profilePicture,
-						}}
-						slug={post.slug}
-						excerpt={post.brief}
-					/>
-				))}
-			</div>
+			<PostsList posts={posts} />
 		</section>
 	);
 };
