@@ -1,5 +1,5 @@
 import { resizeImage } from '@starter-kit/utils/image';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { DEFAULT_COVER } from '../utils/const';
 import { CoverImage } from './cover-image';
 import { DateFormatter } from './date-formatter';
@@ -14,9 +14,17 @@ type Props = {
 
 export const HeroPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
 	const postURL = `/${slug}`;
+	const router = useRouter();
+
+	const navigate = () => {
+		router.push(postURL);
+	};
 
 	return (
-		<section className="grid grid-cols-1 gap-10 lg:grid-cols-2">
+		<section
+			onClick={navigate}
+			className="grid cursor-pointer grid-cols-1 gap-10 rounded-lg p-4 hover:bg-slate-50 lg:grid-cols-2"
+		>
 			<div className="col-span-1">
 				<CoverImage
 					title={title}
@@ -27,20 +35,11 @@ export const HeroPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
 			</div>
 			<div className="col-span-1 flex flex-col gap-2">
 				<h1 className="text-xl font-bold leading-snug text-slate-800 dark:text-neutral-50 lg:text-3xl">
-					<Link
-						href={postURL}
-						className="hover:text-primary-600 dark:hover:text-primary-500 leading-tight tracking-tight hover:underline"
-					>
-						{title}
-					</Link>
+					<span className="leading-tight tracking-tight">{title}</span>
 				</h1>
-				<Link href={postURL}>
-					<p className="text-md leading-snug text-slate-500 dark:text-neutral-400">{excerpt}</p>
-				</Link>
+				<p className="text-md leading-snug text-slate-500 dark:text-neutral-400">{excerpt}</p>
 				<div className="text-sm font-semibold text-slate-500 dark:text-neutral-300">
-					<Link href={postURL}>
-						<DateFormatter dateString={date} />
-					</Link>
+					<DateFormatter dateString={date} />
 				</div>
 			</div>
 		</section>
