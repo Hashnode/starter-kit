@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { PostFullFragment } from '../generated/graphql';
 import { useAppContext } from './contexts/appContext';
 
@@ -57,9 +58,23 @@ export const PostTOC = () => {
 
 	if (!post) return null;
 
+	const tagsList = post.tags?.map((tag) => (
+		<li key={tag.id}>
+			<Link
+				href={`/tag/${tag.slug}`}
+				className="block rounded-full border px-1 py-1 text-xs font-medium hover:bg-slate-50 dark:border-neutral-800 dark:hover:bg-neutral-800 md:px-4"
+			>
+				#{tag.slug}
+			</Link>
+		</li>
+	));
+
 	return (
 		<div className="sticky top-20 w-full">
 			<div className="mx-auto w-full max-w-screen-md rounded-lg text-base leading-snug dark:border-neutral-800 dark:text-neutral-50 md:text-lg">
+				<div className="mb-12 w-full text-slate-600 dark:text-neutral-300">
+					<ul className="flex flex-row flex-wrap items-center gap-2">{tagsList}</ul>
+				</div>
 				<h2 className="text-md font-bold md:text-lg">On this page</h2>
 				<Toc parentId={null} data={mapTableOfContentItems(post.features.tableOfContents.items)} />
 			</div>
