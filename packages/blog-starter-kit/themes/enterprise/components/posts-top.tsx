@@ -14,8 +14,8 @@ function PostsTop() {
 	const navbarItems = publication.preferences.navbarItems.filter(hasUrl);
 
 	return (
-		<div className="grid w-full grid-cols-4">
-			<div className="col-span-3 grid grid-cols-1 gap-2">
+		<div className="grid w-full grid-cols-4 gap-2">
+			<div className="col-span-4 grid grid-cols-1 gap-2 lg:col-span-3">
 				<SocialLinks />
 				<div className="flex items-center gap-3">
 					{navbarItems.map((item) => (
@@ -31,7 +31,9 @@ function PostsTop() {
 					))}
 				</div>
 			</div>
-			<SearchBox />
+			<div className="col-span-4 grid w-full grid-cols-1 lg:col-span-1">
+				<SearchBox />
+			</div>
 		</div>
 	);
 }
