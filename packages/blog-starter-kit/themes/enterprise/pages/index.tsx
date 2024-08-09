@@ -15,7 +15,6 @@ import { HeroPost } from '../components/hero-post';
 import { ArticleSVG, ChevronDownSVG } from '../components/icons';
 import { Layout } from '../components/layout';
 import { MorePosts } from '../components/more-posts';
-import { Navbar } from '../components/navbar';
 import { SecondaryPost } from '../components/secondary-post';
 import {
 	MorePostsByPublicationDocument,
@@ -121,9 +120,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 					/>
 				</Head>
 				<Header />
-				<Container className="flex flex-col items-stretch gap-10 px-5 pb-10">
-					<Navbar />
-
+				<Container className="flex flex-col items-stretch gap-10 px-5 pb-10 pt-14">
 					{allPosts.length === 0 && (
 						<div className="grid grid-cols-1 py-20 lg:grid-cols-3">
 							<div className="col-span-1 flex flex-col items-center gap-5 text-center text-slate-700 dark:text-neutral-400 lg:col-start-2">

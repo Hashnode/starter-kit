@@ -2,6 +2,7 @@ import { resizeImage } from '@starter-kit/utils/image';
 import request from 'graphql-request';
 import Link from 'next/link';
 import { KeyboardEventHandler, useEffect, useRef, useState } from 'react';
+import { Search as SearchIcon } from 'react-feather';
 import {
 	SearchPostsOfPublicationDocument,
 	SearchPostsOfPublicationQuery,
@@ -105,14 +106,17 @@ export const Search = () => {
 
 	return (
 		<div className="relative col-span-1">
-			<input
-				type="text"
-				ref={searchInputRef}
-				onKeyUp={escapeSearchOnESC}
-				onChange={updateSearchQuery}
-				placeholder="Search blog posts…"
-				className="w-full rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-base focus:bg-transparent dark:border-neutral-800 dark:bg-neutral-800 dark:text-neutral-50 dark:placeholder:text-neutral-400 dark:hover:bg-neutral-950"
-			/>
+			<div className="relative w-full gap-2">
+				<SearchIcon className="absolute top-1/2 mx-1 -translate-y-1/2 text-slate-400" size={20} />
+				<input
+					type="text"
+					ref={searchInputRef}
+					onKeyUp={escapeSearchOnESC}
+					onChange={updateSearchQuery}
+					placeholder="Search blog"
+					className="w-full rounded-md border border-slate-200 bg-neutral-50 px-2 py-2 pl-8 text-sm text-slate-500 outline-none ring-slate-100 focus:ring-2 dark:border-neutral-800 dark:bg-neutral-800 dark:text-neutral-50 dark:placeholder:text-neutral-400 dark:hover:bg-neutral-950"
+				/>
+			</div>
 			{query && (
 				<>
 					{isSearching && (
