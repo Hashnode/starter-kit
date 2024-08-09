@@ -1,7 +1,6 @@
 import { PublicationNavbarItem } from 'generated/graphql';
 import { useAppContext } from './contexts/appContext';
 import SearchBox from './search-box';
-import { SocialLinks } from './social-links';
 
 function hasUrl(
 	navbarItem: PublicationNavbarItem,
@@ -16,7 +15,6 @@ function PostsTop() {
 	return (
 		<div className="grid w-full grid-cols-4 gap-2">
 			<div className="col-span-4 grid grid-cols-1 gap-2 lg:col-span-3">
-				<SocialLinks />
 				<div className="flex items-center gap-3">
 					{navbarItems.map((item) => (
 						<a

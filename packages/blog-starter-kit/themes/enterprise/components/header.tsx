@@ -7,6 +7,7 @@ import { useAppContext } from './contexts/appContext';
 import HamburgerSVG from './icons/svgs/HamburgerSVG';
 import { PublicationLogo } from './publication-logo';
 import PublicationSidebar from './sidebar';
+import { SocialLinks } from './social-links';
 
 function hasUrl(
 	navbarItem: PublicationNavbarItem,
@@ -65,8 +66,8 @@ export const Header = () => {
 
 	return (
 		<header className="sticky top-0 z-10 border-b bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900">
-			<Container className="grid grid-cols-4 gap-5 px-5">
-				<div className="col-span-2 flex flex-1 flex-row items-center gap-2 lg:col-span-1">
+			<Container className="grid w-full grid-cols-4 gap-5 px-5">
+				<div className="col-span-2 flex flex-1 flex-row items-center gap-2 lg:col-span-2">
 					<div className="lg:hidden">
 						<Button
 							type="outline"
@@ -83,6 +84,9 @@ export const Header = () => {
 					<div className="block">
 						<PublicationLogo />
 					</div>
+				</div>
+				<div className="col-span-2 grid w-full grid-cols-1">
+					<SocialLinks />
 				</div>
 			</Container>
 		</header>
