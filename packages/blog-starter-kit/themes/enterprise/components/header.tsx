@@ -28,19 +28,6 @@ export const Header = () => {
 
 	const navList = (
 		<ul className="flex flex-row items-center gap-2 text-white">
-			{visibleItems.map((item) => (
-				<li key={item.url}>
-					<a
-						href={item.url}
-						target="_blank"
-						rel="noopener noreferrer"
-						className="transition-200 block max-w-[200px] truncate text-ellipsis whitespace-nowrap rounded-full p-2 text-slate-700 transition-colors hover:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
-					>
-						{item.label}
-					</a>
-				</li>
-			))}
-
 			{hiddenItems.length > 0 && (
 				<li>
 					<DropdownMenu.Root>
@@ -93,17 +80,11 @@ export const Header = () => {
 							<PublicationSidebar navbarItems={navbarItems} toggleSidebar={toggleSidebar} />
 						)}
 					</div>
-					<div className="hidden lg:block">
+					<div className="block">
 						<PublicationLogo />
 					</div>
 				</div>
-				<div className="col-span-2 flex flex-row items-center justify-end gap-5 text-slate-300 lg:col-span-3">
-					<nav className="hidden lg:block">{navList}</nav>
-				</div>
 			</Container>
-			<div className="mt-5 flex justify-center lg:hidden">
-				<PublicationLogo />
-			</div>
 		</header>
 	);
 };
