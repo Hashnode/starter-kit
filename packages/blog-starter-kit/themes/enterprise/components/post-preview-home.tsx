@@ -39,7 +39,7 @@ export const PostPreviewHome = ({ title, coverImage, date, excerpt, slug, author
 						<p className="text-xs font-light text-slate-500 xl:text-sm">{author.name}</p>
 					)}
 				</div>
-				<div className="text-xs font-semibold text-slate-500 dark:text-neutral-300 xl:text-sm">
+				<div className="flex justify-end text-xs font-semibold text-slate-500 dark:text-neutral-300 xl:text-sm">
 					<DateFormatter dateString={date} />
 				</div>
 			</div>
