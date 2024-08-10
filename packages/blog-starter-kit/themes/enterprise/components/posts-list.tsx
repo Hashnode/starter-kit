@@ -47,6 +47,7 @@ function PostsList({ posts }: Props) {
 							}}
 							slug={post.slug}
 							excerpt={post.brief}
+							series={post.series}
 						/>
 					))}
 				</div>

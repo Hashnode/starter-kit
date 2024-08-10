@@ -12,14 +12,23 @@ type Props = {
 	excerpt: string;
 	author: Author;
 	slug: string;
+	series?: any;
 };
 
-export const PostPreviewHome = ({ title, coverImage, date, excerpt, slug, author }: Props) => {
+export const PostPreviewHome = ({
+	title,
+	coverImage,
+	date,
+	excerpt,
+	slug,
+	author,
+	series,
+}: Props) => {
 	const postURL = `/${slug}`;
 
 	return (
 		<Link href={postURL}>
-			<div className="group grid w-full gap-2 border-b py-3 lg:grid-cols-10 xl:grid-cols-11">
+			<div className="group grid w-full gap-2 border-b py-3 lg:grid-cols-10 xl:grid-cols-12">
 				<h1 className="text-lg font-semibold leading-tight text-slate-800 group-hover:underline dark:text-neutral-50 lg:col-span-8 xl:col-span-8">
 					{title}
 				</h1>
@@ -34,9 +43,11 @@ export const PostPreviewHome = ({ title, coverImage, date, excerpt, slug, author
 						/>
 					)}
 				</div>
-				<div className="hidden xl:block">
+				<div className="col-span-2 hidden xl:block">
 					{author.name && (
-						<p className="text-xs font-light text-slate-500 xl:text-sm">{author.name}</p>
+						<p className="w-fit rounded-full border px-2 py-1 text-center text-xs font-light text-slate-500 xl:text-xs">
+							{series.name}
+						</p>
 					)}
 				</div>
 				<div className="flex text-xs font-semibold text-slate-500 dark:text-neutral-300 lg:justify-end xl:text-sm">

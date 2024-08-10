@@ -1,15 +1,18 @@
 fragment Post on Post {
-  id
-  title
-  url
-  author {
-    name
-    profilePicture
-  }
-  coverImage {
-    url
-  }
-  publishedAt
-  slug
-  brief
+	id
+	title
+	url
+	author {
+		name
+		profilePicture
+	}
+	coverImage {
+		url
+	}
+	publishedAt
+	slug
+	brief
+	series {
+		name
+	}
 }
