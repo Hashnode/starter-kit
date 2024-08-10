@@ -70,7 +70,7 @@ export const PostTOC = () => {
 	));
 
 	return (
-		<div className="sticky top-20 w-full">
+		<div className="sticky top-24 w-full">
 			<div className="mx-auto w-full max-w-screen-md rounded-lg text-base leading-snug dark:border-neutral-800 dark:text-neutral-50 md:text-lg">
 				<div className="mb-12 w-full text-slate-600 dark:text-neutral-300">
 					<ul className="flex flex-row flex-wrap items-center gap-2">{tagsList}</ul>
