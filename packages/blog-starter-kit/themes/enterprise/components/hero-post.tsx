@@ -23,7 +23,7 @@ export const HeroPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
 	return (
 		<section
 			onClick={navigate}
-			className="grid cursor-pointer grid-cols-1 gap-10 rounded-lg p-4 hover:bg-slate-50 lg:grid-cols-2"
+			className="grid cursor-pointer grid-cols-1 gap-10 rounded-lg p-4 hover:bg-slate-50 dark:hover:bg-neutral-900 lg:grid-cols-2"
 		>
 			<div className="col-span-1">
 				<CoverImage

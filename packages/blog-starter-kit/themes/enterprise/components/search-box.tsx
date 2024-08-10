@@ -24,7 +24,7 @@ function SearchBox() {
 			</div>
 			<div
 				onClick={toggle}
-				className="cursor-pointer rounded border bg-slate-50 p-2 text-slate-500 ring-slate-200 transition-all hover:ring-1"
+				className="cursor-pointer rounded border bg-slate-50 p-2 text-slate-500 ring-slate-200 transition-all hover:ring-1 dark:border-neutral-800 dark:bg-neutral-800 dark:hover:ring-neutral-600"
 			>
 				{handleIcon(view)}
 			</div>

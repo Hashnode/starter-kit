@@ -149,7 +149,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 						</div>
 					</div>
 
-					<hr />
+					<hr className="dark:border-neutral-800" />
 
 					{morePosts.length > 0 && (
 						<PostsProvider>

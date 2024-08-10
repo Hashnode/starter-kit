@@ -22,7 +22,7 @@ function PostsTop() {
 							href={`${process.env.NEXT_PUBLIC_BASE_URL}${item.url.split('.io')[1]}`}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="rounded-xl border px-2 py-1 text-sm text-slate-500 ring-slate-400 transition-all hover:ring-1"
+							className="rounded-xl border px-2 py-1 text-sm text-slate-500 ring-slate-400 transition-all hover:ring-1 dark:border-neutral-800 dark:ring-neutral-600"
 						>
 							{item.label}
 						</a>
