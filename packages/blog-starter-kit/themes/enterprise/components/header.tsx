@@ -66,7 +66,7 @@ export const Header = () => {
 
 	return (
 		<header className="sticky top-0 z-10 border-b bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900">
-			<Container className="grid w-full grid-cols-4 gap-5 px-5">
+			<Container className="grid w-full grid-cols-6 gap-5 px-5">
 				<div className="col-span-2 flex flex-1 flex-row items-center gap-2 lg:col-span-2">
 					<div className="lg:hidden">
 						<Button
@@ -85,7 +85,7 @@ export const Header = () => {
 						<PublicationLogo />
 					</div>
 				</div>
-				<div className="col-span-2 grid w-full grid-cols-1">
+				<div className="col-span-3 grid w-full grid-cols-1">
 					<SocialLinks />
 				</div>
 			</Container>

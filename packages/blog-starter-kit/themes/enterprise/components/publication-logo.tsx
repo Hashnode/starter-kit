@@ -3,14 +3,23 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { PublicationFragment } from '../generated/graphql';
 import { useAppContext } from './contexts/appContext';
+import { useThemeContext } from './contexts/themeContext';
 
-const getPublicationLogo = (publication: PublicationFragment, isSidebar?: boolean) => {
-	return publication.preferences.logo;
+const getPublicationLogo = (publication: PublicationFragment, theme?: string) => {
+	switch (theme) {
+		case 'light':
+			return publication.preferences.logo;
+		case 'dark':
+			return publication.preferences.darkMode?.logo;
+		default:
+			return publication.preferences.logo;
+	}
 };
 
 export const PublicationLogo = ({ isSidebar }: { isSidebar?: boolean }) => {
 	const { publication } = useAppContext();
-	const PUBLICATION_LOGO = getPublicationLogo(publication, isSidebar);
+	const { theme } = useThemeContext();
+	const PUBLICATION_LOGO = getPublicationLogo(publication, theme);
 
 	return (
 		<h1 className="relative w-full">

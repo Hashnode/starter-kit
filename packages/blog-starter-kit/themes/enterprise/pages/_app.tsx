@@ -1,6 +1,11 @@
+import { ThemeProvider } from 'components/contexts/themeContext';
 import { AppProps } from 'next/app';
 import '../styles/index.css';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-	return <Component {...pageProps} />;
+	return (
+		<ThemeProvider>
+			<Component {...pageProps} />;
+		</ThemeProvider>
+	);
 }
