@@ -5,7 +5,7 @@ import '../styles/index.css';
 export default function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<ThemeProvider>
-			<Component {...pageProps} />;
+			<Component {...pageProps} />
 		</ThemeProvider>
 	);
 }
