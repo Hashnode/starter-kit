@@ -50,6 +50,12 @@ const getRedirectionRules = async () => {
     destination: '/rss.xml',
     permanent: true,
   });
+
+  redirects.push({
+    source: '/sasirtici-kedi-ozellikleri',
+    destination: '/kediler-hakkinda-cok-ilginc-bilgiler',
+    permanent: true,
+  });
     
   return redirects;
 };
