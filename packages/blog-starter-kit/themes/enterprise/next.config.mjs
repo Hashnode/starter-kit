@@ -31,35 +31,40 @@ const getRedirectionRules = async () => {
     }
   `;
 
-  const data = await request(GQL_ENDPOINT, query);
+  try {
+    const data = await request(GQL_ENDPOINT, query);
 
-  if (!data.publication) {
-    throw new Error('Please ensure you have set the env var NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST correctly.');
+    if (!data.publication) {
+      throw new Error('Please ensure you have set the env var NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST correctly.');
+    }
+
+    const redirectionRules = data.publication.redirectionRules;
+
+    const redirects = redirectionRules
+      .filter((rule) => rule.source.indexOf('*') === -1)
+      .map((rule) => ({
+        source: rule.source,
+        destination: rule.destination,
+        permanent: rule.type === 'PERMANENT',
+      }));
+
+    redirects.push({
+      source: '/feed.xml',
+      destination: '/rss.xml',
+      permanent: true,
+    });
+
+    redirects.push({
+      source: '/sasirtici-kedi-ozellikleri',
+      destination: '/kediler-hakkinda-cok-ilginc-bilgiler',
+      permanent: true,
+    });
+      
+    return redirects;
+  } catch (error) {
+    console.error('Error fetching redirection rules:', error);
+    return [];
   }
-
-  const redirectionRules = data.publication.redirectionRules;
-
-  const redirects = redirectionRules
-    .filter((rule) => rule.source.indexOf('*') === -1)
-    .map((rule) => ({
-      source: rule.source,
-      destination: rule.destination,
-      permanent: rule.type === 'PERMANENT',
-    }));
-
-  redirects.push({
-    source: '/feed.xml',
-    destination: '/rss.xml',
-    permanent: true,
-  });
-
-  redirects.push({
-    source: '/sasirtici-kedi-ozellikleri',
-    destination: '/kediler-hakkinda-cok-ilginc-bilgiler',
-    permanent: true,
-  });
-    
-  return redirects;
 };
 
 const securityHeaders = [
@@ -123,7 +128,6 @@ const config = {
   basePath: getBasePath(),
   experimental: {
     scrollRestoration: true,
-    reactMode: isProd ? 'concurrent' : 'legacy',
   },
   images: {
     domains: ['cdn.hashnode.com', 'cdn.hashnode.co'],
@@ -179,12 +183,6 @@ const config = {
   },
   reactStrictMode: true,
   poweredByHeader: false,
-  onError: isProd ? undefined : function (error, errorInfo) {
-    console.log('Global error handler');
-    console.error(error);
-    console.error(errorInfo);
-    // Hata izleme servisi entegrasyonu buraya eklenebilir
-  },
   webpack: (config, { dev, isServer }) => {
     if (!dev && !isServer) {
       Object.assign(config.resolve.alias, {
@@ -195,15 +193,20 @@ const config = {
 
     if (isProd) {
       config.optimization.minimize = true;
-      // TerserPlugin'i ekleyin
-      const TerserPlugin = require('terser-webpack-plugin');
-      config.optimization.minimizer.push(new TerserPlugin({
-        terserOptions: {
-          compress: {
-            drop_console: true,
+      import('terser-webpack-plugin').then(({ default: TerserPlugin }) => {
+        if (!config.optimization.minimizer) {
+          config.optimization.minimizer = [];
+        }
+        config.optimization.minimizer.push(new TerserPlugin({
+          terserOptions: {
+            compress: {
+              drop_console: true,
+            },
           },
-        },
-      }));
+        }));
+      }).catch(error => {
+        console.error('Error loading TerserPlugin:', error);
+      });
     }
 
     return config;
@@ -225,7 +228,6 @@ const config = {
   productionBrowserSourceMaps: false,
   generateEtags: true,
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
-  verbose: !isProd,
   swcMinify: true,
   compiler: {
     removeConsole: isProd ? {
@@ -241,17 +243,8 @@ const config = {
     locales: ['en', 'tr'],
     defaultLocale: 'tr',
   },
-  future: {
-    webpack5: true,
-  },
-  serverRuntimeConfig: {
-    // Will only be available on the server side
-    mySecret: 'secret',
-    secondSecret: process.env.SECOND_SECRET, // Pass through env variables
-  },
-  publicRuntimeConfig: {
-    // Will be available on both server and client
-    staticFolder: '/static',
+  eslint: {
+    ignoreDuringBuilds: isProd,
   },
 };
 
