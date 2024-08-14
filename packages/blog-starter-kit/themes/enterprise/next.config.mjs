@@ -8,6 +8,8 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 const host = process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST;
 
+const isProd = process.env.NODE_ENV === 'production';
+
 const getBasePath = () => {
   if (BASE_URL && BASE_URL.indexOf('/') !== -1) {
     return BASE_URL.substring(BASE_URL.indexOf('/'));
@@ -98,6 +100,14 @@ const securityHeaders = [
   {
     key: 'Cross-Origin-Resource-Policy',
     value: 'cross-origin'
+  },
+  {
+    key: 'X-XSS-Protection',
+    value: '1; mode=block'
+  },
+  {
+    key: 'Permissions-Policy',
+    value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()'
   }
 ];
 
@@ -113,8 +123,7 @@ const config = {
   basePath: getBasePath(),
   experimental: {
     scrollRestoration: true,
-    // Hydration hatalarını göstermek için:
-    reactMode: 'concurrent',
+    reactMode: isProd ? 'concurrent' : 'legacy',
   },
   images: {
     domains: ['cdn.hashnode.com', 'cdn.hashnode.co'],
@@ -169,7 +178,8 @@ const config = {
     ];
   },
   reactStrictMode: true,
-  onError: function (error, errorInfo) {
+  poweredByHeader: false,
+  onError: isProd ? undefined : function (error, errorInfo) {
     console.log('Global error handler');
     console.error(error);
     console.error(errorInfo);
@@ -183,42 +193,66 @@ const config = {
       });
     }
 
-    // Production'da detaylı hata mesajlarını gizle
-    if (process.env.NODE_ENV === 'production') {
+    if (isProd) {
       config.optimization.minimize = true;
+      // TerserPlugin'i ekleyin
+      const TerserPlugin = require('terser-webpack-plugin');
+      config.optimization.minimizer.push(new TerserPlugin({
+        terserOptions: {
+          compress: {
+            drop_console: true,
+          },
+        },
+      }));
     }
 
     return config;
   },
-  // Hydration hatalarını göster
-  onErrorBoundary: (error, errorInfo) => {
+  onErrorBoundary: isProd ? undefined : (error, errorInfo) => {
     console.error('Next.js Error Boundary:', error, errorInfo);
   },
-  // Geliştirme ortamında performans ölçümlerini etkinleştir
   devIndicators: {
-    buildActivity: true,
+    buildActivity: !isProd,
     buildActivityPosition: 'bottom-right',
   },
-  // Sayfaların ön belleğe alınmasını kontrol et
   onDemandEntries: {
-    // Sayfaların bellekte ne kadar süre tutulacağı (ms cinsinden)
     maxInactiveAge: 25 * 1000,
-    // Aynı anda kaç sayfanın bellekte tutulacağı
     pagesBufferLength: 2,
   },
-  // TypeScript hata kontrolünü etkinleştir
   typescript: {
-    // !! UYARI !!
-    // TypeScript hatalarını görmezden gelir
-    // Sadece geliştirme aşamasında kullanın!
-    ignoreBuildErrors: false,
+    ignoreBuildErrors: isProd,
   },
-  // Büyük sayfa sayısı için optimizasyon
-  pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
-  // Çıktı izleme için
+  productionBrowserSourceMaps: false,
   generateEtags: true,
-  // Derleme sırasında konsolda ayrıntılı bilgi göster
-  verbose: true,
+  pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
+  verbose: !isProd,
+  swcMinify: true,
+  compiler: {
+    removeConsole: isProd ? {
+      exclude: ['error'],
+    } : false,
+  },
+  optimizeFonts: true,
+  compress: true,
+  httpAgentOptions: {
+    keepAlive: true,
+  },
+  i18n: {
+    locales: ['en', 'tr'],
+    defaultLocale: 'tr',
+  },
+  future: {
+    webpack5: true,
+  },
+  serverRuntimeConfig: {
+    // Will only be available on the server side
+    mySecret: 'secret',
+    secondSecret: process.env.SECOND_SECRET, // Pass through env variables
+  },
+  publicRuntimeConfig: {
+    // Will be available on both server and client
+    staticFolder: '/static',
+  },
 };
 
 export default config;
