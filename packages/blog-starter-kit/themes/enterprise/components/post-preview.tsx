@@ -29,7 +29,7 @@ export const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) =
         <article className="grid grid-cols-1 gap-5 hover:opacity-90">
             <Link
                 href={postURL}
-                className="dark:hover:text-primary-500"
+                className="dark:hover:text-primary-500 contents"
             >
             <div className="col-span-1 relative aspect-[1600/840]">
                  {imageLoaded && !<Skeleton />} 
