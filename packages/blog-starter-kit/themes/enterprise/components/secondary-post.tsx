@@ -22,7 +22,7 @@ export const SecondaryPost = ({ title, coverImage, date, excerpt, slug }: Props)
 	};
 
 	return (
-		<section className="grid items-start gap-5 md:grid-cols-2 hover:opacity-90">
+		<article className="grid items-start gap-5 md:grid-cols-2 hover:opacity-90">
 			<div className="col-span-1">
 				<CoverImage
 					title={title}
@@ -50,6 +50,6 @@ export const SecondaryPost = ({ title, coverImage, date, excerpt, slug }: Props)
 					</Link>
 				</div>
 			</div>
-		</section>
+		</article>
 	);
 };
