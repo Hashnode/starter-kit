@@ -155,6 +155,26 @@ const Post = ({ publication, post, relatedPosts }: PostProps) => {
         <title>{`${postTitle}`}</title>
         <link rel="canonical" href={post.url} />
         <meta name="description" content={postDescription} />
+        
+        <meta name="Dynamics-Noise" content="Off" />
+        <meta httpEquiv="x-dns-prefetch-control" content="on" />
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+        <meta name="apple-mobile-web-app-status-bar-style"content="#efdcc9" />
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
+        <meta name="application-name" content={publication.title} />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-touch-fullscreen" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="theme" content="#efdcc9" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta httpEquiv="ScreenOrientation" content="autoRotate:disabled"/>
+
+        <meta name="theme-color" content="#efdcc9" />
+        <meta name="msapplication-navbutton-color" content="#efdcc9" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="#efdcc9" />
+        <meta property="og:locale" content="tr_TR" />
+        <meta name="robots" content="max-image-preview:large" />
+
         <meta property="og:title" content={`${postTitle}`} />
         <meta property="og:description" content={postDescription} />
         <meta property="og:image" content={postImage} />
@@ -228,12 +248,26 @@ const Category = ({ series, posts, publication }: CategoryProps) => {
     <>
       <Head>
         <title>{title}</title>
+        <meta name="Dynamics-Noise" content="Off" />
+        <meta httpEquiv="x-dns-prefetch-control" content="on" />
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+        <meta name="apple-mobile-web-app-status-bar-style"content="#efdcc9" />
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
+        <meta name="application-name" content={publication.title} />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-touch-fullscreen" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="theme" content="#efdcc9" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta httpEquiv="ScreenOrientation" content="autoRotate:disabled"/>
+
         <meta name="description" content={description} />
         <meta name="theme-color" content="#efdcc9" />
         <meta name="msapplication-navbutton-color" content="#efdcc9" />
         <meta name="apple-mobile-web-app-status-bar-style" content="#efdcc9" />
         <meta property="og:locale" content="tr_TR" />
-        
+        <meta name="robots" content="max-image-preview:large" />
+
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:image" content={coverImage} />
@@ -243,7 +277,6 @@ const Category = ({ series, posts, publication }: CategoryProps) => {
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={coverImage} />
-        <meta name="robots" content="max-image-preview:large" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -259,6 +292,7 @@ const Category = ({ series, posts, publication }: CategoryProps) => {
           <div>Bu kategoride henüz içerik bulunmuyor...</div>
         )}
       </div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
     </>
   );
 };
