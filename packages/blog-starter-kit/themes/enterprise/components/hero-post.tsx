@@ -22,7 +22,7 @@ export const HeroPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
 	};
 
 	return (
-		<section className="grid grid-cols-1 gap-5 hover:opacity-90">
+		<article className="grid grid-cols-1 gap-5 hover:opacity-90">
 			<Link
 				href={postURL}
 				className="dark:hover:text-primary-500 leading-tight tracking-tight"
@@ -46,6 +46,6 @@ export const HeroPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
 				</div>
 			</div>
 			</Link>
-		</section>
+		</article>
 	);
 };
