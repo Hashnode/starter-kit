@@ -210,9 +210,12 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
               publication.title ||
               "Temizmama Blog"}
           </title>
+          <meta property="og:locale" content="tr_TR" />
           <meta name="theme-color" content="#efdcc9" />
           <meta name="msapplication-navbutton-color" content="#efdcc9" />
           <meta name="apple-mobile-web-app-status-bar-style" content="#efdcc9" />
+
+          <meta name="robots" content="max-image-preview:large" />
           <meta
             name="description"
             content={

@@ -229,6 +229,11 @@ const Category = ({ series, posts, publication }: CategoryProps) => {
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
+        <meta name="theme-color" content="#efdcc9" />
+        <meta name="msapplication-navbutton-color" content="#efdcc9" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="#efdcc9" />
+        <meta property="og:locale" content="tr_TR" />
+        
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:image" content={coverImage} />
@@ -238,7 +243,7 @@ const Category = ({ series, posts, publication }: CategoryProps) => {
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={coverImage} />
-
+        <meta name="robots" content="max-image-preview:large" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
