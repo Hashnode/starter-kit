@@ -27,6 +27,10 @@ export const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) =
 
     return (
         <article className="grid grid-cols-1 gap-5 hover:opacity-90">
+            <Link
+                href={postURL}
+                className="dark:hover:text-primary-500"
+            >
             <div className="col-span-1 relative aspect-[1600/840]">
                  {imageLoaded && !<Skeleton />} 
                 <CoverImage
@@ -39,24 +43,16 @@ export const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) =
             </div>
             <div className="col-span-1 flex flex-col gap-2">
                 <h3 className="text-lg font-semibold leading-tight text-slate-800 dark:text-neutral-50">
-                    <Link
-                        href={postURL}
-                        className="dark:hover:text-primary-500"
-                    >
                         {title}
-                    </Link>
                 </h3>
-                <Link href={postURL}>
                     <p className="text-md leading-snug text-slate-500 dark:text-neutral-400">
                         {excerpt.length > 140 ? excerpt.substring(0, 140) + '…' : excerpt}
                     </p>
-                </Link>
                 <div className="text-sm font-semibold text-slate-500 dark:text-neutral-300">
-                    <Link href={postURL}>
                         <DateFormatter dateString={date} />
-                    </Link>
                 </div>
             </div>
+            </Link>
         </article>
     );
 };
