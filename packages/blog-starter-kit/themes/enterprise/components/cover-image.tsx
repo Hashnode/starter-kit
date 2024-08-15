@@ -18,27 +18,28 @@ const Skeleton = () => (
 );
 
 export const CoverImage = ({ title, src, slug, priority = false, onLoad, className }: Props) => {
-    const [imageLoaded, setImageLoaded] = useState(false);
+    // const [imageLoaded, setImageLoaded] = useState(false);
     const postURL = `/${slug}`;
 
-    const handleImageLoad = () => {
-        setImageLoaded(true);
-        if (onLoad) onLoad();
-    };
+    // const handleImageLoad = () => {
+    //     setImageLoaded(true);
+    //     if (onLoad) onLoad();
+    // };
 
     const image = (
         <div className={`relative pt-[52.5%] select-none ${className || ''}`}>
-            {imageLoaded && !<Skeleton />}
+            {/* {imageLoaded && !<Skeleton />} */}
             <Image
                 src={src}
                 alt={`Temizmama - ${title}`}
-                className={`w-full rounded-md border object-cover hover:opacity-90 dark:border-neutral-800 transition-opacity duration-300 ${
-                    imageLoaded ? 'opacity-100' : 'opacity-0'
-                }`}
+                className={`w-full rounded-md border object-cover hover:opacity-90 dark:border-neutral-800 transition-opacity duration-300`}
+                // ${
+                //     imageLoaded ? 'opacity-100' : 'opacity-0'
+                // }
                 fill
                 unoptimized
                 priority={priority}
-                onLoad={handleImageLoad}
+                // onLoad={handleImageLoad}
             />
         </div>
     );
