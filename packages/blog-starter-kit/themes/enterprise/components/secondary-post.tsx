@@ -25,7 +25,7 @@ export const SecondaryPost = ({ title, coverImage, date, excerpt, slug }: Props)
 		<article className="grid items-start gap-5 md:grid-cols-2 hover:opacity-90">
 			<Link
 						href={postURL}
-						className="dark:hover:text-primary-500"
+						className="dark:hover:text-primary-500 contents"
 					>
 			<div className="col-span-1">
 				<CoverImage
