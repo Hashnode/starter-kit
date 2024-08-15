@@ -162,8 +162,7 @@ const Post = ({ publication, post, relatedPosts }: PostProps) => {
         <meta name="twitter:title" content={`${postTitle}`} />
         <meta name="twitter:description" content={postDescription} />
         <meta name="twitter:image" content={postImage} />
-        <meta name="robots" content="index, follow" />
-        <meta name="googlebot" content="index, follow" />
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -239,8 +238,7 @@ const Category = ({ series, posts, publication }: CategoryProps) => {
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={coverImage} />
-        <meta name="robots" content="index, follow" />
-        <meta name="googlebot" content="index, follow" />
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}

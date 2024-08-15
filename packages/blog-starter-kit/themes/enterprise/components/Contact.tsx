@@ -300,8 +300,6 @@ const validateName = (name: string): boolean => {
           <meta name="twitter:image:alt" content="İletişim Sayfası Görseli" />
 
           {/* Ek Meta Etiketleri */}
-          <meta name="robots" content="index, follow" />
-          <meta name="googlebot" content="index, follow" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <meta name="format-detection" content="telephone=no" />
         </Head>
