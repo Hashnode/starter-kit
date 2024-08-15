@@ -41,9 +41,6 @@ import { triggerCustomWidgetEmbed } from '@starter-kit/utils/trigger-custom-widg
 import RelatedPosts from '../components/RelatedPosts';
 
 const AboutAuthor = dynamic(() => import('../components/about-author'), { ssr: false });
-const PostComments = dynamic(() =>
-  import('../components/post-comments').then((mod) => mod.PostComments),
-);
 
 export const PostsByTagDocument = gql`
   query PostsByTag($host: String!, $tagSlugs: [String!], $first: Int!, $after: String) {
@@ -155,7 +152,7 @@ const Post = ({ publication, post, relatedPosts }: PostProps) => {
         <title>{`${postTitle}`}</title>
         <link rel="canonical" href={post.url} />
         <meta name="description" content={postDescription} />
-        
+
         <meta name="Dynamics-Noise" content="Off" />
         <meta httpEquiv="x-dns-prefetch-control" content="on" />
         <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
@@ -201,7 +198,6 @@ const Post = ({ publication, post, relatedPosts }: PostProps) => {
       <MarkdownToHtml contentMarkdown={post.content.markdown} />
       <ShareButtons url={post.url} title={post.title} />
       <AboutAuthor />
-      {!post.preferences.disableComments && post.comments.totalDocuments > 0 && <PostComments />}
       {relatedPosts && relatedPosts.length > 0 && <RelatedPosts posts={relatedPosts} />}
     </>
   );
