@@ -42,11 +42,10 @@ import RelatedPosts from '../components/RelatedPosts';
 
 const AboutAuthor = dynamic(() => import('../components/about-author'), { ssr: false });
 
-// Tüm blog yazılarını almak için yeni bir sorgu
-const AllPostsByPublicationDocument = gql`
-  query AllPostsByPublication($host: String!, $first: Int!) {
+export const PostsByTagDocument = gql`
+  query PostsByTag($host: String!, $tagSlugs: [String!], $first: Int!, $after: String) {
     publication(host: $host) {
-      posts(first: $first) {
+      posts(first: $first, after: $after, filter: { tagSlugs: $tagSlugs }) {
         edges {
           node {
             id
@@ -56,21 +55,35 @@ const AllPostsByPublicationDocument = gql`
             coverImage {
               url
             }
-            tags {
-              id
+            author {
               name
-              slug
+              profilePicture
             }
             publishedAt
-            content {
-              markdown
-            }
           }
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
         }
       }
     }
   }
 `;
+
+type PostsByTagQuery = {
+  publication?: {
+    posts: {
+      edges: Array<{
+        node: RelatedPostFragment;
+      }>;
+      pageInfo: {
+        hasNextPage: boolean;
+        endCursor: string | null;
+      };
+    };
+  };
+};
 
 type PostFragment = {
   id: string;
@@ -80,9 +93,9 @@ type PostFragment = {
   coverImage?: { url: string } | null;
   tags?: Array<{ id: string; name: string; slug: string }> | null;
   content: string;
-  publishedAt: string;
 };
 
+// removeUndefined fonksiyonunu ekleyelim
 const removeUndefined = <T extends Record<string, any>>(obj: T): T => {
   Object.keys(obj).forEach(key => {
     if (obj[key] && typeof obj[key] === 'object') {
@@ -94,14 +107,15 @@ const removeUndefined = <T extends Record<string, any>>(obj: T): T => {
   return obj;
 };
 
-type AllPostsByPublicationQuery = {
-  publication?: {
-    posts: {
-      edges: Array<{
-        node: PostFullFragment;
-      }>;
-    };
-  };
+type RelatedPostFragment = {
+  id: string;
+  title: string;
+  brief: string;
+  slug: string;
+  coverImage?: { url: string } | null;
+  tags?: Array<{ id: string; name: string; slug: string }> | null;
+  author: { name: string; profilePicture?: string | null };
+  publishedAt: string;
 };
 
 type PostProps = {
@@ -161,6 +175,7 @@ const Post = ({ publication, post, relatedPosts }: PostProps) => {
         <title>{`${postTitle}`}</title>
         <link rel="canonical" href={post.url} />
         <meta name="description" content={postDescription} />
+
         <meta name="Dynamics-Noise" content="Off" />
         <meta httpEquiv="x-dns-prefetch-control" content="on" />
         <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
@@ -173,11 +188,13 @@ const Post = ({ publication, post, relatedPosts }: PostProps) => {
         <meta name="theme" content="#efdcc9" />
         <link rel="manifest" href="/manifest.json" />
         <meta httpEquiv="ScreenOrientation" content="autoRotate:disabled"/>
+
         <meta name="theme-color" content="#efdcc9" />
         <meta name="msapplication-navbutton-color" content="#efdcc9" />
         <meta name="apple-mobile-web-app-status-bar-style" content="#efdcc9" />
         <meta property="og:locale" content="tr_TR" />
         <meta name="robots" content="max-image-preview:large" />
+
         <meta property="og:title" content={`${postTitle}`} />
         <meta property="og:description" content={postDescription} />
         <meta property="og:image" content={postImage} />
@@ -185,6 +202,7 @@ const Post = ({ publication, post, relatedPosts }: PostProps) => {
         <meta name="twitter:title" content={`${postTitle}`} />
         <meta name="twitter:description" content={postDescription} />
         <meta name="twitter:image" content={postImage} />
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -206,7 +224,7 @@ const Post = ({ publication, post, relatedPosts }: PostProps) => {
       <RelatedPosts 
         currentPost={{
           ...post,
-          content: post.content.markdown
+          content: post.content.markdown // PostFullFragment'taki content yapısını PostFragment'a uygun hale getiriyoruz
         } as PostFragment} 
         allPosts={[
           {
@@ -261,7 +279,26 @@ const Category = ({ series, posts, publication }: CategoryProps) => {
     <>
       <Head>
         <title>{title}</title>
+        <meta name="Dynamics-Noise" content="Off" />
+        <meta httpEquiv="x-dns-prefetch-control" content="on" />
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+        <meta name="apple-mobile-web-app-status-bar-style"content="#efdcc9" />
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
+        <meta name="application-name" content={publication.title} />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-touch-fullscreen" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="theme" content="#efdcc9" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta httpEquiv="ScreenOrientation" content="autoRotate:disabled"/>
+
         <meta name="description" content={description} />
+        <meta name="theme-color" content="#efdcc9" />
+        <meta name="msapplication-navbutton-color" content="#efdcc9" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="#efdcc9" />
+        <meta property="og:locale" content="tr_TR" />
+        <meta name="robots" content="max-image-preview:large" />
+
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:image" content={coverImage} />
@@ -286,10 +323,12 @@ const Category = ({ series, posts, publication }: CategoryProps) => {
           <div>Bu kategoride henüz içerik bulunmuyor...</div>
         )}
       </div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
     </>
   );
 };
 
+// HTML'den metin çıkarmak için yardımcı fonksiyon
 function stripHtml(html: string): string {
   return html.replace(/<[^>]*>?/gm, '').trim();
 }
@@ -316,54 +355,6 @@ export default function DynamicPage(props: Props) {
   );
 }
 
-function selectRelatedPosts(currentPost: PostFullFragment, allPosts: PostFullFragment[], count: number): PostFullFragment[] {
-  const otherPosts = allPosts.filter(post => post.id !== currentPost.id);
-  const scoredPosts = otherPosts.map(post => ({
-    post,
-    score: calculateRelatednessScore(currentPost, post)
-  }));
-
-  const selectedPosts = scoredPosts
-    .sort((a, b) => b.score - a.score)
-    .slice(0, count)
-    .map(item => item.post);
-
-  while (selectedPosts.length < count) {
-    const randomPost = otherPosts[Math.floor(Math.random() * otherPosts.length)];
-    if (!selectedPosts.some(post => post.id === randomPost.id)) {
-      selectedPosts.push(randomPost);
-    }
-  }
-
-  return selectedPosts;
-}
-
-function calculateRelatednessScore(post1: PostFullFragment, post2: PostFullFragment): number {
-  let score = 0;
-
-  // Etiket benzerliği
-  const commonTags = post1.tags?.filter(tag1 => 
-    post2.tags?.some(tag2 => tag2.name.toLowerCase() === tag1.name.toLowerCase())
-  ) || [];
-  score += commonTags.length * 2;
-
-  // Başlık benzerliği
-  if (post1.title.toLowerCase().includes(post2.title.toLowerCase()) ||
-      post2.title.toLowerCase().includes(post1.title.toLowerCase())) {
-    score += 3;
-  }
-
-  // Yayın tarihi yakınlığı
-  const date1 = new Date(post1.publishedAt);
-  const date2 = new Date(post2.publishedAt);
-  const daysDifference = Math.abs((date1.getTime() - date2.getTime()) / (1000 * 3600 * 24));
-  if (daysDifference < 30) {
-    score += (30 - daysDifference) / 10;
-  }
-
-  return score;
-}
-
 type Params = {
   slug: string;
 };
@@ -377,18 +368,36 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
   const host = process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST;
   const slug = params.slug;
   
-  // Tüm blog yazılarını al
-  const allPostsData = await request<AllPostsByPublicationQuery>(endpoint, AllPostsByPublicationDocument, { host, first: 100 });
-  const allPosts = allPostsData.publication?.posts.edges.map((edge) => edge.node) || [];
-
   // Post için kontrol
   const postData = await request(endpoint, SinglePostByPublicationDocument, { host, slug });
   
   if (postData.publication?.post) {
     const currentPost = postData.publication.post;
+    const tagSlugs = currentPost.tags?.map(tag => tag.slug) || [];
+
+    let allRelatedPosts: RelatedPostFragment[] = [];
+    let hasNextPage = true;
+    let after = null;
+
+    while (hasNextPage && allRelatedPosts.length < 20) {
+      const relatedPostsData: PostsByTagQuery = await request(endpoint, PostsByTagDocument, {
+        host,
+        tagSlugs,
+        first: 20,
+        after
+      });
+
+      const newPosts = relatedPostsData.publication?.posts.edges
+        .map((edge) => edge.node)
+        .filter((post) => post.id !== currentPost.id) ?? [];
     
-    // İlgili yazıları seç
-    const relatedPosts = selectRelatedPosts(currentPost, allPosts, 3);
+      allRelatedPosts = [...allRelatedPosts, ...newPosts];
+      hasNextPage = relatedPostsData.publication?.posts.pageInfo?.hasNextPage ?? false;
+      after = relatedPostsData.publication?.posts.pageInfo?.endCursor ?? null;    
+    }
+
+    const shuffledPosts = allRelatedPosts.sort(() => 0.5 - Math.random());
+    const relatedPosts = shuffledPosts.slice(0, 3);
 
     const formattedRelatedPosts: PostFragment[] = relatedPosts.map(post => ({
       id: post.id,
@@ -401,9 +410,20 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
         name: tag.name,
         slug: tag.slug
       })) : null,
-      content: post.content?.markdown || '',
-      publishedAt: post.publishedAt
+      content: '' // RelatedPostFragment'ta content olmadığı için boş string kullanıyoruz
     }));
+
+    // undefined değerleri kaldırmak için bir yardımcı fonksiyon
+    const removeUndefined = (obj: any): any => {
+      Object.keys(obj).forEach(key => {
+        if (obj[key] && typeof obj[key] === 'object') {
+          removeUndefined(obj[key]);
+        } else if (obj[key] === undefined) {
+          delete obj[key];
+        }
+      });
+      return obj;
+    };
     
     return {
       props: removeUndefined({
