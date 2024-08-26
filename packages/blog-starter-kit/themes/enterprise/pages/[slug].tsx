@@ -53,7 +53,18 @@ const AllPostsByPublicationDocument = gql`
             title
             brief
             slug
+            coverImage {
+              url
+            }
+            tags {
+              id
+              name
+              slug
+            }
             publishedAt
+            content {
+              markdown
+            }
           }
         }
       }
