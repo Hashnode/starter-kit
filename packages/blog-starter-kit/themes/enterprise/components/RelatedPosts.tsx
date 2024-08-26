@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { resizeImage } from '@starter-kit/utils/image';
 import { DEFAULT_COVER } from '../utils/const';
@@ -15,28 +15,41 @@ type PostFragment = {
 
 type RelatedPostsProps = {
   currentPost: PostFragment;
-  allPosts: PostFragment[];
 };
 
-const RelatedPosts: React.FC<RelatedPostsProps> = ({ currentPost, allPosts }) => {
-  const relatedPosts = useMemo(() => {
-    const isCurrentPostCat = isCatPost(currentPost);
-    const isCurrentPostDog = isDogPost(currentPost);
+const RelatedPosts: React.FC<RelatedPostsProps> = ({ currentPost }) => {
+  const [relatedPosts, setRelatedPosts] = useState<PostFragment[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-    const sameCategory = allPosts.filter(post => 
-      post.id !== currentPost.id && 
-      ((isCurrentPostCat && isCatPost(post)) || (isCurrentPostDog && isDogPost(post)))
-    );
+  useEffect(() => {
+    const fetchRelatedPosts = async () => {
+      setIsLoading(true);
+      try {
+        // Bu kısımda gerçek API çağrısı yapılacak
+        const response = await fetch(`/api/related-posts?postId=${currentPost.id}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch related posts');
+        }
+        const data = await response.json();
+        setRelatedPosts(data.slice(0, 3)); // Her zaman en fazla 3 post al
+      } catch (error) {
+        console.error('Error fetching related posts:', error);
+        setRelatedPosts([]); // Hata durumunda boş array set et
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-    const scoredPosts = sameCategory.map(post => ({
-      ...post,
-      score: calculateSimilarityScore(currentPost, post)
-    }));
+    fetchRelatedPosts();
+  }, [currentPost.id]);
 
-    return scoredPosts
-      .sort((a, b) => b.score - a.score)
-      .slice(0, 3);
-  }, [currentPost, allPosts]);
+  if (isLoading) {
+    return <div className="text-center py-10">İlgili yazılar yükleniyor...</div>;
+  }
+
+  if (relatedPosts.length === 0) {
+    return null; // İlgili post yoksa komponenti gösterme
+  }
 
   return (
     <section className="py-10 dark:bg-neutral-900">
@@ -93,44 +106,5 @@ const PostCard: React.FC<{ post: PostFragment }> = ({ post }) => (
     </div>
   </div>
 );
-
-// Yardımcı fonksiyonlar
-function isCatPost(post: PostFragment): boolean {
-  const catKeywords = ['kedi', 'kedicik', 'miyav', 'kedi maması', 'kedi bakımı'];
-  return checkKeywords(post, catKeywords);
-}
-
-function isDogPost(post: PostFragment): boolean {
-  const dogKeywords = ['köpek', 'köpecik', 'hav hav', 'köpek maması', 'köpek bakımı'];
-  return checkKeywords(post, dogKeywords);
-}
-
-function checkKeywords(post: PostFragment, keywords: string[]): boolean {
-  return (post.tags ?? []).some(tag => keywords.some(keyword => tag.name.toLowerCase().includes(keyword))) ||
-         keywords.some(keyword => 
-           post.title.toLowerCase().includes(keyword) || 
-           (post.content?.toLowerCase().includes(keyword) ?? false)
-         );
-}
-
-function calculateSimilarityScore(post1: PostFragment, post2: PostFragment): number {
-  let score = 0;
-
-  // Etiket benzerliği
-  const commonTags = (post1.tags ?? []).filter(tag1 => 
-    (post2.tags ?? []).some(tag2 => tag2.name.toLowerCase() === tag1.name.toLowerCase())
-  );
-  score += commonTags.length * 2;
-
-  // İçerik benzerliği (basit kelime eşleştirme)
-  if (post1.content && post2.content) {
-    const words1 = post1.content.toLowerCase().split(/\s+/);
-    const words2 = post2.content.toLowerCase().split(/\s+/);
-    const commonWords = words1.filter(word => words2.includes(word));
-    score += commonWords.length / Math.max(words1.length, words2.length);
-  }
-
-  return score;
-}
 
 export default RelatedPosts;

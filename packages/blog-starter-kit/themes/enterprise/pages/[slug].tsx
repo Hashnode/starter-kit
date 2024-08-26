@@ -20,6 +20,7 @@ import { MorePosts } from '../components/more-posts';
 import { resizeImage } from '@starter-kit/utils/image';
 import { DEFAULT_COVER } from '../utils/const';
 
+
 import {
   PageByPublicationDocument,
   PostFullFragment,
@@ -94,6 +95,19 @@ type PostFragment = {
   tags?: Array<{ id: string; name: string; slug: string }> | null;
   content: string;
 };
+
+// PostFullFragment'i PostFragment'e dönüştüren bir yardımcı fonksiyon
+function convertToPostFragment(post: PostFullFragment): PostFragment {
+  return {
+    id: post.id,
+    title: post.title,
+    brief: post.brief,
+    slug: post.slug,
+    coverImage: post.coverImage,
+    tags: post.tags,
+    content: post.content.markdown // PostFullFragment'taki content.markdown'i kullanıyoruz
+  };
+}
 
 // removeUndefined fonksiyonunu ekleyelim
 const removeUndefined = <T extends Record<string, any>>(obj: T): T => {
@@ -221,19 +235,7 @@ const Post = ({ publication, post, relatedPosts }: PostProps) => {
       <MarkdownToHtml contentMarkdown={post.content.markdown} />
       <ShareButtons url={post.url} title={post.title} />
       <AboutAuthor />
-      <RelatedPosts 
-        currentPost={{
-          ...post,
-          content: post.content.markdown // PostFullFragment'taki content yapısını PostFragment'a uygun hale getiriyoruz
-        } as PostFragment} 
-        allPosts={[
-          {
-            ...post,
-            content: post.content.markdown
-          } as PostFragment,
-          ...relatedPosts
-        ]} 
-      />
+      <RelatedPosts currentPost={convertToPostFragment(post)} />
     </>
   );
 };
@@ -333,7 +335,9 @@ function stripHtml(html: string): string {
   return html.replace(/<[^>]*>?/gm, '').trim();
 }
 
-export default function DynamicPage(props: Props) {
+type DynamicPageProps = PostProps | PageProps | CategoryProps;
+
+export default function DynamicPage(props: DynamicPageProps) {
   const publication = props.publication;
 
   return (
@@ -342,9 +346,9 @@ export default function DynamicPage(props: Props) {
         <Navbar />
         <Container className="pt-101 flex flex-col items-stretch gap-10 px-5 pb-10 pt-28">
           <article className="border-b-1-1/2 flex flex-col items-start gap-10 pb-10">
-            {props.type === 'post' && <Post {...props} />}
-            {props.type === 'page' && <Page {...props} />}
-            {props.type === 'category' && <Category {...props} />}
+            {props.type === 'post' && <Post {...props as PostProps} />}
+            {props.type === 'page' && <Page {...props as PageProps} />}
+            {props.type === 'category' && <Category {...props as CategoryProps} />}
           </article>
         </Container>
         <CircularProgressBar />
