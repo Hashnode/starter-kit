@@ -129,6 +129,53 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
     };
   }, [loadMore, isLoading, hasMorePosts]);
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Kedim için en uygun mama nasıl seçilir?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Kedinizin yaşı, sağlık durumu ve aktivite seviyesine göre mama seçimi yapmalısınız. Yüksek kaliteli protein kaynakları içeren, tahıl oranı düşük mamalar genellikle önerilir. Veterinerinize danışarak kedinize özel bir beslenme planı oluşturabilirsiniz."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Köpek tüylerinin dökülmesini nasıl azaltabilirim?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Düzenli fırçalama, sağlıklı beslenme ve omega-3 takviyesi tüy dökülmesini azaltmaya yardımcı olabilir. Ayrıca, köpeğinizin ırkına uygun özel bakım ürünleri kullanmak da faydalı olacaktır. Aşırı tüy dökülmesi durumunda bir veterinere başvurmanız önemlidir."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Kedi ve köpeklerde aşı takvimi nasıl olmalıdır?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yavru kedi ve köpekler için ilk aşılar genellikle 6-8 haftalıkken başlar ve 16 haftalığa kadar devam eder. Yetişkin hayvanlar için yıllık aşı tekrarları önerilir. Ancak, her hayvanın ihtiyacı farklı olabileceğinden, en doğru aşı takvimi için veterinerinize danışmanız önemlidir."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Evcil hayvanımın ideal kilosunu nasıl koruyabilirim?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Düzenli egzersiz, kontrollü beslenme ve uygun porsiyon büyüklüğü, evcil hayvanınızın ideal kilosunu korumasına yardımcı olur. Yaş ve aktivite seviyesine uygun mama seçimi önemlidir. Düzenli veteriner kontrolleri ile kilo takibi yapmanız önerilir."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Kedi ve köpeklerde diş bakımı nasıl yapılmalıdır?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Düzenli diş fırçalama, özel diş bakım mamaları ve çiğneme oyuncakları kullanımı evcil hayvanınızın diş sağlığını korur. Haftada en az 2-3 kez diş fırçalama önerilir. Yıllık diş kontrollerini ihmal etmeyin ve diş taşı temizliği için veterinerinize danışın."
+        }
+      }
+    ]
+  };
+
   const filteredPosts = useMemo(() => {
     if (selectedCategory === 'all') return allPosts;
   
@@ -281,6 +328,12 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
             type="application/ld+json"
             dangerouslySetInnerHTML={{
               __html: JSON.stringify(addPublicationJsonLd(publication)),
+            }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(faqJsonLd),
             }}
           />
         </Head>
