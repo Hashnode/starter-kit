@@ -191,11 +191,13 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
         "dateModified": post.publishedAt || post.publishedAt,
         "author": {
           "@type": "Person",
-          "name": post.author.name
+          "name": post.author.name,
+          "url": 'https://blog.temizmama.com',
         },
         "publisher": {
           "@type": "Organization",
           "name": publication.title,
+          "url": 'https://blog.temizmama.com',
           "logo": {
             "@type": "ImageObject",
             "url": publication.preferences.logo || DEFAULT_COVER
