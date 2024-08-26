@@ -19,19 +19,26 @@ type RelatedPostsProps = {
 const RelatedPosts: React.FC<RelatedPostsProps> = ({ currentPost }) => {
   const [relatedPosts, setRelatedPosts] = useState<PostFragment[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchRelatedPosts = async () => {
+      setIsLoading(true);
+      setError(null);
       try {
         const tagSlugs = currentPost.tags?.map(tag => tag.slug) || [];
         const response = await fetch(`/api/related-posts?postId=${currentPost.id}&tagSlugs=${tagSlugs.join(',')}`);
         if (!response.ok) {
-          throw new Error('Failed to fetch related posts');
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
+        if (data.error) {
+          throw new Error(data.error);
+        }
         setRelatedPosts(data);
       } catch (error) {
         console.error('Error fetching related posts:', error);
+        setError('Failed to load related posts. Please try again later.');
       } finally {
         setIsLoading(false);
       }
@@ -42,6 +49,10 @@ const RelatedPosts: React.FC<RelatedPostsProps> = ({ currentPost }) => {
 
   if (isLoading) {
     return <div>İlgili içerikler yükleniyor...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
   }
 
   if (relatedPosts.length === 0) {

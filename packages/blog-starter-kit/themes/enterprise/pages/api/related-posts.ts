@@ -62,6 +62,7 @@ type PostsQueryResult = {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { postId, tagSlugs } = req.query;
+  console.log('API Route called with:', { postId, tagSlugs }); // Debug log
 
   if (!postId || !tagSlugs) {
     return res.status(400).json({ error: 'Missing required parameters' });
@@ -70,6 +71,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const endpoint = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
     const host = process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST;
+    console.log('Using endpoint and host:', { endpoint, host }); // Debug log
 
     let allRelatedPosts: PostNode[] = [];
     let hasNextPage = true;
@@ -96,12 +98,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         break;
       }
     }
+    console.log(`Found ${allRelatedPosts.length} related posts`); // Debug log
 
     const shuffledPosts = allRelatedPosts.sort(() => 0.5 - Math.random()).slice(0, 3);
 
     res.status(200).json(shuffledPosts);
   } catch (error) {
-    console.error('Error fetching related posts:', error);
+    console.error('Error in API route:', error); // Detailed error log
     res.status(500).json({ error: 'Failed to fetch related posts' });
   }
 }
