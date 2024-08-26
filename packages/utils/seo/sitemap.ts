@@ -38,8 +38,8 @@ export const getSitemap = (publication: any) => {
 	for (let i = 0; i < posts.length; i += 1) {
 	  xml += '<url>';
 	  xml += `<loc>${domain}/${posts[i].slug}</loc>`;
-	  if (posts[i].updatedAt) {
-		xml += `<lastmod>${posts[i].updatedAt}</lastmod>`;
+	  if (posts[i].publishedAt) {
+		xml += `<lastmod>${posts[i].publishedAt}</lastmod>`;
 	  }
 	  xml += '</url>';
 	}
@@ -48,8 +48,8 @@ export const getSitemap = (publication: any) => {
 	[...staticPages, ...manualStaticPages].forEach((page: any) => {
 	  xml += '<url>';
 	  xml += `<loc>${domain}/${page.slug}</loc>`;
-	  if (page.updatedAt) {
-		xml += `<lastmod>${page.updatedAt}</lastmod>`;
+	  if (page.publishedAt) {
+		xml += `<lastmod>${page.publishedAt}</lastmod>`;
 	  }
 	  xml += '</url>';
 	});
@@ -58,8 +58,8 @@ export const getSitemap = (publication: any) => {
 	[...categories, ...manualCategories].forEach((category: any) => {
 	  xml += '<url>';
 	  xml += `<loc>${domain}/${category.slug}</loc>`;
-	  if (category.updatedAt) {
-		xml += `<lastmod>${category.updatedAt}</lastmod>`;
+	  if (category.publishedAt) {
+		xml += `<lastmod>${category.publishedAt}</lastmod>`;
 	  }
 	  xml += '</url>';
 	});
