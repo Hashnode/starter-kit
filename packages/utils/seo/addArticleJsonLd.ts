@@ -3,6 +3,7 @@ export const addArticleJsonLd = (publication: any, post: any) => {
 	const schema = {
 		'@context': 'https://schema.org/',
 		'@type': 'BlogPosting',
+		"headline": "${post.title}",
 		'@id': publication.url,
 		mainEntityOfPage: publication.url,
 		name: "Temizmama Blog",
@@ -49,6 +50,11 @@ export const addArticleJsonLd = (publication: any, post: any) => {
 			},
 		},
 		],
+		"author": [{
+			"@type": "Organization",
+			"name": "Temizmama",
+			"url": "https://www.temizmama.com"
+		  }]
 	};
 	return schema;
 };
