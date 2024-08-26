@@ -131,17 +131,25 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 
   const filteredPosts = useMemo(() => {
     if (selectedCategory === 'all') return allPosts;
+  
+    const catTerms = ['kedi', 'kedicik', 'kediş', 'kedi maması', 'kedi bakımı', 'miyav'];
+    const dogTerms = ['köpek', 'köpecik', 'köpeş', 'köpek maması', 'kurdu', 'aslanı', 'köpek bakımı', 'hav hav'];
+  
+    const searchTerms = selectedCategory === 'cat' ? catTerms : dogTerms;
+  
     return allPosts.filter(post => {
-      const lowerCaseTitle = post.title.toLowerCase();
-      const lowerCaseBrief = post.brief.toLowerCase();
-      // Note: Removed content check as it's not available in PostFragment
-
-      if (selectedCategory === 'cat') {
-        return lowerCaseTitle.includes('kedi') || lowerCaseBrief.includes('kedi');
-      } else if (selectedCategory === 'dog') {
-        return lowerCaseTitle.includes('köpek') || lowerCaseBrief.includes('köpek');
-      }
-      return false;
+      const normalize = (text: string) => text.toLowerCase()
+        .replace(/ı/g, 'i').replace(/ğ/g, 'g').replace(/ü/g, 'u')
+        .replace(/ş/g, 's').replace(/ö/g, 'o').replace(/ç/g, 'c');
+      
+      const normalizedTitle = normalize(post.title);
+      const normalizedBrief = normalize(post.brief);
+  
+      return searchTerms.some(term => {
+        const normalizedTerm = normalize(term);
+        return normalizedTitle.includes(normalizedTerm) || 
+               normalizedBrief.includes(normalizedTerm);
+      });
     });
   }, [allPosts, selectedCategory]);
 
