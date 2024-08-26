@@ -176,6 +176,42 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
     ]
   };
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": initialAllPosts.slice(0, 4).map((post, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "Article",
+        "headline": post.title,
+        "description": post.brief,
+        "image": post.coverImage?.url || DEFAULT_COVER,
+        "datePublished": post.publishedAt,
+        "dateModified": post.publishedAt || post.publishedAt,
+        "author": {
+          "@type": "Person",
+          "name": post.author.name
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": publication.title,
+          "logo": {
+            "@type": "ImageObject",
+            "url": publication.preferences.logo || DEFAULT_COVER
+          }
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": `${publication.url}/${post.slug}`
+        }
+      }
+    }))
+  };
+
+  const combinedJsonLd = [faqJsonLd, articleJsonLd];
+
+
   const filteredPosts = useMemo(() => {
     if (selectedCategory === 'all') return allPosts;
   
@@ -333,7 +369,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
-              __html: JSON.stringify(faqJsonLd),
+              __html: JSON.stringify(combinedJsonLd),
             }}
           />
         </Head>
