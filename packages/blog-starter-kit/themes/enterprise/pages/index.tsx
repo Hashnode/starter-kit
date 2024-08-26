@@ -188,7 +188,8 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
         "description": post.brief,
         "image": post.coverImage?.url || DEFAULT_COVER,
         "datePublished": post.publishedAt,
-        "dateModified": post.publishedAt || post.publishedAt,
+        "dateModified": post.publishedAt,
+        "url": `${publication.url}/${post.slug}`,
         "author": {
           "@type": "Person",
           "name": post.author.name,
