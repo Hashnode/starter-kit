@@ -95,6 +95,18 @@ type PostFragment = {
   content: string;
 };
 
+// removeUndefined fonksiyonunu ekleyelim
+const removeUndefined = <T extends Record<string, any>>(obj: T): T => {
+  Object.keys(obj).forEach(key => {
+    if (obj[key] && typeof obj[key] === 'object') {
+      removeUndefined(obj[key]);
+    } else if (obj[key] === undefined) {
+      delete obj[key];
+    }
+  });
+  return obj;
+};
+
 type RelatedPostFragment = {
   id: string;
   title: string;
@@ -392,18 +404,34 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
       title: post.title,
       brief: post.brief,
       slug: post.slug,
-      coverImage: post.coverImage,
-      tags: post.tags,
-      content: '' // İçerik bilgisi olmadığı için boş string kullanıyoruz
+      coverImage: post.coverImage ? { url: post.coverImage.url || '' } : null,
+      tags: post.tags ? post.tags.map(tag => ({
+        id: tag.id,
+        name: tag.name,
+        slug: tag.slug
+      })) : null,
+      content: '' // RelatedPostFragment'ta content olmadığı için boş string kullanıyoruz
     }));
+
+    // undefined değerleri kaldırmak için bir yardımcı fonksiyon
+    const removeUndefined = (obj: any): any => {
+      Object.keys(obj).forEach(key => {
+        if (obj[key] && typeof obj[key] === 'object') {
+          removeUndefined(obj[key]);
+        } else if (obj[key] === undefined) {
+          delete obj[key];
+        }
+      });
+      return obj;
+    };
     
     return {
-      props: {
+      props: removeUndefined({
         type: 'post',
         post: currentPost,
         publication: postData.publication,
         relatedPosts: formattedRelatedPosts,
-      },
+      }),
       revalidate: 1,
     };
   }
@@ -413,11 +441,11 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
 
   if (pageData.publication?.staticPage) {
     return {
-      props: {
+      props: removeUndefined({
         type: 'page',
         page: pageData.publication.staticPage,
         publication: pageData.publication,
-      },
+      }),
       revalidate: 1,
     };
   }
@@ -434,12 +462,12 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
     const posts = series.posts.edges.map(edge => edge.node) as PostFullFragment[];
 
     return {
-      props: {
+      props: removeUndefined({
         type: 'category',
         series,
         posts,
         publication: seriesData.publication,
-      },
+      }),
       revalidate: 1,
     };
   }
