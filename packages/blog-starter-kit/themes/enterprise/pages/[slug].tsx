@@ -85,12 +85,23 @@ type PostsByTagQuery = {
   };
 };
 
+type PostFragment = {
+  id: string;
+  title: string;
+  brief: string;
+  slug: string;
+  coverImage?: { url: string } | null;
+  tags?: Array<{ id: string; name: string; slug: string }> | null;
+  content: string;
+};
+
 type RelatedPostFragment = {
   id: string;
   title: string;
   brief: string;
   slug: string;
   coverImage?: { url: string } | null;
+  tags?: Array<{ id: string; name: string; slug: string }> | null;
   author: { name: string; profilePicture?: string | null };
   publishedAt: string;
 };
@@ -99,7 +110,7 @@ type PostProps = {
   type: 'post';
   post: PostFullFragment;
   publication: PublicationFragment;
-  relatedPosts: RelatedPostFragment[];
+  relatedPosts: PostFragment[];
 };
 
 type PageProps = {
@@ -198,7 +209,19 @@ const Post = ({ publication, post, relatedPosts }: PostProps) => {
       <MarkdownToHtml contentMarkdown={post.content.markdown} />
       <ShareButtons url={post.url} title={post.title} />
       <AboutAuthor />
-      {relatedPosts && relatedPosts.length > 0 && <RelatedPosts posts={relatedPosts} />}
+      <RelatedPosts 
+        currentPost={{
+          ...post,
+          content: post.content.markdown // PostFullFragment'taki content yapısını PostFragment'a uygun hale getiriyoruz
+        } as PostFragment} 
+        allPosts={[
+          {
+            ...post,
+            content: post.content.markdown
+          } as PostFragment,
+          ...relatedPosts
+        ]} 
+      />
     </>
   );
 };
@@ -364,12 +387,22 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
     const shuffledPosts = allRelatedPosts.sort(() => 0.5 - Math.random());
     const relatedPosts = shuffledPosts.slice(0, 3);
 
+    const formattedRelatedPosts: PostFragment[] = relatedPosts.map(post => ({
+      id: post.id,
+      title: post.title,
+      brief: post.brief,
+      slug: post.slug,
+      coverImage: post.coverImage,
+      tags: post.tags,
+      content: '' // İçerik bilgisi olmadığı için boş string kullanıyoruz
+    }));
+    
     return {
       props: {
         type: 'post',
         post: currentPost,
         publication: postData.publication,
-        relatedPosts: relatedPosts || [],
+        relatedPosts: formattedRelatedPosts,
       },
       revalidate: 1,
     };
