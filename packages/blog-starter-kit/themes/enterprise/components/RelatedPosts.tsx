@@ -10,6 +10,7 @@ type PostFragment = {
   slug: string;
   coverImage?: { url: string } | null;
   tags?: Array<{ id: string; name: string; slug: string }> | null;
+  content: string;
 };
 
 type RelatedPostsProps = {
@@ -19,44 +20,35 @@ type RelatedPostsProps = {
 const RelatedPosts: React.FC<RelatedPostsProps> = ({ currentPost }) => {
   const [relatedPosts, setRelatedPosts] = useState<PostFragment[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchRelatedPosts = async () => {
       setIsLoading(true);
-      setError(null);
       try {
-        const tagSlugs = currentPost.tags?.map(tag => tag.slug) || [];
-        const response = await fetch(`/api/related-posts?postId=${currentPost.id}&tagSlugs=${tagSlugs.join(',')}`);
+        // Bu kısımda gerçek API çağrısı yapılacak
+        const response = await fetch(`/api/related-posts?postId=${currentPost.id}`);
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          throw new Error('Failed to fetch related posts');
         }
         const data = await response.json();
-        if (data.error) {
-          throw new Error(data.error);
-        }
-        setRelatedPosts(data);
+        setRelatedPosts(data.slice(0, 3)); // Her zaman en fazla 3 post al
       } catch (error) {
         console.error('Error fetching related posts:', error);
-        setError('Failed to load related posts. Please try again later.');
+        setRelatedPosts([]); // Hata durumunda boş array set et
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchRelatedPosts();
-  }, [currentPost]);
+  }, [currentPost.id]);
 
   if (isLoading) {
-    return <div>İlgili içerikler yükleniyor...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
+    return <div className="text-center py-10">İlgili yazılar yükleniyor...</div>;
   }
 
   if (relatedPosts.length === 0) {
-    return null;
+    return null; // İlgili post yoksa komponenti gösterme
   }
 
   return (
