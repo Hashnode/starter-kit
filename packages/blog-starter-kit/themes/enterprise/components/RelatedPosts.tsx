@@ -10,7 +10,6 @@ type PostFragment = {
   slug: string;
   coverImage?: { url: string } | null;
   tags?: Array<{ id: string; name: string; slug: string }> | null;
-  content: string;
 };
 
 type RelatedPostsProps = {
@@ -23,32 +22,30 @@ const RelatedPosts: React.FC<RelatedPostsProps> = ({ currentPost }) => {
 
   useEffect(() => {
     const fetchRelatedPosts = async () => {
-      setIsLoading(true);
       try {
-        // Bu kısımda gerçek API çağrısı yapılacak
-        const response = await fetch(`/api/related-posts?postId=${currentPost.id}`);
+        const tagSlugs = currentPost.tags?.map(tag => tag.slug) || [];
+        const response = await fetch(`/api/related-posts?postId=${currentPost.id}&tagSlugs=${tagSlugs.join(',')}`);
         if (!response.ok) {
           throw new Error('Failed to fetch related posts');
         }
         const data = await response.json();
-        setRelatedPosts(data.slice(0, 3)); // Her zaman en fazla 3 post al
+        setRelatedPosts(data);
       } catch (error) {
         console.error('Error fetching related posts:', error);
-        setRelatedPosts([]); // Hata durumunda boş array set et
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchRelatedPosts();
-  }, [currentPost.id]);
+  }, [currentPost]);
 
   if (isLoading) {
-    return <div className="text-center py-10">İlgili yazılar yükleniyor...</div>;
+    return <div>İlgili içerikler yükleniyor...</div>;
   }
 
   if (relatedPosts.length === 0) {
-    return null; // İlgili post yoksa komponenti gösterme
+    return null;
   }
 
   return (

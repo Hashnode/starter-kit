@@ -154,7 +154,7 @@ type CategoryProps = {
 
 type Props = PostProps | PageProps | CategoryProps;
 
-const Post = ({ publication, post, relatedPosts }: PostProps) => {
+ const Post = ({ publication, post }: PostProps) => {
   const [, setMobMount] = useState(false);
   const [canLoadEmbeds, setCanLoadEmbeds] = useState(false);
   useEmbeds({ enabled: canLoadEmbeds });
@@ -235,7 +235,7 @@ const Post = ({ publication, post, relatedPosts }: PostProps) => {
       <MarkdownToHtml contentMarkdown={post.content.markdown} />
       <ShareButtons url={post.url} title={post.title} />
       <AboutAuthor />
-      <RelatedPosts currentPost={convertToPostFragment(post)} />
+      <RelatedPosts currentPost={post} />
     </>
   );
 };
