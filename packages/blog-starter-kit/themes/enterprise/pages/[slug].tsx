@@ -53,18 +53,7 @@ const AllPostsByPublicationDocument = gql`
             title
             brief
             slug
-            coverImage {
-              url
-            }
-            tags {
-              id
-              name
-              slug
-            }
             publishedAt
-            content {
-              markdown
-            }
           }
         }
       }
@@ -318,6 +307,8 @@ export default function DynamicPage(props: Props) {
 
 function selectRelatedPosts(currentPost: PostFullFragment, allPosts: PostFullFragment[], count: number): PostFullFragment[] {
   const otherPosts = allPosts.filter(post => post.id !== currentPost.id);
+
+  // İlgili yazıları seç
   const scoredPosts = otherPosts.map(post => ({
     post,
     score: calculateRelatednessScore(currentPost, post)
@@ -328,11 +319,12 @@ function selectRelatedPosts(currentPost: PostFullFragment, allPosts: PostFullFra
     .slice(0, count)
     .map(item => item.post);
 
+  // Eğer yeterli ilgili yazı yoksa, rastgele yazılarla tamamla
   while (selectedPosts.length < count) {
-    const randomPost = otherPosts[Math.floor(Math.random() * otherPosts.length)];
-    if (!selectedPosts.some(post => post.id === randomPost.id)) {
-      selectedPosts.push(randomPost);
-    }
+    const remainingPosts = otherPosts.filter(post => !selectedPosts.includes(post));
+    if (remainingPosts.length === 0) break;
+    const randomPost = remainingPosts[Math.floor(Math.random() * remainingPosts.length)];
+    selectedPosts.push(randomPost);
   }
 
   return selectedPosts;
@@ -377,85 +369,101 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
   const host = process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST;
   const slug = params.slug;
   
-  // Tüm blog yazılarını al
-  const allPostsData = await request<AllPostsByPublicationQuery>(endpoint, AllPostsByPublicationDocument, { host, first: 100 });
-  const allPosts = allPostsData.publication?.posts.edges.map((edge) => edge.node) || [];
-
-  // Post için kontrol
-  const postData = await request(endpoint, SinglePostByPublicationDocument, { host, slug });
-  
-  if (postData.publication?.post) {
-    const currentPost = postData.publication.post;
+  try {
+    // Post için kontrol
+    const postData = await request(endpoint, SinglePostByPublicationDocument, { host, slug });
     
-    // İlgili yazıları seç
-    const relatedPosts = selectRelatedPosts(currentPost, allPosts, 3);
+    if (postData.publication?.post) {
+      const currentPost = postData.publication.post;
+      
+      // Tüm blog yazılarını almaya çalış, hata olursa boş dizi kullan
+      let allPosts: PostFullFragment[] = [];
+      try {
+        const allPostsData = await request<AllPostsByPublicationQuery>(endpoint, AllPostsByPublicationDocument, { host, first: 100 });
+        allPosts = allPostsData.publication?.posts.edges.map((edge) => edge.node) || [];
+      } catch (error) {
+        console.error('Error fetching all posts:', error);
+        // Hata durumunda ilgili yazıları boş dizi olarak bırak
+      }
 
-    const formattedRelatedPosts: PostFragment[] = relatedPosts.map(post => ({
-      id: post.id,
-      title: post.title,
-      brief: post.brief,
-      slug: post.slug,
-      coverImage: post.coverImage ? { url: post.coverImage.url || '' } : null,
-      tags: post.tags ? post.tags.map(tag => ({
-        id: tag.id,
-        name: tag.name,
-        slug: tag.slug
-      })) : null,
-      content: post.content?.markdown || '',
-      publishedAt: post.publishedAt
-    }));
-    
+      // İlgili yazıları seç (mevcut yazı ve varsa diğer yazılar arasından)
+      const relatedPosts = selectRelatedPosts(currentPost, allPosts, 3);
+
+      const formattedRelatedPosts: PostFragment[] = relatedPosts.map(post => ({
+        id: post.id,
+        title: post.title,
+        brief: post.brief,
+        slug: post.slug,
+        coverImage: post.coverImage ? { url: post.coverImage.url || '' } : null,
+        tags: post.tags ? post.tags.map(tag => ({
+          id: tag.id,
+          name: tag.name,
+          slug: tag.slug
+        })) : null,
+        content: post.content?.markdown || '',
+        publishedAt: post.publishedAt
+      }));
+      
+      return {
+        props: removeUndefined({
+          type: 'post',
+          post: currentPost,
+          publication: postData.publication,
+          relatedPosts: formattedRelatedPosts,
+        }),
+        revalidate: 1,
+      };
+    }
+
+    // Statik sayfa için kontrol
+    const pageData = await request(endpoint, PageByPublicationDocument, { host, slug });
+
+    if (pageData.publication?.staticPage) {
+      return {
+        props: removeUndefined({
+          type: 'page',
+          page: pageData.publication.staticPage,
+          publication: pageData.publication,
+        }),
+        revalidate: 1,
+      };
+    }
+
+    // Kategori (series) için kontrol
+    const seriesData = await request(endpoint, SeriesPostsByPublicationDocument, {
+      host,
+      seriesSlug: slug,
+      first: 20,
+    });
+
+    if (seriesData.publication?.series) {
+      const series = seriesData.publication.series;
+      const posts = series.posts.edges.map(edge => edge.node) as PostFullFragment[];
+
+      return {
+        props: removeUndefined({
+          type: 'category',
+          series,
+          posts,
+          publication: seriesData.publication,
+        }),
+        revalidate: 1,
+      };
+    }
+
+    // Hiçbir koşul sağlanmazsa 404 döndür
     return {
-      props: removeUndefined({
-        type: 'post',
-        post: currentPost,
-        publication: postData.publication,
-        relatedPosts: formattedRelatedPosts,
-      }),
+      notFound: true,
       revalidate: 1,
     };
-  }
 
-  // Statik sayfa için kontrol
-  const pageData = await request(endpoint, PageByPublicationDocument, { host, slug });
-
-  if (pageData.publication?.staticPage) {
-    return {
-      props: removeUndefined({
-        type: 'page',
-        page: pageData.publication.staticPage,
-        publication: pageData.publication,
-      }),
-      revalidate: 1,
+  } catch (error) {
+    console.error('Error in getStaticProps:', error);
+    return { 
+      notFound: true,
+      revalidate: 1
     };
   }
-
-  // Kategori (series) için kontrol
-  const seriesData = await request(endpoint, SeriesPostsByPublicationDocument, {
-    host,
-    seriesSlug: slug,
-    first: 20,
-  });
-
-  if (seriesData.publication?.series) {
-    const series = seriesData.publication.series;
-    const posts = series.posts.edges.map(edge => edge.node) as PostFullFragment[];
-
-    return {
-      props: removeUndefined({
-        type: 'category',
-        series,
-        posts,
-        publication: seriesData.publication,
-      }),
-      revalidate: 1,
-    };
-  }
-
-  return {
-    notFound: true,
-    revalidate: 1,
-  };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
