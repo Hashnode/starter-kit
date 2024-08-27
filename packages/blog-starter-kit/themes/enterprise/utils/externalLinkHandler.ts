@@ -15,10 +15,27 @@ export const useExternalLinkHandler = () => {
       const href = link.getAttribute('href');
       if (!href) return;
 
-      const isExternal = !internalDomains.some(domain => href.includes(domain));
-      if (isExternal && !href.startsWith('#') && !href.startsWith('javascript:')) {
-        event.preventDefault();
-        setModalUrl(href);
+      console.log('Clicked link:', href); // Debug için
+
+      // Aynı origin'deki linkler için kontrol
+      if (href.startsWith('/') || href.startsWith('#') || href.startsWith('javascript:')) {
+        console.log('Internal link, allowing default behavior');
+        return; // Bu durumda normal davranışa izin ver
+      }
+
+      try {
+        const url = new URL(href, window.location.origin);
+        const isExternal = !internalDomains.some(domain => url.hostname.includes(domain));
+
+        if (isExternal) {
+          event.preventDefault();
+          console.log('External link detected, showing modal');
+          setModalUrl(href);
+        } else {
+          console.log('Internal link, allowing default behavior');
+        }
+      } catch (error) {
+        console.error('Error parsing URL:', error);
       }
     };
 
