@@ -7,7 +7,7 @@ type SafeLinkProps = React.ComponentProps<typeof Link> & {
     children: React.ReactNode;
   };
   
-  const INTERNAL_DOMAINS = ['example.com', 'www.example.com']; // Konfigürasyon dosyasından da alınabilir
+  const INTERNAL_DOMAINS = ['blog.temizmama.com', 'www.temizmama.com']; // Konfigürasyon dosyasından da alınabilir
   
   export const SafeLink: React.FC<SafeLinkProps> = ({ href, children, ...props }) => {
     const { showModal } = useExternalLink();

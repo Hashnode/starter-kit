@@ -1,23 +1,22 @@
-// src/components/ExternalLinkModal.tsx
 import React from 'react';
-import { useExternalLink } from '../components/contexts/ExternalLinkContext';
 
-export const ExternalLinkModal: React.FC = () => {
-    const { modalUrl, hideModal } = useExternalLink();
-  
-    if (!modalUrl) return null;
-  
-    return (
-      <div className="modal">
-        <p>Bu bağlantıya yönlendiriliyorsunuz: {modalUrl}</p>
-        <p>Onaylıyor musunuz?</p>
-        <button onClick={() => {
-          window.open(modalUrl, '_blank');
-          hideModal();
-        }}>
-          Onayla
-        </button>
-        <button onClick={hideModal}>İptal</button>
-      </div>
-    );
-  };
+type ExternalLinkModalProps = {
+  url: string;
+  onClose: () => void;
+};
+
+export const ExternalLinkModal: React.FC<ExternalLinkModalProps> = ({ url, onClose }) => {
+  return (
+    <div className="modal">
+      <p>Bu bağlantıya yönlendiriliyorsunuz: {url}</p>
+      <p>Onaylıyor musunuz?</p>
+      <button onClick={() => {
+        window.open(url, '_blank');
+        onClose();
+      }}>
+        Onayla
+      </button>
+      <button onClick={onClose}>İptal</button>
+    </div>
+  );
+};
