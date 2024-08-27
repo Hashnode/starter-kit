@@ -23,7 +23,9 @@ import CareersSVG from './NavbarIcons/CareersSVG';
 import CaseStudiesSVG from './NavbarIcons/CaseStudiesSVG';
 import ContactsSVG from './NavbarIcons/ContactSVG';
 import EventsSVG from './NavbarIcons/EventsSVG';
+import GiudeSVG from './NavbarIcons/GuideSVG';
 import NewsroomSVG from './NavbarIcons/NewsroomSVG';
+
 import NewsletterPlusSVG from './NewsletterPlusSVG';
 import PlusCircleSVG from './PlusCircleSVG';
 import RssSVG from './RssSVG';
@@ -44,13 +46,14 @@ export {
 	ExternalArrowSVG,
 	GitHubNavBarSVG,
 	GithubSVG,
+	GiudeSVG,
 	HashnodeSVG,
 	IntegrationsSVG,
 	LinkedinSVG,
 	MindsCloudSVG,
 	MindsdbLogoSVG,
-	NewsroomSVG,
 	NewsletterPlusSVG,
+	NewsroomSVG,
 	PlusCircleSVG,
 	RssSVG,
 	SlackWhiteNavSGV,

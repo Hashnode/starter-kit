@@ -14,8 +14,42 @@ export type Scalars = {
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
   DateTime: { input: string; output: string; }
+  JSONObject: { input: Record<string, unknown>; output: Record<string, unknown>; }
   ObjectId: { input: string; output: string; }
+  TimeZone: { input: any; output: any; }
   URL: { input: any; output: any; }
+};
+
+export type AbsoluteTimeRange = {
+  /**
+   * The start date of the views.
+   * The time range will include this date (using >=).
+   *
+   * Defaults to the unix epoch start (1970-01-01).
+   */
+  from?: InputMaybe<Scalars['DateTime']['input']>;
+  /**
+   * The end date of the views.
+   * The time range will include this date (using <=).
+   *
+   * Defaults to the current date.
+   */
+  to?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+/** The input for accepting an invitation to join a documentation project. */
+export type AcceptInviteToDocumentationProjectInput = {
+  /** The invitation token to accept. */
+  inviteToken: Scalars['String']['input'];
+};
+
+/** Response to accepting an invitation to join a documentation project. */
+export type AcceptInviteToDocumentationProjectPayload = {
+  __typename?: 'AcceptInviteToDocumentationProjectPayload';
+  /** The documentation project that the user has been invited to. */
+  project?: Maybe<DocumentationProject>;
+  /** Signifies the success of the mutation. */
+  success: Scalars['Boolean']['output'];
 };
 
 export type AcceptInviteToPublicationInput = {
@@ -51,6 +85,34 @@ export type AddCommentInput = {
 export type AddCommentPayload = {
   __typename?: 'AddCommentPayload';
   comment?: Maybe<Comment>;
+};
+
+export type AddDocumentationProjectCustomDomainInput = {
+  domain: Scalars['String']['input'];
+  projectId: Scalars['ID']['input'];
+  wwwDomain: Scalars['Boolean']['input'];
+};
+
+export type AddDocumentationProjectCustomDomainPayload = {
+  __typename?: 'AddDocumentationProjectCustomDomainPayload';
+  /**
+   * Additional DNS entries required to verify the domain.
+   * There are cases where additional records in the DNS config are required to successfully verify the domain.
+   */
+  dnsVerificationEntries: Array<DnsVerificationEntry>;
+  project?: Maybe<DocumentationProject>;
+  wwwRedirectDnsVerificationEntries: Array<DnsVerificationEntry>;
+};
+
+export type AddDocumentationProjectMemberInput = {
+  projectId: Scalars['ID']['input'];
+  userId: Scalars['ID']['input'];
+};
+
+export type AddDocumentationProjectMemberPayload = {
+  __typename?: 'AddDocumentationProjectMemberPayload';
+  member?: Maybe<DocumentationProjectMember>;
+  project?: Maybe<DocumentationProject>;
 };
 
 export type AddPostToSeriesInput = {
@@ -199,6 +261,28 @@ export type ChangePublicationMemberVisibilityPayload = {
   __typename?: 'ChangePublicationMemberVisibilityPayload';
   /** The updated publication member. */
   member: PublicationMember;
+};
+
+export type CheckCustomDomainAvailabilityInput = {
+  domain: Scalars['String']['input'];
+  withWWWRedirect: Scalars['Boolean']['input'];
+};
+
+export type CheckCustomDomainAvailabilityResult = {
+  __typename?: 'CheckCustomDomainAvailabilityResult';
+  domainAvailable: Scalars['Boolean']['output'];
+};
+
+export type CheckSubdomainAvailabilityResult = {
+  __typename?: 'CheckSubdomainAvailabilityResult';
+  subdomainAvailable: Scalars['Boolean']['output'];
+};
+
+/** Contains the flag indicating if the collaboration feature is enabled or not. */
+export type CollaborationFeature = Feature & {
+  __typename?: 'CollaborationFeature';
+  /** A flag indicating if the collaboration feature is enabled or not. */
+  isEnabled: Scalars['Boolean']['output'];
 };
 
 /**
@@ -814,6 +898,86 @@ export type CoverImageOptionsInput = {
   stickCoverToBottom?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+export type CreateDocumentationApiReferenceInput = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  projectId: Scalars['ID']['input'];
+  slug?: InputMaybe<Scalars['String']['input']>;
+  url: Scalars['String']['input'];
+};
+
+export type CreateDocumentationApiReferencePayload = {
+  __typename?: 'CreateDocumentationApiReferencePayload';
+  guide: DocumentationApiReference;
+};
+
+export type CreateDocumentationGuideInput = {
+  name: Scalars['String']['input'];
+  projectId: Scalars['ID']['input'];
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CreateDocumentationGuidePayload = {
+  __typename?: 'CreateDocumentationGuidePayload';
+  guide: DocumentationGuide;
+};
+
+export type CreateDocumentationLinkInput = {
+  guideSlug: Scalars['String']['input'];
+  label: Scalars['String']['input'];
+  projectId: Scalars['ID']['input'];
+  url: Scalars['String']['input'];
+};
+
+export type CreateDocumentationLinkPayload = {
+  __typename?: 'CreateDocumentationLinkPayload';
+  guide?: Maybe<DocumentationGuide>;
+  link?: Maybe<DocumentationLink>;
+};
+
+export type CreateDocumentationPageDraftInput = {
+  content?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  guideSlug: Scalars['String']['input'];
+  label?: InputMaybe<Scalars['String']['input']>;
+  parentId?: InputMaybe<Scalars['ID']['input']>;
+  projectId: Scalars['ID']['input'];
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CreateDocumentationPageDraftPayload = {
+  __typename?: 'CreateDocumentationPageDraftPayload';
+  guide?: Maybe<DocumentationGuide>;
+  page?: Maybe<DocumentationPage>;
+};
+
+export type CreateDocumentationProjectInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  favIconUrl?: InputMaybe<Scalars['String']['input']>;
+  links?: InputMaybe<DocumentationProjectLinksInput>;
+  logoDarkThemeUrl?: InputMaybe<Scalars['String']['input']>;
+  logoUrl?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  settings?: InputMaybe<DocumentationProjectSettingsInput>;
+  subdomain: Scalars['String']['input'];
+};
+
+export type CreateDocumentationProjectPayload = {
+  __typename?: 'CreateDocumentationProjectPayload';
+  project: DocumentationProject;
+};
+
+export type CreateDocumentationSectionInput = {
+  guideSlug: Scalars['String']['input'];
+  label?: InputMaybe<Scalars['String']['input']>;
+  projectId: Scalars['ID']['input'];
+};
+
+export type CreateDocumentationSectionPayload = {
+  __typename?: 'CreateDocumentationSectionPayload';
+  guide?: Maybe<DocumentationGuide>;
+  section?: Maybe<DocumentationSection>;
+};
+
 export type CreateDraftInput = {
   /** Ids of the co-authors of the resulting draft. */
   coAuthors?: InputMaybe<Array<Scalars['ObjectId']['input']>>;
@@ -1003,6 +1167,11 @@ export type DarkModePreferences = {
   logo?: Maybe<Scalars['String']['output']>;
 };
 
+export enum DefaultDocsTheme {
+  Dark = 'DARK',
+  Light = 'LIGHT'
+}
+
 /** Input to delete a role based invite. */
 export type DeleteRoleBasedInviteInput = {
   /** The ID of the role based invite. */
@@ -1029,6 +1198,60 @@ export enum DeviceType {
   Tablet = 'TABLET'
 }
 
+/** The input for disabling AI search for a documentation project */
+export type DisableDocumentationProjectAiSearchInput = {
+  /** The ID of the documentation project */
+  projectId: Scalars['ID']['input'];
+};
+
+/** The response to disabling AI search for a documentation project */
+export type DisableDocumentationProjectAiSearchPayload = {
+  __typename?: 'DisableDocumentationProjectAISearchPayload';
+  project?: Maybe<DocumentationProject>;
+};
+
+export type DisableDocumentationProjectHeadlessCmsInput = {
+  projectId: Scalars['ID']['input'];
+};
+
+export type DisableDocumentationProjectHeadlessCmsPayload = {
+  __typename?: 'DisableDocumentationProjectHeadlessCmsPayload';
+  project?: Maybe<DocumentationProject>;
+};
+
+export type DnsVerificationEntry = {
+  __typename?: 'DnsVerificationEntry';
+  name: Scalars['String']['output'];
+  type: DnsVerificationType;
+  value: Scalars['String']['output'];
+};
+
+export enum DnsVerificationType {
+  ARecord = 'A_RECORD',
+  CnameRecord = 'CNAME_RECORD',
+  TxtRecord = 'TXT_RECORD'
+}
+
+export enum DocsAnalyticsDimension {
+  ApiReferenceGuide = 'API_REFERENCE_GUIDE',
+  Browser = 'BROWSER',
+  Country = 'COUNTRY',
+  DeviceType = 'DEVICE_TYPE',
+  DocumentationGuide = 'DOCUMENTATION_GUIDE',
+  OperatingSystem = 'OPERATING_SYSTEM',
+  Page = 'PAGE',
+  Path = 'PATH',
+  ReferrerHost = 'REFERRER_HOST'
+}
+
+export type DocsProjectInvitedMembers = {
+  __typename?: 'DocsProjectInvitedMembers';
+  email: Scalars['String']['output'];
+  role: DocumentationMemberRole;
+  /** Invited Hashnode user, returns null if the user is not a Hashnode user. */
+  user?: Maybe<User>;
+};
+
 export type DocsViews = {
   id: Scalars['ID']['output'];
   /** The aggregated views. */
@@ -1039,6 +1262,25 @@ export type DocsVisitors = {
   id: Scalars['ID']['output'];
   /** The aggregated number of visitors. */
   total: Scalars['Int']['output'];
+};
+
+export type DocumentationApiReference = IGuide & {
+  __typename?: 'DocumentationApiReference';
+  /** The parsed Swagger Definition of the API Reference. */
+  definition?: Maybe<Scalars['JSONObject']['output']>;
+  id: Scalars['ID']['output'];
+  lastModified: Scalars['DateTime']['output'];
+  name: Scalars['String']['output'];
+  /** OG meta-data of the page. Contains image url used in open graph meta tags. */
+  ogMetaData?: Maybe<OpenGraphMetaData>;
+  /** Url of the published api reference. */
+  publishedUrl?: Maybe<Scalars['String']['output']>;
+  /** SEO information of the page. Contains title and description used in meta tags. */
+  seo?: Maybe<Seo>;
+  slug: Scalars['String']['output'];
+  status: DocumentationGuideItemStatus;
+  url: Scalars['String']['output'];
+  versionId?: Maybe<Scalars['String']['output']>;
 };
 
 export type DocumentationGuide = IGuide & {
@@ -1052,6 +1294,7 @@ export type DocumentationGuide = IGuide & {
   page?: Maybe<DocumentationPage>;
   publishedPage?: Maybe<DocumentationPage>;
   publishedSidebarItems: Array<DocumentationSidebarItem>;
+  redirectedPublishedPage?: Maybe<DocumentationPage>;
   /** SEO information of the page. Contains title and description used in meta tags. */
   seo?: Maybe<Seo>;
   sidebarItems: Array<DocumentationSidebarItem>;
@@ -1074,7 +1317,13 @@ export type DocumentationGuidePublishedPageArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type DocumentationGuideItem = DocumentationGuide;
+
+export type DocumentationGuideRedirectedPublishedPageArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type DocumentationGuideItem = DocumentationApiReference | DocumentationGuide;
 
 export enum DocumentationGuideItemStatus {
   Deleted = 'DELETED',
@@ -1093,10 +1342,66 @@ export type DocumentationLink = IDocumentationSidebarItem & {
   visibility: DocumentationSidebarItemVisibility;
 };
 
+export enum DocumentationMemberRole {
+  Admin = 'ADMIN',
+  Owner = 'OWNER'
+}
+
+/** A column for the navigation. Used in the footer */
+export type DocumentationNavbarColumn = Node & {
+  __typename?: 'DocumentationNavbarColumn';
+  /** The date the column was created. */
+  createdAt: Scalars['DateTime']['output'];
+  /** The ID of the column. */
+  id: Scalars['ID']['output'];
+  /** The navigation items in the column. */
+  items: Array<DocumentationNavbarItem>;
+  /** The label of the column. */
+  label: Scalars['String']['output'];
+  /** The date the column was last updated. */
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type DocumentationNavbarItem = DocumentationNavbarItemGuide | DocumentationNavbarItemLink;
+
+/** A navigation item pointing  to a guide. */
+export type DocumentationNavbarItemGuide = Node & {
+  __typename?: 'DocumentationNavbarItemGuide';
+  /** The date the item was created. */
+  createdAt: Scalars['DateTime']['output'];
+  /** The guide the item points to. */
+  guide: DocumentationGuideItem;
+  /** The ID of the item. */
+  id: Scalars['ID']['output'];
+  /** The label of the item. */
+  label: Scalars['String']['output'];
+  /** The date the item was last updated. */
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+/** A navigation item pointing to an external URL. */
+export type DocumentationNavbarItemLink = Node & {
+  __typename?: 'DocumentationNavbarItemLink';
+  /** The date the item was created. */
+  createdAt: Scalars['DateTime']['output'];
+  /** The ID of the item. */
+  id: Scalars['ID']['output'];
+  /** The label of the item. */
+  label: Scalars['String']['output'];
+  /** Indicates if the link should open in a new tab. */
+  openInNewTab: Scalars['Boolean']['output'];
+  /** The date the item was last updated. */
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  /** The URL the item points to. */
+  url: Scalars['String']['output'];
+};
+
 export type DocumentationPage = {
   __typename?: 'DocumentationPage';
+  content: DocumentationPageContent;
   createdAt: Scalars['DateTime']['output'];
   description?: Maybe<Scalars['String']['output']>;
+  draft: DocumentationPageDraft;
   guideSlug: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   /** OG meta-data of the page. Contains image url used in open graph meta tags. */
@@ -1112,12 +1417,384 @@ export type DocumentationPage = {
   visibility: DocumentationSidebarItemVisibility;
 };
 
+export type DocumentationPageContent = {
+  __typename?: 'DocumentationPageContent';
+  mdx: Scalars['String']['output'];
+};
+
+export type DocumentationPageDraft = {
+  __typename?: 'DocumentationPageDraft';
+  content: DocumentationPageContent;
+  description?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
+};
+
+export type DocumentationProject = Node & {
+  __typename?: 'DocumentationProject';
+  ai?: Maybe<DocumentationProjectAiPreference>;
+  analytics: DocumentationProjectAnalytics;
+  appearance: DocumentationProjectAppearance;
+  createdAt: Scalars['DateTime']['output'];
+  defaultGuide?: Maybe<DocumentationGuideItem>;
+  description?: Maybe<Scalars['String']['output']>;
+  domain?: Maybe<DocumentationProjectDomainSettings>;
+  /** Object containing information about beta features enabled for the documentation project. */
+  features: DocumentationProjectFeatures;
+  guide?: Maybe<DocumentationGuideItem>;
+  guides: Array<DocumentationGuideItem>;
+  id: Scalars['ID']['output'];
+  integrations?: Maybe<DocumentationProjectIntegrations>;
+  links: DocumentationProjectLinks;
+  /** @deprecated Use membersV2 */
+  members: Array<DocumentationProjectMember>;
+  membersV2: DocumentationProjectMemberConnection;
+  name: Scalars['String']['output'];
+  /** The navigation configuration for the documentation project. */
+  navigation: DocumentationProjectNavigation;
+  /** The Owner of the documentation project. */
+  owner: User;
+  /** Details of publication invites. Returns null if publication is not a team publication. */
+  pendingInvites: DocumentationProjectPendingInviteConnection;
+  publishedGuide?: Maybe<DocumentationGuideItem>;
+  publishedGuides: Array<DocumentationGuideItem>;
+  /** A user search to find users with a specific status */
+  searchUsers: DocumentationProjectSearchUserConnection;
+  settings: DocumentationProjectSettings;
+  subscription?: Maybe<DocumentationProjectSubscription>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  /** Url of the documentation project. */
+  url: Scalars['String']['output'];
+};
+
+
+export type DocumentationProjectGuideArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type DocumentationProjectMembersV2Args = {
+  filter?: InputMaybe<DocumentationProjectMemberConnectionFilter>;
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+};
+
+
+export type DocumentationProjectPendingInvitesArgs = {
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+};
+
+
+export type DocumentationProjectPublishedGuideArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type DocumentationProjectSearchUsersArgs = {
+  input: DocumentationProjectSearchUsersInput;
+};
+
+export type DocumentationProjectAiPreference = {
+  __typename?: 'DocumentationProjectAIPreference';
+  /** The prompts for the documentation project. These prompts are shown to the user when AI Search chatbot is opened. */
+  prompts: Array<DocumentationProjectAiPrompt>;
+  /** The settings for the AI feature. */
+  settings: DocumentationProjectAiSettings;
+};
+
+export type DocumentationProjectAiPrompt = {
+  __typename?: 'DocumentationProjectAIPrompt';
+  /** The date the prompt was created. */
+  createdAt: Scalars['DateTime']['output'];
+  /** The ID of the prompt. */
+  id: Scalars['ID']['output'];
+  /** The prompt text. */
+  prompt: Scalars['String']['output'];
+};
+
+export type DocumentationProjectAiSettings = {
+  __typename?: 'DocumentationProjectAISettings';
+  /** A flag to indicate if the AI search feature is enabled. */
+  isSearchEnabled: Scalars['Boolean']['output'];
+};
+
+export type DocumentationProjectAnalytics = {
+  __typename?: 'DocumentationProjectAnalytics';
+  views?: Maybe<ProjectViewsConnection>;
+  visitors: ProjectVisitorsConnection;
+};
+
+
+export type DocumentationProjectAnalyticsViewsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<ProjectViewsFilter>;
+  first: Scalars['Int']['input'];
+  groupBy?: InputMaybe<ProjectViewsGroupBy>;
+  options?: InputMaybe<ProjectViewsOptions>;
+  sortBy?: InputMaybe<ProjectViewsSortBy>;
+};
+
+
+export type DocumentationProjectAnalyticsVisitorsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<ProjectVisitorsFilter>;
+  first: Scalars['Int']['input'];
+  groupBy?: InputMaybe<ProjectVisitorsGroupBy>;
+  options?: InputMaybe<ProjectVisitorsOptions>;
+};
+
+export type DocumentationProjectAppearance = {
+  __typename?: 'DocumentationProjectAppearance';
+  defaultDocsTheme: DefaultDocsTheme;
+  favIconUrl?: Maybe<Scalars['String']['output']>;
+  getStarted?: Maybe<DocumentationProjectGetStarted>;
+  logoDarkThemeUrl?: Maybe<Scalars['String']['output']>;
+  logoUrl?: Maybe<Scalars['String']['output']>;
+  primaryColor?: Maybe<Scalars['String']['output']>;
+};
+
+export type DocumentationProjectAppearanceInput = {
+  defaultDocsTheme?: InputMaybe<DefaultDocsTheme>;
+  favIconUrl?: InputMaybe<Scalars['String']['input']>;
+  getStarted?: InputMaybe<DocumentationProjectGetStartedInput>;
+  logoDarkThemeUrl?: InputMaybe<Scalars['String']['input']>;
+  logoUrl?: InputMaybe<Scalars['String']['input']>;
+  primaryColor?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type DocumentationProjectCustomDomain = {
+  __typename?: 'DocumentationProjectCustomDomain';
+  domain: Scalars['String']['output'];
+  status: CustomDomainStatus;
+  verifiedAt?: Maybe<Scalars['DateTime']['output']>;
+  wwwDomain?: Maybe<DocumentationProjectCustomWwwDomain>;
+};
+
+export type DocumentationProjectCustomWwwDomain = {
+  __typename?: 'DocumentationProjectCustomWwwDomain';
+  status: CustomDomainStatus;
+  verifiedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type DocumentationProjectDomainSettings = {
+  __typename?: 'DocumentationProjectDomainSettings';
+  customDomain?: Maybe<DocumentationProjectCustomDomain>;
+  hashnodeSubDomain: Scalars['String']['output'];
+};
+
+/** Contains the documentation project's beta features. */
+export type DocumentationProjectFeatures = {
+  __typename?: 'DocumentationProjectFeatures';
+  /** Collaboration feature for the docs project which enables collaborative editing in the page editor. */
+  collaboration: CollaborationFeature;
+};
+
+export type DocumentationProjectGetStarted = {
+  __typename?: 'DocumentationProjectGetStarted';
+  label: Scalars['String']['output'];
+  url: Scalars['URL']['output'];
+};
+
+export type DocumentationProjectGetStartedInput = {
+  label?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['URL']['input']>;
+};
+
+export type DocumentationProjectIntegrations = {
+  __typename?: 'DocumentationProjectIntegrations';
+  /** FB Pixel ID for integration with Facebook Pixel. */
+  fbPixelID?: Maybe<Scalars['String']['output']>;
+  /** Google Tag Manager ID for integration with Google Tag Manager. */
+  gTagManagerID?: Maybe<Scalars['String']['output']>;
+  /** Google Analytics Tracking ID for integration with Google Analytics. */
+  gaTrackingID?: Maybe<Scalars['String']['output']>;
+  /** Hotjar Site ID for integration with Hotjar. */
+  hotjarSiteID?: Maybe<Scalars['String']['output']>;
+  /** Intercom ID for integration with Intercom */
+  intercomID?: Maybe<Scalars['String']['output']>;
+  /** The meta tags associated with the documentation project. */
+  metaTags?: Maybe<Scalars['String']['output']>;
+};
+
+export type DocumentationProjectIntegrationsInput = {
+  fbPixelID?: InputMaybe<Scalars['String']['input']>;
+  gTagManagerID?: InputMaybe<Scalars['String']['input']>;
+  gaTrackingID?: InputMaybe<Scalars['String']['input']>;
+  hotjarSiteID?: InputMaybe<Scalars['String']['input']>;
+  intercomID?: InputMaybe<Scalars['String']['input']>;
+  metaTags?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Contains the pending invite information. */
+export type DocumentationProjectInvite = Node & {
+  __typename?: 'DocumentationProjectInvite';
+  /** The ID of the pending invite. */
+  id: Scalars['ID']['output'];
+  /** The role assigned to the user in the publication. */
+  role: DocumentationMemberRole;
+  /** Invited Hashnode user, returns null if the user is not a Hashnode user. */
+  user: User;
+};
+
+export type DocumentationProjectLinks = {
+  __typename?: 'DocumentationProjectLinks';
+  /** Daily.dev URL of the documentation project. */
+  dailydev?: Maybe<Scalars['String']['output']>;
+  /** GitHub URL of the documentation project. */
+  github?: Maybe<Scalars['String']['output']>;
+  /** The GitHub repository of the documentation project. */
+  githubRepository?: Maybe<Scalars['String']['output']>;
+  /** Hashnode profile of author of the documentation project. */
+  hashnode?: Maybe<Scalars['String']['output']>;
+  /** Instagram URL of the documentation project. */
+  instagram?: Maybe<Scalars['String']['output']>;
+  /** LinkedIn URL of the documentation project. */
+  linkedin?: Maybe<Scalars['String']['output']>;
+  /** Mastodon URL of the documentation project. */
+  mastodon?: Maybe<Scalars['String']['output']>;
+  /** Twitter URL of the documentation project. */
+  twitter?: Maybe<Scalars['String']['output']>;
+  /** Website URL of the documentation project. */
+  website?: Maybe<Scalars['String']['output']>;
+  /** YouTube URL of the documentation project. */
+  youtube?: Maybe<Scalars['String']['output']>;
+};
+
+export type DocumentationProjectLinksInput = {
+  dailydev?: InputMaybe<Scalars['String']['input']>;
+  github?: InputMaybe<Scalars['String']['input']>;
+  githubRepository?: InputMaybe<Scalars['String']['input']>;
+  hashnode?: InputMaybe<Scalars['String']['input']>;
+  instagram?: InputMaybe<Scalars['String']['input']>;
+  linkedin?: InputMaybe<Scalars['String']['input']>;
+  mastodon?: InputMaybe<Scalars['String']['input']>;
+  twitter?: InputMaybe<Scalars['String']['input']>;
+  website?: InputMaybe<Scalars['String']['input']>;
+  youtube?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type DocumentationProjectMember = {
+  __typename?: 'DocumentationProjectMember';
+  /** The role of the member in the documentation project. */
+  role: DocumentationMemberRole;
+  /** The user who is a member of the documentation project. */
+  user: User;
+};
+
+export type DocumentationProjectMemberConnection = PageConnection & {
+  __typename?: 'DocumentationProjectMemberConnection';
+  /** A list of members. */
+  nodes: Array<DocumentationProjectMemberV2>;
+  /** Information to aid in pagination. */
+  pageInfo: OffsetPageInfo;
+  /** Total number of nodes available i.e. number of members. */
+  totalDocuments: Scalars['Int']['output'];
+};
+
+/** The filter for the documentation member connection. */
+export type DocumentationProjectMemberConnectionFilter = {
+  /** Search filter can be used to filter members by their username or email. */
+  searchTerm?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type DocumentationProjectMemberV2 = Node & {
+  __typename?: 'DocumentationProjectMemberV2';
+  /** The ID of the member. */
+  id: Scalars['ID']['output'];
+  /** The role of the member in the documentation project. */
+  role: DocumentationMemberRole;
+  /** The user who is a member of the documentation project. */
+  user: User;
+};
+
+/** Contains the header and footer navigation for the documentation project. */
+export type DocumentationProjectNavigation = {
+  __typename?: 'DocumentationProjectNavigation';
+  /** The columns in the footer navigation. */
+  footer: Array<DocumentationNavbarColumn>;
+  /** The items in the header navigation. */
+  header: Array<DocumentationNavbarItem>;
+};
+
+/** A connection for the user search result. */
+export type DocumentationProjectPendingInviteConnection = PageConnection & {
+  __typename?: 'DocumentationProjectPendingInviteConnection';
+  /** A list of invites */
+  nodes: Array<DocumentationProjectInvite>;
+  /** Information to aid in pagination. */
+  pageInfo: OffsetPageInfo;
+  /** The total number of invites. */
+  totalDocuments: Scalars['Int']['output'];
+};
+
+export enum DocumentationProjectProductName {
+  Enterprise = 'ENTERPRISE',
+  Startup = 'STARTUP'
+}
+
+/** A connection for the user search result. */
+export type DocumentationProjectSearchUserConnection = PageConnection & {
+  __typename?: 'DocumentationProjectSearchUserConnection';
+  /** The edges containing the user and the status of the user. */
+  edges: Array<DocumentationProjectSearchUserEdge>;
+  /** A list user nodes. */
+  nodes: Array<User>;
+  /** Information to aid in pagination. */
+  pageInfo: OffsetPageInfo;
+  /** Total number of nodes available i.e. number of user search results. */
+  totalDocuments: Scalars['Int']['output'];
+};
+
+export type DocumentationProjectSearchUserEdge = PageEdge & {
+  __typename?: 'DocumentationProjectSearchUserEdge';
+  node: User;
+  status: UserInviteStatus;
+};
+
+export type DocumentationProjectSearchUsersInput = {
+  /** The page number that should be returned. */
+  page: Scalars['Int']['input'];
+  /** The number of users to return on a single page. */
+  pageSize: Scalars['Int']['input'];
+  searchTerm: Scalars['String']['input'];
+  status: UserInviteStatus;
+};
+
+export type DocumentationProjectSettings = {
+  __typename?: 'DocumentationProjectSettings';
+  isHashnodeLoginAllowed: Scalars['Boolean']['output'];
+  /** A flag to indicate if the documentation project is using Headless CMS. */
+  isHeadless: Scalars['Boolean']['output'];
+  isRobotsAllowed: Scalars['Boolean']['output'];
+};
+
+export type DocumentationProjectSettingsInput = {
+  allowHashnodeLogin?: InputMaybe<Scalars['Boolean']['input']>;
+  allowRobots?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type DocumentationProjectSubscription = {
+  __typename?: 'DocumentationProjectSubscription';
+  productName: DocumentationProjectProductName;
+  status: DocumentationProjectSubscriptionStatus;
+};
+
+export enum DocumentationProjectSubscriptionStatus {
+  Active = 'ACTIVE',
+  Canceled = 'CANCELED',
+  PastDue = 'PAST_DUE',
+  Unpaid = 'UNPAID'
+}
+
 export type DocumentationSection = IDocumentationNestableSidebarItem & IDocumentationSidebarItem & {
   __typename?: 'DocumentationSection';
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
   label: Scalars['String']['output'];
   pages: Array<DocumentationSidebarItemPage>;
+  path: Scalars['String']['output'];
   status: DocumentationSidebarItemStatus;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
   visibility: DocumentationSidebarItemVisibility;
@@ -1226,6 +1903,8 @@ export type Draft = Node & {
   /** The publication the draft belongs to. */
   publication?: Maybe<Publication>;
   publishAs?: Maybe<User>;
+  /** Returns the published post when the draft is published, returns null otherwise */
+  publishedPost?: Maybe<Post>;
   readTimeInMinutes: Scalars['Int']['output'];
   /** The date the draft is scheduled to be published. */
   scheduledDate?: Maybe<Scalars['DateTime']['output']>;
@@ -1407,6 +2086,27 @@ export type EmailNotificationPreferences = {
   weeklyNewsletterEmails: Scalars['Boolean']['output'];
 };
 
+/** The input for enabling AI search for a documentation project */
+export type EnableDocumentationProjectAiSearchInput = {
+  /** The ID of the documentation project */
+  projectId: Scalars['ID']['input'];
+};
+
+/** The response to enabling AI search for a documentation project */
+export type EnableDocumentationProjectAiSearchPayload = {
+  __typename?: 'EnableDocumentationProjectAISearchPayload';
+  project?: Maybe<DocumentationProject>;
+};
+
+export type EnableDocumentationProjectHeadlessCmsInput = {
+  projectId: Scalars['ID']['input'];
+};
+
+export type EnableDocumentationProjectHeadlessCmsPayload = {
+  __typename?: 'EnableDocumentationProjectHeadlessCmsPayload';
+  project?: Maybe<DocumentationProject>;
+};
+
 /** Invitations that failed to be sent to the user */
 export type FailedInvite = {
   __typename?: 'FailedInvite';
@@ -1478,6 +2178,34 @@ export type GptBotCrawlingFeature = Feature & {
   __typename?: 'GPTBotCrawlingFeature';
   /** A flag indicating if the GPT Bot Crawler feature is enabled or not. */
   isEnabled: Scalars['Boolean']['output'];
+};
+
+/** The input for the exchange of token to a JWT to preview token for a documentation project. */
+export type GenerateDocumentationProjectPreviewAuthorizationTokenInput = {
+  token: Scalars['String']['input'];
+};
+
+/** The payload for the exchange of token to a JWT to preview token for a documentation project. */
+export type GenerateDocumentationProjectPreviewAuthorizationTokenPayload = {
+  __typename?: 'GenerateDocumentationProjectPreviewAuthorizationTokenPayload';
+  /** The JWT that can be used to preview the documentation project. */
+  authorizationToken?: Maybe<Scalars['String']['output']>;
+  /** The project for which the JWT is generated. With this request, authenticated fields are not accessible. */
+  project?: Maybe<DocumentationProject>;
+};
+
+/** The input for the generation of a exchangeable preview token for a documentation project. */
+export type GenerateDocumentationProjectPreviewTokenInput = {
+  projectId: Scalars['ID']['input'];
+};
+
+/** The payload for the generation of a exchangeable preview token for a documentation project. */
+export type GenerateDocumentationProjectPreviewTokenPayload = {
+  __typename?: 'GenerateDocumentationProjectPreviewTokenPayload';
+  /** The project for which the token is generated. */
+  project?: Maybe<DocumentationProject>;
+  /** The token that can be exchanged for a JWT to preview the documentation project. */
+  token?: Maybe<Scalars['String']['output']>;
 };
 
 /** Views implementation that will be returned if grouping by browser. */
@@ -1644,7 +2372,7 @@ export type GroupedByDocsPageViews = DocsViews & Node & {
   __typename?: 'GroupedByDocsPageViews';
   id: Scalars['ID']['output'];
   /** The page that these views belong to. */
-  page: DocumentationPage;
+  page?: Maybe<DocumentationPage>;
   /** The aggregated views. */
   total: Scalars['Int']['output'];
 };
@@ -1654,7 +2382,7 @@ export type GroupedByDocsPageVisitors = DocsVisitors & Node & {
   __typename?: 'GroupedByDocsPageVisitors';
   id: Scalars['ID']['output'];
   /** The page that these views belong to. */
-  page: DocumentationPage;
+  page?: Maybe<DocumentationPage>;
   /** The aggregated number of visitors. */
   total: Scalars['Int']['output'];
 };
@@ -1874,6 +2602,7 @@ export type IGuide = {
   id: Scalars['ID']['output'];
   lastModified: Scalars['DateTime']['output'];
   name: Scalars['String']['output'];
+  seo?: Maybe<Seo>;
   slug: Scalars['String']['output'];
   versionId?: Maybe<Scalars['String']['output']>;
 };
@@ -1985,6 +2714,21 @@ export type IUserTechStackArgs = {
   pageSize: Scalars['Int']['input'];
 };
 
+export type InviteDocumentationProjectAdminInput = {
+  invites: Array<InviteDocumentationProjectAdminInputEmail>;
+  projectId: Scalars['ID']['input'];
+};
+
+export type InviteDocumentationProjectAdminInputEmail = {
+  userId: Scalars['ID']['input'];
+};
+
+export type InviteDocumentationProjectAdminPayload = {
+  __typename?: 'InviteDocumentationProjectAdminPayload';
+  invitedMembers?: Maybe<Array<DocsProjectInvitedMembers>>;
+  project?: Maybe<DocumentationProject>;
+};
+
 /** Input to invite users to a publication. */
 export type InviteUsersToPublicationInput = {
   /** The publication ID to invite users to. */
@@ -2035,6 +2779,20 @@ export type LikeReplyPayload = {
   reply?: Maybe<Reply>;
 };
 
+export type MapDocumentationProjectCustomDomainWwwRedirectInput = {
+  projectId: Scalars['ID']['input'];
+};
+
+export type MapDocumentationProjectCustomDomainWwwRedirectPayload = {
+  __typename?: 'MapDocumentationProjectCustomDomainWwwRedirectPayload';
+  /**
+   * Additional DNS entries required to verify the www redirect domain.
+   * There are cases where additional records in the DNS config are required to successfully verify the domain.
+   */
+  dnsVerificationEntries: Array<DnsVerificationEntry>;
+  project?: Maybe<DocumentationProject>;
+};
+
 /** Contains information about meta tags. Used for SEO purpose. */
 export type MetaTagsInput = {
   /** The description of the post used in og:description for SEO. */
@@ -2045,14 +2803,32 @@ export type MetaTagsInput = {
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type MoveDocumentationSidebarItemInput = {
+  guideSlug: Scalars['String']['input'];
+  itemId: Scalars['ID']['input'];
+  parentId?: InputMaybe<Scalars['ID']['input']>;
+  position?: InputMaybe<Scalars['Int']['input']>;
+  projectId: Scalars['ID']['input'];
+};
+
+export type MoveDocumentationSidebarItemPayload = {
+  __typename?: 'MoveDocumentationSidebarItemPayload';
+  guide?: Maybe<DocumentationGuide>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
+  /** Mutation to accept an invite to a documentation project */
+  acceptInviteToDocumentationProject: AcceptInviteToDocumentationProjectPayload;
   /** Accepts an invitation to join a publication. The user is added as a member of the publication. */
   acceptInviteToPublication: AcceptInviteToPublicationPayload;
   /** Accepts a role based invite and adds the user as a member of the publication. The user is assigned the role specified in the invite. */
   acceptRoleBasedInvite: AcceptRoleBasedInvitePayload;
   /** Adds a comment to a post. */
   addComment: AddCommentPayload;
+  addDocumentationProjectCustomDomain: AddDocumentationProjectCustomDomainPayload;
+  /** Mutation to add a Member to a Documentation Project */
+  addDocumentationProjectMember: AddDocumentationProjectMemberPayload;
   /** Adds a post to a series. */
   addPostToSeries: AddPostToSeriesPayload;
   /** Adds a reply to a comment. */
@@ -2065,6 +2841,12 @@ export type Mutation = {
    * PRIVATE members are not visible on the members page while PUBLIC members are visible.
    */
   changePublicationMemberVisibility: ChangePublicationMemberVisibilityPayload;
+  createDocumentationApiReference: CreateDocumentationApiReferencePayload;
+  createDocumentationGuide: CreateDocumentationGuidePayload;
+  createDocumentationLink: CreateDocumentationLinkPayload;
+  createDocumentationPageDraft: CreateDocumentationPageDraftPayload;
+  createDocumentationProject: CreateDocumentationProjectPayload;
+  createDocumentationSection: CreateDocumentationSectionPayload;
   /** Creates a new draft for a post. */
   createDraft: CreateDraftPayload;
   createRedirectionRule: CreateRedirectionRulePayload;
@@ -2076,6 +2858,24 @@ export type Mutation = {
   /** Deletes a role based invite. */
   deleteRoleBasedInvite: DeleteRoleBasedInvitePayload;
   deleteWebhook: DeleteWebhookPayload;
+  /** Mutation to disable AI search for a documentation project */
+  disableDocumentationProjectAISearch: DisableDocumentationProjectAiSearchPayload;
+  disableDocumentationProjectHeadlessCms: DisableDocumentationProjectHeadlessCmsPayload;
+  /** Mutation to enable AI search for a documentation project */
+  enableDocumentationProjectAISearch: EnableDocumentationProjectAiSearchPayload;
+  enableDocumentationProjectHeadlessCms: EnableDocumentationProjectHeadlessCmsPayload;
+  /**
+   * Will generate a authorization JWT to preview a docs project.
+   * A token is required to generate the JWT.
+   */
+  generateDocumentationProjectPreviewAuthorizationToken: GenerateDocumentationProjectPreviewAuthorizationTokenPayload;
+  /**
+   * Will generate a token that can be exchanged as a JWT to preview a docs project.
+   * Only the owner or editors of the project can generate the token.
+   */
+  generateDocumentationProjectPreviewToken: GenerateDocumentationProjectPreviewTokenPayload;
+  /** Mutation to invite an user to a documentation project */
+  inviteDocumentationProjectAdmin: InviteDocumentationProjectAdminPayload;
   /** Invites users to a publication. Either by username or email. */
   inviteUsersToPublication: InviteUsersToPublicationPayload;
   /** Likes a comment. */
@@ -2084,6 +2884,11 @@ export type Mutation = {
   likePost: LikePostPayload;
   /** Likes a reply. */
   likeReply: LikeReplyPayload;
+  mapDocumentationProjectCustomDomainWwwRedirect: MapDocumentationProjectCustomDomainWwwRedirectPayload;
+  moveDocumentationSidebarItem: MoveDocumentationSidebarItemPayload;
+  publishDocumentationApiReference: PublishDocumentationApiReferencePayload;
+  publishDocumentationGuide: PublishDocumentationGuidePayload;
+  publishDocumentationPageDraft: PublishDocumentationPageDraftPayload;
   /** Publishes an existing draft as a post. */
   publishDraft: PublishDraftPayload;
   /** Creates a new post. */
@@ -2093,6 +2898,11 @@ export type Mutation = {
   reinviteUserToPublication: ReinviteUserToPublicationPayload;
   /** Removes a comment from a post. */
   removeComment: RemoveCommentPayload;
+  removeDocumentationGuide: RemoveDocumentationGuidePayload;
+  removeDocumentationProjectCustomDomain: RemoveDocumentationProjectCustomDomainPayload;
+  /** Mutation to remove a Member from a Documentation Project */
+  removeDocumentationProjectMember: RemoveDocumentationProjectMemberPayload;
+  removeDocumentationSidebarItem: RemoveDocumentationSidebarItemPayload;
   /** Removes a post. */
   removePost: RemovePostPayload;
   /** Removes a user from a teams publication. */
@@ -2103,15 +2913,24 @@ export type Mutation = {
   removeReply: RemoveReplyPayload;
   /** Removes a series. */
   removeSeries: RemoveSeriesPayload;
+  renameDocumentationGuide: RenameDocumentationGuideItemPayload;
+  renameDocumentationSidebarItem: RenameDocumentationSidebarItemPayload;
   /** Reschedule a draft. */
   rescheduleDraft: RescheduleDraftPayload;
   resendWebhookRequest: ResendWebhookRequestPayload;
   /** Restores a deleted post. */
   restorePost: RestorePostPayload;
+  retryDocumentationProjectCustomDomainVerification: RetryDocumentationProjectCustomDomainVerificationPayload;
+  /** Mutation to revoke documentation project invite */
+  revokeInviteToDocumentationProject: RevokeInviteToDocumentationProjectPayload;
   /** Revokes a user invitation that was sent to join a publication. */
   revokeUserInviteToPublication: RevokeUserInviteToPublicationPayload;
+  saveDocumentationPageDraftContent: SaveDocumentationPageDraftContentPayload;
   scheduleDraft: ScheduleDraftPayload;
+  setDocumentationSidebarItemVisibility: SetDocumentationSidebarItemVisibilityPayload;
   subscribeToNewsletter: SubscribeToNewsletterPayload;
+  /** Mutation to sync documentation API reference definition */
+  syncDocumentationProjectApiDefinition: SyncDocumentationProjectApiDefinitionPayload;
   /** Toggle allowContributorEdits flag to allow or restrict external contributors to further edit published articles. */
   toggleAllowContributorEdits: ToggleAllowContributorEditsPayload;
   /**
@@ -2131,6 +2950,15 @@ export type Mutation = {
   unsubscribeFromNewsletter: UnsubscribeFromNewsletterPayload;
   /** Updates a comment on a post. */
   updateComment: UpdateCommentPayload;
+  updateDocumentationAppearance: UpdateDocumentationAppearancePayload;
+  updateDocumentationGeneralSettings: UpdateDocumentationGeneralSettingsPayload;
+  updateDocumentationGuide: UpdateDocumentationGuidePayload;
+  updateDocumentationIntegrations: UpdateDocumentationIntegrationsPayload;
+  updateDocumentationLink: UpdateDocumentationLinkPayload;
+  updateDocumentationPageSettings: UpdateDocumentationPageSettingsPayload;
+  updateDocumentationProjectSubdomain: UpdateDocumentationProjectSubdomainPayload;
+  /** Mutation to update a section in a guide */
+  updateDocumentationSection: UpdateDocumentationSectionPayload;
   updatePost: UpdatePostPayload;
   updateRedirectionRule: UpdateRedirectionRulePayload;
   /** Updates a reply */
@@ -2140,6 +2968,12 @@ export type Mutation = {
   /** Updates a series. */
   updateSeries: UpdateSeriesPayload;
   updateWebhook: UpdateWebhookPayload;
+  verifyDocumentationProjectCustomDomain: VerifyDocumentationProjectCustomDomainPayload;
+};
+
+
+export type MutationAcceptInviteToDocumentationProjectArgs = {
+  input: AcceptInviteToDocumentationProjectInput;
 };
 
 
@@ -2155,6 +2989,16 @@ export type MutationAcceptRoleBasedInviteArgs = {
 
 export type MutationAddCommentArgs = {
   input: AddCommentInput;
+};
+
+
+export type MutationAddDocumentationProjectCustomDomainArgs = {
+  input: AddDocumentationProjectCustomDomainInput;
+};
+
+
+export type MutationAddDocumentationProjectMemberArgs = {
+  input: AddDocumentationProjectMemberInput;
 };
 
 
@@ -2180,6 +3024,36 @@ export type MutationChangePublicationMemberRoleArgs = {
 
 export type MutationChangePublicationMemberVisibilityArgs = {
   input: ChangePublicationMemberVisibilityInput;
+};
+
+
+export type MutationCreateDocumentationApiReferenceArgs = {
+  input: CreateDocumentationApiReferenceInput;
+};
+
+
+export type MutationCreateDocumentationGuideArgs = {
+  input: CreateDocumentationGuideInput;
+};
+
+
+export type MutationCreateDocumentationLinkArgs = {
+  input: CreateDocumentationLinkInput;
+};
+
+
+export type MutationCreateDocumentationPageDraftArgs = {
+  input: CreateDocumentationPageDraftInput;
+};
+
+
+export type MutationCreateDocumentationProjectArgs = {
+  input: CreateDocumentationProjectInput;
+};
+
+
+export type MutationCreateDocumentationSectionArgs = {
+  input: CreateDocumentationSectionInput;
 };
 
 
@@ -2218,6 +3092,41 @@ export type MutationDeleteWebhookArgs = {
 };
 
 
+export type MutationDisableDocumentationProjectAiSearchArgs = {
+  input: DisableDocumentationProjectAiSearchInput;
+};
+
+
+export type MutationDisableDocumentationProjectHeadlessCmsArgs = {
+  input: DisableDocumentationProjectHeadlessCmsInput;
+};
+
+
+export type MutationEnableDocumentationProjectAiSearchArgs = {
+  input: EnableDocumentationProjectAiSearchInput;
+};
+
+
+export type MutationEnableDocumentationProjectHeadlessCmsArgs = {
+  input: EnableDocumentationProjectHeadlessCmsInput;
+};
+
+
+export type MutationGenerateDocumentationProjectPreviewAuthorizationTokenArgs = {
+  input: GenerateDocumentationProjectPreviewAuthorizationTokenInput;
+};
+
+
+export type MutationGenerateDocumentationProjectPreviewTokenArgs = {
+  input: GenerateDocumentationProjectPreviewTokenInput;
+};
+
+
+export type MutationInviteDocumentationProjectAdminArgs = {
+  input: InviteDocumentationProjectAdminInput;
+};
+
+
 export type MutationInviteUsersToPublicationArgs = {
   input: InviteUsersToPublicationInput;
 };
@@ -2235,6 +3144,31 @@ export type MutationLikePostArgs = {
 
 export type MutationLikeReplyArgs = {
   input: LikeReplyInput;
+};
+
+
+export type MutationMapDocumentationProjectCustomDomainWwwRedirectArgs = {
+  input: MapDocumentationProjectCustomDomainWwwRedirectInput;
+};
+
+
+export type MutationMoveDocumentationSidebarItemArgs = {
+  input: MoveDocumentationSidebarItemInput;
+};
+
+
+export type MutationPublishDocumentationApiReferenceArgs = {
+  input: PublishDocumentationApiReferenceInput;
+};
+
+
+export type MutationPublishDocumentationGuideArgs = {
+  input: PublishDocumentationGuideInput;
+};
+
+
+export type MutationPublishDocumentationPageDraftArgs = {
+  input: PublishDocumentationPageDraftInput;
 };
 
 
@@ -2260,6 +3194,26 @@ export type MutationReinviteUserToPublicationArgs = {
 
 export type MutationRemoveCommentArgs = {
   input: RemoveCommentInput;
+};
+
+
+export type MutationRemoveDocumentationGuideArgs = {
+  input: RemoveDocumentationGuideInput;
+};
+
+
+export type MutationRemoveDocumentationProjectCustomDomainArgs = {
+  input: RemoveDocumentationProjectCustomDomainInput;
+};
+
+
+export type MutationRemoveDocumentationProjectMemberArgs = {
+  input: RemoveDocumentationProjectMemberInput;
+};
+
+
+export type MutationRemoveDocumentationSidebarItemArgs = {
+  input: RemoveDocumentationSidebarItemInput;
 };
 
 
@@ -2293,6 +3247,16 @@ export type MutationRemoveSeriesArgs = {
 };
 
 
+export type MutationRenameDocumentationGuideArgs = {
+  input: RenameDocumentationGuideItemInput;
+};
+
+
+export type MutationRenameDocumentationSidebarItemArgs = {
+  input: RenameDocumentationSidebarItemInput;
+};
+
+
 export type MutationRescheduleDraftArgs = {
   input: RescheduleDraftInput;
 };
@@ -2308,8 +3272,23 @@ export type MutationRestorePostArgs = {
 };
 
 
+export type MutationRetryDocumentationProjectCustomDomainVerificationArgs = {
+  input: RetryDocumentationProjectCustomDomainVerificationInput;
+};
+
+
+export type MutationRevokeInviteToDocumentationProjectArgs = {
+  input: RevokeInviteToDocumentationProjectInput;
+};
+
+
 export type MutationRevokeUserInviteToPublicationArgs = {
   input: RevokeUserInviteToPublicationInput;
+};
+
+
+export type MutationSaveDocumentationPageDraftContentArgs = {
+  input: SaveDocumentationPageDraftContentInput;
 };
 
 
@@ -2318,8 +3297,18 @@ export type MutationScheduleDraftArgs = {
 };
 
 
+export type MutationSetDocumentationSidebarItemVisibilityArgs = {
+  input: SetDocumentationSidebarItemVisibilityInput;
+};
+
+
 export type MutationSubscribeToNewsletterArgs = {
   input: SubscribeToNewsletterInput;
+};
+
+
+export type MutationSyncDocumentationProjectApiDefinitionArgs = {
+  input: SyncDocumentationProjectApiDefinitionInput;
 };
 
 
@@ -2364,6 +3353,46 @@ export type MutationUpdateCommentArgs = {
 };
 
 
+export type MutationUpdateDocumentationAppearanceArgs = {
+  input: UpdateDocumentationAppearanceInput;
+};
+
+
+export type MutationUpdateDocumentationGeneralSettingsArgs = {
+  input: UpdateDocumentationGeneralSettingsInput;
+};
+
+
+export type MutationUpdateDocumentationGuideArgs = {
+  input: UpdateDocumentationGuideInput;
+};
+
+
+export type MutationUpdateDocumentationIntegrationsArgs = {
+  input: UpdateDocumentationIntegrationsInput;
+};
+
+
+export type MutationUpdateDocumentationLinkArgs = {
+  input: UpdateDocumentationLinkInput;
+};
+
+
+export type MutationUpdateDocumentationPageSettingsArgs = {
+  input: UpdateDocumentationPageSettingsInput;
+};
+
+
+export type MutationUpdateDocumentationProjectSubdomainArgs = {
+  input: UpdateDocumentationProjectSubdomainInput;
+};
+
+
+export type MutationUpdateDocumentationSectionArgs = {
+  input: UpdateDocumentationSectionInput;
+};
+
+
 export type MutationUpdatePostArgs = {
   input: UpdatePostInput;
 };
@@ -2391,6 +3420,11 @@ export type MutationUpdateSeriesArgs = {
 
 export type MutationUpdateWebhookArgs = {
   input: UpdateWebhookInput;
+};
+
+
+export type MutationVerifyDocumentationProjectCustomDomainArgs = {
+  input: VerifyDocumentationProjectCustomDomainInput;
 };
 
 /**
@@ -2623,6 +3657,15 @@ export type PageConnection = {
   nodes: Array<Node>;
   /** Information to aid in pagination. */
   pageInfo: OffsetPageInfo;
+};
+
+/**
+ * An edge that contains a node and is used in page based pagination.
+ * This is a common interface for all edges in page based pagination.
+ */
+export type PageEdge = {
+  /** A node in the connection. */
+  node: Node;
 };
 
 /** Contains information to help in pagination. */
@@ -3049,10 +4092,213 @@ export type ProjectViewEdge = Edge & {
   node: DocsViews;
 };
 
+export type ProjectViewsConnection = Connection & {
+  __typename?: 'ProjectViewsConnection';
+  edges: Array<ProjectViewEdge>;
+  pageInfo: PageInfo;
+};
+
+/**
+ * Filter for project views.
+ *
+ * Individual filters are combined with an AND condition whereas multiple values for the same filter are combined with an OR condition.
+ *
+ * Example: `documentationGuideIds: ["1", "2"], operatingSystems: ["Mac OS"]` will return views for posts with ID 1 or 2 AND operating system Mac OS.
+ */
+export type ProjectViewsFilter = {
+  /**
+   * Filter by one or multiple api reference guide IDs.
+   *
+   * If multiple IDs are provided, the filter will be applied as an OR condition.
+   */
+  apiReferenceGuideIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /**
+   * Filter by one or multiple browsers.
+   *
+   * If multiple browsers are provided, the filter will be applied as an OR condition.
+   */
+  browsers?: InputMaybe<Array<Scalars['String']['input']>>;
+  /**
+   * Filter by one or multiple countries.
+   *
+   * If multiple countries are provided, the filter will be applied as an OR condition.
+   */
+  countries?: InputMaybe<Array<Scalars['String']['input']>>;
+  /**
+   * Filter by one or multiple device types.
+   *
+   * If multiple device types are provided, the filter will be applied as an OR condition.
+   */
+  deviceTypes?: InputMaybe<Array<DeviceType>>;
+  /**
+   * Filter by one or multiple documentation guide IDs.
+   *
+   * If multiple IDs are provided, the filter will be applied as an OR condition.
+   */
+  documentationGuideIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /**
+   * Filter by one or multiple operating systems.
+   *
+   * If multiple operating systems are provided, the filter will be applied as an OR condition.
+   */
+  operatingSystems?: InputMaybe<Array<Scalars['String']['input']>>;
+  /**
+   * Filter by one or multiple page IDs.
+   *
+   * If multiple IDs are provided, the filter will be applied as an OR condition.
+   */
+  pageIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /**
+   * Filter by one or multiple paths.
+   *
+   * If multiple paths are provided, the filter will be applied as an OR condition.
+   */
+  paths?: InputMaybe<Array<Scalars['String']['input']>>;
+  /**
+   * Filter by one or multiple referrer hosts.
+   *
+   * If multiple referrer hosts are provided, the filter will be applied as an OR condition.
+   */
+  referrerHosts?: InputMaybe<Array<Scalars['String']['input']>>;
+  /** Filter based on time range. */
+  time?: InputMaybe<TimeFilter>;
+};
+
+export type ProjectViewsGroupBy = {
+  /**
+   * Group by one analytics dimensions.
+   *
+   * Can not be used together with `granularity`.
+   */
+  dimension?: InputMaybe<DocsAnalyticsDimension>;
+  /**
+   * Group by time. Without this, all views over time will be aggregated.
+   *
+   * Can not be used together with `dimension`.
+   */
+  granularity?: InputMaybe<TimeGranularity>;
+};
+
+export type ProjectViewsOptions = {
+  /**
+   * The timezone that is used for grouping the views by time.
+   * E.g. if you group by day, the timezone will be used to determine the start of the day as indicated by `to` and `from`.
+   *
+   * It has no effect outside of time grouping.
+   *
+   * Default is `UTC`.
+   */
+  groupingTimezone?: InputMaybe<Scalars['TimeZone']['input']>;
+};
+
+export type ProjectViewsSortBy = {
+  /** Sort the views by the total number of views. Can only be used when grouped by `dimension`. */
+  viewCount: SortOrder;
+};
+
+export type ProjectVisitorsConnection = Connection & {
+  __typename?: 'ProjectVisitorsConnection';
+  edges: Array<ProjectVisitorsEdge>;
+  pageInfo: PageInfo;
+};
+
 export type ProjectVisitorsEdge = Edge & {
   __typename?: 'ProjectVisitorsEdge';
   cursor: Scalars['String']['output'];
   node: DocsVisitors;
+};
+
+/**
+ * Filter for project visitors.
+ *
+ * Individual filters are combined with an AND condition whereas multiple values for the same filter are combined with an OR condition.
+ *
+ * Example: `documentationGuideIds: ["1", "2"], operatingSystems: ["Mac OS"]` will return visitors for posts with ID 1 or 2 AND operating system Mac OS.
+ */
+export type ProjectVisitorsFilter = {
+  /**
+   * Filter by one or multiple api reference guide IDs.
+   *
+   * If multiple IDs are provided, the filter will be applied as an OR condition.
+   */
+  apiReferenceGuideIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /**
+   * Filter by one or multiple browsers.
+   *
+   * If multiple browsers are provided, the filter will be applied as an OR condition.
+   */
+  browsers?: InputMaybe<Array<Scalars['String']['input']>>;
+  /**
+   * Filter by one or multiple countries.
+   *
+   * If multiple countries are provided, the filter will be applied as an OR condition.
+   */
+  countries?: InputMaybe<Array<CountryCodeAlpha2>>;
+  /**
+   * Filter by one or multiple device types.
+   *
+   * If multiple device types are provided, the filter will be applied as an OR condition.
+   */
+  deviceTypes?: InputMaybe<Array<DeviceType>>;
+  /**
+   * Filter by one or multiple documentation guide IDs.
+   *
+   * If multiple IDs are provided, the filter will be applied as an OR condition.
+   */
+  documentationGuideIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /**
+   * Filter by one or multiple operating systems.
+   *
+   * If multiple operating systems are provided, the filter will be applied as an OR condition.
+   */
+  operatingSystems?: InputMaybe<Array<Scalars['String']['input']>>;
+  /**
+   * Filter by one or multiple page IDs.
+   *
+   * If multiple IDs are provided, the filter will be applied as an OR condition.
+   */
+  pageIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /**
+   * Filter by one or multiple paths.
+   *
+   * If multiple paths are provided, the filter will be applied as an OR condition.
+   */
+  paths?: InputMaybe<Array<Scalars['String']['input']>>;
+  /**
+   * Filter by one or multiple referrer hosts.
+   *
+   * If multiple referrer hosts are provided, the filter will be applied as an OR condition.
+   */
+  referrerHosts?: InputMaybe<Array<Scalars['String']['input']>>;
+  /** Filter based on time range. */
+  time?: InputMaybe<TimeFilter>;
+};
+
+export type ProjectVisitorsGroupBy = {
+  /**
+   * Group by one analytics dimensions.
+   *
+   * Can not be used together with `granularity`.
+   */
+  dimension?: InputMaybe<DocsAnalyticsDimension>;
+  /**
+   * Group by time. Without this, all views over time will be aggregated.
+   *
+   * Can not be used together with `dimension`.
+   */
+  granularity?: InputMaybe<TimeGranularity>;
+};
+
+export type ProjectVisitorsOptions = {
+  /**
+   * The timezone that is used for grouping the views by time.
+   * E.g. if you group by day, the timezone will be used to determine the start of the day as indicated by `to` and `from`.
+   *
+   * It has no effect outside of time grouping.
+   *
+   * Default is `UTC`.
+   */
+  groupingTimezone?: InputMaybe<Scalars['TimeZone']['input']>;
 };
 
 /**
@@ -3619,6 +4865,38 @@ export type PublicationVisitorsEdge = Edge & {
   node: Visitors;
 };
 
+export type PublishDocumentationApiReferenceInput = {
+  guideSlug: Scalars['String']['input'];
+  projectId: Scalars['ID']['input'];
+};
+
+export type PublishDocumentationApiReferencePayload = {
+  __typename?: 'PublishDocumentationApiReferencePayload';
+  guide?: Maybe<DocumentationApiReference>;
+};
+
+export type PublishDocumentationGuideInput = {
+  guideSlug: Scalars['String']['input'];
+  projectId: Scalars['ID']['input'];
+};
+
+export type PublishDocumentationGuidePayload = {
+  __typename?: 'PublishDocumentationGuidePayload';
+  guide?: Maybe<DocumentationGuide>;
+};
+
+export type PublishDocumentationPageDraftInput = {
+  guideSlug: Scalars['String']['input'];
+  pageId: Scalars['ID']['input'];
+  projectId: Scalars['ID']['input'];
+};
+
+export type PublishDocumentationPageDraftPayload = {
+  __typename?: 'PublishDocumentationPageDraftPayload';
+  guide?: Maybe<DocumentationGuide>;
+  page?: Maybe<DocumentationPage>;
+};
+
 export type PublishDraftInput = {
   /** The id of the draft that should be published */
   draftId: Scalars['ObjectId']['input'];
@@ -3712,6 +4990,9 @@ export type PublishPostTagInput = {
 
 export type Query = {
   __typename?: 'Query';
+  checkCustomDomainAvailability: CheckCustomDomainAvailabilityResult;
+  checkSubdomainAvailability: CheckSubdomainAvailabilityResult;
+  documentationProject?: Maybe<DocumentationProject>;
   /**
    * Returns a draft by ID.
    * Draft is a post that is not published yet.
@@ -3741,6 +5022,22 @@ export type Query = {
   topCommenters: CommenterUserConnection;
   /** Returns the user with the username. */
   user?: Maybe<User>;
+};
+
+
+export type QueryCheckCustomDomainAvailabilityArgs = {
+  input: CheckCustomDomainAvailabilityInput;
+};
+
+
+export type QueryCheckSubdomainAvailabilityArgs = {
+  subdomain: Scalars['String']['input'];
+};
+
+
+export type QueryDocumentationProjectArgs = {
+  host?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['ID']['input']>;
 };
 
 
@@ -3863,6 +5160,13 @@ export type ReinviteUserToPublicationPayload = {
   success: Scalars['Boolean']['output'];
 };
 
+export type RelativeTimeRange = {
+  /** The number of time periods to go back in time. */
+  n: Scalars['Int']['input'];
+  /** The type of time range to be used. */
+  relative: TimePeriod;
+};
+
 export type RemoveCommentInput = {
   id: Scalars['ID']['input'];
 };
@@ -3870,6 +5174,48 @@ export type RemoveCommentInput = {
 export type RemoveCommentPayload = {
   __typename?: 'RemoveCommentPayload';
   comment?: Maybe<Comment>;
+};
+
+export type RemoveDocumentationGuideInput = {
+  guideSlug: Scalars['String']['input'];
+  projectId: Scalars['ID']['input'];
+};
+
+export type RemoveDocumentationGuidePayload = {
+  __typename?: 'RemoveDocumentationGuidePayload';
+  guide?: Maybe<DocumentationGuideItem>;
+};
+
+export type RemoveDocumentationProjectCustomDomainInput = {
+  projectId: Scalars['ID']['input'];
+};
+
+export type RemoveDocumentationProjectCustomDomainPayload = {
+  __typename?: 'RemoveDocumentationProjectCustomDomainPayload';
+  project?: Maybe<DocumentationProject>;
+};
+
+/** The input for the removal of a member from a documentation */
+export type RemoveDocumentationProjectMemberInput = {
+  projectId: Scalars['ID']['input'];
+  userId: Scalars['ID']['input'];
+};
+
+export type RemoveDocumentationProjectMemberPayload = {
+  __typename?: 'RemoveDocumentationProjectMemberPayload';
+  project?: Maybe<DocumentationProject>;
+  removedMember?: Maybe<DocumentationProjectMember>;
+};
+
+export type RemoveDocumentationSidebarItemInput = {
+  guideSlug: Scalars['String']['input'];
+  itemId: Scalars['ID']['input'];
+  projectId: Scalars['ID']['input'];
+};
+
+export type RemoveDocumentationSidebarItemPayload = {
+  __typename?: 'RemoveDocumentationSidebarItemPayload';
+  guide?: Maybe<DocumentationGuide>;
 };
 
 export type RemovePostInput = {
@@ -3939,6 +5285,30 @@ export type RemoveSeriesPayload = {
   series: Series;
 };
 
+export type RenameDocumentationGuideItemInput = {
+  guideSlug: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  projectId: Scalars['ID']['input'];
+};
+
+export type RenameDocumentationGuideItemPayload = {
+  __typename?: 'RenameDocumentationGuideItemPayload';
+  guide?: Maybe<DocumentationGuideItem>;
+};
+
+export type RenameDocumentationSidebarItemInput = {
+  guideSlug: Scalars['String']['input'];
+  itemId: Scalars['ID']['input'];
+  label: Scalars['String']['input'];
+  projectId: Scalars['ID']['input'];
+};
+
+export type RenameDocumentationSidebarItemPayload = {
+  __typename?: 'RenameDocumentationSidebarItemPayload';
+  guide?: Maybe<DocumentationGuide>;
+  item?: Maybe<DocumentationSidebarItem>;
+};
+
 /**
  * Contains basic information about the reply.
  * A reply is a response to a comment.
@@ -3996,6 +5366,32 @@ export type RestorePostPayload = {
   post?: Maybe<Post>;
 };
 
+export type RetryDocumentationProjectCustomDomainVerificationInput = {
+  projectId: Scalars['ID']['input'];
+};
+
+export type RetryDocumentationProjectCustomDomainVerificationPayload = {
+  __typename?: 'RetryDocumentationProjectCustomDomainVerificationPayload';
+  project?: Maybe<DocumentationProject>;
+};
+
+/** Input to revoke a user invitation to join a documentation project. */
+export type RevokeInviteToDocumentationProjectInput = {
+  /** The ID of the invite to revoke. */
+  inviteId: Scalars['ID']['input'];
+  /** The ID of the documentation project. */
+  projectId: Scalars['ID']['input'];
+};
+
+/** Response to revoking an invitation to join a documentation project. */
+export type RevokeInviteToDocumentationProjectPayload = {
+  __typename?: 'RevokeInviteToDocumentationProjectPayload';
+  /** The documentation project that was associated with the invite. */
+  project?: Maybe<DocumentationProject>;
+  /** Signifies the success of the mutation. */
+  success: Scalars['Boolean']['output'];
+};
+
 /** Input to revoke a user invitation to a publication. */
 export type RevokeUserInviteToPublicationInput = {
   /** The invite ID to revoke. */
@@ -4051,6 +5447,21 @@ export type Seo = {
   title?: Maybe<Scalars['String']['output']>;
 };
 
+export type SaveDocumentationPageDraftContentInput = {
+  content?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  guideId?: InputMaybe<Scalars['ID']['input']>;
+  guideSlug?: InputMaybe<Scalars['String']['input']>;
+  pageId: Scalars['ID']['input'];
+  projectId: Scalars['ID']['input'];
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SaveDocumentationPageDraftContentPayload = {
+  __typename?: 'SaveDocumentationPageDraftContentPayload';
+  page?: Maybe<DocumentationPage>;
+};
+
 export type ScheduleDraftInput = {
   /** The Author ID of the draft that should be published */
   authorId: Scalars['ID']['input'];
@@ -4097,6 +5508,7 @@ export enum Scope {
   DocsAdminOrOwner = 'docs_admin_or_owner',
   DocsOwner = 'docs_owner',
   ImportSubscribersToPublication = 'import_subscribers_to_publication',
+  InvitedDocsAdmin = 'invited_docs_admin',
   InvitedTeamUser = 'invited_team_user',
   MoveDraft = 'move_draft',
   PublicationAdmin = 'publication_admin',
@@ -4238,6 +5650,19 @@ export type SeriesPostConnection = Connection & {
   totalDocuments: Scalars['Int']['output'];
 };
 
+export type SetDocumentationSidebarItemVisibilityInput = {
+  guideSlug: Scalars['String']['input'];
+  itemId: Scalars['ID']['input'];
+  projectId: Scalars['ID']['input'];
+  visibility: DocumentationSidebarItemVisibility;
+};
+
+export type SetDocumentationSidebarItemVisibilityPayload = {
+  __typename?: 'SetDocumentationSidebarItemVisibilityPayload';
+  guide?: Maybe<DocumentationGuide>;
+  item?: Maybe<DocumentationSidebarItem>;
+};
+
 /** Available social media links. */
 export type SocialMediaLinks = {
   __typename?: 'SocialMediaLinks';
@@ -4333,6 +5758,23 @@ export type SubscribeToNewsletterPayload = {
   status?: Maybe<NewsletterSubscribeStatus>;
 };
 
+/** The input for syncing API reference definitions */
+export type SyncDocumentationProjectApiDefinitionInput = {
+  /** The ID of the docs API reference */
+  apiReferenceId: Scalars['ID']['input'];
+  /** The ID of the documentation project */
+  projectId: Scalars['ID']['input'];
+  /** The ID of the reference version */
+  versionId: Scalars['ID']['input'];
+};
+
+/** The response to syncing documentation project API Reference definition */
+export type SyncDocumentationProjectApiDefinitionPayload = {
+  __typename?: 'SyncDocumentationProjectApiDefinitionPayload';
+  /** Signifies if the mutation was successful. */
+  success: Scalars['Boolean']['output'];
+};
+
 export type TableOfContentsFeature = Feature & {
   __typename?: 'TableOfContentsFeature';
   /** Whether or not the user has chosen to show a table of contents on the post. */
@@ -4418,6 +5860,37 @@ export type TextSelectionSharerFeature = Feature & {
   /** A flag indicating if the text selection sharer feature is enabled or not. */
   isEnabled: Scalars['Boolean']['output'];
 };
+
+export type TimeFilter = {
+  /**
+   * Narrow the time range to a specific period.
+   *
+   * Can't be used with `relative`.
+   */
+  absolute?: InputMaybe<AbsoluteTimeRange>;
+  /**
+   * Narrow the time range to a specific period.
+   *
+   * Can't be used with `absolute`.
+   */
+  relative?: InputMaybe<RelativeTimeRange>;
+};
+
+export enum TimeGranularity {
+  Daily = 'DAILY',
+  Hourly = 'HOURLY',
+  Monthly = 'MONTHLY',
+  Weekly = 'WEEKLY',
+  Yearly = 'YEARLY'
+}
+
+export enum TimePeriod {
+  LastNDays = 'LAST_N_DAYS',
+  LastNHours = 'LAST_N_HOURS',
+  LastNMonths = 'LAST_N_MONTHS',
+  LastNWeeks = 'LAST_N_WEEKS',
+  LastNYears = 'LAST_N_YEARS'
+}
 
 export type ToggleAllowContributorEditsInput = {
   publicationId: Scalars['ID']['input'];
@@ -4521,6 +5994,108 @@ export type UpdateCommentInput = {
 export type UpdateCommentPayload = {
   __typename?: 'UpdateCommentPayload';
   comment?: Maybe<Comment>;
+};
+
+export type UpdateDocumentationAppearanceInput = {
+  appearance: DocumentationProjectAppearanceInput;
+  projectId: Scalars['ID']['input'];
+};
+
+export type UpdateDocumentationAppearancePayload = {
+  __typename?: 'UpdateDocumentationAppearancePayload';
+  project?: Maybe<DocumentationProject>;
+};
+
+export type UpdateDocumentationGeneralSettingsInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  links?: InputMaybe<DocumentationProjectLinksInput>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  projectId: Scalars['ID']['input'];
+  settings?: InputMaybe<DocumentationProjectSettingsInput>;
+};
+
+export type UpdateDocumentationGeneralSettingsPayload = {
+  __typename?: 'UpdateDocumentationGeneralSettingsPayload';
+  project?: Maybe<DocumentationProject>;
+};
+
+export type UpdateDocumentationGuideInput = {
+  guideId: Scalars['ID']['input'];
+  metaTags?: InputMaybe<MetaTagsInput>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  projectId: Scalars['ID']['input'];
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdateDocumentationGuidePayload = {
+  __typename?: 'UpdateDocumentationGuidePayload';
+  guide?: Maybe<DocumentationGuide>;
+};
+
+export type UpdateDocumentationIntegrationsInput = {
+  integrations: DocumentationProjectIntegrationsInput;
+  projectId: Scalars['ID']['input'];
+};
+
+export type UpdateDocumentationIntegrationsPayload = {
+  __typename?: 'UpdateDocumentationIntegrationsPayload';
+  project?: Maybe<DocumentationProject>;
+};
+
+export type UpdateDocumentationLinkInput = {
+  guideSlug: Scalars['String']['input'];
+  label: Scalars['String']['input'];
+  linkId: Scalars['ID']['input'];
+  projectId: Scalars['ID']['input'];
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdateDocumentationLinkPayload = {
+  __typename?: 'UpdateDocumentationLinkPayload';
+  guide?: Maybe<DocumentationGuide>;
+  link?: Maybe<DocumentationLink>;
+};
+
+export type UpdateDocumentationPageSettingsInput = {
+  guideSlug: Scalars['String']['input'];
+  label?: InputMaybe<Scalars['String']['input']>;
+  metaTags?: InputMaybe<MetaTagsInput>;
+  pageId: Scalars['ID']['input'];
+  projectId: Scalars['ID']['input'];
+  slug?: InputMaybe<Scalars['String']['input']>;
+  visibility?: InputMaybe<DocumentationSidebarItemVisibility>;
+};
+
+export type UpdateDocumentationPageSettingsPayload = {
+  __typename?: 'UpdateDocumentationPageSettingsPayload';
+  guide?: Maybe<DocumentationGuide>;
+  page?: Maybe<DocumentationPage>;
+  sidebarItem?: Maybe<DocumentationSidebarItemPage>;
+};
+
+export type UpdateDocumentationProjectSubdomainInput = {
+  projectId: Scalars['ID']['input'];
+  subdomain: Scalars['String']['input'];
+};
+
+export type UpdateDocumentationProjectSubdomainPayload = {
+  __typename?: 'UpdateDocumentationProjectSubdomainPayload';
+  project?: Maybe<DocumentationProject>;
+};
+
+export type UpdateDocumentationSectionInput = {
+  guideSlug: Scalars['String']['input'];
+  label?: InputMaybe<Scalars['String']['input']>;
+  projectId: Scalars['ID']['input'];
+  sectionId: Scalars['ID']['input'];
+  slug?: InputMaybe<Scalars['String']['input']>;
+  visibility?: InputMaybe<DocumentationSidebarItemVisibility>;
+};
+
+export type UpdateDocumentationSectionPayload = {
+  __typename?: 'UpdateDocumentationSectionPayload';
+  guide?: Maybe<DocumentationGuide>;
+  section?: Maybe<DocumentationSection>;
 };
 
 export type UpdatePostInput = {
@@ -4825,6 +6400,11 @@ export type UserInviteInput = {
   username?: InputMaybe<Scalars['String']['input']>;
 };
 
+export enum UserInviteStatus {
+  Invited = 'INVITED',
+  NotInvited = 'NOT_INVITED'
+}
+
 /**
  * Connection for posts written by a single user. Contains a list of edges containing nodes.
  * Each node is a post.
@@ -4981,6 +6561,24 @@ export type UserTagsConnection = PageConnection & {
 export enum ValidationMethod {
   Id = 'ID'
 }
+
+export type VerifyDocumentationProjectCustomDomainInput = {
+  projectId: Scalars['ID']['input'];
+};
+
+export type VerifyDocumentationProjectCustomDomainPayload = {
+  __typename?: 'VerifyDocumentationProjectCustomDomainPayload';
+  /**
+   * Additional DNS entries required to verify the domain.
+   * There are cases where additional records in the DNS config are required to successfully verify the domain.
+   */
+  dnsVerificationEntries: Array<DnsVerificationEntry>;
+  /**
+   * The documentation project where the custom domain should be verified.
+   * Note, that the verification can also fail.
+   */
+  project?: Maybe<DocumentationProject>;
+};
 
 /**
  * Contains the flag indicating if the view count feature is enabled or not.
