@@ -33,17 +33,12 @@ function PostAuthorInfo(props: any) {
               alt={author.name}
             />
         </div>
-        <div
-          className={twJoin(
-            'flex flex-1 flex-col justify-center md:justify-start'
-          )}
-        >
+        <div className="flex flex-1 flex-col justify-center md:justify-start">
           <div className="flex flex-row items-center md:mb-1">
             <p className="font-sans text-lg font-semibold text-slate-800 dark:text-slate-100">
               {author.name}
             </p>
           </div>
-          {author.bio?.html && (
             <div className="hidden pr-2 md:block">
               <div className="prose text-slate-600 dark:prose-dark dark:text-slate-300">
                 <p className="font-sans text-lg font-semibold text-slate-800 dark:text-slate-100">
@@ -51,10 +46,8 @@ function PostAuthorInfo(props: any) {
                 </p>
               </div>    
             </div>
-          )}
         </div>
       </div>
-      {author.bio?.html && (
         <div className="mb-4 block md:hidden">
           <div className="prose text-slate-600 dark:prose-dark ">
             <p className="font-sans text-lg font-semibold text-slate-800 dark:text-slate-100">
@@ -62,7 +55,6 @@ function PostAuthorInfo(props: any) {
             </p>
           </div>    
         </div>
-      )}
     </div>
   );
 }
