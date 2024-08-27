@@ -46,10 +46,11 @@ function PostAuthorInfo(props: any) {
           </div>
           {author.bio?.html && (
             <div className="hidden pr-2 md:block">
-              <div
-                className="prose text-slate-600 dark:prose-dark dark:text-slate-300"
-                dangerouslySetInnerHTML={{ __html: author.bio?.html }}
-              />
+              <div className="prose text-slate-600 dark:prose-dark dark:text-slate-300">
+                <p className="font-sans text-lg font-semibold text-slate-800 dark:text-slate-100">
+                Temizmama Blog İçerik Ekibi olarak kapsamlı araştırmalar sonucunda yerli ve yabancı kaynaklardan edindiğimiz güncel bilgileri toplayıp kedi ve köpeklerle ilgili sorularınıza yanıt buluyor ve ilginç bilgiler paylaşıyoruz.
+                </p>
+              </div>    
             </div>
           )}
         </div>
