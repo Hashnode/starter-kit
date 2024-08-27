@@ -1,19 +1,16 @@
 // pages/_app.tsx
 import { AppProps } from 'next/app';
 import { AppProvider } from '../components/contexts/appContext';
-import Modal  from '../components/modal';
+import { useExternalLinkHandler } from '../utils/externalLinkHandler';
+import { ExternalLinkModal } from '../components/ExternalLinkModal';
 import '../styles/index.css';
 import '../styles/globals.css';
 import '../styles/OverlaySearch.css';
-import { useState } from 'react';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { modalUrl, hideModal } = useExternalLinkHandler();
 
-  const handleApprove = () => {
-    console.log('Action approved');
-    setIsModalOpen(false);
-  };
+  console.log('Current modal URL:', modalUrl); // Debug için
 
   if (!pageProps.publication) {
     return <Component {...pageProps} />;
@@ -27,14 +24,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       series={pageProps.series}
     >
       <Component {...pageProps} />
-	  <button onClick={() => setIsModalOpen(true)}>Open Modal</button>
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onApprove={handleApprove}
-        title="Confirm Action"
-        message="Are you sure you want to proceed with this action? This cannot be undone."
-      />
+      {modalUrl && <ExternalLinkModal url={modalUrl} onClose={hideModal} />}
     </AppProvider>
   );
 }
