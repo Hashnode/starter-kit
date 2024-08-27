@@ -1,5 +1,3 @@
-import { twJoin } from 'tailwind-merge';
-
 import CustomImage from './custom-image';
 import { getBlurHash, resizeImage } from '@starter-kit/utils/image';
 
