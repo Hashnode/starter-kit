@@ -1,7 +1,7 @@
 // utils/externalLinkHandler.ts
 import { useState, useEffect } from 'react';
 
-const internalDomains = ['example.com', 'www.example.com']; // Kendi domainlerinizi ekleyin
+const internalDomains = ['blog.temizmama.com', 'www.temizmama.com'];
 
 export const useExternalLinkHandler = () => {
   const [modalUrl, setModalUrl] = useState<string | null>(null);
