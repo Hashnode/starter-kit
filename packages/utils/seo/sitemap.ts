@@ -9,23 +9,23 @@ export const getSitemap = (publication: any) => {
   
 	// Manuel olarak eklenecek kategoriler
 	const manualCategories = [
-	  { slug: 'kedi', publishedAt: '22024-06-06T21:00:00.000Z' },
-	  { slug: 'kopek', publishedAt: '22024-06-06T21:00:00.000Z' },
-	  { slug: 'kedi-bakimi', publishedAt: '22024-06-06T21:00:00.000Z' },
-	  { slug: 'kedi-sagligi', publishedAt: '22024-06-06T21:00:00.000Z' },
-	  { slug: 'kedi-irklari', publishedAt: '22024-06-06T21:00:00.000Z' },
-	  { slug: 'kedi-beslenmesi', publishedAt: '22024-06-06T21:00:00.000Z' },
-	  { slug: 'kedi-diger', publishedAt: '22024-06-06T21:00:00.000Z' },
-	  { slug: 'kopek-sagligi', publishedAt: '22024-06-06T21:00:00.000Z' },
-	  { slug: 'kopek-bakimi', publishedAt: '22024-06-06T21:00:00.000Z' },
-	  { slug: 'kopek-irklari', publishedAt: '22024-06-06T21:00:00.000Z' },
-	  { slug: 'kopek-beslenmesi', publishedAt: '22024-06-06T21:00:00.000Z' },
+	  { slug: 'kedi', publishedAt: '2024-06-06T21:00:00.000Z' },
+	  { slug: 'kopek', publishedAt: '2024-06-06T21:00:00.000Z' },
+	  { slug: 'kedi-bakimi', publishedAt: '2024-06-06T21:00:00.000Z' },
+	  { slug: 'kedi-sagligi', publishedAt: '2024-06-06T21:00:00.000Z' },
+	  { slug: 'kedi-irklari', publishedAt: '2024-06-06T21:00:00.000Z' },
+	  { slug: 'kedi-beslenmesi', publishedAt: '2024-06-06T21:00:00.000Z' },
+	  { slug: 'kedi-diger', publishedAt: '2024-06-06T21:00:00.000Z' },
+	  { slug: 'kopek-sagligi', publishedAt: '2024-06-06T21:00:00.000Z' },
+	  { slug: 'kopek-bakimi', publishedAt: '2024-06-06T21:00:00.000Z' },
+	  { slug: 'kopek-irklari', publishedAt: '2024-06-06T21:00:00.000Z' },
+	  { slug: 'kopek-beslenmesi', publishedAt: '2024-06-06T21:00:00.000Z' },
 	  { slug: 'kopek-diger', publishedAt: '2024-06-06T21:00:00.000Z' },
 	];
   
 	// Manuel olarak eklenecek statik sayfalar
 	const manualStaticPages = [
-	  { slug: 'iletisim', publishedAt: '22024-06-06T21:00:00.000Z' },
+	  { slug: 'iletisim', publishedAt: '2024-06-06T21:00:00.000Z' },
 	];
   
 	// Ana sayfa
