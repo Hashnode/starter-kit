@@ -1,4 +1,3 @@
-// components/contexts/ExternalLinkContext.tsx
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 type ExternalLinkContextType = {
@@ -14,11 +13,6 @@ export const ExternalLinkProvider: React.FC<{ children: ReactNode }> = ({ childr
 
   const showModal = (url: string) => setModalUrl(url);
   const hideModal = () => setModalUrl(null);
-
-  // Server-side rendering için dummy provider
-  if (typeof window === 'undefined') {
-    return <>{children}</>;
-  }
 
   return (
     <ExternalLinkContext.Provider value={{ showModal, hideModal, modalUrl }}>
