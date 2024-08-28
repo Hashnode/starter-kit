@@ -1,4 +1,3 @@
-// pages/api/screenshot.ts
 import { NextApiRequest, NextApiResponse } from 'next';
 import puppeteer from 'puppeteer';
 
@@ -23,3 +22,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(500).json({ error: 'Screenshot alınamadı.' });
   }
 }
+
+// utils/localStorage.ts
+export const setLocalStorageItem = (key: string, value: string) => {
+  if (typeof window !== 'undefined') {
+    localStorage.setItem(key, value);
+  }
+};
+
+export const getLocalStorageItem = (key: string): string | null => {
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem(key);
+  }
+  return null;
+};
+
+export const removeLocalStorageItem = (key: string) => {
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem(key);
+  }
+};
