@@ -125,7 +125,6 @@ function generateNonce() {
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-config.i18n = undefined;
 
 
 /**
@@ -139,6 +138,7 @@ const config = {
     scrollRestoration: true,
     optimizeCss: true,
   },
+  
   images: {
     domains: ['cdn.hashnode.com', 'cdn.hashnode.co'],
     formats: ['image/webp', 'image/avif'],
@@ -166,7 +166,7 @@ const config = {
   async rewrites() {
     return [
       {
-        source: '/:locale/iletisim',
+        source: '/iletisim',
         destination: '/iletisim',
       },
       // ... (diğer rewrite kuralları)
@@ -177,8 +177,6 @@ const config = {
     return {
       '/': { page: '/' },
       '/iletisim': { page: '/iletisim' },
-      '/tr/iletisim': { page: '/iletisim' },
-      '/en/iletisim': { page: '/iletisim' },
       // Diğer sayfalarınızı buraya ekleyin
     }
   },
@@ -344,5 +342,7 @@ const config = {
     ignoreDuringBuilds: isProd,
   },
 };
+config.i18n = undefined;
+
 
 export default config;
