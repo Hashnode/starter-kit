@@ -1188,6 +1188,17 @@ enum DeviceType {
   TABLET
 }
 
+"""The input for disabling AI search for a documentation project"""
+input DisableDocumentationProjectAISearchInput {
+  """The ID of the documentation project"""
+  projectId: ID!
+}
+
+"""The response to disabling AI search for a documentation project"""
+type DisableDocumentationProjectAISearchPayload {
+  project: DocumentationProject
+}
+
 input DisableDocumentationProjectHeadlessCmsInput {
   projectId: ID!
 }
@@ -1242,6 +1253,12 @@ interface DocsVisitors implements Node {
 }
 
 type DocumentationApiReference implements IGuide {
+  """The parsed Swagger Definition of the API Reference."""
+  definition: JSONObject
+  """
+  The base64 encoded gzip compressed string of the parsed OpenAPI Definition of the API Reference.
+  """
+  definitionV2: String
   id: ID!
   lastModified: DateTime!
   name: String!
@@ -1390,6 +1407,7 @@ type DocumentationPageDraft {
 }
 
 type DocumentationProject implements Node {
+  ai: DocumentationProjectAIPreference
   analytics: DocumentationProjectAnalytics!
   appearance: DocumentationProjectAppearance!
   createdAt: DateTime!
@@ -1433,9 +1451,33 @@ type DocumentationProject implements Node {
   """A user search to find users with a specific status"""
   searchUsers(input: DocumentationProjectSearchUsersInput!): DocumentationProjectSearchUserConnection!
   settings: DocumentationProjectSettings!
+  subscription: DocumentationProjectSubscription
   updatedAt: DateTime
   """Url of the documentation project."""
   url: String!
+}
+
+type DocumentationProjectAIPreference {
+  """
+  The prompts for the documentation project. These prompts are shown to the user when AI Search chatbot is opened.
+  """
+  prompts: [DocumentationProjectAIPrompt!]!
+  """The settings for the AI feature."""
+  settings: DocumentationProjectAISettings!
+}
+
+type DocumentationProjectAIPrompt {
+  """The date the prompt was created."""
+  createdAt: DateTime!
+  """The ID of the prompt."""
+  id: ID!
+  """The prompt text."""
+  prompt: String!
+}
+
+type DocumentationProjectAISettings {
+  """A flag to indicate if the AI search feature is enabled."""
+  isSearchEnabled: Boolean!
 }
 
 type DocumentationProjectAnalytics {
@@ -1638,6 +1680,11 @@ type DocumentationProjectPendingInviteConnection implements PageConnection {
   totalDocuments: Int!
 }
 
+enum DocumentationProjectProductName {
+  ENTERPRISE
+  STARTUP
+}
+
 """A connection for the user search result."""
 type DocumentationProjectSearchUserConnection implements PageConnection {
   """The edges containing the user and the status of the user."""
@@ -1674,6 +1721,18 @@ type DocumentationProjectSettings {
 input DocumentationProjectSettingsInput {
   allowHashnodeLogin: Boolean
   allowRobots: Boolean
+}
+
+type DocumentationProjectSubscription {
+  productName: DocumentationProjectProductName!
+  status: DocumentationProjectSubscriptionStatus!
+}
+
+enum DocumentationProjectSubscriptionStatus {
+  ACTIVE
+  CANCELED
+  PAST_DUE
+  UNPAID
 }
 
 type DocumentationSection implements IDocumentationNestableSidebarItem & IDocumentationSidebarItem {
@@ -1789,6 +1848,10 @@ type Draft implements Node {
   """The publication the draft belongs to."""
   publication: Publication
   publishAs: User
+  """
+  Returns the published post when the draft is published, returns null otherwise
+  """
+  publishedPost: Post
   readTimeInMinutes: Int!
   """The date the draft is scheduled to be published."""
   scheduledDate: DateTime
@@ -1971,6 +2034,17 @@ type EmailNotificationPreferences {
   Indicates if the user has opted in to receive the Hashnode Weekly newsletter.
   """
   weeklyNewsletterEmails: Boolean!
+}
+
+"""The input for enabling AI search for a documentation project"""
+input EnableDocumentationProjectAISearchInput {
+  """The ID of the documentation project"""
+  projectId: ID!
+}
+
+"""The response to enabling AI search for a documentation project"""
+type EnableDocumentationProjectAISearchPayload {
+  project: DocumentationProject
 }
 
 input EnableDocumentationProjectHeadlessCmsInput {
@@ -2482,6 +2556,7 @@ interface IGuide {
   id: ID!
   lastModified: DateTime!
   name: String!
+  seo: SEO
   slug: String!
   versionId: String
 }
@@ -2638,6 +2713,11 @@ type InviteUsersToPublicationPayload {
   successfulInviteCount: Int!
 }
 
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
 input LikeCommentInput {
   commentId: ID!
   likesCount: Int = 1
@@ -2751,7 +2831,11 @@ type Mutation {
   """Deletes a role based invite."""
   deleteRoleBasedInvite(input: DeleteRoleBasedInviteInput!): DeleteRoleBasedInvitePayload!
   deleteWebhook(id: ID!): DeleteWebhookPayload!
+  """Mutation to disable AI search for a documentation project"""
+  disableDocumentationProjectAISearch(input: DisableDocumentationProjectAISearchInput!): DisableDocumentationProjectAISearchPayload!
   disableDocumentationProjectHeadlessCms(input: DisableDocumentationProjectHeadlessCmsInput!): DisableDocumentationProjectHeadlessCmsPayload!
+  """Mutation to enable AI search for a documentation project"""
+  enableDocumentationProjectAISearch(input: EnableDocumentationProjectAISearchInput!): EnableDocumentationProjectAISearchPayload!
   enableDocumentationProjectHeadlessCms(input: EnableDocumentationProjectHeadlessCmsInput!): EnableDocumentationProjectHeadlessCmsPayload!
   """
   Will generate a authorization JWT to preview a docs project.
@@ -2829,6 +2913,8 @@ type Mutation {
   ): ScheduleDraftPayload!
   setDocumentationSidebarItemVisibility(input: SetDocumentationSidebarItemVisibilityInput!): SetDocumentationSidebarItemVisibilityPayload!
   subscribeToNewsletter(input: SubscribeToNewsletterInput!): SubscribeToNewsletterPayload!
+  """Mutation to sync documentation API reference definition"""
+  syncDocumentationProjectApiDefinition(input: SyncDocumentationProjectApiDefinitionInput!): SyncDocumentationProjectApiDefinitionPayload!
   """
   Toggle allowContributorEdits flag to allow or restrict external contributors to further edit published articles.
   """
@@ -2859,7 +2945,7 @@ type Mutation {
   updateDocumentationLink(input: UpdateDocumentationLinkInput!): UpdateDocumentationLinkPayload!
   updateDocumentationPageSettings(input: UpdateDocumentationPageSettingsInput!): UpdateDocumentationPageSettingsPayload!
   updateDocumentationProjectSubdomain(input: UpdateDocumentationProjectSubdomainInput!): UpdateDocumentationProjectSubdomainPayload!
-  """Mutation to update a section in a guide """
+  """Mutation to update a section in a guide"""
   updateDocumentationSection(input: UpdateDocumentationSectionInput!): UpdateDocumentationSectionPayload!
   updatePost(input: UpdatePostInput!): UpdatePostPayload!
   updateRedirectionRule(input: UpdateRedirectionRuleInput!): UpdateRedirectionRulePayload!
@@ -5114,6 +5200,22 @@ input SubscribeToNewsletterInput {
 
 type SubscribeToNewsletterPayload {
   status: NewsletterSubscribeStatus
+}
+
+"""The input for syncing API reference definitions"""
+input SyncDocumentationProjectApiDefinitionInput {
+  """The ID of the docs API reference"""
+  apiReferenceId: ID!
+  """The ID of the documentation project"""
+  projectId: ID!
+  """The ID of the reference version"""
+  versionId: ID!
+}
+
+"""The response to syncing documentation project API Reference definition"""
+type SyncDocumentationProjectApiDefinitionPayload {
+  """Signifies if the mutation was successful."""
+  success: Boolean!
 }
 
 type TableOfContentsFeature implements Feature {
