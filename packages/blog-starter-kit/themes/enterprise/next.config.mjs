@@ -125,6 +125,8 @@ function generateNonce() {
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+config.i18n = undefined;
+
 
 /**
  * @type {import('next').NextConfig}
