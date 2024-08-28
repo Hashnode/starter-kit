@@ -126,19 +126,16 @@ function generateNonce() {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-
 /**
  * @type {import('next').NextConfig}
  */
 const config = {
   transpilePackages: ['@starter-kit/utils'],
   basePath: getBasePath(),
-  trailingSlash: false,
   experimental: {
     scrollRestoration: true,
     optimizeCss: true,
   },
-  
   images: {
     domains: ['cdn.hashnode.com', 'cdn.hashnode.co'],
     formats: ['image/webp', 'image/avif'],
@@ -156,18 +153,6 @@ const config = {
         hostname: '9kelt5xnesj2nkgz.public.blob.vercel-storage.com',
       },
     ],
-  },
-  i18n: {
-    locales: ['tr', 'en'],
-    defaultLocale: 'tr',
-    localeDetection: false,
-  },
-
-  async exportPathMap(defaultPathMap, { dev, dir, outDir, distDir, buildId }) {
-    return {
-      '/': { page: '/' },
-      // Diğer sayfalarınızı buraya ekleyin
-    }
   },
   async rewrites() {
     return [
@@ -224,61 +209,12 @@ const config = {
           terserOptions: {
             compress: {
               drop_console: true,
-              dead_code: true,
-              drop_debugger: true,
-              conditionals: true,
-              evaluate: true,
-              booleans: true,
-              loops: true,
-              unused: true,
-              hoist_funs: true,
-              keep_fargs: false,
-              hoist_vars: true,
-              if_return: true,
-              join_vars: true,
-              cascade: true,
-              side_effects: true,
-              warnings: false,
-            },
-            mangle: {
-              safari10: true,
-            },
-            output: {
-              comments: false,
-              ascii_only: true,
             },
           },
         }));
       }).catch(error => {
         console.error('Error loading TerserPlugin:', error);
       });
-
-      // Optimize chunks
-      config.optimization.splitChunks = {
-        chunks: 'all',
-        minSize: 30000,
-        maxSize: 0,
-        minChunks: 1,
-        maxAsyncRequests: 5,
-        maxInitialRequests: 3,
-        automaticNameDelimiter: '~',
-        name: false,
-        cacheGroups: {
-          vendors: {
-            test: /[\\/]node_modules[\\/]/,
-            priority: -10
-          },
-          default: {
-            minChunks: 2,
-            priority: -20,
-            reuseExistingChunk: true
-          }
-        }
-      };
-
-      // Minimize number of chunks
-      config.optimization.runtimeChunk = 'single';
-      config.optimization.moduleIds = 'deterministic';
 
       config.plugins.push(
         new BundleAnalyzerPlugin({
@@ -327,11 +263,13 @@ const config = {
   httpAgentOptions: {
     keepAlive: true,
   },
+  i18n: {
+    locales: ['en', 'tr'],
+    defaultLocale: 'tr',
+  },
   eslint: {
     ignoreDuringBuilds: isProd,
   },
 };
-config.i18n = undefined;
-
 
 export default config;
