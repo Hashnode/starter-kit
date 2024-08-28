@@ -138,6 +138,11 @@ const Post = ({ publication, post }: PostProps) => {
 				/>
 				<div className="mt-12 flex w-full gap-8 lg:justify-between">
 					<div className="flex flex-1 flex-col gap-6">
+						{post.subtitle && (
+							<p className="text-xl font-medium text-slate-500 dark:text-neutral-400 md:max-w-screen-md">
+								{post.subtitle}
+							</p>
+						)}
 						{post.coverImage?.url && (
 							<div className="w-full sm:mx-0 md:max-w-screen-md">
 								<CoverImage
