@@ -210,12 +210,61 @@ const config = {
           terserOptions: {
             compress: {
               drop_console: true,
+              dead_code: true,
+              drop_debugger: true,
+              conditionals: true,
+              evaluate: true,
+              booleans: true,
+              loops: true,
+              unused: true,
+              hoist_funs: true,
+              keep_fargs: false,
+              hoist_vars: true,
+              if_return: true,
+              join_vars: true,
+              cascade: true,
+              side_effects: true,
+              warnings: false,
+            },
+            mangle: {
+              safari10: true,
+            },
+            output: {
+              comments: false,
+              ascii_only: true,
             },
           },
         }));
       }).catch(error => {
         console.error('Error loading TerserPlugin:', error);
       });
+
+      // Optimize chunks
+      config.optimization.splitChunks = {
+        chunks: 'all',
+        minSize: 30000,
+        maxSize: 0,
+        minChunks: 1,
+        maxAsyncRequests: 5,
+        maxInitialRequests: 3,
+        automaticNameDelimiter: '~',
+        name: false,
+        cacheGroups: {
+          vendors: {
+            test: /[\\/]node_modules[\\/]/,
+            priority: -10
+          },
+          default: {
+            minChunks: 2,
+            priority: -20,
+            reuseExistingChunk: true
+          }
+        }
+      };
+
+      // Minimize number of chunks
+      config.optimization.runtimeChunk = 'single';
+      config.optimization.moduleIds = 'deterministic';
 
       config.plugins.push(
         new BundleAnalyzerPlugin({
