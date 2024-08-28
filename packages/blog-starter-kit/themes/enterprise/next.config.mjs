@@ -132,10 +132,10 @@ const __dirname = path.dirname(__filename);
 const config = {
   transpilePackages: ['@starter-kit/utils'],
   basePath: getBasePath(),
+  trailingSlash: true,
   experimental: {
     scrollRestoration: true,
     optimizeCss: true,
-    legacyBrowsers: false,
   },
   images: {
     domains: ['cdn.hashnode.com', 'cdn.hashnode.co'],
@@ -316,6 +316,7 @@ const config = {
   i18n: {
     locales: ['en', 'tr'],
     defaultLocale: 'tr',
+    localeDetection: false,
   },
   eslint: {
     ignoreDuringBuilds: isProd,
