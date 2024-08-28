@@ -211,9 +211,7 @@ const config = {
 
     return config;
   },
-  onErrorBoundary: isProd ? undefined : (error, errorInfo) => {
-    console.error('Next.js Error Boundary:', error, errorInfo);
-  },
+  webpack5: true, // for swc
   devIndicators: {
     buildActivity: !isProd,
     buildActivityPosition: 'bottom-right',
