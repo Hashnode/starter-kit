@@ -1,5 +1,7 @@
 import { request, gql } from 'graphql-request';
 import crypto from 'crypto';
+import path from 'path';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 const ANALYTICS_BASE_URL = 'https://hn-ping2.hashnode.com';
 const HASHNODE_ADVANCED_ANALYTICS_URL = 'https://user-analytics.hashnode.com';
@@ -128,10 +130,12 @@ const config = {
   basePath: getBasePath(),
   experimental: {
     scrollRestoration: true,
+    optimizeCss: true,  // Enable CSS optimization
+    legacyBrowsers: false,  // Disable support for legacy browsers
   },
   images: {
     domains: ['cdn.hashnode.com', 'cdn.hashnode.co'],
-    formats: ['image/webp'],
+    formats: ['image/webp', 'image/avif'],  // Add AVIF support
     remotePatterns: [
       {
         protocol: 'https',
@@ -207,11 +211,31 @@ const config = {
       }).catch(error => {
         console.error('Error loading TerserPlugin:', error);
       });
+
+      // Add Bundle Analyzer in production
+      config.plugins.push(
+        new BundleAnalyzerPlugin({
+          analyzerMode: 'static',
+          reportFilename: './bundle-analysis.html',
+          openAnalyzer: false,
+        })
+      );
     }
+
+    // Optimize performance with Buffer
+    config.cache = {
+      type: 'filesystem',
+      compression: 'brotli',
+      store: 'pack',
+      buildDependencies: {
+        config: [__filename],
+      },
+      cacheDirectory: path.resolve(__dirname, '.next/cache/webpack'),
+      version: '1.0',
+    };
 
     return config;
   },
-  webpack5: true, // for swc
   devIndicators: {
     buildActivity: !isProd,
     buildActivityPosition: 'bottom-right',
@@ -229,7 +253,7 @@ const config = {
   swcMinify: true,
   compiler: {
     removeConsole: isProd ? {
-      exclude: ['error'],
+      exclude: ['error', 'warn'],  // Also keep warnings in production
     } : false,
   },
   optimizeFonts: true,
@@ -243,6 +267,11 @@ const config = {
   },
   eslint: {
     ignoreDuringBuilds: isProd,
+  },
+  // Add PWA support
+  pwa: {
+    dest: 'public',
+    disable: !isProd,
   },
 };
 
