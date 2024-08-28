@@ -132,7 +132,7 @@ const __dirname = path.dirname(__filename);
 const config = {
   transpilePackages: ['@starter-kit/utils'],
   basePath: getBasePath(),
-  trailingSlash: false,
+  trailingSlash: true,
   experimental: {
     scrollRestoration: true,
     optimizeCss: true,
@@ -154,6 +154,18 @@ const config = {
         hostname: '9kelt5xnesj2nkgz.public.blob.vercel-storage.com',
       },
     ],
+  },
+  i18n: {
+    locales: ['tr', 'en'],
+    defaultLocale: 'tr',
+    localeDetection: false,
+  },
+  async exportPathMap(defaultPathMap, { dev, dir, outDir, distDir, buildId }) {
+    return {
+      '/': { page: '/' },
+      '/iletisim': { page: '/iletisim' },
+      // Diğer sayfalarınızı buraya ekleyin
+    }
   },
   async rewrites() {
     return [
@@ -312,11 +324,6 @@ const config = {
   compress: true,
   httpAgentOptions: {
     keepAlive: true,
-  },
-  i18n: {
-    locales: ['en', 'tr'],
-    defaultLocale: 'tr',
-    localeDetection: false,
   },
   eslint: {
     ignoreDuringBuilds: isProd,
