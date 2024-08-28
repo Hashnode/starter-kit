@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
-import Contact from '../components/Contact';
+import Contact from '../../components/Contact';
 import { request } from 'graphql-request';
-import { PublicationByHostDocument, PublicationByHostQuery, PublicationByHostQueryVariables, PublicationFragment } from '../generated/graphql';
+import { PublicationByHostDocument, PublicationByHostQuery, PublicationByHostQueryVariables, PublicationFragment } from '../../generated/graphql';
 
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 
