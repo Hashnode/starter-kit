@@ -16,7 +16,7 @@ const _MarkdownToHtml = ({ contentMarkdown }: Props) => {
   const { showModal } = useExternalLink();
 
   useEffect(() => {
-    if (contentRef.current) {
+    if (typeof window !== 'undefined' && contentRef.current) {
       const links = contentRef.current.querySelectorAll('a');
       links.forEach((link) => {
         const href = link.getAttribute('href');
