@@ -41,7 +41,8 @@
 		"react-google-recaptcha-v3": "^1.10.1",
 		"tailwindcss": "^3.4.10",
 		"typescript": "^5.5.4",
-		"webpack": "^5.94.0"
+		"webpack": "^5.94.0",
+		"webpack-bundle-analyzer": "^4.10.2"
 	},
 	"engines": {
 		"node": ">=18.0.0",
