@@ -20,6 +20,9 @@ importers:
       graphql-request:
         specifier: ^7.1.0
         version: 7.1.0(graphql@16.9.0)
+      html-to-image:
+        specifier: ^1.11.11
+        version: 1.11.11
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -2817,6 +2820,9 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+
+  html-to-image@1.11.11:
+    resolution: {integrity: sha512-9gux8QhvjRO/erSnDPv28noDZcPZmYE7e1vFsBLKLlRlKDSqNJYebj6Qz1TGd5lsRV+X+xYyjCKjuZdABinWjA==}
 
   html-void-elements@3.0.0:
     resolution: {integrity: sha512-bEqo66MRXsUGxWHV5IP0PUiAWwoEjba4VCzg0LjFJBpchPaTfyfCKTG6bc5F8ucKec3q5y6qOdGyYTSBEvhCrg==}
@@ -8063,6 +8069,8 @@ snapshots:
       style-to-js: 1.1.12
     optionalDependencies:
       '@types/react': 18.3.3
+
+  html-to-image@1.11.11: {}
 
   html-void-elements@3.0.0: {}
 
