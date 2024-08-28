@@ -17,6 +17,7 @@
 		"lodash-es": "^4.17.21",
 		"next": "^14.2.4",
 		"next-share": "^0.27.0",
+		"puppeteer": "^23.2.0",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
 		"react-intersection-observer": "^9.10.3",
