@@ -44,14 +44,3 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     };
   }
 };
-
-export async function getStaticPaths() {
-  return {
-    paths: [
-      { params: { locale: 'default' } },
-      { params: { locale: 'tr' } },
-      { params: { locale: 'en' } },
-    ],
-    fallback: false,
-  };
-}

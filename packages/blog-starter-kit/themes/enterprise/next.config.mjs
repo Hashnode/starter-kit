@@ -156,7 +156,7 @@ const config = {
     ],
   },
   i18n: {
-    locales: ['default', 'tr', 'en'],
+    locales: ['tr', 'en'],
     defaultLocale: 'tr',
     localeDetection: false,
   },
