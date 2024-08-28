@@ -163,20 +163,9 @@ const config = {
     localeDetection: false,
   },
 
-  async rewrites() {
-    return [
-      {
-        source: '/iletisim',
-        destination: '/iletisim',
-      },
-      // ... (diğer rewrite kuralları)
-    ];
-  },
-
   async exportPathMap(defaultPathMap, { dev, dir, outDir, distDir, buildId }) {
     return {
       '/': { page: '/' },
-      '/iletisim': { page: '/iletisim' },
       // Diğer sayfalarınızı buraya ekleyin
     }
   },
