@@ -1,6 +1,4 @@
-// components/ExternalLinkModal.tsx
 import React, { useState, useEffect } from 'react';
-import { getLinkPreview } from '../utils/linkPreview';
 
 type ExternalLinkModalProps = {
   url: string;
@@ -8,21 +6,24 @@ type ExternalLinkModalProps = {
 };
 
 export const ExternalLinkModal: React.FC<ExternalLinkModalProps> = ({ url, onClose }) => {
-  const [showPreview, setShowPreview] = useState(false);
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const domain = new URL(url).hostname;
+  const [showFullUrl, setShowFullUrl] = useState(false);
+  const [isUrlTruncated, setIsUrlTruncated] = useState(false);
+  const urlRef = React.useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const preview = getLinkPreview(url);
-    if (preview) {
-      setPreviewImage(preview);
-    }
-  }, [url]);
+    const checkUrlLength = () => {
+      if (urlRef.current) {
+        setIsUrlTruncated(urlRef.current.scrollWidth > urlRef.current.clientWidth);
+      }
+    };
 
-  const handleLinkClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    window.open(url, '_blank');
-  };
+    checkUrlLength();
+    window.addEventListener('resize', checkUrlLength);
+
+    return () => {
+      window.removeEventListener('resize', checkUrlLength);
+    };
+  }, [url]);
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
@@ -37,32 +38,30 @@ export const ExternalLinkModal: React.FC<ExternalLinkModalProps> = ({ url, onClo
             </button>
           </div>
           <p className="text-gray-600 mb-6">
-            Bu eyleme devam etmek istediğinizden emin misiniz? Bu işlem geri alınamaz.
+            Bu eyleme devam etmek istediğinizden emin misiniz? <br/>Bu işlem geri alınamaz.
           </p>
-          <div className="relative">
-            <div 
-              className="flex items-center bg-gray-100 p-3 rounded-lg mb-6 cursor-pointer hover:text-gray-600 hover:bg-gray-200 transition-colors"
-              onClick={handleLinkClick}
-              onMouseEnter={() => setShowPreview(true)}
-              onMouseLeave={() => setShowPreview(false)}
+          <div className="relative bg-gray-100 p-3 rounded-lg mb-6">
+            <div
+              ref={urlRef}
+              className={`flex items-center ${isUrlTruncated ? 'cursor-pointer' : ''}`}
+              onMouseEnter={() => setShowFullUrl(true)}
+              onMouseLeave={() => setShowFullUrl(false)}
             >
               <img
-                src={`https://www.google.com/s2/favicons?domain=${domain}&sz=32`}
+                src={`https://www.google.com/s2/favicons?domain=${new URL(url).hostname}&sz=32`}
                 alt="Website Favicon"
-                className="w-6 h-6 mr-3"
+                className="w-6 h-6 mr-3 flex-shrink-0"
               />
-              <span className="flex-grow text-blue-600">{url}</span>
-              <svg className="w-5 h-5 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
+              <span 
+                className={`text-blue-600 ${isUrlTruncated ? 'truncate' : ''}`}
+                style={{ maxWidth: 'calc(100% - 3rem)' }}
+              >
+                {url}
+              </span>
             </div>
-            {showPreview && previewImage && (
-              <div className="absolute bottom-full left-0 mb-2 p-2 bg-white rounded-lg shadow-lg">
-                <img 
-                  src={previewImage} 
-                  alt="Website Preview" 
-                  className="w-64 h-auto rounded"
-                />
+            {isUrlTruncated && showFullUrl && (
+              <div className="absolute left-0 bottom-full mb-2 p-2 bg-gray-800 text-white text-sm rounded shadow-lg">
+                {url}
               </div>
             )}
           </div>
