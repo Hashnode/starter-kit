@@ -23,7 +23,7 @@
 		"react-google-recaptcha": "^3.1.0",
 		"react-google-recaptcha-v3": "^1.10.1",
 		"react-waypoint": "^10.3.0",
-		"web-vitals": "^4.2.1"
+		"web-vitals": "^4.2.3"
 	},
 	"devDependencies": {
 		"@graphql-codegen/cli": "^5.0.2",
@@ -37,24 +37,24 @@
 		"@radix-ui/react-scroll-area": "^1.1.0",
 		"@starter-kit/eslint-config-custom": "workspace:*",
 		"@starter-kit/tsconfig": "workspace:*",
-		"@tailwindcss/typography": "^0.5.13",
+		"@tailwindcss/typography": "^0.5.15",
 		"@types/js-cookie": "^3.0.6",
-		"@types/lodash": "^4.17.6",
-		"@types/node": "^20.14.10",
-		"@types/react": "^18.3.3",
+		"@types/lodash": "^4.17.7",
+		"@types/node": "^20.16.2",
+		"@types/react": "^18.3.4",
 		"@types/react-dom": "^18.3.0",
 		"@types/uuid": "^10.0.0",
 		"@vercel/og": "^0.6.2",
-		"autoprefixer": "^10.4.19",
+		"autoprefixer": "^10.4.20",
 		"concurrently": "^8.2.2",
 		"date-fns": "^3.6.0",
-		"eslint": "^9.6.0",
+		"eslint": "^9.9.1",
 		"graphql-request": "^7.1.0",
-		"html-react-parser": "^5.1.10",
-		"postcss": "^8.4.39",
+		"html-react-parser": "^5.1.14",
+		"postcss": "^8.4.41",
 		"remark": "^15.0.1",
 		"remark-html": "^16.0.1",
-		"tailwind-merge": "^2.4.0",
+		"tailwind-merge": "^2.5.2",
 		"uuid": "^10.0.0"
 	}
 }
