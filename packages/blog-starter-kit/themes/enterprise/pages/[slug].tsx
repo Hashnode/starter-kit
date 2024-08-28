@@ -19,6 +19,7 @@ import ShareButtons from '../components/ShareButtons';
 import { MorePosts } from '../components/more-posts';
 import { resizeImage } from '@starter-kit/utils/image';
 import { DEFAULT_COVER } from '../utils/const';
+import { SafeArticle } from '../components/SafeArticle';
 
 
 import {
