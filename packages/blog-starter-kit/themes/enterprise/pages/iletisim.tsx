@@ -11,7 +11,7 @@ const IletisimPage: React.FC<{ publication: PublicationFragment }> = ({ publicat
 
 export default IletisimPage;
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   try {
     const data = await request<PublicationByHostQuery, PublicationByHostQueryVariables>(
       GQL_ENDPOINT,
@@ -44,3 +44,14 @@ export const getStaticProps: GetStaticProps = async () => {
     };
   }
 };
+
+export async function getStaticPaths() {
+  return {
+    paths: [
+      { params: { locale: 'default' } },
+      { params: { locale: 'tr' } },
+      { params: { locale: 'en' } },
+    ],
+    fallback: false,
+  };
+}
