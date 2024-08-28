@@ -7,23 +7,20 @@ type ExternalLinkModalProps = {
 
 export const ExternalLinkModal: React.FC<ExternalLinkModalProps> = ({ url, onClose }) => {
   const [showFullUrl, setShowFullUrl] = useState(false);
-  const [isUrlTruncated, setIsUrlTruncated] = useState(false);
-  const urlRef = React.useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkUrlLength = () => {
-      if (urlRef.current) {
-        setIsUrlTruncated(urlRef.current.scrollWidth > urlRef.current.clientWidth);
-      }
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768); // Mobil için breakpoint
     };
 
-    checkUrlLength();
-    window.addEventListener('resize', checkUrlLength);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
 
     return () => {
-      window.removeEventListener('resize', checkUrlLength);
+      window.removeEventListener('resize', checkMobile);
     };
-  }, [url]);
+  }, []);
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
@@ -38,28 +35,26 @@ export const ExternalLinkModal: React.FC<ExternalLinkModalProps> = ({ url, onClo
             </button>
           </div>
           <p className="text-gray-600 mb-6">
-            Bu eyleme devam etmek istediğinizden emin misiniz? <br/>Bu işlem geri alınamaz.
+            Bu eyleme devam etmek istediğinizden emin misiniz? 
+            <br/>
+            Bu işlem geri alınamaz.
           </p>
           <div className="relative bg-gray-100 p-3 rounded-lg mb-6">
             <div
-              ref={urlRef}
-              className={`flex items-center ${isUrlTruncated ? 'cursor-pointer' : ''}`}
-              onMouseEnter={() => setShowFullUrl(true)}
-              onMouseLeave={() => setShowFullUrl(false)}
+              className={`flex items-center ${!isMobile ? 'group' : ''}`}
+              onMouseEnter={() => !isMobile && setShowFullUrl(true)}
+              onMouseLeave={() => !isMobile && setShowFullUrl(false)}
             >
               <img
                 src={`https://www.google.com/s2/favicons?domain=${new URL(url).hostname}&sz=32`}
                 alt="Website Favicon"
                 className="w-6 h-6 mr-3 flex-shrink-0"
               />
-              <span 
-                className={`text-blue-600 ${isUrlTruncated ? 'truncate' : ''}`}
-                style={{ maxWidth: 'calc(100% - 3rem)' }}
-              >
+              <span className="text-blue-600 truncate">
                 {url}
               </span>
             </div>
-            {isUrlTruncated && showFullUrl && (
+            {!isMobile && showFullUrl && (
               <div className="absolute left-0 bottom-full mb-2 p-2 bg-gray-800 text-white text-sm rounded shadow-lg">
                 {url}
               </div>
