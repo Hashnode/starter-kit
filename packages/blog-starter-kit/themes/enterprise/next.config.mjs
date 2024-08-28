@@ -132,7 +132,7 @@ const __dirname = path.dirname(__filename);
 const config = {
   transpilePackages: ['@starter-kit/utils'],
   basePath: getBasePath(),
-  trailingSlash: true,
+  trailingSlash: false,
   experimental: {
     scrollRestoration: true,
     optimizeCss: true,
