@@ -1,6 +1,7 @@
 import { request, gql } from 'graphql-request';
 import crypto from 'crypto';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 const ANALYTICS_BASE_URL = 'https://hn-ping2.hashnode.com';
@@ -122,6 +123,9 @@ function generateNonce() {
   return Buffer.from(crypto.randomBytes(16)).toString('base64');
 }
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 /**
  * @type {import('next').NextConfig}
  */
@@ -130,12 +134,12 @@ const config = {
   basePath: getBasePath(),
   experimental: {
     scrollRestoration: true,
-    optimizeCss: true,  // Enable CSS optimization
-    legacyBrowsers: false,  // Disable support for legacy browsers
+    optimizeCss: true,
+    legacyBrowsers: false,
   },
   images: {
     domains: ['cdn.hashnode.com', 'cdn.hashnode.co'],
-    formats: ['image/webp', 'image/avif'],  // Add AVIF support
+    formats: ['image/webp', 'image/avif'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -197,7 +201,8 @@ const config = {
 
     if (isProd) {
       config.optimization.minimize = true;
-      import('terser-webpack-plugin').then(({ default: TerserPlugin }) => {
+      Promise.resolve().then(async () => {
+        const { default: TerserPlugin } = await import('terser-webpack-plugin');
         if (!config.optimization.minimizer) {
           config.optimization.minimizer = [];
         }
@@ -212,7 +217,6 @@ const config = {
         console.error('Error loading TerserPlugin:', error);
       });
 
-      // Add Bundle Analyzer in production
       config.plugins.push(
         new BundleAnalyzerPlugin({
           analyzerMode: 'static',
@@ -222,7 +226,6 @@ const config = {
       );
     }
 
-    // Optimize performance with Buffer
     config.cache = {
       type: 'filesystem',
       compression: 'brotli',
@@ -253,7 +256,7 @@ const config = {
   swcMinify: true,
   compiler: {
     removeConsole: isProd ? {
-      exclude: ['error', 'warn'],  // Also keep warnings in production
+      exclude: ['error', 'warn'],
     } : false,
   },
   optimizeFonts: true,
@@ -267,11 +270,6 @@ const config = {
   },
   eslint: {
     ignoreDuringBuilds: isProd,
-  },
-  // Add PWA support
-  pwa: {
-    dest: 'public',
-    disable: !isProd,
   },
 };
 
