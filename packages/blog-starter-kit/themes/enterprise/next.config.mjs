@@ -132,7 +132,7 @@ const __dirname = path.dirname(__filename);
 const config = {
   transpilePackages: ['@starter-kit/utils'],
   basePath: getBasePath(),
-  trailingSlash: true,
+  trailingSlash: false,
   experimental: {
     scrollRestoration: true,
     optimizeCss: true,
@@ -156,14 +156,27 @@ const config = {
     ],
   },
   i18n: {
-    locales: ['tr', 'en'],
+    locales: ['default', 'tr', 'en'],
     defaultLocale: 'tr',
     localeDetection: false,
   },
+
+  async rewrites() {
+    return [
+      {
+        source: '/:locale/iletisim',
+        destination: '/iletisim',
+      },
+      // ... (diğer rewrite kuralları)
+    ];
+  },
+
   async exportPathMap(defaultPathMap, { dev, dir, outDir, distDir, buildId }) {
     return {
       '/': { page: '/' },
       '/iletisim': { page: '/iletisim' },
+      '/tr/iletisim': { page: '/iletisim' },
+      '/en/iletisim': { page: '/iletisim' },
       // Diğer sayfalarınızı buraya ekleyin
     }
   },
