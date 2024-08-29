@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Phone, Mail } from 'lucide-react';
 
 type ExternalLinkModalProps = {
   url: string;
@@ -11,7 +12,7 @@ export const ExternalLinkModal: React.FC<ExternalLinkModalProps> = ({ url, onClo
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768); // Mobil için breakpoint
+      setIsMobile(window.innerWidth <= 768);
     };
 
     checkMobile();
@@ -21,6 +22,22 @@ export const ExternalLinkModal: React.FC<ExternalLinkModalProps> = ({ url, onClo
       window.removeEventListener('resize', checkMobile);
     };
   }, []);
+
+  const renderIcon = () => {
+    if (url.startsWith('tel:')) {
+      return <Phone className="w-6 h-6 mr-3 flex-shrink-0 text-blue-600" />;
+    } else if (url.startsWith('mailto:')) {
+      return <Mail className="w-6 h-6 mr-3 flex-shrink-0 text-blue-600" />;
+    } else {
+      return (
+        <img
+          src={`https://www.google.com/s2/favicons?domain=${new URL(url).hostname}&sz=32`}
+          alt="Website Favicon"
+          className="w-6 h-6 mr-3 flex-shrink-0"
+        />
+      );
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
@@ -43,11 +60,7 @@ export const ExternalLinkModal: React.FC<ExternalLinkModalProps> = ({ url, onClo
               onMouseEnter={() => !isMobile && setShowFullUrl(true)}
               onMouseLeave={() => !isMobile && setShowFullUrl(false)}
             >
-              <img
-                src={`https://www.google.com/s2/favicons?domain=${new URL(url).hostname}&sz=32`}
-                alt="Website Favicon"
-                className="w-6 h-6 mr-3 flex-shrink-0"
-              />
+              {renderIcon()}
               <span className="text-blue-600 truncate">
                 {url}
               </span>

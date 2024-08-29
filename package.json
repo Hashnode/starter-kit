@@ -34,6 +34,7 @@
 		"@types/react-google-recaptcha": "^2.1.9",
 		"critters": "^0.0.24",
 		"framer-motion": "^11.3.30",
+		"lucide-react": "^0.436.0",
 		"prettier": "^3.3.3",
 		"prettier-plugin-organize-imports": "^4.0.0",
 		"prettier-plugin-packagejson": "^2.5.2",
