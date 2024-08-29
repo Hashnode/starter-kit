@@ -25,9 +25,9 @@ export const ExternalLinkModal: React.FC<ExternalLinkModalProps> = ({ url, onClo
 
   const renderIcon = () => {
     if (url.startsWith('tel:')) {
-      return <Phone className="w-6 h-6 mr-3 flex-shrink-0 text-blue-600" />;
+      return <Phone className="w-6 h-6 mr-3 flex-shrink-0 text-gray-600" />;
     } else if (url.startsWith('mailto:')) {
-      return <Mail className="w-6 h-6 mr-3 flex-shrink-0 text-blue-600" />;
+      return <Mail className="w-6 h-6 mr-3 flex-shrink-0 text-gray-600" />;
     } else {
       return (
         <img
