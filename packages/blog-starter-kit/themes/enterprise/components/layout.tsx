@@ -17,11 +17,11 @@ export const Layout = ({ children }: Props) => {
 			<Meta />
 			<Scripts />
 			<ClickSpark />
-			<div className="min-h-screen bg-white dark:bg-neutral-950">
-			<GradientBg />
-			<main className="relative z-1">{children}</main>
-				<OfflineNotification />
-			</div>
+				<div className="min-h-screen bg-white dark:bg-neutral-950">
+					<GradientBg />
+					<main className="relative z-1">{children}</main>
+					<OfflineNotification />
+				</div>
 			<Analytics />
 			<Integrations />
 		</>
