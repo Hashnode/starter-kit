@@ -7,7 +7,10 @@
 	"author": "",
 	"scripts": {
 		"format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,json}\"",
-		"preinstall": "npx only-allow pnpm"
+		"preinstall": "npx only-allow pnpm",
+		"dev": "pnpm run dev --filter=blog-starter-kit",
+		"start": "next start",
+		"build": "cross-env GENERATE_SOURCEMAP=false next build"
 	},
 	"dependencies": {
 		"@types/lodash-es": "^4.17.12",

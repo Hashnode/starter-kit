@@ -137,20 +137,24 @@ const config = {
     optimizeCss: true,
   },
   images: {
-    domains: ['cdn.hashnode.com', 'cdn.hashnode.co'],
-    formats: ['image/webp', 'image/avif'],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '*.hashnode.com',
+        hostname: 'cdn.hashnode.com',
+        port: '',
+        pathname: '/**',
       },
       {
         protocol: 'https',
-        hostname: '*.hashnode.co',
+        hostname: 'cdn.hashnode.co',
+        port: '',
+        pathname: '/**',
       },
       {
         protocol: 'https',
         hostname: '9kelt5xnesj2nkgz.public.blob.vercel-storage.com',
+        port: '',
+        pathname: '/**',
       },
     ],
   },

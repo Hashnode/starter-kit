@@ -175,7 +175,6 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
       }
     ]
   };
-
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -482,6 +481,9 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
+  const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT; // Ensure this is defined
+  console.log('GQL_ENDPOINT:', GQL_ENDPOINT); // Log the value
+
   const data = await request<
     PostsByPublicationQuery,
     PostsByPublicationQueryVariables
