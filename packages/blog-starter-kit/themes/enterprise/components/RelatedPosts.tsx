@@ -48,7 +48,7 @@ const RelatedPosts: React.FC<RelatedPostsProps> = ({ currentPost }) => {
   }
 
   if (relatedPosts.length === 0) {
-    return null; // İlgili post yoksa komponenti gösterme
+    return null;
   }
 
   return (
