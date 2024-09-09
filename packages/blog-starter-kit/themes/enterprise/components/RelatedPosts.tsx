@@ -63,7 +63,7 @@ const RelatedPosts: React.FC<RelatedPostsProps> = ({ currentPost }) => {
           ))}
         </div>
       </div>
-    </section>
+    </section> 
   );
 };
 
