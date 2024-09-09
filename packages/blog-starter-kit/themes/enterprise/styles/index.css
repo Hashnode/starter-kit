@@ -16,10 +16,12 @@
     border-bottom-width: 1.5px;
 }
 .cstmimg {
-  position:absolute;
-  transform:translate(25.6rem,-16.5rem);
-  transform: scale(1.5);
+  position: absolute;
+  transform: scale(0.3);
   transform-origin: 0 0;
+  top: -2rem;
+  left: 6rem;
+  right: 0;
 }
 .text-slate-500 {
   color: black;

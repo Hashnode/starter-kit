@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import useRouter from 'next/router'; // Changed to default import
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Search } from './searchbar';
 
@@ -12,20 +12,20 @@ interface MenuItem {
 
 export const Navbar = () => {
 	const catMenuItems: MenuItem[] = [
-		{ name: 'Kedi Bakımı', url: '/kedi-bakimi', image: '/assets/blog/navbar/kedi/1.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
-		{ name: 'Kedi Beslenmesi', url: '/kedi-beslenmesi', image: '/assets/blog/navbar/kedi/2.webp?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
-		{ name: 'Kedi Irkları', url: '/kedi-irklari', image: '/assets/blog/navbar/kedi/3.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
-		{ name: 'Kedi Sağlığı', url: '/kedi-sagligi', image: '/assets/blog/navbar/kedi/4.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
-		{ name: 'Kedi Diğer', url: '/kedi-diger', image: '/assets/blog/navbar/kedi/5.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
-	  ];
-	  
-	  const dogMenuItems: MenuItem[] = [
-		{ name: 'Köpek Bakımı', url: '/kopek-bakimi', image: '/assets/blog/navbar/kopek/1.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
-		{ name: 'Köpek Beslenmesi', url: '/kopek-beslenmesi', image: '/assets/blog/navbar/kopek/2.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
-		{ name: 'Köpek Irkları', url: '/kopek-irklari', image: '/assets/blog/navbar/kopek/3.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
-		{ name: 'Köpek Sağlığı', url: '/kopek-sagligi', image: '/assets/blog/navbar/kopek/4.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
-		{ name: 'Köpek Diğer', url: '/kopek-diger', image: '/assets/blog/navbar/kopek/5.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
-	  ];
+	  { name: 'Kedi Bakımı', url: '/kedi-bakimi', image: '/assets/blog/navbar/kedi/1.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
+	  { name: 'Kedi Beslenmesi', url: '/kedi-beslenmesi', image: '/assets/blog/navbar/kedi/2.webp?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
+	  { name: 'Kedi Irkları', url: '/kedi-irklari', image: '/assets/blog/navbar/kedi/3.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
+	  { name: 'Kedi Sağlığı', url: '/kedi-sagligi', image: '/assets/blog/navbar/kedi/4.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
+	  { name: 'Kedi Diğer', url: '/kedi-diger', image: '/assets/blog/navbar/kedi/5.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
+	];
+	
+	const dogMenuItems: MenuItem[] = [
+	  { name: 'Köpek Bakımı', url: '/kopek-bakimi', image: '/assets/blog/navbar/kopek/1.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
+	  { name: 'Köpek Beslenmesi', url: '/kopek-beslenmesi', image: '/assets/blog/navbar/kopek/2.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
+	  { name: 'Köpek Irkları', url: '/kopek-irklari', image: '/assets/blog/navbar/kopek/3.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
+	  { name: 'Köpek Sağlığı', url: '/kopek-sagligi', image: '/assets/blog/navbar/kopek/4.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
+	  { name: 'Köpek Diğer', url: '/kopek-diger', image: '/assets/blog/navbar/kopek/5.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
+	];
 
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 	const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -51,7 +51,7 @@ export const Navbar = () => {
 	const [defaultCatImage, setDefaultCatImage] = useState<string>(catMenuItems[0].image);
 	const [defaultDogImage, setDefaultDogImage] = useState<string>(dogMenuItems[0].image);
 
-	const router = useRouter();
+	const router = typeof window !== 'undefined' ? require('next/router') : null;
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -244,49 +244,50 @@ export const Navbar = () => {
 	  }, []);
 
 
-	const renderDropdownMenu = (
-	items: MenuItem[],
-	defaultImage: string,
-	altText: string,
-	description: React.ReactNode,
-	) => (
-	<div
-		className={`fixed ${isMobile ? 'left-1/2 w-3/4 -translate-x-1/2 transform' : 'left-1/2 w-3/5 -translate-x-1/2 transform'} z-50 mt-2 rounded-xl bg-white bg-opacity-70 px-8 py-6 shadow-lg backdrop-blur-md backdrop-filter`}
-		onMouseLeave={handleMenuAreaLeave}
-	>
-		<div className="flex flex-col">
-		<div className={`flex ${isMobile ? 'flex-col' : ''}`}>
-			<div className={isMobile ? 'mb-4 w-full' : 'w-1/2 pr-4'}>
-			{isImagesLoaded && (
-				<Image
-				src={currentHoverImage || lastHoveredImage || defaultImage}
-				alt={altText}
-				width={300}
-				height={200}
-				className="h-auto w-full rounded-lg object-cover"
-				/>
-			)}
-			</div>
-			<div className={isMobile ? '-ml-4 -mr-8 pl-0 pt-4' : 'w-1/2 content-center pl-4'}>
-			<div className="grid grid-cols-2 gap-x-0 gap-y-4">
-				{items.map((item, index) => (
-				<div key={index}>
-					<Link
-					href={item.url}
-					className="block text-gray-800 hover:text-orange-500"
-					onClick={closeAllMenus}
-					onMouseEnter={() => handleMenuItemHover(item.image)}
-					>
-					{item.name}
-					</Link>
+	  const renderDropdownMenu = (
+		items: MenuItem[],
+		defaultImage: string,
+		altText: string,
+		description: React.ReactNode,
+	  ) => (
+		<div
+		  className={`fixed ${isMobile ? 'left-1/2 w-3/4 -translate-x-1/2 transform' : 'left-1/2 w-3/5 -translate-x-1/2 transform'} z-50 mt-2 rounded-xl bg-white bg-opacity-70 px-8 py-6 shadow-lg backdrop-blur-md backdrop-filter`}
+		  onMouseLeave={handleMenuAreaLeave}
+		>
+		  <div className="flex flex-col">
+			<div className={`flex ${isMobile ? 'flex-col' : ''}`}>
+			  <div className={isMobile ? 'mb-4 w-full' : 'w-1/2 pr-4'}>
+				{isImagesLoaded && (
+				  <Image
+					src={currentHoverImage || lastHoveredImage || defaultImage}
+					alt={altText}
+					width={300}
+					height={200}
+					className="h-auto w-full rounded-lg object-cover"
+				  />
+				)}
+			  </div>
+			  <div className={isMobile ? '-ml-4 -mr-8 pl-0 pt-4' : 'w-1/2 content-center pl-4'}>
+				<div className="grid grid-cols-2 gap-x-0 gap-y-4">
+				  {items.map((item, index) => (
+					<div key={index}>
+					  <Link
+						href={item.url}
+						className="block text-gray-800 hover:text-orange-500"
+						onClick={closeAllMenus}
+						onMouseEnter={() => handleMenuItemHover(item.image)}
+					  >
+						{item.name}
+					  </Link>
+					</div>
+				  ))}
 				</div>
-				))}
+			  </div>
 			</div>
-			</div>
+		  </div>
 		</div>
-		</div>
-	</div>
-	);
+	  );
+	
 
 	return (
 		<>

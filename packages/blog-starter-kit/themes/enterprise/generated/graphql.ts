@@ -14,7 +14,6 @@ export type Scalars = {
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
   DateTime: { input: string; output: string; }
-  JSONObject: { input: Record<string, unknown>; output: Record<string, unknown>; }
   ObjectId: { input: string; output: string; }
   TimeZone: { input: any; output: any; }
   URL: { input: any; output: any; }
@@ -930,6 +929,8 @@ export type CreateDocumentationPageDraftInput = {
   label?: InputMaybe<Scalars['String']['input']>;
   parentId?: InputMaybe<Scalars['ID']['input']>;
   projectId: Scalars['ID']['input'];
+  /** The slug of the path used to generate the path. */
+  slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -937,6 +938,28 @@ export type CreateDocumentationPageDraftPayload = {
   __typename?: 'CreateDocumentationPageDraftPayload';
   guide?: Maybe<DocumentationGuide>;
   page?: Maybe<DocumentationPage>;
+};
+
+/** The input for creating a documentation preview page */
+export type CreateDocumentationPreviewPageInput = {
+  /** The content of the page */
+  content?: InputMaybe<Scalars['String']['input']>;
+  /** The description of the page */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** The ID of the page to create */
+  id?: InputMaybe<Scalars['ID']['input']>;
+  /** The label of the page on the sidebar */
+  label: Scalars['String']['input'];
+  /** The meta tags of the page */
+  metaTags?: InputMaybe<MetaTagsInput>;
+  /** The nested pages of the page */
+  pages: Array<CreateDocumentationPreviewPageInput>;
+  /** The slug of the page used to create the path */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** The title of the page */
+  title?: InputMaybe<Scalars['String']['input']>;
+  /** The visibility of the page */
+  visibility?: InputMaybe<DocumentationSidebarItemVisibility>;
 };
 
 export type CreateDocumentationProjectInput = {
@@ -959,6 +982,8 @@ export type CreateDocumentationSectionInput = {
   guideSlug: Scalars['String']['input'];
   label?: InputMaybe<Scalars['String']['input']>;
   projectId: Scalars['ID']['input'];
+  /** The slug of the section used to generate the path. */
+  slug?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type CreateDocumentationSectionPayload = {
@@ -1280,7 +1305,7 @@ export type DocsVisitors = {
 export type DocumentationApiReference = IGuide & {
   __typename?: 'DocumentationApiReference';
   /** The parsed Swagger Definition of the API Reference. */
-  definition?: Maybe<Scalars['JSONObject']['output']>;
+  definition?: Maybe<Scalars['String']['output']>;
   /** The base64 encoded gzip compressed string of the parsed OpenAPI Definition of the API Reference. */
   definitionV2?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
@@ -1303,6 +1328,21 @@ export type DocumentationApiReference = IGuide & {
   /** URL of the API definition this guide is based on. */
   url: Scalars['String']['output'];
   versionId?: Maybe<Scalars['String']['output']>;
+};
+
+export type DocumentationApiReferenceVersion = IGuideVersion & {
+  __typename?: 'DocumentationApiReferenceVersion';
+  codeName?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  deletedAt?: Maybe<Scalars['DateTime']['output']>;
+  forkedFrom?: Maybe<DocumentationApiReferenceVersion>;
+  id: Scalars['ID']['output'];
+  isDefault: Scalars['Boolean']['output'];
+  name: Scalars['String']['output'];
+  slug: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  url: Scalars['String']['output'];
+  visibility: DocumentationGuideVisibility;
 };
 
 export type DocumentationGuide = IGuide & {
@@ -1357,6 +1397,26 @@ export enum DocumentationGuideItemStatus {
   Deleted = 'DELETED',
   Published = 'PUBLISHED',
   Unpublished = 'UNPUBLISHED'
+}
+
+export type DocumentationGuideVersion = IGuideVersion & {
+  __typename?: 'DocumentationGuideVersion';
+  codeName?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  deletedAt?: Maybe<Scalars['DateTime']['output']>;
+  forkedFrom?: Maybe<DocumentationGuideVersion>;
+  id: Scalars['ID']['output'];
+  isDefault: Scalars['Boolean']['output'];
+  name: Scalars['String']['output'];
+  sidebarItems: Array<DocumentationSidebarItem>;
+  slug: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  visibility: DocumentationGuideVisibility;
+};
+
+export enum DocumentationGuideVisibility {
+  Hidden = 'HIDDEN',
+  Public = 'PUBLIC'
 }
 
 export type DocumentationLink = IDocumentationSidebarItem & {
@@ -2656,6 +2716,19 @@ export type IGuide = {
   slug: Scalars['String']['output'];
   status: DocumentationGuideItemStatus;
   versionId?: Maybe<Scalars['String']['output']>;
+};
+
+export type IGuideVersion = {
+  codeName?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  deletedAt?: Maybe<Scalars['DateTime']['output']>;
+  forkedFrom?: Maybe<IGuideVersion>;
+  id: Scalars['ID']['output'];
+  isDefault: Scalars['Boolean']['output'];
+  name: Scalars['String']['output'];
+  slug: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  visibility: DocumentationGuideVisibility;
 };
 
 /**
