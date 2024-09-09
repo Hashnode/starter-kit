@@ -141,13 +141,14 @@ If your main domain is hosted elsewhere, you need to involve engineers from your
 
 ### Step 3
 
-Now that you have deployed the starter kit on your own domain, you need to tell Hashnode not to generate a UI for your blog. You can do that by visiting your blog dashboard -> advanced tab. Scroll down and locate the section "use Hashnode as a headless CMS". Enable it and enter your blog base URL.
+Now that you have deployed the starter kit on your own domain, you need to tell Hashnode not to generate a UI for your blog. You can do that by visiting your blog dashboard -> domain -> Headless mode. Enable headless mode and enter your blog base URL.
 
-![enable headless mode](https://cdn.hashnode.com/res/hashnode/image/upload/v1697486863293/zMMctLjRZ.png?auto=format)
+<img width="808" alt="enable headless mode" src="https://github.com/user-attachments/assets/e303528b-52a6-4cfe-9ee1-2c88b746ae6d">
+
 
 After enabling, enter your blog URL as shown below and save.
 
-![blog base url](https://cdn.hashnode.com/res/hashnode/image/upload/v1697487035077/1sIyw_0v1.png?auto=format)
+<img width="808" alt="blog base url" src="https://github.com/user-attachments/assets/6ffa606e-2b1e-4bcb-ad67-ae71f74de44d">
 
 Congrats 🎉! Hashnode will now treat your blog as a headless blog and send readers directly to the origin.
 
