@@ -18,7 +18,8 @@
 .cstmimg {
   position:absolute;
   transform:translate(25.6rem,-16.5rem);
-  zoom: calc(0.2);
+  transform: scale(1.5);
+  transform-origin: 0 0;
 }
 .text-slate-500 {
   color: black;
