@@ -7,13 +7,13 @@
 	src: url('.././assets/PinkChicken-Regular.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
-  }
+}
   
-  nav {
-	transition: transform 0.3s ease-in-out;
-  }
-  .border-b-1-1\/2 {
-    border-bottom-width: 1.5px;
+nav {
+  transition: transform 0.3s ease-in-out;
+}
+.border-b-1-1\/2 {
+  border-bottom-width: 1.5px;
 }
 .cstmimg {
   position: absolute;
@@ -233,7 +233,8 @@ html {
 	stroke-width: 3;
 }
 
-#cta:is(:hover, :focus-visible) {
+#cta:hover,
+#cta:focus-visible {
 	--intent: 1;
 }
 

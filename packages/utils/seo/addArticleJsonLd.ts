@@ -25,7 +25,8 @@ export const addArticleJsonLd = (publication: any, post: any) => {
 		'url': 'https://blog.temizmama.com',
 		'logo': {
 		  '@type': 'ImageObject',
-		  'url': 'https://blog.temizmama.com/_next/image?url=https%3A%2F%2F9kelt5xnesj2nkgz.public.blob.vercel-storage.com%2Ffile-eYpF3jWI7j8924LUC1AR51hcMjnVNp.png&w=1200&q=75'
+		  'url': 'https://blog.temizmama.com/_next/image?url=https%3A%2F%2F9kelt5xnesj2nkgz.public.blob.vercel-storage.com%2Ffile-eYpF3jWI7j8924LUC1AR51hcMjnVNp.png&w=1200&q=75',
+		  'loading': 'lazy'
 		}
 	  },
 	  'image': [
@@ -34,7 +35,8 @@ export const addArticleJsonLd = (publication: any, post: any) => {
 		  'url': post.coverImage?.url,
 		  'width': '1200',
 		  'height': '630',
-		  'caption': post.title
+		  'caption': post.title,
+		  'loading': 'lazy'
 		}
 	  ],
 	  'thumbnailUrl': post.coverImage?.url,
