@@ -233,7 +233,8 @@ html {
 	stroke-width: 3;
 }
 
-#cta:is(:hover, :focus-visible) {
+#cta:hover,
+#cta:focus-visible {
 	--intent: 1;
 }
 

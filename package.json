@@ -10,7 +10,8 @@
 		"preinstall": "npx only-allow pnpm",
 		"dev": "pnpm run dev --filter=blog-starter-kit",
 		"start": "next start",
-		"build": "cross-env GENERATE_SOURCEMAP=false next build"
+		"build": "cross-env GENERATE_SOURCEMAP=false next build",
+		"build:css": "tailwindcss build packages/blog-starter-kit/themes/enterprise/styles -o output.css"
 	},
 	"dependencies": {
 		"@types/lodash-es": "^4.17.12",
@@ -38,10 +39,12 @@
 		"critters": "^0.0.24",
 		"framer-motion": "^11.5.4",
 		"lucide-react": "^0.436.0",
+		"next-purgecss": "^3.1.2",
 		"prettier": "^3.3.3",
 		"prettier-plugin-organize-imports": "^4.0.0",
 		"prettier-plugin-packagejson": "^2.5.2",
 		"prettier-plugin-tailwindcss": "^0.6.6",
+		"purgecss": "^6.0.0",
 		"react-google-recaptcha-v3": "^1.10.1",
 		"react-intersection-observer-hook": "^3.0.1",
 		"tailwindcss": "^3.4.10",
