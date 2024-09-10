@@ -3,7 +3,6 @@ import crypto from 'crypto';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import withPurgeCss from 'next-purgecss';
 
 const ANALYTICS_BASE_URL = 'https://hn-ping2.hashnode.com';
 const HASHNODE_ADVANCED_ANALYTICS_URL = 'https://user-analytics.hashnode.com';
@@ -228,10 +227,6 @@ const config = {
           openAnalyzer: false,
         })
       );
-
-      // // PurgeCSS için ek yapılandırma
-      // config.optimization.splitChunks.cacheGroups.commons.minChunks = 2;
-      // config.optimization.splitChunks.cacheGroups.commons.minSize = 0;
     }
 
     config.cache = {
@@ -281,20 +276,4 @@ const config = {
   },
 };
 
-// PurgeCSS yapılandırması
-const purgeCssConfig = {
-  purgeCssEnabled: ({ dev, isServer }) => !dev && !isServer,
-  purgeCssPaths: ['pages/**/*', 'components/**/*'],
-  purgeCss: {
-    safelist: ['html', 'body'],
-    // PurgeCSS'in koruması gereken diğer sınıfları buraya ekleyin
-  },
-};
-
-// Yapılandırmayı PurgeCSS ile sarmalayın
-const finalConfig = withPurgeCss({
-  ...config,
-  ...purgeCssConfig,
-});
-
-export default finalConfig;
+export default config;

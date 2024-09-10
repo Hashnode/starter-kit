@@ -10,8 +10,7 @@
 		"preinstall": "npx only-allow pnpm",
 		"dev": "pnpm run dev --filter=blog-starter-kit",
 		"start": "next start",
-		"build": "cross-env GENERATE_SOURCEMAP=false next build",
-		"build:css": "tailwindcss build packages/blog-starter-kit/themes/enterprise/styles -o output.css"
+		"build": "cross-env GENERATE_SOURCEMAP=false next build"
 	},
 	"dependencies": {
 		"@types/lodash-es": "^4.17.12",
@@ -20,7 +19,7 @@
 		"graphql-request": "^7.1.0",
 		"html-to-image": "^1.11.11",
 		"lodash-es": "^4.17.21",
-		"next": "^14.2.8",
+		"next": "^14.2.9",
 		"next-share": "^0.27.0",
 		"puppeteer": "^23.3.0",
 		"react": "^18.3.1",
@@ -36,10 +35,12 @@
 		"@types/react": "^18.3.5",
 		"@types/react-dom": "^18.3.0",
 		"@types/react-google-recaptcha": "^2.1.9",
+		"autoprefixer": "^10.4.20",
 		"critters": "^0.0.24",
 		"framer-motion": "^11.5.4",
 		"lucide-react": "^0.436.0",
 		"next-purgecss": "^3.1.2",
+		"postcss": "^8.4.45",
 		"prettier": "^3.3.3",
 		"prettier-plugin-organize-imports": "^4.0.0",
 		"prettier-plugin-packagejson": "^2.5.2",
@@ -48,7 +49,7 @@
 		"react-google-recaptcha-v3": "^1.10.1",
 		"react-intersection-observer-hook": "^3.0.1",
 		"tailwindcss": "^3.4.10",
-		"typescript": "^5.5.4",
+		"typescript": "^5.6.2",
 		"webpack": "^5.94.0",
 		"webpack-bundle-analyzer": "^4.10.2"
 	},
