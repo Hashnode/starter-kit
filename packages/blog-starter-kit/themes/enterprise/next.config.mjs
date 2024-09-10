@@ -229,9 +229,9 @@ const config = {
         })
       );
 
-      // PurgeCSS için ek yapılandırma
-      config.optimization.splitChunks.cacheGroups.commons.minChunks = 2;
-      config.optimization.splitChunks.cacheGroups.commons.minSize = 0;
+      // // PurgeCSS için ek yapılandırma
+      // config.optimization.splitChunks.cacheGroups.commons.minChunks = 2;
+      // config.optimization.splitChunks.cacheGroups.commons.minSize = 0;
     }
 
     config.cache = {
