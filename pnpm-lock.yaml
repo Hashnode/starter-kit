@@ -69,6 +69,9 @@ importers:
       '@types/react-google-recaptcha':
         specifier: ^2.1.9
         version: 2.1.9
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.4.45)
       critters:
         specifier: ^0.0.24
         version: 0.0.24
@@ -81,6 +84,9 @@ importers:
       next-purgecss:
         specifier: ^3.1.2
         version: 3.1.2(webpack@5.94.0)
+      postcss:
+        specifier: ^8.4.45
+        version: 8.4.45
       prettier:
         specifier: ^3.3.3
         version: 3.3.3
