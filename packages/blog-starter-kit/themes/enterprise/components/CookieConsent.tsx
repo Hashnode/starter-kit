@@ -27,6 +27,7 @@ const CookieConsent: React.FC = () => {
         width="453"
         height="301"
         className="rounded-full absolute cstmimg"
+        loading="lazy"
       />
       <div className="flex items-center space-x-3">
         <p className="text-sm flex-grow"  style={{ fontFamily: 'PinkChicken'}}>

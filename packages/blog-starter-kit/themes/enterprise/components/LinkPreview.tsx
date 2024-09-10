@@ -66,6 +66,7 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({ url }) => {
         src={previewImage} 
         alt="Website Preview" 
         className="w-64 h-auto rounded"
+        loading="lazy"
       />
     </div>
   );

@@ -11,12 +11,6 @@ type Props = {
     className?: string;
 };
 
-const Skeleton = () => (
-    <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 rounded-md overflow-hidden">
-        <div className="shimmer" />
-    </div>
-);
-
 export const CoverImage = ({ title, src, slug, priority = false, onLoad, className }: Props) => {
     const [imageLoaded, setImageLoaded] = useState(false);
     const postURL = `/${slug}`;
@@ -28,7 +22,6 @@ export const CoverImage = ({ title, src, slug, priority = false, onLoad, classNa
 
     const image = (
         <div className={`relative pt-[52.5%] select-none ${className || ''}`}>
-            {imageLoaded && !<Skeleton />}
             <Image
                 src={src}
                 alt={`Temizmama - ${title}`}
@@ -39,6 +32,7 @@ export const CoverImage = ({ title, src, slug, priority = false, onLoad, classNa
                 unoptimized
                 priority={priority}
                 onLoad={handleImageLoad}
+                loading="lazy"
             />
         </div>
     );

@@ -92,7 +92,7 @@ exports.imageReplacer = (content, lazyLoad = false) => {
 	var map = {};
 	srcVals.forEach((src) => {
 		src = src.split('src=')[1].replace(/"/g, '');
-		map[src] = _resizeImage(src, {});
+		map[src] = _resizeImage(src, {}, {});
 	});
 	var keys = Object.keys(map);
 	keys.forEach((oldSrc) => {

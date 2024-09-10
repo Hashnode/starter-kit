@@ -34,6 +34,7 @@ export const ExternalLinkModal: React.FC<ExternalLinkModalProps> = ({ url, onClo
           src={`https://www.google.com/s2/favicons?domain=${new URL(url).hostname}&sz=32`}
           alt="Website Favicon"
           className="w-6 h-6 mr-3 flex-shrink-0"
+          loading="lazy"
         />
       );
     }

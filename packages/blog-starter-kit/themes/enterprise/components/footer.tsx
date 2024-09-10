@@ -19,12 +19,12 @@ return (
     <>
     <div className="flex w-full flex-row justify-center">
         <a href="https://www.temizmama.com" aria-label={publication.title} className="flex flex-row items-center gap-5" target="_blank" rel="noopener noreferrer">
-          <img className="block w-40" src={PUBLICATION_LOGO} alt={publication.title} />
+          <img loading="lazy" className="block w-40" src={PUBLICATION_LOGO} alt={publication.title} />
         </a>
     </div>
     <div className="flex w-full flex-row justify-center">
         <a href="https://www.cagatay.com" aria-label="Çağatay" className="flex flex-row items-center gap-5" target="_blank" rel="noopener noreferrer">
-          <img className="block w-40" src="https://www.temizmama.com/assets/img/anasayfa/cagatay-Logo.webp" alt="Çağatay" />
+          <img loading="lazy" className="block w-40" src="https://www.temizmama.com/assets/img/anasayfa/cagatay-Logo.webp" alt="Çağatay" />
         </a>
     </div>
 

@@ -77,6 +77,7 @@ const PostCard: React.FC<{ post: PostFragment }> = ({ post }) => (
               src={resizeImage(post.coverImage?.url, { w: 800, h: 450, c: 'thumb' }, DEFAULT_COVER)}
               alt={post.title}
               className="w-full h-full object-cover"
+              loading="lazy"
             />
           </div>
         </Link>

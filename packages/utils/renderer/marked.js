@@ -1010,7 +1010,7 @@ const { default: isURL } = require('validator/lib/isURL');
 		}
 		// Wrap the image in a figure and add figcaption
 		let out = `<figure">`;
-		out += `<img src="${href}" alt="${text}" class="${alignmentStyles}"`;
+		out += `<img src="${href}" loading="lazy" alt="${text}" class="${alignmentStyles}"`;
 		if (title) {
 			out += ' title="' + title + '"';
 		}

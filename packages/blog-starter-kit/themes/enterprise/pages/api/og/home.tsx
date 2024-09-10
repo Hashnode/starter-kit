@@ -81,6 +81,7 @@ export default async function handler(req: NextRequest) {
 									tw="w-full"
 									alt="name"
 									src={resizeImage(photo, { w: 400, h: 400, c: 'face' })}
+									loading="lazy"
 								/>
 							</div>
 							<div tw="flex flex-1 flex-col items-start">
@@ -94,6 +95,7 @@ export default async function handler(req: NextRequest) {
 									<img
 										tw="block w-3/4"
 										alt="name"
+										loading="lazy"
 										src={resizeImage(logo, { w: 1000, h: 250, c: 'thumb' })}
 									/>
 								) : null}
@@ -142,6 +144,7 @@ export default async function handler(req: NextRequest) {
 									<img
 										tw="w-full"
 										alt="name"
+										loading="lazy"
 										src={`${favicon}?w=400&h=400&fit=crop&crop=faces&auto=compress`}
 									/>
 								</div>
@@ -153,7 +156,7 @@ export default async function handler(req: NextRequest) {
 								{!logo && title && <p tw="m-0 text-5xl font-bold">{title}</p>}
 
 								{/* Site Logo */}
-								{logo ? <img tw="mb-10 block w-1/2" alt="name" src={logo} /> : null}
+								{logo ? <img loading="lazy" tw="mb-10 block w-1/2" alt="name" src={logo} /> : null}
 
 								{/* Show domain name */}
 								<p tw="m-0 my-5 text-2xl font-semibold opacity-75">{domain}</p>

@@ -17,10 +17,6 @@ type Props = {
     slug: string;
 };
 
-const Skeleton = () => (
-    <div className="animate-pulse bg-gray-200 dark:bg-gray-700 rounded-md w-full h-full" />
-);
-
 export const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) => {
     const [imageLoaded, setImageLoaded] = useState(false);
     const postURL = `/${slug}`;
@@ -32,7 +28,6 @@ export const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) =
                 className="dark:hover:text-primary-500 contents"
             >
             <div className="col-span-1 relative aspect-[1600/840]">
-                 {imageLoaded && !<Skeleton />} 
                 <CoverImage
                     slug={slug}
                     title={title}

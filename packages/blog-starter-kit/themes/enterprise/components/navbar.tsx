@@ -104,6 +104,7 @@ export const Navbar = () => {
 				new Promise<void>((resolve, reject) => {
 					const img = new (window.Image as any)() as HTMLImageElement;
 					img.src = src;
+					img.loading = 'lazy'; // Added lazy loading
 					img.onload = () => resolve();
 					img.onerror = (error) => reject(error);
 				}),
@@ -264,6 +265,7 @@ export const Navbar = () => {
 					width={300}
 					height={200}
 					className="h-auto w-full rounded-lg object-cover"
+					loading="lazy"
 				  />
 				)}
 			  </div>
@@ -319,6 +321,7 @@ export const Navbar = () => {
 										fill
 										sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 										style={{ objectFit: 'contain' }}
+										loading="lazy"
 									/>
 								</div>
 							</Link>
