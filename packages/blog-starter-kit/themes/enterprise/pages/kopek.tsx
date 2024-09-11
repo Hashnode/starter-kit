@@ -93,7 +93,7 @@ function isDogRelated(post: PostFragment): boolean {
 
 const POSTS_PER_PAGE = 12;
 
-export default function köpekPage({ allPosts, publication, currentPage = 1 }: Props) {
+export default function kopekPage({ allPosts, publication, currentPage = 1 }: Props) {
     const router = useRouter();
     const [displayedPosts, setDisplayedPosts] = useState<PostFragment[]>([]);
   
@@ -130,7 +130,7 @@ export default function köpekPage({ allPosts, publication, currentPage = 1 }: P
           <Navbar />
           <div className="container mx-auto flex flex-col items-stretch gap-10 px-5 pb-10 pt-28">
             <Container>
-              <h1 className="text-4xl font-bold text-center">köpek Makaleleri {currentPage > 1 ? `- Sayfa ${currentPage}` : ''}</h1>
+              <h1 className="text-4xl font-bold text-center">Köpek Makaleleri {currentPage > 1 ? `- Sayfa ${currentPage}` : ''}</h1>
             </Container>
           </div>
           <Container>

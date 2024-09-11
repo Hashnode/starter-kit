@@ -1,5 +1,5 @@
 import { GetStaticProps, GetStaticPaths } from 'next';
-import KopekPage, { getStaticProps as kopekGetStaticProps } from '../../kedi';
+import KopekPage, { getStaticProps as kopekGetStaticProps } from '../../kopek';
 
 export default KopekPage;
 
