@@ -248,7 +248,8 @@ export const Navbar = () => {
 					width={300}
 					height={200}
 					className="h-auto w-full rounded-lg object-cover"
-					loading="lazy"
+					loading="eager"
+					priority
 				  />
 				)}
 			  </div>
