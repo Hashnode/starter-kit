@@ -106,11 +106,10 @@ function convertToPostFragment(post: PostFullFragment): PostFragment {
     slug: post.slug,
     coverImage: post.coverImage,
     tags: post.tags,
-    content: post.content.markdown // PostFullFragment'taki content.markdown'i kullanıyoruz
+    content: post.content.markdown
   };
 }
 
-// removeUndefined fonksiyonunu ekleyelim
 const removeUndefined = <T extends Record<string, any>>(obj: T): T => {
   Object.keys(obj).forEach(key => {
     if (obj[key] && typeof obj[key] === 'object') {
@@ -415,7 +414,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
         name: tag.name,
         slug: tag.slug
       })) : null,
-      content: '' // RelatedPostFragment'ta content olmadığı için boş string kullanıyoruz
+      content: ''
     }));
 
     // undefined değerleri kaldırmak için bir yardımcı fonksiyon

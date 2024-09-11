@@ -1,0 +1,214 @@
+import { GetStaticProps } from 'next';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { Container } from '../components/container';
+import { MorePosts } from '../components/more-posts';
+import { Navbar } from '../components/navbar';
+import { Footer } from '../components/footer';
+import { Layout } from '../components/layout';
+import { AppProvider } from '../components/contexts/appContext';
+import { PostFragment, PublicationFragment } from '../generated/graphql';
+import request, { gql } from 'graphql-request';
+import React, { useState, useEffect } from 'react';
+
+const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
+
+const GET_CAT_POSTS = gql`
+  query GetCatPosts($host: String!, $first: Int!) {
+    publication(host: $host) {
+      id
+      title
+      displayTitle
+      url
+      isTeam
+      author {
+        name
+        username
+        profilePicture
+      }
+      preferences {
+        logo
+        darkMode {
+          logo
+        }
+        navbarItems {
+          id
+          type
+          label
+          url
+        }
+      }
+      posts(first: $first) {
+        edges {
+          node {
+            id
+            title
+            brief
+            slug
+            coverImage {
+              url
+            }
+            publishedAt
+            author {
+              name
+              profilePicture
+            }
+          }
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+      }
+    }
+  }
+`;
+
+type GetCatPostsResponse = {
+  publication: PublicationFragment & {
+    posts: {
+      edges: Array<{
+        node: PostFragment;
+      }>;
+      pageInfo: {
+        hasNextPage: boolean;
+        endCursor: string | null;
+      };
+    };
+  };
+};
+
+type Props = {
+  allPosts: PostFragment[];
+  publication: PublicationFragment;
+  currentPage?: number;
+};
+
+const catKeywords = ['kedi', 'kedicik', 'kediş', 'miyav', 'kedi maması', 'kedi bakımı'];
+
+function isCatRelated(post: PostFragment): boolean {
+  const content = ((post.title || '') + ' ' + (post.brief || '')).toLowerCase();
+  return catKeywords.some(keyword => content.normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(keyword));
+}
+
+const POSTS_PER_PAGE = 12;
+
+export default function KediPage({ allPosts, publication, currentPage = 1 }: Props) {
+    const router = useRouter();
+    const [displayedPosts, setDisplayedPosts] = useState<PostFragment[]>([]);
+  
+    useEffect(() => {
+      const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+      const endIndex = startIndex + POSTS_PER_PAGE;
+      setDisplayedPosts(allPosts.slice(startIndex, endIndex));
+    }, [currentPage, allPosts]);
+  
+    const goToNextPage = () => {
+      const nextPage = currentPage + 1;
+      router.push(`/kedi/sayfa/${nextPage}`);
+    };
+  
+    const goToPreviousPage = () => {
+      const previousPage = currentPage - 1;
+      if (previousPage === 1) {
+        router.push('/kedi');
+      } else {
+        router.push(`/kedi/sayfa/${previousPage}`);
+      }
+    };
+  
+    const hasMorePosts = currentPage * POSTS_PER_PAGE < allPosts.length;
+    const hasPreviousPage = currentPage > 1;
+  
+    return (
+      <AppProvider publication={publication}>
+        <Layout>
+          <Head>
+            <title>Kedi Makaleleri | {currentPage > 1 ? `Sayfa ${currentPage} |` : ''} Temizmama Blog</title>
+            <meta name="description" content="Kediler hakkında bilgilendirici makaleler, bakım tavsiyeleri ve daha fazlası." />
+          </Head>
+          <Navbar />
+          <div className="container mx-auto flex flex-col items-stretch gap-10 px-5 pb-10 pt-28">
+            <Container>
+              <h1 className="text-4xl font-bold text-center">Kedi Makaleleri {currentPage > 1 ? `- Sayfa ${currentPage}` : ''}</h1>
+            </Container>
+          </div>
+          <Container>
+            {displayedPosts.length > 0 ? (
+              <>
+                <MorePosts posts={displayedPosts} context="home" />
+                <div className="mt-12 mb-8 flex justify-center space-x-4">
+                  {currentPage === 1 ? (
+                    hasMorePosts && (
+                      <button 
+                        onClick={goToNextPage}
+                        className="px-6 py-3 bg-orange-500 text-white rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:scale-105"
+                      >
+                        Daha Fazla
+                      </button>
+                    )
+                  ) : (
+                    <>
+                      {hasPreviousPage && (
+                        <button 
+                          onClick={goToPreviousPage}
+                          className="px-6 py-3 bg-orange-500 text-white rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:scale-105"
+                        >
+                          ← Önceki Sayfa
+                        </button>
+                      )}
+                      {hasMorePosts && (
+                        <button 
+                          onClick={goToNextPage}
+                          className="px-6 py-3 bg-orange-500 text-white rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:scale-105"
+                        >
+                          Sonraki Sayfa →
+                        </button>
+                      )}
+                    </>
+                  )}
+                </div>
+              </>
+            ) : (
+              <p className="text-center text-xl">Bu sayfada kedi makalesi bulunmamaktadır.</p>
+            )}
+          </Container>
+          <Footer />
+        </Layout>
+      </AppProvider>
+    );
+  }
+
+export const getStaticProps: GetStaticProps = async () => {
+  if (!GQL_ENDPOINT) {
+    console.error('GQL_ENDPOINT is not defined');
+    return { props: { allPosts: [], publication: {}, currentPage: 1 }, revalidate: 60 };
+  }
+
+  try {
+    const data = await request<GetCatPostsResponse>(
+      GQL_ENDPOINT,
+      GET_CAT_POSTS,
+      {
+        host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST || '',
+        first: 100, // Daha fazla post çekmek için bu sayıyı artırabilirsiniz
+      }
+    );
+
+    const filteredPosts = data.publication.posts.edges
+      .map((edge: { node: PostFragment }) => edge.node)
+      .filter(isCatRelated);
+
+    return {
+      props: {
+        allPosts: filteredPosts,
+        publication: data.publication,
+        currentPage: 1,
+      },
+      revalidate: 3600,
+    };
+  } catch (error) {
+    console.error('Veri alımı sırasında hata oluştu:', error);
+    return { props: { allPosts: [], publication: {}, currentPage: 1 }, revalidate: 60 };
+  }
+};
