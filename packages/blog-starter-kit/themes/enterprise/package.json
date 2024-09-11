@@ -2,7 +2,7 @@
 	"name": "@starter-kit/blog-enterprise",
 	"private": true,
 	"scripts": {
-		"build": "cross-env GENERATE_SOURCEMAP=false next build && next start",
+		"build": "cross-env GENERATE_SOURCEMAP=false next build",
 		"codegen": "graphql-codegen --config codegen.yml",
 		"dev": "concurrently \"next\" \"pnpm codegen --watch\" --names next,codegen",
 		"format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,json}\" --ignore-path ../../../../.prettierignore",
