@@ -27,6 +27,7 @@
 		"react-intersection-observer": "^9.13.1",
 		"react-query": "^3.39.3",
 		"react-virtual": "^2.10.4",
+		"sharp": "^0.33.5",
 		"terser-webpack-plugin": "^5.3.10"
 	},
 	"devDependencies": {

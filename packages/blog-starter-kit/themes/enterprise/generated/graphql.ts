@@ -1330,21 +1330,6 @@ export type DocumentationApiReference = IGuide & {
   versionId?: Maybe<Scalars['String']['output']>;
 };
 
-export type DocumentationApiReferenceVersion = IGuideVersion & {
-  __typename?: 'DocumentationApiReferenceVersion';
-  codeName?: Maybe<Scalars['String']['output']>;
-  createdAt: Scalars['DateTime']['output'];
-  deletedAt?: Maybe<Scalars['DateTime']['output']>;
-  forkedFrom?: Maybe<DocumentationApiReferenceVersion>;
-  id: Scalars['ID']['output'];
-  isDefault: Scalars['Boolean']['output'];
-  name: Scalars['String']['output'];
-  slug: Scalars['String']['output'];
-  updatedAt?: Maybe<Scalars['DateTime']['output']>;
-  url: Scalars['String']['output'];
-  visibility: DocumentationGuideVisibility;
-};
-
 export type DocumentationGuide = IGuide & {
   __typename?: 'DocumentationGuide';
   hasChanges: Scalars['Boolean']['output'];
@@ -1397,26 +1382,6 @@ export enum DocumentationGuideItemStatus {
   Deleted = 'DELETED',
   Published = 'PUBLISHED',
   Unpublished = 'UNPUBLISHED'
-}
-
-export type DocumentationGuideVersion = IGuideVersion & {
-  __typename?: 'DocumentationGuideVersion';
-  codeName?: Maybe<Scalars['String']['output']>;
-  createdAt: Scalars['DateTime']['output'];
-  deletedAt?: Maybe<Scalars['DateTime']['output']>;
-  forkedFrom?: Maybe<DocumentationGuideVersion>;
-  id: Scalars['ID']['output'];
-  isDefault: Scalars['Boolean']['output'];
-  name: Scalars['String']['output'];
-  sidebarItems: Array<DocumentationSidebarItem>;
-  slug: Scalars['String']['output'];
-  updatedAt?: Maybe<Scalars['DateTime']['output']>;
-  visibility: DocumentationGuideVisibility;
-};
-
-export enum DocumentationGuideVisibility {
-  Hidden = 'HIDDEN',
-  Public = 'PUBLIC'
 }
 
 export type DocumentationLink = IDocumentationSidebarItem & {
@@ -2716,19 +2681,6 @@ export type IGuide = {
   slug: Scalars['String']['output'];
   status: DocumentationGuideItemStatus;
   versionId?: Maybe<Scalars['String']['output']>;
-};
-
-export type IGuideVersion = {
-  codeName?: Maybe<Scalars['String']['output']>;
-  createdAt: Scalars['DateTime']['output'];
-  deletedAt?: Maybe<Scalars['DateTime']['output']>;
-  forkedFrom?: Maybe<IGuideVersion>;
-  id: Scalars['ID']['output'];
-  isDefault: Scalars['Boolean']['output'];
-  name: Scalars['String']['output'];
-  slug: Scalars['String']['output'];
-  updatedAt?: Maybe<Scalars['DateTime']['output']>;
-  visibility: DocumentationGuideVisibility;
 };
 
 /**

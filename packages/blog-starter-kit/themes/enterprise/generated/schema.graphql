@@ -1332,20 +1332,6 @@ type DocumentationApiReference implements IGuide {
   versionId: String
 }
 
-type DocumentationApiReferenceVersion implements IGuideVersion {
-  codeName: String
-  createdAt: DateTime!
-  deletedAt: DateTime
-  forkedFrom: DocumentationApiReferenceVersion
-  id: ID!
-  isDefault: Boolean!
-  name: String!
-  slug: String!
-  updatedAt: DateTime
-  url: String!
-  visibility: DocumentationGuideVisibility!
-}
-
 type DocumentationGuide implements IGuide {
   hasChanges: Boolean!
   id: ID!
@@ -1383,25 +1369,6 @@ enum DocumentationGuideItemStatus {
   DELETED
   PUBLISHED
   UNPUBLISHED
-}
-
-type DocumentationGuideVersion implements IGuideVersion {
-  codeName: String
-  createdAt: DateTime!
-  deletedAt: DateTime
-  forkedFrom: DocumentationGuideVersion
-  id: ID!
-  isDefault: Boolean!
-  name: String!
-  sidebarItems: [DocumentationSidebarItem!]!
-  slug: String!
-  updatedAt: DateTime
-  visibility: DocumentationGuideVisibility!
-}
-
-enum DocumentationGuideVisibility {
-  HIDDEN
-  PUBLIC
 }
 
 type DocumentationLink implements IDocumentationSidebarItem {
@@ -2678,19 +2645,6 @@ interface IGuide {
   slug: String!
   status: DocumentationGuideItemStatus!
   versionId: String
-}
-
-interface IGuideVersion {
-  codeName: String
-  createdAt: DateTime!
-  deletedAt: DateTime
-  forkedFrom: IGuideVersion
-  id: ID!
-  isDefault: Boolean!
-  name: String!
-  slug: String!
-  updatedAt: DateTime
-  visibility: DocumentationGuideVisibility!
 }
 
 """

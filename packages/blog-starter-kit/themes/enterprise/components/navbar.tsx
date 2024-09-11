@@ -64,11 +64,11 @@ export const Navbar = () => {
 	}, []);
 
 	const catImages = [
-		'/assets/blog/navbar/all.png?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp&lazy=1',
+		'/assets/blog/navbar/all.png?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp',
 		];
 
 	const dogImages = [
-		'/assets/blog/navbar/all.png?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp&lazy=1',
+		'/assets/blog/navbar/all.png?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp',
 		];
 
 	const getRandomImage = useCallback((items: MenuItem[]) => {
@@ -87,7 +87,6 @@ export const Navbar = () => {
 				new Promise<void>((resolve, reject) => {
 					const img = new (window.Image as any)() as HTMLImageElement;
 					img.src = src;
-					img.loading = 'lazy'; // Added lazy loading
 					img.onload = () => resolve();
 					img.onerror = (error) => reject(error);
 				}),
@@ -227,6 +226,9 @@ export const Navbar = () => {
 		setCurrentHoverImage(null);
 	  }, []);
 
+	  useEffect(() => {
+		setIsImagesLoaded(true);
+	  }, []);
 
 	  const renderDropdownMenu = (
 		items: MenuItem[],
@@ -242,30 +244,29 @@ export const Navbar = () => {
 			<div className={`flex ${isMobile ? 'flex-col' : ''}`}>
 			  <div className={isMobile ? 'mb-4 w-full' : 'w-1/2 pr-4'}>
 				{isImagesLoaded && (
-				  <Image
-					src={currentHoverImage || lastHoveredImage || defaultImage}
-					alt={altText}
-					width={300}
-					height={200}
-					className="h-auto w-full rounded-lg object-cover"
-					loading="eager"
-					priority
-				  />
+					<Image
+						src={currentHoverImage || lastHoveredImage || defaultImage}
+						alt={altText}
+						width={300}
+						height={200}
+						className="h-auto w-full rounded-lg object-cover"
+						loading="eager"
+						priority
+						/>
 				)}
 			  </div>
 			  <div className={isMobile ? '-ml-4 -mr-8 pl-0 pt-4' : 'w-1/2 content-center pl-4'}>
 				<div className="grid grid-cols-2 gap-x-0 gap-y-4">
 				  {items.map((item, index) => (
-					<div key={index}>
-					  <Link
-						href={item.url}
-						className="block text-gray-800 hover:text-orange-500"
-						onClick={closeAllMenus}
-						onMouseEnter={() => handleMenuItemHover(item.image)}
-					  >
-						{item.name}
-					  </Link>
-					</div>
+					<div key={index} onMouseEnter={() => handleMenuItemHover(item.image)}>
+						<Link
+							href={item.url}
+							className="block text-gray-800 hover:text-orange-500"
+							onClick={closeAllMenus}
+						>
+							{item.name}
+						</Link>
+						</div>
 				  ))}
 				</div>
 			  </div>
@@ -305,7 +306,7 @@ export const Navbar = () => {
 										fill
 										sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 										style={{ objectFit: 'contain' }}
-										loading="lazy"
+										loading="eager"
 									/>
 								</div>
 							</Link>
