@@ -10,6 +10,8 @@ import { AppProvider } from '../components/contexts/appContext';
 import { PostFragment, PublicationFragment } from '../generated/graphql';
 import request, { gql } from 'graphql-request';
 import React, { useState, useEffect } from 'react';
+import { Meta } from '../components/meta';
+
 
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 
@@ -126,6 +128,7 @@ export default function KediPage({ allPosts, publication, currentPage = 1 }: Pro
           <Head>
             <title>Kediler Hakkında Bilgiler | Kedi Sağlığı, Bakımı & Fazlası | {currentPage > 1 ? `Sayfa ${currentPage} |` : ''} Temizmama Blog</title>
             <meta name="description" content="Kediler hakkında öğrenmek istedikleriniz Temizmama Blog'da! Kedi sağlığı, kedi bakımı, kedi beslenmesi, kediler hakkında ilginç bilgiler ve fazlası burada!" />
+            <Meta />
           </Head>
           <Navbar />
           <div className="container mx-auto flex flex-col items-stretch gap-10 px-5 pb-10 pt-28 ">

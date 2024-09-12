@@ -10,6 +10,7 @@ import { AppProvider } from '../components/contexts/appContext';
 import { PostFragment, PublicationFragment } from '../generated/graphql';
 import request, { gql } from 'graphql-request';
 import React, { useState, useEffect, useMemo } from 'react';
+import { Meta } from '../components/meta';
 
 type ExtendedPostFragment = PostFragment & {
     tags?: Array<{ name: string }>;
@@ -155,6 +156,7 @@ type GetDogPostsResponse = {
           <Head>
             <title>Köpekler Hakkında Bilgiler | Köpek Sağlığı, Bakımı & Fazlası | {currentPage > 1 ? `Sayfa ${currentPage} |` : ''} Temizmama Blog</title>
             <meta name="description" content="Köpekler hakkında öğrenmek istedikleriniz Temizmama Blog'da! Köpek ırkları, köpek bakımı, köpek beslenmesi, köpekler hakkında ilginç bilgiler burada!" />
+            <Meta />
           </Head>
           <Navbar />
           <div className="container mx-auto flex flex-col items-stretch gap-10 px-5 pb-10 pt-28">
