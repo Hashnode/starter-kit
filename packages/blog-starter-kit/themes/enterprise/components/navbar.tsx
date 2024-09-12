@@ -270,6 +270,36 @@ export const Navbar = () => {
     </div>
   );
 
+
+  const handleMenuClick = useCallback((menuType: 'cat' | 'dog') => {
+    if (isMobile) {
+      if (menuType === 'cat') {
+        if (isCatMenuOpen) {
+          router.push('/kedi');
+        } else {
+          setIsCatMenuOpen(true);
+          setIsDogMenuOpen(false);
+        }
+      } else {
+        if (isDogMenuOpen) {
+          router.push('/kopek');
+        } else {
+          setIsDogMenuOpen(true);
+          setIsCatMenuOpen(false);
+        }
+      }
+    } else {
+      // Masaüstü davranışı aynı kalacak
+      if (menuType === 'cat') {
+        setIsCatMenuOpen(true);
+        setIsDogMenuOpen(false);
+      } else {
+        setIsDogMenuOpen(true);
+        setIsCatMenuOpen(false);
+      }
+    }
+  }, [isMobile, isCatMenuOpen, isDogMenuOpen, router]);
+
   const renderMobileMenu = () => (
     <div
       ref={mobileMenuRef}
@@ -278,7 +308,7 @@ export const Navbar = () => {
       <ul className="mr-4 mt-2 space-y-2">
         <li>
           <button
-            onClick={toggleCatMenu}
+            onClick={() => handleMenuClick('cat')}
             className="block font-bold text-gray-800 hover:text-gray-700/75"
             style={{ fontFamily: 'PinkChicken' }}
           >
@@ -302,7 +332,7 @@ export const Navbar = () => {
         </li>
         <li>
           <button
-            onClick={toggleDogMenu}
+            onClick={() => handleMenuClick('dog')}
             className="block font-bold text-gray-800 hover:text-gray-700/75"
             style={{ fontFamily: 'PinkChicken' }}
           >
@@ -351,17 +381,17 @@ rel="canonical"
 );
 
 return (
-<>
-<nav
-ref={navbarRef}
-className={`container fixed left-0 right-0 top-0 z-50 mx-auto w-full select-none px-4 py-4 transition-all duration-500 ${
-isVisible ? 'translate-y-0' : '-translate-y-full'
-}`}
-style={{
-opacity: 1,
-zIndex: 2,
-} as React.CSSProperties}
->
+    <>
+      <nav
+        ref={navbarRef}
+        className={`container fixed left-0 right-0 top-0 z-50 mx-auto w-full select-none px-4 py-4 transition-all duration-500 ${
+          isVisible ? 'translate-y-0' : '-translate-y-full'
+        }`}
+        style={{
+          opacity: 1,
+          zIndex: 2,
+        } as React.CSSProperties}
+      >
 <div
 className="mx-auto select-none rounded-xl bg-white/10 px-4 py-4 shadow-md sm:px-6 lg:px-8"
 style={{
@@ -404,31 +434,31 @@ background: 'hsl(30.5, 100%, 87.6%)',
 	  </button>
 	</li>
 	<li 
-	  style={{ opacity: 1, transform: 'none' }}
-	  onMouseEnter={toggleCatMenu}
-	  onMouseLeave={() => setIsCatMenuOpen(false)}
-	>
-	  <Link
-		href="/kedi"
-		className="cursor-pointer font-bold text-gray-800 transition hover:text-gray-700/75"
-		style={{ fontFamily: 'PinkChicken' }}
-	  >
-		Kedi
-	  </Link>
-	</li>
-	<li 
-	  style={{ opacity: 1, transform: 'none' }}
-	  onMouseEnter={toggleDogMenu}
-	  onMouseLeave={() => setIsDogMenuOpen(false)}
-	>
-	  <Link
-		href="/kopek"
-		className="cursor-pointer font-bold text-gray-800 transition hover:text-gray-700/75"
-		style={{ fontFamily: 'PinkChicken' }}
-	  >
-		Köpek
-	  </Link>
-	</li>
+              style={{ opacity: 1, transform: 'none' }}
+              onMouseEnter={() => handleMenuClick('cat')}
+              onMouseLeave={() => setIsCatMenuOpen(false)}
+            >
+              <Link
+                href="/kedi"
+                className="cursor-pointer font-bold text-gray-800 transition hover:text-gray-700/75"
+                style={{ fontFamily: 'PinkChicken' }}
+              >
+                Kedi
+              </Link>
+            </li>
+            <li 
+              style={{ opacity: 1, transform: 'none' }}
+              onMouseEnter={() => handleMenuClick('dog')}
+              onMouseLeave={() => setIsDogMenuOpen(false)}
+            >
+              <Link
+                href="/kopek"
+                className="cursor-pointer font-bold text-gray-800 transition hover:text-gray-700/75"
+                style={{ fontFamily: 'PinkChicken' }}
+              >
+                Köpek
+              </Link>
+            </li>
 	<li style={{ opacity: 1, transform: 'none' }}>
 	  <Link
 		href="/"
