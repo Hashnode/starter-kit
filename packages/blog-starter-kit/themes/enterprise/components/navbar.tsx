@@ -10,7 +10,7 @@ interface MenuItem {
   image: string;
 }
 
-export const Navbar = () => {
+export const Navbar: React.FC = () => {
   const catMenuItems: MenuItem[] = [
     { name: 'Kedi Bakımı', url: '/kedi-bakimi', image: '/assets/blog/navbar/kedi/1.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
     { name: 'Kedi Beslenmesi', url: '/kedi-beslenmesi', image: '/assets/blog/navbar/kedi/2.webp?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
@@ -26,7 +26,7 @@ export const Navbar = () => {
     { name: 'Köpek Sağlığı', url: '/kopek-sagligi', image: '/assets/blog/navbar/kopek/4.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
     { name: 'Köpek Diğer', url: '/kopek-diger', image: '/assets/blog/navbar/kopek/5.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
   ];
-
+  const [isMenuHovered, setIsMenuHovered] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
@@ -226,6 +226,31 @@ export const Navbar = () => {
     setIsImagesLoaded(true);
   }, []);
 
+  const handleMenuEnter = useCallback((menuType: 'cat' | 'dog') => {
+    if (!isMobile) {
+      setIsMenuHovered(true);
+      if (menuType === 'cat') {
+        setIsCatMenuOpen(true);
+        setIsDogMenuOpen(false);
+      } else {
+        setIsDogMenuOpen(true);
+        setIsCatMenuOpen(false);
+      }
+    }
+  }, [isMobile]);
+
+  const handleMenuLeave = useCallback(() => {
+    if (!isMobile) {
+      setIsMenuHovered(false);
+      setTimeout(() => {
+        if (!isMenuHovered) {
+          setIsCatMenuOpen(false);
+          setIsDogMenuOpen(false);
+        }
+      }, 300); // 300ms gecikme ekledik
+    }
+  }, [isMobile, isMenuHovered]);
+
   const renderDropdownMenu = (
     items: MenuItem[],
     defaultImage: string,
@@ -233,7 +258,8 @@ export const Navbar = () => {
   ) => (
     <div
       className={`fixed ${isMobile ? 'left-1/2 w-3/4 -translate-x-1/2 transform' : 'left-1/2 w-3/5 -translate-x-1/2 transform'} z-50 mt-2 rounded-xl bg-white bg-opacity-70 px-8 py-6 shadow-lg backdrop-blur-md backdrop-filter`}
-      onMouseLeave={handleMenuAreaLeave}
+      onMouseEnter={() => setIsMenuHovered(true)}
+      onMouseLeave={handleMenuLeave}
     >
       <div className="flex flex-col">
         <div className={`flex ${isMobile ? 'flex-col' : ''}`}>
@@ -433,10 +459,10 @@ background: 'hsl(30.5, 100%, 87.6%)',
 		</svg>
 	  </button>
 	</li>
-	<li 
+			<li 
               style={{ opacity: 1, transform: 'none' }}
-              onMouseEnter={() => handleMenuClick('cat')}
-              onMouseLeave={() => setIsCatMenuOpen(false)}
+              onMouseEnter={() => handleMenuEnter('cat')}
+              onMouseLeave={handleMenuLeave}
             >
               <Link
                 href="/kedi"
@@ -448,8 +474,8 @@ background: 'hsl(30.5, 100%, 87.6%)',
             </li>
             <li 
               style={{ opacity: 1, transform: 'none' }}
-              onMouseEnter={() => handleMenuClick('dog')}
-              onMouseLeave={() => setIsDogMenuOpen(false)}
+              onMouseEnter={() => handleMenuEnter('dog')}
+              onMouseLeave={handleMenuLeave}
             >
               <Link
                 href="/kopek"
@@ -540,23 +566,24 @@ background: 'hsl(30.5, 100%, 87.6%)',
 		/>
 	  </svg>
 	)}
+	
   </button>
 </div>
 </div>
 {isMobileMenuOpen && renderMobileMenu()}
 </div>
 {(isCatMenuOpen || isDogMenuOpen) && !isMobile && (
-<div 
-onMouseEnter={isCatMenuOpen ? toggleCatMenu : toggleDogMenu}
-onMouseLeave={closeAllMenus}
->
-{renderDropdownMenu(
-  isCatMenuOpen ? catMenuItems : dogMenuItems,
-  isCatMenuOpen ? currentCatImage : currentDogImage,
-  isCatMenuOpen ? 'Kedi' : 'Köpek'
-)}
-</div>
-)}
+        <div 
+          onMouseEnter={() => setIsMenuHovered(true)}
+          onMouseLeave={handleMenuLeave}
+        >
+          {renderDropdownMenu(
+            isCatMenuOpen ? catMenuItems : dogMenuItems,
+            isCatMenuOpen ? currentCatImage : currentDogImage,
+            isCatMenuOpen ? 'Kedi' : 'Köpek'
+          )}
+        </div>
+      )}
 </nav>
 {isSearchOpen && (
 <div className="fixed inset-0 z-50 bg-black bg-opacity-50">
