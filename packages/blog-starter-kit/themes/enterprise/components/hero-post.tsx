@@ -37,9 +37,9 @@ export const HeroPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
 				/>
 			</div>
 			<div className="col-span-1 flex flex-col gap-2">
-				<h3 className="text-xl font-bold leading-snug text-slate-800 dark:text-neutral-50 lg:text-3xl">
+				<h2 className="text-xl font-bold leading-snug text-slate-800 dark:text-neutral-50 lg:text-3xl">
 						{title}
-				</h3>
+				</h2>
 					<p className="text-md leading-snug text-slate-500 dark:text-neutral-400">{cleanExcerpt(excerpt)}</p>
 				<div className="text-sm font-semibold text-slate-500 dark:text-neutral-300">
 						<DateFormatter dateString={date} />
