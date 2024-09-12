@@ -26,6 +26,7 @@ export const Navbar: React.FC = () => {
     { name: 'Köpek Sağlığı', url: '/kopek-sagligi', image: '/assets/blog/navbar/kopek/4.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
     { name: 'Köpek Diğer', url: '/kopek-diger', image: '/assets/blog/navbar/kopek/5.avif?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp' },
   ];
+  
   const [isMenuHovered, setIsMenuHovered] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -45,8 +46,8 @@ export const Navbar: React.FC = () => {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   const [lastHoveredImage, setLastHoveredImage] = useState<string | null>(null);
-  const [defaultCatImage, setDefaultCatImage] = useState<string>(catMenuItems[0].image);
-  const [defaultDogImage, setDefaultDogImage] = useState<string>(dogMenuItems[0].image);
+  const [defaultCatImage, setDefaultCatImage] = useState<string>(catMenuItems.find(item => item.name === 'Kedi Irkları')?.image || '');
+  const [defaultDogImage, setDefaultDogImage] = useState<string>(dogMenuItems.find(item => item.name === 'Köpek Irkları')?.image || '');
 
   const router = typeof window !== 'undefined' ? require('next/router').useRouter() : null;
 
@@ -232,12 +233,14 @@ export const Navbar: React.FC = () => {
       if (menuType === 'cat') {
         setIsCatMenuOpen(true);
         setIsDogMenuOpen(false);
+        setCurrentHoverImage(defaultCatImage);
       } else {
         setIsDogMenuOpen(true);
         setIsCatMenuOpen(false);
+        setCurrentHoverImage(defaultDogImage);
       }
     }
-  }, [isMobile]);
+  }, [isMobile, defaultCatImage, defaultDogImage]);
 
   const handleMenuLeave = useCallback(() => {
     if (!isMobile) {
@@ -266,7 +269,7 @@ export const Navbar: React.FC = () => {
           <div className={isMobile ? 'mb-4 w-full' : 'w-1/2 pr-4'}>
             {isImagesLoaded && (
               <Image
-                src={currentHoverImage || lastHoveredImage || defaultImage}
+                src={currentHoverImage || defaultImage}
                 alt={altText}
                 width={300}
                 height={200}
@@ -566,7 +569,7 @@ background: 'hsl(30.5, 100%, 87.6%)',
 		/>
 	  </svg>
 	)}
-	
+
   </button>
 </div>
 </div>
