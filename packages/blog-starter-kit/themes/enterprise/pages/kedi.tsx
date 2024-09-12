@@ -128,12 +128,12 @@ export default function KediPage({ allPosts, publication, currentPage = 1 }: Pro
             <meta name="description" content="Kediler hakkında öğrenmek istedikleriniz Temizmama Blog'da! Kedi sağlığı, kedi bakımı, kedi beslenmesi, kediler hakkında ilginç bilgiler ve fazlası burada!" />
           </Head>
           <Navbar />
-          <div className="container mx-auto flex flex-col items-stretch gap-10 px-5 pb-10 pt-28">
+          <div className="container mx-auto flex flex-col items-stretch gap-10 px-5 pb-10 pt-28 ">
             <Container>
               <h1 className="text-5xl text-gray-900 font-semibold mt-2 mb-5 text-center">Kediler Hakkında {currentPage > 1 ? `- Sayfa ${currentPage}` : ''}</h1>
             </Container>
           </div>
-          <div className="container left-0 right-0 top-0 z-50 mx-auto w-full select-none px-4 py-4 transition-all duration-500 translate-y-0 -mt-32">
+          <div className="container left-0 right-0 top-0 z-50 mx-auto w-full select-none px-4 py-4 transition-all duration-500 translate-y-0 -mt-32 pt-24 sm:pt-0">
           <Container>
             {displayedPosts.length > 0 ? (
               <>
