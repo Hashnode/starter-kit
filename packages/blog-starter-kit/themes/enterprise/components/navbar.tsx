@@ -413,7 +413,7 @@ return (
     <>
       <nav
         ref={navbarRef}
-        className={`container fixed left-0 right-0 top-0 z-50 mx-auto w-full select-none px-4 py-4 transition-all duration-500 ${
+        className={`container fixed left-0 right-0 top-0 z-50 mx-auto w-full select-none px-4 py-4 pt-7 sm:pt-0 transition-all duration-500 ${
           isVisible ? 'translate-y-0' : '-translate-y-full'
         }`}
         style={{
