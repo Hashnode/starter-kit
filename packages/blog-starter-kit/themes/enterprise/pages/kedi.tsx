@@ -129,6 +129,7 @@ export default function KediPage({ allPosts, publication, currentPage = 1 }: Pro
             <title>Kediler Hakkında Bilgiler | Kedi Sağlığı, Bakımı & Fazlası | {currentPage > 1 ? `Sayfa ${currentPage} |` : ''} Temizmama Blog</title>
             <meta name="description" content="Kediler hakkında öğrenmek istedikleriniz Temizmama Blog'da! Kedi sağlığı, kedi bakımı, kedi beslenmesi, kediler hakkında ilginç bilgiler ve fazlası burada!" />
             <Meta />
+            <link rel="icon" href="/favicon.ico" />
           </Head>
           <Navbar />
           <div className="container mx-auto flex flex-col items-stretch gap-10 px-5 pb-10 pt-28 ">
