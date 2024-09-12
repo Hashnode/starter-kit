@@ -133,10 +133,11 @@ export default function KediPage({ allPosts, publication, currentPage = 1 }: Pro
               <h1 className="text-4xl font-bold text-center">Kedi Makaleleri {currentPage > 1 ? `- Sayfa ${currentPage}` : ''}</h1>
             </Container>
           </div>
+          <div className="container left-0 right-0 top-0 z-50 mx-auto w-full select-none px-4 py-4 transition-all duration-500 translate-y-0">
           <Container>
             {displayedPosts.length > 0 ? (
               <>
-                <MorePosts posts={displayedPosts} context="home" />
+            <MorePosts posts={displayedPosts} context="home" pageType="kedi" />
                 <div className="mt-12 mb-8 flex justify-center space-x-4">
                   {currentPage === 1 ? (
                     hasMorePosts && (
@@ -173,6 +174,7 @@ export default function KediPage({ allPosts, publication, currentPage = 1 }: Pro
               <p className="text-center text-xl">Bu sayfada kedi makalesi bulunmamaktadır.</p>
             )}
           </Container>
+          </div>
           <Footer />
         </Layout>
       </AppProvider>

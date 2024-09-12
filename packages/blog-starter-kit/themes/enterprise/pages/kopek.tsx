@@ -9,8 +9,11 @@ import { Layout } from '../components/layout';
 import { AppProvider } from '../components/contexts/appContext';
 import { PostFragment, PublicationFragment } from '../generated/graphql';
 import request, { gql } from 'graphql-request';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
+type ExtendedPostFragment = PostFragment & {
+    tags?: Array<{ name: string }>;
+  };
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 
 const GET_DOG_POSTS = gql`
@@ -53,6 +56,9 @@ const GET_DOG_POSTS = gql`
               name
               profilePicture
             }
+            tags {
+              name
+            }
           }
         }
         pageInfo {
@@ -65,43 +71,66 @@ const GET_DOG_POSTS = gql`
 `;
 
 type GetDogPostsResponse = {
-  publication: PublicationFragment & {
-    posts: {
-      edges: Array<{
-        node: PostFragment;
-      }>;
-      pageInfo: {
-        hasNextPage: boolean;
-        endCursor: string | null;
+    publication: PublicationFragment & {
+      posts: {
+        edges: Array<{
+          node: ExtendedPostFragment;
+        }>;
+        pageInfo: {
+          hasNextPage: boolean;
+          endCursor: string | null;
+        };
       };
     };
   };
-};
-
-type Props = {
-  allPosts: PostFragment[];
-  publication: PublicationFragment;
-  currentPage?: number;
-};
-
-const dogKeywords = ['köpek', 'köpekcik', 'köpüş', 'hav', 'köpek maması', 'köpek bakımı'];
-
-function isDogRelated(post: PostFragment): boolean {
-  const content = ((post.title || '') + ' ' + (post.brief || '')).toLowerCase();
-  return dogKeywords.some(keyword => content.normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(keyword));
-}
-
-const POSTS_PER_PAGE = 12;
-
-export default function kopekPage({ allPosts, publication, currentPage = 1 }: Props) {
+  
+  type Props = {
+    allPosts: ExtendedPostFragment[];
+    publication: PublicationFragment;
+    currentPage?: number;
+  };
+  
+  function isDogRelated(post: PostFragment): boolean {
+    const content = (post.title + ' ' + post.brief).toLowerCase();
+    
+    const dogKeywords = [
+      'köpek', 'köpekcik', 'köpüş', 'hav', 'köpek maması', 'köpek bakımı', 
+      'dog', 'puppy', 'canine', 'yavru köpek', 'köpek eğitimi', 'köpek sağlığı'
+    ];
+    
+    const catKeywords = [
+      'kedi', 'kedici', 'kedi maması', 'kedi bakımı', 'cat', 'kitten', 'feline',
+      'miyav', 'yavru kedi', 'kedi eğitimi', 'kedi sağlığı'
+    ];
+    
+    const commonKeywords = [
+      'evcil hayvan', 'pet', 'hayvan bakımı', 'hayvan sağlığı', 
+      'veteriner', 'mama', 'tasma', 'oyuncak', 'tırnak kesimi',
+      'tüy bakımı', 'hayvan davranışları', 'evcil hayvan eğitimi', 'barf', 'kanun'
+    ];
+  
+    const hasDogKeyword = dogKeywords.some(keyword => content.includes(keyword));
+    const hasCatKeyword = catKeywords.some(keyword => content.includes(keyword));
+    const hasCommonKeyword = commonKeywords.some(keyword => content.includes(keyword));
+  
+    // Köpekle ilgili içerik varsa VE kediyle ilgili içerik yoksa VEYA her ikisiyle ilgili ortak bir konu varsa
+    return (hasDogKeyword && !hasCatKeyword) || (hasDogKeyword && hasCatKeyword && hasCommonKeyword);
+  }
+  
+  const POSTS_PER_PAGE = 12;
+  
+  export default function KopekPage({ allPosts, publication, currentPage = 1 }: Props) {
     const router = useRouter();
     const [displayedPosts, setDisplayedPosts] = useState<PostFragment[]>([]);
+  
+    const dogRelatedPosts = useMemo(() => allPosts.filter(isDogRelated), [allPosts]);
   
     useEffect(() => {
       const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
       const endIndex = startIndex + POSTS_PER_PAGE;
-      setDisplayedPosts(allPosts.slice(startIndex, endIndex));
-    }, [currentPage, allPosts]);
+      setDisplayedPosts(dogRelatedPosts.slice(startIndex, endIndex));
+    }, [currentPage, dogRelatedPosts]);
+  
   
     const goToNextPage = () => {
       const nextPage = currentPage + 1;
@@ -117,15 +146,15 @@ export default function kopekPage({ allPosts, publication, currentPage = 1 }: Pr
       }
     };
   
-    const hasMorePosts = currentPage * POSTS_PER_PAGE < allPosts.length;
+    const hasMorePosts = currentPage * POSTS_PER_PAGE < dogRelatedPosts.length;
     const hasPreviousPage = currentPage > 1;
   
     return (
       <AppProvider publication={publication}>
         <Layout>
           <Head>
-            <title>köpek Makaleleri | {currentPage > 1 ? `Sayfa ${currentPage} |` : ''} Temizmama Blog</title>
-            <meta name="description" content="köpekler hakkında bilgilendirici makaleler, bakım tavsiyeleri ve daha fazlası." />
+            <title>Köpek Makaleleri | {currentPage > 1 ? `Sayfa ${currentPage} |` : ''} Temizmama Blog</title>
+            <meta name="description" content="Köpekler hakkında bilgilendirici makaleler, bakım tavsiyeleri ve daha fazlası." />
           </Head>
           <Navbar />
           <div className="container mx-auto flex flex-col items-stretch gap-10 px-5 pb-10 pt-28">
@@ -133,10 +162,11 @@ export default function kopekPage({ allPosts, publication, currentPage = 1 }: Pr
               <h1 className="text-4xl font-bold text-center">Köpek Makaleleri {currentPage > 1 ? `- Sayfa ${currentPage}` : ''}</h1>
             </Container>
           </div>
+          <div className="container left-0 right-0 top-0 z-50 mx-auto w-full select-none px-4 py-4 transition-all duration-500 translate-y-0">
           <Container>
             {displayedPosts.length > 0 ? (
               <>
-                <MorePosts posts={displayedPosts} context="home" />
+            <MorePosts posts={displayedPosts} context="home" pageType="kopek" />
                 <div className="mt-12 mb-8 flex justify-center space-x-4">
                   {currentPage === 1 ? (
                     hasMorePosts && (
@@ -173,42 +203,45 @@ export default function kopekPage({ allPosts, publication, currentPage = 1 }: Pr
               <p className="text-center text-xl">Bu sayfada köpek makalesi bulunmamaktadır.</p>
             )}
           </Container>
+          </div>
           <Footer />
         </Layout>
       </AppProvider>
     );
   }
-
-export const getStaticProps: GetStaticProps = async () => {
-  if (!GQL_ENDPOINT) {
-    console.error('GQL_ENDPOINT is not defined');
-    return { props: { allPosts: [], publication: {}, currentPage: 1 }, revalidate: 60 };
-  }
-
-  try {
-    const data = await request<GetDogPostsResponse>(
-      GQL_ENDPOINT,
-      GET_DOG_POSTS,
-      {
-        host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST || '',
-        first: 100, // Daha fazla post çekmek için bu sayıyı artırabilirsiniz
-      }
-    );
-
-    const filteredPosts = data.publication.posts.edges
-      .map((edge: { node: PostFragment }) => edge.node)
-      .filter(isDogRelated);
-
-    return {
-      props: {
-        allPosts: filteredPosts,
-        publication: data.publication,
-        currentPage: 1,
-      },
-      revalidate: 3600,
-    };
-  } catch (error) {
-    console.error('Veri alımı sırasında hata oluştu:', error);
-    return { props: { allPosts: [], publication: {}, currentPage: 1 }, revalidate: 60 };
-  }
-};
+  
+  export const getStaticProps: GetStaticProps = async () => {
+    if (!GQL_ENDPOINT) {
+      console.error('GQL_ENDPOINT is not defined');
+      return { props: { allPosts: [], publication: {}, currentPage: 1 }, revalidate: 60 };
+    }
+  
+    try {
+      const data = await request<GetDogPostsResponse>(
+        GQL_ENDPOINT,
+        GET_DOG_POSTS,
+        {
+          host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST || '',
+          first: 100, // Daha fazla post çekmek için bu sayıyı artırabilirsiniz
+        }
+      );
+  
+      const allPosts = data.publication.posts.edges.map((edge: { node: PostFragment }) => edge.node);
+      console.log(`Toplam makale sayısı: ${allPosts.length}`);
+  
+      const filteredPosts = allPosts.filter(isDogRelated);
+      console.log(`Köpeklerle ilgili makale sayısı: ${filteredPosts.length}`);
+  
+      return {
+        props: {
+          allPosts: filteredPosts,
+          publication: data.publication,
+          currentPage: 1,
+        },
+        revalidate: 3600,
+      };
+    } catch (error) {
+      console.error('Veri alımı sırasında hata oluştu:', error);
+      return { props: { allPosts: [], publication: {}, currentPage: 1 }, revalidate: 60 };
+    }
+  };

@@ -4,15 +4,20 @@ import { PostPreview } from './post-preview';
 type Props = {
   posts: PostFragment[];
   context: 'home' | 'series' | 'tag' | 'category';
+  pageType?: 'kedi' | 'kopek';
 };
 
-export const MorePosts = ({ posts, context }: Props) => {
+export const MorePosts = ({ posts, context, pageType }: Props) => {
   return (
     <section className="mb-10 flex flex-col items-start gap-10">
       {context === 'home' && (
         <div className="hidden md:flex py-20 text-center flex-col items-center">
           <p className="text-md leading-snug text-slate-500 dark:text-neutral-400 text-lg max-w-xl mx-auto mt-4">
-            Kedilerle ve köpeklerle ilgili öğrenmek istediğiniz başka bir şey varsa önceki yazılarımıza göz atabilirsiniz.
+            {pageType === 'kedi'
+              ? "Kedilerle ilgili öğrenmek istediğiniz başka bir şey varsa önceki yazılarımıza göz atabilirsiniz."
+              : pageType === 'kopek'
+              ? "Köpeklerle ilgili öğrenmek istediğiniz başka bir şey varsa önceki yazılarımıza göz atabilirsiniz."
+              : "Kedilerle ve köpeklerle ilgili öğrenmek istediğiniz başka bir şey varsa önceki yazılarımıza göz atabilirsiniz."}
           </p>
           <img 
             loading="lazy" 
