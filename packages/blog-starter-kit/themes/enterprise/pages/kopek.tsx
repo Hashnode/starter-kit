@@ -159,10 +159,10 @@ type GetDogPostsResponse = {
           <Navbar />
           <div className="container mx-auto flex flex-col items-stretch gap-10 px-5 pb-10 pt-28">
             <Container>
-              <h1 className="text-4xl font-bold text-center">Köpekler Hakkında {currentPage > 1 ? `- Sayfa ${currentPage}` : ''}</h1>
+              <h1 className="text-5xl text-gray-900 font-semibold mt-2 mb-5 text-center">Köpekler Hakkında {currentPage > 1 ? `- Sayfa ${currentPage}` : ''}</h1>
             </Container>
           </div>
-          <div className="container left-0 right-0 top-0 z-50 mx-auto w-full select-none px-4 py-4 transition-all duration-500 translate-y-0">
+          <div className="container left-0 right-0 top-0 z-50 mx-auto w-full select-none px-4 py-4 transition-all duration-500 translate-y-0 -mt-32">
           <Container>
             {displayedPosts.length > 0 ? (
               <>
