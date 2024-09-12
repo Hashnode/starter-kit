@@ -153,13 +153,13 @@ type GetDogPostsResponse = {
       <AppProvider publication={publication}>
         <Layout>
           <Head>
-            <title>Köpek Makaleleri | {currentPage > 1 ? `Sayfa ${currentPage} |` : ''} Temizmama Blog</title>
-            <meta name="description" content="Köpekler hakkında bilgilendirici makaleler, bakım tavsiyeleri ve daha fazlası." />
+            <title>Köpekler Hakkında Bilgiler | Köpek Sağlığı, Bakımı & Fazlası | {currentPage > 1 ? `Sayfa ${currentPage} |` : ''} Temizmama Blog</title>
+            <meta name="description" content="Köpekler hakkında öğrenmek istedikleriniz Temizmama Blog'da! Köpek ırkları, köpek bakımı, köpek beslenmesi, köpekler hakkında ilginç bilgiler burada!" />
           </Head>
           <Navbar />
           <div className="container mx-auto flex flex-col items-stretch gap-10 px-5 pb-10 pt-28">
             <Container>
-              <h1 className="text-4xl font-bold text-center">Köpek Makaleleri {currentPage > 1 ? `- Sayfa ${currentPage}` : ''}</h1>
+              <h1 className="text-4xl font-bold text-center">Köpekler Hakkında {currentPage > 1 ? `- Sayfa ${currentPage}` : ''}</h1>
             </Container>
           </div>
           <div className="container left-0 right-0 top-0 z-50 mx-auto w-full select-none px-4 py-4 transition-all duration-500 translate-y-0">
@@ -200,7 +200,7 @@ type GetDogPostsResponse = {
                 </div>
               </>
             ) : (
-              <p className="text-center text-xl">Bu sayfada köpek makalesi bulunmamaktadır.</p>
+              <></>
             )}
           </Container>
           </div>

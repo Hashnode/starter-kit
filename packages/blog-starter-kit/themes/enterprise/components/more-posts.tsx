@@ -14,9 +14,9 @@ export const MorePosts = ({ posts, context, pageType }: Props) => {
         <div className="hidden md:flex py-20 text-center flex-col items-center">
           <p className="text-md leading-snug text-slate-500 dark:text-neutral-400 text-lg max-w-xl mx-auto mt-4">
             {pageType === 'kedi'
-              ? "Kedilerle ilgili öğrenmek istediğiniz başka bir şey varsa önceki yazılarımıza göz atabilirsiniz."
+              ? "Kediler hakkında öğrenmek istediğiniz her şeyi bu sayfada bulabilirsiniz. Kedi ırkları, sağlığı, bakımı, beslenmesi konularında bilgilenmek ve kediler hakkında ilginç bilgiler öğrenip yeni şeyler keşfetmek için okumaya başlayın!"
               : pageType === 'kopek'
-              ? "Köpeklerle ilgili öğrenmek istediğiniz başka bir şey varsa önceki yazılarımıza göz atabilirsiniz."
+              ? "Köpekler hakkında öğrenmek istediğiniz her şeyi bu sayfada bulabilirsiniz. Köpek ırkları, sağlığı, bakımı, beslenmesi konularında bilgilenmek ve köpekler hakkında ilginç bilgiler öğrenip yeni şeyler keşfetmek için okumaya başlayın!"
               : "Kedilerle ve köpeklerle ilgili öğrenmek istediğiniz başka bir şey varsa önceki yazılarımıza göz atabilirsiniz."}
           </p>
           <img 

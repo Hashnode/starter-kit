@@ -124,13 +124,13 @@ export default function KediPage({ allPosts, publication, currentPage = 1 }: Pro
       <AppProvider publication={publication}>
         <Layout>
           <Head>
-            <title>Kedi Makaleleri | {currentPage > 1 ? `Sayfa ${currentPage} |` : ''} Temizmama Blog</title>
-            <meta name="description" content="Kediler hakkında bilgilendirici makaleler, bakım tavsiyeleri ve daha fazlası." />
+            <title>Kediler Hakkında Bilgiler | Kedi Sağlığı, Bakımı & Fazlası | {currentPage > 1 ? `Sayfa ${currentPage} |` : ''} Temizmama Blog</title>
+            <meta name="description" content="Kediler hakkında öğrenmek istedikleriniz Temizmama Blog'da! Kedi sağlığı, kedi bakımı, kedi beslenmesi, kediler hakkında ilginç bilgiler ve fazlası burada!" />
           </Head>
           <Navbar />
           <div className="container mx-auto flex flex-col items-stretch gap-10 px-5 pb-10 pt-28">
             <Container>
-              <h1 className="text-4xl font-bold text-center">Kedi Makaleleri {currentPage > 1 ? `- Sayfa ${currentPage}` : ''}</h1>
+              <h1 className="text-4xl font-bold text-center">Kediler Hakkında {currentPage > 1 ? `- Sayfa ${currentPage}` : ''}</h1>
             </Container>
           </div>
           <div className="container left-0 right-0 top-0 z-50 mx-auto w-full select-none px-4 py-4 transition-all duration-500 translate-y-0">
@@ -171,7 +171,7 @@ export default function KediPage({ allPosts, publication, currentPage = 1 }: Pro
                 </div>
               </>
             ) : (
-              <p className="text-center text-xl">Bu sayfada kedi makalesi bulunmamaktadır.</p>
+              <></>
             )}
           </Container>
           </div>
