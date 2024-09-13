@@ -32,7 +32,7 @@ nav {
 }
 
 .bg-orng-501 {
-  background-color: rgba(255, 95, 0, 0.47)
+  background-color: hsla(22, 100%, 50%, 0.47);
 }
 
 .hover\:bg-orng-600:hover {

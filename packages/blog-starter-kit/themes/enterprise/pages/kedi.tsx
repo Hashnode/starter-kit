@@ -147,7 +147,7 @@ export default function KediPage({ allPosts, publication, currentPage = 1 }: Pro
                     hasMorePosts && (
                       <button 
                         onClick={goToNextPage}
-                        className="px-6 py-3 bg-orange-501 text-white rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:scale-105"
+                        className="px-6 py-3 bg-orng-501 text-white rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:scale-105"
                     
                       >
                         Daha Fazla
@@ -158,7 +158,7 @@ export default function KediPage({ allPosts, publication, currentPage = 1 }: Pro
                       {hasPreviousPage && (
                         <button 
                           onClick={goToPreviousPage}
-                          className="px-6 py-3 bg-orange-501 text-white rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:scale-105"
+                          className="px-6 py-3 bg-orng-501 text-white rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:scale-105"
                         >
                           ← Önceki Sayfa
                         </button>
@@ -166,7 +166,7 @@ export default function KediPage({ allPosts, publication, currentPage = 1 }: Pro
                       {hasMorePosts && (
                         <button 
                           onClick={goToNextPage}
-                          className="px-6 py-3 bg-orange-501 text-white rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:scale-105"
+                          className="px-6 py-3 bg-orng-501 text-white rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:scale-105"
                         >
                           Sonraki Sayfa →
                         </button>
