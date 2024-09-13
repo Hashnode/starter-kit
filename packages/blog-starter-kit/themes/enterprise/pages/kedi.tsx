@@ -147,7 +147,8 @@ export default function KediPage({ allPosts, publication, currentPage = 1 }: Pro
                     hasMorePosts && (
                       <button 
                         onClick={goToNextPage}
-                        className="px-6 py-3 bg-orange-500 text-white rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:scale-105"
+                        className="px-6 py-3 text-white rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:scale-105"
+                        style={{ backgroundColor: 'rgba(255, 95, 0, 0.47)' }}
                       >
                         Daha Fazla
                       </button>
@@ -157,7 +158,8 @@ export default function KediPage({ allPosts, publication, currentPage = 1 }: Pro
                       {hasPreviousPage && (
                         <button 
                           onClick={goToPreviousPage}
-                          className="px-6 py-3 bg-orange-500 text-white rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:scale-105"
+                          className="px-6 py-3 text-white rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:scale-105"
+                          style={{ backgroundColor: 'rgba(255, 95, 0, 0.47)' }}
                         >
                           ← Önceki Sayfa
                         </button>
@@ -165,7 +167,8 @@ export default function KediPage({ allPosts, publication, currentPage = 1 }: Pro
                       {hasMorePosts && (
                         <button 
                           onClick={goToNextPage}
-                          className="px-6 py-3 bg-orange-500 text-white rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:scale-105"
+                          className="px-6 py-3 text-white rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:scale-105"
+                          style={{ backgroundColor: 'rgba(255, 95, 0, 0.47)' }}
                         >
                           Sonraki Sayfa →
                         </button>
