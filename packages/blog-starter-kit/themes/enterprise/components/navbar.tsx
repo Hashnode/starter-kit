@@ -317,11 +317,12 @@ export const Navbar: React.FC = () => {
 	}, [isMobile, isMenuHovered]);
 
 	const renderDropdownMenu = (items: MenuItem[], defaultImage: string, altText: string) => (
-		<div
-			className={`fixed ${isMobile ? 'left-1/2 w-3/4 -translate-x-1/2 transform' : 'left-1/2 w-3/5 -translate-x-1/2 transform'} z-50 mt-2 rounded-xl bg-white bg-opacity-70 px-8 py-6 shadow-lg backdrop-blur-md backdrop-filter`}
-			onMouseEnter={() => setIsMenuHovered(true)}
-			onMouseLeave={handleMenuLeave}
-		>
+			<div
+				className={`fixed left-1/2 -translate-x-1/2 transform z-50 mt-2 rounded-xl ${isMobile ? 'w-3/4' : 'w-3/5'} px-8 py-6 shadow-lg backdrop-blur-md backdrop-filter`}
+				style={{ background: 'rgba(255, 224, 192, 0.31)' }}
+				onMouseEnter={() => setIsMenuHovered(true)}
+				onMouseLeave={handleMenuLeave}
+			>
 			<div className="flex flex-col">
 				<div className={`flex ${isMobile ? 'flex-col' : ''}`}>
 					<div className={isMobile ? 'mb-4 w-full' : 'w-1/2 pr-4'}>
