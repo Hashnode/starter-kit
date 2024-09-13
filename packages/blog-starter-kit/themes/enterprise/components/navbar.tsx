@@ -344,6 +344,7 @@ export const Navbar: React.FC = () => {
 									<Link
 										href={item.url}
 										className="cursor-pointer font-bold text-gray-800 transition hover:text-orange-500"
+										style={{ fontFamily: 'PinkChicken' }}
 										onClick={closeAllMenus}
 									>
 										{item.name}
@@ -407,6 +408,7 @@ export const Navbar: React.FC = () => {
 									<Link
 										href={item.url}
 										className="cursor-pointer font-bold text-gray-800 transition hover:text-orange-500"
+										style={{ fontFamily: 'PinkChicken' }}
 										onClick={closeAllMenus}
 									>
 										{item.name}
@@ -431,6 +433,7 @@ export const Navbar: React.FC = () => {
 									<Link
 										href={item.url}
 										className="cursor-pointer font-bold text-gray-800 transition hover:text-orange-500"
+										style={{ fontFamily: 'PinkChicken' }}
 										onClick={closeAllMenus}
 									>
 										{item.name}
