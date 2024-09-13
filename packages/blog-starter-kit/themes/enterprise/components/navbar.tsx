@@ -343,7 +343,7 @@ export const Navbar: React.FC = () => {
 								<div key={index} onMouseEnter={() => handleMenuItemHover(item.image)}>
 									<Link
 										href={item.url}
-										className="block text-gray-800 hover:text-orange-500"
+										className="cursor-pointer font-bold text-gray-800 transition hover:text-orange-500"
 										onClick={closeAllMenus}
 									>
 										{item.name}
@@ -406,7 +406,7 @@ export const Navbar: React.FC = () => {
 								<li key={index}>
 									<Link
 										href={item.url}
-										className="block text-gray-800 hover:text-orange-500"
+										className="cursor-pointer font-bold text-gray-800 transition hover:text-orange-500"
 										onClick={closeAllMenus}
 									>
 										{item.name}
@@ -430,7 +430,7 @@ export const Navbar: React.FC = () => {
 								<li key={index}>
 									<Link
 										href={item.url}
-										className="block text-gray-800 hover:text-orange-500"
+										className="cursor-pointer font-bold text-gray-800 transition hover:text-orange-500"
 										onClick={closeAllMenus}
 									>
 										{item.name}
