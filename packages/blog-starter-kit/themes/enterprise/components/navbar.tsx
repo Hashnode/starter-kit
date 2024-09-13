@@ -318,7 +318,7 @@ export const Navbar: React.FC = () => {
 
 	const renderDropdownMenu = (items: MenuItem[], defaultImage: string, altText: string) => (
 			<div
-				className={`fixed left-1/2 -translate-x-1/2 transform z-50 mt-2 rounded-xl ${isMobile ? 'w-3/4' : 'w-3/5'} px-8 py-6 shadow-lg backdrop-blur-md backdrop-filter`}
+				className={`fixed left-1/2 -translate-x-1/2 transform z-50 mt-2 rounded-xl ${isMobile ? 'w-3/4' : 'w-3/4'} px-8 py-6 shadow-lg backdrop-blur-md backdrop-filter`}
 				style={{ background: 'rgba(255, 224, 192, 0.31)' }}
 				onMouseEnter={() => setIsMenuHovered(true)}
 				onMouseLeave={handleMenuLeave}
