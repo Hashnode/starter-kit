@@ -30,6 +30,11 @@ nav {
     --tw-bg-opacity: 1;
   background-color: rgb(255 147 92);
 }
+
+.bg-orng-501 {
+  background-color: rgba(255, 95, 0, 0.47)
+}
+
 .hover\:bg-orng-600:hover {
     --tw-bg-opacity: 1;
     background-color: rgb(252 172 129);
