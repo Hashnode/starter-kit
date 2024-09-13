@@ -315,12 +315,17 @@ const Category = ({ series, posts, publication }: CategoryProps) => {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </Head>
-      <div className="pt-5">
-        <h1 className="text-4xl font-bold text-slate-900 dark:text-neutral-50 mb-6">
+      <div className="text-center">
+        <h1 className="text-5xl text-gray-900 font-semibold mt-2 mb-5">
           {series.name}
         </h1>
         {posts.length > 0 ? (
-          <MorePosts context="series" posts={posts} />
+          <MorePosts 
+          context="series" 
+          posts={posts} 
+          seriesDescription={description}
+          seriesName={series.name}
+        />
         ) : (
           <div>Bu kategoride henüz içerik bulunmuyor...</div>
         )}
