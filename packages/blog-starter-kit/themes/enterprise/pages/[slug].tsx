@@ -187,11 +187,12 @@ const Post = ({ publication, post, relatedPosts }: PostProps) => {
     <>
       <Head>
         <title>{`${postTitle}`}</title>
-        <link rel="canonical" href={post.url} />
-        <meta name="description" content={postDescription} />
 
+        <link rel="canonical" href={post.url} />
+        <link rel="manifest" href="/manifest.json" />
+
+        <meta name="description" content={postDescription} />
         <meta name="Dynamics-Noise" content="Off" />
-        <meta httpEquiv="x-dns-prefetch-control" content="on" />
         <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
         <meta name="apple-mobile-web-app-status-bar-style"content="#efdcc9" />
         <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -200,23 +201,23 @@ const Post = ({ publication, post, relatedPosts }: PostProps) => {
         <meta name="apple-touch-fullscreen" content="yes" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="theme" content="#efdcc9" />
-        <link rel="manifest" href="/manifest.json" />
-        <meta httpEquiv="ScreenOrientation" content="autoRotate:disabled"/>
-
         <meta name="theme-color" content="#efdcc9" />
         <meta name="msapplication-navbutton-color" content="#efdcc9" />
         <meta name="apple-mobile-web-app-status-bar-style" content="#efdcc9" />
-        <meta property="og:locale" content="tr_TR" />
         <meta name="robots" content="max-image-preview:large" />
-
-        <meta property="og:title" content={`${postTitle}`} />
-        <meta property="og:description" content={postDescription} />
-        <meta property="og:image" content={postImage} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={`${postTitle}`} />
         <meta name="twitter:description" content={postDescription} />
         <meta name="twitter:image" content={postImage} />
 
+        <meta httpEquiv="x-dns-prefetch-control" content="on" />
+        <meta httpEquiv="ScreenOrientation" content="autoRotate:disabled"/>
+
+        <meta property="og:locale" content="tr_TR" />
+        <meta property="og:title" content={`${postTitle}`} />
+        <meta property="og:description" content={postDescription} />
+        <meta property="og:image" content={postImage} />
+        
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
