@@ -126,7 +126,13 @@ export default function KediPage({ allPosts, publication, currentPage = 1 }: Pro
       <AppProvider publication={publication}>
         <Layout>
           <Head>
-          <title>{`Kediler Hakkında Bilgiler | Kedi Sağlığı, Bakımı & Fazlası ${currentPage > 1 ? `| Sayfa ${currentPage}` : ''} | Temizmama Blog`}</title>            <meta name="description" content="Kediler hakkında öğrenmek istedikleriniz Temizmama Blog'da! Kedi sağlığı, kedi bakımı, kedi beslenmesi, kediler hakkında ilginç bilgiler ve fazlası burada!" />
+            <title>{`Kediler Hakkında Bilgiler | Kedi Sağlığı, Bakımı & Fazlası ${currentPage > 1 ? `| Sayfa ${currentPage}` : ''} | Temizmama Blog`}</title>            
+            <meta name="description" content="Kediler hakkında öğrenmek istedikleriniz Temizmama Blog'da! Kedi sağlığı, kedi bakımı, kedi beslenmesi, kediler hakkında ilginç bilgiler ve fazlası burada!" />
+            <meta property="og:url" content={`${process.env.NEXT_PUBLIC_BASE_URL}/kedi${currentPage > 1 ? `/sayfa/${currentPage}` : ''}`} />  
+            <meta property="og:image" content={`${process.env.NEXT_PUBLIC_BASE_URL}/api/cats/og-image?title=${encodeURIComponent(`Kediler Hakkında Bilgiler`)}&page=${currentPage}`} />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="630" />
+            <meta property="og:type" content="website" />  
             <Meta />
             <link rel="icon" href="/favicon.ico" />
           </Head>
