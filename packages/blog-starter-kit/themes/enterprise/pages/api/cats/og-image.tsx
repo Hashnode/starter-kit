@@ -7,6 +7,8 @@ export const config = {
   runtime: 'edge',
 };
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://blog.temizmama.com';
+
 const fontPath = path.join(process.cwd(), 'public/fonts/Arial.ttf');
 let fontData = fs.readFileSync(fontPath);
 
