@@ -12,7 +12,7 @@ import request, { gql } from 'graphql-request';
 import React, { useState, useEffect } from 'react';
 import { Meta } from '../components/meta';
 
-
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://blog.temizmama.com';
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 
 const GET_CAT_POSTS = gql`
