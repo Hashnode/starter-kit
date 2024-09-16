@@ -1,16 +1,11 @@
 import { ImageResponse } from '@vercel/og';
 import { NextRequest } from 'next/server';
-import path from 'path';
-import fs from 'fs';
 
 export const config = {
   runtime: 'edge',
 };
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://blog.temizmama.com';
-
-const fontPath = path.join(process.cwd(), 'public/fonts/Arial.ttf');
-let fontData = fs.readFileSync(fontPath);
 
 export default async function handler(req: NextRequest) {
   try {
@@ -38,7 +33,7 @@ export default async function handler(req: NextRequest) {
           }}
         >
           <img
-            src={`${process.env.NEXT_PUBLIC_BASE_URL}/assets/blog/cats/${randomCat}`}
+            src={`${baseUrl}/assets/blog/cats/${randomCat}`}
             alt="Kedi"
             style={{
               position: 'absolute',
@@ -92,13 +87,6 @@ export default async function handler(req: NextRequest) {
       {
         width: 1200,
         height: 630,
-        fonts: [
-          {
-            name: 'Arial',
-            data: fontData,
-            style: 'normal',
-          },
-        ],
       }
     );
   } catch (e: any) {
