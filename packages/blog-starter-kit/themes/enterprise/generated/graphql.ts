@@ -2781,6 +2781,7 @@ export type IUserPublicationsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   filter?: InputMaybe<UserPublicationsConnectionFilter>;
   first: Scalars['Int']['input'];
+  sortBy?: InputMaybe<UserPublicationsSort>;
 };
 
 
@@ -3641,6 +3642,7 @@ export type MyUserPublicationsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   filter?: InputMaybe<UserPublicationsConnectionFilter>;
   first: Scalars['Int']['input'];
+  sortBy?: InputMaybe<UserPublicationsSort>;
 };
 
 
@@ -6473,6 +6475,7 @@ export type UserPublicationsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   filter?: InputMaybe<UserPublicationsConnectionFilter>;
   first: Scalars['Int']['input'];
+  sortBy?: InputMaybe<UserPublicationsSort>;
 };
 
 
@@ -6659,6 +6662,18 @@ export type UserPublicationsEdge = Edge & {
   /** The role of the user in the publication. */
   role: UserPublicationRole;
 };
+
+/** Sorting for the publications of a user. */
+export enum UserPublicationsSort {
+  /** Oldest publication first. */
+  DateCreatedAsc = 'DATE_CREATED_ASC',
+  /** Newest publication first. */
+  DateCreatedDesc = 'DATE_CREATED_DESC',
+  /** Recently updated publication last. */
+  DateUpdatedAsc = 'DATE_UPDATED_ASC',
+  /** Recently updated publication first. */
+  DateUpdatedDesc = 'DATE_UPDATED_DESC'
+}
 
 export type UserRecommendedPublicationEdge = {
   __typename?: 'UserRecommendedPublicationEdge';

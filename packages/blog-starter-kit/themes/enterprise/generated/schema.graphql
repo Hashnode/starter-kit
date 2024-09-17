@@ -2745,6 +2745,8 @@ interface IUser {
     filter: UserPublicationsConnectionFilter
     """The maximum number of publications to return in a batch."""
     first: Int!
+    """The sort direction for the publication."""
+    sortBy: UserPublicationsSort = DATE_CREATED_DESC
   ): UserPublicationsConnection!
   """The social media links of the user. Shown on the user's profile."""
   socialMediaLinks: SocialMediaLinks
@@ -3133,6 +3135,8 @@ type MyUser implements IUser & Node {
     filter: UserPublicationsConnectionFilter
     """The maximum number of publications to return in a batch."""
     first: Int!
+    """The sort direction for the publication."""
+    sortBy: UserPublicationsSort = DATE_CREATED_DESC
   ): UserPublicationsConnection!
   """Returns the user's role if any."""
   role: UserRole!
@@ -5902,6 +5906,8 @@ type User implements IUser & Node {
     filter: UserPublicationsConnectionFilter
     """The maximum number of publications to return in a batch."""
     first: Int!
+    """The sort direction for the publication."""
+    sortBy: UserPublicationsSort = DATE_CREATED_DESC
   ): UserPublicationsConnection!
   """The social media links of the user. Shown on the user's profile."""
   socialMediaLinks: SocialMediaLinks
@@ -6106,6 +6112,18 @@ type UserPublicationsEdge implements Edge {
   node: Publication!
   """The role of the user in the publication."""
   role: UserPublicationRole!
+}
+
+"""Sorting for the publications of a user."""
+enum UserPublicationsSort {
+  """Oldest publication first."""
+  DATE_CREATED_ASC
+  """Newest publication first."""
+  DATE_CREATED_DESC
+  """Recently updated publication last."""
+  DATE_UPDATED_ASC
+  """Recently updated publication first."""
+  DATE_UPDATED_DESC
 }
 
 type UserRecommendedPublicationEdge {
