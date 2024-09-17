@@ -397,7 +397,7 @@ type Params = {
 
 export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) => {
   if (!params) {
-    throw new Error('No params');
+    return { notFound: true };
   }
   
   const endpoint = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
@@ -407,7 +407,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
   try {
     // Post için kontrol
     const postData = await request(endpoint, SinglePostByPublicationDocument, { host, slug });
-    
+
     if (postData.publication?.post) {
     const currentPost = postData.publication.post;
     const tagSlugs = currentPost.tags?.map(tag => tag.slug) || [];
@@ -514,41 +514,41 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
       revalidate: 1,
     };
   }
+    // Eğer hiçbir veri bulunamazsa
+    return { notFound: true };
   } catch (error) {
     console.error("GraphQL request failed:", error);
-    return {
-      notFound: true,
-      revalidate: 1,
-    };
+    return { notFound: true };
   }
-  return {
-    notFound: true,
-    revalidate: 1,
-  };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await request(
-    process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT,
-    SlugPostsByPublicationDocument,
-    {
-      first: 10,
-      host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
-    },
-  );
+  try {
+    const data = await request(
+      process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT,
+      SlugPostsByPublicationDocument,
+      {
+        first: 10,
+        host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
+      },
+    );
 
-  const postSlugs = (data.publication?.posts.edges ?? []).map((edge) => edge.node.slug);
+    const postSlugs = (data.publication?.posts.edges ?? []).map((edge) => edge.node.slug);
 
-  // Manuel kategorileri de paths'e ekle
-  const categoryPaths = manualCategories.map(cat => ({
-    params: { slug: cat.slug }
-  }));
+    // Sadece var olan kategorileri ekleyin
+    const categoryPaths = manualCategories.map(cat => ({
+      params: { slug: cat.slug }
+    }));
 
-  return {
-    paths: [
-      ...postSlugs.map((slug) => ({ params: { slug } })),
-      ...categoryPaths
-    ],
-    fallback: 'blocking',
-  };
+    return {
+      paths: [
+        ...postSlugs.map((slug) => ({ params: { slug } })),
+        ...categoryPaths
+      ],
+      fallback: true, // 'blocking' yerine true kullanın
+    };
+  } catch (error) {
+    console.error("Error in getStaticPaths:", error);
+    return { paths: [], fallback: true };
+  }
 };
