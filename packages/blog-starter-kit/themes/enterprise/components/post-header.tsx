@@ -21,7 +21,7 @@ type Props = {
 
 export const PostHeader = ({ title, coverImage, date, author }: Props) => {
 	const { post: _post } = useAppContext();
-  	const post = _post as unknown as PostFullFragment;
+	const post = _post as unknown as PostFullFragment;
 	const authorsArray = [post.author, ...(post.coAuthors || [])];
 	const [isCoAuthorModalVisible, setIsCoAuthorModalVisible] = useState(false);
 	const closeCoAuthorModal = () => {
