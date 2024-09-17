@@ -14,15 +14,15 @@ import Breadcrumb from './Breadcrumb';  // Yeni eklenen import
 type Author = Pick<User, 'username' | 'name' | 'profilePicture'>;
 
 type Props = {
-  title: string;
-  coverImage: string | null | undefined;
-  date: string;
-  author: Author;
-  category?: string;  // Yeni eklenen prop
-  type?: string;      // Yeni eklenen prop
-};
+	title: string;
+	coverImage: string | null | undefined;
+	date: string;
+	author: Author;
+	mainCategory?: string;
+	subCategory?: string;
+  };
 
-export const PostHeader = ({ title, coverImage, date, author, category, type }: Props) => {
+  export const PostHeader = ({ title, coverImage, date, author, mainCategory, subCategory }: Props) => {
   const { post: _post } = useAppContext();
   const post = _post as unknown as PostFullFragment;
   const authorsArray = [post.author, ...(post.coAuthors || [])];
@@ -35,13 +35,13 @@ export const PostHeader = ({ title, coverImage, date, author, category, type }: 
   };
 
   // Breadcrumb items oluştur
-  const breadcrumbItems = [];
-  if (category) {
-    breadcrumbItems.push({ label: category, href: `/${category.toLowerCase().replace(/\s+/g, '-')}` });
-  }
-  if (type) {
-    breadcrumbItems.push({ label: type, href: `/${category?.toLowerCase().replace(/\s+/g, '-')}/${type.toLowerCase().replace(/\s+/g, '-')}` });
-  }
+	const breadcrumbItems = [];
+	if (mainCategory) {
+	breadcrumbItems.push({ label: mainCategory, href: `/${mainCategory.toLowerCase()}` });
+	}
+	if (subCategory) {
+	breadcrumbItems.push({ label: subCategory, href: `/${mainCategory?.toLowerCase()}/${subCategory.toLowerCase().replace(/\s+/g, '-')}` });
+	}
 
   return (
     <>
