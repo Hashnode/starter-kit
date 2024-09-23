@@ -12,6 +12,10 @@ import request, { gql } from 'graphql-request';
 import React, { useState, useEffect, useMemo } from 'react';
 import { Meta } from '../components/meta';
 
+const baseUrl = typeof window !== 'undefined' 
+  ? window.location.origin 
+  : process.env.NEXT_PUBLIC_BASE_URL || 'https://blog.temizmama.com';
+
 type ExtendedPostFragment = PostFragment & {
     tags?: Array<{ name: string }>;
   };
@@ -156,6 +160,12 @@ type GetDogPostsResponse = {
           <Head>
             <title>Köpekler Hakkında Bilgiler | Köpek Sağlığı, Bakımı & Fazlası | {currentPage > 1 ? `Sayfa ${currentPage} |` : ''} Temizmama Blog</title>
             <meta name="description" content="Köpekler hakkında öğrenmek istedikleriniz Temizmama Blog'da! Köpek ırkları, köpek bakımı, köpek beslenmesi, köpekler hakkında ilginç bilgiler burada!" />
+            <meta property="og:url" content={`${baseUrl}/kedi${currentPage > 1 ? `/sayfa/${currentPage}` : ''}`} />
+            <meta property="og:image" content={`${baseUrl}/assets/blog/dogs/1.png`} />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="630" />
+            <meta property="og:image:alt" content="Köpekler Hakkında Bilgiler" />
+            <meta property="og:type" content="website" />  
             <Meta />
             <link rel="icon" href="/favicon.ico" />
           </Head>
