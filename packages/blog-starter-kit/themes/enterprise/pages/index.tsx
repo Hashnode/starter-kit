@@ -175,6 +175,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
       }
     ]
   };
+  
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",

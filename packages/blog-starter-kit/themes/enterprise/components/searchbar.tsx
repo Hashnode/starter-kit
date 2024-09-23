@@ -92,7 +92,7 @@ export const Search: React.FC<SearchProps> = ({ isOpen, onClose }) => {
       });
     } catch (error) {
       console.error('GraphQL request failed:', error);
-      setError('An error occurred while searching. Please try again.');
+      setError('Arama sırasında bir hata oluştu. Lütfen tekrar deneyin.');
       setSearchResults([]);
       setPagination({ hasNextPage: false, endCursor: null });
     } finally {
