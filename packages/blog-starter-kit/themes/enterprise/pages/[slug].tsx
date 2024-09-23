@@ -191,6 +191,7 @@ const Post = ({ publication, post, relatedPosts }: PostProps) => {
 
         <link rel="canonical" href={post.url} />
         <link rel="manifest" href="/manifest.json" />
+        <link rel="icon" href="/favicon.ico" />
 
         <meta name="description" content={postDescription} />
         <meta name="Dynamics-Noise" content="Off" />
@@ -293,6 +294,7 @@ const Category = ({ series, posts, publication }: CategoryProps) => {
         <meta name="apple-touch-fullscreen" content="yes" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="theme" content="#efdcc9" />
+        <link rel="icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
         <meta httpEquiv="ScreenOrientation" content="autoRotate:disabled"/>
 
