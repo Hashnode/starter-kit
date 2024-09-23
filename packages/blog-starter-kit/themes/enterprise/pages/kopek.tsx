@@ -158,7 +158,7 @@ type GetDogPostsResponse = {
       <AppProvider publication={publication}>
         <Layout>
           <Head>
-            <title>Köpekler Hakkında Bilgiler | Köpek Sağlığı, Bakımı & Fazlası | {currentPage > 1 ? `Sayfa ${currentPage} |` : ''} Temizmama Blog</title>
+            <title>{`Köpekler Hakkında Bilgiler | Köpek Sağlığı, Bakımı & Fazlası ${currentPage > 1 ? `| Sayfa ${currentPage}` : ''} | Temizmama Blog`}</title>
             <meta name="description" content="Köpekler hakkında öğrenmek istedikleriniz Temizmama Blog'da! Köpek ırkları, köpek bakımı, köpek beslenmesi, köpekler hakkında ilginç bilgiler burada!" />
             <meta property="og:url" content={`${baseUrl}/kedi${currentPage > 1 ? `/sayfa/${currentPage}` : ''}`} />
             <meta property="og:image" content={`${baseUrl}/assets/blog/dogs/1.png`} />
