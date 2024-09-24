@@ -13,6 +13,7 @@
 		"build": "cross-env GENERATE_SOURCEMAP=false next build"
 	},
 	"dependencies": {
+		"@openreplay/tracker": "^14.0.6",
 		"@types/lodash-es": "^4.17.12",
 		"classnames": "^2.5.1",
 		"graphql": "^16.9.0",
