@@ -185,7 +185,7 @@ const opensourceNav = [
 		Icon: <NewsroomSVG />,
 	},
 	{
-		name: 'Contct us',
+		name: 'Contact us',
 		description: 'Find the right channel to get in touch',
 		href: 'https://mindsdb.com/contact',
 		Icon: <ContactsSVG />,
