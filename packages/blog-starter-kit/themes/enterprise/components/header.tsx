@@ -12,14 +12,11 @@ import {
 	AboutUsSVG,
 	BlogSVG,
 	CareersSVG,
-	CaseStudiesSVG,
 	CommunitySVG,
 	ConnectSVG,
 	ContactsSVG,
 	EventsSVG,
-	GitHubNavBarSVG,
 	GiudeSVG,
-	IntegrationsSVG,
 	MindsCloudSVG,
 	MindsdbLogoSVG,
 	NewsroomSVG,
@@ -65,20 +62,47 @@ const NavItem = ({
 
 const mindsCloudList = [
 	{
-		name: 'Minds Cloud',
-		description:
-			'Minds are intelligent systems, designed to answer data questions for applications.',
-		href: 'https://mdb.ai/',
+		type: 'multiple',
+		name: 'Minds',
+		description: 'solution for building Enterprise-grade AI',
+		href: '#',
 		Icon: <MindsCloudSVG />,
-		cta: 'Try now →',
-		newTab: true,
+		links: [
+			{
+				cta: 'Try now →',
+				link: 'https://mindsdb.com/minds',
+			},
+			{
+				cta: 'Docs →',
+				link: 'https://docs.mdb.ai/',
+			},
+		],
+		newTab: false,
+	},
+	{
+		type: 'multiple',
+		name: 'MindsDB',
+		description: 'Open source, federated query engine for AI systems',
+		href: '#',
+		Icon: <AboutUsSVG />,
+		links: [
+			{
+				cta: 'Github →',
+				link: 'https://github.com/mindsdb/mindsdb',
+			},
+			{
+				cta: 'Docs →',
+				link: 'https://docs.mindsdb.com/what-is-mindsdb',
+			},
+		],
+		newTab: false,
 	},
 ];
 const MindsCloudPopover = () => {
 	return (
 		<Popover className="relative">
 			<Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-white">
-				Minds Cloud
+				Products
 				<ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
 			</Popover.Button>
 
@@ -96,7 +120,7 @@ const MindsCloudPopover = () => {
 						<div className="w-full">
 							{/* <p className="mb-4 border-b px-4 pb-3 text-black">CLOUD</p> */}
 
-							{mindsCloudList.map((item) => (
+							{/* {mindsCloudList.map((item) => (
 								<NavItem
 									key={item.name}
 									title={item.name}
@@ -106,6 +130,32 @@ const MindsCloudPopover = () => {
 									cta={item.cta}
 									newTab={item?.newTab}
 								/>
+							))} */}
+
+							{mindsCloudList.map((item) => (
+								<div
+									key={item.name}
+									className=" flex flex-row gap-3 rounded-md  px-4 py-3 hover:bg-green-50 "
+								>
+									<div>{item.Icon}</div>
+									<span>
+										<p>{item.name}</p>
+										<p className=" text-sm text-gray-500">{item.description}</p>
+										<div className="  flex gap-4">
+											{item.links &&
+												item.links.map((link: any) => (
+													<a
+														key={link.link}
+														href={link.link}
+														target={item?.newTab ? '_blank' : '_self'}
+														className=" text-primary-500 mt-2 text-sm"
+													>
+														{link.cta}
+													</a>
+												))}
+										</div>
+									</span>
+								</div>
 							))}
 						</div>
 					</div>
@@ -117,39 +167,58 @@ const MindsCloudPopover = () => {
 
 const opensourceNav = [
 	{
-		name: 'Integrations',
-		description: 'AI models, data sources, applications',
-		href: 'https://docs.mindsdb.com/integrations/integrations',
-		Icon: <IntegrationsSVG />,
-		newTab: true,
+		name: 'About',
+		description: 'Our vision and team',
+		href: 'https://mindsdb.com/about',
+		Icon: <AboutUsSVG />,
 	},
 	{
-		name: 'Support',
-		description: 'Chat with experts on Slack',
-		href: 'https://mindsdb.com/joincommunity',
-		Icon: <SupportSVG />,
-		newTab: true,
+		name: 'Careers',
+		description: 'See open roles at MindsDB',
+		href: 'https://mindsdb.com/careers',
+		Icon: <CareersSVG />,
 	},
 	{
-		name: 'GitHub',
-		description: 'Get code, contribute, flag issues',
-		href: 'https://github.com/mindsdb/mindsdb',
-		Icon: <GitHubNavBarSVG />,
-		newTab: true,
+		name: 'Newsroom',
+		description: 'Latest news about MindsDB',
+		href: 'https://mindsdb.com/newsroom',
+		Icon: <NewsroomSVG />,
 	},
 	{
-		name: 'Community',
-		description: 'Programs, rewards, swag',
-		href: 'https://mindsdb.com/community',
-		Icon: <CommunitySVG />,
+		name: 'Contct us',
+		description: 'Find the right channel to get in touch',
+		href: 'https://mindsdb.com/contact',
+		Icon: <ContactsSVG />,
 	},
+
+	// {
+	// 	name: 'Integrations',
+	// 	description: 'AI models, data sources, applications',
+	// 	href: 'https://docs.mindsdb.com/integrations/integrations',
+	// 	Icon: <IntegrationsSVG />,
+	// 	newTab: true,
+	// },
+	// {
+	// 	name: 'Support',
+	// 	description: 'Chat with experts on Slack',
+	// 	href: 'https://mindsdb.com/joincommunity',
+	// 	Icon: <SupportSVG />,
+	// 	newTab: true,
+	// },
+	// {
+	// 	name: 'GitHub',
+	// 	description: 'Get code, contribute, flag issues',
+	// 	href: 'https://github.com/mindsdb/mindsdb',
+	// 	Icon: <GitHubNavBarSVG />,
+	// 	newTab: true,
+	// },
 ];
 
 const OpenSourcePopover = () => {
 	return (
 		<Popover className="relative">
 			<Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-white">
-				Open Source
+				Company
 				<ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
 			</Popover.Button>
 
@@ -174,7 +243,7 @@ const OpenSourcePopover = () => {
 									description={item.description}
 									icon={item.Icon}
 									url={item.href}
-									newTab={item?.newTab}
+									// newTab={item?.newTab}
 								/>
 							))}
 						</div>
@@ -193,22 +262,6 @@ const connectList = [
 		href: 'https://mindsdb.com/enterprise',
 		Icon: <ConnectSVG />,
 		cta: 'Learn more →',
-	},
-	{
-		name: "CTO's Guide to AI Agents",
-		description:
-			'Deep dive into the world of AI agents, covering everything from fundamental concepts to advanced applications.',
-		href: 'https://mindsdb.com/the-cto-guide-to-buiding-ai-agents',
-		Icon: <GiudeSVG />,
-		cta: 'Download Now →',
-	},
-	{
-		name: "CTO's Guide to RAG",
-		description:
-			'Read more about how RAG works, and why this new approach to retrieving data makes a chatbot’s answers more accurate, relevant, and secure.',
-		href: 'https://mindsdb.com/mindsdb-the-ctos-guide-to-rag-guide',
-		Icon: <GiudeSVG />,
-		cta: 'Download Now →',
 	},
 ];
 const ConnectPopover = () => {
@@ -253,28 +306,46 @@ const ConnectPopover = () => {
 
 const resources1 = [
 	{
-		name: 'Events',
-		description: 'Learn, network, collaborate',
-		href: 'https://mindsdb.com/events',
-		Icon: <EventsSVG />,
-	},
-	{
 		name: 'Blog',
 		description: 'Tutorials and content about AI',
 		href: 'https://mindsdb.com/blog',
 		Icon: <BlogSVG />,
 	},
 	{
-		name: 'About Us',
-		description: 'Our vision and team',
-		href: 'https://mindsdb.com/about',
-		Icon: <AboutUsSVG />,
+		name: 'Events',
+		description: 'Learn, network, collaborate',
+		href: 'https://mindsdb.com/events',
+		Icon: <EventsSVG />,
 	},
 	{
-		name: 'Case Studies',
-		description: 'Meet MindsDB customers',
-		href: 'https://mindsdb.com/case-studies',
-		Icon: <CaseStudiesSVG />,
+		name: 'Slack',
+		description: 'Chat with experts and get support',
+		href: 'https://mindsdb.com/joincommunity',
+		Icon: <SupportSVG />,
+		newTab: true,
+	},
+	{
+		name: 'Community',
+		description: 'Programs, rewards, swag',
+		href: 'https://mindsdb.com/community',
+		Icon: <CommunitySVG />,
+	},
+
+	{
+		name: "CTO's Guide to AI Agents",
+		description:
+			'Deep dive into the world of AI agents, covering everything from fundamental concepts to advanced applications.',
+		href: 'https://mindsdb.com/the-cto-guide-to-buiding-ai-agents',
+		Icon: <GiudeSVG />,
+		cta: 'Download Now →',
+	},
+	{
+		name: "CTO's Guide to RAG",
+		description:
+			'Read more about how RAG works, and why this new approach to retrieving data makes a chatbot’s answers more accurate, relevant, and secure.',
+		href: 'https://mindsdb.com/mindsdb-the-ctos-guide-to-rag-guide',
+		Icon: <GiudeSVG />,
+		cta: 'Download Now →',
 	},
 ];
 const resources2 = [
@@ -314,7 +385,7 @@ const ResourcesPopover = () => {
 				leaveFrom="opacity-100 translate-y-0"
 				leaveTo="opacity-0 translate-y-1"
 			>
-				<Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-2xl overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
+				<Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen  max-w-sm overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
 					<div className="flex flex-row p-4 text-black ">
 						<div className="w-full">
 							{resources1.map((item) => (
@@ -324,10 +395,11 @@ const ResourcesPopover = () => {
 									description={item.description}
 									icon={item.Icon}
 									url={item.href}
+									cta={item?.cta}
 								/>
 							))}
 						</div>
-						<div className="w-full">
+						{/* <div className="w-full">
 							{resources2.map((item) => (
 								<NavItem
 									key={item.name}
@@ -337,7 +409,7 @@ const ResourcesPopover = () => {
 									url={item.href}
 								/>
 							))}
-						</div>
+						</div> */}
 					</div>
 				</Popover.Panel>
 			</Transition>
@@ -359,7 +431,7 @@ export const Header = () => {
 	}
 
 	return (
-		<header className="bg-primary-900 border-b px-10  text-white dark:border-neutral-800 ">
+		<header className="border-b bg-[#000d1b] px-10  text-white dark:border-neutral-900 ">
 			<div className="flex  h-20 ">
 				<div className=" col-span-2 flex w-full flex-1 flex-row items-center justify-between gap-2 lg:col-span-1">
 					<h1>
@@ -398,22 +470,11 @@ export const Header = () => {
 							</button>
 						</div>
 						<Popover.Group className="hidden lg:flex lg:gap-x-7">
-							<Link
-								className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-white"
-								href="http://docs.mindsdb.com/"
-								target="_blank"
-							>
-								Docs
-							</Link>
 							<MindsCloudPopover />
-							<OpenSourcePopover />
-							<ConnectPopover />
-
-							{/* <ConnectPopover /> */}
-
-							{/* <CompanyPopover /> */}
-
 							<ResourcesPopover />
+
+							<OpenSourcePopover />
+							{/* <ConnectPopover /> */}
 						</Popover.Group>
 						<div className=" col-span-2  flex flex-row items-center justify-end gap-5 text-slate-300 max-lg:hidden  lg:col-span-3">
 							{/* <nav className="hidden lg:block">{navList}</nav> */}
@@ -440,7 +501,7 @@ export const Header = () => {
 								className="h-10 !text-sm"
 							/> */}
 							<Button
-								href="https://github.com/mindsdb/mindsdb"
+								href="https://mindsdb.com/#form"
 								as="a"
 								type="primary"
 								label="GET STARTED"
@@ -473,14 +534,8 @@ export const Header = () => {
 									<Disclosure as="div" className="-mx-3">
 										{({ open }) => (
 											<>
-												<Link
-													className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-													href="https://docs.mindsdb.com/what-is-mindsdb"
-												>
-													Docs
-												</Link>
 												<Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-													Minds Cloud
+													Products
 													<ChevronDownIcon
 														className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
 														aria-hidden="true"
@@ -488,24 +543,64 @@ export const Header = () => {
 												</Disclosure.Button>
 												<Disclosure.Panel className="mt-2 space-y-2">
 													{mindsCloudList.map((item) => (
+														<div
+															key={item.name}
+															className=" flex flex-row gap-3 rounded-md  px-4 py-3 hover:bg-green-50 "
+														>
+															<div>{item.Icon}</div>
+															<span>
+																<p>{item.name}</p>
+																<p className=" text-sm text-gray-500">{item.description}</p>
+																<div className="  flex gap-4">
+																	{item.links &&
+																		item.links.map((link: any) => (
+																			<a
+																				key={link.link}
+																				href={link.link}
+																				target={item?.newTab ? '_blank' : '_self'}
+																				className=" text-primary-500 mt-2 text-sm"
+																			>
+																				{link.cta}
+																			</a>
+																		))}
+																</div>
+															</span>
+														</div>
+													))}
+												</Disclosure.Panel>
+											</>
+										)}
+									</Disclosure>
+
+									<Disclosure as="div" className="-mx-3">
+										{({ open }) => (
+											<>
+												<Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+													Resources
+													<ChevronDownIcon
+														className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
+														aria-hidden="true"
+													/>
+												</Disclosure.Button>
+												<Disclosure.Panel className="mt-2 space-y-2">
+													{[...resources1].map((item) => (
 														<NavItem
 															key={item.name}
 															title={item.name}
 															description={item.description}
 															icon={item.Icon}
 															url={item.href}
-															cta={item?.cta}
 														/>
 													))}
 												</Disclosure.Panel>
 											</>
 										)}
 									</Disclosure>
-									<Disclosure as="div" className="-mx-3">
+									{/* <Disclosure as="div" className="-mx-3">
 										{({ open }) => (
 											<>
 												<Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-													Open Source
+													Company
 													<ChevronDownIcon
 														className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
 														aria-hidden="true"
@@ -525,58 +620,27 @@ export const Header = () => {
 												</Disclosure.Panel>
 											</>
 										)}
-									</Disclosure>
+									</Disclosure> */}
 
 									<Disclosure as="div" className="-mx-3">
 										{({ open }) => (
 											<>
-												<Link
-													className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-													href="https://docs.mindsdb.com/what-is-mindsdb"
-													target="_blank"
-												>
-													Docs
-												</Link>
 												<Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-													Connect with an Expert
+													Company
 													<ChevronDownIcon
 														className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
 														aria-hidden="true"
 													/>
 												</Disclosure.Button>
 												<Disclosure.Panel className="mt-2 space-y-2">
-													{connectList.map((item) => (
+													{opensourceNav.map((item) => (
 														<NavItem
 															key={item.name}
 															title={item.name}
 															description={item.description}
 															icon={item.Icon}
 															url={item.href}
-															cta={item?.cta}
-														/>
-													))}
-												</Disclosure.Panel>
-											</>
-										)}
-									</Disclosure>
-									<Disclosure as="div" className="-mx-3">
-										{({ open }) => (
-											<>
-												<Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-													Resources
-													<ChevronDownIcon
-														className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
-														aria-hidden="true"
-													/>
-												</Disclosure.Button>
-												<Disclosure.Panel className="mt-2 space-y-2">
-													{[...resources1, ...resources2].map((item) => (
-														<NavItem
-															key={item.name}
-															title={item.name}
-															description={item.description}
-															icon={item.Icon}
-															url={item.href}
+															// cta={item?.cta}
 														/>
 													))}
 												</Disclosure.Panel>
@@ -592,7 +656,7 @@ export const Header = () => {
 										Log in
 									</a> */}
 									<a
-										href="https://github.com/mindsdb/mindsdb"
+										href="https://mindsdb.com/#form"
 										className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
 									>
 										GET STARTED
