@@ -8,6 +8,7 @@ import HamburgerSVG from './icons/svgs/HamburgerSVG';
 import { PublicationLogo } from './publication-logo';
 import PublicationSidebar from './sidebar';
 import { SocialLinks } from './social-links';
+import TopBar from './top-bar';
 
 function hasUrl(
 	navbarItem: PublicationNavbarItem,
@@ -65,30 +66,33 @@ export const Header = () => {
 	);
 
 	return (
-		<header className="sticky top-0 z-10 border-b bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900">
-			<Container className="grid w-full grid-cols-6 gap-5 px-5">
-				<div className="col-span-2 flex flex-1 flex-row items-center gap-2 lg:col-span-2">
-					<div className="lg:hidden">
-						<Button
-							type="outline"
-							label=""
-							icon={<HamburgerSVG className="h-5 w-5 stroke-current" />}
-							className="rounded-xl border-transparent !px-3 !py-2 text-slate-500 hover:bg-slate-900 dark:hover:bg-neutral-800"
-							onClick={toggleSidebar}
-						/>
+		<header className="sticky top-0 z-10 bg-white dark:bg-neutral-900">
+			<TopBar />
+			<nav className="border-b p-4 dark:border-neutral-800">
+				<Container className="grid w-full grid-cols-6 gap-5 px-5">
+					<div className="col-span-2 flex flex-1 flex-row items-center gap-2 lg:col-span-2">
+						<div className="lg:hidden">
+							<Button
+								type="outline"
+								label=""
+								icon={<HamburgerSVG className="h-5 w-5 stroke-current" />}
+								className="rounded-xl border-transparent !px-3 !py-2 text-slate-500 hover:bg-slate-900 dark:hover:bg-neutral-800"
+								onClick={toggleSidebar}
+							/>
 
-						{isSidebarVisible && (
-							<PublicationSidebar navbarItems={navbarItems} toggleSidebar={toggleSidebar} />
-						)}
+							{isSidebarVisible && (
+								<PublicationSidebar navbarItems={navbarItems} toggleSidebar={toggleSidebar} />
+							)}
+						</div>
+						<div className="block">
+							<PublicationLogo />
+						</div>
 					</div>
-					<div className="block">
-						<PublicationLogo />
+					<div className="col-span-3 grid w-full grid-cols-1">
+						<SocialLinks />
 					</div>
-				</div>
-				<div className="col-span-3 grid w-full grid-cols-1">
-					<SocialLinks />
-				</div>
-			</Container>
+				</Container>
+			</nav>
 		</header>
 	);
 };
