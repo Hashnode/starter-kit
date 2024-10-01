@@ -145,7 +145,7 @@ export default function KediPage({ allPosts, publication, currentPage = 1 }: Pro
           <Meta />
         </Head>
           <Navbar />
-          <div className="container mx-auto flex flex-col items-stretch gap-10 px-5 pb-10 pt-28 ">
+          <div className="container mx-auto flex flex-col items-stretch gap-10 px-5 pb-10 pt-40 ">
             <Container>
               <h1 className="text-5xl text-gray-900 font-semibold mt-2 mb-5 text-center">Kediler Hakkında {currentPage > 1 ? `- Sayfa ${currentPage}` : ''}</h1>
             </Container>

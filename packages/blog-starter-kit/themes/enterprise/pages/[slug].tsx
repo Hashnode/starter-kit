@@ -353,7 +353,7 @@ export default function DynamicPage(props: DynamicPageProps) {
     <AppProvider publication={publication} post={props.type === 'post' ? props.post : null} page={props.type === 'page' ? props.page : null} series={props.type === 'category' ? props.series : null}>
       <Layout>
         <Navbar />
-        <Container className="pt-101 flex flex-col items-stretch gap-10 px-5 pb-10 pt-28">
+        <Container className="pt-101 flex flex-col items-stretch gap-10 px-5 pb-10 pt-40">
           <article className="border-b-1-1/2 flex flex-col items-start gap-10 pb-10">
             {props.type === 'post' && <Post {...props as PostProps} />}
             {props.type === 'page' && <Page {...props as PageProps} />}
