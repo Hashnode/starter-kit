@@ -140,7 +140,7 @@ export default function KediPage({ allPosts, publication, currentPage = 1 }: Pro
           <meta property="og:type" content="website" />  
           <link 
             rel="canonical" 
-            href={`${baseUrl}/kedi${currentPage > 1 ? `?page=${currentPage}` : ''}`} 
+            href={`${baseUrl}/kedi${currentPage > 1 ? `/sayfa/${currentPage}` : ''}`} 
           />
           <Meta />
         </Head>

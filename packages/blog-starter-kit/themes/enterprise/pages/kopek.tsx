@@ -170,7 +170,7 @@ type GetDogPostsResponse = {
           <link rel="icon" href="/favicon.ico" />
           <link 
             rel="canonical" 
-            href={`${baseUrl}/kopek${currentPage > 1 ? `?page=${currentPage}` : ''}`} 
+            href={`${baseUrl}/kopek${currentPage > 1 ? `/sayfa/${currentPage}` : ''}`} 
           />
         </Head>
           <Navbar />
