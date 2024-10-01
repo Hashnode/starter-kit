@@ -506,7 +506,7 @@ export const Navbar: React.FC = () => {
 							</Link>
 						</div>
 						<div className="hidden w-full justify-end md:flex">
-							<ul className="flex items-center space-x-8" style={{ left: '25%', position: 'absolute', top: '45%' }}>
+							<ul className="flex items-center space-x-8" style={{ left: '0', position: 'absolute', top: '45%', marginLeft: '20%' }}>
 
 							<li style={{ opacity: 1, transform: 'none' }}>
 								<Link
