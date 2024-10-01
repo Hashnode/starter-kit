@@ -477,177 +477,127 @@ export const Navbar: React.FC = () => {
 				className={`container fixed left-0 right-0 top-0 z-50 mx-auto w-full select-none px-4 py-4 pt-7 transition-all duration-500 sm:pt-7 ${
 					isVisible ? 'translate-y-0' : '-translate-y-full'
 				}`}
-				style={
-					{
-						opacity: 1,
-						zIndex: 2,
-					} as React.CSSProperties
-				}
-			>
+				style={{ opacity: 1, zIndex: 2 }}
+				>
 				<div
 					className="mx-auto select-none rounded-xl bg-white/10 px-4 py-4 shadow-md sm:px-6 lg:px-8"
-					style={{
-						background: 'hsl(30.5, 100%, 87.6%)',
-					}}
+					style={{ background: 'hsl(30.5, 100%, 87.6%)' }}
 				>
-					<div className="flex h-10 items-center justify-between">
-						<div className="flex items-center">
-							<Link rel="canonical" href="/">
-								<div className="scale-160 relative bottom-4 flex h-[53px] w-[100px] origin-top-left items-center justify-start">
-									<Image
-										src="https://9kelt5xnesj2nkgz.public.blob.vercel-storage.com/file-eYpF3jWI7j8924LUC1AR51hcMjnVNp.png"
-										alt="Ana Sayfa"
-										fill
-										sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-										style={{ objectFit: 'contain' }}
-										loading="eager"
-									/>
-								</div>
+					<div className="flex items-center justify-between">
+					{/* Logo Section */}
+					<div className="flex-shrink-0">
+						<Link href="/" rel="canonical">
+						<div className="scale-160 relative bottom-4 flex h-[53px] w-[100px] origin-top-left items-center justify-start">
+							<Image
+							src="https://9kelt5xnesj2nkgz.public.blob.vercel-storage.com/file-eYpF3jWI7j8924LUC1AR51hcMjnVNp.png"
+							alt="Ana Sayfa"
+							fill
+							sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+							style={{ objectFit: 'contain' }}
+							loading="eager"
+							/>
+						</div>
+						</Link>
+					</div>
+
+					{/* Navigation Links Section */}
+					<div className="hidden flex-grow justify-center md:flex">
+						<ul className="flex items-center space-x-8">
+						<li>
+							<Link
+							href="/"
+							aria-label="Ana Sayfa"
+							className="cursor-pointer font-bold text-gray-800 transition hover:text-gray-700/75"
+							style={{ fontFamily: 'PinkChicken' }}
+							rel="canonical"
+							>
+							<span>Ana Sayfa</span>
 							</Link>
-						</div>
-						<div className="hidden w-full justify-end md:flex">
-							<ul className="flex items-center space-x-8" style={{ left: '0', position: 'absolute', top: '45%', marginLeft: '20%' }}>
+						</li>
+						<li
+							onMouseEnter={() => handleMenuEnter('cat')}
+							onMouseLeave={handleMenuLeave}
+						>
+							<Link
+							href="/kedi"
+							className="cursor-pointer font-bold text-gray-800 transition hover:text-gray-700/75"
+							style={{ fontFamily: 'PinkChicken' }}
+							>
+							Kedi
+							</Link>
+						</li>
+						<li
+							onMouseEnter={() => handleMenuEnter('dog')}
+							onMouseLeave={handleMenuLeave}
+						>
+							<Link
+							href="/kopek"
+							className="cursor-pointer font-bold text-gray-800 transition hover:text-gray-700/75"
+							style={{ fontFamily: 'PinkChicken' }}
+							>
+							Köpek
+							</Link>
+						</li>
+						</ul>
+					</div>
 
-							<li style={{ opacity: 1, transform: 'none' }}>
-								<Link
-									href="/"
-									aria-label="Ana Sayfa"
-									className="cursor-pointer font-bold text-gray-800 transition hover:text-gray-700/75"
-									style={{ fontFamily: 'PinkChicken' }}
-									rel="canonical"
-								>
-									<span>Ana Sayfa</span>
-								</Link>
-							</li>
-							<li
-								style={{ opacity: 1, transform: 'none' }}
-								onMouseEnter={() => handleMenuEnter('cat')}
-								onMouseLeave={handleMenuLeave}
-							>
-								<Link
-									href="/kedi"
-									className="cursor-pointer font-bold text-gray-800 transition hover:text-gray-700/75"
-									style={{ fontFamily: 'PinkChicken' }}
-								>
-									Kedi
-								</Link>
-							</li>
-							<li
-								style={{ opacity: 1, transform: 'none' }}
-								onMouseEnter={() => handleMenuEnter('dog')}
-								onMouseLeave={handleMenuLeave}
-							>
-								<Link
-									href="/kopek"
-									className="cursor-pointer font-bold text-gray-800 transition hover:text-gray-700/75"
-									style={{ fontFamily: 'PinkChicken' }}
-								>
-									Köpek
-								</Link>
-							</li>
-							</ul>
-							<ul className="flex items-center space-x-8">
-								<li className="mt-2" style={{ opacity: 1, transform: 'none' }}>
-									<button onClick={toggleSearch} className="text-gray-800 hover:text-gray-600">
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											className="h-6 w-6"
-											fill="none"
-											viewBox="0 0 24 24"
-											stroke="currentColor"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-											/>
-										</svg>
-									</button>
-								</li>
-
-								<li style={{ opacity: 1, transform: 'none' }}>
-									<Link
-										href="/iletisim"
-										aria-label="İletişim"
-										className="cursor-pointer font-bold text-gray-800 transition hover:text-gray-700/75"
-										style={{ fontFamily: 'PinkChicken' }}
-										rel="canonical"
-									>
-										<span>İletişim</span>
-									</Link>
-								</li>
-							</ul>
+					{/* Right Section: Search and Contact */}
+					<div className="flex items-center">
+						<button onClick={toggleSearch} className="mr-4 text-gray-800 hover:text-gray-600">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							className="h-6 w-6"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+						>
+							<path
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeWidth={2}
+							d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+							/>
+						</svg>
+						</button>
+						<div className="hidden md:block">
+						<Link
+							href="/iletisim"
+							aria-label="İletişim"
+							className="cursor-pointer font-bold text-gray-800 transition hover:text-gray-700/75"
+							style={{ fontFamily: 'PinkChicken' }}
+							rel="canonical"
+						>
+							<span>İletişim</span>
+						</Link>
 						</div>
-						<div className="flex items-center md:hidden">
-							<ul className="mr-4 mt-2 space-y-2">
-								<li style={{ opacity: 1, transform: 'none' }}>
-									<button onClick={toggleSearch} className="text-gray-800 hover:text-gray-600">
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											className="h-6 w-6"
-											fill="none"
-											viewBox="0 0 24 24"
-											stroke="currentColor"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-											/>
-										</svg>
-									</button>
-								</li>
-							</ul>
-							<button
-								className="relative h-6 w-6 text-gray-800 md:hidden"
-								onClick={toggleMobileMenu}
-								aria-label={isMobileMenuOpen ? 'Menüyü Kapat' : 'Menüyü Aç'}
-							>
-								{isMobileMenuOpen ? (
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										className="h-6 w-6"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke="currentColor"
-									>
-										<path
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											strokeWidth={2}
-											d="M6 18L18 6M6 6l12 12"
-										/>
-									</svg>
-								) : (
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										className="h-6 w-6"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke="currentColor"
-									>
-										<path
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											strokeWidth={2}
-											d="M4 6h16M4 12h16M4 18h16"
-										/>
-									</svg>
-								)}
-							</button>
+						<div className="md:hidden">
+						<button
+							className="ml-2 text-gray-800"
+							onClick={toggleMobileMenu}
+							aria-label={isMobileMenuOpen ? 'Menüyü Kapat' : 'Menüyü Aç'}
+						>
+							{isMobileMenuOpen ? (
+							<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+							</svg>
+							) : (
+							<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+							</svg>
+							)}
+						</button>
 						</div>
+					</div>
 					</div>
 					{isMobileMenuOpen && renderMobileMenu()}
 				</div>
 				{(isCatMenuOpen || isDogMenuOpen) && !isMobile && (
 					<div onMouseEnter={() => setIsMenuHovered(true)} onMouseLeave={handleMenuLeave}>
-						{renderDropdownMenu(
-							isCatMenuOpen ? catMenuItems : dogMenuItems,
-							isCatMenuOpen ? currentCatImage : currentDogImage,
-							isCatMenuOpen ? 'Kedi' : 'Köpek',
-						)}
+					{renderDropdownMenu(
+						isCatMenuOpen ? catMenuItems : dogMenuItems,
+						isCatMenuOpen ? currentCatImage : currentDogImage,
+						isCatMenuOpen ? 'Kedi' : 'Köpek',
+					)}
 					</div>
 				)}
 			</nav>
