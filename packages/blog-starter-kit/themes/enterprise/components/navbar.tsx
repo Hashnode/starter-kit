@@ -503,7 +503,7 @@ export const Navbar: React.FC = () => {
 					</div>
 
 					{/* Navigation Links */}
-					<div className="hidden md:block">
+					<div className="hidden md:block" style={{ marginLeft: '30%', display: 'block ruby' }}>
 					<ul className="flex items-center space-x-8">
 						<li>
 						<Link
