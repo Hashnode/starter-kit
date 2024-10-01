@@ -128,18 +128,22 @@ export default function KediPage({ allPosts, publication, currentPage = 1 }: Pro
     return (
       <AppProvider publication={publication}>
         <Layout>
-          <Head>
-            <title>{`Kediler Hakkında Bilgiler | Kedi Sağlığı, Bakımı & Fazlası ${currentPage > 1 ? `| Sayfa ${currentPage}` : ''} | Temizmama Blog`}</title>            
-            <link rel="icon" href="/favicon.ico" />
-            <meta name="description" content="Kediler hakkında öğrenmek istedikleriniz Temizmama Blog'da! Kedi sağlığı, kedi bakımı, kedi beslenmesi, kediler hakkında ilginç bilgiler ve fazlası burada!" />
-            <meta property="og:url" content={`${baseUrl}/kedi${currentPage > 1 ? `/sayfa/${currentPage}` : ''}`} />
-            <meta property="og:image" content={`${baseUrl}/assets/blog/cats/1.png`} />
-            <meta property="og:image:width" content="1200" />
-            <meta property="og:image:height" content="630" />
-            <meta property="og:image:alt" content="Kediler Hakkında Bilgiler" />
-            <meta property="og:type" content="website" />  
-            <Meta />
-          </Head>
+        <Head>
+          <title>{`Kediler Hakkında Bilgiler | Kedi Sağlığı, Bakımı & Fazlası ${currentPage > 1 ? `| Sayfa ${currentPage}` : ''} | Temizmama Blog`}</title>            
+          <link rel="icon" href="/favicon.ico" />
+          <meta name="description" content="Kediler hakkında öğrenmek istedikleriniz Temizmama Blog'da! Kedi sağlığı, kedi bakımı, kedi beslenmesi, kediler hakkında ilginç bilgiler ve fazlası burada!" />
+          <meta property="og:url" content={`${baseUrl}/kedi${currentPage > 1 ? `/sayfa/${currentPage}` : ''}`} />
+          <meta property="og:image" content={`${baseUrl}/assets/blog/cats/1.png`} />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+          <meta property="og:image:alt" content="Kediler Hakkında Bilgiler" />
+          <meta property="og:type" content="website" />  
+          <link 
+            rel="canonical" 
+            href={`${baseUrl}/kedi${currentPage > 1 ? `?page=${currentPage}` : ''}`} 
+          />
+          <Meta />
+        </Head>
           <Navbar />
           <div className="container mx-auto flex flex-col items-stretch gap-10 px-5 pb-10 pt-28 ">
             <Container>

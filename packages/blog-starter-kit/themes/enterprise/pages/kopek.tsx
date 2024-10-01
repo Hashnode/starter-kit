@@ -157,18 +157,22 @@ type GetDogPostsResponse = {
     return (
       <AppProvider publication={publication}>
         <Layout>
-          <Head>
-            <title>{`Köpekler Hakkında Bilgiler | Köpek Sağlığı, Bakımı & Fazlası ${currentPage > 1 ? `| Sayfa ${currentPage}` : ''} | Temizmama Blog`}</title>
-            <meta name="description" content="Köpekler hakkında öğrenmek istedikleriniz Temizmama Blog'da! Köpek ırkları, köpek bakımı, köpek beslenmesi, köpekler hakkında ilginç bilgiler burada!" />
-            <meta property="og:url" content={`${baseUrl}/kedi${currentPage > 1 ? `/sayfa/${currentPage}` : ''}`} />
-            <meta property="og:image" content={`${baseUrl}/assets/blog/dogs/1.png`} />
-            <meta property="og:image:width" content="1200" />
-            <meta property="og:image:height" content="630" />
-            <meta property="og:image:alt" content="Köpekler Hakkında Bilgiler" />
-            <meta property="og:type" content="website" />  
-            <Meta />
-            <link rel="icon" href="/favicon.ico" />
-          </Head>
+        <Head>
+          <title>{`Köpekler Hakkında Bilgiler | Köpek Sağlığı, Bakımı & Fazlası ${currentPage > 1 ? `| Sayfa ${currentPage}` : ''} | Temizmama Blog`}</title>
+          <meta name="description" content="Köpekler hakkında öğrenmek istedikleriniz Temizmama Blog'da! Köpek ırkları, köpek bakımı, köpek beslenmesi, köpekler hakkında ilginç bilgiler burada!" />
+          <meta property="og:url" content={`${baseUrl}/kopek${currentPage > 1 ? `/sayfa/${currentPage}` : ''}`} />
+          <meta property="og:image" content={`${baseUrl}/assets/blog/dogs/1.png`} />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+          <meta property="og:image:alt" content="Köpekler Hakkında Bilgiler" />
+          <meta property="og:type" content="website" />  
+          <Meta />
+          <link rel="icon" href="/favicon.ico" />
+          <link 
+            rel="canonical" 
+            href={`${baseUrl}/kopek${currentPage > 1 ? `?page=${currentPage}` : ''}`} 
+          />
+        </Head>
           <Navbar />
           <div className="container mx-auto flex flex-col items-stretch gap-10 px-5 pb-10 pt-28">
             <Container>

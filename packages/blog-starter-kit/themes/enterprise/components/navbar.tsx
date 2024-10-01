@@ -318,8 +318,8 @@ export const Navbar: React.FC = () => {
 
 	const renderDropdownMenu = (items: MenuItem[], defaultImage: string, altText: string) => (
 			<div
-				className={`fixed left-1/2 -translate-x-1/2 transform z-50 mt-2 rounded-xl ${isMobile ? 'w-2/4' : 'w-2/4'} px-8 py-6 shadow-lg backdrop-blur-md backdrop-filter`}
-				style={{ background: 'rgba(255, 224, 192, 0.31)' }}
+				className={`fixed left-1/2 transform z-50 mt-2 rounded-xl ${isMobile ? 'w-2/4' : 'w-2/4'} px-8 py-6 shadow-lg backdrop-blur-md backdrop-filter`}
+				style={{ background: 'rgba(255, 224, 192, 0.31)', transform: 'translateX(-97%)' }}
 				onMouseEnter={() => setIsMenuHovered(true)}
 				onMouseLeave={handleMenuLeave}
 			>
@@ -506,6 +506,46 @@ export const Navbar: React.FC = () => {
 							</Link>
 						</div>
 						<div className="hidden w-full justify-end md:flex">
+							<ul className="flex items-center space-x-8" style={{ left: '25%', position: 'absolute', top: '45%' }}>
+
+							<li style={{ opacity: 1, transform: 'none' }}>
+								<Link
+									href="/"
+									aria-label="Ana Sayfa"
+									className="cursor-pointer font-bold text-gray-800 transition hover:text-gray-700/75"
+									style={{ fontFamily: 'PinkChicken' }}
+									rel="canonical"
+								>
+									<span>Ana Sayfa</span>
+								</Link>
+							</li>
+							<li
+								style={{ opacity: 1, transform: 'none' }}
+								onMouseEnter={() => handleMenuEnter('cat')}
+								onMouseLeave={handleMenuLeave}
+							>
+								<Link
+									href="/kedi"
+									className="cursor-pointer font-bold text-gray-800 transition hover:text-gray-700/75"
+									style={{ fontFamily: 'PinkChicken' }}
+								>
+									Kedi
+								</Link>
+							</li>
+							<li
+								style={{ opacity: 1, transform: 'none' }}
+								onMouseEnter={() => handleMenuEnter('dog')}
+								onMouseLeave={handleMenuLeave}
+							>
+								<Link
+									href="/kopek"
+									className="cursor-pointer font-bold text-gray-800 transition hover:text-gray-700/75"
+									style={{ fontFamily: 'PinkChicken' }}
+								>
+									Köpek
+								</Link>
+							</li>
+							</ul>
 							<ul className="flex items-center space-x-8">
 								<li className="mt-2" style={{ opacity: 1, transform: 'none' }}>
 									<button onClick={toggleSearch} className="text-gray-800 hover:text-gray-600">
@@ -525,43 +565,7 @@ export const Navbar: React.FC = () => {
 										</svg>
 									</button>
 								</li>
-								<li
-									style={{ opacity: 1, transform: 'none' }}
-									onMouseEnter={() => handleMenuEnter('cat')}
-									onMouseLeave={handleMenuLeave}
-								>
-									<Link
-										href="/kedi"
-										className="cursor-pointer font-bold text-gray-800 transition hover:text-gray-700/75"
-										style={{ fontFamily: 'PinkChicken' }}
-									>
-										Kedi
-									</Link>
-								</li>
-								<li
-									style={{ opacity: 1, transform: 'none' }}
-									onMouseEnter={() => handleMenuEnter('dog')}
-									onMouseLeave={handleMenuLeave}
-								>
-									<Link
-										href="/kopek"
-										className="cursor-pointer font-bold text-gray-800 transition hover:text-gray-700/75"
-										style={{ fontFamily: 'PinkChicken' }}
-									>
-										Köpek
-									</Link>
-								</li>
-								<li style={{ opacity: 1, transform: 'none' }}>
-									<Link
-										href="/"
-										aria-label="Ana Sayfa"
-										className="cursor-pointer font-bold text-gray-800 transition hover:text-gray-700/75"
-										style={{ fontFamily: 'PinkChicken' }}
-										rel="canonical"
-									>
-										<span>Ana Sayfa</span>
-									</Link>
-								</li>
+
 								<li style={{ opacity: 1, transform: 'none' }}>
 									<Link
 										href="/iletisim"
