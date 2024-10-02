@@ -40,7 +40,7 @@ export const CoverImage = ({ title, src, slug, priority = false, onLoad, classNa
     return (
         <div className="relative w-full max-w-screen-lg sm:mx-0">
             {slug ? (
-                <Link href={postURL} aria-label={title}>
+                <Link href={postURL}>
                     {image}
                 </Link>
             ) : (
