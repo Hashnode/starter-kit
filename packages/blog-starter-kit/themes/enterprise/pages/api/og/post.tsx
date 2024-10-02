@@ -72,10 +72,10 @@ export default async function handler(req: NextRequest) {
 				}}
 				tw="relative flex h-full w-full flex-col p-8 subpixel-antialiased"
 			>
-				{/* if blog is set to open in dark mode, then change text-slate-900 to text-white and change bg-white to bg-black */}
+				{/* if blog is set to open in dark mode, then change text-slate-900 to text-white and change bg-[#fcf9f6] to bg-black */}
 				<div
 					tw={`relative flex flex-col items-center p-10 ${
-						isDefaultModeDark ? 'bg-black' : 'bg-white'
+						isDefaultModeDark ? 'bg-black' : 'bg-[#fcf9f6]'
 					} ${
 						isDefaultModeDark ? 'text-white' : 'text-slate-900'
 					} h-full w-full rounded-xl shadow-md`}

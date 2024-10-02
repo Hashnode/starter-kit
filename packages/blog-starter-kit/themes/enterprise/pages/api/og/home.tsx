@@ -66,15 +66,15 @@ export default async function handler(req: NextRequest) {
 				style={{
 					fontFamily: '"Plus Jakarta Sans"',
 				}}
-				tw={`relative flex h-full w-full p-8 bg-white`}
+				tw={`relative flex h-full w-full p-8 bg-[#fcf9f6]`}
 			>
 				{/* PERSONAL BLOG The following parent div is for personal blogs */}
-				{/* if the site is set to open in dark mode by default, change text-black to text-white and bg-white to bg-black */}
+				{/* if the site is set to open in dark mode by default, change text-black to text-white and bg-[#fcf9f6] to bg-black */}
 				{!isTeam && (
 					<div
-						tw={`flex w-full flex-col items-center justify-center text-black h-full p-10 bg-[${bannerBackground}] relative rounded-xl`}
+						tw={`flex w-full flex-col items-center justify-center text-black h-full p-10 bg-[#fcf9f6] relative rounded-xl`}
 					>
-						<div tw="absolute -top-px -left-px -right-px -bottom-px rounded-xl border-2 border-black/5" />
+						<div tw="absolute -top-px -left-px -right-px -bottom-px rounded-xl border-1 border-black/5" />
 						<div tw="mx-auto flex flex-row items-center" style={{ width: '90%' }}>
 							<div tw="mr-20 flex h-56 w-56 overflow-hidden rounded-full">
 								<img
@@ -129,7 +129,7 @@ export default async function handler(req: NextRequest) {
 				)}
 
 				{/* TEAM BLOG The following parent div is for team blogs */}
-				{/* if the site is set to open in dark mode by default, change text-black to text-white and bg-white to bg-black */}
+				{/* if the site is set to open in dark mode by default, change text-black to text-white and bg-[#fcf9f6] to bg-black */}
 				{isTeam && (
 					<div
 						tw={`flex w-full flex-col items-center justify-center text-black h-full p-10 bg-[${bannerBackground}] relative rounded-xl`}

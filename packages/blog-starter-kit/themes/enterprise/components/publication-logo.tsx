@@ -32,8 +32,8 @@ export const PublicationLogo = ({ isSidebar }: { isSidebar?: boolean }) => {
 					</>
 				) : (
 					<span
-						className={`block text-2xl font-semibold ${
-							isSidebar ? 'text-black dark:text-white' : 'text-white md:text-4xl'
+						className={`block text-2xl font-semibold  ${
+							isSidebar ? 'text-black dark:text-white' : 'text-slate-900 dark:text-white md:text-4xl'
 						}`}
 					>
 						{publication.title}

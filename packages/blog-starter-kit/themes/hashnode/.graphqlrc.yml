@@ -1,2 +1,0 @@
-schema: './generated/schema.graphql'
-documents: './{pages,components,lib}/**/*.{graphql,js,ts,jsx,tsx}'

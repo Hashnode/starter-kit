@@ -3,7 +3,7 @@ import { SocialLinks } from './social-links';
 
 export const Navbar = () => {
 	return (
-		<div className="grid grid-cols-1 items-center gap-5 pt-5 text-sm md:grid-cols-2">
+		<div className="grid items-center grid-cols-[1fr_auto] gap-5 pt-5 text-sm">
 			<Search />
 			<SocialLinks />
 		</div>

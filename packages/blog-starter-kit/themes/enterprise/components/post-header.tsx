@@ -42,7 +42,7 @@ export const PostHeader = ({ title, coverImage, date, author, readTimeInMinutes 
 						key={coAuthor.id?.toString()}
 						style={{ zIndex: index + 1 }}
 						className={twJoin(
-							'overflow-hidden rounded-full  bg-slate-200  dark:bg-white/20 md:mr-3',
+							'overflow-hidden rounded-full  bg-slate-200  dark:bg-[#fcf9f6]/20 md:mr-3',
 							index > 0 ? 'hidden md:block' : '',
 							authorsArray.length === 1
 							? 'h-10 w-10 md:h-12 md:w-12'

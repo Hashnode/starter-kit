@@ -7,10 +7,10 @@ export const Footer = () => {
 	const { publication } = useAppContext();
 	const PUBLICATION_LOGO = publication.preferences.logo;
 	return (
-		<footer className="border-t py-20 dark:border-neutral-800 ">
+		<footer className="py-20 border-t border-black dark:border-neutral-800 ">
 			<Container className="px-5">
 				{PUBLICATION_LOGO ? (
-					<div className="mb-20 flex w-full flex-row justify-center">
+					<div className="flex flex-row justify-center w-full mb-20">
 						<Link
 							href={'/'}
 							aria-label={`${publication.title} home page`}
@@ -20,12 +20,12 @@ export const Footer = () => {
 						</Link>
 					</div>
 				) : (
-					<p className="mb-20 text-center text-xl font-semibold text-slate-900 dark:text-slate-50 md:text-4xl">
+					<p className="mb-20 text-xl font-semibold text-center text-slate-900 dark:text-slate-50 md:text-4xl">
 						{publication.title}
 					</p>
 				)}
 				<div className="grid w-full grid-cols-3 gap-5 md:grid-cols-6 lg:grid-cols-5">
-					<div className="col-span-1 grid grid-cols-4 gap-5 md:col-span-4 lg:col-span-3">
+					<div className="grid grid-cols-4 col-span-1 gap-5 md:col-span-4 lg:col-span-3">
 						<div className="col-span-full md:col-span-2 lg:col-span-1">
 							<p className="mb-2 font-semibold text-slate-600 dark:text-neutral-200">
 								Stay in touch
@@ -129,7 +129,7 @@ export const Footer = () => {
 							</ul>
 						</div>
 					</div>
-					<div className="col-span-2 flex flex-col items-end gap-5 text-right text-slate-600 dark:text-neutral-300 md:text-left">
+					<div className="flex flex-col items-end col-span-2 gap-5 text-right text-slate-600 dark:text-neutral-300 md:text-left">
 						<SocialLinks />
 						<p>&copy; 2023 Company Inc.</p>
 						<p>

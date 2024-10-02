@@ -126,7 +126,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 
 					{allPosts.length === 0 && (
 						<div className="grid grid-cols-1 py-20 lg:grid-cols-3">
-							<div className="col-span-1 flex flex-col items-center gap-5 text-center text-slate-700 dark:text-neutral-400 lg:col-start-2">
+							<div className="flex flex-col items-center col-span-1 gap-5 text-center text-slate-700 dark:text-neutral-400 lg:col-start-2">
 								<div className="w-20">
 									<ArticleSVG clasName="stroke-current" />
 								</div>
@@ -149,29 +149,29 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 								/>
 							)}
 						</div>
-						<div className="col-span-1 flex flex-col gap-6">{secondaryPosts}</div>
+						<div className="flex flex-col col-span-1 gap-6">{secondaryPosts}</div>
 					</div>
 
-					{allPosts.length > 0 && (
-						<div className="bg-primary-50 grid grid-cols-4 rounded-lg px-5 py-5 dark:bg-neutral-900 md:py-10">
+					{/*{allPosts.length > 0 && (
+						<div className="grid grid-cols-4 px-5 py-5 rounded-lg bg-primary-50 dark:bg-neutral-900 md:py-10">
 							<div className="col-span-full md:col-span-2 md:col-start-2">
-								<h2 className="text-primary-600 dark:text-primary-500 mb-5 text-center text-lg font-semibold">
+								<h2 className="mb-5 text-lg font-semibold text-center text-primary-600 dark:text-primary-500">
 									Subscribe to our newsletter for updates and changelog.
 								</h2>
 								<SubscribeForm />
 							</div>
 						</div>
-					)}
+					)}*/}
 
 					{morePosts.length > 0 && (
 						<>
 							<MorePosts context="home" posts={morePosts} />
 							{!loadedMore && pageInfo.hasNextPage && pageInfo.endCursor && (
-								<div className="flex w-full flex-row items-center justify-center">
+								<div className="flex flex-row items-center justify-center w-full">
 									<Button
 										onClick={loadMore}
 										type="outline"
-										icon={<ChevronDownSVG className="h-5 w-5 stroke-current" />}
+										icon={<ChevronDownSVG className="w-5 h-5 stroke-current" />}
 										label="Load more posts"
 									/>
 								</div>
