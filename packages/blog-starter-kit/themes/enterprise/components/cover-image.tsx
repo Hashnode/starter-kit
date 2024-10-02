@@ -21,7 +21,7 @@ export const CoverImage = ({ title, src, slug, priority = false, onLoad, classNa
     };
 
     const image = (
-        <div className={`relative pt-[52.5%] select-none ${className || ''}`}>
+        <figure  className={`relative pt-[52.5%] select-none ${className || ''}`}>
             <Image
                 src={src}
                 alt={`Temizmama - ${title}`}
@@ -30,11 +30,11 @@ export const CoverImage = ({ title, src, slug, priority = false, onLoad, classNa
                 }`}
                 fill
                 unoptimized
-                priority={priority}
                 onLoad={handleImageLoad}
                 loading="lazy"
+                decoding="async"
             />
-        </div>
+        </figure >
     );
 
     return (
