@@ -118,7 +118,6 @@ type GetDogPostsResponse = {
     const hasCatKeyword = catKeywords.some(keyword => content.includes(keyword));
     const hasCommonKeyword = commonKeywords.some(keyword => content.includes(keyword));
   
-    // Köpekle ilgili içerik varsa VE kediyle ilgili içerik yoksa VEYA her ikisiyle ilgili ortak bir konu varsa
     return (hasDogKeyword && !hasCatKeyword) || (hasDogKeyword && hasCatKeyword && hasCommonKeyword);
   }
   
@@ -172,6 +171,50 @@ type GetDogPostsResponse = {
             rel="canonical" 
             href={`${baseUrl}/kopek${currentPage > 1 ? `/sayfa/${currentPage}` : ''}`} 
           />
+          <script type="application/ld+json">
+            {`
+              {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": [{
+                  "@type": "Question",
+                  "name": "Köpeğim neden kusuyor?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Köpekler bazen hızlı yemek yeme, mide tahrişi veya stres nedeniyle kusabilirler. Ancak sık kusma ciddi bir sağlık sorununun belirtisi olabilir ve veteriner kontrolü gerektirir."
+                  }
+                }, {
+                  "@type": "Question",
+                  "name": "Köpeğim neden sürekli kaşınıyor?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Kaşıntı, alerji, parazitler veya deri enfeksiyonları gibi sorunlardan kaynaklanabilir. Kaşıntı sürekli hale gelirse altta yatan nedenleri bulmak için veterinere başvurmak gereklidir."
+                  }
+                }, {
+                  "@type": "Question",
+                  "name": "Köpekler çikolata yerse ne olur?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Çikolata köpekler için toksiktir. Yedikleri miktar ve çikolatanın türüne göre mide sorunları, nörolojik belirtiler veya ciddi durumlarda ölümcül olabilir."
+                  }
+                }, {
+                  "@type": "Question",
+                  "name": "Köpekler ne kadar yaşar?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Köpeklerin ömrü genellikle 10-15 yıl arasında değişir ancak ırk, genetik ve yaşam koşullarına göre farklılık gösterir. Küçük cins köpekler genellikle daha uzun yaşarlar."
+                  }
+                }, {
+                  "@type": "Question",
+                  "name": "Köpekler neden hırlar?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Köpekler genellikle tehdit algıladıklarında ya da korktuklarında hırlarlar. Ayrıca sahiplerini veya alanlarını koruma amacıyla da hırlayabilirler. Hırlama bir uyarı işaretidir ve dikkatle ele alınmalıdır."
+                  }
+                }]
+              }
+            `}
+          </script>
         </Head>
           <Navbar />
           <div className="container mx-auto flex flex-col items-stretch gap-10 px-5 pb-10 pt-40">

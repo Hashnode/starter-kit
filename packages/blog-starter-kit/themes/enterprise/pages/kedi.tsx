@@ -143,6 +143,50 @@ export default function KediPage({ allPosts, publication, currentPage = 1 }: Pro
             href={`${baseUrl}/kedi${currentPage > 1 ? `/sayfa/${currentPage}` : ''}`} 
           />
           <Meta />
+          <script type="application/ld+json">
+            {`
+              {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": [{
+                  "@type": "Question",
+                  "name": "Kediler neden hapşırır?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Kediler çeşitli nedenlerle hapşırabilirler: Toz, alerji, enfeksiyon ya da yabancı cisimler… Eğer hapşırık sık ve şiddetliyse veteriner kontrolü önemlidir çünkü altta yatan bir sağlık sorunu olabilir."
+                  }
+                }, {
+                  "@type": "Question",
+                  "name": "Kediler neden mırlar?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Kediler mırlayarak rahatladıklarını, mutlu olduklarını veya acı çektiklerini gösterebilirler. Genellikle huzur içinde mırıldasalar da mırıldama bazen stres veya hastalık belirtisi de olabilir; dikkat edilmelidir."
+                  }
+                }, {
+                  "@type": "Question",
+                  "name": "Kedimin tüyleri neden dökülüyor?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Mevsimsel tüy dökülmesi normaldir. Ancak aşırı tüy kaybı beslenme sorunları, alerji veya stres kaynaklı olabilir. Düzenli tarama ve veteriner kontrolü tüy dökülmesini yönetmede faydalıdır."
+                  }
+                }, {
+                  "@type": "Question",
+                  "name": "Kedim neden sürekli uyuyor?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Kediler günde ortalama 12-16 saat uyurlar. Avcı atalarından gelen bir özelliktir ve böyle enerji biriktirirler. Ancak fazla uyuma tiroid sorunları gibi sağlık sorunlarının da belirtisi olabilir."
+                  }
+                }, {
+                  "@type": "Question",
+                  "name": "Kediler neden miyavlar?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Kediler ihtiyaçlarını ve duygularını ifade etmek için miyavlar. Açlık, ilgi çekme, stres veya rahatsızlık gibi nedenlerle bu sesi çıkarabilirler. Sürekli ve aşırı miyavlama ise bir sağlık sorununun belirtisi olabilir."
+                  }
+                }]
+              }
+            `}
+          </script>
         </Head>
           <Navbar />
           <div className="container mx-auto flex flex-col items-stretch gap-10 px-5 pb-10 pt-40 ">
