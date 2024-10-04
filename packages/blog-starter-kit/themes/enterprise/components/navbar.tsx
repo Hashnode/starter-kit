@@ -323,7 +323,7 @@ export const Navbar: React.FC = () => {
 				onMouseEnter={() => setIsMenuHovered(true)}
 				onMouseLeave={handleMenuLeave}
 			>
-			<div className="flex flex-col">
+			<div className="flex">
 				<div className={`flex ${isMobile ? 'flex-col' : ''}`}>
 					<div className={isMobile ? 'mb-4 w-full' : 'w-1/2 content-center pr-4'}>
 						{isImagesLoaded && (
