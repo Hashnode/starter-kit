@@ -47,8 +47,8 @@ return (
                   <i className="fas fa-phone text-2xl mb-2"></i>
                   <div className="text-center">
                     <h4 className="text-lg mb-1" style={{ fontFamily: 'PinkChicken' }}>Bizi arayın</h4>
-                    <a className="text-gray-700 transition hover:text-gray-700/75" target="_blank" href="tel:8502221869">
-                      <span>850 222 1 869</span>
+                    <a className="text-gray-700 transition hover:text-gray-700/75" target="_blank" href="tel:+908502221869">
+                      <span>+90 850 222 1 869</span>
                     </a>
                   </div>
                 </div>
