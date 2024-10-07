@@ -194,14 +194,14 @@ const config = {
     ];
   },
   reactStrictMode: true,
-  poweredByHeader: false,
+  poweredByHeader: true,
   productionBrowserSourceMaps: true,
-  swcMinify: false,
+  swcMinify: true,
   typescript: {
-    ignoreBuildErrors: false,
+    ignoreBuildErrors: true,
   },
   compiler: {
-    removeConsole: false,
+    removeConsole: true,
   },
 
   webpack: (config, { dev, isServer }) => {
