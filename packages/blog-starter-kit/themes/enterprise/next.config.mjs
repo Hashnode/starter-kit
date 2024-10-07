@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import TerserPlugin from 'terser-webpack-plugin';
 
 const ANALYTICS_BASE_URL = 'https://hn-ping2.hashnode.com';
 const HASHNODE_ADVANCED_ANALYTICS_URL = 'https://user-analytics.hashnode.com';
@@ -215,8 +216,6 @@ const config = {
     if (!dev) {
       config.optimization.minimize = true;
       config.optimization.minimizer = config.optimization.minimizer || [];
-      // TerserPlugin yapılandırmasını güncelleyin
-      const TerserPlugin = require('terser-webpack-plugin');
       config.optimization.minimizer.push(new TerserPlugin({
         terserOptions: {
           parse: {
@@ -240,25 +239,17 @@ const config = {
       }));
     }
 
-    if (isProd) {
+    if (process.env.NODE_ENV === 'production') {
       config.optimization.minimize = true;
-      Promise.resolve().then(async () => {
-        const { default: TerserPlugin } = await import('terser-webpack-plugin');
-        if (!config.optimization.minimizer) {
-          config.optimization.minimizer = [];
-        }
-        config.optimization.minimizer.push(new TerserPlugin({
-          terserOptions: {
-            compress: {
-              drop_console: true,
-            },
+      config.optimization.minimizer.push(new TerserPlugin({
+        terserOptions: {
+          compress: {
+            drop_console: true,
           },
-        }));
-      }).catch(error => {
-        console.error('Error loading TerserPlugin:', error);
-      });
+        },
+      }));
 
-      config.plugins.push(
+    config.plugins.push(
         new BundleAnalyzerPlugin({
           analyzerMode: 'static',
           reportFilename: './bundle-analysis.html',
