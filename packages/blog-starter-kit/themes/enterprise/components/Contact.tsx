@@ -278,9 +278,9 @@ const validateName = (name: string): boolean => {
           <title>Bizimle iletişime geçin! | Temizmama Blog</title>
           <meta name="description" content="Bizimle iletişime geçin. Temizmama Blog'da size yardımcı olmaktan memnuniyet duyarız!" />
           <link href="https://blog.temizmama.com/iletisim" />  
-          <meta name="theme-color" content="#efdcc9" />
-          <meta name="msapplication-navbutton-color" content="#efdcc9" />
-          <meta name="apple-mobile-web-app-status-bar-style" content="#efdcc9" />
+          <meta name="theme-color" content="#fa9252" />
+          <meta name="msapplication-navbutton-color" content="#fa9252" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="#fa9252" />
 
           {/* Open Graph Meta Tags */}
           <meta property="og:title" content="Bizimle iletişime geçin! | Temizmama Blog" />

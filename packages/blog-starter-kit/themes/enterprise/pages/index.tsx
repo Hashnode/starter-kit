@@ -305,20 +305,20 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
               "Temizmama Blog"}
           </title>
           <meta property="og:locale" content="tr_TR" />
-          <meta name="theme-color" content="#efdcc9" />
-          <meta name="msapplication-navbutton-color" content="#efdcc9" />
-          <meta name="apple-mobile-web-app-status-bar-style" content="#efdcc9" />
+          <meta name="theme-color" content="#fa9252" />
+          <meta name="msapplication-navbutton-color" content="#fa9252" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="#fa9252" />
           
           <meta name="Dynamics-Noise" content="Off" />
           <meta httpEquiv="x-dns-prefetch-control" content="on" />
           <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
-          <meta name="apple-mobile-web-app-status-bar-style"content="#efdcc9" />
+          <meta name="apple-mobile-web-app-status-bar-style"content="#fa9252" />
           <meta name="referrer" content="strict-origin-when-cross-origin" />
           <meta name="application-name" content={publication.title} />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="apple-touch-fullscreen" content="yes" />
           <meta name="mobile-web-app-capable" content="yes" />
-          <meta name="theme" content="#efdcc9" />
+          <meta name="theme" content="#fa9252" />
           <link rel="manifest" href="/manifest.json" />
           <meta httpEquiv="ScreenOrientation" content="autoRotate:disabled"/>
 

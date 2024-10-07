@@ -11,7 +11,7 @@ const Custom404 = () => {
   const pageDescription = 'Aradığınız sayfa bulunamadı. Anasayfa dönerek aramaya devam edebilirsiniz.';
   const siteName = 'Temizmama Blog';
   const siteUrl = 'https://blog.temizmama.com/404';
-  const themeColor = '#efdcc9';
+  const themeColor = '#fa9252';
   const twitterHandle = '@temizmamacom';
 
   return (
