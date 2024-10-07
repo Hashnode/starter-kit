@@ -17,24 +17,25 @@
 }
 
 .bouncing-blob--blue {
-  background-color: #4783c7; /* Arka plan rengi için 'background' yerine 'background-color' kullanın */
+  background-color: #4783c7;
 }
 
 .bouncing-blob--purple {
-  background-color: #8c8ff1; /* Arka plan rengi için 'background' yerine 'background-color' kullanın */
+  background-color: #8c8ff1;
 }
 
 .bouncing-blob--pink {
-  background-color: #e289cd50; /* Arka plan rengi için 'background' yerine 'background-color' kullanın */
+  background-color: #e289cd50;
 }
 
 .bouncing-blobs-container {
-  position: fixed;
+  position: absolute; /* fixed yerine absolute kullanıyoruz */
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   overflow: hidden;
+  min-height: 100vh; /* Minimum yüksekliği viewport yüksekliğine ayarlıyoruz */
 }
 
 .bouncing-blobs-glass {
@@ -45,7 +46,7 @@
   right: 0;
   bottom: 0;
   backdrop-filter: blur(240px);
-  -webkit-backdrop-filter: blur(240px); /* WebKit tabanlı tarayıcılar için */
+  -webkit-backdrop-filter: blur(240px);
   pointer-events: none;
 }
 
@@ -64,14 +65,14 @@
     width: 64px;
     height: 64px;
   }
-
+  
   .bouncing-blob--white {
     width: 30px;
     height: 30px;
   }
-
+  
   .bouncing-blobs-glass {
     backdrop-filter: blur(190px);
-    -webkit-backdrop-filter: blur(190px); /* WebKit tabanlı tarayıcılar için */
+    -webkit-backdrop-filter: blur(190px);
   }
 }

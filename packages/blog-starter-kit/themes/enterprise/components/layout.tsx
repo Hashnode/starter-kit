@@ -6,24 +6,23 @@ import OfflineNotification from './OfflineNotification';
 import GradientBg from './rainbow/GradientBg';
 import ClickSpark from './ClickSpark';
 
-
 type Props = {
-	children: React.ReactNode;
+    children: React.ReactNode;
 };
 
 export const Layout = ({ children }: Props) => {
-	return (
-		<>
-			<Meta />
-			<Scripts />
-			<ClickSpark />
-				<div className="min-h-screen bg-white dark:bg-neutral-950">
-					<GradientBg />
-					<main className="relative z-1">{children}</main>
-					<OfflineNotification />
-				</div>
-			<Analytics />
-			<Integrations />
-		</>
-	);
+    return (
+        <>
+            <Meta />
+            <Scripts />
+            <ClickSpark />
+            <div className="relative min-h-screen bg-white dark:bg-neutral-950">
+                <GradientBg />
+                <main className="relative z-10">{children}</main>
+                <OfflineNotification />
+            </div>
+            <Analytics />
+            <Integrations />
+        </>
+    );
 };
