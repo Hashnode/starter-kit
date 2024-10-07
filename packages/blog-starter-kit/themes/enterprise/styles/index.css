@@ -58,7 +58,9 @@ nav {
 :root {
   --topbar-offset: 12px;
 }
-
+z-11 {
+  z-index: 11;
+}
 figcaption {
     font-family: 'PinkChicken', sans-serif;
     top: -2rem;
