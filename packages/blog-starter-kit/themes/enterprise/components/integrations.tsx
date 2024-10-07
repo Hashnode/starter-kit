@@ -1,42 +1,23 @@
 import { useEffect } from 'react';
 import { useAppContext } from './contexts/appContext';
 
-// OpenReplay için tip tanımlamaları
-interface OpenReplayInitOptions {
-  projectKey: string;
-  defaultInputMode: number;
-  obscureTextNumbers: boolean;
-  obscureTextEmails: boolean;
-}
-
-interface OpenReplayStartOptions {
-  userID: string;
-}
-
 declare global {
   interface Window {
-    OpenReplay: any;
     gtag: any;
   }
 }
-
 
 export function Integrations() {
   const { publication } = useAppContext();
   const {
     gaTrackingID,
     fbPixelID,
-    hotjarSiteID,
     matomoURL,
     matomoSiteID,
     fathomSiteID,
     fathomCustomDomain,
     fathomCustomDomainEnabled,
-    plausibleAnalyticsEnabled,
   } = (publication?.integrations as any) ?? {};
-
-  const openReplayProjectKey = 'rOeEEWoveoIqi68TKLef';
-
 
   // URL kontrolü ve varsayılan değer atama
   let domainURL = '';
@@ -64,19 +45,6 @@ export function Integrations() {
     fbPixel += `fbq('init', '${encodeURI(fbPixelID)}');`;
   }
 
-  const hotjarForUsers = hotjarSiteID
-    ? `
-      (function(h,o,t,j,a,r){
-          h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-          h._hjSettings={hjid:${encodeURI(hotjarSiteID)},hjsv:6};
-          a=o.getElementsByTagName('head')[0];
-          r=o.createElement('script');r.async=1;r.defer=1;
-          r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-          a.appendChild(r);
-      })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-    `
-    : '';
-
   const matomoAnalytics = matomoURL
     ? `
       var _paq = window._paq = window._paq || [];
@@ -91,36 +59,7 @@ export function Integrations() {
       })();
     `
     : '';
-
-  // OpenReplay initialization function
-  const initOpenReplay = (initOpts: OpenReplayInitOptions, startOpts: OpenReplayStartOptions): void => {
-    const initOpenReplay = (A: string, s: number, a: number, y: OpenReplayInitOptions, e: OpenReplayStartOptions, r: any): void => {
-      r = window.OpenReplay = [e, r, y, [s - 1, e]];
-      const script = document.createElement('script');
-      script.src = A;
-      script.async = !a;
-      document.getElementsByTagName('head')[0].appendChild(script);
-      r.start = (v: any) => r.push([0]);
-      r.stop = (v: any) => r.push([1]);
-      r.setUserID = (id: string) => r.push([2, id]);
-      r.setUserAnonymousID = (id: string) => r.push([3, id]);
-      r.setMetadata = (k: string, v: any) => r.push([4, k, v]);
-      r.event = (k: string, p: any, i: any) => r.push([5, k, p, i]);
-      r.issue = (k: string, p: any) => r.push([6, k, p]);
-      r.isActive = () => false;
-      r.getSessionToken = () => {};
-    };
-
-    initOpenReplay(
-      "//static.openreplay.com/latest/openreplay-assist.js",
-      1,
-      0,
-      initOpts,
-      startOpts,
-      undefined  // r argümanı için
-    );
-  };
-
+  
   useEffect(() => {
     if (gaTrackingID && typeof window !== 'undefined' && 'gtag' in window) {
       window.gtag('config', gaTrackingID, {
@@ -129,20 +68,7 @@ export function Integrations() {
       });
     }
 
-    // OpenReplay initialization
-    if (openReplayProjectKey && typeof window !== 'undefined') {
-      const initOpts: OpenReplayInitOptions = {
-        projectKey: openReplayProjectKey,
-        defaultInputMode: 2,
-        obscureTextNumbers: false,
-        obscureTextEmails: true,
-      };
-      const startOpts: OpenReplayStartOptions = { 
-        userID: "" // Kullanıcı ID'sini buraya ekleyebilirsiniz
-      };
-      initOpenReplay(initOpts, startOpts);
-    }
-  }, [gaTrackingID, openReplayProjectKey]);
+  }, [gaTrackingID]);
 
   return (
     <>
@@ -161,42 +87,11 @@ export function Integrations() {
           defer
         ></script>
       )}
-      {hotjarSiteID && hotjarForUsers && (
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{ __html: hotjarForUsers }}
-        ></script>
-      )}
       {matomoURL && matomoAnalytics && (
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{ __html: matomoAnalytics }}
         ></script>
-      )}
-      {plausibleAnalyticsEnabled && domainURL && (
-        <script
-          async
-          defer
-          data-domain={domainURL}
-          src="https://plausible.io/js/plausible.js"
-        ></script>
-      )}
-      {openReplayProjectKey && (
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              // OpenReplay initialization
-              var initOpts = {
-                projectKey: "${openReplayProjectKey}",
-                defaultInputMode: 2,
-                obscureTextNumbers: false,
-                obscureTextEmails: true,
-              };
-              var startOpts = { userID: "" };
-              // OpenReplay initialization function will be called by useEffect
-            `
-          }}
-        />
       )}
     </>
   );
