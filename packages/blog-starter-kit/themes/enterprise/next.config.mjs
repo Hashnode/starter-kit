@@ -288,13 +288,8 @@ const config = {
     maxInactiveAge: 25 * 1000,
     pagesBufferLength: 2,
   },
-  typescript: {
-    ignoreBuildErrors: isProd,
-  },
-  productionBrowserSourceMaps: false,
   generateEtags: true,
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
-  swcMinify: true,
   compiler: {
     removeConsole: isProd ? {
       exclude: ['error', 'warn'],
