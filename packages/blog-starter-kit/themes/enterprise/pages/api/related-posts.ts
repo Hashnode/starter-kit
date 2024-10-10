@@ -3,10 +3,6 @@ import { gql } from 'graphql-request';
 import { request } from 'graphql-request';
 
 // Tip tanımlamaları
-type Tag = {
-  slug: string;
-};
-
 type Post = {
   id: string;
   title: string;
@@ -22,51 +18,38 @@ type Post = {
   publishedAt: string;
 };
 
-type CurrentPostData = {
-  post: {
-    tags: Tag[];
-  };
+type PostData = {
+  post: Post;
 };
 
-type RelatedPostsData = {
-  publication: {
-    posts: {
-      edges: Array<{
-        node: Post;
-      }>;
-      pageInfo: {
-        hasNextPage: boolean;
-        endCursor: string | null;
-      };
-    };
-  };
+type AllPostsData = {
+  posts: Post[];
 };
 
-const PostsByTagDocument = gql`
-  query PostsByTag($host: String!, $tagSlugs: [String!], $first: Int!, $after: String) {
-    publication(host: $host) {
-      posts(first: $first, after: $after, filter: { tagSlugs: $tagSlugs }) {
-        edges {
-          node {
-            id
-            title
-            brief
-            slug
-            coverImage {
-              url
-            }
-            author {
-              name
-              profilePicture
-            }
-            publishedAt
-          }
-        }
-        pageInfo {
-          hasNextPage
-          endCursor
-        }
+const PostByIdDocument = gql`
+  query GetPost($id: ID!) {
+    post(id: $id) {
+      id
+      publishedAt
+    }
+  }
+`;
+
+const AllPostsDocument = gql`
+  query GetAllPosts {
+    posts {
+      id
+      title
+      brief
+      slug
+      coverImage {
+        url
       }
+      author {
+        name
+        profilePicture
+      }
+      publishedAt
     }
   }
 `;
@@ -80,52 +63,38 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const endpoint = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
-    const host = process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST;
 
-    if (!endpoint || !host) {
+    if (!endpoint) {
       throw new Error('Required environment variables are not set');
     }
 
     // Mevcut postu al
-    const currentPostData = await request<CurrentPostData>(endpoint, gql`
-      query GetPost($id: ID!) {
-        post(id: $id) {
-          tags {
-            slug
-          }
-        }
-      }
-    `, { id: postId });
+    const currentPostData = await request<PostData>(endpoint, PostByIdDocument, { id: postId });
+    const currentPublishedAt = currentPostData.post.publishedAt;
 
-    const tagSlugs = currentPostData.post.tags.map(tag => tag.slug);
+    // Tüm postları al
+    const allPostsData = await request<AllPostsData>(endpoint, AllPostsDocument);
 
-    // İlgili postları al - tüm sayfaları çek
-    let relatedPosts: Post[] = [];
-    let hasNextPage = true;
-    let endCursor: string | null = null;
+    // Tüm postları yayınlanma tarihine göre sırala
+    const sortedPosts = allPostsData.posts.sort((a, b) => {
+      return new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime();
+    });
 
-    while (hasNextPage) {
-      const relatedPostsData: RelatedPostsData = await request<RelatedPostsData>(endpoint, PostsByTagDocument, {
-        host,
-        tagSlugs,
-        first: 20, // Her seferinde 20 post çekiyoruz
-        after: endCursor, // Sayfalar arasında gezinmek için
-      });
+    // Mevcut postun indexini bul
+    const currentPostIndex = sortedPosts.findIndex(post => post.id === postId);
 
-      const fetchedPosts = relatedPostsData.publication?.posts.edges
-        .map((edge: { node: Post }) => edge.node)
-        .filter((post: Post) => post.id !== postId); // Aynı postu çıkar
-
-      relatedPosts = [...relatedPosts, ...fetchedPosts];
-
-      hasNextPage = relatedPostsData.publication.posts.pageInfo.hasNextPage;
-      endCursor = relatedPostsData.publication.posts.pageInfo.endCursor; // Sonraki sayfa için cursor
+    // Eğer post bulunamazsa hata ver
+    if (currentPostIndex === -1) {
+      return res.status(404).json({ error: 'Post not found' });
     }
 
-    // İlgili postları karıştır ve en fazla 3 tanesini al
-    const shuffledPosts = relatedPosts.sort(() => 0.5 - Math.random()).slice(0, 3);
+    // Önceki 10 ve sonraki 10 postu seç
+    const relatedPosts = [
+      ...sortedPosts.slice(Math.max(0, currentPostIndex - 10), currentPostIndex), // Önceki 10
+      ...sortedPosts.slice(currentPostIndex + 1, currentPostIndex + 11) // Sonraki 10
+    ];
 
-    res.status(200).json(shuffledPosts);
+    res.status(200).json(relatedPosts);
   } catch (error) {
     console.error('Error fetching related posts:', error);
     res.status(500).json({ error: 'Failed to fetch related posts' });
