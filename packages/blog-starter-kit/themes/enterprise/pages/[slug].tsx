@@ -238,7 +238,7 @@ const Post = ({ publication, post, relatedPosts }: PostProps) => {
       <MarkdownToHtml contentMarkdown={post.content.markdown} />
       <ShareButtons url={post.url} title={post.title} />
       <AboutAuthor />
-      <RelatedPosts currentPost={convertToPostFragment(post)} />
+      <RelatedPosts />
     </>
   );
 };
@@ -386,105 +386,65 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
     const postData = await request(endpoint, SinglePostByPublicationDocument, { host, slug });
     
     if (postData.publication?.post) {
-    const currentPost = postData.publication.post;
-    const tagSlugs = currentPost.tags?.map(tag => tag.slug) || [];
-
-    let allRelatedPosts: RelatedPostFragment[] = [];
-    let hasNextPage = true;
-    let after = null;
-
-    while (hasNextPage && allRelatedPosts.length < 20) {
-      const relatedPostsData: PostsByTagQuery = await request(endpoint, PostsByTagDocument, {
-        host,
-        tagSlugs,
-        first: 20,
-        after
-      });
-
-      const newPosts = relatedPostsData.publication?.posts.edges
-        .map((edge) => edge.node)
-        .filter((post) => post.id !== currentPost.id) ?? [];
+      const currentPost = postData.publication.post;
+      
+      // undefined değerleri kaldırmak için bir yardımcı fonksiyon
+      const removeUndefined = (obj: any): any => {
+        Object.keys(obj).forEach(key => {
+          if (obj[key] && typeof obj[key] === 'object') {
+            removeUndefined(obj[key]);
+          } else if (obj[key] === undefined) {
+            delete obj[key];
+          }
+        });
+        return obj;
+      };
     
-      allRelatedPosts = [...allRelatedPosts, ...newPosts];
-      hasNextPage = relatedPostsData.publication?.posts.pageInfo?.hasNextPage ?? false;
-      after = relatedPostsData.publication?.posts.pageInfo?.endCursor ?? null;    
+      return {
+        props: removeUndefined({
+          type: 'post',
+          post: currentPost,
+          publication: postData.publication,
+        }),
+        revalidate: 1,
+      };
     }
 
-    const shuffledPosts = allRelatedPosts.sort(() => 0.5 - Math.random());
-    const relatedPosts = shuffledPosts.slice(0, 3);
+    // Statik sayfa için kontrol
+    const pageData = await request(endpoint, PageByPublicationDocument, { host, slug });
 
-    const formattedRelatedPosts: PostFragment[] = relatedPosts.map(post => ({
-      id: post.id,
-      title: post.title,
-      brief: post.brief,
-      slug: post.slug,
-      coverImage: post.coverImage ? { url: post.coverImage.url || '' } : null,
-      tags: post.tags ? post.tags.map(tag => ({
-        id: tag.id,
-        name: tag.name,
-        slug: tag.slug
-      })) : null,
-      content: ''
-    }));
+    if (pageData.publication?.staticPage) {
+      return {
+        props: removeUndefined({
+          type: 'page',
+          page: pageData.publication.staticPage,
+          publication: pageData.publication,
+        }),
+        revalidate: 1,
+      };
+    }
 
-    // undefined değerleri kaldırmak için bir yardımcı fonksiyon
-    const removeUndefined = (obj: any): any => {
-      Object.keys(obj).forEach(key => {
-        if (obj[key] && typeof obj[key] === 'object') {
-          removeUndefined(obj[key]);
-        } else if (obj[key] === undefined) {
-          delete obj[key];
-        }
-      });
-      return obj;
-    };
-    
-    return {
-      props: removeUndefined({
-        type: 'post',
-        post: currentPost,
-        publication: postData.publication,
-        relatedPosts: formattedRelatedPosts,
-      }),
-      revalidate: 1,
-    };
-  }
+    // Kategori (series) için kontrol
+    const seriesData = await request(endpoint, SeriesPostsByPublicationDocument, {
+      host,
+      seriesSlug: slug,
+      first: 20,
+    });
 
-  // Statik sayfa için kontrol
-  const pageData = await request(endpoint, PageByPublicationDocument, { host, slug });
+    if (seriesData.publication?.series) {
+      const series = seriesData.publication.series;
+      const posts = series.posts.edges.map(edge => edge.node) as PostFullFragment[];
 
-  if (pageData.publication?.staticPage) {
-    return {
-      props: removeUndefined({
-        type: 'page',
-        page: pageData.publication.staticPage,
-        publication: pageData.publication,
-      }),
-      revalidate: 1,
-    };
-  }
-
-  // Kategori (series) için kontrol
-  const seriesData = await request(endpoint, SeriesPostsByPublicationDocument, {
-    host,
-    seriesSlug: slug,
-    first: 20,
-  });
-
-  if (seriesData.publication?.series) {
-    const series = seriesData.publication.series;
-    const posts = series.posts.edges.map(edge => edge.node) as PostFullFragment[];
-
-    return {
-      props: removeUndefined({
-        type: 'category',
-        series,
-        posts,
-        publication: seriesData.publication,
-      }),
-      revalidate: 1,
-    };
-  }
+      return {
+        props: removeUndefined({
+          type: 'category',
+          series,
+          posts,
+          publication: seriesData.publication,
+        }),
+        revalidate: 1,
+      };
+    }
   } catch (error) {
     console.error("GraphQL request failed:", error);
     return {
@@ -495,29 +455,5 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
   return {
     notFound: true,
     revalidate: 1,
-  };
-};
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await request(
-    process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT,
-    SlugPostsByPublicationDocument,
-    {
-      first: 10,
-      host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST,
-    },
-  );
-
-  const postSlugs = (data.publication?.posts.edges ?? []).map((edge) => edge.node.slug);
-
-  return {
-    paths: postSlugs.map((slug) => {
-      return {
-        params: {
-          slug: slug,
-        },
-      };
-    }),
-    fallback: 'blocking',
   };
 };
