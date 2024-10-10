@@ -457,3 +457,34 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
     revalidate: 1,
   };
 };
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const endpoint = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
+  const host = process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST;
+
+  try {
+    const data = await request(
+      endpoint,
+      SlugPostsByPublicationDocument,
+      {
+        first: 100, // Burada kaç sayfa için statik olarak oluşturulacağını belirleyebilirsiniz
+        host: host,
+      }
+    );
+
+    const paths = data.publication?.posts.edges.map((edge) => ({
+      params: { slug: edge.node.slug },
+    })) || [];
+
+    return {
+      paths,
+      fallback: 'blocking', // veya 'true' ya da false, ihtiyacınıza göre
+    };
+  } catch (error) {
+    console.error("Error fetching slugs:", error);
+    return {
+      paths: [],
+      fallback: 'blocking',
+    };
+  }
+};
