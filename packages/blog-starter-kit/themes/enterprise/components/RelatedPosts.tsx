@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { resizeImage } from '@starter-kit/utils/image';
 import { DEFAULT_COVER } from '../utils/const';
@@ -13,43 +13,52 @@ type PostFragment = {
   content: string;
 };
 
-type RelatedPostsProps = {
-  currentPost: PostFragment;
-};
-
-const RelatedPosts: React.FC<RelatedPostsProps> = ({ currentPost }) => {
+const RelatedPosts: React.FC = () => {
   const [relatedPosts, setRelatedPosts] = useState<PostFragment[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [afterCursor, setAfterCursor] = useState<string | null>(null);
+  const observerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const fetchRelatedPosts = async () => {
-      setIsLoading(true);
+      setLoading(true);
       try {
-        const response = await fetch(`/api/related-posts?postId=${currentPost.id}`);
+        const response = await fetch(`/api/related-posts?afterCursor=${afterCursor}`);
         if (!response.ok) {
           throw new Error('Failed to fetch related posts');
         }
         const data = await response.json();
-        setRelatedPosts(data); // Her zaman en fazla 3 post API'den alındığı için slice gerekmez
+        setRelatedPosts((prevPosts) => [...prevPosts, ...data.edges.map((edge: any) => edge.node)]);
+        setAfterCursor(data.pageInfo.endCursor); // Yeni endCursor
       } catch (error) {
         console.error('Error fetching related posts:', error);
-        setRelatedPosts([]); // Hata durumunda boş array set et
       } finally {
-        setIsLoading(false);
+        setLoading(false);
       }
     };
 
-    if (currentPost.id) { // Eğer id yoksa çağrı yapılmaz
-      fetchRelatedPosts();
+    // Observer callback when user scrolls near the bottom
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      if (entries[0].isIntersecting && afterCursor !== null) {
+        fetchRelatedPosts();
+      }
+    };
+
+    // Create Intersection Observer
+    const observer = new IntersectionObserver(observerCallback, { threshold: 1.0 });
+    if (observerRef.current) {
+      observer.observe(observerRef.current);
     }
-  }, [currentPost.id]);
 
-  if (isLoading) {
-    return <div className="text-center py-10">İlgili yazılar yükleniyor...</div>;
-  }
+    return () => {
+      if (observerRef.current) {
+        observer.unobserve(observerRef.current);
+      }
+    };
+  }, [afterCursor]);
 
-  if (relatedPosts.length === 0) {
-    return null;
+  if (loading && relatedPosts.length === 0) {
+    return <div>Loading...</div>;
   }
 
   return (
@@ -63,6 +72,8 @@ const RelatedPosts: React.FC<RelatedPostsProps> = ({ currentPost }) => {
             <PostCard key={post.id} post={post} />
           ))}
         </div>
+        <div ref={observerRef} style={{ height: '50px' }} />
+        {loading && <div>Loading more posts...</div>}
       </div>
     </section>
   );
@@ -93,18 +104,6 @@ const PostCard: React.FC<{ post: PostFragment }> = ({ post }) => (
       <p className="text-slate-600 dark:text-neutral-400 mb-4">
         {post.brief.length > 100 ? post.brief.substring(0, 100) + '…' : post.brief}
       </p>
-      {post.tags && post.tags.length > 0 && (
-        <ul className="flex flex-wrap gap-2">
-          {post.tags.slice(0, 3).map((tag) => (
-            <li
-              key={tag.id}
-              className="text-xs font-semibold px-2 py-1 rounded-full bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-100"
-            >
-              #{tag.name}
-            </li>
-          ))}
-        </ul>
-      )}
     </div>
   </div>
 );
