@@ -31,8 +31,9 @@ export const CoverImage = ({ title, src, slug, priority = false, onLoad, classNa
                 fill
                 unoptimized
                 onLoad={handleImageLoad}
-                loading="lazy"
                 decoding="async"
+                priority={true} // Öncelikli yükleme
+                loading="eager" // Hızlı yükleme
             />
         </figure >
     );

@@ -3,10 +3,11 @@
 @tailwind utilities;
 
 @font-face {
-	font-family: 'PinkChicken';
-	src: url('.././assets/PinkChicken-Regular.ttf') format('truetype');
-	font-weight: normal;
-	font-style: normal;
+  font-family: 'PinkChicken';
+  src: url('.././assets/PinkChicken-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* Yedek fontu kullanarak swap yap */
 }
   
 nav {
