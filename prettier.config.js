@@ -13,6 +13,6 @@ const config = {
 		'prettier-plugin-tailwindcss',
 		'prettier-plugin-packagejson',
 	],
-};
+}; 
 
 module.exports = config;
