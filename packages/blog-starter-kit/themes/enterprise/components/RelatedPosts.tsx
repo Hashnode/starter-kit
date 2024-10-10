@@ -25,13 +25,12 @@ const RelatedPosts: React.FC<RelatedPostsProps> = ({ currentPost }) => {
     const fetchRelatedPosts = async () => {
       setIsLoading(true);
       try {
-        // Bu kısımda gerçek API çağrısı yapılacak
         const response = await fetch(`/api/related-posts?postId=${currentPost.id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch related posts');
         }
         const data = await response.json();
-        setRelatedPosts(data.slice(0, 3)); // Her zaman en fazla 3 post al
+        setRelatedPosts(data); // Her zaman en fazla 3 post API'den alındığı için slice gerekmez
       } catch (error) {
         console.error('Error fetching related posts:', error);
         setRelatedPosts([]); // Hata durumunda boş array set et
@@ -40,7 +39,9 @@ const RelatedPosts: React.FC<RelatedPostsProps> = ({ currentPost }) => {
       }
     };
 
-    fetchRelatedPosts();
+    if (currentPost.id) { // Eğer id yoksa çağrı yapılmaz
+      fetchRelatedPosts();
+    }
   }, [currentPost.id]);
 
   if (isLoading) {
@@ -63,7 +64,7 @@ const RelatedPosts: React.FC<RelatedPostsProps> = ({ currentPost }) => {
           ))}
         </div>
       </div>
-    </section> 
+    </section>
   );
 };
 
