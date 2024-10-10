@@ -99,7 +99,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const tagSlugs = currentPostData.post.tags.map(tag => tag.slug);
 
-    // İlgili postları al
+    // İlgili postları al - tüm sayfaları çek
     let relatedPosts: Post[] = [];
     let hasNextPage = true;
     let endCursor: string | null = null;
@@ -108,18 +108,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const relatedPostsData: RelatedPostsData = await request<RelatedPostsData>(endpoint, PostsByTagDocument, {
         host,
         tagSlugs,
-        first: 20, // Alınacak post sayısı
-        after: endCursor,
+        first: 20, // Her seferinde 20 post çekiyoruz
+        after: endCursor, // Sayfalar arasında gezinmek için
       });
 
       const fetchedPosts = relatedPostsData.publication?.posts.edges
-        .map((edge: { node: Post }) => edge.node) // edge'in tipini tanımladım
-        .filter((post: Post) => post.id !== postId); // post'un tipini tanımladım
+        .map((edge: { node: Post }) => edge.node)
+        .filter((post: Post) => post.id !== postId); // Aynı postu çıkar
 
       relatedPosts = [...relatedPosts, ...fetchedPosts];
 
       hasNextPage = relatedPostsData.publication.posts.pageInfo.hasNextPage;
-      endCursor = relatedPostsData.publication.posts.pageInfo.endCursor;
+      endCursor = relatedPostsData.publication.posts.pageInfo.endCursor; // Sonraki sayfa için cursor
     }
 
     // İlgili postları karıştır ve en fazla 3 tanesini al
