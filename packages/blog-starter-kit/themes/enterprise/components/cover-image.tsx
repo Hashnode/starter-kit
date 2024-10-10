@@ -19,7 +19,7 @@ export const CoverImage = ({ title, src, slug, priority = false, onLoad, classNa
         setImageLoaded(true);
         if (onLoad) onLoad();
     };
-
+ 
     useEffect(() => { 
         // Global styles
         const style = document.createElement('style');
