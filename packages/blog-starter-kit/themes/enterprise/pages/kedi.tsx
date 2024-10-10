@@ -1,5 +1,5 @@
-import { GetStaticProps, GetStaticPaths } from 'next';
-import Head from 'next/head'; 
+import { GetStaticProps } from 'next';
+import Head from 'next/head';
 import Link from 'next/link';
 import { Container } from '../components/container';
 import { MorePosts } from '../components/more-posts';
@@ -86,8 +86,7 @@ type GetCatPostsResponse = {
 type Props = {
   allPosts: PostFragment[];
   publication: PublicationFragment;
-  currentPage: number;
-  totalPages: number;
+  currentPage?: number;
 };
 
 const catKeywords = ['kedi', 'kedicik', 'kediş', 'miyav', 'kedi maması', 'kedi bakımı'];
@@ -99,7 +98,7 @@ function isCatRelated(post: PostFragment): boolean {
 
 const POSTS_PER_PAGE = 12;
 
-export default function KediPage({ allPosts, publication, currentPage, totalPages }: Props) {
+export default function KediPage({ allPosts, publication, currentPage = 1 }: Props) {
   const [displayedPosts, setDisplayedPosts] = useState<PostFragment[]>([]);
 
   useEffect(() => {
@@ -108,12 +107,12 @@ export default function KediPage({ allPosts, publication, currentPage, totalPage
     setDisplayedPosts(allPosts.slice(startIndex, endIndex));
   }, [currentPage, allPosts]);
 
-  const hasMorePosts = currentPage < totalPages;
+  const hasMorePosts = currentPage * POSTS_PER_PAGE < allPosts.length;
   const hasPreviousPage = currentPage > 1;
-
-  return (
-    <AppProvider publication={publication}>
-      <Layout>
+  
+    return (
+      <AppProvider publication={publication}>
+        <Layout>
         <Head>
           <title>{`Kediler Hakkında Bilgiler | Kedi Sağlığı, Bakımı & Fazlası ${currentPage > 1 ? `| Sayfa ${currentPage}` : ''} | Temizmama Blog`}</title>            
           <link rel="icon" href="/favicon.ico" />
@@ -173,14 +172,14 @@ export default function KediPage({ allPosts, publication, currentPage, totalPage
               }
             `}
           </script>
-        </Head>
-        <Navbar />
-        <div className="container mx-auto flex flex-col items-stretch gap-10 px-5 pb-10 pt-40 ">
-          <Container>
-            <h1 className="text-5xl text-gray-900 font-semibold mt-2 mb-5 text-center">Kediler Hakkında {currentPage > 1 ? `- Sayfa ${currentPage}` : ''}</h1>
-          </Container>
-        </div>
-        <div className="container left-0 right-0 top-0 z-50 mx-auto w-full select-none px-4 py-4 transition-all duration-500 translate-y-0 -mt-32 pt-24 sm:pt-7">
+          </Head>
+          <Navbar />
+          <div className="container mx-auto flex flex-col items-stretch gap-10 px-5 pb-10 pt-40 ">
+            <Container>
+              <h1 className="text-5xl text-gray-900 font-semibold mt-2 mb-5 text-center">Kediler Hakkında {currentPage > 1 ? `- Sayfa ${currentPage}` : ''}</h1>
+            </Container>
+          </div>
+          <div className="container left-0 right-0 top-0 z-50 mx-auto w-full select-none px-4 py-4 transition-all duration-500 translate-y-0 -mt-32 pt-24 sm:pt-7">
           <Container>
             {displayedPosts.length > 0 ? (
               <>
@@ -188,25 +187,23 @@ export default function KediPage({ allPosts, publication, currentPage, totalPage
                 <div className="mt-12 mb-8 flex justify-center space-x-4">
                   {currentPage === 1 ? (
                     hasMorePosts && (
-                      <Link href={`/kedi/sayfa/${currentPage + 1}`} passHref>
+                      <Link href={`/kedi/sayfa/${currentPage + 1}`}>
                         <a className="px-6 py-3 bg-orng-501 text-white rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:scale-105">
                           Daha Fazla
                         </a>
                       </Link>
-
                     )
                   ) : (
                     <>
                       {hasPreviousPage && (
-                        <Link href={currentPage === 2 ? '/kedi' : `/kedi/sayfa/${currentPage - 1}`} passHref>
+                        <Link href={currentPage === 2 ? '/kedi' : `/kedi/sayfa/${currentPage - 1}`}>
                           <a className="px-6 py-3 bg-orng-501 text-white rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:scale-105">
                             ← Önceki Sayfa
                           </a>
                         </Link>
-
                       )}
                       {hasMorePosts && (
-                        <Link href={`/kedi/sayfa/${currentPage + 1}`} passHref>
+                        <Link href={`/kedi/sayfa/${currentPage + 1}`}>
                           <a className="px-6 py-3 bg-orng-501 text-white rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:scale-105">
                             Sonraki Sayfa →
                           </a>
@@ -217,20 +214,20 @@ export default function KediPage({ allPosts, publication, currentPage, totalPage
                 </div>
               </>
             ) : (
-              <p>Henüz kedi ile ilgili içerik bulunmamaktadır.</p>
+              <></>
             )}
           </Container>
-        </div>
-        <Footer />
-      </Layout>
-    </AppProvider>
-  );
-}
+          </div>
+          <Footer />
+        </Layout>
+      </AppProvider>
+    );
+  }
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   if (!GQL_ENDPOINT) {
     console.error('GQL_ENDPOINT is not defined');
-    return { paths: [], fallback: false };
+    return { props: { allPosts: [], publication: {}, currentPage: 1 }, revalidate: 60 };
   }
 
   try {
@@ -239,61 +236,24 @@ export const getStaticPaths: GetStaticPaths = async () => {
       GET_CAT_POSTS,
       {
         host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST || '',
-        first: 100,
+        first: 100, // Daha fazla post çekmek için bu sayıyı artırabilirsiniz
       }
     );
 
     const filteredPosts = data.publication.posts.edges
       .map((edge: { node: PostFragment }) => edge.node)
       .filter(isCatRelated);
-
-    const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
-
-    const paths = Array.from({ length: totalPages }, (_, i) => ({
-      params: { page: (i + 1).toString() },
-    }));
-
-    return { paths, fallback: false };
-  } catch (error) {
-    console.error('Veri alımı sırasında hata oluştu:', error);
-    return { paths: [], fallback: false };
-  }
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  if (!GQL_ENDPOINT) {
-    console.error('GQL_ENDPOINT is not defined');
-    return { props: { allPosts: [], publication: {}, currentPage: 1, totalPages: 1 }, revalidate: 60 };
-  }
-
-  try {
-    const data = await request<GetCatPostsResponse>(
-      GQL_ENDPOINT,
-      GET_CAT_POSTS,
-      {
-        host: process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST || '',
-        first: 100,
-      }
-    );
-
-    const filteredPosts = data.publication.posts.edges
-      .map((edge: { node: PostFragment }) => edge.node)
-      .filter(isCatRelated);
-
-    const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
-    const currentPage = params?.page ? parseInt(params.page as string, 10) : 1;
 
     return {
       props: {
         allPosts: filteredPosts,
         publication: data.publication,
-        currentPage,
-        totalPages,
+        currentPage: 1,
       },
       revalidate: 3600,
     };
   } catch (error) {
     console.error('Veri alımı sırasında hata oluştu:', error);
-    return { props: { allPosts: [], publication: {}, currentPage: 1, totalPages: 1 }, revalidate: 60 };
+    return { props: { allPosts: [], publication: {}, currentPage: 1 }, revalidate: 60 };
   }
 };
