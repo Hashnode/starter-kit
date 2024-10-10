@@ -20,7 +20,7 @@ export const CoverImage = ({ title, src, slug, priority = false, onLoad, classNa
         if (onLoad) onLoad();
     };
 
-    useEffect(() => {
+    useEffect(() => { 
         // Global styles
         const style = document.createElement('style');
         style.textContent = `
