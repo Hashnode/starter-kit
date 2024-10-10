@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { Container } from '../components/container';
 import { MorePosts } from '../components/more-posts';
 import { Navbar } from '../components/navbar';
@@ -124,7 +124,6 @@ type GetDogPostsResponse = {
   const POSTS_PER_PAGE = 12;
   
   export default function KopekPage({ allPosts, publication, currentPage = 1 }: Props) {
-    const router = useRouter();
     const [displayedPosts, setDisplayedPosts] = useState<PostFragment[]>([]);
   
     const dogRelatedPosts = useMemo(() => allPosts.filter(isDogRelated), [allPosts]);
@@ -134,21 +133,6 @@ type GetDogPostsResponse = {
       const endIndex = startIndex + POSTS_PER_PAGE;
       setDisplayedPosts(dogRelatedPosts.slice(startIndex, endIndex));
     }, [currentPage, dogRelatedPosts]);
-  
-  
-    const goToNextPage = () => {
-      const nextPage = currentPage + 1;
-      router.push(`/kopek/sayfa/${nextPage}`);
-    };
-  
-    const goToPreviousPage = () => {
-      const previousPage = currentPage - 1;
-      if (previousPage === 1) {
-        router.push('/kopek');
-      } else {
-        router.push(`/kopek/sayfa/${previousPage}`);
-      }
-    };
   
     const hasMorePosts = currentPage * POSTS_PER_PAGE < dogRelatedPosts.length;
     const hasPreviousPage = currentPage > 1;
@@ -215,60 +199,57 @@ type GetDogPostsResponse = {
               }
             `}
           </script>
-        </Head>
-          <Navbar />
-          <div className="container mx-auto flex flex-col items-stretch gap-10 px-5 pb-10 pt-40">
-            <Container>
-              <h1 className="text-5xl text-gray-900 font-semibold mt-2 mb-5 text-center">Köpekler Hakkında {currentPage > 1 ? `- Sayfa ${currentPage}` : ''}</h1>
-            </Container>
-          </div>
-          <div className="container left-0 right-0 top-0 z-50 mx-auto w-full select-none px-4 py-4 transition-all duration-500 translate-y-0 -mt-32 pt-24 sm:pt-7">
+          </Head>
+        <Navbar />
+        <div className="container mx-auto flex flex-col items-stretch gap-10 px-5 pb-10 pt-40">
           <Container>
-            {displayedPosts.length > 0 ? (
-              <>
-            <MorePosts posts={displayedPosts} context="home" pageType="kopek" />
-                <div className="mt-12 mb-8 flex justify-center space-x-4">
-                  {currentPage === 1 ? (
-                    hasMorePosts && (
-                      <button 
-                        onClick={goToNextPage}
-                        className="px-6 py-3 bg-orng-501 text-white rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:scale-105"
-                      >
-                        Daha Fazla
-                      </button>
-                    )
-                  ) : (
-                    <>
-                      {hasPreviousPage && (
-                        <button 
-                          onClick={goToPreviousPage}
-                          className="px-6 py-3 bg-orng-501 text-white rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:scale-105"
-                        >
-                          ← Önceki Sayfa
-                        </button>
-                      )}
-                      {hasMorePosts && (
-                        <button 
-                          onClick={goToNextPage}
-                          className="px-6 py-3 bg-orng-501 text-white rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:scale-105"
-                        >
-                          Sonraki Sayfa →
-                        </button>
-                      )}
-                    </>
-                  )}
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
+            <h1 className="text-5xl text-gray-900 font-semibold mt-2 mb-5 text-center">Köpekler Hakkında {currentPage > 1 ? `- Sayfa ${currentPage}` : ''}</h1>
           </Container>
-          </div>
-          <Footer />
-        </Layout>
-      </AppProvider>
-    );
-  }
+        </div>
+        <div className="container left-0 right-0 top-0 z-50 mx-auto w-full select-none px-4 py-4 transition-all duration-500 translate-y-0 -mt-32 pt-24 sm:pt-7">
+        <Container>
+          {displayedPosts.length > 0 ? (
+            <>
+              <MorePosts posts={displayedPosts} context="home" pageType="kopek" />
+              <div className="mt-12 mb-8 flex justify-center space-x-4">
+                {currentPage === 1 ? (
+                  hasMorePosts && (
+                    <Link href={`/kopek/sayfa/${currentPage + 1}`}>
+                      <a className="px-6 py-3 bg-orng-501 text-white rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:scale-105">
+                        Daha Fazla
+                      </a>
+                    </Link>
+                  )
+                ) : (
+                  <>
+                    {hasPreviousPage && (
+                      <Link href={currentPage === 2 ? '/kopek' : `/kopek/sayfa/${currentPage - 1}`}>
+                        <a className="px-6 py-3 bg-orng-501 text-white rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:scale-105">
+                          ← Önceki Sayfa
+                        </a>
+                      </Link>
+                    )}
+                    {hasMorePosts && (
+                      <Link href={`/kopek/sayfa/${currentPage + 1}`}>
+                        <a className="px-6 py-3 bg-orng-501 text-white rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition duration-300 ease-in-out transform hover:scale-105">
+                          Sonraki Sayfa →
+                        </a>
+                      </Link>
+                    )}
+                  </>
+                )}
+              </div>
+            </>
+          ) : (
+            <p>Henüz köpek ile ilgili içerik bulunmamaktadır.</p>
+          )}
+        </Container>
+        </div>
+        <Footer />
+      </Layout>
+    </AppProvider>
+  );
+}
   
   export const getStaticProps: GetStaticProps = async () => {
     if (!GQL_ENDPOINT) {
