@@ -549,7 +549,6 @@ export const Navbar: React.FC = () => {
 					</ul>
 					</div>
 				</div>
-				{isMobileMenuOpen && renderMobileMenu()}
 				{/* Right Section: Search and Contact */}
 				<div className="flex items-center">
 					<button onClick={toggleSearch} className="mr-4 text-gray-800 hover:text-gray-600">
