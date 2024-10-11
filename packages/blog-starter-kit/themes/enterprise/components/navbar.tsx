@@ -400,6 +400,28 @@ export const Navbar: React.FC = () => {
 	const renderMobileMenu = () => (
 		<div ref={mobileMenuRef} className="left-0 right-0 top-0 mt-2 rounded-b-xl px-4 py-2 md:hidden">
 			<ul className="mr-4 mt-2 space-y-2">
+			<li>
+					<Link
+						href="/"
+						className="block font-bold text-gray-800 hover:text-gray-700/75"
+						style={{ fontFamily: 'PinkChicken' }}
+						onClick={closeAllMenus}
+						rel="canonical"
+					>
+						Ana Sayfa
+					</Link>
+				</li>
+				<li>
+					<Link
+						href="/iletisim"
+						className="block font-bold text-gray-800 hover:text-gray-700/75"
+						style={{ fontFamily: 'PinkChicken' }}
+						onClick={closeAllMenus}
+						rel="canonical"
+					>
+						İletişim
+					</Link>
+				</li>
 				<li>
 					<button
 						onClick={() => handleMenuClick('cat')}
@@ -450,30 +472,8 @@ export const Navbar: React.FC = () => {
 						</ul>
 					)}
 				</li>
-				<li>
-					<Link
-						href="/"
-						className="block font-bold text-gray-800 hover:text-gray-700/75"
-						style={{ fontFamily: 'PinkChicken' }}
-						onClick={closeAllMenus}
-						rel="canonical"
-					>
-						Ana Sayfa
-					</Link>
-				</li>
-				<li>
-					<Link
-						href="/iletisim"
-						className="block font-bold text-gray-800 hover:text-gray-700/75"
-						style={{ fontFamily: 'PinkChicken' }}
-						onClick={closeAllMenus}
-						rel="canonical"
-					>
-						İletişim
-					</Link>
-				</li>
 			</ul>
-		</div>
+		</div> 
 	);
 
 	return (
