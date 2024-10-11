@@ -78,7 +78,7 @@ export const Navbar: React.FC = () => {
 
 	const handleLogoClick = useCallback(() => {
 		if (typeof navigator !== 'undefined' && navigator.vibrate) {
-		  navigator.vibrate(50); // Vibrate for 50ms
+		  navigator.vibrate(20); // Vibrate for 20ms
 		}
 	  }, []);
 
