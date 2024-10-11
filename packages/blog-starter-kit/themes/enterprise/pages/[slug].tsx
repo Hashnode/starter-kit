@@ -238,7 +238,7 @@ const Post = ({ publication, post, relatedPosts }: PostProps) => {
       <MarkdownToHtml contentMarkdown={post.content.markdown} />
       <ShareButtons url={post.url} title={post.title} />
       <AboutAuthor />
-      <RelatedPosts />
+      <RelatedPosts currentPost={convertToPostFragment(post)} />
     </>
   );
 };
