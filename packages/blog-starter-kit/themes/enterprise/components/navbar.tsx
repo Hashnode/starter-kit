@@ -76,6 +76,12 @@ export const Navbar: React.FC = () => {
 		},
 	];
 
+	const handleLogoClick = useCallback(() => {
+		if (typeof navigator !== 'undefined' && navigator.vibrate) {
+		  navigator.vibrate(50); // Vibrate for 50ms
+		}
+	  }, []);
+
 	const [isMenuHovered, setIsMenuHovered] = useState(false);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 	const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -473,34 +479,34 @@ export const Navbar: React.FC = () => {
 	return (
 		<>
 			<nav
-			ref={navbarRef}
-			className={`container fixed left-0 right-0 top-0 z-50 mx-auto w-full select-none px-4 py-4 pt-7 transition-all duration-500 sm:pt-7 ${
-				isVisible ? 'translate-y-0' : '-translate-y-full'
-			}`}
-			style={{ opacity: 1, zIndex: 2 }}
-			>
-			<div
-				className="mx-auto select-none rounded-xl bg-white/10 px-4 py-4 shadow-md sm:px-6 lg:px-8"
-				style={{ background: 'hsl(30.5, 100%, 87.6%)' }}
-			>
-				<div className="flex items-center justify-between">
-				{/* Logo and Navigation Links Section */}
-				<div className="flex items-center space-x-8">
-					{/* Logo */}
-					<div className="flex-shrink-0">
-					<Link href="/" rel="canonical">
-						<div className="scale-160 relative bottom-4 flex h-[53px] w-[100px] origin-top-left items-center justify-start">
-						<Image
-							src="https://9kelt5xnesj2nkgz.public.blob.vercel-storage.com/file-eYpF3jWI7j8924LUC1AR51hcMjnVNp.png"
-							alt="Ana Sayfa"
-							fill
-							sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-							style={{ objectFit: 'contain' }}
-							loading="eager"
-						/>
-						</div>
-					</Link>
-					</div>
+        ref={navbarRef}
+        className={`container fixed left-0 right-0 top-0 z-50 mx-auto w-full select-none px-4 py-4 pt-7 transition-all duration-500 sm:pt-7 ${
+          isVisible ? 'translate-y-0' : '-translate-y-full'
+        }`}
+        style={{ opacity: 1, zIndex: 2 }}
+      >
+        <div
+          className="mx-auto select-none rounded-xl bg-white/10 px-4 py-4 shadow-md sm:px-6 lg:px-8"
+          style={{ background: 'hsl(30.5, 100%, 87.6%)' }}
+        >
+          <div className="flex items-center justify-between">
+            {/* Logo and Navigation Links Section */}
+            <div className="flex items-center space-x-8">
+              {/* Logo */}
+              <div className="flex-shrink-0">
+                <Link href="/" rel="canonical" onClick={handleLogoClick}>
+                  <div className="scale-160 relative bottom-4 flex h-[53px] w-[100px] origin-top-left items-center justify-start">
+                    <Image
+                      src="https://9kelt5xnesj2nkgz.public.blob.vercel-storage.com/file-eYpF3jWI7j8924LUC1AR51hcMjnVNp.png"
+                      alt="Ana Sayfa"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      style={{ objectFit: 'contain' }}
+                      loading="eager"
+                    />
+                  </div>
+                </Link>
+              </div>
 
 					{/* Navigation Links */}
 					<div className="hidden md:block" style={{ marginLeft: '30%', textWrap: 'nowrap' }}>
@@ -543,7 +549,7 @@ export const Navbar: React.FC = () => {
 					</ul>
 					</div>
 				</div>
-
+				{isMobileMenuOpen && renderMobileMenu()}
 				{/* Right Section: Search and Contact */}
 				<div className="flex items-center">
 					<button onClick={toggleSearch} className="mr-4 text-gray-800 hover:text-gray-600">
