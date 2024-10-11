@@ -57,6 +57,7 @@
 		"graphql-request": "^7.1.0",
 		"html-react-parser": "^5.1.15",
 		"postcss": "^8.4.45",
+		"prettier": "^3.3.3",
 		"remark": "^15.0.1",
 		"remark-html": "^16.0.1",
 		"tailwind-merge": "^2.5.2",
