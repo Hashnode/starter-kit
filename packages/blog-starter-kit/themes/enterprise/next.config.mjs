@@ -4,6 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import TerserPlugin from 'terser-webpack-plugin';
+import prettier from 'prettier';
 
 const ANALYTICS_BASE_URL = 'https://hn-ping2.hashnode.com';
 const HASHNODE_ADVANCED_ANALYTICS_URL = 'https://user-analytics.hashnode.com';
@@ -201,10 +202,28 @@ const config = {
     ignoreBuildErrors: true,
   },
   compiler: {
-    removeConsole: true,
+    removeConsole: isProd ? {
+      exclude: ['error', 'warn'],
+    } : false,
   },
 
   webpack: (config, { dev, isServer }) => {
+    // HTML prettifier için webpack yapılandırması
+    if (!dev && isServer) {
+      const originalEntry = config.entry;
+
+      config.entry = async () => {
+        const entries = await originalEntry();
+        const prettifyPath = path.join(__dirname, 'scripts', 'prettifyHtml.js');
+
+        if (entries['main.js'] && !entries['main.js'].includes(prettifyPath)) {
+          entries['main.js'].unshift(prettifyPath);
+        }
+
+        return entries;
+      };
+    }
+
     if (!dev && !isServer) {
       config.devtool = 'eval-source-map';
       Object.assign(config.resolve.alias, {
@@ -249,7 +268,7 @@ const config = {
         },
       }));
 
-    config.plugins.push(
+      config.plugins.push(
         new BundleAnalyzerPlugin({
           analyzerMode: 'static',
           reportFilename: './bundle-analysis.html',
@@ -281,11 +300,6 @@ const config = {
   },
   generateEtags: true,
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
-  compiler: {
-    removeConsole: isProd ? {
-      exclude: ['error', 'warn'],
-    } : false,
-  },
   optimizeFonts: true,
   compress: true,
   httpAgentOptions: {
