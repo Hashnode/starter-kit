@@ -264,7 +264,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 			<div className="blog-content-wrapper article-main-wrapper container relative z-30 mx-auto grid grid-flow-row grid-cols-8 xl:gap-6 2xl:grid-cols-10">
 				<section className="blog-content-main z-20 col-span-8 mb-10 px-4 md:z-10 lg:col-span-6 lg:col-start-2 lg:px-0 xl:col-span-6 xl:col-start-2 2xl:col-span-6 2xl:col-start-3">
 					<div className="relative">
-						{post.features?.tableOfContents?.isEnabled && <TocRenderDesign list={toc} />}
+						{post.features?.tableOfContents?.isEnabled && post.features?.tableOfContents?.items?.length > 0 && <TocRenderDesign list={toc} />}
 
 						{/* {isPublicationPost && renderPinnedWidgets(props.widgets, 'top')} */}
 

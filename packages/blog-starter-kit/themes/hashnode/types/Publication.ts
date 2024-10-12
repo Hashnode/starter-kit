@@ -53,6 +53,7 @@ export interface Publication {
   favicon?: string;
   fbPixelID?: string;
   fathomSiteID?: string;
+  gTagManagerID?: string;
   fathomCustomDomainEnabled?: boolean;
   fathomCustomDomain?: string;
   hotjarSiteID?: string;
