@@ -43,6 +43,7 @@ fragment Publication on Publication {
 		matomoURL
 		matomoSiteID
 		fathomSiteID
+		gTagManagerID
 		fathomCustomDomain
 		fathomCustomDomainEnabled
 		plausibleAnalyticsEnabled
