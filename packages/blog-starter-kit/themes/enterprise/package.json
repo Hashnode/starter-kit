@@ -11,6 +11,7 @@
 		"typecheck": "tsc"
 	},
 	"dependencies": {
+		"@giscus/react": "^3.0.0",
 		"@graphql-typed-document-node/core": "^3.2.0",
 		"@radix-ui/react-dialog": "^1.0.5",
 		"@radix-ui/react-dropdown-menu": "^2.0.6",
