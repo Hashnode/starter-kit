@@ -13,6 +13,37 @@ directive @requireAuth(scopes: [Scope!]) on FIELD_DEFINITION | OBJECT
 
 directive @validate(message: String, method: ValidationMethod!) on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
 
+input AbsoluteTimeRange {
+  """
+  The start date of the views.
+  The time range will include this date (using >=).
+  
+  Defaults to the unix epoch start (1970-01-01).
+  """
+  from: DateTime
+  """
+  The end date of the views.
+  The time range will include this date (using <=).
+  
+  Defaults to the current date.
+  """
+  to: DateTime
+}
+
+"""The input for accepting an invitation to join a documentation project."""
+input AcceptInviteToDocumentationProjectInput {
+  """The invitation token to accept."""
+  inviteToken: String!
+}
+
+"""Response to accepting an invitation to join a documentation project."""
+type AcceptInviteToDocumentationProjectPayload {
+  """The documentation project that the user has been invited to."""
+  project: DocumentationProject
+  """Signifies the success of the mutation."""
+  success: Boolean!
+}
+
 input AcceptInviteToPublicationInput {
   """The invitation token to accept."""
   inviteToken: String!
@@ -43,6 +74,22 @@ input AddCommentInput {
 
 type AddCommentPayload {
   comment: Comment
+}
+
+input AddDocumentationProjectCustomDomainInput {
+  domain: String!
+  projectId: ID!
+  wwwDomain: Boolean!
+}
+
+type AddDocumentationProjectCustomDomainPayload {
+  """
+  Additional DNS entries required to verify the domain.
+  There are cases where additional records in the DNS config are required to successfully verify the domain.
+  """
+  dnsVerificationEntries: [DnsVerificationEntry!]!
+  project: DocumentationProject
+  wwwRedirectDnsVerificationEntries: [DnsVerificationEntry!]!
 }
 
 input AddPostToSeriesInput {
@@ -184,6 +231,27 @@ input ChangePublicationMemberVisibilityInput {
 type ChangePublicationMemberVisibilityPayload {
   """The updated publication member."""
   member: PublicationMember!
+}
+
+input CheckCustomDomainAvailabilityInput {
+  domain: String!
+  withWWWRedirect: Boolean!
+}
+
+type CheckCustomDomainAvailabilityResult {
+  domainAvailable: Boolean!
+}
+
+type CheckSubdomainAvailabilityResult {
+  subdomainAvailable: Boolean!
+}
+
+"""
+Contains the flag indicating if the collaboration feature is enabled or not.
+"""
+type CollaborationFeature implements Feature {
+  """A flag indicating if the collaboration feature is enabled or not."""
+  isEnabled: Boolean!
 }
 
 """
@@ -803,6 +871,130 @@ input CoverImageOptionsInput {
   stickCoverToBottom: Boolean
 }
 
+input CreateDocumentationApiReferenceInput {
+  name: String
+  projectId: ID!
+  slug: String
+  url: String!
+}
+
+type CreateDocumentationApiReferencePayload {
+  guide: DocumentationApiReference!
+}
+
+input CreateDocumentationGuideInput {
+  name: String!
+  projectId: ID!
+  slug: String
+}
+
+type CreateDocumentationGuidePayload {
+  guide: DocumentationGuide!
+}
+
+input CreateDocumentationLinkInput {
+  guideSlug: String!
+  label: String!
+  projectId: ID!
+  url: String!
+  """
+  The slug of the version the new link should be created in.
+  
+  Defaults to the default version slug.
+  """
+  versionSlug: String
+}
+
+type CreateDocumentationLinkPayload {
+  guide: DocumentationGuide
+  link: DocumentationLink
+}
+
+input CreateDocumentationPageDraftInput {
+  content: String
+  description: String
+  guideSlug: String!
+  label: String = "Untitled Page"
+  """The meta tags for the page."""
+  metaTags: MetaTagsInput
+  parentId: ID
+  projectId: ID!
+  """The slug of the path used to generate the path."""
+  slug: String
+  title: String = "Untitled Page"
+  """
+  The slug of the version the new page should be created in.
+  
+  Defaults to the default version slug.
+  """
+  versionSlug: String
+  """The visibility of the page."""
+  visibility: DocumentationSidebarItemVisibility
+}
+
+type CreateDocumentationPageDraftPayload {
+  guide: DocumentationGuide
+  page: DocumentationPage
+}
+
+"""The input for creating a documentation preview page"""
+input CreateDocumentationPreviewPageInput {
+  """The content of the page"""
+  content: String
+  """The description of the page"""
+  description: String
+  """The format of the page. Could be MDX or MD."""
+  format: DocumentationPageFormat
+  """The ID of the page to create"""
+  id: ID
+  """The label of the page on the sidebar"""
+  label: String!
+  """The meta tags of the page"""
+  metaTags: MetaTagsInput
+  """The nested pages of the page"""
+  pages: [CreateDocumentationPreviewPageInput!]!
+  """The slug of the page used to create the path"""
+  slug: String
+  """The title of the page"""
+  title: String = "Untitled Page"
+  """The visibility of the page"""
+  visibility: DocumentationSidebarItemVisibility
+}
+
+input CreateDocumentationProjectInput {
+  description: String
+  favIconUrl: String
+  links: DocumentationProjectLinksInput
+  logoDarkThemeUrl: String
+  logoUrl: String
+  name: String!
+  settings: DocumentationProjectSettingsInput
+  subdomain: String!
+}
+
+type CreateDocumentationProjectPayload {
+  project: DocumentationProject!
+}
+
+input CreateDocumentationSectionInput {
+  guideSlug: String!
+  label: String = "Untitled Section"
+  projectId: ID!
+  """The slug of the section used to generate the path."""
+  slug: String
+  """
+  The slug of the version the new section should be created in.
+  
+  Defaults to the default version slug.
+  """
+  versionSlug: String
+}
+
+type CreateDocumentationSectionPayload {
+  guide: DocumentationGuide
+  section: DocumentationSection
+}
+
 input CreateDraftInput {
   """Ids of the co-authors of the resulting draft."""
   coAuthors: [ObjectId!]
@@ -1007,6 +1199,11 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 """
 scalar DateTime
 
+enum DefaultDocsTheme {
+  DARK
+  LIGHT
+}
+
 """Input to delete a role based invite."""
 input DeleteRoleBasedInviteInput {
   """The ID of the role based invite."""
@@ -1031,6 +1228,98 @@ enum DeviceType {
   TABLET
 }
 
+"""The input for disabling AI search for a documentation project"""
+input DisableDocumentationProjectAISearchInput {
+  """The ID of the documentation project"""
+  projectId: ID!
+}
+
+"""The response to disabling AI search for a documentation project"""
+type DisableDocumentationProjectAISearchPayload {
+  project: DocumentationProject
+}
+
+input DisableDocumentationProjectHeadlessCmsInput {
+  projectId: ID!
+}
+
+type DisableDocumentationProjectHeadlessCmsPayload {
+  project: DocumentationProject
+}
+
+type DnsVerificationEntry {
+  name: String!
+  type: DnsVerificationType!
+  value: String!
+}
+
+enum DnsVerificationType {
+  A_RECORD
+  CNAME_RECORD
+  TXT_RECORD
+}
+
+enum DocsAnalyticsDimension {
+  API_REFERENCE_GUIDE
+  BROWSER
+  COUNTRY
+  DEVICE_TYPE
+  DOCUMENTATION_GUIDE
+  OPERATING_SYSTEM
+  PAGE
+  PATH
+  REFERRER_HOST
+}
+
+"""
+Contains basic information about the docs custom page.
+Docs custom pages are pages that can be written in mdx and can be added to docs. It can be used for changelog or other such requirements.
+"""
+type DocsCustomPage implements Node {
+  """
+  Content of the docs custom page. Contains mdx version of the docs custom page's content.
+  """
+  content: DocumentationPageContent!
+  """The ID of the docs custom page."""
+  id: ID!
+  """Last modified date of the docs custom page."""
+  lastModified: DateTime!
+  """
+  Information about the docs custom page's Open Graph metadata i.e. image.
+  """
+  ogMetaData: OpenGraphMetaData
+  """
+  Information about the docs custom page's SEO metadata i.e. title and description
+  """
+  seo: SEO
+  """
+  the slug of the docs custom page. Used to access docs custom page. Example `https://mydocs.com/my-page`.
+  """
+  slug: String!
+  """The title of the docs custom page."""
+  title: String!
+  """Visibility of the docs custom page."""
+  visibility: DocumentationSidebarItemVisibility!
+}
+
+type DocsCustomPageConnection implements PageConnection {
+  """A list docs custom pages"""
+  nodes: [DocsCustomPage!]!
+  """Information to aid in pagination."""
+  pageInfo: OffsetPageInfo!
+  """Total number of docs custom pages."""
+  totalDocuments: Int!
+}
+
+type DocsProjectInvitedMembers {
+  email: String!
+  role: DocumentationMemberRole!
+  """
+  Invited Hashnode user, returns null if the user is not a Hashnode user.
+  """
+  user: User
+}
+
 interface DocsViews implements Node {
   id: ID!
   """The aggregated views."""
@@ -1043,9 +1332,51 @@ interface DocsVisitors implements Node {
   total: Int!
 }
 
+type DocumentationApiReference implements IGuide {
+  """
+  The base64 encoded gzip compressed string of the parsed OpenAPI Definition of the API Reference.
+  """
+  definition: String!
+  id: ID!
+  """
+  A guide can be locked if the subscription doesn't cover to having this guide.
+  
+  A locked guide is readonly. It can only be removed or edited after subscribing.
+  """
+  isLocked: Boolean!
+  lastModified: DateTime!
+  name: String!
+  """
+  OG meta-data of the page. Contains image url used in open graph meta tags.
+  """
+  ogMetaData: OpenGraphMetaData
+  """The provider of the guide."""
+  provider: GuideProvider!
+  """URL of the published api reference."""
+  publishedUrl: String
+  """
+  SEO information of the page. Contains title and description used in meta tags.
+  """
+  seo: SEO
+  slug: String!
+  status: DocumentationGuideItemStatus!
+  """
+  URL of the OpenAPI definition used by the default version of this guide.
+  """
+  url: String!
+  """The ID of the default version."""
+  versionId: String
+}
+
 type DocumentationGuide implements IGuide {
   hasChanges: Boolean!
   id: ID!
+  """
+  A guide can be locked if the subscription doesn't cover to having this guide.
+  
+  A locked guide is readonly. It can only be removed or edited after subscribing.
+  """
+  isLocked: Boolean!
   lastModified: DateTime!
   name: String!
   """
@@ -1053,26 +1384,45 @@ type DocumentationGuide implements IGuide {
   """
   ogMetaData: OpenGraphMetaData
   page(id: ID, path: String): DocumentationPage
+  provider: GuideProvider!
   publishedPage(id: ID, path: String): DocumentationPage
+  """Only published sidebar items of the default version of this guide."""
   publishedSidebarItems: [DocumentationSidebarItem!]!
+  redirectedPublishedPage(id: ID, path: String): DocumentationPage
   """
   SEO information of the page. Contains title and description used in meta tags.
   """
   seo: SEO
+  """Sidebar items of the default version of this guide."""
   sidebarItems: [DocumentationSidebarItem!]!
   slug: String!
   status: DocumentationGuideItemStatus!
-  """Url of the published guide."""
+  """
+  URL of the published guide.
+  
+  Example: `https://example.com/my-guide-slug`
+  """
   url: String
+  """The ID of the default version."""
   versionId: String
 }
 
-union DocumentationGuideItem = DocumentationGuide
+union DocumentationGuideItem = DocumentationApiReference | DocumentationGuide
 
 enum DocumentationGuideItemStatus {
   DELETED
   PUBLISHED
   UNPUBLISHED
+}
+
+"""Visibility options for documentation guides."""
+enum DocumentationGuideVisibility {
+  """
+  Not visible in public listings. Only visible to users with access to the project.
+  """
+  HIDDEN
+  """Visible to all users."""
+  PUBLIC
 }
 
 type DocumentationLink implements IDocumentationSidebarItem {
@@ -1085,9 +1435,79 @@ type DocumentationLink implements IDocumentationSidebarItem {
   visibility: DocumentationSidebarItemVisibility!
 }
 
+enum DocumentationMemberRole {
+  ADMIN
+  OWNER
+}
+
+"""A column for the navigation. Used in the footer"""
+type DocumentationNavbarColumn implements Node {
+  """The date the column was created."""
+  createdAt: DateTime!
+  """The ID of the column."""
+  id: ID!
+  """The navigation items in the column."""
+  items: [DocumentationNavbarItem!]!
+  """The label of the column."""
+  label: String!
+  """The date the column was last updated."""
+  updatedAt: DateTime
+}
+
+union DocumentationNavbarItem = DocumentationNavbarItemGuide | DocumentationNavbarItemLink | DocumentationNavbarItemPage
+
+"""A navigation item pointing  to a guide."""
+type DocumentationNavbarItemGuide implements Node {
+  """The date the item was created."""
+  createdAt: DateTime!
+  """The guide the item points to."""
+  guide: DocumentationGuideItem!
+  """The ID of the item."""
+  id: ID!
+  """The label of the item."""
+  label: String!
+  """The date the item was last updated."""
+  updatedAt: DateTime
+}
+
+"""A navigation item pointing to an external URL."""
+type DocumentationNavbarItemLink implements Node {
+  """The date the item was created."""
+  createdAt: DateTime!
+  """The ID of the item."""
+  id: ID!
+  """The label of the item."""
+  label: String!
+  """Indicates if the link should open in a new tab."""
+  openInNewTab: Boolean!
+  """The date the item was last updated."""
+  updatedAt: DateTime
+  """The URL the item points to."""
+  url: String!
+}
+
+"""A navigation item pointing to an custom page"""
+type DocumentationNavbarItemPage implements Node {
+  """The date the item was created."""
+  createdAt: DateTime!
+  """The ID of the item."""
+  id: ID!
+  """The label of the item."""
+  label: String!
+  """Indicates if the page should open in a new tab."""
+  openInNewTab: Boolean!
+  """The page this item points to."""
+  page: DocsCustomPage!
+  """The date the item was last updated."""
+  updatedAt: DateTime
+}
+
 type DocumentationPage {
+  content: DocumentationPageContent!
   createdAt: DateTime!
   description: String
+  draft: DocumentationPageDraft!
+  format: DocumentationPageFormat!
   guideSlug: String!
   id: ID!
   """
@@ -1102,9 +1522,374 @@ type DocumentationPage {
   status: DocumentationSidebarItemStatus!
   title: String!
   updatedAt: DateTime
-  """Url of the published page."""
+  """URL of the published page."""
   url: String
   visibility: DocumentationSidebarItemVisibility!
+}
+
+type DocumentationPageContent {
+  md: String
+  mdx: String
+}
+
+type DocumentationPageDraft {
+  content: DocumentationPageContent!
+  description: String
+  title: String!
+}
+
+enum DocumentationPageFormat {
+  MD
+  MDX
+}
+
+type DocumentationProject implements Node {
+  ai: DocumentationProjectAIPreference
+  analytics: DocumentationProjectAnalytics!
+  appearance: DocumentationProjectAppearance!
+  createdAt: DateTime!
+  """Returns a custom page with the given slug."""
+  customPage(
+    """The slug of the docs custom page to retrieve."""
+    slug: String!
+  ): DocsCustomPage
+  """Returns a list of custom pages belonging to the project."""
+  customPages(
+    """The page number that should be returned."""
+    page: Int!
+    """The number of custom pages to return in a single page."""
+    pageSize: Int!
+  ): DocsCustomPageConnection!
+  defaultGuide: DocumentationGuideItem
+  description: String
+  domain: DocumentationProjectDomainSettings
+  """
+  Object containing information about beta features enabled for the documentation project.
+  """
+  features: DocumentationProjectFeatures!
+  guide(id: ID, slug: String): DocumentationGuideItem
+  guides: [DocumentationGuideItem!]!
+  id: ID!
+  integrations: DocumentationProjectIntegrations
+  links: DocumentationProjectLinks!
+  members: [DocumentationProjectMember!]! @deprecated(reason: "Use membersV2")
+  membersV2(
+    """Filters to be applied to the member list."""
+    filter: DocumentationProjectMemberConnectionFilter
+    """The page number that should be returned."""
+    page: Int!
+    """The number of members to return on a single page."""
+    pageSize: Int!
+  ): DocumentationProjectMemberConnection!
+  name: String!
+  """The navigation configuration for the documentation project."""
+  navigation: DocumentationProjectNavigation!
+  """The Owner of the documentation project."""
+  owner: User!
+  """
+  Details of publication invites. Returns null if publication is not a team publication.
+  """
+  pendingInvites(
+    """The page number that should be returned."""
+    page: Int!
+    """The number of pending invites to return on a single page."""
+    pageSize: Int!
+  ): DocumentationProjectPendingInviteConnection!
+  publishedGuide(id: ID, slug: String): DocumentationGuideItem
+  publishedGuides: [DocumentationGuideItem!]!
+  """A user search to find users with a specific status"""
+  searchUsers(input: DocumentationProjectSearchUsersInput!): DocumentationProjectSearchUserConnection!
+  settings: DocumentationProjectSettings!
+  subscription: DocumentationProjectSubscription
+  updatedAt: DateTime
+  """URL of the documentation project."""
+  url: String!
+}
+
+type DocumentationProjectAIPreference {
+  """
+  The prompts for the documentation project. These prompts are shown to the user when AI Search chatbot is opened.
+  """
+  prompts: [DocumentationProjectAIPrompt!]!
+  """The settings for the AI feature."""
+  settings: DocumentationProjectAISettings!
+}
+
+type DocumentationProjectAIPrompt {
+  """The date the prompt was created."""
+  createdAt: DateTime!
+  """The ID of the prompt."""
+  id: ID!
+  """The prompt text."""
+  prompt: String!
+}
+
+type DocumentationProjectAISettings {
+  """A flag to indicate if the AI search feature is enabled."""
+  isSearchEnabled: Boolean!
+}
+
+type DocumentationProjectAnalytics {
+  views(
+    """A cursor to the last item of the previous page."""
+    after: String
+    filter: ProjectViewsFilter
+    """The number of view nodes to be returned per page."""
+    first: Int!
+    groupBy: ProjectViewsGroupBy
+    options: ProjectViewsOptions
+    sortBy: ProjectViewsSortBy
+  ): ProjectViewsConnection
+  visitors(
+    """A cursor to the last item of the previous page."""
+    after: String
+    filter: ProjectVisitorsFilter
+    """The number of view nodes to be returned per page."""
+    first: Int!
+    groupBy: ProjectVisitorsGroupBy
+    options: ProjectVisitorsOptions
+  ): ProjectVisitorsConnection!
+}
+
+type DocumentationProjectAppearance {
+  customScript: String
+  defaultDocsTheme: DefaultDocsTheme!
+  favIconUrl: String
+  getStarted: DocumentationProjectGetStarted
+  logoDarkThemeUrl: String
+  logoUrl: String
+  primaryColor: String
+}
+
+input DocumentationProjectAppearanceInput {
+  customScript: String
+  defaultDocsTheme: DefaultDocsTheme
+  favIconUrl: String
+  getStarted: DocumentationProjectGetStartedInput
+  logoDarkThemeUrl: String
+  logoUrl: String
+  primaryColor: String
+}
+
+type DocumentationProjectCustomDomain {
+  domain: String!
+  status: CustomDomainStatus!
+  verifiedAt: DateTime
+  wwwDomain: DocumentationProjectCustomWwwDomain
+}
+
+type DocumentationProjectCustomWwwDomain {
+  status: CustomDomainStatus!
+  verifiedAt: DateTime
+}
+
+type DocumentationProjectDomainSettings {
+  customDomain: DocumentationProjectCustomDomain
+  hashnodeSubDomain: String!
+}
+
+"""Contains the documentation project's beta features."""
+type DocumentationProjectFeatures {
+  """
+  Collaboration feature for the docs project which enables collaborative editing in the page editor.
+  """
+  collaboration: CollaborationFeature!
+  """
+  GitHub sync feature for the docs project which enables syncing the docs project with a GitHub repository.
+  """
+  ghSync: GitHubSyncFeature!
+}
+
+type DocumentationProjectGetStarted {
+  label: String!
+  url: URL!
+}
+
+input DocumentationProjectGetStartedInput {
+  label: String
+  url: URL
+}
+
+type DocumentationProjectIntegrations {
+  """FB Pixel ID for integration with Facebook Pixel."""
+  fbPixelID: String
+  """Google Tag Manager ID for integration with Google Tag Manager."""
+  gTagManagerID: String
+  """Google Analytics Tracking ID for integration with Google Analytics."""
+  gaTrackingID: String
+  """Hotjar Site ID for integration with Hotjar."""
+  hotjarSiteID: String
+  """Intercom ID for integration with Intercom"""
+  intercomID: String
+  """The meta tags associated with the documentation project."""
+  metaTags: String
+}
+
+input DocumentationProjectIntegrationsInput {
+  fbPixelID: String
+  gTagManagerID: String
+  gaTrackingID: String
+  hotjarSiteID: String
+  intercomID: String
+  metaTags: String
+}
+
+"""Contains the pending invite information."""
+type DocumentationProjectInvite implements Node {
+  """The ID of the pending invite."""
+  id: ID!
+  """The role assigned to the user in the publication."""
+  role: DocumentationMemberRole!
+  """
+  Invited Hashnode user, returns null if the user is not a Hashnode user.
+  """
+  user: User!
+}
+
+type DocumentationProjectLinks {
+  """Daily.dev URL of the documentation project."""
+  dailydev: String
+  """GitHub URL of the documentation project."""
+  github: String
+  """The GitHub repository of the documentation project."""
+  githubRepository: String
+  """Hashnode profile of author of the documentation project."""
+  hashnode: String
+  """Instagram URL of the documentation project."""
+  instagram: String
+  """LinkedIn URL of the documentation project."""
+  linkedin: String
+  """Mastodon URL of the documentation project."""
+  mastodon: String
+  """Twitter URL of the documentation project."""
+  twitter: String
+  """Website URL of the documentation project."""
+  website: String
+  """YouTube URL of the documentation project."""
+  youtube: String
+}
+
+input DocumentationProjectLinksInput {
+  dailydev: String
+  github: String
+  githubRepository: String
+  hashnode: String
+  instagram: String
+  linkedin: String
+  mastodon: String
+  twitter: String
+  website: String
+  youtube: String
+}
+
+type DocumentationProjectMember {
+  """The role of the member in the documentation project."""
+  role: DocumentationMemberRole!
+  """The user who is a member of the documentation project."""
+  user: User!
+}
+
+type DocumentationProjectMemberConnection implements PageConnection {
+  """A list of members."""
+  nodes: [DocumentationProjectMemberV2!]!
+  """Information to aid in pagination."""
+  pageInfo: OffsetPageInfo!
+  """Total number of nodes available i.e. number of members."""
+  totalDocuments: Int!
+}
+
+"""The filter for the documentation member connection."""
+input DocumentationProjectMemberConnectionFilter {
+  """
+  Search filter can be used to filter members by their username or email.
+  """
+  searchTerm: String
+}
+
+type DocumentationProjectMemberV2 implements Node {
+  """The ID of the member."""
+  id: ID!
+  """The role of the member in the documentation project."""
+  role: DocumentationMemberRole!
+  """The user who is a member of the documentation project."""
+  user: User!
+}
+
+"""
+Contains the header and footer navigation for the documentation project.
+"""
+type DocumentationProjectNavigation {
+  """The columns in the footer navigation."""
+  footer: [DocumentationNavbarColumn!]!
+  """The items in the header navigation."""
+  header: [DocumentationNavbarItem!]!
+}
+
+"""A connection for the user search result."""
+type DocumentationProjectPendingInviteConnection implements PageConnection {
+  """A list of invites"""
+  nodes: [DocumentationProjectInvite!]!
+  """Information to aid in pagination."""
+  pageInfo: OffsetPageInfo!
+  """The total number of invites."""
+  totalDocuments: Int!
+}
+
+enum DocumentationProjectProductName {
+  ENTERPRISE
+  STARTUP
+}
+
+"""A connection for the user search result."""
+type DocumentationProjectSearchUserConnection implements PageConnection {
+  """The edges containing the user and the status of the user."""
+  edges: [DocumentationProjectSearchUserEdge!]!
+  """A list user nodes."""
+  nodes: [User!]!
+  """Information to aid in pagination."""
+  pageInfo: OffsetPageInfo!
+  """Total number of nodes available i.e. number of user search results."""
+  totalDocuments: Int!
+}
+
+type DocumentationProjectSearchUserEdge implements PageEdge {
+  node: User!
+  status: UserInviteStatus!
+}
+
+input DocumentationProjectSearchUsersInput {
+  """The page number that should be returned."""
+  page: Int!
+  """The number of users to return on a single page."""
+  pageSize: Int!
+  searchTerm: String!
+  status: UserInviteStatus!
+}
+
+type DocumentationProjectSettings {
+  isHashnodeLoginAllowed: Boolean!
+  """A flag to indicate if the documentation project is using Headless CMS."""
+  isHeadless: Boolean!
+  isRobotsAllowed: Boolean!
+}
+
+input DocumentationProjectSettingsInput {
+  allowHashnodeLogin: Boolean
+  allowRobots: Boolean
+}
+
+type DocumentationProjectSubscription {
+  maxSeats: Int!
+  nextBillingCycle: DateTime
+  productName: DocumentationProjectProductName!
+  status: DocumentationProjectSubscriptionStatus!
+}
+
+enum DocumentationProjectSubscriptionStatus {
+  ACTIVE
+  CANCELED
+  PAST_DUE
+  UNPAID
 }
 
 type DocumentationSection implements IDocumentationNestableSidebarItem & IDocumentationSidebarItem {
@@ -1112,6 +1897,7 @@ type DocumentationSection implements IDocumentationNestableSidebarItem & IDocume
   id: ID!
   label: String!
   pages: [DocumentationSidebarItemPage!]!
+  path: String!
   status: DocumentationSidebarItemStatus!
   updatedAt: DateTime
   visibility: DocumentationSidebarItemVisibility!
@@ -1128,7 +1914,7 @@ type DocumentationSidebarItemPage implements IDocumentationNestableSidebarItem &
   path: String!
   status: DocumentationSidebarItemStatus!
   updatedAt: DateTime
-  """Url of the published page."""
+  """URL of the published page."""
   url: String
   visibility: DocumentationSidebarItemVisibility!
 }
@@ -1219,6 +2005,10 @@ type Draft implements Node {
   """The publication the draft belongs to."""
   publication: Publication
   publishAs: User
+  """
+  Returns the published post when the draft is published, returns null otherwise
+  """
+  publishedPost: Post
   readTimeInMinutes: Int!
   """The date the draft is scheduled to be published."""
   scheduledDate: DateTime
@@ -1403,6 +2193,25 @@ type EmailNotificationPreferences {
   weeklyNewsletterEmails: Boolean!
 }
 
+"""The input for enabling AI search for a documentation project"""
+input EnableDocumentationProjectAISearchInput {
+  """The ID of the documentation project"""
+  projectId: ID!
+}
+
+"""The response to enabling AI search for a documentation project"""
+type EnableDocumentationProjectAISearchPayload {
+  project: DocumentationProject
+}
+
+input EnableDocumentationProjectHeadlessCmsInput {
+  projectId: ID!
+}
+
+type EnableDocumentationProjectHeadlessCmsPayload {
+  project: DocumentationProject
+}
+
 """Invitations that failed to be sent to the user"""
 type FailedInvite {
   """The email of the user that failed to invite."""
@@ -1474,9 +2283,91 @@ enum FeedType {
   RELEVANT
 }
 
+input FollowTagsInput {
+  """List of tag ids to follow."""
+  ids: [ID!]!
+}
+
+type FollowTagsPayload {
+  """List of tags followed by the user."""
+  tags: [Tag!]
+}
+
 type GPTBotCrawlingFeature implements Feature {
   """A flag indicating if the GPT Bot Crawler feature is enabled or not."""
   isEnabled: Boolean!
+}
+
+"""
+The input for the exchange of token to a JWT to preview token for a documentation project.
+"""
+input GenerateDocumentationProjectPreviewAuthorizationTokenInput {
+  token: String!
+}
+
+"""
+The payload for the exchange of token to a JWT to preview token for a documentation project.
+"""
+type GenerateDocumentationProjectPreviewAuthorizationTokenPayload {
+  """The JWT that can be used to preview the documentation project."""
+  authorizationToken: String
+  """
+  The project for which the JWT is generated. With this request, authenticated fields are not accessible.
+  """
+  project: DocumentationProject
+}
+
+"""
+The input for the generation of a exchangeable preview token for a documentation project.
+"""
+input GenerateDocumentationProjectPreviewTokenInput {
+  projectId: ID!
+}
+
+"""
+The payload for the generation of a exchangeable preview token for a documentation project.
+"""
+type GenerateDocumentationProjectPreviewTokenPayload {
+  """The project for which the token is generated."""
+  project: DocumentationProject
+  """
+  The token that can be exchanged for a JWT to preview the documentation project.
+  """
+  token: String
+}
+
+type GitHubActivityLog implements Node {
+  """The branch name that the commit belongs to."""
+  branchName: String!
+  """The date the log was created."""
+  createdAt: DateTime!
+  """The commit ID."""
+  gitCommitId: String!
+  """The commit message."""
+  gitCommitMessage: String!
+  """The commit URL."""
+  gitCommitUrl: String!
+  """The ID of the log."""
+  id: ID!
+  """The status of the sync."""
+  status: GitHubSyncStatus!
+}
+
+"""
+Contains the flag indicating if the GitHub sync feature is enabled or not.
+"""
+type GitHubSyncFeature implements Feature {
+  """A flag indicating if the GitHub sync feature is enabled or not."""
+  isEnabled: Boolean!
+}
+
+enum GitHubSyncStatus {
+  """The sync is in progress"""
+  BUILDING
+  """The sync failed"""
+  FAILED
+  """The sync is complete"""
+  READY
 }
 
 """Views implementation that will be returned if grouping by browser."""
@@ -1638,7 +2529,7 @@ type GroupedByDocsOperatingSystemVisitors implements DocsVisitors & Node {
 type GroupedByDocsPageViews implements DocsViews & Node {
   id: ID!
   """The page that these views belong to."""
-  page: DocumentationPage!
+  page: DocumentationPage
   """The aggregated views."""
   total: Int!
 }
@@ -1649,7 +2540,7 @@ Visitors implementation that will be returned if grouping by docs page.
 type GroupedByDocsPageVisitors implements DocsVisitors & Node {
   id: ID!
   """The page that these views belong to."""
-  page: DocumentationPage!
+  page: DocumentationPage
   """The aggregated number of visitors."""
   total: Int!
 }
@@ -1838,6 +2729,17 @@ type GroupedByTimeVisitors implements Node & Visitors {
   total: Int!
 }
 
+enum GuideProvider {
+  GITHUB
+  HASHNODE
+}
+
+enum GuideVersionStatus {
+  DEPRECATED
+  STABLE
+  UNSTABLE
+}
+
 type HeadlessCMSFeature implements Feature {
   """A flag indicating if the Headless CMS feature is enabled or not."""
   isEnabled: Boolean!
@@ -1864,10 +2766,54 @@ interface IDocumentationSidebarItem {
 
 interface IGuide {
   id: ID!
+  """
+  A guide can be locked if the subscription doesn't cover to having this guide.
+  
+  A locked guide is readonly. It can only be removed or edited after subscribing.
+  """
+  isLocked: Boolean!
   lastModified: DateTime!
   name: String!
+  """
+  OG meta-data of the page. Contains image url used in open graph meta tags.
+  """
+  ogMetaData: OpenGraphMetaData
+  provider: GuideProvider!
+  """
+  SEO information of the page. Contains title and description used in meta tags.
+  """
+  seo: SEO
   slug: String!
+  status: DocumentationGuideItemStatus!
+  """The ID of the default version."""
   versionId: String
+}
+
+interface IGuideVersion {
+  """Internal code name for the version."""
+  codeName: String
+  """Timestamp of when the version was created."""
+  createdAt: DateTime!
+  """The version that this version was forked from."""
+  forkedFrom: IGuideVersion
+  """Unique identifier for the guide version."""
+  id: ID!
+  """
+  Indicates if this is the default version.
+  
+  There is always exactly one default version at a given time.
+  """
+  isDefault: Boolean!
+  """Display name of the version."""
+  name: String!
+  """URL-friendly identifier for the version."""
+  slug: String!
+  """Status of the guide version."""
+  status: GuideVersionStatus!
+  """Timestamp of the last update to the version."""
+  updatedAt: DateTime
+  """Visibility of the guide version."""
+  visibility: DocumentationGuideVisibility!
 }
 
 """
@@ -1968,6 +2914,8 @@ interface IUser {
     filter: UserPublicationsConnectionFilter
     """The maximum number of publications to return in a batch."""
     first: Int!
+    """The sort direction for the publication."""
+    sortBy: UserPublicationsSort = DATE_CREATED_DESC
   ): UserPublicationsConnection!
   """The social media links of the user. Shown on the user's profile."""
   socialMediaLinks: SocialMediaLinks
@@ -1988,6 +2936,20 @@ interface IUser {
   The username of the user. It is unique and tied with user's profile URL. Example - https://hashnode.com/@username
   """
   username: String!
+}
+
+input InviteDocumentationProjectAdminInput {
+  invites: [InviteDocumentationProjectAdminInputEmail!]!
+  projectId: ID!
+}
+
+input InviteDocumentationProjectAdminInputEmail {
+  userId: ID!
+}
+
+type InviteDocumentationProjectAdminPayload {
+  invitedMembers: [DocsProjectInvitedMembers!]
+  project: DocumentationProject
 }
 
 """Input to invite users to a publication."""
@@ -2036,6 +2998,19 @@ type LikeReplyPayload {
   reply: Reply
 }
 
+input MapDocumentationProjectCustomDomainWwwRedirectInput {
+  projectId: ID!
+}
+
+type MapDocumentationProjectCustomDomainWwwRedirectPayload {
+  """
+  Additional DNS entries required to verify the www redirect domain.
+  There are cases where additional records in the DNS config are required to successfully verify the domain.
+  """
+  dnsVerificationEntries: [DnsVerificationEntry!]!
+  project: DocumentationProject
+}
+
 """Contains information about meta tags. Used for SEO purpose."""
 input MetaTagsInput {
   """The description of the post used in og:description for SEO."""
@@ -2046,7 +3021,21 @@ input MetaTagsInput {
   title: String
 }
 
+input MoveDocumentationSidebarItemInput {
+  guideSlug: String!
+  itemId: ID!
+  parentId: ID
+  position: Int
+  projectId: ID!
+}
+
+type MoveDocumentationSidebarItemPayload {
+  guide: DocumentationGuide
+}
+
 type Mutation {
+  """Mutation to accept an invite to a documentation project"""
+  acceptInviteToDocumentationProject(input: AcceptInviteToDocumentationProjectInput!): AcceptInviteToDocumentationProjectPayload!
   """
   Accepts an invitation to join a publication. The user is added as a member of the publication.
   """
@@ -2057,6 +3046,7 @@ type Mutation {
   acceptRoleBasedInvite(input: AcceptRoleBasedInviteInput!): AcceptRoleBasedInvitePayload!
   """Adds a comment to a post."""
   addComment(input: AddCommentInput!): AddCommentPayload!
+  addDocumentationProjectCustomDomain(input: AddDocumentationProjectCustomDomainInput!): AddDocumentationProjectCustomDomainPayload!
   """Adds a post to a series."""
   addPostToSeries(input: AddPostToSeriesInput!): AddPostToSeriesPayload!
   """Adds a reply to a comment."""
@@ -2069,6 +3059,12 @@ type Mutation {
   PRIVATE members are not visible on the members page while PUBLIC members are visible.
   """
   changePublicationMemberVisibility(input: ChangePublicationMemberVisibilityInput!): ChangePublicationMemberVisibilityPayload!
+  createDocumentationApiReference(input: CreateDocumentationApiReferenceInput!): CreateDocumentationApiReferencePayload!
+  createDocumentationGuide(input: CreateDocumentationGuideInput!): CreateDocumentationGuidePayload!
+  createDocumentationLink(input: CreateDocumentationLinkInput!): CreateDocumentationLinkPayload!
+  createDocumentationPageDraft(input: CreateDocumentationPageDraftInput!): CreateDocumentationPageDraftPayload!
+  createDocumentationProject(input: CreateDocumentationProjectInput!): CreateDocumentationProjectPayload!
+  createDocumentationSection(input: CreateDocumentationSectionInput!): CreateDocumentationSectionPayload!
   """Creates a new draft for a post."""
   createDraft(
     """Information about the draft to be created."""
@@ -2085,6 +3081,25 @@ type Mutation {
   """Deletes a role based invite."""
   deleteRoleBasedInvite(input: DeleteRoleBasedInviteInput!): DeleteRoleBasedInvitePayload!
   deleteWebhook(id: ID!): DeleteWebhookPayload!
+  """Mutation to disable AI search for a documentation project"""
+  disableDocumentationProjectAISearch(input: DisableDocumentationProjectAISearchInput!): DisableDocumentationProjectAISearchPayload!
+  disableDocumentationProjectHeadlessCms(input: DisableDocumentationProjectHeadlessCmsInput!): DisableDocumentationProjectHeadlessCmsPayload!
+  """Mutation to enable AI search for a documentation project"""
+  enableDocumentationProjectAISearch(input: EnableDocumentationProjectAISearchInput!): EnableDocumentationProjectAISearchPayload!
+  enableDocumentationProjectHeadlessCms(input: EnableDocumentationProjectHeadlessCmsInput!): EnableDocumentationProjectHeadlessCmsPayload!
+  followTags(input: FollowTagsInput!): FollowTagsPayload!
+  """
+  Will generate a authorization JWT to preview a docs project.
+  A token is required to generate the JWT.
+  """
+  generateDocumentationProjectPreviewAuthorizationToken(input: GenerateDocumentationProjectPreviewAuthorizationTokenInput!): GenerateDocumentationProjectPreviewAuthorizationTokenPayload!
+  """
+  Will generate a token that can be exchanged as a JWT to preview a docs project.
+  Only the owner or editors of the project can generate the token.
+  """
+  generateDocumentationProjectPreviewToken(input: GenerateDocumentationProjectPreviewTokenInput!): GenerateDocumentationProjectPreviewTokenPayload!
+  """Mutation to invite an user to a documentation project"""
+  inviteDocumentationProjectAdmin(input: InviteDocumentationProjectAdminInput!): InviteDocumentationProjectAdminPayload!
   """Invites users to a publication. Either by username or email."""
   inviteUsersToPublication(input: InviteUsersToPublicationInput!): InviteUsersToPublicationPayload!
   """Likes a comment."""
@@ -2093,6 +3108,12 @@ type Mutation {
   likePost(input: LikePostInput!): LikePostPayload!
   """Likes a reply."""
   likeReply(input: LikeReplyInput!): LikeReplyPayload!
+  mapDocumentationProjectCustomDomainWwwRedirect(input: MapDocumentationProjectCustomDomainWwwRedirectInput!): MapDocumentationProjectCustomDomainWwwRedirectPayload!
+  moveDocumentationSidebarItem(input: MoveDocumentationSidebarItemInput!): MoveDocumentationSidebarItemPayload!
+  publishDocumentationApiReference(input: PublishDocumentationApiReferenceInput!): PublishDocumentationApiReferencePayload!
+  """Publishes the default version of the guide."""
+  publishDocumentationGuide(input: PublishDocumentationGuideInput!): PublishDocumentationGuidePayload! @deprecated(reason: "Use `publishDocumentationGuideVersion` instead")
+  publishDocumentationPageDraft(input: PublishDocumentationPageDraftInput!): PublishDocumentationPageDraftPayload!
   """Publishes an existing draft as a post."""
   publishDraft(
     """Information about the draft to be published."""
@@ -2110,6 +3131,18 @@ type Mutation {
   reinviteUserToPublication(input: ReinviteUserToPublicationInput!): ReinviteUserToPublicationPayload!
   """Removes a comment from a post."""
   removeComment(input: RemoveCommentInput!): RemoveCommentPayload!
+  removeDocumentationGuide(input: RemoveDocumentationGuideInput!): RemoveDocumentationGuidePayload!
+  """
+  Mutation to remove a documentation project.
+  This will free the custom domain and subdomain and removes all guides and pages.
+  """
+  removeDocumentationProject(input: RemoveDocumentationProjectInput!): RemoveDocumentationProjectPayload!
+  """Mutation to remove a prompt from the AI search"""
+  removeDocumentationProjectAIPrompt(input: RemoveDocumentationProjectAIPromptInput!): RemoveDocumentationProjectAIPromptPayload!
+  removeDocumentationProjectCustomDomain(input: RemoveDocumentationProjectCustomDomainInput!): RemoveDocumentationProjectCustomDomainPayload!
+  """Mutation to remove a Member from a Documentation Project"""
+  removeDocumentationProjectMember(input: RemoveDocumentationProjectMemberInput!): RemoveDocumentationProjectMemberPayload!
+  removeDocumentationSidebarItem(input: RemoveDocumentationSidebarItemInput!): RemoveDocumentationSidebarItemPayload!
   """Removes a post."""
   removePost(input: RemovePostInput!): RemovePostPayload!
   """Removes a user from a teams publication."""
@@ -2120,18 +3153,27 @@ type Mutation {
   removeReply(input: RemoveReplyInput!): RemoveReplyPayload!
   """Removes a series."""
   removeSeries(input: RemoveSeriesInput!): RemoveSeriesPayload!
+  renameDocumentationGuide(input: RenameDocumentationGuideItemInput!): RenameDocumentationGuideItemPayload!
+  renameDocumentationSidebarItem(input: RenameDocumentationSidebarItemInput!): RenameDocumentationSidebarItemPayload!
   """Reschedule a draft."""
   rescheduleDraft(input: RescheduleDraftInput!): RescheduleDraftPayload!
   resendWebhookRequest(input: ResendWebhookRequestInput!): ResendWebhookRequestPayload!
   """Restores a deleted post."""
   restorePost(input: RestorePostInput!): RestorePostPayload!
+  retryDocumentationProjectCustomDomainVerification(input: RetryDocumentationProjectCustomDomainVerificationInput!): RetryDocumentationProjectCustomDomainVerificationPayload!
+  """Mutation to revoke documentation project invite"""
+  revokeInviteToDocumentationProject(input: RevokeInviteToDocumentationProjectInput!): RevokeInviteToDocumentationProjectPayload!
   """Revokes a user invitation that was sent to join a publication."""
   revokeUserInviteToPublication(input: RevokeUserInviteToPublicationInput!): RevokeUserInviteToPublicationPayload!
+  saveDocumentationPageDraftContent(input: SaveDocumentationPageDraftContentInput!): SaveDocumentationPageDraftContentPayload!
   scheduleDraft(
     """Information about the draft to be published."""
     input: ScheduleDraftInput!
   ): ScheduleDraftPayload!
+  setDocumentationSidebarItemVisibility(input: SetDocumentationSidebarItemVisibilityInput!): SetDocumentationSidebarItemVisibilityPayload!
   subscribeToNewsletter(input: SubscribeToNewsletterInput!): SubscribeToNewsletterPayload!
+  """Mutation to sync documentation API reference definition"""
+  syncDocumentationProjectApiDefinition(input: SyncDocumentationProjectApiDefinitionInput!): SyncDocumentationProjectApiDefinitionPayload!
   """
   Toggle allowContributorEdits flag to allow or restrict external contributors to further edit published articles.
   """
@@ -2152,9 +3194,21 @@ type Mutation {
   """Toggle text selection sharer feature."""
   toggleTextSelectionSharer(input: ToggleTextSelectionSharerInput!): ToggleTextSelectionSharerPayload!
   triggerWebhookTest(input: TriggerWebhookTestInput!): TriggerWebhookTestPayload!
+  unfollowTags(input: UnfollowTagsInput!): UnfollowTagsPayload!
   unsubscribeFromNewsletter(input: UnsubscribeFromNewsletterInput!): UnsubscribeFromNewsletterPayload!
   """Updates a comment on a post."""
   updateComment(input: UpdateCommentInput!): UpdateCommentPayload!
+  updateDocumentationAppearance(input: UpdateDocumentationAppearanceInput!): UpdateDocumentationAppearancePayload!
+  updateDocumentationGeneralSettings(input: UpdateDocumentationGeneralSettingsInput!): UpdateDocumentationGeneralSettingsPayload!
+  updateDocumentationGuide(input: UpdateDocumentationGuideInput!): UpdateDocumentationGuidePayload!
+  updateDocumentationIntegrations(input: UpdateDocumentationIntegrationsInput!): UpdateDocumentationIntegrationsPayload!
+  updateDocumentationLink(input: UpdateDocumentationLinkInput!): UpdateDocumentationLinkPayload!
+  updateDocumentationPageSettings(input: UpdateDocumentationPageSettingsInput!): UpdateDocumentationPageSettingsPayload!
+  """Mutation to update the AI search prompts"""
+  updateDocumentationProjectAIPrompt(input: UpdateDocumentationProjectAIPromptInput!): UpdateDocumentationProjectAIPromptPayload!
+  updateDocumentationProjectSubdomain(input: UpdateDocumentationProjectSubdomainInput!): UpdateDocumentationProjectSubdomainPayload!
+  """Mutation to update a section in a guide"""
+  updateDocumentationSection(input: UpdateDocumentationSectionInput!): UpdateDocumentationSectionPayload!
   updatePost(input: UpdatePostInput!): UpdatePostPayload!
   updateRedirectionRule(input: UpdateRedirectionRuleInput!): UpdateRedirectionRulePayload!
   """Updates a reply"""
@@ -2164,6 +3218,7 @@ type Mutation {
   """Updates a series."""
   updateSeries(input: UpdateSeriesInput!): UpdateSeriesPayload!
   updateWebhook(input: UpdateWebhookInput!): UpdateWebhookPayload!
+  verifyDocumentationProjectCustomDomain(input: VerifyDocumentationProjectCustomDomainInput!): VerifyDocumentationProjectCustomDomainPayload!
 }
 
 """
@@ -2255,6 +3310,8 @@ type MyUser implements IUser & Node {
     filter: UserPublicationsConnectionFilter
     """The maximum number of publications to return in a batch."""
     first: Int!
+    """The sort direction for the publication."""
+    sortBy: UserPublicationsSort = DATE_CREATED_DESC
   ): UserPublicationsConnection!
   """Returns the user's role if any."""
   role: UserRole!
@@ -2382,6 +3439,15 @@ interface PageConnection {
   nodes: [Node!]!
   """Information to aid in pagination."""
   pageInfo: OffsetPageInfo!
+}
+
+"""
+An edge that contains a node and is used in page based pagination.
+This is a common interface for all edges in page based pagination.
+"""
+interface PageEdge {
+  """A node in the connection."""
+  node: Node!
 }
 
 """Contains information to help in pagination."""
@@ -2835,9 +3901,212 @@ type ProjectViewEdge implements Edge {
   node: DocsViews!
 }
 
+type ProjectViewsConnection implements Connection {
+  edges: [ProjectViewEdge!]!
+  pageInfo: PageInfo!
+}
+
+"""
+Filter for project views.
+
+Individual filters are combined with an AND condition whereas multiple values for the same filter are combined with an OR condition.
+
+Example: `documentationGuideIds: ["1", "2"], operatingSystems: ["Mac OS"]` will return views for posts with ID 1 or 2 AND operating system Mac OS.
+"""
+input ProjectViewsFilter {
+  """
+  Filter by one or multiple api reference guide IDs.
+  
+  If multiple IDs are provided, the filter will be applied as an OR condition.
+  """
+  apiReferenceGuideIds: [ID!]
+  """
+  Filter by one or multiple browsers.
+  
+  If multiple browsers are provided, the filter will be applied as an OR condition.
+  """
+  browsers: [String!]
+  """
+  Filter by one or multiple countries.
+  
+  If multiple countries are provided, the filter will be applied as an OR condition.
+  """
+  countries: [String!]
+  """
+  Filter by one or multiple device types.
+  
+  If multiple device types are provided, the filter will be applied as an OR condition.
+  """
+  deviceTypes: [DeviceType!]
+  """
+  Filter by one or multiple documentation guide IDs.
+  
+  If multiple IDs are provided, the filter will be applied as an OR condition.
+  """
+  documentationGuideIds: [ID!]
+  """
+  Filter by one or multiple operating systems.
+  
+  If multiple operating systems are provided, the filter will be applied as an OR condition.
+  """
+  operatingSystems: [String!]
+  """
+  Filter by one or multiple page IDs.
+  
+  If multiple IDs are provided, the filter will be applied as an OR condition.
+  """
+  pageIds: [ID!]
+  """
+  Filter by one or multiple paths.
+  
+  If multiple paths are provided, the filter will be applied as an OR condition.
+  """
+  paths: [String!]
+  """
+  Filter by one or multiple referrer hosts.
+  
+  If multiple referrer hosts are provided, the filter will be applied as an OR condition.
+  """
+  referrerHosts: [String!]
+  """Filter based on time range."""
+  time: TimeFilter
+}
+
+input ProjectViewsGroupBy {
+  """
+  Group by one analytics dimensions.
+  
+  Can not be used together with `granularity`.
+  """
+  dimension: DocsAnalyticsDimension
+  """
+  Group by time. Without this, all views over time will be aggregated.
+  
+  Can not be used together with `dimension`.
+  """
+  granularity: TimeGranularity
+}
+
+input ProjectViewsOptions {
+  """
+  The timezone that is used for grouping the views by time.
+  E.g. if you group by day, the timezone will be used to determine the start of the day as indicated by `to` and `from`.
+  
+  It has no effect outside of time grouping.
+  
+  Default is `UTC`.
+  """
+  groupingTimezone: TimeZone
+}
+
+input ProjectViewsSortBy {
+  """
+  Sort the views by the total number of views. Can only be used when grouped by `dimension`.
+  """
+  viewCount: SortOrder!
+}
+
+type ProjectVisitorsConnection implements Connection {
+  edges: [ProjectVisitorsEdge!]!
+  pageInfo: PageInfo!
+}
+
 type ProjectVisitorsEdge implements Edge {
   cursor: String!
   node: DocsVisitors!
+}
+
+"""
+Filter for project visitors.
+
+Individual filters are combined with an AND condition whereas multiple values for the same filter are combined with an OR condition.
+
+Example: `documentationGuideIds: ["1", "2"], operatingSystems: ["Mac OS"]` will return visitors for posts with ID 1 or 2 AND operating system Mac OS.
+"""
+input ProjectVisitorsFilter {
+  """
+  Filter by one or multiple api reference guide IDs.
+  
+  If multiple IDs are provided, the filter will be applied as an OR condition.
+  """
+  apiReferenceGuideIds: [ID!]
+  """
+  Filter by one or multiple browsers.
+  
+  If multiple browsers are provided, the filter will be applied as an OR condition.
+  """
+  browsers: [String!]
+  """
+  Filter by one or multiple countries.
+  
+  If multiple countries are provided, the filter will be applied as an OR condition.
+  """
+  countries: [CountryCodeAlpha2!]
+  """
+  Filter by one or multiple device types.
+  
+  If multiple device types are provided, the filter will be applied as an OR condition.
+  """
+  deviceTypes: [DeviceType!]
+  """
+  Filter by one or multiple documentation guide IDs.
+  
+  If multiple IDs are provided, the filter will be applied as an OR condition.
+  """
+  documentationGuideIds: [ID!]
+  """
+  Filter by one or multiple operating systems.
+  
+  If multiple operating systems are provided, the filter will be applied as an OR condition.
+  """
+  operatingSystems: [String!]
+  """
+  Filter by one or multiple page IDs.
+  
+  If multiple IDs are provided, the filter will be applied as an OR condition.
+  """
+  pageIds: [ID!]
+  """
+  Filter by one or multiple paths.
+  
+  If multiple paths are provided, the filter will be applied as an OR condition.
+  """
+  paths: [String!]
+  """
+  Filter by one or multiple referrer hosts.
+  
+  If multiple referrer hosts are provided, the filter will be applied as an OR condition.
+  """
+  referrerHosts: [String!]
+  """Filter based on time range."""
+  time: TimeFilter
+}
+
+input ProjectVisitorsGroupBy {
+  """
+  Group by one analytics dimensions.
+  
+  Can not be used together with `granularity`.
+  """
+  dimension: DocsAnalyticsDimension
+  """
+  Group by time. Without this, all views over time will be aggregated.
+  
+  Can not be used together with `dimension`.
+  """
+  granularity: TimeGranularity
+}
+
+input ProjectVisitorsOptions {
+  """
+  The timezone that is used for grouping the views by time.
+  E.g. if you group by day, the timezone will be used to determine the start of the day as indicated by `to` and `from`.
+  
+  It has no effect outside of time grouping.
+  
+  Default is `UTC`.
+  """
+  groupingTimezone: TimeZone
 }
 
 """
@@ -3303,6 +4572,10 @@ input PublicationSearchableDraftConnectionFilter {
   authorIds: [ID!]
   """Search filter will be applied to the title of a draft"""
   search: String
+  """An array of tag Ids to filter the drafts."""
+  tagIds: [ID!]
+  """Filter based on time range."""
+  time: TimeFilter
 }
 
 """
@@ -3338,6 +4611,35 @@ type PublicationViewEdge implements Edge {
 type PublicationVisitorsEdge implements Edge {
   cursor: String!
   node: Visitors!
+}
+
+input PublishDocumentationApiReferenceInput {
+  guideSlug: String!
+  projectId: ID!
+}
+
+type PublishDocumentationApiReferencePayload {
+  guide: DocumentationApiReference
+}
+
+input PublishDocumentationGuideInput {
+  guideSlug: String!
+  projectId: ID!
+}
+
+type PublishDocumentationGuidePayload {
+  guide: DocumentationGuide
+}
+
+input PublishDocumentationPageDraftInput {
+  guideSlug: String!
+  pageId: ID!
+  projectId: ID!
+}
+
+type PublishDocumentationPageDraftPayload {
+  guide: DocumentationGuide
+  page: DocumentationPage
 }
 
 input PublishDraftInput {
@@ -3438,6 +4740,9 @@ input PublishPostTagInput {
 }
 
 type Query {
+  checkCustomDomainAvailability(input: CheckCustomDomainAvailabilityInput!): CheckCustomDomainAvailabilityResult!
+  checkSubdomainAvailability(subdomain: String!): CheckSubdomainAvailabilityResult!
+  documentationProject(host: String, id: ID): DocumentationProject
   """
   Returns a draft by ID.
   Draft is a post that is not published yet.
@@ -3579,12 +4884,80 @@ type ReinviteUserToPublicationPayload {
   success: Boolean!
 }
 
+input RelativeTimeRange {
+  """The number of time periods to go back in time."""
+  n: Int!
+  """The type of time range to be used."""
+  relative: TimePeriod!
+}
+
 input RemoveCommentInput {
   id: ID!
 }
 
 type RemoveCommentPayload {
   comment: Comment
+}
+
+input RemoveDocumentationGuideInput {
+  guideSlug: String!
+  projectId: ID!
+}
+
+type RemoveDocumentationGuidePayload {
+  guide: DocumentationGuideItem
+}
+
+"""The input for removing a prompt from the AI search"""
+input RemoveDocumentationProjectAIPromptInput {
+  projectId: ID!
+  promptId: ID!
+}
+
+"""Response to removing a prompt from the AI search"""
+type RemoveDocumentationProjectAIPromptPayload {
+  project: DocumentationProject!
+}
+
+input RemoveDocumentationProjectCustomDomainInput {
+  projectId: ID!
+}
+
+type RemoveDocumentationProjectCustomDomainPayload {
+  project: DocumentationProject
+}
+
+"""The input for removing a documentation project."""
+input RemoveDocumentationProjectInput {
+  """The ID of the documentation project that should be removed."""
+  projectId: ID!
+}
+
+"""The input for the removal of a member from a documentation"""
+input RemoveDocumentationProjectMemberInput {
+  projectId: ID!
+  userId: ID!
+}
+
+type RemoveDocumentationProjectMemberPayload {
+  project: DocumentationProject
+  removedMember: DocumentationProjectMember
+}
+
+"""The payload for removing a documentation project."""
+type RemoveDocumentationProjectPayload {
+  """The documentation project that was removed."""
+  project: DocumentationProject
+}
+
+input RemoveDocumentationSidebarItemInput {
+  guideSlug: String!
+  itemId: ID!
+  projectId: ID!
+}
+
+type RemoveDocumentationSidebarItemPayload {
+  guide: DocumentationGuide
 }
 
 input RemovePostInput {
@@ -3648,6 +5021,28 @@ type RemoveSeriesPayload {
   series: Series!
 }
 
+input RenameDocumentationGuideItemInput {
+  guideSlug: String!
+  name: String!
+  projectId: ID!
+}
+
+type RenameDocumentationGuideItemPayload {
+  guide: DocumentationGuideItem
+}
+
+input RenameDocumentationSidebarItemInput {
+  guideSlug: String!
+  itemId: ID!
+  label: String!
+  projectId: ID!
+}
+
+type RenameDocumentationSidebarItemPayload {
+  guide: DocumentationGuide
+  item: DocumentationSidebarItem
+}
+
 """
 Contains basic information about the reply.
 A reply is a response to a comment.
@@ -3705,6 +5100,30 @@ type RestorePostPayload {
   post: Post
 }
 
+input RetryDocumentationProjectCustomDomainVerificationInput {
+  projectId: ID!
+}
+
+type RetryDocumentationProjectCustomDomainVerificationPayload {
+  project: DocumentationProject
+}
+
+"""Input to revoke a user invitation to join a documentation project."""
+input RevokeInviteToDocumentationProjectInput {
+  """The ID of the invite to revoke."""
+  inviteId: ID!
+  """The ID of the documentation project."""
+  projectId: ID!
+}
+
+"""Response to revoking an invitation to join a documentation project."""
+type RevokeInviteToDocumentationProjectPayload {
+  """The documentation project that was associated with the invite."""
+  project: DocumentationProject
+  """Signifies the success of the mutation."""
+  success: Boolean!
+}
+
 """Input to revoke a user invitation to a publication."""
 input RevokeUserInviteToPublicationInput {
   """The invite ID to revoke."""
@@ -3758,6 +5177,20 @@ type SEO {
   title: String
 }
 
+input SaveDocumentationPageDraftContentInput {
+  content: String
+  description: String
+  guideId: ID
+  guideSlug: String
+  pageId: ID!
+  projectId: ID!
+  title: String
+}
+
+type SaveDocumentationPageDraftContentPayload {
+  page: DocumentationPage
+}
+
 input ScheduleDraftInput {
   """The Author ID of the draft that should be published"""
   authorId: ID!
@@ -3808,6 +5241,7 @@ enum Scope {
   docs_admin_or_owner
   docs_owner
   import_subscribers_to_publication
+  invited_docs_admin
   invited_team_user
   move_draft
   publication_admin
@@ -3830,6 +5264,7 @@ enum Scope {
   update_post
   update_reply
   webhook_admin
+  write_ai_search_prompt
   write_draft
   write_draft_revision
   write_post
@@ -3861,6 +5296,10 @@ input SearchPostsOfPublicationFilter {
   publicationId: ObjectId!
   """The query to be searched in post."""
   query: String
+  """An array of tag Ids to filter the posts."""
+  tagIds: [ID!]
+  """Filter based on time range."""
+  time: TimeFilter
 }
 
 type SearchUser implements Node {
@@ -3946,6 +5385,18 @@ type SeriesPostConnection implements Connection {
   pageInfo: PageInfo!
   """The total number of documents in the connection."""
   totalDocuments: Int!
+}
+
+input SetDocumentationSidebarItemVisibilityInput {
+  guideSlug: String!
+  itemId: ID!
+  projectId: ID!
+  visibility: DocumentationSidebarItemVisibility!
+}
+
+type SetDocumentationSidebarItemVisibilityPayload {
+  guide: DocumentationGuide
+  item: DocumentationSidebarItem
 }
 
 """Available social media links."""
@@ -4047,6 +5498,22 @@ type SubscribeToNewsletterPayload {
   status: NewsletterSubscribeStatus
 }
 
+"""The input for syncing API reference definitions"""
+input SyncDocumentationProjectApiDefinitionInput {
+  """The ID of the docs API reference"""
+  apiReferenceId: ID!
+  """The ID of the documentation project"""
+  projectId: ID!
+  """The ID of the reference version"""
+  versionId: ID!
+}
+
+"""The response to syncing documentation project API Reference definition"""
+type SyncDocumentationProjectApiDefinitionPayload {
+  """Signifies if the mutation was successful."""
+  success: Boolean!
+}
+
 type TableOfContentsFeature implements Feature {
   """
   Whether or not the user has chosen to show a table of contents on the post.
@@ -4142,6 +5609,42 @@ type TextSelectionSharerFeature implements Feature {
   isEnabled: Boolean!
 }
 
+input TimeFilter {
+  """
+  Narrow the time range to a specific period.
+  
+  Can't be used with `relative`.
+  """
+  absolute: AbsoluteTimeRange
+  """
+  Narrow the time range to a specific period.
+  
+  Can't be used with `absolute`.
+  """
+  relative: RelativeTimeRange
+}
+
+enum TimeGranularity {
+  DAILY
+  HOURLY
+  MONTHLY
+  WEEKLY
+  YEARLY
+}
+
+enum TimePeriod {
+  LAST_N_DAYS
+  LAST_N_HOURS
+  LAST_N_MONTHS
+  LAST_N_WEEKS
+  LAST_N_YEARS
+}
+
+"""
+A field whose value exists in the standard IANA Time Zone Database: https://www.iana.org/time-zones
+"""
+scalar TimeZone
+
 input ToggleAllowContributorEditsInput {
   publicationId: ID!
 }
@@ -4187,6 +5690,16 @@ type TriggerWebhookTestPayload {
 }
 
 scalar URL
+
+input UnfollowTagsInput {
+  """List of tag ids to unfollow."""
+  ids: [ID!]!
+}
+
+type UnfollowTagsPayload {
+  """List of tags unfollowed by the user."""
+  tags: [Tag!]
+}
 
 """Views implementation that will be returned if no grouping is applied."""
 type UngroupedDocsViews implements DocsViews & Node {
@@ -4238,6 +5751,115 @@ input UpdateCommentInput {
 
 type UpdateCommentPayload {
   comment: Comment
+}
+
+input UpdateDocumentationAppearanceInput {
+  appearance: DocumentationProjectAppearanceInput!
+  projectId: ID!
+}
+
+type UpdateDocumentationAppearancePayload {
+  project: DocumentationProject
+}
+
+input UpdateDocumentationGeneralSettingsInput {
+  description: String
+  links: DocumentationProjectLinksInput
+  name: String
+  projectId: ID!
+  settings: DocumentationProjectSettingsInput
+}
+
+type UpdateDocumentationGeneralSettingsPayload {
+  project: DocumentationProject
+}
+
+input UpdateDocumentationGuideInput {
+  guideId: ID!
+  metaTags: MetaTagsInput
+  name: String
+  projectId: ID!
+  slug: String
+}
+
+type UpdateDocumentationGuidePayload {
+  guide: DocumentationGuide
+}
+
+input UpdateDocumentationIntegrationsInput {
+  integrations: DocumentationProjectIntegrationsInput!
+  projectId: ID!
+}
+
+type UpdateDocumentationIntegrationsPayload {
+  project: DocumentationProject
+}
+
+input UpdateDocumentationLinkInput {
+  guideSlug: String!
+  label: String!
+  linkId: ID!
+  projectId: ID!
+  url: String
+}
+
+type UpdateDocumentationLinkPayload {
+  guide: DocumentationGuide
+  link: DocumentationLink
+}
+
+input UpdateDocumentationPageSettingsInput {
+  guideSlug: String!
+  label: String
+  metaTags: MetaTagsInput
+  pageId: ID!
+  projectId: ID!
+  slug: String
+  visibility: DocumentationSidebarItemVisibility
+}
+
+type UpdateDocumentationPageSettingsPayload {
+  guide: DocumentationGuide
+  page: DocumentationPage
+  sidebarItem: DocumentationSidebarItemPage
+}
+
+"""The input for updating the AI search prompts"""
+input UpdateDocumentationProjectAIPromptInput {
+  """The ID of the documentation project"""
+  projectId: ID!
+  """The prompt text"""
+  prompt: String!
+  """The ID of the prompt to update"""
+  promptId: ID!
+}
+
+"""Response to updating the AI search prompts"""
+type UpdateDocumentationProjectAIPromptPayload {
+  project: DocumentationProject
+}
+
+input UpdateDocumentationProjectSubdomainInput {
+  projectId: ID!
+  subdomain: String!
+}
+
+type UpdateDocumentationProjectSubdomainPayload {
+  project: DocumentationProject
+}
+
+input UpdateDocumentationSectionInput {
+  guideSlug: String!
+  label: String
+  projectId: ID!
+  sectionId: ID!
+  slug: String
+  visibility: DocumentationSidebarItemVisibility
+}
+
+type UpdateDocumentationSectionPayload {
+  guide: DocumentationGuide
+  section: DocumentationSection
 }
 
 input UpdatePostInput {
@@ -4479,6 +6101,8 @@ type User implements IUser & Node {
     filter: UserPublicationsConnectionFilter
     """The maximum number of publications to return in a batch."""
     first: Int!
+    """The sort direction for the publication."""
+    sortBy: UserPublicationsSort = DATE_CREATED_DESC
   ): UserPublicationsConnection!
   """The social media links of the user. Shown on the user's profile."""
   socialMediaLinks: SocialMediaLinks
@@ -4548,6 +6172,11 @@ input UserInviteInput {
   role: UserPublicationInviteRole!
   """Username of the user to invite to the publication."""
   username: String
+}
+
+enum UserInviteStatus {
+  INVITED
+  NOT_INVITED
 }
 
 """
@@ -4680,6 +6309,18 @@ type UserPublicationsEdge implements Edge {
   role: UserPublicationRole!
 }
 
+"""Sorting for the publications of a user."""
+enum UserPublicationsSort {
+  """Oldest publication first."""
+  DATE_CREATED_ASC
+  """Newest publication first."""
+  DATE_CREATED_DESC
+  """Recently updated publication last."""
+  DATE_UPDATED_ASC
+  """Recently updated publication first."""
+  DATE_UPDATED_DESC
+}
+
 type UserRecommendedPublicationEdge {
   """
   The publication that is recommended by the publication this connection originates from.
@@ -4720,6 +6361,23 @@ type UserTagsConnection implements PageConnection {
 
 enum ValidationMethod {
   ID
+}
+
+input VerifyDocumentationProjectCustomDomainInput {
+  projectId: ID!
+}
+
+type VerifyDocumentationProjectCustomDomainPayload {
+  """
+  Additional DNS entries required to verify the domain.
+  There are cases where additional records in the DNS config are required to successfully verify the domain.
+  """
+  dnsVerificationEntries: [DnsVerificationEntry!]!
+  """
+  The documentation project where the custom domain should be verified.
+  Note, that the verification can also fail.
+  """
+  project: DocumentationProject
 }
 
 """
