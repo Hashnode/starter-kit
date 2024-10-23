@@ -14,7 +14,7 @@ export const triggerCustomWidgetEmbed = async (pubId) => {
 			iframe.src =
 				host.indexOf('.hashnode.net') !== -1 || host.indexOf('.app.localhost') !== -1
 					? `${baseUrl}/api/pub/${pubId}/embed/${frame.id}`
-					: `https://embeds.hashnode.com?p=${pubId}&w=${frame.id}`;
+					: `https://embeds.hashnode.co?p=${pubId}&w=${frame.id}`;
 			iframe.width = '100%';
 			frame.innerHTML = '';
 			frame.appendChild(iframe);
