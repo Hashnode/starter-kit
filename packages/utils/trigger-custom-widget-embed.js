@@ -12,7 +12,7 @@ export const triggerCustomWidgetEmbed = async (pubId) => {
 			iframe.sandbox =
 				'allow-same-origin allow-forms allow-presentation allow-scripts allow-popups';
 			iframe.src =
-				host.indexOf('.hashnode.net') !== -1 || host.indexOf('app.localhost') !== -1
+				host.indexOf('.hashnode.net') !== -1 || host.indexOf('.app.localhost') !== -1
 					? `${baseUrl}/api/pub/${pubId}/embed/${frame.id}`
 					: `https://embeds.hashnode.com?p=${pubId}&w=${frame.id}`;
 			iframe.width = '100%';
