@@ -25,6 +25,8 @@ Blog Starter Kit lets you instantly deploy a Next.js and Tailwind powered fronte
 
 # Live Demos
 
+Please note: The themes showcased in these demos have been heavily customized.
+
 - [Personal theme](https://starter-diopgk410-hashnode-prod.vercel.app/blog)
 - [Enterprise theme](https://hashnode.com/blog)
 - [Hashnode theme](https://datazip.io/blog?utm_source=hashnode&utm_medium=github&utm_campaign=promotional)
