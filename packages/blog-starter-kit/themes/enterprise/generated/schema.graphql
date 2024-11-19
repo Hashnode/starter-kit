@@ -1311,6 +1311,13 @@ type DocsCustomPageConnection implements PageConnection {
   totalDocuments: Int!
 }
 
+enum DocsGitHubActivityDeploymentType {
+  """The deployment is a preview deployment."""
+  PREVIEW
+  """The deployment is a production deployment."""
+  PRODUCTION
+}
+
 type DocsProjectInvitedMembers {
   email: String!
   role: DocumentationMemberRole!
@@ -1383,11 +1390,20 @@ type DocumentationGuide implements IGuide {
   OG meta-data of the page. Contains image url used in open graph meta tags.
   """
   ogMetaData: OpenGraphMetaData
+  """Page of any version of this guide."""
   page(id: ID, path: String): DocumentationPage
   provider: GuideProvider!
+  """Only published page of any version of this guide."""
   publishedPage(id: ID, path: String): DocumentationPage
   """Only published sidebar items of the default version of this guide."""
   publishedSidebarItems: [DocumentationSidebarItem!]!
+  """
+  Only published page of any version of this guide. The path may include the version slug.
+  
+  Takes redirects into account and may return the page that the requested page redirects to.
+  
+  If the path is only a version slug, it will redirect to the first page of that version.
+  """
   redirectedPublishedPage(id: ID, path: String): DocumentationPage
   """
   SEO information of the page. Contains title and description used in meta tags.
@@ -1410,7 +1426,6 @@ type DocumentationGuide implements IGuide {
 union DocumentationGuideItem = DocumentationApiReference | DocumentationGuide
 
 enum DocumentationGuideItemStatus {
-  DELETED
   PUBLISHED
   UNPUBLISHED
 }
@@ -1522,7 +1537,11 @@ type DocumentationPage {
   status: DocumentationSidebarItemStatus!
   title: String!
   updatedAt: DateTime
-  """URL of the published page."""
+  """
+  URL of the published page.
+  
+  Returns `null` if the page is not published.
+  """
   url: String
   visibility: DocumentationSidebarItemVisibility!
 }
@@ -1698,6 +1717,10 @@ type DocumentationProjectFeatures {
   GitHub sync feature for the docs project which enables syncing the docs project with a GitHub repository.
   """
   ghSync: GitHubSyncFeature!
+  """
+  Versioning feature for the docs project which enables creating different versions of docs guides.
+  """
+  versioning: VersioningFeature!
 }
 
 type DocumentationProjectGetStarted {
@@ -1721,8 +1744,12 @@ type DocumentationProjectIntegrations {
   hotjarSiteID: String
   """Intercom ID for integration with Intercom"""
   intercomID: String
+  """Koala Public Key for integration with Koala."""
+  koalaPublicKey: String
   """The meta tags associated with the documentation project."""
   metaTags: String
+  """MS Clarity ID for integration with Microsoft Clarity."""
+  msClarityID: String
 }
 
 input DocumentationProjectIntegrationsInput {
@@ -1731,7 +1758,9 @@ input DocumentationProjectIntegrationsInput {
   gaTrackingID: String
   hotjarSiteID: String
   intercomID: String
+  koalaPublicKey: String
   metaTags: String
+  msClarityID: String
 }
 
 """Contains the pending invite information."""
@@ -1747,6 +1776,8 @@ type DocumentationProjectInvite implements Node {
 }
 
 type DocumentationProjectLinks {
+  """Bluesky URL of the documentation project."""
+  bluesky: String
   """Daily.dev URL of the documentation project."""
   dailydev: String
   """GitHub URL of the documentation project."""
@@ -1770,6 +1801,7 @@ type DocumentationProjectLinks {
 }
 
 input DocumentationProjectLinksInput {
+  bluesky: String
   dailydev: String
   github: String
   githubRepository: String
@@ -1914,7 +1946,11 @@ type DocumentationSidebarItemPage implements IDocumentationNestableSidebarItem &
   path: String!
   status: DocumentationSidebarItemStatus!
   updatedAt: DateTime
-  """URL of the published page."""
+  """
+  URL of the published page.
+  
+  Returns `null` if the page is not published.
+  """
   url: String
   visibility: DocumentationSidebarItemVisibility!
 }
@@ -2341,6 +2377,14 @@ type GitHubActivityLog implements Node {
   branchName: String!
   """The date the log was created."""
   createdAt: DateTime!
+  """The deployment type related to the log."""
+  deploymentType: DocsGitHubActivityDeploymentType!
+  """
+  The deployment URL. For preview activities, the deployment URL is different for every commit. For production deployments, the deploymentUrl points to the main project subdomain.
+  """
+  deploymentUrl: String!
+  """The errors occurred during the sync."""
+  errors: [GitHubSyncError!]!
   """The commit ID."""
   gitCommitId: String!
   """The commit message."""
@@ -2351,6 +2395,26 @@ type GitHubActivityLog implements Node {
   id: ID!
   """The status of the sync."""
   status: GitHubSyncStatus!
+}
+
+type GitHubSyncError {
+  """The error code denoting the reason of failure for GitHub sync."""
+  code: GitHubSyncErrorCode!
+  """List of error messages"""
+  messages: [String!]!
+}
+
+enum GitHubSyncErrorCode {
+  """Indicates that the project has configuration errors."""
+  CONFIGURATION_ERROR
+  """Indicates that the project has invalid content."""
+  CONTENT_ERROR
+  """Indicates that the project has duplicate paths."""
+  DUPLICATE_PATHS
+  """Indicates that the project has duplicate slugs."""
+  DUPLICATE_SLUGS
+  """Indicates that the project has missing files."""
+  MISSING_FILES
 }
 
 """
@@ -3239,7 +3303,7 @@ type MyUser implements IUser & Node {
   """
   A list of beta features that the user has access to. Only available to the authenticated user.
   """
-  betaFeatures: [BetaFeature!]!
+  betaFeatures: [BetaFeature!]! @deprecated(reason: "Beta features are no longer supported. Will be removed after 15/12/2024")
   """
   The bio of the user. Visible in about me section of the user's profile.
   """
@@ -4370,10 +4434,14 @@ type PublicationIntegrations {
   gaTrackingID: String
   """Hotjar Site ID for integration with Hotjar."""
   hotjarSiteID: String
+  """Koala Public Key for integration with Koala."""
+  koalaPublicKey: String
   """Matomo Site ID for integration with Matomo Analytics."""
   matomoSiteID: String
   """Matomo URL for integration with Matomo Analytics."""
   matomoURL: String
+  """MS Clarity ID for integration with Microsoft Clarity."""
+  msClarityID: String
   """
   A flag indicating if the custom domain is enabled for integration with Plausible Analytics.
   """
@@ -4425,6 +4493,8 @@ enum PublicationLayout {
 
 """Contains the publication's social media links."""
 type PublicationLinks {
+  """Bluesky URL of the publication."""
+  bluesky: String
   """Daily.dev URL of the publication."""
   dailydev: String
   """Facebook URL of the publication."""
@@ -5401,6 +5471,8 @@ type SetDocumentationSidebarItemVisibilityPayload {
 
 """Available social media links."""
 type SocialMediaLinks {
+  """The user's Bluesky profile."""
+  bluesky: String
   """The user's Facebook profile."""
   facebook: String
   """The user's GitHub profile."""
@@ -6378,6 +6450,14 @@ type VerifyDocumentationProjectCustomDomainPayload {
   Note, that the verification can also fail.
   """
   project: DocumentationProject
+}
+
+"""
+Contains the flag indicating if the Versioning feature is enabled or not.
+"""
+type VersioningFeature implements Feature {
+  """A flag indicating if the Versioning feature is enabled or not."""
+  isEnabled: Boolean!
 }
 
 """

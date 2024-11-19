@@ -1316,6 +1316,13 @@ export type DocsCustomPageConnection = PageConnection & {
   totalDocuments: Scalars['Int']['output'];
 };
 
+export enum DocsGitHubActivityDeploymentType {
+  /** The deployment is a preview deployment. */
+  Preview = 'PREVIEW',
+  /** The deployment is a production deployment. */
+  Production = 'PRODUCTION'
+}
+
 export type DocsProjectInvitedMembers = {
   __typename?: 'DocsProjectInvitedMembers';
   email: Scalars['String']['output'];
@@ -1379,11 +1386,20 @@ export type DocumentationGuide = IGuide & {
   name: Scalars['String']['output'];
   /** OG meta-data of the page. Contains image url used in open graph meta tags. */
   ogMetaData?: Maybe<OpenGraphMetaData>;
+  /** Page of any version of this guide. */
   page?: Maybe<DocumentationPage>;
   provider: GuideProvider;
+  /** Only published page of any version of this guide. */
   publishedPage?: Maybe<DocumentationPage>;
   /** Only published sidebar items of the default version of this guide. */
   publishedSidebarItems: Array<DocumentationSidebarItem>;
+  /**
+   * Only published page of any version of this guide. The path may include the version slug.
+   *
+   * Takes redirects into account and may return the page that the requested page redirects to.
+   *
+   * If the path is only a version slug, it will redirect to the first page of that version.
+   */
   redirectedPublishedPage?: Maybe<DocumentationPage>;
   /** SEO information of the page. Contains title and description used in meta tags. */
   seo?: Maybe<Seo>;
@@ -1422,7 +1438,6 @@ export type DocumentationGuideRedirectedPublishedPageArgs = {
 export type DocumentationGuideItem = DocumentationApiReference | DocumentationGuide;
 
 export enum DocumentationGuideItemStatus {
-  Deleted = 'DELETED',
   Published = 'PUBLISHED',
   Unpublished = 'UNPUBLISHED'
 }
@@ -1534,7 +1549,11 @@ export type DocumentationPage = {
   status: DocumentationSidebarItemStatus;
   title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
-  /** URL of the published page. */
+  /**
+   * URL of the published page.
+   *
+   * Returns `null` if the page is not published.
+   */
   url?: Maybe<Scalars['String']['output']>;
   visibility: DocumentationSidebarItemVisibility;
 };
@@ -1736,6 +1755,8 @@ export type DocumentationProjectFeatures = {
   collaboration: CollaborationFeature;
   /** GitHub sync feature for the docs project which enables syncing the docs project with a GitHub repository. */
   ghSync: GitHubSyncFeature;
+  /** Versioning feature for the docs project which enables creating different versions of docs guides. */
+  versioning: VersioningFeature;
 };
 
 export type DocumentationProjectGetStarted = {
@@ -1761,8 +1782,12 @@ export type DocumentationProjectIntegrations = {
   hotjarSiteID?: Maybe<Scalars['String']['output']>;
   /** Intercom ID for integration with Intercom */
   intercomID?: Maybe<Scalars['String']['output']>;
+  /** Koala Public Key for integration with Koala. */
+  koalaPublicKey?: Maybe<Scalars['String']['output']>;
   /** The meta tags associated with the documentation project. */
   metaTags?: Maybe<Scalars['String']['output']>;
+  /** MS Clarity ID for integration with Microsoft Clarity. */
+  msClarityID?: Maybe<Scalars['String']['output']>;
 };
 
 export type DocumentationProjectIntegrationsInput = {
@@ -1771,7 +1796,9 @@ export type DocumentationProjectIntegrationsInput = {
   gaTrackingID?: InputMaybe<Scalars['String']['input']>;
   hotjarSiteID?: InputMaybe<Scalars['String']['input']>;
   intercomID?: InputMaybe<Scalars['String']['input']>;
+  koalaPublicKey?: InputMaybe<Scalars['String']['input']>;
   metaTags?: InputMaybe<Scalars['String']['input']>;
+  msClarityID?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Contains the pending invite information. */
@@ -1787,6 +1814,8 @@ export type DocumentationProjectInvite = Node & {
 
 export type DocumentationProjectLinks = {
   __typename?: 'DocumentationProjectLinks';
+  /** Bluesky URL of the documentation project. */
+  bluesky?: Maybe<Scalars['String']['output']>;
   /** Daily.dev URL of the documentation project. */
   dailydev?: Maybe<Scalars['String']['output']>;
   /** GitHub URL of the documentation project. */
@@ -1810,6 +1839,7 @@ export type DocumentationProjectLinks = {
 };
 
 export type DocumentationProjectLinksInput = {
+  bluesky?: InputMaybe<Scalars['String']['input']>;
   dailydev?: InputMaybe<Scalars['String']['input']>;
   github?: InputMaybe<Scalars['String']['input']>;
   githubRepository?: InputMaybe<Scalars['String']['input']>;
@@ -1961,7 +1991,11 @@ export type DocumentationSidebarItemPage = IDocumentationNestableSidebarItem & I
   path: Scalars['String']['output'];
   status: DocumentationSidebarItemStatus;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
-  /** URL of the published page. */
+  /**
+   * URL of the published page.
+   *
+   * Returns `null` if the page is not published.
+   */
   url?: Maybe<Scalars['String']['output']>;
   visibility: DocumentationSidebarItemVisibility;
 };
@@ -2374,6 +2408,12 @@ export type GitHubActivityLog = Node & {
   branchName: Scalars['String']['output'];
   /** The date the log was created. */
   createdAt: Scalars['DateTime']['output'];
+  /** The deployment type related to the log. */
+  deploymentType: DocsGitHubActivityDeploymentType;
+  /** The deployment URL. For preview activities, the deployment URL is different for every commit. For production deployments, the deploymentUrl points to the main project subdomain. */
+  deploymentUrl: Scalars['String']['output'];
+  /** The errors occurred during the sync. */
+  errors: Array<GitHubSyncError>;
   /** The commit ID. */
   gitCommitId: Scalars['String']['output'];
   /** The commit message. */
@@ -2385,6 +2425,27 @@ export type GitHubActivityLog = Node & {
   /** The status of the sync. */
   status: GitHubSyncStatus;
 };
+
+export type GitHubSyncError = {
+  __typename?: 'GitHubSyncError';
+  /** The error code denoting the reason of failure for GitHub sync. */
+  code: GitHubSyncErrorCode;
+  /** List of error messages */
+  messages: Array<Scalars['String']['output']>;
+};
+
+export enum GitHubSyncErrorCode {
+  /** Indicates that the project has configuration errors. */
+  ConfigurationError = 'CONFIGURATION_ERROR',
+  /** Indicates that the project has invalid content. */
+  ContentError = 'CONTENT_ERROR',
+  /** Indicates that the project has duplicate paths. */
+  DuplicatePaths = 'DUPLICATE_PATHS',
+  /** Indicates that the project has duplicate slugs. */
+  DuplicateSlugs = 'DUPLICATE_SLUGS',
+  /** Indicates that the project has missing files. */
+  MissingFiles = 'MISSING_FILES'
+}
 
 /** Contains the flag indicating if the GitHub sync feature is enabled or not. */
 export type GitHubSyncFeature = Feature & {
@@ -3720,7 +3781,10 @@ export type MyUser = IUser & Node & {
   availableFor?: Maybe<Scalars['String']['output']>;
   /** Returns a list of badges that the user has earned. Shown on blogs /badges page. Example - https://iamshadmirza.com/badges */
   badges: Array<Badge>;
-  /** A list of beta features that the user has access to. Only available to the authenticated user. */
+  /**
+   * A list of beta features that the user has access to. Only available to the authenticated user.
+   * @deprecated Beta features are no longer supported. Will be removed after 15/12/2024
+   */
   betaFeatures: Array<BetaFeature>;
   /** The bio of the user. Visible in about me section of the user's profile. */
   bio?: Maybe<Content>;
@@ -4894,10 +4958,14 @@ export type PublicationIntegrations = {
   gaTrackingID?: Maybe<Scalars['String']['output']>;
   /** Hotjar Site ID for integration with Hotjar. */
   hotjarSiteID?: Maybe<Scalars['String']['output']>;
+  /** Koala Public Key for integration with Koala. */
+  koalaPublicKey?: Maybe<Scalars['String']['output']>;
   /** Matomo Site ID for integration with Matomo Analytics. */
   matomoSiteID?: Maybe<Scalars['String']['output']>;
   /** Matomo URL for integration with Matomo Analytics. */
   matomoURL?: Maybe<Scalars['String']['output']>;
+  /** MS Clarity ID for integration with Microsoft Clarity. */
+  msClarityID?: Maybe<Scalars['String']['output']>;
   /** A flag indicating if the custom domain is enabled for integration with Plausible Analytics. */
   plausibleAnalyticsEnabled?: Maybe<Scalars['Boolean']['output']>;
   /** The share ID for the Hashnode-provided Umami analytics instance. */
@@ -4951,6 +5019,8 @@ export enum PublicationLayout {
 /** Contains the publication's social media links. */
 export type PublicationLinks = {
   __typename?: 'PublicationLinks';
+  /** Bluesky URL of the publication. */
+  bluesky?: Maybe<Scalars['String']['output']>;
   /** Daily.dev URL of the publication. */
   dailydev?: Maybe<Scalars['String']['output']>;
   /** Facebook URL of the publication. */
@@ -5979,6 +6049,8 @@ export type SetDocumentationSidebarItemVisibilityPayload = {
 /** Available social media links. */
 export type SocialMediaLinks = {
   __typename?: 'SocialMediaLinks';
+  /** The user's Bluesky profile. */
+  bluesky?: Maybe<Scalars['String']['output']>;
   /** The user's Facebook profile. */
   facebook?: Maybe<Scalars['String']['output']>;
   /** The user's GitHub profile. */
@@ -6931,6 +7003,13 @@ export type VerifyDocumentationProjectCustomDomainPayload = {
    * Note, that the verification can also fail.
    */
   project?: Maybe<DocumentationProject>;
+};
+
+/** Contains the flag indicating if the Versioning feature is enabled or not. */
+export type VersioningFeature = Feature & {
+  __typename?: 'VersioningFeature';
+  /** A flag indicating if the Versioning feature is enabled or not. */
+  isEnabled: Scalars['Boolean']['output'];
 };
 
 /**
