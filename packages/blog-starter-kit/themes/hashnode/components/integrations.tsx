@@ -14,6 +14,8 @@ export function Integrations() {
 		fathomCustomDomainEnabled,
 		plausibleAnalyticsEnabled,
 		gTagManagerID,
+		koalaPublicKey,
+		msClarityID,
 	} = publication.integrations ?? {};
 	const domainURL = new URL(publication.url).hostname;
 
@@ -67,6 +69,23 @@ export function Integrations() {
 		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 		})(window,document,'script','dataLayer', '${gTagManagerID}');`;
 
+	const koalaForUsers =
+		koalaPublicKey &&
+		`!function(t){if(window.ko)return;window.ko=[],
+    ["identify","track","removeListeners","on","off","qualify","ready"]
+    .forEach(function(t){ko[t]=function(){var n=[].slice.call(arguments);return n.unshift(t),ko.push(n),ko}});
+    var n=document.createElement("script");
+    n.async=!0,n.setAttribute("src","https://cdn.getkoala.com/v1/${encodeURI(koalaPublicKey)}/sdk.js"),
+    (document.body || document.head).appendChild(n)}();`;
+
+	const msClarityForUsers =
+		msClarityID &&
+		`(function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", '${msClarityID}');`;
+
 	useEffect(() => {
 		// @ts-ignore
 		window.gtag('config', gaTrackingID, {
@@ -108,8 +127,20 @@ export function Integrations() {
 				></script>
 			)}
 			{gTagManagerID && (
-        <script type="text/javascript" dangerouslySetInnerHTML={{ __html: googleTagManager }}></script>
-      )}
+				<script
+					type="text/javascript"
+					dangerouslySetInnerHTML={{ __html: googleTagManager }}
+				></script>
+			)}
+			{koalaForUsers && (
+				<script type="text/javascript" dangerouslySetInnerHTML={{ __html: koalaForUsers }}></script>
+			)}
+			{msClarityForUsers && (
+				<script
+					type="text/javascript"
+					dangerouslySetInnerHTML={{ __html: msClarityForUsers }}
+				></script>
+			)}
 			{plausibleAnalyticsEnabled && (
 				<script
 					async
