@@ -117,5 +117,7 @@ fragment Publication on Publication {
 		fathomCustomDomain
 		fathomCustomDomainEnabled
 		plausibleAnalyticsEnabled
+		koalaPublicKey
+		msClarityID
 	}
 }

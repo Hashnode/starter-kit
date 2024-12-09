@@ -76,6 +76,16 @@ type AddCommentPayload {
   comment: Comment
 }
 
+input AddCustomMdxComponentInput {
+  code: String!
+  componentId: String!
+  projectId: ID!
+}
+
+type AddCustomMdxComponentPayload {
+  project: DocumentationProject!
+}
+
 input AddDocumentationProjectCustomDomainInput {
   domain: String!
   projectId: ID!
@@ -1204,6 +1214,15 @@ enum DefaultDocsTheme {
   LIGHT
 }
 
+input DeleteCustomMdxComponentInput {
+  componentId: String!
+  projectId: ID!
+}
+
+type DeleteCustomMdxComponentPayload {
+  project: DocumentationProject!
+}
+
 """Input to delete a role based invite."""
 input DeleteRoleBasedInviteInput {
   """The ID of the role based invite."""
@@ -1688,6 +1707,17 @@ input DocumentationProjectAppearanceInput {
   logoDarkThemeUrl: String
   logoUrl: String
   primaryColor: String
+}
+
+type DocumentationProjectCustomComponent implements Node {
+  """The code of the custom component."""
+  code: String!
+  """componentId, can be embedded as %%[componentId] in the docs"""
+  componentId: String!
+  """The unique identifier of the custom component"""
+  id: ID!
+  """The transpiled code of the custom component."""
+  transpiledCode: String!
 }
 
 type DocumentationProjectCustomDomain {
@@ -3110,6 +3140,7 @@ type Mutation {
   acceptRoleBasedInvite(input: AcceptRoleBasedInviteInput!): AcceptRoleBasedInvitePayload!
   """Adds a comment to a post."""
   addComment(input: AddCommentInput!): AddCommentPayload!
+  addCustomMdxComponent(input: AddCustomMdxComponentInput!): AddCustomMdxComponentPayload!
   addDocumentationProjectCustomDomain(input: AddDocumentationProjectCustomDomainInput!): AddDocumentationProjectCustomDomainPayload!
   """Adds a post to a series."""
   addPostToSeries(input: AddPostToSeriesInput!): AddPostToSeriesPayload!
@@ -3142,6 +3173,7 @@ type Mutation {
   """Creates a new series."""
   createSeries(input: CreateSeriesInput!): CreateSeriesPayload!
   createWebhook(input: CreateWebhookInput!): CreateWebhookPayload!
+  deleteCustomMdxComponent(input: DeleteCustomMdxComponentInput!): DeleteCustomMdxComponentPayload!
   """Deletes a role based invite."""
   deleteRoleBasedInvite(input: DeleteRoleBasedInviteInput!): DeleteRoleBasedInvitePayload!
   deleteWebhook(id: ID!): DeleteWebhookPayload!
@@ -3262,6 +3294,7 @@ type Mutation {
   unsubscribeFromNewsletter(input: UnsubscribeFromNewsletterInput!): UnsubscribeFromNewsletterPayload!
   """Updates a comment on a post."""
   updateComment(input: UpdateCommentInput!): UpdateCommentPayload!
+  updateCustomMdxComponent(input: UpdateCustomMdxComponentInput!): UpdateCustomMdxComponentPayload!
   updateDocumentationAppearance(input: UpdateDocumentationAppearanceInput!): UpdateDocumentationAppearancePayload!
   updateDocumentationGeneralSettings(input: UpdateDocumentationGeneralSettingsInput!): UpdateDocumentationGeneralSettingsPayload!
   updateDocumentationGuide(input: UpdateDocumentationGuideInput!): UpdateDocumentationGuidePayload!
@@ -4271,6 +4304,14 @@ type Publication implements Node {
   isTeam: Boolean!
   """Links to the publication's social media profiles."""
   links: PublicationLinks
+  members(
+    """Filters to be applied to the member list."""
+    filter: PublicationMemberConnectionFilter
+    """The page number that should be returned."""
+    page: Int!
+    """The number of members to return on a single page."""
+    pageSize: Int!
+  ): PublicationMemberConnection!
   """The meta tags associated with the publication."""
   metaTags: String
   """Information about the publication's Open Graph metadata i.e. image."""
@@ -4300,6 +4341,13 @@ type Publication implements Node {
   The publication preferences around layout, theme and other personalisations.
   """
   preferences: Preferences!
+  """Returns a paginated list of public members of the publication."""
+  publicMembers(
+    """The page number that should be returned."""
+    page: Int!
+    """The number of members to return on a single page."""
+    pageSize: Int!
+  ): PublicationMemberConnection!
   """Publications that are recommended by this publication."""
   recommendedPublications: [UserRecommendedPublicationEdge!]!
   """Publications that are recommending this publication."""
@@ -4530,6 +4578,23 @@ type PublicationMember implements Node {
   role: UserPublicationRole!
   """The user who is a member of the publication."""
   user: User
+}
+
+type PublicationMemberConnection implements PageConnection {
+  """A list of members"""
+  nodes: [PublicationMember!]!
+  """Information for page based pagination in Member connection."""
+  pageInfo: OffsetPageInfo!
+  """The total number of documents in the connection."""
+  totalDocuments: Int!
+}
+
+"""The filter for the publication member connection."""
+input PublicationMemberConnectionFilter {
+  """
+  Search filter can be used to filter members by their username or email.
+  """
+  search: String
 }
 
 """Publication member privacy state on members page"""
@@ -5304,9 +5369,6 @@ Enum of all the scopes that can be used with the @requireAuth directive.
 enum Scope {
   acknowledge_email_import
   active_pro_user
-  assign_pro_publications
-  change_pro_subscription
-  create_pro
   delete_draft
   docs_admin_or_owner
   docs_owner
@@ -5825,6 +5887,16 @@ type UpdateCommentPayload {
   comment: Comment
 }
 
+input UpdateCustomMdxComponentInput {
+  code: String!
+  componentId: String!
+  projectId: ID!
+}
+
+type UpdateCustomMdxComponentPayload {
+  project: DocumentationProject!
+}
+
 input UpdateDocumentationAppearanceInput {
   appearance: DocumentationProjectAppearanceInput!
   projectId: ID!
@@ -6144,8 +6216,6 @@ type User implements IUser & Node {
   followsBack: Boolean!
   """The ID of the user. It can be used to identify the user."""
   id: ID!
-  """Whether or not this is a pro user."""
-  isPro: Boolean!
   """The location of the user."""
   location: String
   """The name of the user."""
@@ -6361,8 +6431,6 @@ type UserPublicationsConnection implements Connection {
 
 """Filter to apply to the publications."""
 input UserPublicationsConnectionFilter {
-  """Only return pro publications."""
-  isPro: Boolean
   """
   Only include publication in which the user has one of the provided roles.
   """
