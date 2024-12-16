@@ -1,0 +1,21 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "waitFor": "onCreateCommand",
+  "updateContentCommand": "pnpm install",
+  "postCreateCommand": "",
+  "postAttachCommand": "",
+  "customizations": {
+    "codespaces": {
+      "openFiles": [
+        "README.md"
+      ]
+    }
+  },
+  "portsAttributes": {
+    "3000": {
+      "label": "Application",
+      "onAutoForward": "openPreview"
+    }
+  },
+  "forwardPorts": [3000]
+}
