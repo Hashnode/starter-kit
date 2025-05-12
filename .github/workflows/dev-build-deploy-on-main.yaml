@@ -14,24 +14,10 @@ jobs:
   build:
     runs-on: mdb-dev
     env:
-      AWS_REGION: us-east-2
+      AWS_REGION: us-east-1
     steps:
-      - name: Generate token
-        # Use the Github App private key to request an installation
-        # token with read-only access to the organization's private
-        # repositories. This token is then used in the checkout step
-        # (but not in subsequent steps that create releases and upload
-        # assets, those still use the default token that has write
-        # access to the current repository).
-        id: generate_token
-        uses: tibdex/github-app-token@v1
-        with:
-          app_id: ${{ secrets.ACTION_APP_ID }}
-          private_key: ${{ secrets.ACTION_APP_KEY }}
       - name: Checkout tag
         uses: actions/checkout@v4
-        with:
-          token: ${{ steps.generate_token.outputs.token }}
       - name: Pull MindsDB Github Actions
         uses: actions/checkout@v4
         with:
