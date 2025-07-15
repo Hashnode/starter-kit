@@ -88,7 +88,7 @@ export const PostHeader = ({ title, coverImage, date, author, readTimeInMinutes 
 				<div className="mb-5 flex w-full flex-row items-center justify-center md:mb-0 md:w-auto md:justify-start">
 					<span className="mx-3 hidden font-bold text-slate-500 md:block">&middot;</span>
 					<DateFormatter dateString={date} />
-					{readTimeInMinutes && <span className="mx-3 hidden font-bold text-slate-500 md:block">&middot;</span>}
+					{readTimeInMinutes && <span className="mx-3 font-bold text-slate-500">&middot;</span>}
 					<ReadTimeInMinutes readTimeInMinutes={readTimeInMinutes} />
 				</div>
 			</div>

@@ -14,7 +14,7 @@
   <a href="https://hashnode.com">
     <img alt="" src="https://img.shields.io/badge/LICENSE%20%7C%20MIT-000.svg?style=for-the-badge">
   </a>
-  <a href="https://discord.gg/hashnode">
+  <a href="https://discord.gg/qsAQfxX">
     <img alt="" src="https://img.shields.io/badge/Join%20the%20community-black.svg?style=for-the-badge&logo=discord&labelColor=000000&logoWidth=20">
   </a>
 </p>
@@ -25,9 +25,11 @@ Blog Starter Kit lets you instantly deploy a Next.js and Tailwind powered fronte
 
 # Live Demos
 
-- [Personal theme](https://sandeep.dev/blog)
-- [Enterprise theme](https://demo.hashnode.com/engineering)
-- [Hashnode theme](https://saikrishna.dev/blog)
+Please note: The themes showcased in these demos have been heavily customized.
+
+- [Personal theme](https://starter-diopgk410-hashnode-prod.vercel.app/blog)
+- [Enterprise theme](https://hashnode.com/blog)
+- [Hashnode theme](https://datazip.io/blog?utm_source=hashnode&utm_medium=github&utm_campaign=promotional)
 
 # Example company blogs built with Headless
 
@@ -45,7 +47,7 @@ The recommended approach is deploying to Vercel. If you don't have an account al
 
 - Fork this repo
 - Create a new project on Vercel and connect this repo
-- It's a monorepo. So, choose either `packages/blog-starter-kit/themes/enterprise`, `packages/blog-starter-kit/themes/hashnode` or `packages/blog-starter-kit/themes/personal` as the root directory while importing on Vercel.
+- It's a monorepo, So choose either `packages/blog-starter-kit/themes/enterprise`, `packages/blog-starter-kit/themes/hashnode`, or `packages/blog-starter-kit/themes/personal` as the root directory while importing on Vercel.
 
   ![selecting the directory to deploy a monorepo](https://cdn.hashnode.com/res/hashnode/image/upload/v1698839884060/O8OoBML5v.PNG?auto=format)
 
@@ -67,7 +69,7 @@ Follow the steps below if you would like to install your blog under a custom dom
 
 #### Vercel
 
-If your main project is deployed on Vercel, add the following rewrite to `next.config.js`:
+If your main project is deployed on Vercel, add the following rewrite to `next.config.js` file:
 
 ```
 async rewrites() {
@@ -86,7 +88,10 @@ async rewrites() {
 
 Once you deploy your project, the subpath installation should work successfully.
 
-Note: If you are updating your environment variables in Vercel, make sure to manually redeploy to see the changes.
+> Note: <br>
+>
+> - If you are updating your environment variables in Vercel, make sure to manually redeploy to see the changes.
+> - Your main project refers to the project you'll have to have your blog subpath on; for example, if you'd like your blog subpath to be `https://portfolio.com/blog`, then your main project would be `https://portfolio.com`. This means that the rewrites function should be added to the codebase of the main project, not the starter kit codebase.
 
 #### Cloudflare
 
@@ -109,7 +114,7 @@ async function handleRequest(request) {
 
   if (url.pathname.startsWith(subpath)) {
     // Proxy blog requests
-    return proxyBlog(request) 
+    return proxyBlog(request)
   } else {
     // Passthrough everything else
     return fetch(request)
@@ -127,23 +132,24 @@ async function proxyBlog(request) {
 ```
 
 After the above step is done, follow these steps to add the worker route:
-- Go to `Websites` then click on your website and select `Worker Routes` from the left pane. 
+
+- Go to `Websites` then click on your website and select `Worker Routes` from the left pane.
 - Click on `Add route` and add `https://yourdomain/*` , then select the worker you just added above and click `Save`.
 - Go to `https://yourdomain/yoursubpath` and now you should be able to see your blogs.
 
-Be sure to replace the values of `subpath` and `blogBaseUrl` in the above code snippet. This way cloudflare will proxy all the requests starting with `yourdomain.com/blog` to your headless blog, and other requests will hit your origin as usual.
+Make sure to replace the values of `subpath` and `blogBaseUrl` in the above code snippet. This way, Cloudflare will proxy all the requests starting with `yourdomain.com/blog` to your headless blog, and other requests will hit your origin as usual.
 
-If your main domain is hosted elsewhere, you need to involve engineers from your team to create above rewrites.
+If your main domain is hosted elsewhere, you need to involve engineers from your team to create the above rewrites.
 
 ### Step 3
 
-Now that you have deployed the starter kit on your own domain, you need to tell Hashnode not to generate a UI for your blog. You can do that by visiting your blog dashboard -> advanced tab. Scroll down and locate the section "use Hashnode as a headless CMS". Enable it and enter your blog base URL.
+Now that you have deployed the starter kit on your own domain, you need to tell Hashnode not to generate a UI for your blog. You can do that by visiting your blog dashboard -> domain -> Headless mode. Enable headless mode and enter your blog base URL.
 
-![enable headless mode](https://cdn.hashnode.com/res/hashnode/image/upload/v1697486863293/zMMctLjRZ.png?auto=format)
+<img width="808" alt="enable headless mode" src="https://github.com/user-attachments/assets/e303528b-52a6-4cfe-9ee1-2c88b746ae6d">
 
-After enabling, enter your blog URL like the following and save.
+After enabling, enter your blog URL as shown below and save.
 
-![blog base url](https://cdn.hashnode.com/res/hashnode/image/upload/v1697487035077/1sIyw_0v1.png?auto=format)
+<img width="808" alt="blog base url" src="https://github.com/user-attachments/assets/6ffa606e-2b1e-4bcb-ad67-ae71f74de44d">
 
 Congrats 🎉! Hashnode will now treat your blog as a headless blog and send readers directly to the origin.
 
@@ -165,16 +171,27 @@ If you prefer to build your frontend from scratch, you can use our public GraphQ
 
 ## Pricing
 
-**For individual devs:** Hashnode's Headless CMS is free for individual bloggers! Grab our starter kit and start building your blog – no license is needed. 
+**For individual devs:** Hashnode's Headless CMS is free for individual bloggers! Grab our starter kit and start building your blog – no license is needed.
 
 **For teams and enterprises:** Access to headless mode, multiple team members, real-time collaboration, AI, and enterprise reliability. [Request access and get a quote.](https://forms.hashnode.com/headless-hashnode-teams) We will be in touch within the next 24hrs to get you onboarded.
-
 
 ## Demo Videos
 
 [![Headless Hashnode Demo — With Blog Starter Kit (Deployed to Vercel)](https://cdn.hashnode.com/res/hashnode/image/upload/v1697541065189/5ct0eFWIu.png?auto=format&w=500)](https://youtu.be/5Yuxoqohvrk)
 
 [![Customizing Hashnode Blog Starter Kit using TailwindCSS — Headless Hashnode Demo](https://cdn.hashnode.com/res/hashnode/image/upload/v1697540919799/MWVa0aD78.png?auto=format&w=500)](https://youtu.be/oH8QG8E0Txk)
+
+## Community Themes
+
+In addition to our core themes, the community has developed a variety of themes to customize your blog. Check out these themes and explore their unique designs:
+
+| Theme Name                      | Demo Link                                                 | Codebase Link                                                                          |
+| ------------------------------- | --------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| **Newsletter Theme**            | [View Demo](https://starter-kit1-6yte.vercel.app/)        | [GitHub Repository](https://github.com/masterismail/starter-kit1/tree/main)            |
+| **Minimalist (Ikigai) Theme**   | [View Demo](https://pravinreacts.vercel.app/)             | [GitHub Repository](https://github.com/pravintargaryen/starter-kit/tree/main)          |
+| **Floaty Portfolio/Blog Theme** | [View Demo](https://floaty-hashnode-headless.vercel.app/) | [GitHub Repository](https://github.com/iammarmirza/floaty-hashnode-headless/tree/main) |
+
+> Note: These themes are maintained by the community and are not part of the official starter kit.
 
 ## Found an issue?
 
@@ -188,6 +205,6 @@ Feel free to create an [issue](https://github.com/Hashnode/starter-kit/issues) w
 
 ## Reach out for help
 
-You can discuss ideas, ask questions, and meet other members from the Hashnode community in our [Discord](https://discord.gg/hashnode). You can also create tickets on [our intercom](https://hashnode.com/#support) to find support.
+You can discuss ideas, ask questions, and meet other members from the Hashnode community in our [Discord](https://discord.gg/qsAQfxX). You can also create tickets on [our intercom](https://hashnode.com/#support) to find support.
 
 If you like, you can also DM us on [X](https://x.com/hashnode)!

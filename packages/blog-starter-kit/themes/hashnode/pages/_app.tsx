@@ -1,18 +1,27 @@
-import { AppProps } from 'next/app';
 import { withUrqlClient } from 'next-urql';
-import 'tailwindcss/tailwind.css'
+import { AppProps } from 'next/app';
+import { useEffect } from 'react';
+import 'tailwindcss/tailwind.css';
 
-import '../styles/index.css';
 import { GlobalFontVariables } from '../components/fonts';
 import { getUrqlClientConfig } from '../lib/api/client';
+import '../styles/index.css';
 
 import { Fragment } from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {
+	useEffect(() => {
+		(window as any).adjustIframeSize = (id: string, newHeight: string) => {
+			const i = document.getElementById(id);
+			if (!i) return;
+			// eslint-disable-next-line radix
+			i.style.height = `${parseInt(newHeight)}px`;
+		};
+	}, []);
 	return (
 		<Fragment>
-			 <GlobalFontVariables />
-			 <Component {...pageProps} />
+			<GlobalFontVariables />
+			<Component {...pageProps} />
 		</Fragment>
 	);
 }

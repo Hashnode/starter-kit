@@ -4,8 +4,9 @@ import { GithubSVG, HashnodeSVG, LinkedinSVG, RssSVG, XSVG } from './icons';
 
 export const SocialLinks = ({ isSidebar }: { isSidebar?: boolean }) => {
 	const { publication } = useAppContext();
-	const hasSocialLinks = !Object.values(publication.links!).every((val) => val === '');
-
+	const hasSocialLinks = publication?.links
+		? !Object.values(publication.links!).every((val) => val === '')
+		: false;
 	return (
 		<>
 			<div

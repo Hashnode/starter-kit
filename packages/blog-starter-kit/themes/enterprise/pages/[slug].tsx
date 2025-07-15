@@ -133,7 +133,7 @@ const Post = ({ publication, post }: PostProps) => {
 				author={post.author}
 				readTimeInMinutes={post.readTimeInMinutes}
 			/>
-			{post.features.tableOfContents.isEnabled && <PostTOC />}
+			{post.features.tableOfContents.isEnabled && post.features?.tableOfContents?.items?.length > 0 && <PostTOC />}
 			<MarkdownToHtml contentMarkdown={post.content.markdown} />
 			{(post.tags ?? []).length > 0 && (
 				<div className="mx-auto w-full px-5 text-slate-600 dark:text-neutral-300 md:max-w-screen-md">

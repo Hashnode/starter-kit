@@ -1,5 +1,5 @@
 import { twJoin } from 'tailwind-merge';
-
+import Link from 'next/link';
 import { resizeImage } from '../utils/image';
 import ProfileImage from './profile-image';
 import CustomImage from './custom-image';
@@ -20,7 +20,7 @@ function OtherPostsOfAccount(props: Props) {
   
   const morePostsRendered = morePosts.map((postNode: any) => {
     const post  = postNode.node;
-    const postURL = post.slug;
+    const postURL = `/${post.slug}`;
     return (
       <div
         className={twJoin(
@@ -52,7 +52,7 @@ function OtherPostsOfAccount(props: Props) {
             </div>
           )}
           {post.coverImage && (
-            <a
+            <Link
               href={postURL}
               className="blog-similar-article-cover post-cover mb-3 block rounded border bg-cover bg-center dark:border-slate-800"
             >
@@ -65,14 +65,14 @@ function OtherPostsOfAccount(props: Props) {
                 originalSrc={post.coverImage.url}
                 src={resizeImage(post.coverImage.url, { w: 500, h: 262, c: 'thumb' })}
               />
-            </a>
+            </Link>
           )}
           <div className="blog-post-details break-words">
             <h1 className="mb-2 font-heading text-2xl font-bold leading-tight tracking-tight text-slate-900 dark:text-white">
-              <a href={postURL}>
+              <Link href={postURL}>
                 {post.title.substring(0, 100)}
                 {post.title.length > 100 ? '…' : ''}
-              </a>
+              </Link>
             </h1>
             {post.brief && (
               <p
@@ -81,10 +81,10 @@ function OtherPostsOfAccount(props: Props) {
                   'text-slate-700 dark:text-slate-400',
                 )}
               >
-                <a href={postURL}>
+                <Link href={postURL}>
                   {post.brief.substring(0, 100)}
                   {post.brief.length > 100 ? '…' : ''}
-                </a>
+                </Link>
               </p>
             )}
           </div>

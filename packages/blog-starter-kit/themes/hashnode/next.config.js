@@ -65,6 +65,7 @@ const config = {
 		scrollRestoration: true,
 	},
 	images: {
+		unoptimized: true,
 		remotePatterns: [
 			{
 				protocol: 'https',

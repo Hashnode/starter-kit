@@ -264,7 +264,7 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 			<div className="blog-content-wrapper article-main-wrapper container relative z-30 mx-auto grid grid-flow-row grid-cols-8 xl:gap-6 2xl:grid-cols-10">
 				<section className="blog-content-main z-20 col-span-8 mb-10 px-4 md:z-10 lg:col-span-6 lg:col-start-2 lg:px-0 xl:col-span-6 xl:col-start-2 2xl:col-span-6 2xl:col-start-3">
 					<div className="relative">
-						{post.features?.tableOfContents?.isEnabled && <TocRenderDesign list={toc} />}
+						{post.features?.tableOfContents?.isEnabled && post.features?.tableOfContents?.items?.length > 0 && <TocRenderDesign list={toc} />}
 
 						{/* {isPublicationPost && renderPinnedWidgets(props.widgets, 'top')} */}
 
@@ -299,13 +299,13 @@ export const PostHeader = ({ post, morePosts }: Props) => {
 						{tags.length > 0 && (
 							<div className="mb-5 flex w-full flex-row flex-wrap justify-center md:mb-0">
 								{tags.map((tag) => (
-									<a
+									<Link
 										className="mb-2 mr-3 rounded-lg border bg-slate-100 px-2 py-1 text-base font-medium text-slate-700 hover:bg-slate-200 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700"
 										key={tag._id}
-										href={`tag/${tag.slug}?source=tags_bottom_blogs`}
+										href={`/tag/${tag.slug}?source=tags_bottom_blogs`}
 									>
 										<span>{tag.name}</span>
-									</a>
+									</Link>
 								))}
 							</div>
 						)}
