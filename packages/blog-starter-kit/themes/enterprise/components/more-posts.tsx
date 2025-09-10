@@ -22,8 +22,12 @@ export const MorePosts = ({ posts, context, pageType, seriesDescription, seriesN
     }
     return "Kedilerle ve köpeklerle ilgili öğrenmek istediğiniz başka bir şey varsa önceki yazılarımıza göz atabilirsiniz.";
   };
+	const sortedPosts = [...posts].sort((a, b) =>
+		new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+	);
 
-  return (
+
+	return (
     <section className="mb-10 flex flex-col items-start gap-10">
       <div className="hidden md:flex py-20 text-center flex-col items-center">
         <p className="text-md leading-snug text-slate-500 dark:text-neutral-400 text-lg max-w-xl mx-auto mt-4">
@@ -37,7 +41,7 @@ export const MorePosts = ({ posts, context, pageType, seriesDescription, seriesN
         />
       </div>
       <div className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3 md:gap-12">
-        {posts.map((post) => (
+        {sortedPosts.map((post) => (
           <PostPreview
             key={post.slug}
             title={post.title}
