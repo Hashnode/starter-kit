@@ -117,7 +117,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
           loadMore();
         }
       },
-      { threshold: 0.1 } 
+      { threshold: 0.1 }
     );
 
     observerRef.current.observe(loadingRef.current);
@@ -175,7 +175,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
       }
     ]
   };
-  
+
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -216,27 +216,29 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
 
 
   const filteredPosts = useMemo(() => {
-    if (selectedCategory === 'all') return allPosts;
-  
-    const catTerms = ['kedi', 'kedicik', 'kediş', 'kedi maması', 'kedi bakımı', 'miyav'];
-    const dogTerms = ['köpek', 'köpecik', 'köpeş', 'köpek maması', 'kurdu', 'aslanı', 'köpek bakımı', 'hav hav'];
-  
-    const searchTerms = selectedCategory === 'cat' ? catTerms : dogTerms;
-  
-    return allPosts.filter(post => {
-      const normalize = (text: string) => text.toLowerCase()
-        .replace(/ı/g, 'i').replace(/ğ/g, 'g').replace(/ü/g, 'u')
-        .replace(/ş/g, 's').replace(/ö/g, 'o').replace(/ç/g, 'c');
-      
-      const normalizedTitle = normalize(post.title);
-      const normalizedBrief = normalize(post.brief);
-  
-      return searchTerms.some(term => {
-        const normalizedTerm = normalize(term);
-        return normalizedTitle.includes(normalizedTerm) || 
-               normalizedBrief.includes(normalizedTerm);
+    let base = allPosts;
+    if (selectedCategory !== 'all') {
+      const catTerms = ['kedi', 'kedicik', 'kediş', 'kedi maması', 'kedi bakımı', 'miyav'];
+      const dogTerms = ['köpek', 'köpecik', 'köpeş', 'köpek maması', 'kurdu', 'aslanı', 'köpek bakımı', 'hav hav'];
+      const searchTerms = selectedCategory === 'cat' ? catTerms : dogTerms;
+
+      base = allPosts.filter(post => {
+        const normalize = (text: string) => text.toLowerCase()
+          .replace(/ı/g, 'i').replace(/ğ/g, 'g').replace(/ü/g, 'u')
+          .replace(/ş/g, 's').replace(/ö/g, 'o').replace(/ç/g, 'c');
+
+        const normalizedTitle = normalize(post.title);
+        const normalizedBrief = normalize(post.brief);
+
+        return searchTerms.some(term => {
+          const normalizedTerm = normalize(term);
+          return normalizedTitle.includes(normalizedTerm) ||
+                 normalizedBrief.includes(normalizedTerm);
+        });
       });
-    });
+    }
+
+    return [...base].sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
   }, [allPosts, selectedCategory]);
 
   const memoizedContent = useMemo(() => {
@@ -271,7 +273,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
   const handleCategoryChange = useCallback((category: Category) => {
     setSelectedCategory(category);
     window.scrollTo(0, 0);
-    
+
     const button = document.querySelector(`button[data-category="${category}"]`);
     if (button) {
       const rect = button.getBoundingClientRect();
@@ -281,7 +283,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
         x: rect.left + randomX,
         y: rect.top + randomY + window.scrollY,
       };
-  
+
       if (category === 'cat') {
         const catEmojis = ['😸', '😼', '😻', '😹', '🐱', '😺', '😽', '😾'];
         const randomCatEmoji = catEmojis[Math.floor(Math.random() * catEmojis.length)];
@@ -308,7 +310,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
           <meta name="theme-color" content="#fa9252" />
           <meta name="msapplication-navbutton-color" content="#fa9252" />
           <meta name="apple-mobile-web-app-status-bar-style" content="#fa9252" />
-          
+
           <meta name="Dynamics-Noise" content="Off" />
           <meta httpEquiv="x-dns-prefetch-control" content="on" />
           <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
@@ -390,7 +392,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
           </div>
 
           <div className="flex justify-center space-x-4 mb-6">
-            <button 
+            <button
               data-category="all"
               onClick={() => handleCategoryChange('all')}
               className={`px-4 py-2 rounded ${selectedCategory === 'all' ? 'bg-orange-500 text-white' : 'bg-gray-202-pre'}`}
@@ -403,7 +405,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
             >
               Tümü
             </button>
-            <button 
+            <button
               data-category="cat"
               onClick={() => handleCategoryChange('cat')}
               className={`px-4 py-2 rounded ${selectedCategory === 'cat' ? 'bg-orange-500 text-white' : 'bg-gray-202-pre'}`}
@@ -413,7 +415,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
             >
               Kedi
             </button>
-            <button 
+            <button
               data-category="dog"
               onClick={() => handleCategoryChange('dog')}
               className={`px-4 py-2 rounded ${selectedCategory === 'dog' ? 'bg-orange-500 text-white' : 'bg-gray-202-pre'}`}
