@@ -46,7 +46,7 @@ const GET_DOG_POSTS = gql`
           url
         }
       }
-      posts(first: $first) {
+      posts(first: $first, filter: { excludePinnedPost: true }) {
         edges {
           node {
             id
@@ -271,8 +271,7 @@ type GetDogPostsResponse = {
       console.log(`Toplam makale sayısı: ${allPosts.length}`);
 
       const filteredPosts = allPosts
-        .filter(isDogRelated)
-        .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+        .filter(isDogRelated);
       console.log(`Köpeklerle ilgili makale sayısı: ${filteredPosts.length}`);
 
       return {

@@ -238,7 +238,7 @@ export default function Index({ publication, initialAllPosts, initialPageInfo }:
       });
     }
 
-    return [...base].sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+    return base;
   }, [allPosts, selectedCategory]);
 
   const memoizedContent = useMemo(() => {
@@ -502,8 +502,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     };
   }
   const initialAllPosts = publication.posts.edges
-    .map((edge) => edge.node)
-    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+    .map((edge) => edge.node);
 
   return {
     props: {

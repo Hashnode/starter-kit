@@ -433,9 +433,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
 
     if (seriesData.publication?.series) {
       const series = seriesData.publication.series;
-      const posts = (series.posts.edges.map(edge => edge.node) as PostFullFragment[])
-        .slice()
-        .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+      const posts = (series.posts.edges.map(edge => edge.node) as PostFullFragment[]);
 
       return {
         props: removeUndefined({

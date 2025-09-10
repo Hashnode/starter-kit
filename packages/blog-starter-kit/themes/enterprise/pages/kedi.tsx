@@ -43,7 +43,7 @@ const GET_CAT_POSTS = gql`
           url
         }
       }
-      posts(first: $first) {
+      posts(first: $first, filter: { excludePinnedPost: true }) {
         edges {
           node {
             id
@@ -242,8 +242,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
 		const filteredPosts = data.publication.posts.edges
 			.map((edge: { node: PostFragment }) => edge.node)
-			.filter(isCatRelated)
-			.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+			.filter(isCatRelated);
 
 
     return {
