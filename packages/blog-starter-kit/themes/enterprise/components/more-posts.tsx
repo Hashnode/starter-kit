@@ -22,9 +22,6 @@ export const MorePosts = ({ posts, context, pageType, seriesDescription, seriesN
     }
     return "Kedilerle ve köpeklerle ilgili öğrenmek istediğiniz başka bir şey varsa önceki yazılarımıza göz atabilirsiniz.";
   };
-	const sortedPosts = [...posts].sort((a, b) =>
-		new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-	);
 
 
 	return (
@@ -41,7 +38,7 @@ export const MorePosts = ({ posts, context, pageType, seriesDescription, seriesN
         />
       </div>
       <div className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3 md:gap-12">
-        {sortedPosts.map((post) => (
+        {posts.map((post) => (
           <PostPreview
             key={post.slug}
             title={post.title}

@@ -501,7 +501,9 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
       notFound: true,
     };
   }
-  const initialAllPosts = publication.posts.edges.map((edge) => edge.node);
+  const initialAllPosts = publication.posts.edges
+    .map((edge) => edge.node)
+    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
 
   return {
     props: {
