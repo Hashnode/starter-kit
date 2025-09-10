@@ -47,7 +47,7 @@ const AboutAuthor = dynamic(() => import('../components/about-author'), { ssr: f
 export const PostsByTagDocument = gql`
   query PostsByTag($host: String!, $tagSlugs: [String!], $first: Int!, $after: String) {
     publication(host: $host) {
-      posts(first: $first, after: $after, filter: { tagSlugs: $tagSlugs }) {
+      posts(first: $first, after: $after, filter: { tagSlugs: $tagSlugs, excludePinnedPost: true }) {
         edges {
           node {
             id

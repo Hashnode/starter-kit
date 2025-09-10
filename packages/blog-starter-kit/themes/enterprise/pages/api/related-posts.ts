@@ -45,7 +45,7 @@ type RelatedPostsData = {
 const PostsByTagDocument = gql`
   query PostsByTag($host: String!, $tagSlugs: [String!], $first: Int!, $after: String) {
     publication(host: $host) {
-      posts(first: $first, after: $after, filter: { tagSlugs: $tagSlugs }) {
+      posts(first: $first, after: $after, filter: { tagSlugs: $tagSlugs, excludePinnedPost: true }) {
         edges {
           node {
             id
@@ -103,7 +103,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const relatedPostsData = await request<RelatedPostsData>(endpoint, PostsByTagDocument, {
       host,
       tagSlugs,
-      first: 20,
+      first: 200,
       after: null
     });
 
@@ -111,10 +111,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .map(edge => edge.node)
       .filter(post => post.id !== postId);
 
-    // İlgili postları karıştır ve en fazla 3 tanesini al
-    const shuffledPosts = relatedPosts.sort(() => 0.5 - Math.random()).slice(0, 3);
+    // İlgili postları en yeni tarihten eskiye olacak şekilde sırala ve en fazla 3 tanesini al
+    const sortedPosts = relatedPosts
+      .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+      .slice(0, 3);
 
-    res.status(200).json(shuffledPosts);
+    res.status(200).json(sortedPosts);
   } catch (error) {
     console.error('Error fetching related posts:', error);
     res.status(500).json({ error: 'Failed to fetch related posts' });
