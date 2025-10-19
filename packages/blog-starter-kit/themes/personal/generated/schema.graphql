@@ -76,6 +76,17 @@ type AddCommentPayload {
   comment: Comment
 }
 
+input AddContentBlockInput {
+  content: String!
+  embedId: String!
+  label: String!
+  projectId: ID!
+}
+
+type AddContentBlockPayload {
+  project: DocumentationProject!
+}
+
 input AddCustomMdxComponentInput {
   code: String!
   componentId: String!
@@ -177,6 +188,14 @@ type Badge implements Node {
   name: String!
   """A flag to determine if the badge is hidden."""
   suppressed: Boolean
+}
+
+"""
+Contains information about banner image options of the post. Like URL of the banner image, attribution, etc.
+"""
+input BannerImageOptionsInput {
+  """The URL of the banner image."""
+  bannerImageURL: String
 }
 
 """
@@ -1006,6 +1025,8 @@ type CreateDocumentationSectionPayload {
 }
 
 input CreateDraftInput {
+  """Options for the banner image of the resulting draft."""
+  bannerImageOptions: BannerImageOptionsInput
   """Ids of the co-authors of the resulting draft."""
   coAuthors: [ObjectId!]
   """Content of the resulting draft in markdown format."""
@@ -1212,6 +1233,15 @@ scalar DateTime
 enum DefaultDocsTheme {
   DARK
   LIGHT
+}
+
+input DeleteContentBlockInput {
+  embedId: String!
+  projectId: ID!
+}
+
+type DeleteContentBlockPayload {
+  project: DocumentationProject!
 }
 
 input DeleteCustomMdxComponentInput {
@@ -1484,6 +1514,8 @@ type DocumentationNavbarColumn implements Node {
   items: [DocumentationNavbarItem!]!
   """The label of the column."""
   label: String!
+  """The logo of the column."""
+  logo: URL
   """The date the column was last updated."""
   updatedAt: DateTime
 }
@@ -1707,6 +1739,19 @@ input DocumentationProjectAppearanceInput {
   logoDarkThemeUrl: String
   logoUrl: String
   primaryColor: String
+}
+
+type DocumentationProjectContentBlock implements Node {
+  """The MDX string of the content block."""
+  content: String!
+  """embedId, which can be used to embed the content block in the editor."""
+  embedId: String!
+  """The unique identifier for the content block"""
+  id: ID!
+  """
+  label, can be used to identify the content block from the dropdown in the editor.
+  """
+  label: String!
 }
 
 type DocumentationProjectCustomComponent implements Node {
@@ -2033,6 +2078,11 @@ A draft is a post that is not published yet.
 type Draft implements Node {
   """The author of the draft."""
   author: User!
+  """
+  The banner image preference of the draft. Contains banner image URL and other details.
+  Similar to cover image but user can use banner image as alternate cover on single post page.
+  """
+  bannerImage: DraftBannerImage
   canonicalUrl: String
   """
   Returns the user details of the co-authors of the post.
@@ -2107,6 +2157,12 @@ type DraftBackup {
   at: DateTime
   """The status of the backup i.e., success or failure."""
   status: BackupStatus
+}
+
+"""Contains information about the banner image of the draft."""
+type DraftBannerImage {
+  """The URL of the banner image."""
+  url: String!
 }
 
 """
@@ -3140,6 +3196,7 @@ type Mutation {
   acceptRoleBasedInvite(input: AcceptRoleBasedInviteInput!): AcceptRoleBasedInvitePayload!
   """Adds a comment to a post."""
   addComment(input: AddCommentInput!): AddCommentPayload!
+  addContentBlock(input: AddContentBlockInput!): AddContentBlockPayload!
   addCustomMdxComponent(input: AddCustomMdxComponentInput!): AddCustomMdxComponentPayload!
   addDocumentationProjectCustomDomain(input: AddDocumentationProjectCustomDomainInput!): AddDocumentationProjectCustomDomainPayload!
   """Adds a post to a series."""
@@ -3173,6 +3230,7 @@ type Mutation {
   """Creates a new series."""
   createSeries(input: CreateSeriesInput!): CreateSeriesPayload!
   createWebhook(input: CreateWebhookInput!): CreateWebhookPayload!
+  deleteContentBlock(input: DeleteContentBlockInput!): DeleteContentBlockPayload!
   deleteCustomMdxComponent(input: DeleteCustomMdxComponentInput!): DeleteCustomMdxComponentPayload!
   """Deletes a role based invite."""
   deleteRoleBasedInvite(input: DeleteRoleBasedInviteInput!): DeleteRoleBasedInvitePayload!
@@ -3294,6 +3352,7 @@ type Mutation {
   unsubscribeFromNewsletter(input: UnsubscribeFromNewsletterInput!): UnsubscribeFromNewsletterPayload!
   """Updates a comment on a post."""
   updateComment(input: UpdateCommentInput!): UpdateCommentPayload!
+  updateContentBlock(input: UpdateContentBlockInput!): UpdateContentBlockPayload!
   updateCustomMdxComponent(input: UpdateCustomMdxComponentInput!): UpdateCustomMdxComponentPayload!
   updateDocumentationAppearance(input: UpdateDocumentationAppearanceInput!): UpdateDocumentationAppearancePayload!
   updateDocumentationGeneralSettings(input: UpdateDocumentationGeneralSettingsInput!): UpdateDocumentationGeneralSettingsPayload!
@@ -3642,6 +3701,11 @@ type Post implements Node {
   """Returns the user details of the author of the post."""
   author: User!
   """
+  The banner image preference of the post. Contains banner image URL and other details.
+  It is similar to cover image but users can decide to render banner image of single post view.
+  """
+  bannerImage: PostBannerImage
+  """
   Flag to indicate if the post is bookmarked by the requesting user.
   
   Returns `false` if the user is not authenticated.
@@ -3815,6 +3879,12 @@ type PostBadgesFeature implements Feature {
   items: [PostBadge!]!
 }
 
+"""Contains information about the banner image of the post."""
+type PostBannerImage {
+  """The URL of the banner image."""
+  url: String!
+}
+
 """
 Connection for comments. Contains a list of edges containing nodes.
 Each node holds a comment.
@@ -3960,6 +4030,13 @@ type PostPreferences {
   A flag to indicate if the cover image is shown below title of the post. Default position of cover is top of title.
   """
   stickCoverToBottom: Boolean!
+}
+
+enum PostSortBy {
+  """Sorts posts by date published in ascending order."""
+  DATE_PUBLISHED_ASC
+  """Sorts posts by date published in descending order."""
+  DATE_PUBLISHED_DESC
 }
 
 """
@@ -4658,6 +4735,10 @@ input PublicationPostConnectionFilter {
   deletedOnly: Boolean
   """Remove pinned post from the result set."""
   excludePinnedPost: Boolean
+  """Tags AND filter. All tags must be present in the post."""
+  requiredTagSlugs: [String!]
+  """Tags AND filter. All tags must be present in the post."""
+  requiredTags: [ID!]
   """
   Filtering by tag slugs and tag IDs will return posts that match either of the filters.
   
@@ -4789,6 +4870,11 @@ type PublishDraftPayload {
 
 """Contains information about the post to be published."""
 input PublishPostInput {
+  """
+  Options for the banner image of the post.
+  It is similar to cover image but users can decide to render banner image of single post view.
+  """
+  bannerImageOptions: BannerImageOptionsInput
   """Ids of the co-authors of the post."""
   coAuthors: [ObjectId!]
   """Content of the post in markdown format."""
@@ -4932,6 +5018,8 @@ type Query {
     filter: SearchPostsOfPublicationFilter!
     """The number of items to be returned per page."""
     first: Int!
+    """The sort order."""
+    sortBy: PostSortBy
   ): SearchPostConnection!
   """Returns tag details by its slug."""
   tag(
@@ -5428,6 +5516,8 @@ input SearchPostsOfPublicationFilter {
   publicationId: ObjectId!
   """The query to be searched in post."""
   query: String
+  """Tags AND filter. All tags must be present in the post."""
+  requiredTagsIds: [ID!]
   """An array of tag Ids to filter the posts."""
   tagIds: [ID!]
   """Filter based on time range."""
@@ -5887,6 +5977,17 @@ type UpdateCommentPayload {
   comment: Comment
 }
 
+input UpdateContentBlockInput {
+  content: String!
+  embedId: String!
+  label: String!
+  projectId: ID!
+}
+
+type UpdateContentBlockPayload {
+  project: DocumentationProject!
+}
+
 input UpdateCustomMdxComponentInput {
   code: String!
   componentId: String!
@@ -6007,6 +6108,8 @@ type UpdateDocumentationSectionPayload {
 }
 
 input UpdatePostInput {
+  """Options for the banner image of the post."""
+  bannerImageOptions: BannerImageOptionsInput
   """
   Update co-authors of the post.
   Must be a member of the publication.

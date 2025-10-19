@@ -8,7 +8,7 @@ import { AppProvider } from '../../components/contexts/appContext';
 import { Footer } from '../../components/footer';
 import { Layout } from '../../components/layout';
 import { MinimalPosts } from '../../components/minimal-posts';
-import { PersonalHeader } from '../../components/personal-theme-header';
+import { HeaderWithNavbar } from '../../components/personal-theme-header';
 import {
 	PostFragment,
 	PublicationFragment,
@@ -45,7 +45,7 @@ export default function Tag({ publication, posts, tag }: Props) {
 					/>
 				</Head>
 				<Container className="mx-auto flex max-w-3xl flex-col items-stretch gap-10 px-5 py-10">
-					<PersonalHeader />
+					<HeaderWithNavbar />
 					<div className="flex flex-col gap-1 pt-5">
 						<p className="font-bold uppercase text-slate-500 dark:text-neutral-400">Tag</p>
 						<h1 className="text-4xl font-bold text-slate-900 dark:text-neutral-50">#{tag}</h1>

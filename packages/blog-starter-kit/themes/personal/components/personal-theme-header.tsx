@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { PublicationNavbarItem } from '../generated/graphql';
 import { useAppContext } from './contexts/appContext';
 import { ToggleTheme } from './toggle-theme';
+import Navbar from './navbar';
 
 function hasUrl(
 	navbarItem: PublicationNavbarItem,
@@ -88,7 +89,7 @@ export const PersonalHeader = () => {
 				</div>
 			</div>
 			<div className="col-span-full flex flex-row items-center justify-between gap-4 md:col-span-1 md:justify-end">
-				<nav>{navList}</nav>
+				<nav className="hidden md:block">{navList}</nav>
 				<ToggleTheme className="hidden md:block" />
 				{/* <Button
           label=""
@@ -98,5 +99,15 @@ export const PersonalHeader = () => {
         /> */}
 			</div>
 		</header>
+	);
+};
+
+// Render Navbar below header on smaller screens / as sidebar on large
+export const HeaderWithNavbar = () => {
+	return (
+		<>
+			<PersonalHeader />
+			<Navbar />
+		</>
 	);
 };

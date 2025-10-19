@@ -1,3 +1,11 @@
+const path = require('path');
+// Load .env.local (theme) and repo .env.local so env vars are available when this file is evaluated
+try {
+	require('dotenv').config({ path: path.resolve(__dirname, '.env.local') });
+} catch (e) {}
+try {
+	require('dotenv').config({ path: path.resolve(process.cwd(), '.env.local') });
+} catch (e) {}
 const { request, gql } = require('graphql-request');
 
 const ANALYTICS_BASE_URL = 'https://hn-ping2.hashnode.com';
@@ -15,6 +23,12 @@ const getBasePath = () => {
 };
 
 const getRedirectionRules = async () => {
+	// If GraphQL endpoint or host isn't configured, skip fetching rules
+	if (!GQL_ENDPOINT || !host) {
+		// returning an empty array is safe for Next.js redirects()
+		console.warn('Skipping redirection rules: NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT or NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST is not set.');
+		return [];
+	}
 	const query = gql`
 		query GetRedirectionRules {
 			publication(host: "${host}") {
@@ -28,13 +42,20 @@ const getRedirectionRules = async () => {
 		}
   	`;
 
-	const data = await request(GQL_ENDPOINT, query);
-
-	if (!data.publication) {
-		throw 'Please ensure you have set the env var NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST correctly.';
+	let data;
+	try {
+		data = await request(GQL_ENDPOINT, query);
+	} catch (err) {
+		console.warn('Failed to fetch redirection rules:', err && err.message ? err.message : err);
+		return [];
 	}
 
-	const redirectionRules = data.publication.redirectionRules;
+	if (!data || !data.publication) {
+		console.warn('No publication data received for redirection rules.');
+		return [];
+	}
+
+	const redirectionRules = data.publication.redirectionRules || [];
 
 	// convert to next.js redirects format
 	const redirects = redirectionRules

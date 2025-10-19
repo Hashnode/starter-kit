@@ -10,7 +10,7 @@ import { AppProvider } from '../components/contexts/appContext';
 import { Footer } from '../components/footer';
 import { Layout } from '../components/layout';
 import { MinimalPosts } from '../components/minimal-posts';
-import { PersonalHeader } from '../components/personal-theme-header';
+import { HeaderWithNavbar } from '../components/personal-theme-header';
 import {
 	MorePostsByPublicationDocument,
 	MorePostsByPublicationQuery,
@@ -84,7 +84,7 @@ export default function Index({ publication, initialPosts, initialPageInfo }: Pr
 					/>
 				</Head>
 				<Container className="mx-auto flex max-w-3xl flex-col items-stretch gap-10 px-5 py-10">
-					<PersonalHeader />
+					<HeaderWithNavbar />
 					{posts.length > 0 && <MinimalPosts context="home" posts={posts} />}
 					{!loadedMore && pageInfo.hasNextPage && pageInfo.endCursor && (
 						<button onClick={loadMore}>
