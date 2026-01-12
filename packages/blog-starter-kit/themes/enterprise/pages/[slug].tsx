@@ -467,8 +467,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
       endpoint,
       SlugPostsByPublicationDocument,
       {
-        first: 100, // Burada kaç sayfa için statik olarak oluşturulacağını belirleyebilirsiniz
+        first: 20, // Hashnode API limiti için düşük tutuyoruz
         host: host,
+        after: null,
       }
     );
 
@@ -478,7 +479,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     return {
       paths,
-      fallback: 'blocking', // veya 'true' ya da false, ihtiyacınıza göre
+      fallback: 'blocking', // Diğer sayfalar talep üzerine oluşturulacak
     };
   } catch (error) {
     console.error("Error fetching slugs:", error);
