@@ -97,7 +97,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     `, { id: postId });
 
-    const tagSlugs = currentPostData.post.tags.map(tag => tag.slug);
+    const tagSlugs = currentPostData.post?.tags?.map(tag => tag.slug) || [];
+
+    // Eğer etiket yoksa boş sonuç döndür
+    if (tagSlugs.length === 0) {
+      return res.status(200).json([]);
+    }
 
     // İlgili postları al
     const relatedPostsData = await request<RelatedPostsData>(endpoint, PostsByTagDocument, {
@@ -107,9 +112,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       after: null
     });
 
-    const relatedPosts = relatedPostsData.publication?.posts.edges
-      .map(edge => edge.node)
-      .filter(post => post.id !== postId);
+    const relatedPosts = relatedPostsData.publication?.posts?.edges
+      ?.map(edge => edge.node)
+      ?.filter(post => post.id !== postId) || [];
 
     // İlgili postları en yeni tarihten eskiye olacak şekilde sırala ve en fazla 3 tanesini al
     const sortedPosts = relatedPosts
