@@ -43,9 +43,9 @@ type RelatedPostsData = {
 };
 
 const PostsByTagDocument = gql`
-  query PostsByTag($host: String!, $tagSlugs: [String!], $first: Int!, $after: String) {
+  query PostsByTag($host: String!, $tagSlug: String!, $first: Int!, $after: String) {
     publication(host: $host) {
-      posts(first: $first, after: $after, filter: { tagSlugs: $tagSlugs, excludePinnedPost: true }) {
+      posts(first: $first, after: $after, filter: { tagSlugs: [$tagSlug], excludePinnedPost: true }) {
         edges {
           node {
             id
@@ -104,11 +104,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(200).json([]);
     }
 
-    // İlgili postları al
+    // İlgili postları al - sadece ilk etiketi kullan (API limitleri için)
     const relatedPostsData = await request<RelatedPostsData>(endpoint, PostsByTagDocument, {
       host,
-      tagSlugs,
-      first: 200,
+      tagSlug: tagSlugs[0], // Sadece ilk etiketi kullan
+      first: 50,
       after: null
     });
 
