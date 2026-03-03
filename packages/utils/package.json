@@ -12,7 +12,7 @@
 	"dependencies": {
 		"js-base64": "^3.7.5",
 		"rss": "^1.2.2",
-		"sanitize-html": "^2.11.0",
+		"sanitize-html": "^2.12.1",
 		"slug": "^8.2.3",
 		"validator": "^13.11.0"
 	},
