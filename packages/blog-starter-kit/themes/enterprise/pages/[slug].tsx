@@ -372,6 +372,53 @@ type Params = {
   slug: string;
 };
 
+// Geçici ağ/DNS hatalarında (Vercel Lambda'da `ENOTFOUND`, `ECONNRESET`, vb.
+// zaman zaman görülür) retry yapan bir graphql-request sarmalayıcısı.
+// GraphQL response error'ları (404 gibi semantik hatalar) için retry YAPMAZ.
+const isTransientNetworkError = (error: unknown): boolean => {
+  if (!error || typeof error !== 'object') return false;
+  const cause = (error as any).cause ?? error;
+  const code = cause?.code;
+  const message: string = cause?.message ?? (error as any).message ?? '';
+  if (
+    code === 'ENOTFOUND' ||
+    code === 'ECONNRESET' ||
+    code === 'ETIMEDOUT' ||
+    code === 'EAI_AGAIN' ||
+    code === 'ECONNREFUSED' ||
+    code === 'UND_ERR_SOCKET'
+  ) {
+    return true;
+  }
+  return /fetch failed|network|socket|ENOTFOUND|ECONNRESET|ETIMEDOUT|EAI_AGAIN/i.test(message);
+};
+
+const requestWithRetry = async <T, V extends Record<string, any>>(
+  endpoint: string,
+  document: Parameters<typeof request<T, V>>[1],
+  variables: V,
+  maxAttempts = 3,
+): Promise<T> => {
+  let lastError: unknown;
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      return await request<T, V>(endpoint, document, variables);
+    } catch (error) {
+      lastError = error;
+      if (!isTransientNetworkError(error) || attempt === maxAttempts) {
+        throw error;
+      }
+      const delayMs = 200 * 2 ** (attempt - 1) + Math.floor(Math.random() * 100);
+      console.warn(
+        `[hashnode] transient request failure (attempt ${attempt}/${maxAttempts}), retrying in ${delayMs}ms`,
+        error,
+      );
+      await new Promise((resolve) => setTimeout(resolve, delayMs));
+    }
+  }
+  throw lastError;
+};
+
 export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) => {
   if (!params) {
     throw new Error('No params');
@@ -383,7 +430,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
 
   try {
     // Post için kontrol
-    const postData = await request(endpoint, SinglePostByPublicationDocument, { host, slug });
+    const postData = await requestWithRetry(endpoint, SinglePostByPublicationDocument, { host, slug });
 
     if (postData.publication?.post) {
       const currentPost = postData.publication.post;
@@ -406,12 +453,12 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
           post: currentPost,
           publication: postData.publication,
         }),
-        revalidate: 1,
+        revalidate: 60,
       };
     }
 
     // Statik sayfa için kontrol
-    const pageData = await request(endpoint, PageByPublicationDocument, { host, slug });
+    const pageData = await requestWithRetry(endpoint, PageByPublicationDocument, { host, slug });
 
     if (pageData.publication?.staticPage) {
       return {
@@ -420,12 +467,12 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
           page: pageData.publication.staticPage,
           publication: pageData.publication,
         }),
-        revalidate: 1,
+        revalidate: 60,
       };
     }
 
     // Kategori (series) için kontrol
-    const seriesData = await request(endpoint, SeriesPostsByPublicationDocument, {
+    const seriesData = await requestWithRetry(endpoint, SeriesPostsByPublicationDocument, {
       host,
       seriesSlug: slug,
       first: 20,
@@ -442,19 +489,24 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
           posts,
           publication: seriesData.publication,
         }),
-        revalidate: 1,
+        revalidate: 60,
       };
     }
   } catch (error) {
-    console.error("GraphQL request failed:", error);
+    console.error('GraphQL request failed:', error);
+    // Geçici ağ/DNS hatalarında throw — ISR mevcut cache'lenmiş sayfayı
+    // sunmaya devam eder ve hatayı kalıcı bir 404 olarak cache'lemez.
+    if (isTransientNetworkError(error)) {
+      throw error;
+    }
     return {
       notFound: true,
-      revalidate: 1,
+      revalidate: 60,
     };
   }
   return {
     notFound: true,
-    revalidate: 1,
+    revalidate: 60,
   };
 };
 
@@ -463,7 +515,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const host = process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST;
 
   try {
-    const data = await request(
+    const data = await requestWithRetry(
       endpoint,
       SlugPostsByPublicationDocument,
       {
