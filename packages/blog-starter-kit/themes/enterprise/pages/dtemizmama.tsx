@@ -1,5 +1,5 @@
-import request from 'graphql-request';
 import { GetServerSideProps } from 'next';
+import { hashnodeRequest } from '../lib/api/hashnode-request';
 import {
 	PublicationByHostDocument,
 	PublicationByHostQuery,
@@ -10,7 +10,7 @@ const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 const dtemizmama = () => null;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-	const data = await request<PublicationByHostQuery, PublicationByHostQueryVariables>(
+	const data = await hashnodeRequest<PublicationByHostQuery, PublicationByHostQueryVariables>(
 		GQL_ENDPOINT,
 		PublicationByHostDocument,
 		{

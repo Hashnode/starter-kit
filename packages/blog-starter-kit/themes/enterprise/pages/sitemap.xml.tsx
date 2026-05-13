@@ -1,6 +1,6 @@
 import { getSitemap } from '@starter-kit/utils/seo/sitemap';
-import request from 'graphql-request';
 import { GetServerSideProps } from 'next';
+import { hashnodeRequest } from '../lib/api/hashnode-request';
 import {
 	MoreSitemapPostsDocument,
 	MoreSitemapPostsQuery,
@@ -17,7 +17,7 @@ const Sitemap = () => null;
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
 	const { res } = ctx;
 
-	const initialData = await request<SitemapQuery, SitemapQueryVariables>(
+	const initialData = await hashnodeRequest<SitemapQuery, SitemapQueryVariables>(
 		GQL_ENDPOINT,
 		SitemapDocument,
 		{
@@ -44,7 +44,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 			postsAfter: after,
 		};
 
-		const data = await request<MoreSitemapPostsQuery, MoreSitemapPostsQueryVariables>(
+		const data = await hashnodeRequest<MoreSitemapPostsQuery, MoreSitemapPostsQueryVariables>(
 			GQL_ENDPOINT,
 			MoreSitemapPostsDocument,
 			variables,

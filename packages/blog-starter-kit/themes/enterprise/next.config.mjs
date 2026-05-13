@@ -22,6 +22,34 @@ const getBasePath = () => {
   return undefined;
 };
 
+// Hashnode endpoint'i build sırasında zaman zaman `ENOTFOUND`/"fetch failed"
+// gibi geçici ağ hataları üretir. Bu sarmalayıcı yalnızca böyle hatalar için
+// exponential backoff ile yeniden dener.
+const isTransientNetworkError = (error) => {
+  if (!error || typeof error !== 'object') return false;
+  const codes = new Set(['ENOTFOUND', 'ECONNRESET', 'ETIMEDOUT', 'EAI_AGAIN', 'ECONNREFUSED', 'UND_ERR_SOCKET']);
+  if (error.code && codes.has(error.code)) return true;
+  if (typeof error.message === 'string' && /fetch failed|ENOTFOUND|ECONNRESET|ETIMEDOUT|EAI_AGAIN/i.test(error.message)) return true;
+  if (error.cause) return isTransientNetworkError(error.cause);
+  return false;
+};
+
+const requestWithRetry = async (endpoint, query, variables, maxAttempts = 3) => {
+  let lastError;
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      return await request(endpoint, query, variables);
+    } catch (error) {
+      lastError = error;
+      if (!isTransientNetworkError(error) || attempt === maxAttempts) throw error;
+      const delayMs = 300 * 2 ** (attempt - 1) + Math.floor(Math.random() * 200);
+      console.warn(`[next.config] transient GraphQL failure (attempt ${attempt}/${maxAttempts}), retrying in ${delayMs}ms`);
+      await new Promise((resolve) => setTimeout(resolve, delayMs));
+    }
+  }
+  throw lastError;
+};
+
 const getRedirectionRules = async () => {
   const query = gql`
     query GetRedirectionRules {
@@ -37,7 +65,7 @@ const getRedirectionRules = async () => {
   `;
 
   try {
-    const data = await request(GQL_ENDPOINT, query);
+    const data = await requestWithRetry(GQL_ENDPOINT, query);
 
     if (!data.publication) {
       throw new Error('Please ensure you have set the env var NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST correctly.');

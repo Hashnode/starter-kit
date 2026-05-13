@@ -8,7 +8,8 @@ import { Footer } from '../components/footer';
 import { Layout } from '../components/layout';
 import { AppProvider } from '../components/contexts/appContext';
 import { PostFragment, PublicationFragment } from '../generated/graphql';
-import request, { gql } from 'graphql-request';
+import { gql } from 'graphql-request';
+import { hashnodeRequest } from '../lib/api/hashnode-request';
 import React, { useState, useEffect, useMemo } from 'react';
 import { Meta } from '../components/meta';
 
@@ -258,7 +259,7 @@ type GetDogPostsResponse = {
     }
 
     try {
-      const data = await request<GetDogPostsResponse>(
+      const data = await hashnodeRequest<GetDogPostsResponse>(
         GQL_ENDPOINT,
         GET_DOG_POSTS,
         {

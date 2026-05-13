@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next';
 import Contact from '../components/Contact';
-import { request } from 'graphql-request';
+import { hashnodeRequest } from '../lib/api/hashnode-request';
 import { PublicationByHostDocument, PublicationByHostQuery, PublicationByHostQueryVariables, PublicationFragment } from '../generated/graphql';
 
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
@@ -13,7 +13,7 @@ export default IletisimPage;
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   try {
-    const data = await request<PublicationByHostQuery, PublicationByHostQueryVariables>(
+    const data = await hashnodeRequest<PublicationByHostQuery, PublicationByHostQueryVariables>(
       GQL_ENDPOINT,
       PublicationByHostDocument,
       {

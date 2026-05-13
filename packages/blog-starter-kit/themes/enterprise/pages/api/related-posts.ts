@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { gql } from 'graphql-request';
-import { request } from 'graphql-request';
+import { hashnodeRequest } from '../../lib/api/hashnode-request';
 
 // Tip tanımlamaları
 type Tag = {
@@ -87,7 +87,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Mevcut postu al
-    const currentPostData = await request<CurrentPostData>(endpoint, gql`
+    const currentPostData = await hashnodeRequest<CurrentPostData>(endpoint, gql`
       query GetPost($id: ID!) {
         post(id: $id) {
           tags {
@@ -105,7 +105,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // İlgili postları al - sadece ilk etiketi kullan (API limitleri için)
-    const relatedPostsData = await request<RelatedPostsData>(endpoint, PostsByTagDocument, {
+    const relatedPostsData = await hashnodeRequest<RelatedPostsData>(endpoint, PostsByTagDocument, {
       host,
       tagSlug: tagSlugs[0], // Sadece ilk etiketi kullan
       first: 50,

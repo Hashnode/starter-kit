@@ -1,4 +1,4 @@
-import { request } from 'graphql-request';
+import { hashnodeRequest } from '../../lib/api/hashnode-request';
 import ErrorPage from 'next/error';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -72,14 +72,14 @@ type Params = {
 
 export async function getStaticProps({ params }: Params) {
   const [dataDraft, dataPublication] = await Promise.all([
-    request<DraftByIdQuery, DraftByIdQueryVariables>(
+    hashnodeRequest<DraftByIdQuery, DraftByIdQueryVariables>(
       process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT!,
       DraftByIdDocument,
       {
         id: params.id,
       }
     ),
-    request<PublicationByHostQuery, PublicationByHostQueryVariables>(
+    hashnodeRequest<PublicationByHostQuery, PublicationByHostQueryVariables>(
       process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT!,
       PublicationByHostDocument,
       {
