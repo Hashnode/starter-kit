@@ -75,13 +75,28 @@ const getRedirectionRules = async () => {
 
     const redirectionRules = data.publication.redirectionRules;
 
+    const normalizePath = (value) => {
+      if (typeof value !== 'string') return '';
+      const trimmed = value.trim();
+      if (!trimmed) return '';
+      if (/^https?:\/\//i.test(trimmed)) return trimmed;
+      return trimmed.startsWith('/') ? trimmed : `/${trimmed}`;
+    };
+
     const redirects = redirectionRules
-      .filter((rule) => rule.source.indexOf('*') === -1)
+      .filter((rule) => rule && typeof rule.source === 'string' && rule.source.indexOf('*') === -1)
       .map((rule) => ({
-        source: rule.source,
-        destination: rule.destination,
+        source: normalizePath(rule.source),
+        destination: normalizePath(rule.destination),
         permanent: rule.type === 'PERMANENT',
-      }));
+      }))
+      .filter((rule) => {
+        if (!rule.source || !rule.destination) {
+          console.warn('[next.config] skipping invalid redirect rule:', rule);
+          return false;
+        }
+        return true;
+      });
 
     redirects.push({
       source: '/feed.xml',
