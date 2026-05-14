@@ -47,7 +47,7 @@ const AboutAuthor = dynamic(() => import('../components/about-author'), { ssr: f
 export const PostsByTagDocument = gql`
   query PostsByTag($host: String!, $tagSlugs: [String!], $first: Int!, $after: String) {
     publication(host: $host) {
-      posts(first: $first, after: $after, filter: { tagSlugs: $tagSlugs, excludePinnedPost: true }) {
+      posts(first: $first, after: $after, filter: { tagSlugs: $tagSlugs }) {
         edges {
           node {
             id
@@ -173,7 +173,7 @@ const Post = ({ publication, post, relatedPosts }: PostProps) => {
     if (post) {
       (async () => {
         await loadIframeResizer();
-        triggerCustomWidgetEmbed(post.publication?.id.toString());
+        triggerCustomWidgetEmbed(publication.id.toString());
         setCanLoadEmbeds(true);
       })();
     }

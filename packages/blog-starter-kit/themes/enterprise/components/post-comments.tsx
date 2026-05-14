@@ -40,7 +40,7 @@ export const PostComments = () => {
 	return (
 		<div className="mx-auto flex w-full max-w-screen-md flex-col gap-5 px-5">
 			<h3 className="text-xl font-bold tracking-tight text-slate-900 dark:text-neutral-100">
-				Comments ({post.comments.totalDocuments})
+				Comments ({post.responseCount ?? post.comments.edges.length})
 			</h3>
 			<Button
 				as="a"

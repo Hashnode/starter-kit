@@ -14,8 +14,7 @@ query DraftById($id: ObjectId!) {
     coverImage {
       url
     }
-    readTimeInMinutes
-    dateUpdated
+    updatedAt
     tags {
       id
       name

@@ -1,5 +1,0 @@
-mutation SubscribeToNewsletter($input: SubscribeToNewsletterInput!) {
-	subscribeToNewsletter(input: $input) {
-		status
-	}
-}

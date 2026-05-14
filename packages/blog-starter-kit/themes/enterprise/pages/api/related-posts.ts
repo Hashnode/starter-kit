@@ -45,7 +45,7 @@ type RelatedPostsData = {
 const PostsByTagDocument = gql`
   query PostsByTag($host: String!, $tagSlug: String!, $first: Int!, $after: String) {
     publication(host: $host) {
-      posts(first: $first, after: $after, filter: { tagSlugs: [$tagSlug], excludePinnedPost: true }) {
+      posts(first: $first, after: $after, filter: { tagSlugs: [$tagSlug] }) {
         edges {
           node {
             id

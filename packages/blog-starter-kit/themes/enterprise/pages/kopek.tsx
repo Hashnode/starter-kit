@@ -47,7 +47,7 @@ const GET_DOG_POSTS = gql`
           url
         }
       }
-      posts(first: $first, filter: { excludePinnedPost: true }) {
+      posts(first: $first) {
         edges {
           node {
             id

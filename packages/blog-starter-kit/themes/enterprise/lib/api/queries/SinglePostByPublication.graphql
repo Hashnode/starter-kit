@@ -23,15 +23,6 @@ fragment PostFull on Post {
 	reactionCount
 	responseCount
 	hasLatexInPost
-	publication {
-		id
-		isTeam
-		favicon
-		title
-		about {
-			html
-		}
-	}
 	series {
 		id
 	}
@@ -92,7 +83,6 @@ fragment PostFull on Post {
 		disableComments
 	}
 	comments(first: 25) {
-		totalDocuments
 		edges {
 			node {
 				id
