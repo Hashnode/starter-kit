@@ -1,4 +1,9 @@
-schema: https://gql-beta.hashnode.com
+require:
+  - ./scripts/load-env-local.cjs
+schema:
+  - https://gql-beta.hashnode.com:
+      headers:
+        Authorization: ${HASHNODE_AUTH_TOKEN}
 documents: './**/*.graphql'
 generates:
   ./generated/schema.graphql:

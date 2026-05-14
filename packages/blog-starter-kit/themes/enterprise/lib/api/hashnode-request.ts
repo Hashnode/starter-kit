@@ -61,9 +61,12 @@ export async function hashnodeRequest<TData = unknown, TVariables extends Variab
 	const { maxAttempts = 3, baseDelayMs = 250 } = options;
 	let lastError: unknown;
 
+	const authToken = process.env.HASHNODE_AUTH_TOKEN;
+	const requestHeaders = authToken ? { Authorization: authToken } : undefined;
+
 	for (let attempt = 1; attempt <= maxAttempts; attempt++) {
 		try {
-			return (await request(endpoint, document, variables)) as TData;
+			return (await request(endpoint, document, variables, requestHeaders)) as TData;
 		} catch (error) {
 			lastError = error;
 			const transient = isTransientNetworkError(error);

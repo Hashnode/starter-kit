@@ -36,9 +36,11 @@ const isTransientNetworkError = (error) => {
 
 const requestWithRetry = async (endpoint, query, variables, maxAttempts = 3) => {
   let lastError;
+  const authToken = process.env.HASHNODE_AUTH_TOKEN;
+  const requestHeaders = authToken ? { Authorization: authToken } : undefined;
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
-      return await request(endpoint, query, variables);
+      return await request(endpoint, query, variables, requestHeaders);
     } catch (error) {
       lastError = error;
       if (!isTransientNetworkError(error) || attempt === maxAttempts) throw error;

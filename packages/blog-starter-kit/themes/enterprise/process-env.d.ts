@@ -3,6 +3,7 @@ declare namespace NodeJS {
 		[key: string]: string | undefined;
 		NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT: string;
 		NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST: string;
+		HASHNODE_AUTH_TOKEN?: string;
 		// add more environment variables and their types here
 	}
 }
